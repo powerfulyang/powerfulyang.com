@@ -1,0 +1,42 @@
+name: CI/CD
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [13.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+      - name: Install packages
+        run: npm install
+      - name: Test
+        run: npm run test
+      - name: Build
+        run: npm run build
+      - name: Upload staticfiles to Aliyun OSS
+        uses: manyuanrong/setup-ossutil@v1.0
+        with:
+          endpoint: ${{ secrets.OSS_ENDPOINT }}
+          access-key-id: ${{ secrets.OSS_ID }}
+          access-key-secret: ${{ secrets.OSS_KEY }}
+      - run: ossutil cp -rf public/. oss://${{ secrets.OSS_BUCKET }}
+      - name: Dockerize
+        id: dockerize
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: powerfulyang/powerfulyang.com
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "latest"
