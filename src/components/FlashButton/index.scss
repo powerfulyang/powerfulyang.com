@@ -8,14 +8,11 @@ $ft-color: #414f57;
     border: 1px solid #ccc;
     --hue: 220;
     position: relative;
-    padding: 1.2rem 2.2rem;
-    @media (max-width: 40em) {
-      padding: 0.7rem 1rem;
+    padding: 0.8rem 0.8rem;
+    font-size: 0.9rem;
+    @media (min-width: 768px) {
+      margin-bottom: 2vh;
     }
-    @media (max-height: 1000px) {
-      padding: 0.9rem 1.5rem;
-    }
-    font-size: 0.8rem;
     color: $ft-color;
     border-radius: 4px;
     text-decoration: none;

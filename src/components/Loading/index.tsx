@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
 
-export default () => {
+const Loading = () => {
   return (
     <div className="loading">
       <div className="dot" />
@@ -12,3 +12,4 @@ export default () => {
     </div>
   );
 };
+export default Loading;

@@ -1,29 +1,42 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "module": "esnext",
     "jsx": "preserve",
     "allowJs": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-//    "noUnusedLocals": true,
-//    "noUnusedParameters": true,
-    "removeComments": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "typeRoots": ["./node_modules/@types"],
-    "lib": ["dom", "es2015", "es2016"],
-    "strict": false,
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "lib": [
+      "es5",
+      "es6",
+      "es7",
+      "es2017",
+      "dom"
+    ],
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "strict": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx","**/*.glsl"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.glsl"
+  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts",

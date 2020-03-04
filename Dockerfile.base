@@ -2,8 +2,6 @@ FROM powerfulyang/powerfulyang.com.base:latest
 
 WORKDIR /usr/app
 
-COPY .next/ ./.next/
+COPY package.json .
 
-COPY public/ ./public/
-
-CMD npm run start
+RUN npm install --production --quiet

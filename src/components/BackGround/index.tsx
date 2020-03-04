@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable */
+import React, { useEffect } from 'react';
 import sakura_point_fsh from './sakura_point_fsh.glsl';
 import sakura_point_vsh from './sakura_point_vsh.glsl';
 import bg_fsh from './bg_fsh.glsl';
@@ -8,11 +9,8 @@ import fx_dirblur_r4_fsh from './fx_dirblur_r4_fsh.glsl';
 import fx_common_vsh from './fx_common_vsh.glsl';
 import fx_brightbuf_fsh from './fx_brightbuf_fsh.glsl';
 import './index.scss';
-import { isSupportWebGL, contentLoaded } from '@powerfulyang/utils';
 
 export default function BackGround() {
-  const [supportWebGL, setSupportWebGL] = useState(false);
-
   useEffect(() => {
     // Utilities
     const Vector3 = {
@@ -20,25 +18,25 @@ export default function BackGround() {
       dot: undefined,
       cross: undefined,
       normalize: undefined,
-      arrayForm: undefined
+      arrayForm: undefined,
     };
     const Matrix44 = {
       createIdentity: undefined,
       loadProjection: undefined,
-      loadLookAt: undefined
+      loadLookAt: undefined,
     };
-    Vector3.create = function(x, y, z) {
+    Vector3.create = function (x, y, z) {
       return { x: x, y: y, z: z };
     };
-    Vector3.dot = function(v0, v1) {
+    Vector3.dot = function (v0, v1) {
       return v0.x * v1.x + v0.y * v1.y + v0.z * v1.z;
     };
-    Vector3.cross = function(v, v0, v1) {
+    Vector3.cross = function (v, v0, v1) {
       v.x = v0.y * v1.z - v0.z * v1.y;
       v.y = v0.z * v1.x - v0.x * v1.z;
       v.z = v0.x * v1.y - v0.y * v1.x;
     };
-    Vector3.normalize = function(v) {
+    Vector3.normalize = function (v) {
       let l = v.x * v.x + v.y * v.y + v.z * v.z;
       if (l > 0.00001) {
         l = 1.0 / Math.sqrt(l);
@@ -47,7 +45,7 @@ export default function BackGround() {
         v.z *= l;
       }
     };
-    Vector3.arrayForm = function(v) {
+    Vector3.arrayForm = function (v) {
       if (v.array) {
         v.array[0] = v.x;
         v.array[1] = v.y;
@@ -57,7 +55,7 @@ export default function BackGround() {
       }
       return v.array;
     };
-    Matrix44.createIdentity = function() {
+    Matrix44.createIdentity = function () {
       return new Float32Array([
         1.0,
         0.0,
@@ -74,10 +72,10 @@ export default function BackGround() {
         0.0,
         0.0,
         0.0,
-        1.0
+        1.0,
       ]);
     };
-    Matrix44.loadProjection = function(m, aspect, vdeg, near, far) {
+    Matrix44.loadProjection = function (m, aspect, vdeg, near, far) {
       const h = near * Math.tan(((vdeg * Math.PI) / 180.0) * 0.5) * 2.0;
       const w = h * aspect;
 
@@ -101,12 +99,8 @@ export default function BackGround() {
       m[14] = (-2.0 * far * near) / (far - near);
       m[15] = 0.0;
     };
-    Matrix44.loadLookAt = function(m, vpos, vlook, vup) {
-      const frontv = Vector3.create(
-        vpos.x - vlook.x,
-        vpos.y - vlook.y,
-        vpos.z - vlook.z
-      );
+    Matrix44.loadLookAt = function (m, vpos, vlook, vup) {
+      const frontv = Vector3.create(vpos.x - vlook.x, vpos.y - vlook.y, vpos.z - vlook.z);
       Vector3.normalize(frontv);
       const sidev = Vector3.create(1.0, 0.0, 0.0);
       Vector3.cross(sidev, vup, frontv);
@@ -141,7 +135,7 @@ export default function BackGround() {
       start: 0,
       prev: 0, // Date
       delta: 0,
-      elapsed: 0 // Number(sec)
+      elapsed: 0, // Number(sec)
     };
 
     //
@@ -155,9 +149,9 @@ export default function BackGround() {
       halfHeight: 0,
       halfArray: new Float32Array(3),
       // and some render targets. see setViewport()
-      setSize: undefined
+      setSize: undefined,
     };
-    renderSpec.setSize = function(w, h) {
+    renderSpec.setSize = function (w, h) {
       renderSpec.width = w;
       renderSpec.height = h;
       renderSpec.aspect = renderSpec.width / renderSpec.height;
@@ -186,37 +180,21 @@ export default function BackGround() {
         dtxArray: new Float32Array([1.0 / w, 1.0 / h]),
         frameBuffer: undefined,
         renderBuffer: undefined,
-        texture: undefined
+        texture: undefined,
       };
       ret.frameBuffer = gl.createFramebuffer();
       ret.renderBuffer = gl.createRenderbuffer();
       ret.texture = gl.createTexture();
 
       gl.bindTexture(gl.TEXTURE_2D, ret.texture);
-      gl.texImage2D(
-        gl.TEXTURE_2D,
-        0,
-        gl.RGBA,
-        w,
-        h,
-        0,
-        gl.RGBA,
-        gl.UNSIGNED_BYTE,
-        null
-      );
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 
       gl.bindFramebuffer(gl.FRAMEBUFFER, ret.frameBuffer);
-      gl.framebufferTexture2D(
-        gl.FRAMEBUFFER,
-        gl.COLOR_ATTACHMENT0,
-        gl.TEXTURE_2D,
-        ret.texture,
-        0
-      );
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, ret.texture, 0);
 
       gl.bindRenderbuffer(gl.RENDERBUFFER, ret.renderBuffer);
       gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, w, h);
@@ -224,7 +202,7 @@ export default function BackGround() {
         gl.FRAMEBUFFER,
         gl.DEPTH_ATTACHMENT,
         gl.RENDERBUFFER,
-        ret.renderBuffer
+        ret.renderBuffer,
       );
 
       gl.bindTexture(gl.TEXTURE_2D, null);
@@ -274,10 +252,7 @@ export default function BackGround() {
       if (uniformlist) {
         prog.uniforms = {};
         for (let i = 0; i < uniformlist.length; i++) {
-          prog.uniforms[uniformlist[i]] = gl.getUniformLocation(
-            prog,
-            uniformlist[i]
-          );
+          prog.uniforms[uniformlist[i]] = gl.getUniformLocation(prog, uniformlist[i]);
         }
       }
 
@@ -310,20 +285,20 @@ export default function BackGround() {
     const projection = {
       angle: 60,
       nearfar: new Float32Array([0.1, 100.0]),
-      matrix: Matrix44.createIdentity()
+      matrix: Matrix44.createIdentity(),
     };
     const camera = {
       position: Vector3.create(0, 0, 100),
       lookat: Vector3.create(0, 0, 0),
       up: Vector3.create(0, 1, 0),
       dof: Vector3.create(10.0, 4.0, 8.0),
-      matrix: Matrix44.createIdentity()
+      matrix: Matrix44.createIdentity(),
     };
 
     const pointFlower: any = {};
     let sceneStandBy = false;
 
-    const BlossomParticle = function() {
+    const BlossomParticle = function () {
       this.velocity = new Array(3);
       this.rotation = new Array(3);
       this.position = new Array(3);
@@ -333,35 +308,35 @@ export default function BackGround() {
       this.zkey = 0.0;
     };
 
-    BlossomParticle.prototype.setVelocity = function(vx, vy, vz) {
+    BlossomParticle.prototype.setVelocity = function (vx, vy, vz) {
       this.velocity[0] = vx;
       this.velocity[1] = vy;
       this.velocity[2] = vz;
     };
 
-    BlossomParticle.prototype.setRotation = function(rx, ry, rz) {
+    BlossomParticle.prototype.setRotation = function (rx, ry, rz) {
       this.rotation[0] = rx;
       this.rotation[1] = ry;
       this.rotation[2] = rz;
     };
 
-    BlossomParticle.prototype.setPosition = function(nx, ny, nz) {
+    BlossomParticle.prototype.setPosition = function (nx, ny, nz) {
       this.position[0] = nx;
       this.position[1] = ny;
       this.position[2] = nz;
     };
 
-    BlossomParticle.prototype.setEulerAngles = function(rx, ry, rz) {
+    BlossomParticle.prototype.setEulerAngles = function (rx, ry, rz) {
       this.euler[0] = rx;
       this.euler[1] = ry;
       this.euler[2] = rz;
     };
 
-    BlossomParticle.prototype.setSize = function(s) {
+    BlossomParticle.prototype.setSize = function (s) {
       this.size = s;
     };
 
-    BlossomParticle.prototype.update = function(dt) {
+    BlossomParticle.prototype.update = function (dt) {
       this.position[0] += this.velocity[0] * dt;
       this.position[1] += this.velocity[1] * dt;
       this.position[2] += this.velocity[2] * dt;
@@ -383,15 +358,8 @@ export default function BackGround() {
       pointFlower.program = createShader(
         vtxsrc,
         frgsrc,
-        [
-          'uProjection',
-          'uModelview',
-          'uResolution',
-          'uOffset',
-          'uDOF',
-          'uFade'
-        ],
-        ['aPosition', 'aEuler', 'aMisc']
+        ['uProjection', 'uModelview', 'uResolution', 'uOffset', 'uDOF', 'uFade'],
+        ['aPosition', 'aEuler', 'aMisc'],
       );
 
       useShader(pointFlower.program);
@@ -407,9 +375,7 @@ export default function BackGround() {
       pointFlower.particles = new Array(pointFlower.numFlowers);
       // vertex attributes {position[3], euler_xyz[3], size[1]}
 
-      pointFlower.dataArray = new Float32Array(
-        pointFlower.numFlowers * (3 + 3 + 2)
-      );
+      pointFlower.dataArray = new Float32Array(pointFlower.numFlowers * (3 + 3 + 2));
 
       pointFlower.positionArrayOffset = 0;
 
@@ -448,7 +414,7 @@ export default function BackGround() {
       const PI2 = Math.PI * 2.0;
       const tmpv3 = Vector3.create(0, 0, 0);
       let tmpv = 0;
-      const symmetryrand = function() {
+      const symmetryrand = function () {
         return Math.random() * 2.0 - 1.0;
       };
 
@@ -467,7 +433,7 @@ export default function BackGround() {
         tmpprtcl.setRotation(
           symmetryrand() * PI2 * 0.5,
           symmetryrand() * PI2 * 0.5,
-          symmetryrand() * PI2 * 0.5
+          symmetryrand() * PI2 * 0.5,
         );
 
         //position
@@ -476,14 +442,14 @@ export default function BackGround() {
 
           symmetryrand() * pointFlower.area.y,
 
-          symmetryrand() * pointFlower.area.z
+          symmetryrand() * pointFlower.area.z,
         );
 
         //euler
         tmpprtcl.setEulerAngles(
           Math.random() * Math.PI * 2.0,
           Math.random() * Math.PI * 2.0,
-          Math.random() * Math.PI * 2.0
+          Math.random() * Math.PI * 2.0,
         );
 
         //size
@@ -494,7 +460,7 @@ export default function BackGround() {
     function renderPointFlowers() {
       //update
       const PI2 = Math.PI * 2.0;
-      const repeatPos = function(prt, cmp, limit) {
+      const repeatPos = function (prt, cmp, limit) {
         if (Math.abs(prt.position[cmp]) - prt.size * 0.5 > limit) {
           //out of area
           if (prt.position[cmp] > 0) {
@@ -504,7 +470,7 @@ export default function BackGround() {
           }
         }
       };
-      const repeatEuler = function(prt, cmp) {
+      const repeatEuler = function (prt, cmp) {
         prt.euler[cmp] = prt.euler[cmp] % PI2;
         if (prt.euler[cmp] < 0.0) {
           prt.euler[cmp] += PI2;
@@ -535,7 +501,7 @@ export default function BackGround() {
 
       // sort
 
-      pointFlower.particles.sort(function(p0, p1) {
+      pointFlower.particles.sort(function (p0, p1) {
         return p0.zkey - p1.zkey;
       });
 
@@ -593,7 +559,7 @@ export default function BackGround() {
         gl.FLOAT,
         false,
         0,
-        pointFlower.positionArrayOffset * Float32Array.BYTES_PER_ELEMENT
+        pointFlower.positionArrayOffset * Float32Array.BYTES_PER_ELEMENT,
       );
       gl.vertexAttribPointer(
         prog.attributes.aEuler,
@@ -601,7 +567,7 @@ export default function BackGround() {
         gl.FLOAT,
         false,
         0,
-        pointFlower.eulerArrayOffset * Float32Array.BYTES_PER_ELEMENT
+        pointFlower.eulerArrayOffset * Float32Array.BYTES_PER_ELEMENT,
       );
       gl.vertexAttribPointer(
         prog.attributes.aMisc,
@@ -609,7 +575,7 @@ export default function BackGround() {
         gl.FLOAT,
         false,
         0,
-        pointFlower.miscArrayOffset * Float32Array.BYTES_PER_ELEMENT
+        pointFlower.miscArrayOffset * Float32Array.BYTES_PER_ELEMENT,
       );
 
       // doubler
@@ -692,16 +658,7 @@ export default function BackGround() {
       ret.program = createShader(vtxsrc, frgsrc, unifs, attrs);
       useShader(ret.program);
 
-      ret.dataArray = new Float32Array([
-        -1.0,
-        -1.0,
-        1.0,
-        -1.0,
-        -1.0,
-        1.0,
-        1.0,
-        1.0
-      ]);
+      ret.dataArray = new Float32Array([-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0]);
       ret.buffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, ret.buffer);
       gl.bufferData(gl.ARRAY_BUFFER, ret.dataArray, gl.STATIC_DRAW);
@@ -733,14 +690,7 @@ export default function BackGround() {
     }
     function drawEffect(fxobj) {
       gl.bindBuffer(gl.ARRAY_BUFFER, fxobj.buffer);
-      gl.vertexAttribPointer(
-        fxobj.program.attributes.aPosition,
-        2,
-        gl.FLOAT,
-        false,
-        0,
-        0
-      );
+      gl.vertexAttribPointer(fxobj.program.attributes.aPosition, 2, gl.FLOAT, false, 0, 0);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
     function unuseEffect(fxobj) {
@@ -755,40 +705,20 @@ export default function BackGround() {
 
       //background
       frgsrc = bg_fsh;
-      effectLib.sceneBg = createEffectProgram(
-        cmnvtxsrc,
-        frgsrc,
-        ['uTimes'],
-        null
-      );
+      effectLib.sceneBg = createEffectProgram(cmnvtxsrc, frgsrc, ['uTimes'], null);
 
       // make brightpixels buffer
       frgsrc = fx_brightbuf_fsh;
-      effectLib.mkBrightBuf = createEffectProgram(
-        cmnvtxsrc,
-        frgsrc,
-        null,
-        null
-      );
+      effectLib.mkBrightBuf = createEffectProgram(cmnvtxsrc, frgsrc, null, null);
 
       // direction blur
       frgsrc = fx_dirblur_r4_fsh;
-      effectLib.dirBlur = createEffectProgram(
-        cmnvtxsrc,
-        frgsrc,
-        ['uBlurDir'],
-        null
-      );
+      effectLib.dirBlur = createEffectProgram(cmnvtxsrc, frgsrc, ['uBlurDir'], null);
 
       //final composite
       vtxsrc = pp_final_vsh;
       frgsrc = pp_final_fsh;
-      effectLib.finalComp = createEffectProgram(
-        vtxsrc,
-        frgsrc,
-        ['uBloom'],
-        null
-      );
+      effectLib.finalComp = createEffectProgram(vtxsrc, frgsrc, ['uBloom'], null);
     }
 
     // background
@@ -802,11 +732,7 @@ export default function BackGround() {
       gl.disable(gl.DEPTH_TEST);
 
       useEffect(effectLib.sceneBg, null);
-      gl.uniform2f(
-        effectLib.sceneBg.program.uniforms.uTimes,
-        timeInfo.elapsed,
-        timeInfo.delta
-      );
+      gl.uniform2f(effectLib.sceneBg.program.uniforms.uTimes, timeInfo.elapsed, timeInfo.delta);
       drawEffect(effectLib.sceneBg);
       unuseEffect(effectLib.sceneBg);
 
@@ -823,7 +749,7 @@ export default function BackGround() {
     function renderPostProcess() {
       // gl.enable(gl.TEXTURE_2D);
       gl.disable(gl.DEPTH_TEST);
-      const bindRT = function(rt, isclear) {
+      const bindRT = function (rt, isclear) {
         gl.bindFramebuffer(gl.FRAMEBUFFER, rt.frameBuffer);
         gl.viewport(0, 0, rt.width, rt.height);
         if (isclear) {
@@ -844,25 +770,13 @@ export default function BackGround() {
         const s = 2.0 + 1 * i;
         bindRT(renderSpec.wHalfRT1, true);
         useEffect(effectLib.dirBlur, renderSpec.wHalfRT0);
-        gl.uniform4f(
-          effectLib.dirBlur.program.uniforms.uBlurDir,
-          p,
-          0.0,
-          s,
-          0.0
-        );
+        gl.uniform4f(effectLib.dirBlur.program.uniforms.uBlurDir, p, 0.0, s, 0.0);
         drawEffect(effectLib.dirBlur);
         unuseEffect(effectLib.dirBlur);
 
         bindRT(renderSpec.wHalfRT0, true);
         useEffect(effectLib.dirBlur, renderSpec.wHalfRT1);
-        gl.uniform4f(
-          effectLib.dirBlur.program.uniforms.uBlurDir,
-          0.0,
-          p,
-          0.0,
-          s
-        );
+        gl.uniform4f(effectLib.dirBlur.program.uniforms.uBlurDir, 0.0, p, 0.0, s);
         drawEffect(effectLib.dirBlur);
         unuseEffect(effectLib.dirBlur);
       }
@@ -898,11 +812,7 @@ export default function BackGround() {
       //camera.position.z = 17.320508;
       camera.position.z = pointFlower.area.z + projection.nearfar[0];
       projection.angle =
-        ((Math.atan2(
-          pointFlower.area.y,
-          camera.position.z + pointFlower.area.z
-        ) *
-          180.0) /
+        ((Math.atan2(pointFlower.area.y, camera.position.z + pointFlower.area.z) * 180.0) /
           Math.PI) *
         2.0;
       Matrix44.loadProjection(
@@ -910,18 +820,13 @@ export default function BackGround() {
         renderSpec.aspect,
         projection.angle,
         projection.nearfar[0],
-        projection.nearfar[1]
+        projection.nearfar[1],
       );
     }
 
     function renderScene() {
       //draw
-      Matrix44.loadLookAt(
-        camera.matrix,
-        camera.position,
-        camera.lookat,
-        camera.up
-      );
+      Matrix44.loadLookAt(camera.matrix, camera.position, camera.lookat, camera.up);
 
       gl.enable(gl.DEPTH_TEST);
 
@@ -951,7 +856,7 @@ export default function BackGround() {
       gl.clearColor(0.2, 0.2, 0.5, 1.0);
       gl.viewport(0, 0, renderSpec.width, renderSpec.height);
 
-      const rtfunc = function(rtname, rtw, rth) {
+      const rtfunc = function (rtname, rtw, rth) {
         const rt = renderSpec[rtname];
         if (rt) deleteRenderTarget(rt);
         renderSpec[rtname] = createRenderTarget(rtw, rth);
@@ -982,30 +887,14 @@ export default function BackGround() {
     function makeCanvasFullScreen(canvas) {
       const b = document.body;
       const d = document.documentElement;
-      const fullw = Math.max(
-        b.clientWidth,
-        b.scrollWidth,
-        d.scrollWidth,
-        d.clientWidth
-      );
-      const fullh = Math.max(
-        b.clientHeight,
-        b.scrollHeight,
-        d.scrollHeight,
-        d.clientHeight
-      );
+      const fullw = Math.max(b.clientWidth, b.scrollWidth, d.scrollWidth, d.clientWidth);
+      const fullh = Math.max(b.clientHeight, b.scrollHeight, d.scrollHeight, d.clientHeight);
       canvas.width = fullw;
       canvas.height = fullh;
     }
 
-    if (!isSupportWebGL()) {
-      return;
-    }
-    setSupportWebGL(true);
-    contentLoaded(function() {
-      const canvas: HTMLCanvasElement = document.getElementById(
-        'sakura'
-      ) as HTMLCanvasElement;
+    (function () {
+      const canvas: HTMLCanvasElement = document.getElementById('sakura') as HTMLCanvasElement;
       try {
         makeCanvasFullScreen(canvas);
 
@@ -1023,21 +912,21 @@ export default function BackGround() {
       timeInfo.start = new Date();
       timeInfo.prev = timeInfo.start;
       animate();
-    });
+    })();
 
     //set window.requestAnimationFrame
-    (function(w, r) {
+    (function (w, r) {
       w['r' + r] =
         w['r' + r] ||
         w['webkitR' + r] ||
         w['mozR' + r] ||
         w['msR' + r] ||
         w['oR' + r] ||
-        function(c) {
+        function (c) {
           w.setTimeout(c, 1000 / 60);
         };
-    })(window, 'equestAnimationFrame');
+    })(window, 'requestAnimationFrame');
   });
 
-  return <>{supportWebGL ? <canvas id="sakura" /> : <div className="bg" />}</>;
+  return <canvas id="sakura" />;
 }

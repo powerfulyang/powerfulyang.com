@@ -1,7 +1,7 @@
 $fontColor: rgba(255, 255, 255, 0.75);
 $bgColor: rgba(255, 255, 255, 0.35);
 $fontWeight: 100;
-
+$maxWidth: 400px;
 * {
   font-family: 'Source Sans Pro', Helvetica, sans-serif;
   letter-spacing: 0.22em;
@@ -11,8 +11,6 @@ $fontWeight: 100;
 html,
 body,
 #__next {
-  margin: 0;
-  padding: 0;
   height: 100%;
 }
 #wrapper {
@@ -20,53 +18,59 @@ body,
   position: relative;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  width: 79vw;
   height: 100%;
+  margin: 0 auto;
   text-align: center;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   color: $fontColor;
   font-weight: $fontWeight;
   #main {
     background-color: $bgColor;
-    height: 70%;
-    width: 500px;
-    @media (max-width: 1000px) {
-      width: 300px;
-      height: 75%;
-    }
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-radius: 10px;
     color: #222222;
+    padding: 5vh 0;
+    margin-bottom: 5vh;
+    @media (min-width: 1500px) {
+      margin-top: 10vh;
+      margin-bottom: 16vh;
+    }
     #avatar {
       border-radius: 100%;
-      height: 130px;
-      width: 130px;
+      height: 17vh;
+      width: 17vh;
+      @media (max-height: $maxWidth) {
+        display: none;
+      }
     }
     p {
-      font-size: 15px;
-      margin-top: 30px;
-      padding: 0 30px;
+      padding: 1vh 1rem;
+      @media (min-width: $maxWidth) {
+        padding: 2vh 7vw;
+      }
     }
+
     footer {
       .icons {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        margin: 20px 0 30px;
-        padding: 0 0;
-        li {
+        margin-bottom: 5vh;
+        div {
           border: 1px solid $fontColor;
+          box-sizing: border-box;
           border-radius: 100%;
-          $icon-height: 60px;
+          $icon-height: 4rem;
           width: $icon-height;
           height: $icon-height;
           cursor: pointer;
-          margin: 0 20px;
-          @media (max-width: 1000px) {
-            margin: 0 10px;
+          margin: 0 1vw;
+          @media (max-width: $maxWidth) {
+            margin: 0 3vw;
           }
           &:hover {
             border-color: #ff7496;
@@ -75,7 +79,7 @@ body,
             }
           }
           a {
-            font-size: 30px;
+            font-size: 2rem;
             color: $fontColor;
             line-height: $icon-height;
           }
@@ -85,31 +89,51 @@ body,
   }
   #footer {
     font-size: 13px;
+    @media screen and (max-width: 768px) {
+      font-size: 10px;
+    }
     .copyright {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: center;
-      li:first-child {
-        margin-right: 20px;
-      }
-      li:nth-child(2) {
-        margin-top: 5px;
+      line-height: 18px;
+      padding: 0;
+      li {
+        padding: 0 10px;
       }
       a {
-        color: #4f64ba;
+        color: #8e92ac;
+        text-decoration: none;
       }
     }
   }
 }
 
-.loadings {
-  display: none;
-  opacity: 0;
-  transform: rotate(180deg);
+@keyframes rotate {
+  0% {
+    opacity: 0;
+    transform: rotate(180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0);
+  }
 }
-.displays {
-  transition: 1s;
-  opacity: 1;
-  transform: rotate(0);
+.animate {
+  animation: rotate 1.6s;
+}
+
+#wrapper.bg-css {
+  #main {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  #footer {
+    .copyright {
+      color: rgb(0, 0, 0);
+      a {
+        color: rgba(242, 242, 242, 0.6);
+      }
+    }
+  }
 }

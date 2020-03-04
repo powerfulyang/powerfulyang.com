@@ -1,10 +1,16 @@
 import Head from 'next/head';
 import React from 'react';
+import '@powerfulyang/components/index.css';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons';
 
-const Header = ({ title }: { title: string }) => (
+library.add(fab, faCheckSquare, faCoffee);
+
+const IconHead = () => (
   <Head>
     <link rel="shortcut icon" href="/favicon.ico" />
-    <title>{title}</title>
+    <title>powerfulyang</title>
     <meta charSet="utf-8" />
     <meta
       name="viewport"
@@ -15,4 +21,4 @@ const Header = ({ title }: { title: string }) => (
   </Head>
 );
 
-export default Header;
+export default IconHead;

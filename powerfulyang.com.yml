@@ -1,0 +1,9 @@
+version: '3.1'
+services:
+  app:
+    image: powerfulyang/powerfulyang.com
+    container_name: powerfulyang.com
+    environment:
+      'NODE_ENV': 'production'
+    restart: always
+    command: npm run start

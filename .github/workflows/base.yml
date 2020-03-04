@@ -1,0 +1,28 @@
+name: app
+
+on:
+  push:
+    paths:
+    - package.json
+    - Dockerfile.base
+    - .github/workflows/base.yml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [13.x]
+        docker-repository: [powerfulyang/powerfulyang.com.base]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Dockerize
+        id: dockerize
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: ${{ matrix.docker-repository }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "latest"
+          dockerfile: Dockerfile.base
+          context: .
