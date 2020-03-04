@@ -1,6 +1,14 @@
-name: CI/CD
+name: app
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+      - nginx/**
+      - .github/workflows/nginx.yml
+      - Dockerfile.base.init
+      - .github/workflows/base.init.yml
+      - Dockerfile.base
+      - .github/workflows/base.yml
 
 jobs:
   build:
@@ -8,8 +16,13 @@ jobs:
     strategy:
       matrix:
         node-version: [13.x]
+        docker-repository: [powerfulyang/powerfulyang.com]
     steps:
       - uses: actions/checkout@v2
+      - name: install canvas
+        run: |
+           sudo apt-get update
+           sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -18,25 +31,38 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
-          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package.json') }}
       - name: Install packages
         run: npm install
-      - name: Test
-        run: npm run test
       - name: Build
         run: npm run build
-      - name: Upload staticfiles to Aliyun OSS
-        uses: manyuanrong/setup-ossutil@v1.0
-        with:
-          endpoint: ${{ secrets.OSS_ENDPOINT }}
-          access-key-id: ${{ secrets.OSS_ID }}
-          access-key-secret: ${{ secrets.OSS_KEY }}
-      - run: ossutil cp -rf public/. oss://${{ secrets.OSS_BUCKET }}
       - name: Dockerize
         id: dockerize
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: powerfulyang/powerfulyang.com
+          name: ${{ matrix.docker-repository }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          tags: "latest"
+          tags: 'latest'
+      - name: Test  // 可能太快了 镜像没同步到阿里源 。
+        run: npm run test
+      - name: Deploy
+        uses: easingthemes/ssh-deploy@v2.0.7
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          ARGS: '-avz'
+          SOURCE: 'powerfulyang.com.yml'
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          TARGET: /root/app/powerfulyang.com
+      - name: deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script_stop: true
+          script: |
+            docker pull ${{ matrix.docker-repository }}
+            cd /root/app/powerfulyang.com
+            docker-compose -f powerfulyang.com.yml up -d

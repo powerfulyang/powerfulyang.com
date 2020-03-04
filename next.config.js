@@ -19,7 +19,6 @@ module.exports = withCSS(withSass({
                 'glslify-loader'
             ]
         });
-        // 但是IE不支持webgl 233333 所以没啥用
         const originalEntry = config.entry;
         config.entry = async () => {
             const entries = await originalEntry();

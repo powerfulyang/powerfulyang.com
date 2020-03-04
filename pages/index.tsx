@@ -1,47 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
-import Header from '../src/components/Header';
 import FlashButton from '../src/components/FlashButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import BackGround from '../src/components/BackGround';
 import { avatarList } from '../assets/avatar/avatar';
 import Loading from '../src/components/Loading';
 import { copyright, ICP_NO, links } from '../src/Config/config';
-import { contentLoaded } from '@powerfulyang/utils';
+import { DomUtils } from '@powerfulyang/utils';
+import IconHead from '../src/components/Header/IconHead';
+import BackGround from '../src/components/BackGround';
+import BgBackGround from '../src/components/BackGround/BgBackGround';
 
 export default function IndexPage() {
   const [loading, setLoading] = useState(true);
+  const [isSupportWebGL, set] = useState(false);
   useEffect(() => {
-    contentLoaded(() => {
-      setLoading(false);
-    });
+    (async () => {
+      DomUtils.contentLoaded(() => {
+        DomUtils.isSupportWebGL() && set(true);
+        setLoading(false);
+      });
+    })();
   }, []);
   return (
     <>
-      <Header />
+      <IconHead />
       {loading && <Loading />}
-      {!loading && <BackGround />}
-      <div id="wrapper" style={loading ? { display: 'none' } : {}}>
-        <section id="main" className={loading ? 'loadings' : 'displays'}>
+      {isSupportWebGL && <BackGround />}
+      {!loading && !isSupportWebGL && <BgBackGround />}
+      <div
+        id="wrapper"
+        className={isSupportWebGL ? '' : 'bg-css'}
+        style={loading ? { display: 'none' } : {}}
+      >
+        <section id="main" className="animate">
           <header>
             <img id="avatar" src={avatarList.Neptunite} alt="" />
             <p>猜卟透の兲氣，卟知菏時熋兲ㄖ青</p>
           </header>
           <footer>
-            <ul className="icons">
-              {links.map(link => {
+            <div className="icons">
+              {links.map((link) => {
                 return (
-                  <li key={link.icon}>
+                  <div key={link.icon}>
                     <a href={link.url}>
-                      <FontAwesomeIcon
-                        className={'icon'}
-                        icon={['fab', link.icon]}
-                      />
+                      <FontAwesomeIcon className={'icon'} icon={['fab', link.icon]} />
                     </a>
-                  </li>
+                  </div>
                 );
               })}
-            </ul>
+            </div>
             <FlashButton>Approach</FlashButton>
           </footer>
         </section>
@@ -53,7 +60,7 @@ export default function IndexPage() {
               <a href="http://beian.miit.gov.cn/">{ICP_NO}</a>
             </li>
             <li>
-              Powered: <a href="http://html5up.net">HTML5 UP</a>
+              Gallery: <a href="//gallery.powerfulyang.com">Anime Waifu</a>
             </li>
           </ul>
         </footer>
