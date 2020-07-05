@@ -1,7 +1,0 @@
-FROM powerfulyang/powerfulyang.com.base:latest
-
-WORKDIR /usr/app
-
-COPY package.json .
-
-RUN npm install --production --quiet

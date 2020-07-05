@@ -5,10 +5,6 @@ on:
     paths-ignore:
       - nginx/**
       - .github/workflows/nginx.yml
-      - Dockerfile.base.init
-      - .github/workflows/base.init.yml
-      - Dockerfile.base
-      - .github/workflows/base.yml
 
 jobs:
   build:
