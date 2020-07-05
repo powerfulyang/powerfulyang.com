@@ -19,7 +19,7 @@ jobs:
             SOURCE: "nginx/."
             REMOTE_HOST: ${{ secrets.SSH_HOST }}
             REMOTE_USER: ${{ secrets.SSH_USER }}
-            TARGET: "~/nginx"
+            TARGET: "/root/app"
       - name: re-conifg nginx
         uses: appleboy/ssh-action@master
         with:
@@ -28,6 +28,6 @@ jobs:
             key: ${{ secrets.SSH_KEY }}
             script_stop: false
             script: |
-              cd ~/nginx
+              cd /root/app
               docker-compose -f nginx.yml stop
               docker-compose -f nginx.yml up -d
