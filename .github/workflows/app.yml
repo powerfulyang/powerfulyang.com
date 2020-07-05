@@ -50,7 +50,7 @@ jobs:
           SOURCE: 'powerfulyang.com.yml'
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
           REMOTE_USER: ${{ secrets.SSH_USER }}
-          TARGET: /root/app/powerfulyang.com
+          TARGET: /root/app/powerfulyang.com/
       - name: deploy
         uses: appleboy/ssh-action@master
         with:
