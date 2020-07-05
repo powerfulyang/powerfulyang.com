@@ -3,6 +3,7 @@ services:
   app:
     image: powerfulyang/powerfulyang.com
     container_name: powerfulyang.com
+    network_mode: host
     environment:
       'NODE_ENV': 'production'
     restart: always

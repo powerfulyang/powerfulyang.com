@@ -3,8 +3,8 @@ name: nginx
 on:
   push:
     paths:
-    - nginx/**
-    - .github/workflows/nginx.yml
+      - nginx/**
+      - .github/workflows/nginx.yml
 
 jobs:
   build:
@@ -14,20 +14,20 @@ jobs:
       - name: rsync nginx conf
         uses: easingthemes/ssh-deploy@v2.0.7
         env:
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-            ARGS: "-avz --delete"
-            SOURCE: "nginx/."
-            REMOTE_HOST: ${{ secrets.SSH_HOST }}
-            REMOTE_USER: ${{ secrets.SSH_USER }}
-            TARGET: "/root/app"
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          ARGS: '-avz --delete'
+          SOURCE: 'nginx/.'
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          TARGET: '/root/app/nginx'
       - name: re-conifg nginx
         uses: appleboy/ssh-action@master
         with:
-            host: ${{ secrets.SSH_HOST }}
-            username: ${{ secrets.SSH_USER }}
-            key: ${{ secrets.SSH_KEY }}
-            script_stop: false
-            script: |
-              cd /root/app
-              docker-compose -f nginx.yml stop
-              docker-compose -f nginx.yml up -d
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script_stop: false
+          script: |
+            cd /root/app/nginx
+            docker-compose -f nginx.yml stop
+            docker-compose -f nginx.yml up -d
