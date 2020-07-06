@@ -11,9 +11,9 @@ const Gallery = (prop) => {
       <Header title="gallery" />
       <PhotoSlider
         imgList={json.data[0].map((item) => ({
-          thumbnail: item.path.resize,
-          origin: item.path.origin,
-          webp: item.path.webp,
+          thumbnail: `${item.bucket.bucketRegionUrl}/${item.path.resize}`,
+          origin: `${item.bucket.bucketRegionUrl}/${item.path.origin}`,
+          webp: `${item.bucket.bucketRegionUrl}/${item.path.webp}`,
         }))}
       />
     </>
