@@ -1,15 +1,16 @@
-version: "2.1"
+version: '2.1'
 services:
   elk:
     image: sebp/elk
     container_name: elk
     ports:
-      - "5601:5601"
-      - "9200:9200"
-      - "5044:5044"
-      - "12201:12201/udp"
+      - '5601:5601'
+      - '9200:9200'
+      - '5044:5044'
+      - '12201:12201/udp'
     volumes:
-      - "./conf/logstash:/etc/logstash/conf.d"
+      - './conf/logstash:/etc/logstash/conf.d'
     environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ES_HEAP_SIZE=256M
+      - LS_HEAP_SIZE=256M
       - discovery.type=single-node
