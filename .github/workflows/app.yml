@@ -7,7 +7,8 @@ on:
       - .github/workflows/nginx.yml
       - elk/**
       - .github/workflows/elk.yml
-
+      - mysql/**
+      - .github/workflows/mysql.yml
 jobs:
   build:
     runs-on: ubuntu-latest
