@@ -5,6 +5,8 @@ on:
     paths-ignore:
       - nginx/**
       - .github/workflows/nginx.yml
+      - elk/**
+      - .github/workflows/elk.yml
 
 jobs:
   build:

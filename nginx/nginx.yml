@@ -11,3 +11,7 @@ services:
       - /root/app/www/:/usr/share/nginx/www/
       - ./404.html:/usr/share/nginx/www/404.html
       - ./conf/:/usr/share/nginx/conf/
+    logging:
+      driver: gelf
+      options:
+        gelf-address: udp://localhost:12201
