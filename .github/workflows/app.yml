@@ -9,6 +9,9 @@ on:
       - .github/workflows/elk.yml
       - mysql/**
       - .github/workflows/mysql.yml
+      - rabbitmq/**
+      - .github/workflows/rabbitmq.yml
+
 jobs:
   build:
     runs-on: ubuntu-latest
