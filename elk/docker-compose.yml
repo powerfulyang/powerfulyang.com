@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.7'
 services:
   elk:
     image: sebp/elk
@@ -12,6 +12,13 @@ services:
     volumes:
       - './conf/logstash:/etc/logstash/conf.d'
     environment:
-      - ES_HEAP_SIZE=256M
-      - LS_HEAP_SIZE=256M
-      - discovery.type=single-node
+      - ES_HEAP_SIZE=128M
+      - LS_HEAP_SIZE=128M
+    deploy:
+      resources:
+        limits:
+          memory: 800M
+    healthcheck:
+      test: ['CMD-SHELL', 'curl --fail localhost:9200/_cluster/health || kill 1']
+      interval: 60s
+# docker-compose --compatibility up -d
