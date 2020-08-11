@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
+import '@powerfulyang/components/index.css';
+import './index.scss';
 
 const Header = ({ title }: { title: string }) => (
   <Head>

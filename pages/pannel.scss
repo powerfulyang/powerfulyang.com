@@ -1,0 +1,37 @@
+.content {
+  background: no-repeat url('https://gallery-1253520329.cos.ap-shanghai.myqcloud.com/0a2b022fba5c394dad0623b8cbc1686551321462.png');
+  background-size: cover;
+  height: 100%;
+}
+
+$contain-box: 400px;
+.panels {
+  display: flex;
+  flex-direction: row;
+  padding-top: calc((100vh - #{$contain-box}) / 2);
+  overflow: hidden;
+
+  .contain-box {
+    flex-shrink: 0;
+    width: $contain-box;
+    height: $contain-box;
+    text-align: center;
+    border: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+
+    &:first-child {
+      margin-left: 10%;
+    }
+
+    .title {
+      margin-top: 30%;
+      height: 30%;
+    }
+
+    .desc {
+
+    }
+  }
+
+}
