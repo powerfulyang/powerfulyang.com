@@ -2,18 +2,15 @@ $fontColor: rgba(255, 255, 255, 0.75);
 $bgColor: rgba(255, 255, 255, 0.35);
 $fontWeight: 100;
 $maxWidth: 400px;
-* {
-  font-family: 'Source Sans Pro', Helvetica, sans-serif;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  list-style: none;
-}
-html,
-body,
-#__next {
-  height: 100%;
-}
+
 #wrapper {
+  * {
+    font-family: 'Source Sans Pro', Helvetica, sans-serif;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    list-style: none;
+  }
+
   z-index: 2;
   position: relative;
   display: flex;
@@ -26,6 +23,7 @@ body,
   align-items: center;
   color: $fontColor;
   font-weight: $fontWeight;
+
   #main {
     background-color: $bgColor;
     display: flex;
@@ -39,6 +37,7 @@ body,
       margin-top: 10vh;
       margin-bottom: 16vh;
     }
+
     #avatar {
       border-radius: 100%;
       height: 17vh;
@@ -47,6 +46,7 @@ body,
         display: none;
       }
     }
+
     p {
       padding: 1vh 1rem;
       @media (min-width: $maxWidth) {
@@ -60,6 +60,7 @@ body,
         flex-direction: row;
         justify-content: center;
         margin-bottom: 5vh;
+
         div {
           border: 1px solid $fontColor;
           box-sizing: border-box;
@@ -72,12 +73,15 @@ body,
           @media (max-width: $maxWidth) {
             margin: 0 3vw;
           }
+
           &:hover {
             border-color: #ff7496;
+
             .icon {
               color: #fff;
             }
           }
+
           a {
             font-size: 2rem;
             color: $fontColor;
@@ -87,11 +91,13 @@ body,
       }
     }
   }
+
   #footer {
     font-size: 13px;
     @media screen and (max-width: 768px) {
       font-size: 10px;
     }
+
     .copyright {
       display: flex;
       flex-direction: row;
@@ -99,9 +105,11 @@ body,
       justify-content: center;
       line-height: 18px;
       padding: 0;
+
       li {
         padding: 0 10px;
       }
+
       a {
         color: #8e92ac;
         text-decoration: none;
@@ -120,6 +128,7 @@ body,
     transform: rotate(0);
   }
 }
+
 .animate {
   animation: rotate 1.6s;
 }
@@ -128,9 +137,11 @@ body,
   #main {
     background-color: rgba(255, 255, 255, 0.5);
   }
+
   #footer {
     .copyright {
       color: rgb(0, 0, 0);
+
       a {
         color: rgba(242, 242, 242, 0.6);
       }
