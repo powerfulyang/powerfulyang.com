@@ -1,37 +1,91 @@
 .content {
-  background: no-repeat url('https://gallery-1253520329.cos.ap-shanghai.myqcloud.com/0a2b022fba5c394dad0623b8cbc1686551321462.png');
+  background: url('https://gallery-1253520329.cos.ap-shanghai.myqcloud.com/669557972d45c13bf21176aa039b1a9c48cee7ff.jpeg') no-repeat center;
   background-size: cover;
   height: 100%;
 }
 
+#header_canvas {
+  z-index: auto;
+}
+
 $contain-box: 400px;
 .panels {
-  display: flex;
-  flex-direction: row;
-  padding-top: calc((100vh - #{$contain-box}) / 2);
-  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
 
   .contain-box {
-    flex-shrink: 0;
-    width: $contain-box;
-    height: $contain-box;
-    text-align: center;
-    border: 1px solid #000;
-    display: flex;
-    flex-direction: column;
-
-    &:first-child {
-      margin-left: 10%;
-    }
 
     .title {
-      margin-top: 30%;
-      height: 30%;
-    }
-
-    .desc {
-
+      text-align: center;
+      text-transform: uppercase;
+      padding-top: 10px;
     }
   }
+}
 
+.single-thumbnail-card {
+  position: relative;
+  max-width: 900px;
+  margin: 50px auto;
+}
+
+.single-thumbnail {
+  border-radius: 10px;
+  height: 350px;
+  width: 100%;
+  overflow: hidden;
+  filter: brightness(50%);
+  box-shadow: 0 22px 50px -24px rgba(0, 0, 0, .6);
+  background-color: #fff;
+}
+
+.single-image {
+  height: 350px;
+  width: 100%;
+  background-size: cover;
+  background: rgba(0, 0, 0, .5) center;
+  filter: progid:DXImageTransform.Microsoft.Blur(pixelRadius=15, MakeShadow=false);
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.single-thumbnail-overlay {
+  position: absolute;
+  color: #fff;
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1.25rem;
+}
+
+.single-thumbnail-overlay a {
+  margin-bottom: 22px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #aaa;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.button {
+  display: block;
+  max-width: 300px;
+  margin: 50px auto;
+  color: #fff;
+  text-decoration: none;
+  background-color: #f1404b;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 7px 15px 0 rgba(187, 48, 57, 0.52);
+  transition: .3s;
+}
+
+.button:hover {
+  background-color: #222;
+  box-shadow: none;
 }
