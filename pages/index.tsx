@@ -35,7 +35,7 @@ export default function IndexPage() {
         <section id="main" className="animate">
           <header>
             <img id="avatar" src={avatarList.Neptunite} alt="" />
-            <p>猜卟透の兲氣，卟知菏時熋兲ㄖ青</p>
+            <p>猜不透的天气, 不知何时能天晴</p>
           </header>
           <footer>
             <div className="icons">
@@ -59,7 +59,7 @@ export default function IndexPage() {
               网站已备案哦:
               <a href="http://beian.miit.gov.cn/">{ICP_NO}</a>
             </li>
-            <li>
+            <li className="Satisfy">
               Gallery: <a href="//gallery.powerfulyang.com">Anime Waifu</a>
             </li>
           </ul>
