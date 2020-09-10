@@ -4,13 +4,6 @@ $fontWeight: 100;
 $maxWidth: 400px;
 
 #wrapper {
-  * {
-    font-family: 'Source Sans Pro', Helvetica, sans-serif;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    list-style: none;
-  }
-
   z-index: 2;
   position: relative;
   display: flex;
@@ -33,9 +26,10 @@ $maxWidth: 400px;
     color: #222222;
     padding: 5vh 0;
     margin-bottom: 5vh;
+    margin-top: 5vh;
     @media (min-width: 1500px) {
       margin-top: 10vh;
-      margin-bottom: 16vh;
+      margin-bottom: 12vh;
     }
 
     #avatar {
@@ -49,8 +43,10 @@ $maxWidth: 400px;
 
     p {
       padding: 1vh 1rem;
+      font-size: 1.1rem;
       @media (min-width: $maxWidth) {
         padding: 2vh 7vw;
+        font-size: 1.4rem;
       }
     }
 
@@ -86,6 +82,7 @@ $maxWidth: 400px;
             font-size: 2rem;
             color: $fontColor;
             line-height: $icon-height;
+            font-family: "Arial Black", serif;
           }
         }
       }
@@ -93,9 +90,9 @@ $maxWidth: 400px;
   }
 
   #footer {
-    font-size: 13px;
+    font-size: 1.1rem;
     @media screen and (max-width: 768px) {
-      font-size: 10px;
+      font-size: 0.7rem;
     }
 
     .copyright {

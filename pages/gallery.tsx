@@ -1,7 +1,7 @@
 import React from 'react';
 import { PhotoSlider } from '@powerfulyang/components';
 import fetch from 'node-fetch';
-import Header from 'src/components/Header';
+import Header from '../src/components/Header';
 import '@powerfulyang/components/index.css';
 
 const Gallery = (prop) => {

@@ -15,12 +15,21 @@ $contain-box: 400px;
   transform: translate(-50%, -50%);
   left: 50%;
 
-  .contain-box {
 
+  .contain-box {
     .title {
       text-align: center;
       text-transform: uppercase;
       padding-top: 10px;
+
+      a {
+        color: #89949B;
+        text-decoration: none;
+        font-family: 'Satisfy', cursive;
+        &:hover {
+          color: darkgreen;
+        }
+      }
     }
   }
 }

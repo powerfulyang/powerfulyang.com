@@ -13,6 +13,15 @@ const IconHead = () => (
     <link rel="shortcut icon" href="/favicon.ico" />
     <title>powerfulyang</title>
     <meta charSet="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=block"
+      rel="preload"
+      as="style"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=block"
+      rel="stylesheet"
+    />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
