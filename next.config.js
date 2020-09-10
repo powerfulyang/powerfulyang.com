@@ -29,5 +29,6 @@ module.exports = withCSS(
       };
       return config;
     },
+    compress: false,
   }),
 );
