@@ -1,6 +1,7 @@
 {
   "name": "powerfulyang.com",
-  "version": "1.0.0",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "test": "jest",
     "dev": "next",
@@ -18,9 +19,9 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.0",
     "@fortawesome/free-solid-svg-icons": "^5.15.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
-    "@powerfulyang/components": "^0.5.8",
-    "@powerfulyang/utils": "^0.4.4",
-    "@powerfulyang/hooks": "^0.0.1",
+    "@powerfulyang/components": "^0.5.9",
+    "@powerfulyang/hooks": "^0.0.2",
+    "@powerfulyang/utils": "^0.4.5",
     "core-js": "^3.6.5",
     "next": "^9.5.3",
     "node-fetch": "^2.6.1",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
+    "@powerfulyang/lint": "^0.0.2",
     "@types/enzyme": "^3.10.7",
     "@types/jest": "^26.0.14",
     "@types/node-fetch": "^2.5.7",
@@ -51,8 +53,7 @@
     "raw-loader": "^4.0.1",
     "react-test-renderer": "^16.13.1",
     "typescript": "^4.0.3",
-    "url-loader": "^4.1.0",
-    "@powerfulyang/lint": "^0.0.1"
+    "url-loader": "^4.1.0"
   },
   "husky": {
     "hooks": {
