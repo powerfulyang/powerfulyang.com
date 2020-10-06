@@ -15,10 +15,6 @@
     "url": "https://github.com/AquaChurch/powerfulyang.com"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.31",
-    "@fortawesome/free-brands-svg-icons": "^5.15.0",
-    "@fortawesome/free-solid-svg-icons": "^5.15.0",
-    "@fortawesome/react-fontawesome": "^0.1.11",
     "@powerfulyang/components": "^0.7.0",
     "@powerfulyang/hooks": "^0.2.0",
     "@powerfulyang/utils": "^0.7.0",
@@ -29,35 +25,15 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.6",
     "@powerfulyang/lint": "^0.2.0",
-    "@types/enzyme": "^3.10.7",
-    "@types/jest": "^26.0.14",
     "@types/node-fetch": "^2.5.7",
     "@types/react": "^16.9.50",
     "@types/react-dom": "^16.9.8",
-    "@zeit/next-css": "^1.0.1",
-    "@zeit/next-sass": "^1.0.1",
-    "babel-core": "^6.26.3",
-    "babel-jest": "^26.3.0",
-    "babel-loader": "^8.1.0",
-    "canvas": "^2.6.1",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.5",
     "file-loader": "^6.1.0",
     "glslify-loader": "^2.0.0",
-    "husky": "^4.3.0",
-    "jest": "^26.4.2",
     "node-sass": "^4.14.1",
-    "prettier": "^2.1.2",
     "raw-loader": "^4.0.1",
-    "react-test-renderer": "^16.13.1",
     "typescript": "^4.0.3",
     "url-loader": "^4.1.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
   }
 }
