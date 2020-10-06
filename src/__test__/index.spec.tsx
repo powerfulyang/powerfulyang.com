@@ -1,7 +1,7 @@
 import { render } from 'enzyme';
 import React from 'react';
-import Index from '../pages';
-import Panel from '../pages/panel';
+import Index from '../../pages';
+import Panel from '../../pages/panel';
 
 describe('With Enzyme', () => {
   it('Index shows', () => {
