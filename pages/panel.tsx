@@ -2,7 +2,6 @@ import { panelList } from '../src/Config/config';
 import React, { useEffect } from 'react';
 import './pannel.scss';
 import Header from '../src/components/Header';
-import { DomUtils } from '@powerfulyang/utils';
 
 const Panel = () => {
   useEffect(() => {
@@ -14,9 +13,7 @@ const Panel = () => {
         bubbles,
         // eslint-disable-next-line prefer-const
         animateHeader = true;
-      DomUtils.contentLoaded(() => {
         initHeader();
-      });
 
       function initHeader() {
         canvas = document.getElementById('header_canvas');
