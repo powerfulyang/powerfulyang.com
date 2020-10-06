@@ -1,10 +1,9 @@
-import { IconName } from '@fortawesome/fontawesome-common-types';
 
 export const links = [
   { url: 'https://twitter.com/hutyxxx/', icon: 'twitter' },
   { url: 'https://github.com/powerfulyang/', icon: 'github' },
   { url: 'https://www.instagram.com/powerfulyang/', icon: 'instagram' },
-] as { url: string; icon: IconName }[];
+] ;
 
 export const ApproachUrl = './panel';
 
