@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "prettier": "prettier \"./**/*.ts\" \"./**/*.tsx\" --write",
-    "lint": "eslint . --ext .ts,.tsx --fix"
+    "lint": "eslint . --ext .ts,.tsx --fix",
+    "fix:style": "stylelint --fix \"src/**/*.scss\" --syntax scss"
   },
   "license": "MIT",
   "repository": {
@@ -22,7 +23,8 @@
     "next": "^9.5.3",
     "node-fetch": "^2.6.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "classnames": "^2.2.6"
   },
   "devDependencies": {
     "@powerfulyang/lint": "^0.2.1",
