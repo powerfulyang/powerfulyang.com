@@ -7,17 +7,17 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "fix:prettier": "prettier \"./**/*.ts\" \"./**/*.tsx\" --write",
-    "lint": "eslint src --ext .ts,.tsx --fix"
+    "prettier": "prettier \"./**/*.ts\" \"./**/*.tsx\" --write",
+    "lint": "eslint . --ext .ts,.tsx --fix"
   },
   "license": "MIT",
   "repository": {
     "url": "https://github.com/AquaChurch/powerfulyang.com"
   },
   "dependencies": {
-    "@powerfulyang/components": "^0.7.0",
-    "@powerfulyang/hooks": "^0.2.0",
-    "@powerfulyang/utils": "^0.7.0",
+    "@powerfulyang/components": "^0.7.1",
+    "@powerfulyang/hooks": "^0.2.1",
+    "@powerfulyang/utils": "^0.7.1",
     "core-js": "^3.6.5",
     "next": "^9.5.3",
     "node-fetch": "^2.6.1",
@@ -25,8 +25,10 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@powerfulyang/lint": "^0.2.0",
+    "@powerfulyang/lint": "^0.2.1",
+    "@zeit/next-sass": "^1.0.1",
     "@types/node-fetch": "^2.5.7",
+    "@types/jest": "^26.0.14",
     "@types/react": "^16.9.50",
     "@types/react-dom": "^16.9.8",
     "file-loader": "^6.1.0",
