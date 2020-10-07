@@ -7,8 +7,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "fix:prettier": "prettier \"./**/*.ts\" \"./**/*.tsx\" --write",
-    "lint": "eslint src --ext .ts,.tsx --fix"
+    "prettier": "prettier \"./**/*.ts\" \"./**/*.tsx\" --write",
+    "lint": "eslint . --ext .ts,.tsx --fix"
   },
   "license": "MIT",
   "repository": {
@@ -25,8 +25,10 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "@zeit/next-sass": "^1.0.1",
     "@powerfulyang/lint": "^0.2.0",
     "@types/node-fetch": "^2.5.7",
+    "@types/jest": "^26.0.14",
     "@types/react": "^16.9.50",
     "@types/react-dom": "^16.9.8",
     "file-loader": "^6.1.0",
