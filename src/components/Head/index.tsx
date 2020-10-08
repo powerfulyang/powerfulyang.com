@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 import './index.scss';
+import { TwitterFavoriteWithNoSSR } from '@/components/dynamic';
 
 export interface HeaderProps {
   title?: string;
@@ -8,9 +9,12 @@ export interface HeaderProps {
 
 export const Header: FC<HeaderProps> = ({ title }) => {
   return (
-    <Head>
-      <title>{title || 'powerfulyang'}</title>
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
+    <>
+      <Head>
+        <title>{title || 'powerfulyang'}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <TwitterFavoriteWithNoSSR />
+    </>
   );
 };
