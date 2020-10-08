@@ -20,7 +20,7 @@
     "@powerfulyang/hooks": "^0.2.1",
     "@powerfulyang/utils": "^0.7.1",
     "core-js": "^3.6.5",
-    "next": "^9.5.3",
+    "next": "^9.5.4",
     "node-fetch": "^2.6.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
