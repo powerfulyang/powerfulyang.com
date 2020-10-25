@@ -16,9 +16,9 @@
     "url": "https://github.com/AquaChurch/powerfulyang.com"
   },
   "dependencies": {
-    "@powerfulyang/components": "^0.7.1",
-    "@powerfulyang/hooks": "^0.2.1",
-    "@powerfulyang/utils": "^0.7.1",
+    "@powerfulyang/components": "^0.7.2",
+    "@powerfulyang/hooks": "^0.2.2",
+    "@powerfulyang/utils": "^0.7.2",
     "core-js": "^3.6.5",
     "next": "^9.5.4",
     "node-fetch": "^2.6.1",
@@ -27,7 +27,7 @@
     "classnames": "^2.2.6"
   },
   "devDependencies": {
-    "@powerfulyang/lint": "^0.2.1",
+    "@powerfulyang/lint": "^0.2.2",
     "@zeit/next-sass": "^1.0.1",
     "@types/node-fetch": "^2.5.7",
     "@types/jest": "^26.0.14",
