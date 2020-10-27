@@ -10,14 +10,7 @@ services:
       - '5044:5044'
       - '12201:12201/udp'
     volumes:
-      - './conf/logstash:/etc/logstash/conf.d'
-    environment:
-      - ES_HEAP_SIZE=128M
-      - LS_HEAP_SIZE=128M
-    deploy:
-      resources:
-        limits:
-          memory: 800M
+      - './conf/elk:/etc/logstash/conf.d'
     healthcheck:
       test: ['CMD-SHELL', 'curl --fail localhost:9200/_cluster/health || kill 1']
       interval: 60s
