@@ -5,6 +5,9 @@ services:
     container_name: nginx
     restart: always
     network_mode: host
+    environment:
+      - NGINX_ENTRYPOINT_QUIET_LOGS=1
+      - TZ=Asia/Shanghai
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - /root/.acme.sh/powerfulyang.com/:/usr/share/nginx/cert/powerfulyang.com/

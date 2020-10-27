@@ -16,29 +16,29 @@
     "url": "https://github.com/AquaChurch/powerfulyang.com"
   },
   "dependencies": {
-    "@powerfulyang/components": "^0.7.2",
-    "@powerfulyang/hooks": "^0.2.2",
-    "@powerfulyang/utils": "^0.7.2",
+    "@powerfulyang/components": "^0.7.3",
+    "@powerfulyang/hooks": "^0.2.3",
+    "@powerfulyang/utils": "^0.7.3",
     "core-js": "^3.6.5",
-    "next": "^9.5.4",
+    "next": "^10.0.0",
     "node-fetch": "^2.6.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "classnames": "^2.2.6"
   },
   "devDependencies": {
-    "@powerfulyang/lint": "^0.2.2",
+    "@powerfulyang/lint": "^0.2.3",
     "@zeit/next-sass": "^1.0.1",
     "@types/node-fetch": "^2.5.7",
-    "@types/jest": "^26.0.14",
-    "@types/react": "^16.9.50",
+    "@types/jest": "^26.0.15",
+    "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
-    "file-loader": "^6.1.0",
+    "file-loader": "^6.2.0",
     "glslify-loader": "^2.0.0",
     "node-sass": "^4.14.1",
-    "raw-loader": "^4.0.1",
-    "typescript": "^4.0.3",
-    "url-loader": "^4.1.0",
-    "tailwindcss": "^1.8.10"
+    "raw-loader": "^4.0.2",
+    "typescript": "^4.0.5",
+    "url-loader": "^4.1.1",
+    "tailwindcss": "^1.9.6"
   }
 }
