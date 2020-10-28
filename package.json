@@ -39,6 +39,7 @@
     "raw-loader": "^4.0.2",
     "typescript": "^4.0.5",
     "url-loader": "^4.1.1",
-    "tailwindcss": "^1.9.6"
+    "tailwindcss": "^1.9.6",
+    "@types/classnames": "^2.2.10"
   }
 }
