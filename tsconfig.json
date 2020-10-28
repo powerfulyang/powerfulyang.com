@@ -30,8 +30,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.glsl",
-    "../../node_modules/@types/jest/index.d.ts"
+    "**/*.glsl"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
