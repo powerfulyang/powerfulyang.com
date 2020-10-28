@@ -5,5 +5,4 @@ module.exports = {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   testMatch: ['**/*.spec.(ts|tsx)'],
-  testPathIgnorePatterns: ['./.next/', './node_modules/'],
 };

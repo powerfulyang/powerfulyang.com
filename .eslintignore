@@ -1,3 +1,4 @@
 example
 *.js
 *.spec.tsx
+*.spec.ts
