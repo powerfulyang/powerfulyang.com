@@ -2,6 +2,7 @@
   "name": "powerfulyang.com",
   "version": "0.0.0",
   "private": true,
+  "description": "home page",
   "scripts": {
     "test": "jest",
     "dev": "next",
