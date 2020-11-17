@@ -5,7 +5,7 @@
   "description": "home page",
   "scripts": {
     "test": "jest",
-    "dev": "next",
+    "start:dev": "next",
     "build": "next build",
     "start": "next start",
     "prettier": "prettier \"./**/*.ts\" \"./**/*.tsx\" --write",
