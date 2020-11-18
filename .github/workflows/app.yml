@@ -2,15 +2,6 @@ name: app
 
 on:
   push:
-    paths-ignore:
-      - nginx/**
-      - .github/workflows/nginx.yml
-      - elk/**
-      - .github/workflows/elk.yml
-      - mysql/**
-      - .github/workflows/mysql.yml
-      - rabbitmq/**
-      - .github/workflows/rabbitmq.yml
 
 jobs:
   build:
@@ -29,17 +20,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
       - name: Install packages
         run: npm install
       - name: Build

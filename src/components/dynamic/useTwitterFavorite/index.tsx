@@ -1,9 +1,8 @@
 import React from 'react';
-import { useDefaultCur, useTwitterFavorite } from '@powerfulyang/components';
+import { useTwitterFavorite } from '../../unSupportSSR';
 
 const TwitterFavorite = () => {
   useTwitterFavorite();
-  useDefaultCur();
   return <></>;
 };
 
