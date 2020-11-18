@@ -4,8 +4,6 @@ WORKDIR /usr/app
 
 COPY package.json .
 
-COPY package-lock.json .
-
 RUN npm install --production --quiet && npm cache clean --force
 
 COPY .next/ ./.next/
