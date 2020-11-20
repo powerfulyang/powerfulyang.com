@@ -32,7 +32,6 @@
   "devDependencies": {
     "@powerfulyang/lint": "^0.2.4",
     "@zeit/next-sass": "^1.0.1",
-    "@zeit/next-css": "^1.0.1",
     "@types/node-fetch": "^2.5.7",
     "@types/jest": "^26.0.15",
     "@types/react": "^16.9.56",

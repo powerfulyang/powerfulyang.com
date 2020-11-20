@@ -12,7 +12,9 @@ export const Index: FC<IndexProps> = () => {
 
 # This is a Heading h1
 ## This is a Heading h2
-###### This is a Heading h6
+### This is a Heading h3
+#### This is a Heading h4
+**最多只支持到H4**
 
 ## Emphasis
 
@@ -38,8 +40,11 @@ _You **can** combine them_
 1. Item 1
 1. Item 2
 1. Item 3
-  1. Item 3a
-  1. Item 3b
+
+### Checked List
+
+- [x] 你好
+- [ ] 我们
 
 ## Images
 

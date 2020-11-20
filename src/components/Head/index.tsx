@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
-import '@powerfulyang/components/dist/es/index.css';
 import './index.scss';
 import { TwitterFavoriteWithNoSSR } from '@/components/dynamic';
 
