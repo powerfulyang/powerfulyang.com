@@ -1,7 +1,8 @@
+@import '~@powerfulyang/components/dist/es/index.css';
+
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
-@import '~@powerfulyang/components/dist/es/index.css';
 
 * {
   cursor: url('/cursor/default.png'), auto;
@@ -13,7 +14,7 @@ a {
 
 body {
   overflow-x: hidden;
-  font-family: 'Fira Code', monospace;
+  font-family: 'Fira Code', 'Pingfang SC', 'microsoft yahei', serif;
 }
 
 /* 滚动条 */
@@ -23,14 +24,17 @@ body {
   background-color: #cccccc;
   -webkit-border-radius: 6px;
 }
+
 ::-webkit-scrollbar-track-piece {
   background-color: #fff; /*滚动条的背景颜色*/
   -webkit-border-radius: 0; /*滚动条的圆角宽度*/
 }
+
 ::-webkit-scrollbar {
   width: 8px; /*滚动条的宽度*/
   height: 8px; /*滚动条的高度*/
 }
+
 ::-webkit-scrollbar-thumb:vertical {
   /*垂直滚动条的样式*/
   height: 50px;
@@ -40,6 +44,7 @@ body {
   outline-offset: -2px;
   border: 2px solid #fff;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   /*滚动条的hover样式*/
   height: 50px;
