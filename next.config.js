@@ -26,4 +26,12 @@ module.exports = withSass({
     };
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: '/post/:id',
+        destination: '/post',
+      },
+    ];
+  },
 });
