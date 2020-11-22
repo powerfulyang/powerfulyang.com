@@ -27,7 +27,8 @@
     "react-dom": "^17.0.1",
     "classnames": "^2.2.6",
     "@mojs/core": "^0.288.2",
-    "rxjs": "^6.6.3"
+    "rxjs": "^6.6.3",
+    "dayjs": "^1.9.6"
   },
   "devDependencies": {
     "@powerfulyang/lint": "^0.2.4",

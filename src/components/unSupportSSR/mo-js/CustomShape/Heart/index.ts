@@ -13,6 +13,8 @@ export const CreateElements = () => {
     radius: CIRCLE_RADIUS,
     duration: 400,
     easing: 'cubic.out',
+    isShowEnd: false,
+    isSoftHide: true,
   });
 
   const burst = new mojs.Burst({
@@ -31,7 +33,10 @@ export const CreateElements = () => {
       duration: [500, 700],
       easing: 'quint.out',
     },
+    isShowEnd: false,
+    isSoftHide: true,
   });
+
   const heart = new mojs.Shape({
     left: 0,
     top: 2,
@@ -43,6 +48,8 @@ export const CreateElements = () => {
     delay: 300,
     duration: 300,
     radius: 11,
+    isShowEnd: false,
+    isSoftHide: true,
   }).then({
     opacity: { 1: 0, easing: 'quad.in' },
     duration: 200,

@@ -19,34 +19,31 @@ body {
 
 /* 滚动条 */
 ::-webkit-scrollbar-thumb:horizontal {
-  /*水平滚动条的样式*/
   width: 4px;
-  background-color: #cccccc;
+  background-color: #ccc;
   -webkit-border-radius: 6px;
 }
 
 ::-webkit-scrollbar-track-piece {
-  background-color: #fff; /*滚动条的背景颜色*/
-  -webkit-border-radius: 0; /*滚动条的圆角宽度*/
+  background-color: #fff;
+  -webkit-border-radius: 0;
 }
 
 ::-webkit-scrollbar {
-  width: 8px; /*滚动条的宽度*/
-  height: 8px; /*滚动条的高度*/
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-thumb:vertical {
-  /*垂直滚动条的样式*/
   height: 50px;
   background-color: #8771b7;
+  border: 2px solid #fff;
   border-radius: 30%;
   outline: 2px solid #fff;
   outline-offset: -2px;
-  border: 2px solid #fff;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  /*滚动条的hover样式*/
   height: 50px;
   background-color: #9bc368;
   border-radius: 50%;
