@@ -2,15 +2,15 @@ import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 import './index.scss';
 
-export const Link: FC<{ href: string }> = ({ children, href }) => {
+export const Link: FC<{ to: string }> = ({ children, to }) => {
   const router = useRouter();
   return (
     <a
       className="link"
-      href={href}
+      href={to}
       onClick={(e) => {
         e.preventDefault();
-        router.push(href);
+        router.push(to);
       }}
     >
       {children}
