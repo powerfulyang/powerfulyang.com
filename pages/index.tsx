@@ -19,7 +19,7 @@ const Index: FC<IndexProps> = ({ data }) => {
       <Header />
       {data.map((post) => (
         <p className="index_title" key={post.id}>
-          <Link href={`/post/${post.id}`}>{post.title}</Link>
+          <Link to={`/post/${post.id}`}>{post.title}</Link>
           <span className="index_create">crateAt:{DateFormat(post.createAt)}</span>
         </p>
       ))}
