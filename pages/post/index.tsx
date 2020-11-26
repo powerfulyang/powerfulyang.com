@@ -11,7 +11,7 @@ type PostProps = {
 const Posts: FC<PostProps> = ({ data }) => {
   return (
     <>
-      <Header />
+      <Header title={data.title} />
       <MarkdownWrap source={data.content} />
     </>
   );
