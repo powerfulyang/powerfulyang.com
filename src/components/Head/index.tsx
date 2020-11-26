@@ -11,10 +11,11 @@ export const Header: FC<HeaderProps> = ({ title }) => {
   return (
     <>
       <Head>
-        <title>{title || 'powerfulyang'}</title>
+        <title>{title || 'powerfulyang home page'}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0JKGR6P0S" />
         <script
+          /* eslint-disable-next-line react/no-danger */
           dangerouslySetInnerHTML={{
             __html:
               'window.dataLayer = window.dataLayer || [];\n' +
