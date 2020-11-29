@@ -8,7 +8,7 @@
     "start:dev": "next",
     "build": "next build",
     "start": "next start",
-    "prettier": "prettier \"./**/*.ts\" \"./**/*.tsx\" --write",
+    "prettier": "prettier \"{src,pages}/**/*.{tsx,ts,scss}\" --write",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "fix:style": "stylelint --fix \"src/**/*.scss\" --syntax scss"
   },
