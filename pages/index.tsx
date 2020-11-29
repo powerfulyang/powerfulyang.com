@@ -3,6 +3,7 @@ import { Header } from '@/components/Head';
 import './index.scss';
 import { DateFormat, initialProps } from '@/utils/Utils';
 import { Link } from '@/components/Link';
+import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 
 type IndexProps = {
   data: {
@@ -15,7 +16,7 @@ type IndexProps = {
 
 const Index: FC<IndexProps> = ({ data }) => {
   return (
-    <>
+    <GlobalContextProvider>
       <Header />
       {data.map((post) => (
         <p className="index_title" key={post.id}>
@@ -23,7 +24,7 @@ const Index: FC<IndexProps> = ({ data }) => {
           <span className="index_create">crateAt:{DateFormat(post.createAt)}</span>
         </p>
       ))}
-    </>
+    </GlobalContextProvider>
   );
 };
 

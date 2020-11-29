@@ -1,0 +1,33 @@
+.redirecting {
+  position: fixed;
+  top: 0;
+  z-index: 9999999;
+  width: 100%;
+  height: 3px;
+  background-image: linear-gradient(
+    90deg,
+    #f16f5c 0,
+    #f16f5c 12.5%,
+    #5b56dd 0,
+    #5b56dd 25%,
+    #e15ced 0,
+    #e15ced 37.5%,
+    #27e559 0,
+    #27e559 50%,
+    #18c8c9 0,
+    #18c8c9 62.5%,
+    #dc8987 0,
+    #dc8987 75%,
+    #bb83d6 0,
+    #bb83d6 87.5%,
+    #e774bd 0,
+    #e774bd
+  );
+  animation: redirecting 3s linear infinite;
+}
+
+@keyframes redirecting {
+  to {
+    background-position: 930px 0;
+  }
+}

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import './index.scss';
 import { TwitterFavoriteWithNoSSR } from '@/components/dynamic';
 import { __prod__ } from '@powerfulyang/utils';
+import { Redirecting } from '../Redirecting';
 
 export interface HeaderProps {
   title?: string;
@@ -32,6 +33,7 @@ export const Header: FC<HeaderProps> = ({ title }) => {
         )}
       </Head>
       <TwitterFavoriteWithNoSSR />
+      <Redirecting />
     </>
   );
 };

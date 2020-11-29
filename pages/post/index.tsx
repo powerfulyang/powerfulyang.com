@@ -3,6 +3,8 @@ import { MarkdownWrap } from '@powerfulyang/components';
 import React, { FC } from 'react';
 import { Post } from '@/types/Post';
 import { Header } from '@/components/Head';
+import { GlobalContextProvider } from '@/context/GlobalContextProvider';
+import './index.scss';
 
 type PostProps = {
   data: Post;
@@ -10,10 +12,10 @@ type PostProps = {
 
 const Posts: FC<PostProps> = ({ data }) => {
   return (
-    <>
+    <GlobalContextProvider>
       <Header title={data.title} />
-      <MarkdownWrap source={data.content} />
-    </>
+      <MarkdownWrap className="post" source={data.content} />
+    </GlobalContextProvider>
   );
 };
 
