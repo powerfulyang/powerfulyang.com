@@ -13,6 +13,12 @@ a {
   cursor: url('/cursor/pointer.png'), auto;
 }
 
+html {
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
+}
+
 body {
   overflow-x: hidden;
   font-family: 'Fira Code', 'Pingfang SC', 'microsoft yahei', serif;

@@ -21,7 +21,7 @@ const Index: FC<IndexProps> = ({ data }) => {
       {data.map((post) => (
         <p className="index_title" key={post.id}>
           <Link to={`/post/${post.id}`}>{post.title}</Link>
-          <span className="index_create">crateAt:{DateFormat(post.createAt)}</span>
+          <span className="index_create">creatAt:{DateFormat(post.createAt)}</span>
         </p>
       ))}
     </GlobalContextProvider>

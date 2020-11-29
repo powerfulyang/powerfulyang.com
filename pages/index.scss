@@ -2,5 +2,8 @@
   @apply text-2xl text-center my-5;
   .index_create {
     @apply text-xs align-bottom ml-4;
+    @media (max-width: 768px) {
+      @apply block;
+    }
   }
 }
