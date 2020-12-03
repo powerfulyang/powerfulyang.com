@@ -8,14 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [13.x]
+        node-version: [14.x]
         docker-repository: [powerfulyang/powerfulyang.com]
     steps:
       - uses: actions/checkout@v2
-      - name: install canvas
-        run: |
-          sudo apt-get update
-          sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -24,6 +20,17 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - name: Test
         run: npm run test
       - name: Dockerize
@@ -34,15 +41,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: 'latest'
-      - name: Deploy
-        uses: easingthemes/ssh-deploy@v2.0.7
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          ARGS: '-avz'
-          SOURCE: 'powerfulyang.com.yml'
-          REMOTE_HOST: ${{ secrets.SSH_HOST }}
-          REMOTE_USER: ${{ secrets.SSH_USER }}
-          TARGET: /root/app/powerfulyang.com/
       - name: deploy
         uses: appleboy/ssh-action@master
         with:
@@ -52,5 +50,5 @@ jobs:
           script_stop: true
           script: |
             docker pull ${{ matrix.docker-repository }}
-            cd /root/app/powerfulyang.com
-            docker-compose -f powerfulyang.com.yml up -d
+            cd ~/applications
+            docker-compose up -d --force-recreate powerfulyang.com
