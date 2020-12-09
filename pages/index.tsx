@@ -7,18 +7,20 @@ import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 
 type IndexProps = {
   data: {
-    id: number;
-    title: string;
-    content: string;
-    createAt: Date;
-  }[];
+    posts: {
+      id: number;
+      title: string;
+      content: string;
+      createAt: Date;
+    }[];
+  };
 };
 
 const Index: FC<IndexProps> = ({ data }) => {
   return (
     <GlobalContextProvider>
       <Header />
-      {data.map((post) => (
+      {data.posts.map((post) => (
         <p className="index_title" key={post.id}>
           <Link to={`/post/${post.id}`}>{post.title}</Link>
           <span className="index_create">creatAt:{DateFormat(post.createAt)}</span>
