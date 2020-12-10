@@ -17,6 +17,10 @@ export const initialProps = <T extends ParsedUrlQuery = ParsedUrlQuery>(
   };
 };
 
-export const DateFormat = (date: Date) => {
+export const DateTimeFormat = (date: Date) => {
   return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+};
+
+export const DateFormat = (date: Date) => {
+  return dayjs(date).format('YYYY-MM-DD');
 };
