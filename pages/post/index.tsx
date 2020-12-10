@@ -14,9 +14,9 @@ const Posts: FC<PostProps> = ({ data }) => {
   const { tags, pathViewCount, content, user, createAt } = data;
   const postInfo = `post=>${user.nickname}|${DateFormat(createAt)}|${
     content.length
-  }|${pathViewCount}  \n`;
-  const tagsInfo = `tags=>${(tags || []).join('|')}  \n`;
-  const contents = content.replace('\n', `\n${postInfo}${tagsInfo}`);
+  }|${pathViewCount}  \r\n\r\n`;
+  const tagsInfo = `tags=>${(tags || []).join('|')}  \r\n\r\n`;
+  const contents = content.replace(/(\r\n|\n)/, `\r\n\r\n${postInfo}${tagsInfo}`);
   return (
     <GlobalContextProvider>
       <Header title={data.title} />

@@ -5,7 +5,7 @@
   "description": "home page",
   "scripts": {
     "test": "jest",
-    "start:dev": "next",
+    "start:dev": "cross-env NODE_OPTIONS='--inspect=127.0.0.1:9230' next",
     "build": "next build",
     "start": "next start",
     "prettier": "prettier \"{src,pages}/**/*.{tsx,ts,scss}\" --write",
