@@ -1,4 +1,4 @@
-import { initialProps } from '@/utils/Utils';
+import { DateFormat, initialProps } from '@/utils/Utils';
 import { MarkdownWrap } from '@powerfulyang/components';
 import React, { FC } from 'react';
 import { Post } from '@/types/Post';
@@ -11,10 +11,16 @@ type PostProps = {
 };
 
 const Posts: FC<PostProps> = ({ data }) => {
+  const { tags, pathViewCount, content, user, createAt } = data;
+  const postInfo = `post=>${user.nickname}|${DateFormat(createAt)}|${
+    content.length
+  }|${pathViewCount}  \n`;
+  const tagsInfo = `tags=>${(tags || []).join('|')}  \n`;
+  const contents = content.replace('\n', `\n${postInfo}${tagsInfo}`);
   return (
     <GlobalContextProvider>
       <Header title={data.title} />
-      <MarkdownWrap className="post" source={data.content} />
+      <MarkdownWrap className="post" source={contents} />
     </GlobalContextProvider>
   );
 };
