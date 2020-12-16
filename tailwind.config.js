@@ -4,7 +4,6 @@ module.exports = {
     purgeLayersByDefault: true,
   },
   purge: ['./src/**/*.tsx', './pages/**/*.tsx'],
-  target: 'relaxed',
   prefix: '',
   important: false,
   separator: ':',
