@@ -3,7 +3,11 @@ module.exports = {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
   },
-  purge: ['./src/**/*.tsx', './pages/**/*.tsx'],
+  purge: [
+    './src/**/*.tsx',
+    './pages/**/*.tsx',
+    './node_modules/@powerfulyang/components/dist/es/index.js',
+  ],
   prefix: '',
   important: false,
   separator: ':',
