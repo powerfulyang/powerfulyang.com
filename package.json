@@ -17,25 +17,25 @@
     "url": "https://github.com/powerfulyang/powerfulyang.com"
   },
   "dependencies": {
-    "@powerfulyang/components": "^0.7.18",
-    "@powerfulyang/hooks": "^0.2.11",
-    "@powerfulyang/utils": "^0.7.10",
-    "core-js": "^3.8.1",
-    "next": "^10.0.3",
+    "@powerfulyang/components": "^0.7.22",
+    "@powerfulyang/hooks": "^0.2.14",
+    "@powerfulyang/utils": "^0.7.13",
+    "core-js": "^3.8.2",
+    "next": "^10.0.5",
     "node-fetch": "^2.6.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "classnames": "^2.2.6",
     "@mojs/core": "^0.288.2",
     "rxjs": "^6.6.3",
-    "dayjs": "^1.9.7",
+    "dayjs": "^1.10.3",
     "ramda": "^0.27.1"
   },
   "devDependencies": {
-    "@powerfulyang/lint": "^0.2.8",
+    "@powerfulyang/lint": "^0.2.11",
     "@zeit/next-sass": "^1.0.1",
     "@types/node-fetch": "^2.5.7",
-    "@types/jest": "^26.0.19",
+    "@types/jest": "^26.0.20",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "file-loader": "^6.2.0",
@@ -46,7 +46,7 @@
     "url-loader": "^4.1.1",
     "tailwindcss": "^2.0.2",
     "@types/classnames": "^2.2.11",
-    "webpack": "^4.44.2",
+    "webpack": "^4.45.0",
     "@types/ramda": "^0.27.34"
   }
 }
