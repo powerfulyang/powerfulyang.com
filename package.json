@@ -29,7 +29,8 @@
     "@mojs/core": "^0.288.2",
     "rxjs": "^6.6.3",
     "dayjs": "^1.10.3",
-    "ramda": "^0.27.1"
+    "ramda": "^0.27.1",
+    "d3": "^6.3.1"
   },
   "devDependencies": {
     "@powerfulyang/lint": "^0.2.11",
@@ -38,6 +39,7 @@
     "@types/jest": "^26.0.20",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/d3": "^6.2.0",
     "file-loader": "^6.2.0",
     "glslify-loader": "^2.0.0",
     "node-sass": "^5.0.0",
