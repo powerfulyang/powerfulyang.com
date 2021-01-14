@@ -3,7 +3,12 @@ import Head from 'next/head';
 import './index.scss';
 import { TwitterFavoriteWithNoSSR } from '@/components/dynamic';
 import { __prod__ } from '@powerfulyang/utils';
+import dayjs from 'dayjs';
 import { Redirecting } from '../Redirecting';
+
+const LocalizedFormat = require('dayjs/plugin/localizedFormat');
+
+dayjs.extend(LocalizedFormat);
 
 export interface HeaderProps {
   title?: string;
