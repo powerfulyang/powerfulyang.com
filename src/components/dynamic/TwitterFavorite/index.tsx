@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTwitterFavorite } from '../../unSupportSSR/mo-js';
+import { useTwitterFavorite } from '../../../deprecated/unSupportSSR/mo-js';
 
 const TwitterFavorite = () => {
   useTwitterFavorite();

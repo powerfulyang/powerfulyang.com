@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 import './index.scss';
-import { TwitterFavoriteWithNoSSR } from '@/components/dynamic';
 import { __prod__ } from '@powerfulyang/utils';
 import dayjs from 'dayjs';
 import { Redirecting } from '../Redirecting';
@@ -37,7 +36,6 @@ export const Header: FC<HeaderProps> = ({ title }) => {
           </>
         )}
       </Head>
-      <TwitterFavoriteWithNoSSR />
       <Redirecting />
     </>
   );
