@@ -1,5 +1,8 @@
 import dynamic from 'next/dynamic';
 
+/**
+ * @deprecated
+ */
 export const TwitterFavoriteWithNoSSR = dynamic(
   () => import('@/components/dynamic/TwitterFavorite'),
   {
@@ -7,7 +10,10 @@ export const TwitterFavoriteWithNoSSR = dynamic(
   },
 );
 
+/**
+ * @deprecated
+ */
 export const MapleLeafFallingWithNoSSR = dynamic(
-  () => import('@/components/unSupportSSR/MapleLeafFalling'),
+  () => import('@/deprecated/unSupportSSR/MapleLeafFalling'),
   { ssr: false },
 );
