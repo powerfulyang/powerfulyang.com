@@ -17,3 +17,5 @@ export const MapleLeafFallingWithNoSSR = dynamic(
   () => import('@/deprecated/unSupportSSR/MapleLeafFalling'),
   { ssr: false },
 );
+
+export const TagCloudWithNoSSR = dynamic(() => import('./TagCloud'), { ssr: false });
