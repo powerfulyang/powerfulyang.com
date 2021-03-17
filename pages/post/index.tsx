@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { Post } from '@/types/Post';
 import { Header } from '@/components/Head';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
-import './index.scss';
+import './index.module.scss';
 
 type PostProps = {
   data: Post;

@@ -1,6 +1,4 @@
-const withSass = require('@zeit/next-sass');
-
-module.exports = withSass({
+module.exports = {
   webpack(config, _options) {
     config.module.rules.push({
       test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -16,14 +14,6 @@ module.exports = withSass({
       exclude: /node_modules/,
       use: ['raw-loader', 'glslify-loader'],
     });
-    const originalEntry = config.entry;
-    config.entry = async () => {
-      const entries = await originalEntry();
-      if (entries['main.js'] && !entries['main.js'].includes('./polyfills.js')) {
-        entries['main.js'].unshift('./polyfills.js');
-      }
-      return entries;
-    };
     return config;
   },
   async rewrites() {
@@ -34,4 +24,4 @@ module.exports = withSass({
       },
     ];
   },
-});
+};

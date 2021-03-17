@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { FC, useContext } from 'react';
-import './index.scss';
 import { LinkContext } from '@/context/LinkContext';
 import { GlobalContextActionType } from '@/context/GlobalContextProvider';
+import './index.module.scss';
 
 export const Link: FC<{ to: string }> = ({ children, to }) => {
   const router = useRouter();
