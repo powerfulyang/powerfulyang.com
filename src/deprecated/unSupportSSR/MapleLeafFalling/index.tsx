@@ -9,7 +9,7 @@ import pp_final_vsh from './pp_final_vsh.glsl';
 import fx_dirblur_r4_fsh from './fx_dirblur_r4_fsh.glsl';
 import fx_common_vsh from './fx_common_vsh.glsl';
 import fx_brightbuf_fsh from './fx_brightbuf_fsh.glsl';
-import styles from './index.scss';
+import styles from './index.module.scss';
 
 export default function MapleLeafFalling() {
   useEffect(() => {
