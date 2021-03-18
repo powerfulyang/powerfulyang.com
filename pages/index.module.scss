@@ -1,5 +1,27 @@
+@import 'src/styles/styles';
+
+$text-color: #22d6d6;
+.text-color {
+  color: $text-color;
+}
+
 .home_bg {
   background: url('/bg.jpg') no-repeat center;
-  background-size: cover;
-  @apply w-full h-full;
+  @apply w-full h-full bg-cover bg-no-repeat bg-center;
+
+  .blog_desc_section {
+    @apply relative top-1/2 transform -translate-y-1/2 text-center;
+    .blog_title {
+      color: #bb83d6;
+      @apply text-center align-middle text-xl;
+      @include flushButton();
+    }
+    .blog_desc {
+      @apply w-2/5 h-32 bg-white bg-opacity-30 m-auto rounded-3xl flex flex-col justify-evenly;
+      .bio {
+        @extend .text-color;
+        @apply text-center;
+      }
+    }
+  }
 }
