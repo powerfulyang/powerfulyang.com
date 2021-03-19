@@ -1,5 +1,3 @@
-@import 'src/styles/styles';
-
 $text-color: #22d6d6;
 .text-color {
   color: $text-color;
@@ -12,15 +10,34 @@ $text-color: #22d6d6;
   .blog_desc_section {
     @apply relative top-1/2 transform -translate-y-1/2 text-center;
     .blog_title {
-      color: #bb83d6;
-      @apply text-center align-middle text-xl;
-      @include flushButton();
+      @extend .text-color;
+      @apply text-4xl mb-8;
     }
     .blog_desc {
-      @apply w-2/5 h-32 bg-white bg-opacity-30 m-auto rounded-3xl flex flex-col justify-evenly;
+      max-width: 500px;
+      height: 160px;
+      @screen sm {
+        @apply m-auto;
+      }
+      @apply bg-white bg-opacity-30 mx-8 rounded-3xl flex flex-col justify-center;
       .bio {
         @extend .text-color;
-        @apply text-center;
+        @apply text-center my-6 text-xl;
+      }
+      .social_media {
+        @apply flex flex-row justify-center;
+        .twitter {
+          width: 2rem;
+          height: 2rem;
+          margin: 1rem;
+          color: #ccc;
+        }
+        .github {
+          @extend .twitter;
+        }
+        .instagram {
+          @extend .twitter;
+        }
       }
     }
   }

@@ -1,0 +1,6 @@
+@import 'src/styles/styles';
+
+.button {
+  @apply px-2 py-1;
+  @include flushButton();
+}
