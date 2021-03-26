@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import '~@powerfulyang/components/dist/es/index.css';
+@import 'base';
 
 @tailwind base;
 @tailwind components;
@@ -17,7 +18,7 @@ button,
 svg,
 use,
 path {
-  cursor: url('/cursor/pointer.png'), auto;
+  @extend .cursor-self-pointer;
 }
 
 * {
