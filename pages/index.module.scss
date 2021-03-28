@@ -10,7 +10,6 @@ $text-color: #22d6d6;
   .blog_desc_section {
     @apply relative top-1/2 transform -translate-y-1/2 text-center;
     .blog_title {
-      @extend .text-color;
       @apply text-4xl mb-8;
     }
     .blog_desc {

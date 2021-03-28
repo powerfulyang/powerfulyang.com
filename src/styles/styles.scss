@@ -2,25 +2,11 @@
 
 @mixin flushButton() {
   position: relative;
+  display: inline-block;
   overflow: hidden;
-  background: linear-gradient(
-    to right,
-    red,
-    orange,
-    yellow,
-    green,
-    yellow,
-    orange,
-    red,
-    orange,
-    yellow,
-    green,
-    yellow,
-    orange,
-    red
-  );
+  color: transparent;
+  background: linear-gradient(to right, white, red, orange, yellow, green, blue, white);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   &:focus {
     outline: 0;
   }
@@ -29,9 +15,9 @@
     top: -50px;
     left: -75px;
     z-index: -10;
-    width: 50px;
+    width: 30px;
     height: 155px;
-    background: linear-gradient(to right, red, orange, yellow, blue);
+    background: #ccc;
     transform: rotate(35deg);
     opacity: 0.5;
     transition: all 1350ms cubic-bezier(0.19, 1, 0.22, 1);
