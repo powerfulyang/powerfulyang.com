@@ -1,4 +1,4 @@
-import { DateFormat, initialProps } from '@/utils/Utils';
+import { DateFormat } from '@/utils/Utils';
 import { MarkdownWrap } from '@powerfulyang/components';
 import React, { FC } from 'react';
 import { Post } from '@/types/Post';
@@ -25,8 +25,6 @@ const Posts: FC<PostProps> = ({ data }) => {
   );
 };
 
-export const getServerSideProps = initialProps('posts', {
-  pathVariable: (ctx) => `/${ctx.query.id}`,
-});
+export const getServerSideProps = async () => {};
 
 export default Posts;

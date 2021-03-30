@@ -1,15 +1,16 @@
-import { RequestOptions } from '@/types/RequestOptions';
 import fetch from 'node-fetch';
 import { pick } from 'ramda';
+import { GetServerSidePropsContext } from 'next';
+
+export type RequestOptions = {
+  method?: string;
+  ctx?: GetServerSidePropsContext;
+};
 
 export const request = async (url: string, options: RequestOptions) => {
-  const { method = 'GET', ctx, pathVariable } = options;
+  const { method = 'GET', ctx } = options;
   const baseUrl = process.env.BASE_URL;
-  let path = '';
-  if (pathVariable) {
-    path = pathVariable(ctx!);
-  }
-  return fetch(`${baseUrl}${url}${path}`, {
+  return fetch(`${baseUrl}${url}`, {
     method,
     headers: pick(['x-real-ip'], ctx?.req.headers),
   });

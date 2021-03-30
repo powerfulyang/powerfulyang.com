@@ -1,5 +1,4 @@
 import React, { FC, useMemo } from 'react';
-import { initialProps } from '@/utils/Utils';
 import { Header } from '@/components/Head';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { TagCloudWithNoSSR } from '@/components/dynamic';
@@ -18,6 +17,6 @@ const Tags: FC<TagsProps> = ({ data }) => {
   );
 };
 
-export const getServerSideProps = initialProps('posts/tags');
+export const getServerSideProps = async () => {};
 
 export default Tags;
