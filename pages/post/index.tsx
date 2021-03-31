@@ -4,7 +4,9 @@ import React, { FC } from 'react';
 import { Post } from '@/types/Post';
 import { Header } from '@/components/Head';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
-import './index.module.scss';
+import { request } from '@/utils/request';
+import { GetServerSidePropsContext } from 'next';
+import styles from './index.module.scss';
 
 type PostProps = {
   data: Post;
@@ -20,11 +22,20 @@ const Posts: FC<PostProps> = ({ data }) => {
   return (
     <GlobalContextProvider>
       <Header title={data.title} />
-      <MarkdownWrap className="post" source={contents} />
+      <MarkdownWrap className={styles.post} source={contents} />
     </GlobalContextProvider>
   );
 };
 
-export const getServerSideProps = async () => {};
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const {
+    query: { id },
+  } = ctx;
+  const res = await request(`/posts/${id}`, { ctx });
+  const { data } = await res.json();
+  return {
+    props: { data },
+  };
+};
 
 export default Posts;

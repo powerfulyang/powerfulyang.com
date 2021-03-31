@@ -1,7 +1,9 @@
-const PostGrid = ()=>{
-  return <>
-    <section></section>
-  </>
-}
+const PostGrid = () => {
+  return (
+    <>
+      <section></section>
+    </>
+  );
+};
 
 export default PostGrid;

@@ -6,11 +6,11 @@ $text-color: #22d6d6;
 .body {
   background: url('/bg.jpg') no-repeat fixed left top;
   background-size: cover;
+  @apply w-full h-full;
 }
 
 .home_bg {
-  @apply w-full h-full bg-cover bg-no-repeat bg-center;
-
+  @apply w-full pt-36;
   .blog_desc_section {
     @apply relative top-1/2 transform -translate-y-1/2 text-center;
     .blog_title {
@@ -47,10 +47,12 @@ $text-color: #22d6d6;
 }
 
 .main {
-  backdrop-filter: blur(5px);
   @apply text-rose-300;
   .article {
     width: 1000px;
+    color: transparent;
+    background: linear-gradient(to right, #d77e7e, #c3aeae, #5c5cd7, green, #aaa);
+    -webkit-background-clip: text;
     @apply m-auto;
   }
 }

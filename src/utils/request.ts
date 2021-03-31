@@ -7,11 +7,11 @@ export type RequestOptions = {
   ctx?: GetServerSidePropsContext;
 };
 
-export const request = async (url: string, options: RequestOptions) => {
+export const request = async (url: string, options: RequestOptions = {}) => {
   const { method = 'GET', ctx } = options;
   const baseUrl = process.env.BASE_URL;
   return fetch(`${baseUrl}${url}`, {
     method,
-    headers: pick(['x-real-ip'], ctx?.req.headers),
+    headers: pick(['x-real-ip'], ctx?.req.headers || { 'x-real-ip': '127.0.0.1' }),
   });
 };
