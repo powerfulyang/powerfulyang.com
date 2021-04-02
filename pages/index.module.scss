@@ -1,3 +1,5 @@
+@import './base';
+
 $text-color: #22d6d6;
 .text-color {
   color: $text-color;
@@ -10,7 +12,7 @@ $text-color: #22d6d6;
 }
 
 .home_bg {
-  @apply w-full pt-60;
+  @apply w-full;
   .blog_desc_section {
     @apply relative top-1/2 transform -translate-y-1/2 text-center;
     .blog_title {
@@ -32,13 +34,18 @@ $text-color: #22d6d6;
 }
 
 .main {
-  width: 900px;
+  width: 700px;
   @apply text-rose-300 absolute top-1/2 transform -translate-y-1/2 left-1/2 -translate-x-1/2;
   .article {
     display: flex;
-    color: transparent;
-    background: linear-gradient(to right, #d77e7e, #c3aeae, #5c5cd7, green, #aaa);
-    -webkit-background-clip: text;
     @apply justify-between;
+    span {
+      overflow: hidden;
+      color: transparent;
+      white-space: nowrap;
+      background: linear-gradient(to right, #d77e7e, #c3aeae, #5c5cd7, green, #aaa);
+      -webkit-background-clip: text;
+      @extend .cursor-self-pointer;
+    }
   }
 }

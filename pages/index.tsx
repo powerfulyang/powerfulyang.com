@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Header } from '@/components/Head';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { Button } from '@/components/Button';
-import { Icon } from '@powerfulyang/components';
+import { Icon, Tooltip } from '@powerfulyang/components';
 import { GetServerSidePropsContext } from 'next';
 import { request } from '@/utils/request';
 import { Post } from '@/types/Post';
@@ -22,24 +22,26 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount } }) => {
     <GlobalContextProvider>
       <Header />
       <div className={styles.body}>
-        <figure className={styles.home_bg}>
-          <section className={styles.blog_desc_section}>
-            <Button className={styles.blog_title}>{`< #萝卜の小窝# >`}</Button>
-          </section>
-        </figure>
         <main className={styles.main}>
+          <figure className={styles.home_bg}>
+            <section className={styles.blog_desc_section}>
+              <Button className={styles.blog_title}>{`< #萝卜の小窝# >`}</Button>
+            </section>
+          </figure>
           {posts.map((post) => {
             return (
               <article className={styles.article} key={post.id}>
-                <span className="inline-block">
-                  <Link to={`/post/${post.id}`}>{post.title}</Link>
-                </span>
+                <Tooltip title={post.title}>
+                  <span className="inline-block w-2/3 overflow-ellipsis">
+                    <Link to={`/post/${post.id}`}>{post.title}</Link>
+                  </span>
+                </Tooltip>
                 <span className="pl-8 inline-block">{DateFormat(post.createAt)}</span>
               </article>
             );
           })}
         </main>
-        <footer className="text-center absolute bottom-4 left-1/2 transform -translate-x-1/2">
+        <footer className="text-center absolute bottom-10 left-1/2 transform -translate-x-1/2">
           <section className="text-blueGray-400">
             <span className="mr-1">备案号:</span>
             <a
