@@ -31,12 +31,16 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount } }) => {
           {posts.map((post) => {
             return (
               <article className={styles.article} key={post.id}>
-                <Link to={`/post/${post.id}`}>{post.title}</Link>
-                <span className="pl-8">{DateFormat(post.createAt)}</span>
+                <span className="inline-block">
+                  <Link to={`/post/${post.id}`}>{post.title}</Link>
+                </span>
+                <span className="pl-8 inline-block">{DateFormat(post.createAt)}</span>
               </article>
             );
           })}
-          <footer className="text-center py-8">
+        </main>
+        <footer className="text-center absolute bottom-4 left-1/2 transform -translate-x-1/2">
+          <section className="text-blueGray-400">
             <span className="mr-1">备案号:</span>
             <a
               className="text-emerald-500"
@@ -48,7 +52,6 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount } }) => {
             </a>
             <span className="ml-8">被{pathViewCount}人临幸</span>
             <span className="ml-8">
-              <span className="mr-1">LINK:</span>
               <a
                 className="mr-1"
                 href="https://twitter.com/hutyxxx"
@@ -69,8 +72,19 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount } }) => {
                 <Icon className={styles.instagram} type="icon-instagram" />
               </a>
             </span>
-          </footer>
-        </main>
+          </section>
+          <section className="text-blueGray-400">
+            © {new Date().getFullYear()} Power by
+            <a
+              href="https://github.com/powerfulyang/powerfulyang.com"
+              target="_blank"
+              rel="noreferrer"
+              className="ml-2 text-blue-200"
+            >
+              powerfulyang
+            </a>
+          </section>
+        </footer>
       </div>
     </GlobalContextProvider>
   );

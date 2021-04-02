@@ -5,6 +5,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="zh-cmn-Hans">
+        <link rel="preload" href="/zpix.woff" as="font" crossOrigin="anonymous" />
         <Head />
         <body>
           <Main />
