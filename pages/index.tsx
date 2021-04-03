@@ -52,7 +52,7 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount } }) => {
             >
               粤ICP备19128686号-1
             </a>
-            <span className="ml-8 hidden sm:block">被{pathViewCount}人临幸</span>
+            <span className="ml-8 hidden sm:inline-block">被{pathViewCount}人临幸</span>
             <span className="ml-8">
               <a
                 className="mr-1"
