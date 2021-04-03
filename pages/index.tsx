@@ -36,12 +36,12 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount } }) => {
                     <Link to={`/post/${post.id}`}>{post.title}</Link>
                   </span>
                 </Tooltip>
-                <span className="pl-8 inline-block">{DateFormat(post.createAt)}</span>
+                <span className="pl-2 sm:pl-8 inline-block">{DateFormat(post.createAt)}</span>
               </article>
             );
           })}
         </main>
-        <footer className="text-center absolute bottom-10 left-1/2 transform -translate-x-1/2">
+        <footer className="text-center w-full absolute bottom-10 left-1/2 transform -translate-x-1/2">
           <section className="text-blueGray-400">
             <span className="mr-1">备案号:</span>
             <a
@@ -52,7 +52,7 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount } }) => {
             >
               粤ICP备19128686号-1
             </a>
-            <span className="ml-8">被{pathViewCount}人临幸</span>
+            <span className="ml-8 hidden sm:block">被{pathViewCount}人临幸</span>
             <span className="ml-8">
               <a
                 className="mr-1"

@@ -34,7 +34,10 @@ $text-color: #22d6d6;
 }
 
 .main {
-  width: 700px;
+  width: 280px;
+  @screen sm {
+    width: 700px;
+  }
   @apply text-rose-300 absolute top-1/2 transform -translate-y-1/2 left-1/2 -translate-x-1/2;
   .article {
     display: flex;
