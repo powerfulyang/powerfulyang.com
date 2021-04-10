@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+import { interpolateRgb, rgb } from 'd3';
 import React, { FC, useMemo } from 'react';
 import { pluck } from 'ramda';
 import { Tooltip } from '@powerfulyang/components';
@@ -11,7 +11,7 @@ type GithubCommitTableProp = {
 };
 
 export const GithubCommitTable: FC<GithubCommitTableProp> = ({ data }) => {
-  const colorMap = d3.interpolateRgb(d3.rgb('#d6e685'), d3.rgb('#1e6823'));
+  const colorMap = interpolateRgb(rgb('#d6e685'), rgb('#1e6823'));
   const max = useMemo(() => {
     const arr = pluck('count')(data);
     return Math.max(...arr);

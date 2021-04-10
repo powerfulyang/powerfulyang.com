@@ -1,12 +1,10 @@
 import { DateFormat } from '@/utils/Utils';
-import { MarkdownWrap } from '@powerfulyang/components';
 import React, { FC } from 'react';
 import { Post } from '@/types/Post';
 import { Header } from '@/components/Head';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { request } from '@/utils/request';
 import { GetServerSidePropsContext } from 'next';
-import styles from './index.module.scss';
 
 type PostProps = {
   data: Post;
@@ -22,7 +20,7 @@ const Posts: FC<PostProps> = ({ data }) => {
   return (
     <GlobalContextProvider>
       <Header title={data.title} />
-      <MarkdownWrap className={styles.post} source={contents} />
+      {contents}
     </GlobalContextProvider>
   );
 };

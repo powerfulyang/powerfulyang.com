@@ -3,8 +3,9 @@ FROM node:14.0-alpine3.11
 WORKDIR /usr/app
 
 COPY package.json .
+COPY package-lock.json .
 
-RUN npm install --production --quiet && npm cache clean --force
+RUN npm ci --production --quiet && npm cache clean --force
 
 COPY .next/ ./.next/
 

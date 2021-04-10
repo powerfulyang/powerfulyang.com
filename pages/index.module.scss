@@ -6,9 +6,11 @@ $text-color: #22d6d6;
 }
 
 .body {
-  background: url('/bg.jpg') no-repeat fixed left top;
-  background-size: cover;
+  background-color: black;
   @apply w-full h-full;
+  * {
+    font-family: 'Zpix', serif;
+  }
 }
 
 .home_bg {
