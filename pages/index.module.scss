@@ -6,20 +6,33 @@ $text-color: #22d6d6;
 }
 
 .body {
-  background-color: black;
+  background-image: url('/img.webp');
+  background-size: cover;
   @apply w-full h-full;
   * {
     font-family: 'Zpix', serif;
   }
 }
 
-.home_bg {
-  @apply w-full;
-  .blog_desc_section {
-    @apply relative top-1/2 transform -translate-y-1/2 text-center;
-    .blog_title {
-      @apply text-4xl;
-    }
+.years {
+  margin-bottom: 1rem;
+  .year {
+    @apply mr-4 text-xl italic;
+    @extend .cursor-self-pointer;
+  }
+  .active {
+    color: #5b56dd;
+  }
+}
+
+.blog_desc_section {
+  padding-top: 40%;
+  @screen sm {
+    padding-top: 20%;
+  }
+  @apply text-center;
+  .blog_title {
+    @apply text-4xl;
   }
 }
 .twitter {
@@ -36,11 +49,16 @@ $text-color: #22d6d6;
 }
 
 .main {
-  width: 280px;
+  width: 88%;
+  margin: auto;
   @screen sm {
-    width: 700px;
+    width: 50%;
   }
-  @apply text-rose-300 absolute top-1/2 transform -translate-y-1/2 left-1/2 -translate-x-1/2;
+  @apply text-gray-400;
+  .posts {
+    height: 400px;
+    overflow-y: scroll;
+  }
   .article {
     display: flex;
     @apply justify-between;
@@ -48,7 +66,7 @@ $text-color: #22d6d6;
       overflow: hidden;
       color: transparent;
       white-space: nowrap;
-      background: linear-gradient(to right, #d77e7e, #c3aeae, #5c5cd7, green, #aaa);
+      background: linear-gradient(to right, #a3abbe, #41f5e4, #45db45);
       -webkit-background-clip: text;
       @extend .cursor-self-pointer;
     }
