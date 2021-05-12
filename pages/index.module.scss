@@ -15,7 +15,6 @@ $text-color: #22d6d6;
 }
 
 .years {
-  margin-bottom: 1rem;
   .year {
     @apply mr-4 text-xl italic;
     @extend .cursor-self-pointer;
@@ -23,12 +22,13 @@ $text-color: #22d6d6;
   .active {
     color: #5b56dd;
   }
+  @apply my-4;
 }
 
 .blog_desc_section {
-  padding-top: 40%;
+  padding-top: 25%;
   @screen sm {
-    padding-top: 20%;
+    padding-top: 15%;
   }
   @apply text-center;
   .blog_title {
@@ -55,20 +55,9 @@ $text-color: #22d6d6;
     width: 50%;
   }
   @apply text-gray-400;
-  .posts {
-    height: 400px;
-    overflow-y: scroll;
-  }
-  .article {
-    display: flex;
-    @apply justify-between;
-    span {
-      overflow: hidden;
-      color: transparent;
-      white-space: nowrap;
-      background: linear-gradient(to right, #a3abbe, #41f5e4, #45db45);
-      -webkit-background-clip: text;
-      @extend .cursor-self-pointer;
-    }
+  .article_title {
+    @extend .cursor-self-pointer;
+    @extend .text-color;
+    @extend .line-1-ellipsis;
   }
 }

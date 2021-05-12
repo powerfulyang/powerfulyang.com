@@ -1,5 +1,7 @@
 .post {
-  max-width: 900px;
   margin: auto;
-  padding: 2rem;
+  padding: 2rem 2rem;
+  @screen lg {
+    padding: 2rem 20%;
+  }
 }

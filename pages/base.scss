@@ -1,3 +1,17 @@
 .cursor-self-pointer {
   cursor: url('/cursor/pointer.png'), auto;
 }
+
+@mixin text-ellipsis($line) {
+  display: -webkit-box; //作为弹性伸缩盒子模型显示。
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical; //设置伸缩盒子的子元素排列方式--从上到下垂直排列
+  -webkit-line-clamp: $line; //显示的行
+}
+.line-1-ellipsis {
+  @include text-ellipsis(1);
+}
+.line-2-ellipsis {
+  @include text-ellipsis(2);
+}

@@ -2,11 +2,10 @@ import React, { FC } from 'react';
 import { Header } from '@/components/Head';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { Button } from '@/components/Button';
-import { Icon, Tooltip } from '@powerfulyang/components';
+import { Icon } from '@powerfulyang/components';
 import { GetServerSidePropsContext } from 'next';
 import { request } from '@/utils/request';
 import { Post } from '@/types/Post';
-import { DateFormat } from '@/utils/Utils';
 import { Link } from '@/components/Link';
 import { groupBy } from 'ramda';
 import classNames from 'classnames';
@@ -33,30 +32,26 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount }, years, year }) 
           <div className={styles.years}>
             {years.map((x) => (
               <Link key={x} to={`?year=${x}`}>
-                <span
-                  className={classNames(styles.year, {
-                    [styles.active]: x === year,
-                  })}
-                >
-                  #{x}
+                <span className={classNames(styles.year)}>
+                  <span
+                    className={classNames('pr-1', {
+                      [`text-xl ${styles.active}`]: x === year,
+                    })}
+                  >
+                    #
+                  </span>
+                  {x}
                 </span>
               </Link>
             ))}
           </div>
-          <div className={styles.posts}>
-            {posts.map((post) => {
-              return (
-                <article className={styles.article} key={post.id}>
-                  <Tooltip title={post.title}>
-                    <span className="inline-block w-2/3 overflow-ellipsis">
-                      <Link to={`/post/${post.id}`}>{post.title}</Link>
-                    </span>
-                  </Tooltip>
-                  <span className="pl-2 sm:pl-8 inline-block">{DateFormat(post.createAt)}</span>
-                </article>
-              );
-            })}
-          </div>
+          {posts.map((post) => {
+            return (
+              <div className={classNames(styles.article_title)} key={post.id}>
+                <Link to={`/post/${post.id}`}>{post.title}</Link>
+              </div>
+            );
+          })}
         </main>
         <footer className="text-center w-full absolute bottom-10 left-1/2 transform -translate-x-1/2">
           <section className="text-blueGray-400">
@@ -98,7 +93,7 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount }, years, year }) 
               href="https://github.com/powerfulyang/powerfulyang.com"
               target="_blank"
               rel="noreferrer"
-              className="ml-2 text-blue-800"
+              className="ml-2 pt-4 text-yellow-200 sm:text-blue-900"
             >
               powerfulyang
             </a>

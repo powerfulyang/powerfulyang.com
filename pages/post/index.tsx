@@ -6,6 +6,7 @@ import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { request } from '@/utils/request';
 import { GetServerSidePropsContext } from 'next';
 import { MarkdownWrap } from '@/components/MarkdownWrap/MarkdownWrap';
+import styles from './index.module.scss';
 
 type PostProps = {
   data: Post;
@@ -21,7 +22,7 @@ const Posts: FC<PostProps> = ({ data }) => {
   return (
     <GlobalContextProvider>
       <Header title={data.title} />
-      <MarkdownWrap source={contents} />
+      <MarkdownWrap source={contents} className={styles.post} />
     </GlobalContextProvider>
   );
 };
