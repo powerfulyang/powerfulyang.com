@@ -5,6 +5,7 @@ import { Header } from '@/components/Head';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { request } from '@/utils/request';
 import { GetServerSidePropsContext } from 'next';
+import { MarkdownWrap } from '@/components/MarkdownWrap/MarkdownWrap';
 
 type PostProps = {
   data: Post;
@@ -20,7 +21,7 @@ const Posts: FC<PostProps> = ({ data }) => {
   return (
     <GlobalContextProvider>
       <Header title={data.title} />
-      {contents}
+      <MarkdownWrap source={contents} />
     </GlobalContextProvider>
   );
 };

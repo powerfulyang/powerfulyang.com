@@ -1,0 +1,178 @@
+$primary-color: #dec6fb;
+
+.markdown_body {
+  min-height: 100%;
+  color: #595959;
+  line-height: 1.75;
+  letter-spacing: 1px;
+  background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%),
+    linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
+  background-position: center center;
+  background-size: 20px 20px;
+
+  .heading1 {
+    border-color: $primary-color;
+    border-width: 1px;
+    @apply relative block h-auto p-2 font-bold text-center text-black border-solid;
+    &::before {
+      top: -0.4rem;
+      left: -0.4rem;
+      border-bottom: 1px solid $primary-color;
+      content: ' ';
+      @apply absolute block w-11/12 h-px;
+    }
+
+    .prefix {
+      display: block;
+      width: 3px;
+      height: 3px;
+      margin: 0 0 0 5%;
+      overflow: hidden;
+      line-height: 3px;
+      background-color: $primary-color;
+      box-shadow: 3px 0 $primary-color, 0 3px $primary-color, -3px 0 $primary-color,
+        0 -3px $primary-color;
+    }
+
+    .content {
+      @apply block pl-10 pr-10 text-2xl font-medium;
+    }
+
+    .suffix {
+      margin: 0 0 0 95%;
+      @extend .prefix;
+    }
+
+    &::after {
+      right: -0.4rem;
+      bottom: -0.4rem;
+      border-bottom: 1px solid $primary-color;
+      content: ' ';
+      @apply absolute block w-11/12 h-px;
+    }
+  }
+
+  h2 {
+    width: 100%;
+    color: #8e46de;
+    border-left: 5px solid #8e46de;
+    @apply my-6 inline-block text-xl py-1 pl-2 align-middle;
+  }
+
+  h3 {
+    display: inline-block;
+    margin: 2rem 0;
+    color: #8e46de;
+    text-align: left;
+    border-bottom: 1px solid #8e46de;
+    @apply text-lg pb-0.5;
+  }
+
+  h4 {
+    @apply text-lg font-medium my-2;
+  }
+
+  a {
+    @apply text-blue-600;
+  }
+
+  svg {
+    display: inline-block;
+  }
+
+  p {
+    line-height: 1.5;
+    @apply mb-4;
+  }
+
+  strong {
+    @apply font-semibold text-sm;
+  }
+
+  // blockquote
+  .blockquote {
+    @apply p-4 bg-gray-300 border-l-4 border-blue-400;
+    p {
+      @apply my-0;
+    }
+  }
+
+  // table
+  .table {
+    border: darkgrey 2px dashed;
+
+    thead {
+      border-bottom: cornflowerblue 2px solid;
+
+      tr {
+        th {
+          padding: 1em;
+          border-left: cornflowerblue 2px solid;
+
+          &:first-child {
+            border: none;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: darkgrey 2px dashed;
+
+        td {
+          padding: 0.5em;
+          text-align: center;
+          border-left: cornflowerblue 2px solid;
+
+          &:first-child {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+
+  pre {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  code {
+    padding: 0.2em;
+    color: #4a4a4a;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .post_info {
+    @apply flex justify-center flex-wrap my-8;
+    .post_info_comment {
+      @apply text-sm text-teal-500 pl-1;
+    }
+
+    .my {
+      @apply mx-4;
+    }
+
+    .author {
+      @extend .my;
+    }
+
+    .date {
+      @extend .my;
+    }
+
+    .word_count {
+      @extend .my;
+    }
+
+    .view_count {
+      @extend .my;
+    }
+
+    .qrcode {
+      @extend .my;
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+}

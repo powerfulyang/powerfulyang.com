@@ -92,13 +92,13 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount }, years, year }) 
               </a>
             </span>
           </section>
-          <section className="text-blueGray-400">
+          <section className="text-white">
             © {new Date().getFullYear()} Power by
             <a
               href="https://github.com/powerfulyang/powerfulyang.com"
               target="_blank"
               rel="noreferrer"
-              className="ml-2 text-blue-200"
+              className="ml-2 text-blue-800"
             >
               powerfulyang
             </a>
