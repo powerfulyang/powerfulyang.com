@@ -10,7 +10,9 @@ export const Link: FC<{ to: string }> = ({ children, to }) => {
   return (
     <a
       className="link"
-      onClick={async () => {
+      href={to}
+      onClick={async (e) => {
+        e.preventDefault();
         dispatch({ type: GlobalContextActionType.LinkRedirectStart });
         await router.push(to);
         dispatch({ type: GlobalContextActionType.LinkRedirectEnd });
