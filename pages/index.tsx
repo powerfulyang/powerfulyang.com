@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Header } from '@/components/Head';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
-import { Button } from '@/components/Button';
 import { Icon } from '@powerfulyang/components';
 import { GetServerSidePropsContext } from 'next';
 import { request } from '@/utils/request';
@@ -27,7 +26,7 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount }, years, year }) 
       <div className={styles.body}>
         <main className={styles.main}>
           <section className={styles.blog_desc_section}>
-            <Button className={styles.blog_title}>{`< #萝卜の小窝# >`}</Button>
+            <div className={styles.blog_title}>{`< #萝卜の小窝# >`}</div>
           </section>
           <div className={styles.years}>
             {years.map((x) => (
@@ -45,15 +44,17 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount }, years, year }) 
               </Link>
             ))}
           </div>
-          {posts.map((post) => {
-            return (
-              <div className={classNames(styles.article_title)} key={post.id}>
-                <Link to={`/post/${post.id}`}>{post.title}</Link>
-              </div>
-            );
-          })}
+          <section className={styles.titles}>
+            {posts.map((post) => {
+              return (
+                <div className={classNames(styles.article_title)} key={post.id}>
+                  <Link to={`/post/${post.id}`}>{post.title}</Link>
+                </div>
+              );
+            })}
+          </section>
         </main>
-        <footer className="text-center w-full absolute bottom-10 left-1/2 transform -translate-x-1/2">
+        <footer className="text-center absolute bottom-16 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 p-4 rounded-xl w-4/5 sm:w-auto">
           <section className="text-blueGray-400">
             <span className="mr-1">备案号:</span>
             <a
@@ -93,7 +94,7 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount }, years, year }) 
               href="https://github.com/powerfulyang/powerfulyang.com"
               target="_blank"
               rel="noreferrer"
-              className="ml-2 pt-4 text-yellow-200 sm:text-blue-900"
+              className="ml-2 pt-4 text-yellow-200 sm:text-green-400"
             >
               powerfulyang
             </a>

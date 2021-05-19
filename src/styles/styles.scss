@@ -1,6 +1,6 @@
 @import './pages/base';
 
-@mixin flushButton() {
+@mixin rainbowText() {
   position: relative;
   display: inline-block;
   overflow: hidden;
@@ -26,6 +26,7 @@
   &:hover {
     &::after {
       left: 120%;
+      z-index: 1000;
       transition: all 1350ms cubic-bezier(0.19, 1, 0.22, 1);
     }
   }

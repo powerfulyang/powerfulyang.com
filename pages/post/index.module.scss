@@ -1,7 +1,4 @@
 .post {
-  margin: auto;
-  padding: 2rem 2rem;
-  @screen lg {
-    padding: 2rem 20%;
-  }
+  padding: 2rem 3rem;
+  @apply mx-auto;
 }

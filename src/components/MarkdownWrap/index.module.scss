@@ -1,10 +1,18 @@
 $primary-color: #dec6fb;
+$heading-color: rgba(37, 99, 235, 0.8);
 
-.markdown_body {
+.wrap {
+  display: flex;
   min-height: 100%;
-  color: #595959;
+  background-color: #f4f5f5;
+}
+.markdown_body {
+  max-width: 900px;
+  min-height: 100%;
+  // 父元素设置 min-height 子元素设置 height 100% 继承不了的情况解决 给父元素设置 display: flex
   line-height: 1.75;
   letter-spacing: 1px;
+  background-color: #fff;
   background-image: linear-gradient(90deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%),
     linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
   background-position: center center;
@@ -35,7 +43,7 @@ $primary-color: #dec6fb;
     }
 
     .content {
-      @apply block px-20 text-2xl font-medium;
+      @apply block px-20 text-2xl font-semibold;
     }
 
     .suffix {
@@ -54,26 +62,37 @@ $primary-color: #dec6fb;
 
   h2 {
     width: 100%;
-    color: #8e46de;
-    border-left: 5px solid #8e46de;
-    @apply my-6 inline-block text-xl py-1 pl-2 align-middle;
+    color: $heading-color;
+    @apply inline-block text-2xl align-middle font-semibold my-4;
+    &::before {
+      content: '#';
+      @apply text-2xl font-semibold pr-2;
+    }
   }
 
   h3 {
-    display: inline-block;
-    margin: 2rem 0;
-    color: #8e46de;
+    color: $heading-color;
     text-align: left;
-    border-bottom: 1px solid #8e46de;
-    @apply text-lg pb-0.5;
+    @apply text-lg text-xl font-medium ml-1 my-3;
+    &::before {
+      content: '##';
+      @apply text-xl font-medium pr-2;
+    }
   }
 
   h4 {
-    @apply text-lg font-medium my-2;
+    color: $heading-color;
+    @apply text-lg font-medium inline-block ml-2 my-2;
+    &::before {
+      content: '###';
+      @apply text-lg font-semibold pr-2;
+    }
   }
 
   a {
-    @apply text-blue-600;
+    color: $heading-color;
+    border-bottom: 1px dashed #79a2c8;
+    @apply text-base pb-0.5;
   }
 
   svg {
@@ -81,17 +100,18 @@ $primary-color: #dec6fb;
   }
 
   p {
-    line-height: 1.5;
-    @apply mb-4;
+    line-height: 2rem;
+    text-indent: 2em;
   }
 
   strong {
-    @apply font-semibold text-sm;
+    color: $heading-color;
+    @apply font-semibold text-base;
   }
 
   // blockquote
   .blockquote {
-    @apply p-4 bg-gray-300 border-l-4 border-blue-400;
+    @apply p-4 bg-gray-300 border-l-4 border-blue-400 my-4;
     p {
       @apply my-0;
     }

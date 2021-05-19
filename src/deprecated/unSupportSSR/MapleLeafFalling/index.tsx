@@ -58,22 +58,7 @@ export default function MapleLeafFalling() {
     };
     Matrix44.createIdentity = function () {
       return new Float32Array([
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        1.0,
+        1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,
       ]);
     };
     Matrix44.loadProjection = function (m, aspect, vdeg, near, far) {

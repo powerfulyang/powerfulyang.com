@@ -41,7 +41,9 @@ const Demo = () => {
         <p>
           click buttons above, and then click this `+++` button, the position numbers will grow.
         </p>
-        <button onClick={() => setCount(count + 1)}>+++</button>
+        <button type="button" onClick={() => setCount(count + 1)}>
+          +++
+        </button>
       </div>
     </div>
   );

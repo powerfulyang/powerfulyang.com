@@ -1,4 +1,5 @@
 @import './base';
+@import '../src/styles/styles';
 
 $text-color: #22d6d6;
 .text-color {
@@ -33,6 +34,7 @@ $text-color: #22d6d6;
   @apply text-center;
   .blog_title {
     @apply text-4xl;
+    @include rainbowText();
   }
 }
 .twitter {
@@ -55,6 +57,9 @@ $text-color: #22d6d6;
     width: 50%;
   }
   @apply text-gray-400;
+  .titles {
+    line-height: 2rem;
+  }
   .article_title {
     @extend .cursor-self-pointer;
     @extend .text-color;

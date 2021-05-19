@@ -26,19 +26,6 @@ export const BlockQuote: FC = ({ children }) => {
   return <blockquote className={styles.blockquote}>{children}</blockquote>;
 };
 
-export const List: FC<{ depth: number; ordered: boolean }> = (props) => {
-  if ((props.children as any[])![0].props.checked !== null) {
-    return <ul className={styles.task_list_parent}>{props.children}</ul>;
-  }
-  if (props.ordered) {
-    return <ul className={styles.list_ordered}>{props.children}</ul>;
-  }
-  if (props.depth % 2 === 0) {
-    return <ul className={styles.list_even}>{props.children}</ul>;
-  }
-  return <ul className={styles.list_odd}>{props.children}</ul>;
-};
-
 export const Table: FC = (props) => {
   return <table className={styles.table}>{props.children}</table>;
 };
@@ -51,6 +38,7 @@ type NodePosition = {
 };
 
 type Node = {
+  properties: any;
   type: NodeType;
   children: Node[];
   value: string;
@@ -76,8 +64,7 @@ export const Paragraph: FC<{ node: Node }> = (props) => {
     const postDate = info[1];
     const wordCount = info[2];
     const viewCount = info[3];
-    const avatar = props.node.children[1].url;
-    console.log(avatar);
+    const avatar = props.node.children[1].properties.href;
     return (
       <div className={styles.post_info}>
         <span className={styles.author}>
@@ -95,6 +82,9 @@ export const Paragraph: FC<{ node: Node }> = (props) => {
         <span className={styles.view_count}>
           <Icon type="icon-view_count" />
           <span className={styles.post_info_comment}>被{viewCount}人临幸</span>
+        </span>
+        <span className="mt-2">
+          <img src={avatar} alt="" className="w-4 h-4" />
         </span>
         <span className={styles.qrcode}>
           <a className={styles.post_info_comment}>手机上打开</a>
