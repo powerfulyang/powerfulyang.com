@@ -1,0 +1,12 @@
+.wrap {
+  width: 100%;
+  min-height: 100%;
+  background-color: #f4f5f7;
+  @apply py-10;
+}
+
+.container {
+  width: 900px;
+  background-color: white;
+  @apply mx-auto p-4 rounded shadow my-4;
+}
