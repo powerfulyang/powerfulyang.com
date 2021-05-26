@@ -25,13 +25,13 @@
     "noEmit": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "strict": true,
     "paths": {
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "isolatedModules": true
   },
   "include": [
     "next-env.d.ts",
