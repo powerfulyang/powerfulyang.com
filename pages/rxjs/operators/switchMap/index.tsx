@@ -3,7 +3,7 @@ import { useEffectOnce } from '@powerfulyang/hooks';
 import { fromEvent, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-const SwitchMap = () => {
+const Index = () => {
   const switchMapRef = useRef<HTMLDivElement>(null);
   useEffectOnce(() => {
     fromEvent(switchMapRef.current!, 'click')
@@ -20,4 +20,4 @@ const SwitchMap = () => {
   );
 };
 
-export default SwitchMap;
+export default Index;
