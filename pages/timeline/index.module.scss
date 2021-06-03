@@ -9,4 +9,12 @@
   width: 900px;
   background-color: white;
   @apply mx-auto p-4 rounded shadow my-4;
+  .author {
+    .avatar {
+      @apply rounded-full;
+    }
+  }
+  .content {
+    @apply text-lg;
+  }
 }
