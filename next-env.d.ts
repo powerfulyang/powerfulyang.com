@@ -1,6 +1,3 @@
-declare module '*.glsl' {
-  const value: string;
-  export default value;
-}
-
-declare module '*.scss';
+/// <reference types="next" />
+/// <reference types="next/types/global" />
+/// <reference types="next/image-types/global" />
