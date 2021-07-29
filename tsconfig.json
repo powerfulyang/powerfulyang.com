@@ -31,7 +31,8 @@
         "./src/*"
       ]
     },
-    "isolatedModules": true
+    "isolatedModules": true,
+    "strictPropertyInitialization": false
   },
   "include": [
     "next-env.d.ts",

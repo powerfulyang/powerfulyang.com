@@ -1,18 +1,32 @@
 import React, { FC } from 'react';
+import { UserLayout } from '@/layout/UserLayout';
 import { GetServerSidePropsContext } from 'next';
 import { request } from '@/utils/request';
+import { Feed } from '@/types/Feed';
 import styles from './index.module.scss';
 
-const Timeline: FC<any> = ({ data }) => {
+type TimelineProps = {
+  feeds: Feed[];
+};
+
+type LayoutFC = {
+  getLayout: (page: any) => any;
+};
+
+const Timeline: FC<TimelineProps> & LayoutFC = ({ feeds = [] }) => {
   return (
     <div className={styles.wrap}>
-      <div className={styles.container}>
-        <div className={styles.author}>
-          <div className={styles.avatar} />
+      {feeds.map((feed) => (
+        <div key={feed.id} className={styles.container}>
+          <div className={styles.author}>
+            <span>{feed.createBy.nickname}</span>
+            <div className={styles.avatar}>
+              <img src={feed.createBy.avatar} alt="用户头像" />
+            </div>
+          </div>
+          <div className={styles.content}>{feed.content}</div>
         </div>
-        {JSON.stringify(data)}
-        <div className={styles.content}>有多少笑容，就有多少泪水。</div>
-      </div>
+      ))}
       <div className={styles.container}>
         <textarea className="border border-solid border-black px-2 py-1 cursor-text" />
       </div>
@@ -20,12 +34,13 @@ const Timeline: FC<any> = ({ data }) => {
   );
 };
 
+Timeline.getLayout = (page) => <UserLayout>{page}</UserLayout>;
+
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const res = await request(`/user/current`, { ctx });
+  const res = await request(`/feed`, { ctx });
   const { data } = await res.json();
-  console.log(data);
   return {
-    props: { data },
+    props: { feeds: data },
   };
 };
 

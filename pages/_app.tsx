@@ -9,5 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
     scriptElem.src = '//at.alicdn.com/t/font_178634_gplar6cu12.js';
     document.body.appendChild(scriptElem);
   }
-  return <Component {...pageProps} />;
+  // @ts-ignore
+  const getLayout = Component.getLayout || ((page: any) => page);
+  return getLayout(<Component {...pageProps} />);
 }

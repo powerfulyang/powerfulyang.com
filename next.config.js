@@ -28,4 +28,10 @@ module.exports = withBundleAnalyzer({
       },
     ];
   },
+  images: {
+    domains: ['lh3.googleusercontent.com'],
+  },
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  },
 });

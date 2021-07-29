@@ -1,4 +1,4 @@
-import { DateFormat } from '@/utils/Utils';
+import { DateFormat } from '@/utils/lib';
 import React, { FC } from 'react';
 import { Post } from '@/types/Post';
 import { Header } from '@/components/Head';
