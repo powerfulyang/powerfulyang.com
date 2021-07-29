@@ -40,7 +40,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const res = await request(`/feed`, { ctx });
   const { data } = await res.json();
   return {
-    props: { feeds: data },
+    props: { feeds: data || [] },
   };
 };
 

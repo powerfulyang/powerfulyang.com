@@ -10,8 +10,8 @@ export const NavBar: FC<NavBarProps> = ({ user }) => {
   return (
     <nav className={styles.nav}>
       {/* menu */}
-      {user?.nickname}
-      {user?.avatar}
+      <span>{user?.nickname}</span>
+      <img src={user?.avatar} alt="登录用户头像" />
     </nav>
   );
 };
