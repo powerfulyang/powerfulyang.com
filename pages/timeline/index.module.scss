@@ -1,19 +1,40 @@
+@import '../../src/styles/styles';
+
 .wrap {
   width: 100%;
-  min-height: 100%;
+  min-height: calc(100% - var(--nav-height));
+  padding: 2rem;
   background-color: #f4f5f7;
 }
 
 .container {
-  width: 900px;
+  max-width: 618px;
   background-color: white;
-  @apply mx-auto p-4 rounded shadow my-4;
+  @apply mx-auto p-4 rounded my-6 shadow;
   .author {
+    @apply flex justify-start items-center mb-4;
     .avatar {
-      @apply rounded-full;
+      @apply w-10 mr-4;
+      img {
+        @apply rounded-full;
+      }
+    }
+    .nickname {
+      @include rainbowText();
     }
   }
   .content {
     @apply text-lg;
+    .text {
+      @apply text-sm;
+    }
+    .assets {
+      img {
+        width: 100px;
+        height: 100px;
+        border: 1px solid beige;
+        @apply mt-4;
+      }
+    }
   }
 }

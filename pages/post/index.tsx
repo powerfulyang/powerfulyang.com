@@ -1,8 +1,6 @@
 import { DateFormat } from '@/utils/lib';
 import React, { FC } from 'react';
 import { Post } from '@/types/Post';
-import { Header } from '@/components/Head';
-import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { request } from '@/utils/request';
 import { GetServerSidePropsContext } from 'next';
 import { MarkdownWrap } from '@/components/MarkdownWrap/MarkdownWrap';
@@ -19,12 +17,7 @@ const Posts: FC<PostProps> = ({ data }) => {
   }|${pathViewCount}|${user.avatar}  \r\n\r\n`;
   const tagsInfo = `tags=>${(tags || []).join('|')}  \r\n\r\n`;
   const contents = content.replace(/(\r\n|\n)/, `\r\n\r\n${postInfo}${tagsInfo}`);
-  return (
-    <GlobalContextProvider>
-      <Header title={data.title} />
-      <MarkdownWrap source={contents} className={styles.post} />
-    </GlobalContextProvider>
-  );
+  return <MarkdownWrap source={contents} className={styles.post} />;
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {

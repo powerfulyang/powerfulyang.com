@@ -31,6 +31,8 @@ html,
 body,
 #__next {
   font-size: 13px;
+
+  --nav-height: 4rem;
   @screen sm {
     font-size: 15px;
   }

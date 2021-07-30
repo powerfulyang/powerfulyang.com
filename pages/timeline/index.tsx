@@ -3,6 +3,9 @@ import { UserLayout } from '@/layout/UserLayout';
 import { GetServerSidePropsContext } from 'next';
 import { request } from '@/utils/request';
 import { Feed } from '@/types/Feed';
+import { DateTimeFormat } from '@/utils/lib';
+import { GlobalContextProvider } from '@/context/GlobalContextProvider';
+import classNames from 'classnames';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -15,22 +18,33 @@ type LayoutFC = {
 
 const Timeline: FC<TimelineProps> & LayoutFC = ({ feeds = [] }) => {
   return (
-    <div className={styles.wrap}>
-      {feeds.map((feed) => (
-        <div key={feed.id} className={styles.container}>
-          <div className={styles.author}>
-            <span>{feed.createBy.nickname}</span>
-            <div className={styles.avatar}>
-              <img src={feed.createBy.avatar} alt="用户头像" />
+    <GlobalContextProvider>
+      <div className={styles.wrap}>
+        {feeds.map((feed) => (
+          <div key={feed.id} className={styles.container}>
+            <div className={styles.author}>
+              <div className={styles.avatar}>
+                <img src={feed.createBy.avatar} alt="用户头像" />
+              </div>
+              <div>
+                <div className={classNames('text-lg', styles.nickname)}>
+                  {feed.createBy.nickname}
+                </div>
+                <div className="text-gray-400 text-xs">{DateTimeFormat(feed.createAt)}</div>
+              </div>
+            </div>
+            <div className={styles.content}>
+              <div className={styles.text}>{feed.content}</div>
+              <div className={styles.assets}>
+                {feed.assets?.map((asset) => (
+                  <img src={asset.objectUrl} key={asset.id} alt="" />
+                ))}
+              </div>
             </div>
           </div>
-          <div className={styles.content}>{feed.content}</div>
-        </div>
-      ))}
-      <div className={styles.container}>
-        <textarea className="border border-solid border-black px-2 py-1 cursor-text" />
+        ))}
       </div>
-    </div>
+    </GlobalContextProvider>
   );
 };
 

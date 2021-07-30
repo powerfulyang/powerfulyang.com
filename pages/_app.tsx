@@ -2,6 +2,8 @@ import React from 'react';
 import { AppProps } from 'next/app';
 import './app.scss';
 import { isClient } from '@powerfulyang/utils';
+import { GlobalContextProvider } from '@/context/GlobalContextProvider';
+import { Header } from '@/components/Head';
 
 export default function App({ Component, pageProps }: AppProps) {
   if (isClient) {
@@ -11,5 +13,10 @@ export default function App({ Component, pageProps }: AppProps) {
   }
   // @ts-ignore
   const getLayout = Component.getLayout || ((page: any) => page);
-  return getLayout(<Component {...pageProps} />);
+  return (
+    <GlobalContextProvider>
+      <Header />
+      {getLayout(<Component {...pageProps} />)}
+    </GlobalContextProvider>
+  );
 }
