@@ -1,4 +1,68 @@
-.post {
-  padding: 2rem 3rem;
-  @apply mx-auto;
+@import '../base';
+@import '../../src/styles/styles';
+
+$text-color: #22d6d6;
+.text-color {
+  color: $text-color;
+}
+
+.body {
+  background-image: url('/img.webp');
+  background-size: cover;
+  @apply w-full h-full;
+  * {
+    font-family: 'Zpix', serif;
+  }
+}
+
+.years {
+  .year {
+    @apply mr-4 text-xl italic;
+    @extend .cursor-self-pointer;
+  }
+  .active {
+    color: #5b56dd;
+  }
+  @apply my-4;
+}
+
+.blog_desc_section {
+  padding-top: 25%;
+  @screen sm {
+    padding-top: 15%;
+  }
+  @apply text-center;
+  .blog_title {
+    @apply text-4xl;
+    @include rainbowText;
+  }
+}
+.twitter {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #ccc;
+  vertical-align: middle;
+}
+.github {
+  @extend .twitter;
+}
+.instagram {
+  @extend .twitter;
+}
+
+.main {
+  width: 88%;
+  margin: auto;
+  @screen sm {
+    width: 50%;
+  }
+  @apply text-gray-400;
+  .titles {
+    line-height: 2rem;
+  }
+  .article_title {
+    @extend .cursor-self-pointer;
+    @extend .text-color;
+    @extend .line-1-ellipsis;
+  }
 }

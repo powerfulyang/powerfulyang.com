@@ -23,7 +23,7 @@ module.exports = withBundleAnalyzer({
   async rewrites() {
     return [
       {
-        source: '/post/:id',
+        source: '/',
         destination: '/post',
       },
     ];
