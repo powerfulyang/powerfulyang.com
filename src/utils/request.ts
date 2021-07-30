@@ -18,7 +18,7 @@ export const request = async (url: string, options: RequestOptions = {}) => {
 };
 
 export const swrRequest = (options: RequestOptions = {}) => {
-  const baseUrl = process.env.BASE_URL;
+  const baseUrl = 'https://api.powerfulyang.com/api';
   const { method } = options;
   return async (url: any) => {
     const res = await fetch(`${baseUrl}${url}`, {
