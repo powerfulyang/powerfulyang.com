@@ -3,14 +3,14 @@
 .wrap {
   width: 100%;
   min-height: calc(100% - var(--nav-height));
-  padding: 2rem;
   background-color: #f4f5f7;
+  @apply p-10;
 }
 
 .container {
   max-width: 618px;
   background-color: white;
-  @apply mx-auto p-4 rounded my-6 shadow;
+  @apply mx-auto p-4 rounded mb-6 shadow;
   .author {
     @apply flex justify-start items-center mb-4;
     .avatar {
@@ -20,7 +20,7 @@
       }
     }
     .nickname {
-      @include rainbowText();
+      @include rainbowText;
     }
   }
   .content {

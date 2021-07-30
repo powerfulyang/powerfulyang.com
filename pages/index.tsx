@@ -6,6 +6,7 @@ import { Post } from '@/types/Post';
 import { Link } from '@/components/Link';
 import { groupBy } from 'ramda';
 import classNames from 'classnames';
+import { ProjectName } from '@/constant/Constant';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -22,7 +23,7 @@ const Index: FC<IndexProps> = ({ data: { posts, pathViewCount }, years, year }) 
     <div className={styles.body}>
       <main className={styles.main}>
         <section className={styles.blog_desc_section}>
-          <div className={styles.blog_title}>{`< #萝卜の小窝# >`}</div>
+          <div className={styles.blog_title}>{ProjectName}</div>
         </section>
         <div className={styles.years}>
           {years.map((x) => (

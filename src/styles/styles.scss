@@ -5,7 +5,7 @@
   display: inline-block;
   overflow: hidden;
   color: transparent;
-  background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, purple);
+  background: linear-gradient(to right, #010e29, #156cdd 33%, #06aff2 66%, #06f3af 100%);
   -webkit-background-clip: text;
   &:focus {
     outline: 0;

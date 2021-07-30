@@ -1,13 +1,37 @@
+@import 'src/styles/styles';
+
 .nav {
   position: sticky;
   top: 0;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   height: var(--nav-height);
-  background-image: linear-gradient(45deg, #7a88ff, #7affaf);
+  background-image: linear-gradient(45deg, #b47a7a, #a5a5f1, #a7a9bb, #4d6bb3);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
   img {
-    width: 3rem;
+    width: 2.5rem;
     @apply rounded-full mx-4;
+  }
+  .user {
+    @apply flex items-center;
+    .nickname {
+      @apply text-gray-200;
+    }
+  }
+  .title {
+    font-family: 'Zpix', serif;
+    @apply text-2xl ml-10;
+    @include rainbowText;
+  }
+  .left {
+    @apply flex items-center;
+  }
+  .menus {
+    @apply ml-24;
+    a {
+      @apply px-4 uppercase text-base italic font-normal;
+    }
   }
 }

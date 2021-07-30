@@ -34,7 +34,7 @@ $text-color: #22d6d6;
   @apply text-center;
   .blog_title {
     @apply text-4xl;
-    @include rainbowText();
+    @include rainbowText;
   }
 }
 .twitter {
