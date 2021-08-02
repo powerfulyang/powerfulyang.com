@@ -1,16 +1,17 @@
 @import 'src/styles/styles';
 
 .nav {
-  position: sticky;
+  position: fixed;
   top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   height: var(--nav-height);
-  background-image: linear-gradient(45deg, #b47a7a, #a5a5f1, #a7a9bb, #4d6bb3);
+  background: transparent;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+  backdrop-filter: blur(10px);
   img {
     width: 2.5rem;
     @apply rounded-full mx-4;

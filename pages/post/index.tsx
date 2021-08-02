@@ -6,7 +6,6 @@ import { Post } from '@/types/Post';
 import { Link } from '@/components/Link';
 import { groupBy } from 'ramda';
 import classNames from 'classnames';
-import { ProjectName } from '@/constant/Constant';
 import { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import styles from './index.module.scss';
@@ -24,9 +23,6 @@ const Index: LayoutFC<IndexProps> = ({ data: { posts, pathViewCount }, years, ye
   return (
     <div className={styles.body}>
       <main className={styles.main}>
-        <section className={styles.blog_desc_section}>
-          <div className={styles.blog_title}>{ProjectName}</div>
-        </section>
         <div className={styles.years}>
           {years.map((x) => (
             <Link key={x} to={`?year=${x}`}>

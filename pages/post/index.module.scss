@@ -7,11 +7,33 @@ $text-color: #22d6d6;
 }
 
 .body {
+  z-index: -1;
+  font-family: 'Zpix', serif;
   background-image: url('/img.webp');
   background-size: cover;
   @apply w-full h-full;
-  * {
-    font-family: 'Zpix', serif;
+  &::before {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0) 25%,
+        rgba(255, 255, 255, 0) 25%,
+        rgba(0, 0, 0, 0.2) 75%,
+        rgba(0, 0, 0, 0.5) 75%
+      ),
+      linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0) 25%,
+        rgba(255, 255, 255, 0) 25%,
+        rgba(0, 0, 0, 0.2) 75%,
+        rgba(0, 0, 0, 0.5) 75%
+      );
+    background-position: 0 0, 2px 2px;
+    background-size: 4px 2px, 4px 2px;
+    background-blend-mode: multiply;
+    content: '';
   }
 }
 
@@ -26,17 +48,6 @@ $text-color: #22d6d6;
   @apply my-4;
 }
 
-.blog_desc_section {
-  padding-top: 25%;
-  @screen sm {
-    padding-top: 15%;
-  }
-  @apply text-center;
-  .blog_title {
-    @apply text-4xl;
-    @include rainbowText;
-  }
-}
 .twitter {
   width: 1.5rem;
   height: 1.5rem;
@@ -51,11 +62,8 @@ $text-color: #22d6d6;
 }
 
 .main {
-  width: 88%;
-  margin: auto;
-  @screen sm {
-    width: 50%;
-  }
+  position: absolute;
+  top: 0;
   @apply text-gray-400;
   .titles {
     line-height: 2rem;
