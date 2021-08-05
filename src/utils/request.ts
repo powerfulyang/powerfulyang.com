@@ -1,25 +1,27 @@
 import nodeFetch from 'node-fetch';
 import { pick } from 'ramda';
 import { GetServerSidePropsContext } from 'next';
+import { stringify } from 'querystring';
 
 export type RequestOptions = {
   method?: string;
-  ctx?: GetServerSidePropsContext;
+  ctx: GetServerSidePropsContext;
 };
 
-export const request = async (url: string, options: RequestOptions = {}) => {
+export const request = async (url: string, options: RequestOptions) => {
   const { method = 'GET', ctx } = options;
+  const { query } = ctx;
   const baseUrl = process.env.BASE_URL;
-  const headers = pick(['x-real-ip', 'cookie'], ctx?.req.headers || { 'x-real-ip': '127.0.0.1' });
-  return nodeFetch(`${baseUrl}${url}`, {
+  const headers = pick(['x-real-ip', 'cookie'], ctx.req.headers || { 'x-real-ip': '127.0.0.1' });
+  return nodeFetch(`${baseUrl}${url}?${stringify(query)}`, {
     method,
     headers,
   });
 };
 
-export const swrRequest = (options: RequestOptions = {}) => {
+export const swrRequest = (options: Omit<RequestOptions, 'ctx'> = {}) => {
   const baseUrl = 'https://api.powerfulyang.com/api';
-  const { method } = options;
+  const { method = 'GET' } = options;
   return async (url: any) => {
     const res = await fetch(`${baseUrl}${url}`, {
       method,
