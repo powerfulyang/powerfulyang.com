@@ -4,6 +4,7 @@ import React from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { request } from '@/utils/request';
 import { Asset } from '@/types/Asset';
+import { ImagePreview } from '@/components/ImagePreview/Index';
 import styles from './index.module.scss';
 
 type GalleryProps = {
@@ -14,9 +15,13 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
   return (
     <>
       <div className={styles.gallery}>
-        {assets.map((asset) => (
-          <img className={styles.image} key={asset.id} src={asset.objectUrl} alt="" />
-        ))}
+        <ImagePreview>
+          {assets.map((asset) => (
+            <div key={asset.id} className={styles.image_wrap}>
+              <img className={styles.image} src={asset.objectUrl} alt="" />
+            </div>
+          ))}
+        </ImagePreview>
       </div>
     </>
   );

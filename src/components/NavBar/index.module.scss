@@ -3,14 +3,13 @@
 .nav {
   position: fixed;
   top: 0;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   height: var(--nav-height);
   background: transparent;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
   backdrop-filter: blur(10px);
   img {
     width: 2.5rem;
