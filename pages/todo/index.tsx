@@ -4,6 +4,7 @@ import React from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { request } from '@/utils/request';
 import { Todo } from '@/types/Todo';
+import { DateFormat } from '@/utils/lib';
 
 type TodoProps = {
   todos: Todo[];
@@ -12,9 +13,15 @@ type TodoProps = {
 export const Todos: LayoutFC<TodoProps> = ({ todos }) => {
   return (
     <>
-      {todos.map((todo) => (
-        <div key={todo.id}>{todo.id}</div>
-      ))}
+      <main>
+        <ul className="mt-6">
+          {todos.map((todo) => (
+            <li key={todo.id} className="text-center mt-2">
+              {todo.info} createAt:{DateFormat(todo.createAt)} author:{todo.createBy.nickname}
+            </li>
+          ))}
+        </ul>
+      </main>
     </>
   );
 };

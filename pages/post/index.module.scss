@@ -39,7 +39,8 @@ $text-color: #242e4c;
 .main {
   position: absolute;
   top: calc(var(--nav-height) + 30px);
-  left: 25%;
+  left: 40%;
+  width: 30%;
   font-family: 'Zpix', serif;
   .titles {
     line-height: 2rem;
