@@ -31,14 +31,18 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const res = await request('/asset', {
     ctx,
   });
-  const { data } = await res.json();
+  const { data, pathViewCount } = await res.json();
   return {
     props: {
       assets: data[0],
+      pathViewCount,
     },
   };
 };
 
-Gallery.getLayout = (page) => <UserLayout>{page}</UserLayout>;
+Gallery.getLayout = (page) => {
+  const { pathViewCount } = page.props;
+  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
+};
 
 export default Gallery;

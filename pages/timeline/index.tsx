@@ -40,13 +40,16 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds = [] }) => {
   );
 };
 
-Timeline.getLayout = (page) => <UserLayout>{page}</UserLayout>;
+Timeline.getLayout = (page) => {
+  const { pathViewCount } = page.props;
+  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
+};
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const res = await request(`/feed`, { ctx });
-  const { data } = await res.json();
+  const { data, pathViewCount } = await res.json();
   return {
-    props: { feeds: data || [] },
+    props: { feeds: data || [], pathViewCount },
   };
 };
 

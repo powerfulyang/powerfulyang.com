@@ -1,7 +1,7 @@
 @import 'src/styles/styles';
 
 .nav {
-  position: fixed;
+  position: sticky;
   top: 0;
   z-index: 1000;
   display: flex;
@@ -9,8 +9,8 @@
   justify-content: space-between;
   width: 100%;
   height: var(--nav-height);
-  background: transparent;
-  backdrop-filter: blur(10px);
+  background: white;
+  box-shadow: 0 10px 20px -7px rgb(160 44 219 / 7%);
   img {
     width: 2.5rem;
     @apply rounded-full mx-4;
@@ -18,7 +18,7 @@
   .user {
     @apply flex items-center;
     .nickname {
-      @apply text-gray-200;
+      color: #242e4c;
     }
   }
   .title {
@@ -30,9 +30,13 @@
     @apply flex items-center;
   }
   .menus {
+    color: #7d7a9e;
     @apply ml-24;
+    .active {
+      color: #242e4c;
+    }
     a {
-      @apply px-4 uppercase text-base italic font-normal;
+      @apply px-4 uppercase font-normal text-sm;
     }
   }
 }

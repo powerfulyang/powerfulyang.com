@@ -1,11 +1,35 @@
 import { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import React from 'react';
+import { GetServerSidePropsContext } from 'next';
+import { request } from '@/utils/request';
+import { Todo } from '@/types/Todo';
 
-export const Todo: LayoutFC = () => {
-  return <>hello todo!</>;
+type TodoProps = {
+  todos: Todo[];
 };
 
-Todo.getLayout = (page) => <UserLayout>{page}</UserLayout>;
+export const Todos: LayoutFC<TodoProps> = ({ todos }) => {
+  return (
+    <>
+      {todos.map((todo) => (
+        <div key={todo.id}>{todo.id}</div>
+      ))}
+    </>
+  );
+};
 
-export default Todo;
+Todos.getLayout = (page) => {
+  const { pathViewCount } = page.props;
+  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
+};
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const res = await request(`/todo`, { ctx });
+  const { data, pathViewCount } = await res.json();
+  return {
+    props: { todos: data || [], pathViewCount },
+  };
+};
+
+export default Todos;

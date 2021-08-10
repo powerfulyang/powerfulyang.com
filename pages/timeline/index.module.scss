@@ -3,14 +3,15 @@
 .wrap {
   width: 100%;
   min-height: calc(100% - var(--nav-height));
-  background-color: #f4f5f7;
+  background-color: #fcfcff;
   @apply p-10;
 }
 
 .container {
   max-width: 618px;
   background-color: white;
-  @apply mx-auto p-4 rounded mb-6 shadow;
+  box-shadow: 5px 5px 7px 7px rgb(160 44 219 / 7%);
+  @apply mx-auto p-4 rounded mb-6;
   .author {
     @apply flex justify-start items-center mb-4;
     .avatar {

@@ -1,49 +1,24 @@
 @import '../base';
 @import '../../src/styles/styles';
 
-$text-color: #22d6d6;
+$text-color: #242e4c;
 .text-color {
   color: $text-color;
 }
 
 .body {
   z-index: -1;
-  font-family: 'Zpix', serif;
-  background-image: url('/img.webp');
-  background-size: cover;
-  @apply w-full h-full;
-  &::before {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0) 25%,
-        rgba(255, 255, 255, 0) 25%,
-        rgba(0, 0, 0, 0.2) 75%,
-        rgba(0, 0, 0, 0.5) 75%
-      ),
-      linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0) 25%,
-        rgba(255, 255, 255, 0) 25%,
-        rgba(0, 0, 0, 0.2) 75%,
-        rgba(0, 0, 0, 0.5) 75%
-      );
-    background-position: 0 0, 2px 2px;
-    background-size: 4px 2px, 4px 2px;
-    background-blend-mode: multiply;
-    content: '';
-  }
+  min-height: calc(100% - var(--nav-height));
+  background-color: #fcfcff;
+  @apply w-full;
 }
 
 .years {
   .year {
-    @apply mr-4 text-xl italic;
-    @extend .cursor-self-pointer;
+    @apply mr-4 italic text-gray-300;
   }
   .active {
-    color: #5b56dd;
+    @apply text-pink-400;
   }
   @apply my-4;
 }
@@ -63,13 +38,14 @@ $text-color: #22d6d6;
 
 .main {
   position: absolute;
-  top: 0;
-  @apply text-gray-400;
+  top: calc(var(--nav-height) + 30px);
+  left: 25%;
+  font-family: 'Zpix', serif;
   .titles {
     line-height: 2rem;
   }
   .article_title {
-    @extend .cursor-self-pointer;
+    @apply text-sm mt-2;
     @extend .text-color;
     @extend .line-1-ellipsis;
   }

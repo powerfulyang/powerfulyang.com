@@ -27,7 +27,7 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
                 <Link
                   key={x}
                   className={classNames({
-                    'text-blue-600': Reflect.get(Menu, x) === active,
+                    [styles.active]: Reflect.get(Menu, x) === active,
                   })}
                   to={`/${x}`}
                 >
