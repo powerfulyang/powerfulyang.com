@@ -1,0 +1,14 @@
+@keyframes loading-img {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.loading {
+  animation: loading-img 2s infinite;
+  @apply bg-gray-100;
+}
+
+.loaded-img {
+  box-shadow: 4px 4px 6px 6px rgb(160 44 219 / 7%);
+}
