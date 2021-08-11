@@ -7,8 +7,8 @@ import { Asset } from '@/types/Asset';
 import { ImagePreview } from '@/components/ImagePreview/Index';
 import { useImmer } from '@powerfulyang/hooks';
 import useSWR from 'swr';
+import { LazyImage } from '@/components/LazyImage';
 import styles from './index.module.scss';
-import { LazyImage } from './LazyImage';
 
 type GalleryProps = {
   assets: Asset[];
@@ -17,10 +17,13 @@ type GalleryProps = {
 export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
   const [images, setImages] = useImmer(assets);
   const [page, setPage] = useState(2);
+  const [noMore, setNoMore] = useState(false);
   const loadMore = () => {
-    setPage((prevState) => {
-      return prevState + 1;
-    });
+    if (!noMore) {
+      setPage((prevState) => {
+        return prevState + 1;
+      });
+    }
   };
   const { data } = useSWR(['/asset', page], async (url, currentPage) => {
     const res = await clientRequest(url, {
@@ -31,6 +34,9 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
 
   useEffect(() => {
     if (data) {
+      if (!data.length) {
+        setNoMore(true);
+      }
       setImages((prev) => {
         prev.push(...data);
       });
