@@ -14,9 +14,9 @@ export const Todos: LayoutFC<TodoProps> = ({ todos }) => {
   return (
     <>
       <main>
-        <ul className="mt-6">
+        <ul className="mt-4">
           {todos.map((todo) => (
-            <li key={todo.id} className="text-center mt-2">
+            <li key={todo.id} className="text-center mb-2">
               {todo.info} createAt:{DateFormat(todo.createAt)} author:{todo.createBy.nickname}
             </li>
           ))}

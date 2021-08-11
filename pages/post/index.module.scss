@@ -8,9 +8,9 @@ $text-color: #242e4c;
 
 .body {
   z-index: -1;
-  min-height: calc(100% - var(--nav-height));
+  height: calc(100% - var(--nav-height));
   background-color: #fcfcff;
-  @apply w-full;
+  @apply w-full p-4;
 }
 
 .years {
@@ -20,7 +20,6 @@ $text-color: #242e4c;
   .active {
     @apply text-pink-400;
   }
-  @apply my-4;
 }
 
 .twitter {
@@ -37,10 +36,8 @@ $text-color: #242e4c;
 }
 
 .main {
-  position: absolute;
-  top: calc(var(--nav-height) + 30px);
-  left: 40%;
   width: 30%;
+  margin: auto;
   font-family: 'Zpix', serif;
   .titles {
     line-height: 2rem;

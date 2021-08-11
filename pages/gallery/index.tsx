@@ -30,6 +30,9 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const res = await request('/asset', {
     ctx,
+    query: {
+      pageSize: 100,
+    },
   });
   const { data, pathViewCount } = await res.json();
   return {
