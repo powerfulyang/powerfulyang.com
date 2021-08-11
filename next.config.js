@@ -1,9 +1,16 @@
+const webpack = require('webpack');
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
 module.exports = withBundleAnalyzer({
   webpack(config, _options) {
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        BASE_URL: JSON.stringify(process.env.BASE_URL),
+      }),
+    );
     config.module.rules.push({
       test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
       use: {

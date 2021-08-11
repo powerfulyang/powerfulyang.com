@@ -16,7 +16,7 @@ type UserLayoutProps = {
   pathViewCount?: number;
 };
 export const UserLayout: FC<UserLayoutProps> = ({ children, pathViewCount }) => {
-  const { data: user } = useSWR('/user/current', swrRequest());
+  const { data: { data: user } = {} } = useSWR('/user/current', swrRequest());
   const { pathname } = useRouter();
   return (
     <>
