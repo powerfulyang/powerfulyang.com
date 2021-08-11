@@ -1,10 +1,20 @@
 .wrap {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  z-index: 2000;
+  z-index: 100;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: black;
+  @apply bg-cover bg-center;
+  .blur {
+    width: 100%;
+    height: 100%;
+    @apply backdrop-filter backdrop-blur;
+  }
+  img {
+    z-index: 101;
+    height: 100%;
+    margin: auto;
+  }
 }

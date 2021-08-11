@@ -48,7 +48,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
       <div className={styles.gallery}>
         <ImagePreview>
           {images.map((asset) => (
-            <div key={asset.id} className={styles.image_wrap}>
+            <div key={asset.id} data-img={asset.objectUrl} className={styles.image_wrap}>
               <LazyImage
                 className={styles.image}
                 src={asset.objectUrl}

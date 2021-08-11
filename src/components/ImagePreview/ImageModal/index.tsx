@@ -5,11 +5,9 @@ import { isClient } from '@powerfulyang/utils';
 
 type ImageModalProps = {
   parentNode?: HTMLElement;
-  onClose?: VoidFunction;
-  visible?: boolean;
 };
 
-export const ImageModal: FC<ImageModalProps> = ({ parentNode, visible }) => {
+export const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
   const originalOverflowRef = React.useRef('');
   const dialogNode = useRef<HTMLElement>((isClient && document.createElement('section')) || null);
   useEffect(() => {
@@ -31,5 +29,5 @@ export const ImageModal: FC<ImageModalProps> = ({ parentNode, visible }) => {
     setShow(true);
   }, []);
 
-  return <>{show && createPortal(<ImageModalContent visible={visible} />, dialogNode.current!)}</>;
+  return <>{show && createPortal(<ImageModalContent />, dialogNode.current!)}</>;
 };

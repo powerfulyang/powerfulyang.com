@@ -12,7 +12,7 @@ export type RequestOptions = {
 
 export const request = async (url: string, options: RequestOptions) => {
   const { method = 'GET', ctx, body, query } = options;
-  const baseUrl = BASE_URL;
+  const baseUrl = process.env.BASE_URL;
   const headers = pick(['x-real-ip', 'cookie'], ctx.req.headers || { 'x-real-ip': '127.0.0.1' });
   return nodeFetch(`${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`, {
     method,
