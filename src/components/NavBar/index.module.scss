@@ -30,19 +30,20 @@
     @screen sm {
       font-family: 'Zpix', Sans serif;
       @include rainbowText;
-      @apply text-2xl ml-10;
+      @apply text-2xl mx-10;
     }
   }
   .left {
     @apply flex items-center;
   }
   .menus {
+    flex: 1;
     color: #7d7a9e;
     .active {
       color: #242e4c;
     }
     a {
-      @apply px-4 uppercase font-normal text-sm;
+      @apply mx-4 uppercase font-normal text-sm;
     }
   }
 }

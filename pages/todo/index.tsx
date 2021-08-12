@@ -5,6 +5,7 @@ import { GetServerSidePropsContext } from 'next';
 import { request } from '@/utils/request';
 import { Todo } from '@/types/Todo';
 import { DateFormat } from '@/utils/lib';
+import styles from './index.module.scss';
 
 type TodoProps = {
   todos: Todo[];
@@ -13,8 +14,8 @@ type TodoProps = {
 export const Todos: LayoutFC<TodoProps> = ({ todos }) => {
   return (
     <>
-      <main>
-        <ul className="mt-4 ">
+      <main className={styles.main}>
+        <ul>
           {todos.map((todo) => (
             <li key={todo.id} className="text-center mb-2">
               {todo.info} createAt:{DateFormat(todo.createAt)} author:{todo.createBy.nickname}

@@ -1,0 +1,6 @@
+.main {
+  height: calc(100% - var(--nav-height) - var(--footer-height));
+  overflow: auto;
+  background-color: #fcfcff;
+  @apply p-4;
+}

@@ -2,7 +2,8 @@
 
 .wrap {
   width: 100%;
-  min-height: calc(100% - var(--nav-height));
+  height: calc(100% - var(--nav-height) - var(--footer-height));
+  overflow: auto;
   background-color: #fcfcff;
   @apply p-4;
 }
