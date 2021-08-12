@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: setup env
-        run: mv .evn.example .env
+        run: mv .env.example .env
       - name: Install packages
         run: npm ci
       - name: Build
@@ -54,3 +54,4 @@ jobs:
             docker pull ${{ matrix.docker-repository }}
             cd ~/applications
             docker-compose up -d --force-recreate powerfulyang.com
+            docker image prune -a -f
