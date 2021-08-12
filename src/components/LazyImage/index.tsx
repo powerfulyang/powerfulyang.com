@@ -32,6 +32,9 @@ export const LazyImage: FC<
             setLoading(false);
             inViewAction?.(assetId);
           };
+          _target.onerror = () => {
+            _target.src = '/default.png';
+          };
           observerRef.current?.unobserve(_target);
         }
       });

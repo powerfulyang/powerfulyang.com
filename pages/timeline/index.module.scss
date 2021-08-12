@@ -8,9 +8,14 @@
 }
 
 .container {
-  max-width: 618px;
+  width: 90%;
+  margin: auto;
+  font-family: 'Fira Code', sans-serif;
   background-color: white;
   box-shadow: 2px 2px 3px 3px rgb(160 44 219 / 7%);
+  @screen sm {
+    width: 600px;
+  }
   @apply mx-auto p-4 rounded mb-6;
   .author {
     @apply flex justify-start items-center mb-4;
@@ -27,7 +32,8 @@
   .content {
     @apply text-lg;
     .text {
-      @apply text-sm;
+      font-family: 'Zpix', serif;
+      @apply text-base font-normal text-gray-600;
     }
     .assets {
       img {

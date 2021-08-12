@@ -13,6 +13,13 @@
   src: url('/zpix.woff') format('woff');
 }
 
+@font-face {
+  font-weight: 400;
+  font-family: 'Fira Code';
+  font-style: normal;
+  src: url('/FiraCode-Regular.woff2') format('woff2');
+}
+
 a,
 button,
 svg,
@@ -24,14 +31,14 @@ path {
 html,
 body,
 #__next {
-  font-size: 13px;
+  font-size: 12px;
   cursor: url('/cursor/default.png'), auto;
 
   --nav-height: 4rem;
   --cursor-pointer: url('/cursor/pointer.png'), auto;
   --footer-height: 3rem;
   @screen sm {
-    font-size: 15px;
+    font-size: 14px;
   }
   @apply w-full h-full;
 }

@@ -1,7 +1,7 @@
 @import '../base';
 @import '../../src/styles/styles';
 
-$text-color: #242e4c;
+$text-color: #51525d;
 .text-color {
   color: $text-color;
 }
@@ -9,6 +9,7 @@ $text-color: #242e4c;
 .body {
   z-index: -1;
   height: calc(100% - var(--nav-height));
+  overflow: auto;
   background-color: #fcfcff;
   @apply w-full p-4;
 }
@@ -36,14 +37,19 @@ $text-color: #242e4c;
 }
 
 .main {
-  width: 30%;
+  width: 80%;
   margin: auto;
-  font-family: 'Zpix', serif;
+  font-family: 'Fira Code', sans-serif;
+  @screen sm {
+    width: 600px;
+  }
   .titles {
-    line-height: 2rem;
+    line-height: 3rem;
   }
   .article_title {
-    @apply text-sm mt-2;
+    font-family: 'Zpix', sans-serif;
+    text-rendering: geometricPrecision;
+    @apply text-base hover:text-pink-400 font-normal pl-4;
     @extend .text-color;
     @extend .line-1-ellipsis;
   }

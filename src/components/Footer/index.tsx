@@ -8,7 +8,7 @@ type FooterProps = {
 export const Footer: FC<FooterProps> = ({ pathViewCount }) => {
   return (
     <footer className={styles.footer}>
-      <div className="text-gray-400 text-sm">
+      <div className="text-gray-400 text-sm hidden sm:block">
         <span className="mr-1">备案号:</span>
         <a
           className="text-pink-400"
@@ -33,7 +33,7 @@ export const Footer: FC<FooterProps> = ({ pathViewCount }) => {
         </span>
       </div>
       <div className="text-sm">
-        <span className="hidden sm:inline-block text-pink-400">{pathViewCount}人临幸</span>
+        <span className="hidden sm:inline text-pink-400">{pathViewCount}人临幸</span>
         <span className="ml-4 text-gray-400 text-lg">
           <a className="mr-2" href="https://twitter.com/hutyxxx" target="_blank" rel="noreferrer">
             <Icon className={styles.twitter} type="icon-twitter" />

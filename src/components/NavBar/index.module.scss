@@ -18,20 +18,26 @@
   .user {
     @apply flex items-center;
     .nickname {
+      display: none;
       color: #242e4c;
+      @screen sm {
+        display: block;
+      }
     }
   }
   .title {
-    font-family: 'Zpix', serif;
-    @apply text-2xl ml-10;
-    @include rainbowText;
+    display: none;
+    @screen sm {
+      font-family: 'Zpix', Sans serif;
+      @include rainbowText;
+      @apply text-2xl ml-10;
+    }
   }
   .left {
     @apply flex items-center;
   }
   .menus {
     color: #7d7a9e;
-    @apply ml-24;
     .active {
       color: #242e4c;
     }

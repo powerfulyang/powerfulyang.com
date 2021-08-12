@@ -37,14 +37,14 @@ const Index: LayoutFC<IndexProps> = ({ data: { posts }, years, year }) => {
             </Link>
           ))}
         </div>
-        <section className={styles.titles}>
+        <section className={classNames(styles.titles, 'mt-4')}>
           {posts.map((post) => {
             return (
-              <div className={classNames(styles.article_title)} key={post.id}>
-                <span className="inline-block pr-4 text-pink-400 w-32">
+              <div key={post.id} className="flex items-center">
+                <span className="inline-block text-pink-400 w-32 whitespace-nowrap">
                   {DateFormat(post.createAt)}
                 </span>
-                <Link className="hover:text-pink-400" to={`/post/${post.id}`}>
+                <Link className={classNames(styles.article_title)} to={`/post/${post.id}`}>
                   {post.title}
                 </Link>
               </div>

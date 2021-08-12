@@ -15,27 +15,25 @@ type NavBarProps = {
 export const NavBar: FC<NavBarProps> = ({ user, active }) => {
   return (
     <nav className={styles.nav}>
-      <div className={styles.left}>
-        <Link to="/" className={styles.title}>
-          {ProjectName}
-        </Link>
-        <div className={styles.menus}>
-          {Object.keys(Menu)
-            .filter((x) => !isNumeric(x))
-            .map((x) => {
-              return (
-                <Link
-                  key={x}
-                  className={classNames({
-                    [styles.active]: Reflect.get(Menu, x) === active,
-                  })}
-                  to={`/${x}`}
-                >
-                  {x}
-                </Link>
-              );
-            })}
-        </div>
+      <Link to="/" className={classNames(styles.title)}>
+        {ProjectName}
+      </Link>
+      <div className={styles.menus}>
+        {Object.keys(Menu)
+          .filter((x) => !isNumeric(x))
+          .map((x) => {
+            return (
+              <Link
+                key={x}
+                className={classNames({
+                  [styles.active]: Reflect.get(Menu, x) === active,
+                })}
+                to={`/${x}`}
+              >
+                {x}
+              </Link>
+            );
+          })}
       </div>
 
       <div className={styles.user}>
