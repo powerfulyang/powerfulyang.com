@@ -27,7 +27,7 @@ export const LazyImage: FC<
 
         if (intersectionRatio > 0 && src) {
           const _target = target as HTMLImageElement;
-          _target.src = getCosObjectThumbnailUrl(src);
+          _target.src = getCosObjectThumbnailUrl(src)!;
           _target.onload = () => {
             setLoading(false);
             inViewAction?.(assetId);
