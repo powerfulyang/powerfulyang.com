@@ -16,12 +16,10 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       className={classNames(styles.wrap, {
         hidden: !visible,
       })}
-      style={{
-        backgroundImage: `url(${getCosObjectUrl(selectImage)})`,
-      }}
     >
       <div className={styles.blur}>
         <img
+          className={styles.image}
           src={getCosObjectUrl(selectImage)}
           alt=""
           onClick={() => dispatch({ type: ImageModalContextActionType.close })}

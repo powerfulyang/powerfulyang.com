@@ -12,9 +12,10 @@
     height: 100%;
     @apply backdrop-filter backdrop-blur;
   }
-  img {
+  .image {
     z-index: 101;
     height: 100%;
     margin: auto;
+    cursor: var(--cursor-pointer);
   }
 }

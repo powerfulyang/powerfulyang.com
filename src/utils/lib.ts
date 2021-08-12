@@ -17,9 +17,11 @@ export const styles = {
 };
 
 export const getCosObjectThumbnailUrl = (objectUrl?: string) => {
-  return `${objectUrl}${(isSupportWebp() && styles.thumbnail_webp) || styles.thumbnail}`;
+  return (
+    objectUrl && `${objectUrl}${(isSupportWebp() && styles.thumbnail_webp) || styles.thumbnail}`
+  );
 };
 
 export const getCosObjectUrl = (objectUrl?: string) => {
-  return `${objectUrl}${(isSupportWebp() && styles.webp) || styles.origin}`;
+  return objectUrl && `${objectUrl}${(isSupportWebp() && styles.webp) || styles.origin}`;
 };
