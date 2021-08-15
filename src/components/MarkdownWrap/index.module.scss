@@ -94,6 +94,52 @@ $heading-color: rgba(37, 99, 235, 0.8);
     @apply text-base pb-0.5;
   }
 
+  pre {
+    overflow-x: auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    @apply m-4;
+  }
+
+  .inline_code {
+    padding: 0.2rem;
+    color: #4a4a4a;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  .block_code {
+    display: block;
+    padding: 1rem;
+  }
+  .toolbar {
+    position: relative;
+    font-family: 'Fira Code', sans-serif;
+    background-color: rgb(34, 31, 31);
+    @apply flex text-blue-400 align-middle;
+    .toolbar_language {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .toolbar_action {
+      margin-right: 20px;
+      margin-left: auto;
+    }
+    &::before {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      width: 11px;
+      height: 11px;
+      background: #fc625d;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+      box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+      transform: translate(50%, -50%);
+      content: ' ';
+    }
+  }
+
   svg {
     display: inline-block;
   }

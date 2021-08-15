@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import classNames from 'classnames';
-import { BlockQuote, Code, H1, Link, Paragraph, Table } from './MarkdownElement';
+import { BlockQuote, Code, H1, Link, Paragraph, Pre, Table } from './MarkdownElement';
 import styles from './index.module.scss';
 
 export type MarkdownWrapProps = {
@@ -15,7 +15,7 @@ export const MarkdownWrap: FC<MarkdownWrapProps> = ({ source, className }) => {
     <div className={styles.wrap}>
       <ReactMarkdown
         className={classNames(styles.markdown_body, className)}
-        plugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm]}
         components={{
           h1: H1,
           blockquote: BlockQuote,
@@ -23,7 +23,7 @@ export const MarkdownWrap: FC<MarkdownWrapProps> = ({ source, className }) => {
           p: Paragraph,
           a: Link,
           code: Code,
-          pre: Code,
+          pre: Pre,
         }}
       >
         {source}

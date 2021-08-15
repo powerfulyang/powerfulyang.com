@@ -41,6 +41,9 @@ const analyzer = withBundleAnalyzer({
     dest: 'public',
     runtimeCaching,
   },
+  experimental: {
+    esmExternals: true,
+  },
 });
 
 module.exports = withPWA(analyzer);

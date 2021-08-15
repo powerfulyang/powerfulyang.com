@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { Icon, IconTag } from '@powerfulyang/components';
-import { CodeComponent } from 'react-markdown/lib/ast-to-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { dark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import { CodeComponent } from 'react-markdown/lib/ast-to-react';
+import classNames from 'classnames';
 import styles from './index.module.scss';
 
 export const H1: FC = ({ children }) => {
@@ -75,13 +76,44 @@ export const Paragraph = (props: any) => {
 
 export const Code: CodeComponent = ({ node, inline, className, children, ...props }) => {
   const match = /language-(\w+)/.exec(className || '');
-  return !inline && match ? (
-    <SyntaxHighlighter style={dark} language={match[1]} PreTag="div" {...(props as any)}>
-      {String(children).replace(/\n$/, '')}
-    </SyntaxHighlighter>
-  ) : (
-    <code className={className} {...props}>
+  if (inline) {
+    return (
+      <code className={classNames(className, styles.inline_code)} {...props}>
+        {children}
+      </code>
+    );
+  }
+  if (match) {
+    const language = match[1];
+    return (
+      <>
+        <div className={styles.toolbar}>
+          <div className={styles.toolbar_language}>
+            <span>{language}</span>
+          </div>
+          <div className={styles.toolbar_action}>
+            <button type="button">Copy Code</button>
+          </div>
+        </div>
+        <SyntaxHighlighter
+          showLineNumbers
+          style={dark}
+          language={language}
+          PreTag="div"
+          {...(props as any)}
+        >
+          {children}
+        </SyntaxHighlighter>
+      </>
+    );
+  }
+  return (
+    <code className={classNames(className, styles.block_code)} {...(props as any)}>
       {children}
     </code>
   );
+};
+
+export const Pre: FC = ({ children }) => {
+  return <pre>{children}</pre>;
 };
