@@ -26,3 +26,6 @@ yarn-error.log*
 
 ../../application/mysql/data
 
+public/sw.js.map
+public/workbox-202dc43a.js.map
+
