@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "esnext",
     "jsx": "preserve",
     "allowJs": true,

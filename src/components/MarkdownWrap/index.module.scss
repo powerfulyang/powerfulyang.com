@@ -91,7 +91,6 @@ $heading-color: rgba(37, 99, 235, 0.8);
 
   a {
     color: $heading-color;
-    border-bottom: 1px dashed #79a2c8;
     @apply text-base pb-0.5;
   }
 
@@ -151,15 +150,6 @@ $heading-color: rgba(37, 99, 235, 0.8);
         }
       }
     }
-  }
-
-  pre {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-  code {
-    padding: 0.2em;
-    color: #4a4a4a;
-    background-color: rgba(0, 0, 0, 0.1);
   }
 
   .post_info {

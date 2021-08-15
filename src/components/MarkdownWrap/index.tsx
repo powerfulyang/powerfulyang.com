@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import classNames from 'classnames';
-import { BlockQuote, H1, Link, Paragraph, Table } from './MarkdownElement';
+import { BlockQuote, Code, H1, Link, Paragraph, Table } from './MarkdownElement';
 import styles from './index.module.scss';
 
 export type MarkdownWrapProps = {
@@ -20,8 +20,10 @@ export const MarkdownWrap: FC<MarkdownWrapProps> = ({ source, className }) => {
           h1: H1,
           blockquote: BlockQuote,
           table: Table,
-          p: Paragraph as any,
+          p: Paragraph,
           a: Link,
+          code: Code,
+          pre: Code,
         }}
       >
         {source}

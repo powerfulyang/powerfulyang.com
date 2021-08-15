@@ -1,10 +1,12 @@
 const webpack = require('webpack');
+const withPWA = require('next-pwa');
+const runtimeCaching = require('next-pwa/cache');
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-module.exports = withBundleAnalyzer({
+const analyzer = withBundleAnalyzer({
   webpack(config, _options) {
     config.plugins.push(
       new webpack.DefinePlugin({
@@ -35,7 +37,10 @@ module.exports = withBundleAnalyzer({
       },
     ];
   },
-  images: {
-    domains: ['lh3.googleusercontent.com'],
+  pwa: {
+    dest: 'public',
+    runtimeCaching,
   },
 });
+
+module.exports = withPWA(analyzer);

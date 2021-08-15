@@ -1,13 +1,19 @@
 import { Icon } from '@powerfulyang/components';
 import React, { FC } from 'react';
+import classNames from 'classnames';
 import styles from './index.module.scss';
 
 type FooterProps = {
   pathViewCount?: number;
+  fixedFooterBottom?: boolean;
 };
-export const Footer: FC<FooterProps> = ({ pathViewCount }) => {
+export const Footer: FC<FooterProps> = ({ pathViewCount, fixedFooterBottom }) => {
   return (
-    <footer className={styles.footer}>
+    <footer
+      className={classNames(styles.footer, {
+        fixed: fixedFooterBottom,
+      })}
+    >
       <div className="text-gray-400 text-sm hidden sm:block">
         <span className="mr-1">备案号:</span>
         <a

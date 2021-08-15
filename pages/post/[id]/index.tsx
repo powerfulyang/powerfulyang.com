@@ -1,23 +1,28 @@
 import { DateFormat } from '@/utils/lib';
-import React, { FC } from 'react';
+import React from 'react';
 import { Post } from '@/types/Post';
 import { request } from '@/utils/request';
 import { GetServerSidePropsContext } from 'next';
-import { MarkdownWrap } from '@/components/MarkdownWrap/MarkdownWrap';
+import { MarkdownWrap } from '@/components/MarkdownWrap';
+import { LayoutFC } from '@/types/GlobalContext';
+import { UserLayout } from '@/layout/UserLayout';
 import styles from './index.module.scss';
 
 type PostProps = {
   data: Post;
 };
 
-const Posts: FC<PostProps> = ({ data }) => {
-  const { tags, pathViewCount, content, user, createAt } = data;
-  const postInfo = `post=>${user.nickname}|${DateFormat(createAt)}|${
-    content.length
-  }|${pathViewCount}|${user.avatar}  \r\n\r\n`;
+const PostDetail: LayoutFC<PostProps> = ({ data }) => {
+  const { tags, content, user, createAt } = data;
+  const postInfo = `post=>${user.nickname}|${DateFormat(createAt)}|${content.length}  \r\n\r\n`;
   const tagsInfo = `tags=>${(tags || []).join('|')}  \r\n\r\n`;
   const contents = content.replace(/(\r\n|\n)/, `\r\n\r\n${postInfo}${tagsInfo}`);
   return <MarkdownWrap source={contents} className={styles.post} />;
+};
+
+PostDetail.getLayout = (page) => {
+  const { pathViewCount } = page.props;
+  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
@@ -25,10 +30,10 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     query: { id },
   } = ctx;
   const res = await request(`/posts/${id}`, { ctx });
-  const { data } = await res.json();
+  const { data, pathViewCount } = await res.json();
   return {
-    props: { data },
+    props: { data, pathViewCount },
   };
 };
 
-export default Posts;
+export default PostDetail;
