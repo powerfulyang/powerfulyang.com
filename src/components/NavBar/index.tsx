@@ -12,6 +12,12 @@ type NavBarProps = {
   active: Menu;
 };
 
+export const login = () => {
+  const { href } = window.location;
+  // 前往中央登录中心
+  window.location.href = `https://admin.powerfulyang.com/user/login?redirect=${encodeURI(href)}`;
+};
+
 export const NavBar: FC<NavBarProps> = ({ user, active }) => {
   return (
     <nav className={styles.nav}>
@@ -37,8 +43,13 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
       </div>
 
       <div className={styles.user}>
-        <span className={styles.nickname}>{user?.nickname}</span>
-        <img src={user?.avatar} alt="登录用户头像" />
+        {user && (
+          <>
+            <span className={styles.nickname}>{user.nickname}</span>
+            <img src={user.avatar} alt="avatar" />
+          </>
+        )}
+        {!user && <span onClick={login}>Login</span>}
       </div>
     </nav>
   );

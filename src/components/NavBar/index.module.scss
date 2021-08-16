@@ -16,7 +16,8 @@
     @apply rounded-full mx-4;
   }
   .user {
-    @apply flex items-center;
+    cursor: var(--cursor-pointer);
+    @apply flex items-center mr-4 text-pink-400;
     .nickname {
       display: none;
       color: #242e4c;
