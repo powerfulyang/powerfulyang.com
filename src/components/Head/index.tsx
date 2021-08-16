@@ -20,6 +20,7 @@ export const Header: FC<HeaderProps> = ({ title }) => {
           name="viewport"
           content="initial-scale=1.0, width=device-width,minimum-scale=1.0, maximum-scale=1.0"
         />
+        <link rel="manifest" href="/manifest.json" />
         {__prod__ && (
           <>
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0JKGR6P0S" />
