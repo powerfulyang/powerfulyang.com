@@ -1,4 +1,9 @@
-.post {
-  padding: 2rem 3rem;
-  @apply mx-auto;
+.post_wrap {
+  min-height: calc(100% - 3rem - var(--nav-height));
+  padding: 1rem;
+  background-color: #f4f5f5;
+  .post {
+    padding: 2rem 3rem;
+    @apply mx-auto;
+  }
 }

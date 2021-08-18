@@ -9,8 +9,9 @@
   justify-content: space-between;
   width: 100%;
   height: var(--nav-height);
-  background: white;
+  background: transparent;
   box-shadow: 0 10px 20px -7px rgb(160 44 219 / 7%);
+  backdrop-filter: blur(5px);
   img {
     width: 2.5rem;
     @apply rounded-full mx-4;

@@ -17,7 +17,11 @@ const PostDetail: LayoutFC<PostProps> = ({ data }) => {
   const postInfo = `post=>${user.nickname}|${DateFormat(createAt)}|${content.length}  \r\n\r\n`;
   const tagsInfo = `tags=>${(tags || []).join('|')}  \r\n\r\n`;
   const contents = content.replace(/(\r\n|\n)/, `\r\n\r\n${postInfo}${tagsInfo}`);
-  return <MarkdownWrap source={contents} className={styles.post} />;
+  return (
+    <main className={styles.post_wrap}>
+      <MarkdownWrap source={contents} className={styles.post} />
+    </main>
+  );
 };
 
 PostDetail.getLayout = (page) => {
