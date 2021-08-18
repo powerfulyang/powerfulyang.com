@@ -7,7 +7,7 @@ $heading-color: rgba(37, 99, 235, 0.8);
   background-color: #f4f5f5;
 }
 .markdown_body {
-  max-width: 900px;
+  max-width: min(900px, 100%);
   min-height: 100%;
   // 父元素设置 min-height 子元素设置 height 100% 继承不了的情况解决 给父元素设置 display: flex
   line-height: 1.75;
