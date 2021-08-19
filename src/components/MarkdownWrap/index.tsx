@@ -12,22 +12,20 @@ export type MarkdownWrapProps = {
 
 export const MarkdownWrap: FC<MarkdownWrapProps> = ({ source, className }) => {
   return (
-    <div className={styles.wrap}>
-      <ReactMarkdown
-        className={classNames(styles.markdown_body, className)}
-        remarkPlugins={[remarkGfm]}
-        components={{
-          h1: H1,
-          blockquote: BlockQuote,
-          table: Table,
-          p: Paragraph,
-          a: Link,
-          code: Code,
-          pre: Pre,
-        }}
-      >
-        {source}
-      </ReactMarkdown>
-    </div>
+    <ReactMarkdown
+      className={classNames(styles.markdown_body, className)}
+      remarkPlugins={[remarkGfm]}
+      components={{
+        h1: H1,
+        blockquote: BlockQuote,
+        table: Table,
+        p: Paragraph,
+        a: Link,
+        code: Code,
+        pre: Pre,
+      }}
+    >
+      {source}
+    </ReactMarkdown>
   );
 };

@@ -65,9 +65,6 @@ export const Paragraph = (props: any) => {
           <Icon type="icon-count" />
           <span className={styles.post_info_comment}>文字总数{wordCount}</span>
         </span>
-        <span className={styles.qrcode}>
-          <a className={styles.post_info_comment}>手机上打开</a>
-        </span>
       </div>
     );
   }

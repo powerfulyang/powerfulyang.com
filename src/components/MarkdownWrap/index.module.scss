@@ -1,14 +1,8 @@
 $primary-color: #dec6fb;
 $heading-color: rgba(37, 99, 235, 0.8);
 
-.wrap {
-  display: flex;
-  min-height: 100%;
-  background-color: #f4f5f5;
-}
 .markdown_body {
-  max-width: min(900px, 100%);
-  min-height: 100%;
+  width: min(900px, 100%);
   // 父元素设置 min-height 子元素设置 height 100% 继承不了的情况解决 给父元素设置 display: flex
   line-height: 1.75;
   letter-spacing: 1px;
@@ -43,6 +37,7 @@ $heading-color: rgba(37, 99, 235, 0.8);
     }
 
     .content {
+      word-break: keep-all;
       @apply block px-20 text-2xl font-semibold;
     }
 
@@ -97,13 +92,14 @@ $heading-color: rgba(37, 99, 235, 0.8);
   pre {
     overflow-x: auto;
     background-color: rgba(0, 0, 0, 0.1);
-    @apply m-4;
+    @apply my-4 rounded-lg;
   }
 
   .inline_code {
     padding: 0.2rem;
     color: #4a4a4a;
     background-color: rgba(0, 0, 0, 0.1);
+    @apply rounded;
   }
   .block_code {
     display: block;
