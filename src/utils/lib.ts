@@ -9,6 +9,10 @@ export const DateTimeFormat = (date?: Date) => {
   return dayjs(date).format('llll');
 };
 
+export const TimeFormat = () => {
+  return dayjs().format('HHmmss');
+};
+
 export const styles = {
   thumbnail: '&imageMogr2/thumbnail/300x/interlace/1',
   thumbnail_webp: '&imageMogr2/thumbnail/300x/format/webp/interlace/1/quality/100',

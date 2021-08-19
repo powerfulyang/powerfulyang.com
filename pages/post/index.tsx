@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { DateFormat } from '@/utils/lib';
+import { Clock } from '@/components/Clock';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -21,6 +22,7 @@ type IndexProps = {
 const Index: LayoutFC<IndexProps> = ({ data: { posts }, years, year }) => {
   return (
     <div className={styles.body}>
+      <Clock />
       <main className={styles.main}>
         <div className={styles.years}>
           {years.map((x) => (

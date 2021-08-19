@@ -58,7 +58,7 @@ export const LazyImage: FC<
         [styles.loading]: loading,
         [styles.loaded]: !loading,
       })}
-      src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+      src="/transparent.png"
       alt={alt}
       ref={ref}
     />
