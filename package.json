@@ -18,6 +18,7 @@
     "url": "https://github.com/powerfulyang/powerfulyang.com"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.2.2",
     "@powerfulyang/components": "^0.7.27",
     "@powerfulyang/hooks": "^0.2.17",
     "@powerfulyang/utils": "^0.7.15",
@@ -25,6 +26,8 @@
     "classnames": "^2.3.1",
     "d3": "^7.0.0",
     "dayjs": "^1.10.6",
+    "monaco-editor": "^0.27.0",
+    "monaco-markdown": "0.0.11",
     "next": "^11.1.0",
     "node-fetch": "^2.6.1",
     "ramda": "^0.27.1",

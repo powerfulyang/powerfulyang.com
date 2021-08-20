@@ -11,14 +11,16 @@ $heading-color: rgba(37, 99, 235, 0.8);
     linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
   background-position: center center;
   background-size: 20px 20px;
+  @apply box-border h-auto min-h-full;
 
   .heading1 {
     border-color: $primary-color;
     border-width: 1px;
+    $h-box: -0.5rem;
     @apply relative block h-auto p-2 font-bold text-center text-black border-solid;
     &::before {
-      top: -0.4rem;
-      left: -0.4rem;
+      top: $h-box;
+      left: $h-box;
       border-bottom: 1px solid $primary-color;
       content: ' ';
       @apply absolute block w-11/12 h-px;
@@ -37,8 +39,8 @@ $heading-color: rgba(37, 99, 235, 0.8);
     }
 
     .content {
-      word-break: keep-all;
-      @apply block px-20 text-2xl font-semibold;
+      word-break: break-all;
+      @apply block px-20 text-2xl font-medium text-left;
     }
 
     .suffix {
@@ -47,8 +49,8 @@ $heading-color: rgba(37, 99, 235, 0.8);
     }
 
     &::after {
-      right: -0.4rem;
-      bottom: -0.4rem;
+      right: $h-box;
+      bottom: $h-box;
       border-bottom: 1px solid $primary-color;
       content: ' ';
       @apply absolute block w-11/12 h-px;
@@ -86,13 +88,13 @@ $heading-color: rgba(37, 99, 235, 0.8);
 
   a {
     color: $heading-color;
+    border-bottom: 1px dashed $heading-color;
     @apply text-base pb-0.5;
   }
 
   pre {
     overflow-x: auto;
-    background-color: rgba(0, 0, 0, 0.1);
-    @apply my-4 rounded-lg;
+    @apply rounded-lg;
   }
 
   .inline_code {
@@ -101,10 +103,7 @@ $heading-color: rgba(37, 99, 235, 0.8);
     background-color: rgba(0, 0, 0, 0.1);
     @apply rounded;
   }
-  .block_code {
-    display: block;
-    padding: 1rem;
-  }
+
   .toolbar {
     position: relative;
     font-family: 'Fira Code', sans-serif;

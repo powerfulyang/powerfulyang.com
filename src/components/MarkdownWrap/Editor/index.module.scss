@@ -1,0 +1,25 @@
+.editor {
+  @apply w-full h-full flex flex-col;
+  .toolbar {
+    @apply flex text-gray-600 align-middle bg-gray-200 p-2;
+    .icon {
+      @apply mx-2;
+      &:hover {
+        @apply bg-gray-400;
+      }
+    }
+  }
+  .main {
+    height: calc(100% - 2rem);
+    @apply flex w-full p-4;
+    $content-border: 1px dashed #5246db;
+    .input_content {
+      border: $content-border;
+      @apply w-1/2 rounded p-2 mr-2 shadow-lg;
+    }
+    .preview {
+      border: $content-border;
+      @apply h-full w-1/2 ml-2 shadow overflow-y-auto rounded;
+    }
+  }
+}

@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { Icon, IconTag } from '@powerfulyang/components';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { CodeComponent } from 'react-markdown/lib/ast-to-react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
 
 export const H1: FC = ({ children }) => {
   return (
-    <h1 className="flex justify-center h-auto mt-10">
+    <h1 className="flex justify-center w-full pt-10 pb-2 px-6">
       <span className={styles.heading1}>
         <span className={styles.prefix} />
         <span className={styles.content}>{children}</span>
@@ -80,34 +80,27 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
       </code>
     );
   }
-  if (match) {
-    const language = match[1];
-    return (
-      <>
-        <div className={styles.toolbar}>
-          <div className={styles.toolbar_language}>
-            <span>{language}</span>
-          </div>
-          <div className={styles.toolbar_action}>
-            <button type="button">Copy Code</button>
-          </div>
-        </div>
-        <SyntaxHighlighter
-          showLineNumbers
-          style={dark}
-          language={language}
-          PreTag="div"
-          {...(props as any)}
-        >
-          {children}
-        </SyntaxHighlighter>
-      </>
-    );
-  }
+  const language = match?.[1] || 'unknown';
   return (
-    <code className={classNames(className, styles.block_code)} {...(props as any)}>
-      {children}
-    </code>
+    <>
+      <div className={styles.toolbar}>
+        <div className={styles.toolbar_language}>
+          <span>{language}</span>
+        </div>
+        <div className={styles.toolbar_action}>
+          <button type="button">Copy Code</button>
+        </div>
+      </div>
+      <SyntaxHighlighter
+        showLineNumbers
+        style={atomDark}
+        language={language}
+        PreTag="div"
+        customStyle={{ borderRadius: 0, margin: 0, backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+      >
+        {children}
+      </SyntaxHighlighter>
+    </>
   );
 };
 
