@@ -10,6 +10,5 @@
 }
 
 .loaded_img {
-  box-shadow: 5px 5px 5px 5px rgb(160 44 219 / 13%);
-  @apply rounded;
+  @apply rounded shadow-lg;
 }

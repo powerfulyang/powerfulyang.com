@@ -5,15 +5,10 @@ import styles from './index.module.scss';
 
 type FooterProps = {
   pathViewCount?: number;
-  fixedFooterBottom?: boolean;
 };
-export const Footer: FC<FooterProps> = ({ pathViewCount, fixedFooterBottom }) => {
+export const Footer: FC<FooterProps> = ({ pathViewCount }) => {
   return (
-    <footer
-      className={classNames(styles.footer, {
-        fixed: fixedFooterBottom,
-      })}
-    >
+    <footer className={classNames(styles.footer)}>
       <div className="text-gray-400 text-sm hidden sm:block">
         <span className="mr-1">备案号:</span>
         <a

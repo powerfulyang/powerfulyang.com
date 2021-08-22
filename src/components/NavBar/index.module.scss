@@ -1,7 +1,11 @@
 @import 'src/styles/styles';
 
+.nav_placeholder {
+  height: var(--nav-height);
+}
+
 .nav {
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 99;
   display: flex;
@@ -21,8 +25,8 @@
     @apply flex items-center mr-4 text-pink-400;
     .nickname {
       display: none;
-      color: #242e4c;
-      @screen sm {
+      @apply text-pink-400;
+      @screen md {
         display: block;
       }
     }

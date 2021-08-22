@@ -15,7 +15,7 @@ const Publish: FC<PublishProps> = ({ post }) => {
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { query } = ctx;
   const { id } = query;
-  const res = await request(`/posts/${id}`, {
+  const res = await request(`/public/post/${id}`, {
     ctx,
   });
   const json = await res.json();

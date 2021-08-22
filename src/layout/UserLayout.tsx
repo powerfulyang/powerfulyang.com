@@ -13,16 +13,15 @@ export enum Menu {
 
 type UserLayoutProps = {
   pathViewCount?: number;
-  fixedFooterBottom?: boolean;
 };
-export const UserLayout: FC<UserLayoutProps> = ({ children, pathViewCount, fixedFooterBottom }) => {
+export const UserLayout: FC<UserLayoutProps> = ({ children, pathViewCount }) => {
   const { data: { data: user } = {} } = useSWR('/user/current', swrRequest());
   const { pathname } = useRouter();
   return (
     <>
       <NavBar active={Reflect.get(Menu, pathname.substr(1))} user={user} />
       {children}
-      <Footer fixedFooterBottom={fixedFooterBottom} pathViewCount={pathViewCount} />
+      <Footer pathViewCount={pathViewCount} />
     </>
   );
 };

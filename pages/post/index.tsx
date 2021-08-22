@@ -43,7 +43,7 @@ const Index: LayoutFC<IndexProps> = ({ data: { posts }, years, year }) => {
           {posts.map((post) => {
             return (
               <div key={post.id} className="flex items-center">
-                <span className="inline-block text-pink-400 w-32 whitespace-nowrap">
+                <span className="inline-block text-pink-400 whitespace-nowrap">
                   {DateFormat(post.createAt)}
                 </span>
                 <Link className={classNames(styles.article_title)} to={`/post/${post.id}`}>
@@ -65,7 +65,7 @@ Index.getLayout = (page) => {
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { query } = ctx;
-  const res = await request('/posts', { ctx });
+  const res = await request('/public/post', { ctx });
   const { data, pathViewCount } = await res.json();
   const { posts } = data;
   const groupedPosts = groupBy(

@@ -8,7 +8,7 @@ $text-color: #51525d;
 
 .body {
   z-index: -1;
-  height: calc(100vh - var(--nav-height) - var(--footer-height));
+  height: calc(100% - var(--nav-height) - var(--footer-height));
   overflow: auto;
   background-color: #fcfcff;
   @apply w-full p-4;
@@ -37,9 +37,10 @@ $text-color: #51525d;
 }
 
 .main {
-  width: 80%;
+  width: 90%;
   margin: auto;
   font-family: 'Fira Code', sans-serif;
+  @apply mt-6;
   @screen sm {
     width: 600px;
   }
@@ -49,7 +50,7 @@ $text-color: #51525d;
   .article_title {
     font-family: 'Zpix', sans-serif;
     text-rendering: geometricPrecision;
-    @apply text-base hover:text-pink-400 font-normal pl-4;
+    @apply text-base hover:text-pink-400 font-normal ml-8;
     @extend .text-color;
     @extend .line-1-ellipsis;
   }

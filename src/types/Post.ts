@@ -8,7 +8,7 @@ export interface Post extends PathViewCount {
   id: number;
   title: string;
   content: string;
-  user: User;
+  createBy: User;
   tags: string[];
   createAt: Date;
   updateAt: Date;

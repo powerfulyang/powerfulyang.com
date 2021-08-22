@@ -25,7 +25,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
       });
     }
   };
-  const { data } = useSWR(['/gallery', page], async (url, currentPage) => {
+  const { data } = useSWR(['/public/gallery', page], async (url, currentPage) => {
     const res = await clientRequest(url, {
       query: { currentPage, pageSize: 30 },
     });
@@ -66,7 +66,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const res = await request('/gallery', {
+  const res = await request('/public/gallery', {
     ctx,
     query: {
       pageSize: 30,
