@@ -2,10 +2,38 @@
 
 .wrap {
   width: 100%;
-  height: calc(100% - var(--nav-height) - var(--footer-height));
+  height: calc(100vh - var(--nav-height) - var(--footer-height));
   overflow: auto;
   background-color: #fcfcff;
-  @apply p-4;
+  @apply p-2;
+  .banner {
+    width: 600px;
+    box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
+    @apply m-auto flex align-middle justify-center flex-col mb-4 rounded-xl overflow-hidden;
+    .banner_bg {
+      height: 300px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      @apply m-auto w-full;
+    }
+    .author_info {
+      @apply m-auto flex bg-white pb-4 flex-wrap w-full;
+      .author_avatar {
+        width: 90px;
+        margin-top: -45px;
+        @apply rounded-xl mr-4 ml-10;
+      }
+      .author_nickname {
+        align-self: flex-end;
+        font-family: 'Zpix', sans-serif;
+        @apply text-lg font-medium mb-2;
+      }
+      .author_bio {
+        @apply w-full mt-4 ml-8;
+        @include rainbowText;
+      }
+    }
+  }
 }
 
 .container {
@@ -13,11 +41,11 @@
   margin: auto;
   font-family: 'Fira Code', sans-serif;
   background-color: white;
-  box-shadow: 2px 2px 3px 3px rgb(160 44 219 / 7%);
+  box-shadow: 3px 3px 10px 5px rgb(160 44 219 / 7%);
   @screen sm {
     width: 600px;
   }
-  @apply mx-auto p-4 rounded mb-6;
+  @apply mx-auto p-4 rounded mb-4;
   .author {
     @apply flex justify-start items-center mb-4;
     .avatar {

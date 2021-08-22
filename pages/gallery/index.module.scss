@@ -1,5 +1,6 @@
 .gallery {
-  height: calc(100% - var(--nav-height) - var(--footer-height));
+  height: calc(100vh - var(--nav-height) - var(--footer-height));
+  background-color: #fcfcff;
   @screen sm {
     @apply grid-cols-4;
     &::after {

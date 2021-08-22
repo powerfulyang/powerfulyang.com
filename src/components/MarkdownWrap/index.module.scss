@@ -86,15 +86,19 @@ $heading-color: rgba(37, 99, 235, 0.8);
     }
   }
 
-  a {
+  .link {
     color: $heading-color;
     border-bottom: 1px dashed $heading-color;
+  }
+
+  a {
+    color: $heading-color;
     @apply text-base pb-0.5;
   }
 
   pre {
     overflow-x: auto;
-    @apply rounded-lg;
+    @apply rounded-lg my-4;
   }
 
   .inline_code {

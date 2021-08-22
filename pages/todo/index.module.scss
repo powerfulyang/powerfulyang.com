@@ -1,10 +1,11 @@
 .main {
-  height: calc(100% - var(--nav-height) - var(--footer-height));
+  height: calc(100vh - var(--nav-height) - var(--footer-height));
   overflow: auto;
   background-color: #fcfcff;
   @apply p-4;
   .todo {
     max-width: 600px;
-    @apply p-4 bg-white m-auto mb-4 rounded-lg shadow;
+    box-shadow: 3px 3px 10px 5px rgb(160 44 219 / 7%);
+    @apply p-4 bg-white m-auto mb-4 rounded-lg;
   }
 }

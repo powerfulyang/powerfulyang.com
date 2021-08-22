@@ -20,7 +20,7 @@ export const H1: FC = ({ children }) => {
 
 export const Link: FC<any> = ({ href, children }) => {
   return (
-    <a rel="noreferrer" target="_blank" href={href}>
+    <a rel="noreferrer" className={styles.link} target="_blank" href={href}>
       {children}
     </a>
   );

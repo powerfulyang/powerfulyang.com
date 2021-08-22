@@ -41,5 +41,14 @@ body,
   @screen sm {
     font-size: 14px;
   }
-  @apply w-full h-full;
+  @apply w-full h-auto;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded bg-pink-300;
 }

@@ -29,3 +29,8 @@ export const getCosObjectThumbnailUrl = (objectUrl?: string) => {
 export const getCosObjectUrl = (objectUrl?: string) => {
   return objectUrl && `${objectUrl}${(isSupportWebp() && styles.webp) || styles.origin}`;
 };
+
+export const CosUtils = {
+  getCosObjectThumbnailUrl,
+  getCosObjectUrl,
+} as const;
