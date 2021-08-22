@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UserLayout } from '@/layout/UserLayout';
 import { GetServerSidePropsContext } from 'next';
 import { clientRequest, request } from '@/utils/request';
@@ -21,15 +21,19 @@ type TimelineProps = {
 const Timeline: LayoutFC<TimelineProps> = ({ feeds = [], UNAUTHORIZED, user }) => {
   const [content, setContent] = useState('');
   const router = useRouter();
+  const [userBg, setUserBg] = useState('');
   const submitTimeline = async () => {
     const res = await clientRequest('/feed', {
       body: { content },
       method: 'POST',
     });
     if (res.status === 'ok') {
-      router.reload();
+      await router.push('/timeline');
     }
   };
+  useEffect(() => {
+    setUserBg(`url(${CosUtils.getCosObjectUrl(user.timelineBackground?.objectUrl)})`);
+  }, [user.timelineBackground?.objectUrl]);
   return (
     <div className={styles.wrap}>
       {UNAUTHORIZED && (
@@ -42,9 +46,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds = [], UNAUTHORIZED, user }) =
           <div className={styles.banner}>
             <div
               style={{
-                backgroundImage: `url(${CosUtils.getCosObjectUrl(
-                  user.timelineBackground?.objectUrl,
-                )})`,
+                backgroundImage: userBg,
               }}
               className={styles.banner_bg}
             />

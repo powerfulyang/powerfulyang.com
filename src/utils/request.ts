@@ -16,7 +16,10 @@ export const request = async (url: string, options: RequestOptions) => {
   const headers = pick(['x-real-ip', 'cookie'], ctx.req.headers || { 'x-real-ip': '127.0.0.1' });
   return nodeFetch(`${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`, {
     method,
-    headers,
+    headers: {
+      ...headers,
+      'content-type': 'application/json',
+    },
     body: JSON.stringify(body),
   });
 };
@@ -34,6 +37,9 @@ export const clientRequest = async <T = any>(
   const { method = 'GET', body, query } = options;
   const res = await fetch(`${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`, {
     method,
+    headers: {
+      'content-type': 'application/json',
+    },
     mode: 'cors',
     credentials: 'include',
     body: JSON.stringify(body),
