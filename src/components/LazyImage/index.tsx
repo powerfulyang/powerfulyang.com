@@ -56,7 +56,7 @@ export const LazyImage: FC<
       {...props}
       className={classNames(className, {
         [styles.loading]: loading,
-        [styles.loaded]: !loading,
+        [styles.loaded_img]: !loading,
       })}
       src="/transparent.png"
       alt={alt}

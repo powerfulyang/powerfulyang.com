@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { ImageModalContent } from '@/components/ImagePreview/ImageModal/Modal';
 import { isClient } from '@powerfulyang/utils';
 
@@ -24,10 +24,5 @@ export const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
     };
   }, [parentNode]);
 
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    setShow(true);
-  }, []);
-
-  return <>{show && createPortal(<ImageModalContent />, dialogNode.current!)}</>;
+  return <>{createPortal(<ImageModalContent />, dialogNode.current!)}</>;
 };

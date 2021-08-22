@@ -4,12 +4,34 @@
   width: 100%;
   height: calc(100vh - var(--nav-height) - var(--footer-height));
   overflow: auto;
-  background-color: #fcfcff;
-  @apply p-2;
+  @apply p-2 flex;
+  .timeline_show {
+    flex: 1.5;
+  }
+  .timeline_input {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    height: auto;
+    padding-top: 4rem;
+    font-family: 'Zpix', Sans serif;
+    textarea {
+      padding: 1rem;
+      font-size: 30px;
+      outline: none;
+      box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
+      inline-size: 80%;
+      block-size: 20vmin;
+      @apply rounded-xl;
+    }
+    .timeline_submit {
+      @apply text-2xl bg-blue-400 ml-4 text-white rounded w-24 h-10;
+    }
+  }
   .banner {
     width: 600px;
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
-    @apply m-auto flex align-middle justify-center flex-col mb-4 rounded-xl overflow-hidden;
+    @apply m-auto flex align-middle justify-center flex-col mb-4 rounded-xl overflow-hidden relative;
     .banner_bg {
       height: 300px;
       background-repeat: no-repeat;
@@ -17,11 +39,11 @@
       @apply m-auto w-full;
     }
     .author_info {
-      @apply m-auto flex bg-white pb-4 flex-wrap w-full;
+      @apply m-auto flex pb-4 flex-wrap w-full;
       .author_avatar {
-        width: 90px;
-        margin-top: -45px;
-        @apply rounded-xl mr-4 ml-10;
+        width: 80px;
+        margin-top: -40px;
+        @apply rounded-xl mr-4 ml-8;
       }
       .author_nickname {
         align-self: flex-end;
@@ -29,19 +51,30 @@
         @apply text-lg font-medium mb-2;
       }
       .author_bio {
-        @apply w-full mt-4 ml-8;
-        @include rainbowText;
+        @apply w-full mt-4 ml-6;
+        span {
+          @include rainbowText;
+        }
       }
     }
   }
 }
-
 .container {
+  position: relative;
   width: 90%;
   margin: auto;
   font-family: 'Fira Code', sans-serif;
-  background-color: white;
-  box-shadow: 3px 3px 10px 5px rgb(160 44 219 / 7%);
+  border: 1px solid black;
+
+  &::before {
+    position: absolute;
+    z-index: -1;
+    background: linear-gradient(to bottom right, #06aff2 66%, #06f3af 100%);
+    transform: translateY(15%) scale(0.85);
+    filter: blur(30px);
+    content: '';
+    inset: 0;
+  }
   @screen sm {
     width: 600px;
   }

@@ -21,7 +21,15 @@ export const request = async (url: string, options: RequestOptions) => {
   });
 };
 
-export const clientRequest = async (url: string, options: Omit<RequestOptions, 'ctx'> = {}) => {
+export type ApiResponse<T = any> = {
+  status?: 'ok';
+  data?: T;
+};
+
+export const clientRequest = async <T = any>(
+  url: string,
+  options: Omit<RequestOptions, 'ctx'> = {},
+): Promise<ApiResponse<T>> => {
   const baseUrl = BASE_URL;
   const { method = 'GET', body, query } = options;
   const res = await fetch(`${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`, {

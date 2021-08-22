@@ -29,7 +29,7 @@ export const ImagePreview: FC = ({ children }) => {
   return (
     <>
       <ImageModalContext.Provider value={{ state, dispatch }}>
-        <ImageModal />
+        {state.visible && <ImageModal />}
       </ImageModalContext.Provider>
       {Children.map(
         children as any,

@@ -29,6 +29,10 @@ path {
   @extend .cursor-self-pointer;
 }
 
+body {
+  overflow: overlay;
+}
+
 html,
 body,
 #__next {
@@ -45,10 +49,14 @@ body,
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 3px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded bg-pink-300;
+  @apply rounded bg-pink-400;
+}
+
+::-webkit-scrollbar-track-piece {
+  background: #eee;
 }

@@ -7,7 +7,6 @@ import { Footer } from '@/components/Footer';
 
 export enum Menu {
   post,
-  todo,
   timeline,
   gallery,
 }

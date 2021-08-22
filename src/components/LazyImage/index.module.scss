@@ -9,6 +9,7 @@
   @apply bg-gray-100;
 }
 
-.loaded-img {
-  box-shadow: 4px 4px 6px 6px rgb(160 44 219 / 7%);
+.loaded_img {
+  box-shadow: 5px 5px 5px 5px rgb(160 44 219 / 13%);
+  @apply rounded;
 }

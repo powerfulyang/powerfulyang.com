@@ -1,6 +1,5 @@
 .gallery {
-  height: calc(100vh - var(--nav-height) - var(--footer-height));
-  background-color: #fcfcff;
+  min-height: calc(100vh - var(--footer-height) - var(--nav-height));
   @screen sm {
     @apply grid-cols-4;
     &::after {
@@ -48,7 +47,7 @@
     content: '';
   }
 
-  @apply grid gap-4 grid-cols-3 overflow-auto p-4;
+  @apply grid gap-4 grid-cols-3 p-4 bg-white overflow-auto;
 
   .image_wrap {
     position: relative;
