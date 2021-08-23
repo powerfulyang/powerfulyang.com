@@ -58,6 +58,7 @@
     "raw-loader": "^4.0.2",
     "sass": "^1.37.5",
     "tailwindcss": "^2.2.7",
+    "tsconfig-paths-jest": "0.0.1",
     "typescript": "^4.3.5",
     "url-loader": "^4.1.1",
     "webpack": "^5.50.0"

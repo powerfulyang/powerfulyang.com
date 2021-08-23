@@ -97,8 +97,7 @@ $heading-color: rgba(37, 99, 235, 0.8);
   }
 
   pre {
-    overflow-x: auto;
-    @apply rounded-lg my-4;
+    @apply rounded-lg overflow-hidden my-4;
   }
 
   .inline_code {

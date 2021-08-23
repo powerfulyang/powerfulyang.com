@@ -6,17 +6,18 @@ import { Feed } from '@/types/Feed';
 import { CosUtils, DateTimeFormat } from '@/utils/lib';
 import classNames from 'classnames';
 import { LayoutFC } from '@/types/GlobalContext';
+import { User } from '@/types/User';
 import styles from './index.module.scss';
 
 type TimelineProps = {
   sourceFeeds: Feed[];
+  user?: User;
 };
 
-const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds = [] }) => {
+const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   const [content, setContent] = useState('');
   const [feeds, setFeeds] = useState(sourceFeeds);
   const [userBg, setUserBg] = useState('');
-  const [user] = useState(sourceFeeds[0].createBy || {});
   const submitTimeline = async () => {
     const res = await clientRequest('/feed', {
       body: { content },
@@ -42,10 +43,10 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds = [] }) => {
             className={styles.banner_bg}
           />
           <div className={styles.author_info}>
-            <img src={user.avatar} className={styles.author_avatar} alt="" />
-            <div className={styles.author_nickname}>{user.nickname}</div>
+            <img src={user?.avatar} className={styles.author_avatar} alt="" />
+            <div className={styles.author_nickname}>{user?.nickname}</div>
             <div className={styles.author_bio}>
-              <span>{user.bio}</span>
+              <span>{user?.bio}</span>
             </div>
           </div>
         </div>
@@ -110,8 +111,16 @@ Timeline.getLayout = (page) => {
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const res = await request(`/public/feed`, { ctx });
   const { data, pathViewCount } = await res.json();
+  const tmp = await request('/user/current', { ctx });
+  let user;
+  try {
+    const { data: tmpUser } = await tmp.json();
+    user = tmpUser;
+  } catch {
+    user = null;
+  }
   return {
-    props: { sourceFeeds: data || [], pathViewCount },
+    props: { sourceFeeds: data || [], pathViewCount, user },
   };
 };
 
