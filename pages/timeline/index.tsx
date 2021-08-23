@@ -7,6 +7,7 @@ import { CosUtils, DateTimeFormat } from '@/utils/lib';
 import classNames from 'classnames';
 import { LayoutFC } from '@/types/GlobalContext';
 import { User } from '@/types/User';
+import { constants } from 'http2';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -113,10 +114,10 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { data, pathViewCount } = await res.json();
   const tmp = await request('/user/current', { ctx });
   let user;
-  try {
+  if (tmp.status === constants.HTTP_STATUS_OK) {
     const { data: tmpUser } = await tmp.json();
     user = tmpUser;
-  } catch {
+  } else {
     user = null;
   }
   return {

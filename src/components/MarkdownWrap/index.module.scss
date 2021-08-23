@@ -11,7 +11,7 @@ $heading-color: rgba(37, 99, 235, 0.8);
     linear-gradient(360deg, rgba(50, 0, 0, 0.05) 3%, rgba(0, 0, 0, 0) 3%);
   background-position: center center;
   background-size: 20px 20px;
-  @apply box-border h-auto min-h-full;
+  @apply box-border h-auto min-h-full px-8 py-10;
 
   .heading1 {
     border-color: $primary-color;
@@ -70,7 +70,7 @@ $heading-color: rgba(37, 99, 235, 0.8);
   h3 {
     color: $heading-color;
     text-align: left;
-    @apply text-lg text-xl font-medium ml-1 my-3;
+    @apply text-lg text-xl font-medium my-3;
     &::before {
       content: '##';
       @apply text-xl font-medium pr-2;
@@ -79,7 +79,7 @@ $heading-color: rgba(37, 99, 235, 0.8);
 
   h4 {
     color: $heading-color;
-    @apply text-lg font-medium inline-block ml-2 my-2;
+    @apply text-lg font-medium inline-block my-2;
     &::before {
       content: '###';
       @apply text-lg font-semibold pr-2;
@@ -103,8 +103,7 @@ $heading-color: rgba(37, 99, 235, 0.8);
   .inline_code {
     padding: 0.2rem;
     color: #4a4a4a;
-    background-color: rgba(0, 0, 0, 0.1);
-    @apply rounded;
+    @apply rounded bg-blue-100;
   }
 
   .toolbar {

@@ -13,11 +13,12 @@
     flex: 1;
     width: min(100%, 600px);
     height: auto;
+    padding: 0 5%;
     font-family: 'Zpix', Sans serif;
     @screen sm {
       @apply px-0;
     }
-    @apply mx-auto px-4;
+    @apply mx-auto;
     .timeline_textarea {
       font-size: 30px;
       box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);

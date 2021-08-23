@@ -11,15 +11,13 @@
   }
   .main {
     height: calc(100% - 2rem);
-    @apply flex w-full p-4;
-    $content-border: 1px dashed #5246db;
+    @apply flex w-full;
     .input_content {
-      border: $content-border;
-      @apply w-1/2 rounded p-2 mr-2 shadow-lg;
+      @apply w-1/2 rounded p-2 shadow-lg;
     }
     .preview {
-      border: $content-border;
-      @apply h-full w-1/2 ml-2 shadow overflow-y-auto rounded;
+      border-left: 1px solid black;
+      @apply h-full w-1/2 shadow overflow-y-auto;
     }
   }
 }

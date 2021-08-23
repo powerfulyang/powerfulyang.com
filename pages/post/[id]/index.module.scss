@@ -5,7 +5,7 @@
   @apply py-8 px-4;
   .post {
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
-    @apply mx-auto rounded-lg py-16 px-4;
+    @apply mx-auto rounded-lg py-16 px-8;
     @screen sm {
       @apply px-10 py-20;
     }
