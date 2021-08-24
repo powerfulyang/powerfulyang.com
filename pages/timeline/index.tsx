@@ -18,7 +18,7 @@ type TimelineProps = {
 const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   const [content, setContent] = useState('');
   const [feeds, setFeeds] = useState(sourceFeeds);
-  const [userBg, setUserBg] = useState('');
+  const [userBg, setUserBg] = useState('/transparent.png');
   const submitTimeline = async () => {
     const res = await clientRequest('/feed', {
       body: { content },
@@ -31,8 +31,14 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     }
   };
   useEffect(() => {
-    setUserBg(`url(${CosUtils.getCosObjectUrl(user?.timelineBackground?.objectUrl)})`);
-  }, [user?.timelineBackground?.objectUrl]);
+    if (user?.timelineBackground?.objectUrl) {
+      setUserBg(`url(${CosUtils.getCosObjectUrl(user?.timelineBackground?.objectUrl)})`);
+    } else {
+      setUserBg(
+        `url(${CosUtils.getCosObjectUrl(sourceFeeds[0]?.createBy?.timelineBackground?.objectUrl)})`,
+      );
+    }
+  }, [user?.timelineBackground?.objectUrl, sourceFeeds]);
   return (
     <div className={styles.wrap}>
       <div className={styles.timeline_show}>
@@ -51,26 +57,28 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
             </div>
           </div>
         </div>
-        <div className={styles.timeline_input}>
-          <div className={styles.timeline_textarea}>
-            <textarea
-              name="timeline_input"
-              onChange={(e) => {
-                setContent(e.target.value);
-              }}
-              value={content}
-            />
+        {user && (
+          <div className={styles.timeline_input}>
+            <div className={styles.timeline_textarea}>
+              <textarea
+                name="timeline_input"
+                onChange={(e) => {
+                  setContent(e.target.value);
+                }}
+                value={content}
+              />
+            </div>
+            <div className="text-right mr-4 mt-2 mb-4">
+              <button
+                onClick={submitTimeline}
+                type="button"
+                className={classNames(styles.timeline_submit, 'pointer')}
+              >
+                发送
+              </button>
+            </div>
           </div>
-          <div className="text-right mr-4 mt-2 mb-4">
-            <button
-              onClick={submitTimeline}
-              type="button"
-              className={classNames(styles.timeline_submit, 'pointer')}
-            >
-              发送
-            </button>
-          </div>
-        </div>
+        )}
         <div className={styles.feeds}>
           {feeds.map((feed) => (
             <div key={feed.id} className={styles.container}>

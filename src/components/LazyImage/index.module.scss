@@ -1,12 +1,12 @@
 @keyframes loading-img {
   50% {
-    opacity: 0.3;
+    opacity: 0.8;
   }
 }
 
 .loading {
   animation: loading-img 2s infinite;
-  @apply bg-gray-100;
+  @apply filter blur bg-cover;
 }
 
 .loaded_img {

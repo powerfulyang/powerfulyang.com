@@ -7,7 +7,8 @@ import React, {
   useState,
 } from 'react';
 import classNames from 'classnames';
-import { getCosObjectThumbnailUrl } from '@/utils/lib';
+import { CosUtils, getCosObjectThumbnailUrl } from '@/utils/lib';
+import { useClientState } from '@/hooks/useClientState';
 import styles from './index.module.scss';
 
 type LazyImageExtendProps = {
@@ -28,9 +29,9 @@ export const LazyImage: FC<
         if (intersectionRatio > 0 && src) {
           const _target = target as HTMLImageElement;
           _target.src = getCosObjectThumbnailUrl(src)!;
+          inViewAction?.(assetId);
           _target.onload = () => {
             setLoading(false);
-            inViewAction?.(assetId);
           };
           _target.onerror = () => {
             _target.src = '/default.png';
@@ -51,6 +52,8 @@ export const LazyImage: FC<
     };
   }, []);
 
+  const bgUrl = useClientState(() => `url(${CosUtils.getCosObjectBlurUrl(src)})`);
+
   return (
     <img
       {...props}
@@ -58,6 +61,7 @@ export const LazyImage: FC<
         [styles.loading]: loading,
         [styles.loaded_img]: !loading,
       })}
+      style={{ backgroundImage: bgUrl }}
       src="/transparent.png"
       alt={alt}
       ref={ref}

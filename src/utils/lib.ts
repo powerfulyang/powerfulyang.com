@@ -18,6 +18,12 @@ export const styles = {
   thumbnail_webp: '&imageMogr2/thumbnail/300x/format/webp/interlace/1/quality/100',
   webp: '&imageMogr2/format/webp/interlace/1/quality/100',
   origin: '',
+  blur: '&imageMogr2/thumbnail/10x/interlace/1',
+  blur_webp: '&imageMogr2/thumbnail/10x/format/webp/interlace/1/quality/100',
+};
+
+export const getCosObjectBlurUrl = (objectUrl?: string) => {
+  return objectUrl && `${objectUrl}${(isSupportWebp() && styles.blur_webp) || styles.blur}`;
 };
 
 export const getCosObjectThumbnailUrl = (objectUrl?: string) => {
@@ -33,4 +39,5 @@ export const getCosObjectUrl = (objectUrl?: string) => {
 export const CosUtils = {
   getCosObjectThumbnailUrl,
   getCosObjectUrl,
+  getCosObjectBlurUrl,
 } as const;

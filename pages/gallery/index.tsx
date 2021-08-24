@@ -8,6 +8,7 @@ import { ImagePreview } from '@/components/ImagePreview/Index';
 import { useImmer } from '@powerfulyang/hooks';
 import useSWR from 'swr';
 import { LazyImage } from '@/components/LazyImage';
+import { last } from 'ramda';
 import styles from './index.module.scss';
 
 type GalleryProps = {
@@ -26,7 +27,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
     }
   };
   const { data } = useSWR(['/public/gallery', page], async (url, currentPage) => {
-    const res = await clientRequest(url, {
+    const res = await clientRequest<[Asset[]]>(url, {
       query: { currentPage, pageSize: 30 },
     });
     return res.data[0];
@@ -53,7 +54,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
               src={asset.objectUrl}
               assetId={asset.id}
               inViewAction={(id) => {
-                if (id === data?.[0]?.id) {
+                if (data && id === last(data)?.id) {
                   loadMore();
                 }
               }}
