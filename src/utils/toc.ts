@@ -1,3 +1,7 @@
+import { MarkdownMetadata } from '@/components/MarkdownWrap/Editor/inex';
+import { isNull } from '@powerfulyang/utils';
+import { trim } from 'ramda';
+
 export const generateToc = (content: string) => {
   const reg = /(#{1,4})\s(.+)\n/g;
   const ret = content.match(reg);
@@ -12,4 +16,39 @@ export const generateToc = (content: string) => {
       };
     }) || []
   );
+};
+
+export function extractMetaData(text: string = '') {
+  const metaData: Record<string, string | string[]> = {};
+
+  const metaRegExp = RegExp(/^---[\r\n](((?!---).|[\r\n])*)[\r\n]---$/m);
+  const rawMetaData = metaRegExp.exec(text);
+
+  let keyValues;
+
+  if (rawMetaData) {
+    keyValues = rawMetaData[1].split('\n');
+
+    keyValues.forEach((keyValue) => {
+      const [key, value] = keyValue.split(':');
+      if (key && value) {
+        if (key === 'tags') {
+          metaData[key] = value.split(',').map(trim);
+        } else {
+          metaData[key] = value.trim();
+        }
+      }
+    });
+  }
+  const content = text.replace(metaRegExp, '');
+  return [metaData, content] as [MarkdownMetadata, string];
+}
+
+export const extractTitle = (content: string) => {
+  const reg = /#?\s(.+)[\n]/g;
+  const title = reg.exec(content);
+  if (isNull(title)) {
+    throw new Error('Markdown Format Error!');
+  }
+  return title[1];
 };

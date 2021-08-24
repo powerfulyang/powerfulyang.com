@@ -8,7 +8,7 @@ import { Header } from '@/components/Head';
 export default function App({ Component, pageProps }: AppProps) {
   if (isClient) {
     const scriptElem = document.createElement('script');
-    scriptElem.src = '//at.alicdn.com/t/font_178634_q97z23slrzr.js';
+    scriptElem.src = '//at.alicdn.com/t/font_178634_do8syx1c1fb.js';
     document.body.appendChild(scriptElem);
   }
   // @ts-ignore

@@ -1,4 +1,4 @@
-import { generateToc } from '@/utils/toc';
+import { extractTitle, generateToc } from '@/utils/toc';
 
 describe('markdown toc', () => {
   it('generate toc', () => {
@@ -76,10 +76,22 @@ describe('markdown toc', () => {
     expect(res).toBeDefined();
   });
 
-  it('should ', function () {
+  it('extract header ', function () {
     const t = '## Headers\n';
     const reg = /#{1,4}\s(.+)\n/g;
     const v = reg.exec(t);
     expect(v).toBeDefined();
+  });
+
+  it('extract title', () => {
+    const title = extractTitle(
+      '# Markdown syntax guide\n' +
+        '## Headers\n' +
+        '# This is a Heading h1\n' +
+        '## This is a Heading h2\n' +
+        '### This is a Heading h3\n' +
+        '#### This is a Heading h4\n',
+    );
+    expect(title).toBe('Markdown syntax guide');
   });
 });

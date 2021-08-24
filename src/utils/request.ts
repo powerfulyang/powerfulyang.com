@@ -25,8 +25,8 @@ export const request = async (url: string, options: RequestOptions) => {
 };
 
 export type ApiResponse<T = any> = {
-  status?: 'ok';
-  data?: T;
+  status: 'ok';
+  data: T;
 };
 
 export const clientRequest = async <T = any>(

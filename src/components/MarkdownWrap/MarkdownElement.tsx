@@ -2,7 +2,11 @@ import React, { FC } from 'react';
 import { Icon, IconTag } from '@powerfulyang/components';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import { CodeComponent } from 'react-markdown/lib/ast-to-react';
+import {
+  CodeComponent,
+  LiComponent,
+  UnorderedListComponent,
+} from 'react-markdown/lib/ast-to-react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
 
@@ -106,4 +110,21 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
 
 export const Pre: FC = ({ children }) => {
   return <pre>{children}</pre>;
+};
+
+export const Ul: UnorderedListComponent = ({ children, ...props }) => {
+  const { className } = props;
+  if (className) {
+    return <ul className={styles.contains_task_list}>{children}</ul>;
+  }
+  return <ul>{children}</ul>;
+};
+
+export const Li: LiComponent = ({ children, ordered, index }) => {
+  return (
+    <li>
+      {ordered && <span className={styles.ordered_list_index}>{index + 1}</span>}
+      {children}
+    </li>
+  );
 };

@@ -35,6 +35,10 @@ const analyzer = withBundleAnalyzer({
         source: '/',
         destination: '/post',
       },
+      {
+        source: '/post/publish',
+        destination: '/post/publish/0',
+      },
     ];
   },
   pwa: {

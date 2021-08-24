@@ -4,20 +4,37 @@ import classNames from 'classnames';
 import { MarkdownWrap } from '@/components/MarkdownWrap';
 import MonacoEditor from '@monaco-editor/react';
 import { VoidFunction } from '@powerfulyang/utils';
+import { extractMetaData } from '@/utils/toc';
 import styles from './index.module.scss';
 
 type MarkdownEditorProps = {
   defaultValue?: string;
   onChange?: VoidFunction<string>;
+  onPost?: VoidFunction;
 };
 
-export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onChange }) => {
-  const [content, setContent] = useState(defaultValue);
+export type MarkdownMetadata = {
+  author: string;
+  tags: string[];
+};
+
+export const MarkdownEditor: FC<MarkdownEditorProps> = ({
+  defaultValue = '',
+  onChange,
+  onPost,
+}) => {
+  const [input, setInput] = useState(defaultValue);
+  const [toRender, setToRender] = useState('');
+  const [metadata, setMetadata] = useState<MarkdownMetadata>();
   useEffect(() => {
-    if (content) {
-      onChange?.(content);
+    if (input) {
+      const [m, c] = extractMetaData(input);
+      setToRender(c);
+      setMetadata(m);
+      onChange?.(input);
     }
-  }, [content, onChange]);
+  }, [input, onChange]);
+  const post = () => onPost?.(metadata, input);
   return (
     <>
       <div className={classNames(styles.editor)}>
@@ -34,22 +51,21 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onC
           <Icon className={styles.icon} type="icon-orderedlist" />
           <Icon className={styles.icon} type="icon-unorderedlist" />
           <Icon className={styles.icon} type="icon-wrap" />
-          <Icon className={styles.icon} type="icon-fullscreen" />
-          <Icon className={styles.icon} type="icon-fullscreen-exit" />
+          <Icon className={classNames(styles.icon, styles.post)} type="icon-send" onClick={post} />
         </section>
         <main className={styles.main}>
           <section className={styles.input_content}>
             <MonacoEditor
               defaultLanguage="markdown"
-              defaultValue={content}
+              defaultValue={input}
               onChange={(v) => {
-                setContent(v || '');
+                setInput(v!);
               }}
               options={{ minimap: { enabled: false } }}
             />
           </section>
           <section className={styles.preview}>
-            <MarkdownWrap source={content} />
+            <MarkdownWrap source={toRender} />
           </section>
         </main>
       </div>
