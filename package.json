@@ -18,6 +18,7 @@
     "url": "https://github.com/powerfulyang/powerfulyang.com"
   },
   "dependencies": {
+    "@mojs/core": "^1.1.0",
     "@monaco-editor/react": "^4.2.2",
     "@powerfulyang/components": "^0.7.27",
     "@powerfulyang/hooks": "^0.2.17",
