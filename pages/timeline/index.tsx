@@ -33,12 +33,8 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   useEffect(() => {
     if (user?.timelineBackground?.objectUrl) {
       setUserBg(`url(${CosUtils.getCosObjectUrl(user?.timelineBackground?.objectUrl)})`);
-    } else {
-      setUserBg(
-        `url(${CosUtils.getCosObjectUrl(sourceFeeds[0]?.createBy?.timelineBackground?.objectUrl)})`,
-      );
     }
-  }, [user?.timelineBackground?.objectUrl, sourceFeeds]);
+  }, [user]);
   return (
     <div className={styles.wrap}>
       <div className={styles.timeline_show}>
@@ -126,7 +122,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const { data: tmpUser } = await tmp.json();
     user = tmpUser;
   } else {
-    user = null;
+    user = data[0]?.createBy;
   }
   return {
     props: { sourceFeeds: data || [], pathViewCount, user },
