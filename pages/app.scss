@@ -1,6 +1,6 @@
 @charset "UTF-8";
 @import '~@powerfulyang/components/dist/es/index.css';
-@import 'base';
+@import './base';
 
 @tailwind base;
 @tailwind components;
@@ -28,10 +28,6 @@ path {
   @extend .cursor-self-pointer;
 }
 
-body {
-  overflow: overlay;
-}
-
 html,
 body,
 #__next {
@@ -41,20 +37,18 @@ body,
   --nav-height: 4rem;
   --cursor-pointer: url('/cursor/pointer.png'), auto;
   --footer-height: 3rem;
+
   @apply w-full h-full;
 }
 
 ::-webkit-scrollbar {
-  width: 3px;
-  height: 6px;
+  width: 6px;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded bg-pink-400;
-}
-
-::-webkit-scrollbar-track-piece {
-  background: #eee;
+  background: var(--scrollbar-bg);
+  border-radius: 10px;
 }
 
 /**
@@ -62,5 +56,6 @@ body,
   能保证基础字号从iPhone6里的11.75px一直过渡到1200px屏幕的20px。
  */
 :root {
+  overflow: overlay;
   font-size: calc(0.5em + 0.5vw);
 }

@@ -33,8 +33,6 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Test
-        run: npm run test
       - name: Dockerize
         id: dockerize
         uses: elgohr/Publish-Docker-Github-Action@master
