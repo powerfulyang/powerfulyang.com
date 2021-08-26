@@ -40,7 +40,7 @@ $heading-color: rgba(37, 99, 235, 0.8);
 
     .content {
       word-break: break-word;
-      @apply block px-20 text-2xl font-medium text-left;
+      @apply block px-20 text-2xl font-medium text-center;
     }
 
     .suffix {
@@ -164,7 +164,6 @@ $heading-color: rgba(37, 99, 235, 0.8);
 
   p {
     line-height: 2rem;
-    text-indent: 2em;
   }
 
   strong {

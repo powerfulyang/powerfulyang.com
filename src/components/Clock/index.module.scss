@@ -7,7 +7,7 @@
   }
 }
 .clock {
-  @apply flex flex-1 justify-center;
+  @apply flex flex-1 justify-center items-center text-pink-400;
 }
 .rotate {
   animation: rotateZ 10s linear infinite;

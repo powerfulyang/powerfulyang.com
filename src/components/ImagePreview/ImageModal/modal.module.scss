@@ -3,13 +3,12 @@
   top: 0;
   left: 0;
   z-index: 100;
-  @apply bg-cover bg-center w-full h-full overflow-hidden;
+  @apply w-full h-full;
   .blur {
-    @apply backdrop-filter backdrop-blur w-full h-full p-10;
+    @apply backdrop-filter backdrop-blur-xl w-full h-full p-10;
   }
   .image {
     z-index: 101;
-    margin: auto;
     object-fit: contain;
     cursor: var(--cursor-pointer);
     @apply w-full h-full;
