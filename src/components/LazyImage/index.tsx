@@ -9,11 +9,23 @@ import React, {
 import classNames from 'classnames';
 import { CosUtils, getCosObjectThumbnailUrl } from '@/utils/lib';
 import { useClientState } from '@/hooks/useClientState';
+import { motion } from 'framer-motion';
 import styles from './index.module.scss';
 
 type LazyImageExtendProps = {
   inViewAction?: (id?: number) => void;
   assetId?: number;
+};
+
+const variants = {
+  loading: {
+    scale: 1.4,
+    filter: 'blur(20px)',
+  },
+  loaded: {
+    scale: 1,
+    filter: 'blur(0px)',
+  },
 };
 
 export const LazyImage: FC<
@@ -55,16 +67,30 @@ export const LazyImage: FC<
   const bgUrl = useClientState(() => `url(${CosUtils.getCosObjectBlurUrl(src)})`);
 
   return (
-    <img
-      {...props}
-      className={classNames(className, {
-        [styles.loading]: loading,
-        [styles.loaded_img]: !loading,
-      })}
-      style={{ backgroundImage: bgUrl }}
-      src="/transparent.png"
-      alt={alt}
-      ref={ref}
-    />
+    <div className={classNames(className, 'overflow-hidden', 'rounded')}>
+      <motion.div
+        variants={variants}
+        initial="loading"
+        animate={!loading && 'loaded'}
+        className="w-full h-full"
+        style={{ originX: 0.5, originY: 0.5 }}
+        transition={{ duration: 1.2 }}
+      >
+        <img
+          {...props}
+          className={classNames(
+            {
+              [styles.loading]: loading,
+              [styles.loaded_img]: !loading,
+            },
+            'object-cover w-full h-full',
+          )}
+          style={{ backgroundImage: bgUrl }}
+          src="/transparent.png"
+          alt={alt}
+          ref={ref}
+        />
+      </motion.div>
+    </div>
   );
 };

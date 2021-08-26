@@ -1,14 +1,7 @@
-@keyframes loading-img {
-  50% {
-    opacity: 0.8;
-  }
-}
-
 .loading {
-  animation: loading-img 2s infinite;
-  @apply filter blur bg-cover;
+  @apply bg-cover;
 }
 
 .loaded_img {
-  @apply rounded shadow-lg;
+  @apply shadow-lg;
 }
