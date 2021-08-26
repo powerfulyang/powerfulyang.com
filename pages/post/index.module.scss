@@ -8,8 +8,7 @@ $text-color: #51525d;
 
 .body {
   z-index: -1;
-  height: calc(100% - var(--nav-height) - var(--footer-height));
-  overflow: auto;
+  min-height: calc(100vh - var(--nav-height) - var(--footer-height));
   background-color: #fcfcff;
   @apply w-full p-4;
 }

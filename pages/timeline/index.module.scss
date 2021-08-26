@@ -2,8 +2,7 @@
 
 .wrap {
   width: 100%;
-  min-height: calc(100% - var(--footer-height) - var(--nav-height));
-  overflow: auto;
+  min-height: calc(100vh - var(--footer-height) - var(--nav-height));
   @apply pb-10;
   .timeline_show {
     width: min(100%, 600px);
@@ -101,7 +100,7 @@
     @apply text-lg ml-16 pl-2 pr-16;
     .text {
       font-family: 'Zpix', serif;
-      @apply text-base font-normal text-gray-600;
+      @apply text-base font-normal text-gray-600 break-words;
     }
     .assets {
       @apply grid gap-1 grid-cols-3 py-4 overflow-auto;

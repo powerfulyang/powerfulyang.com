@@ -38,7 +38,7 @@ body,
   --cursor-pointer: url('/cursor/pointer.png'), auto;
   --footer-height: 3rem;
 
-  @apply w-full h-full;
+  @apply w-full h-auto;
 }
 
 ::-webkit-scrollbar {
