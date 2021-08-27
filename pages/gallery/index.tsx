@@ -26,12 +26,16 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
       });
     }
   };
-  const { data } = useSWR(['/public/gallery', page], async (url, currentPage) => {
-    const res = await clientRequest<[Asset[]]>(url, {
-      query: { currentPage, pageSize: 30 },
-    });
-    return res.data[0];
-  });
+  const { data } = useSWR(
+    ['/public/gallery', page],
+    async (url, currentPage) => {
+      const res = await clientRequest<[Asset[]]>(url, {
+        query: { currentPage, pageSize: 30 },
+      });
+      return res.data[0];
+    },
+    { revalidateOnFocus: false },
+  );
 
   useEffect(() => {
     if (data) {
@@ -46,9 +50,9 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
 
   return (
     <main className={styles.gallery}>
-      <ImagePreview>
-        {images.map((asset) => (
-          <div key={asset.id} data-img={asset.objectUrl} className={styles.image_wrap}>
+      <ImagePreview images={images}>
+        {images.map((asset, index) => (
+          <div key={asset.id} data-img={index} className={styles.image_wrap}>
             <LazyImage
               className={styles.image}
               src={asset.objectUrl}

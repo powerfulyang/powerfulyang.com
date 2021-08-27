@@ -1,11 +1,3 @@
-.cursor-self-pointer {
-  cursor: url('/cursor/pointer.png'), auto;
-}
-
-.pointer {
-  @extend .cursor-self-pointer;
-}
-
 @mixin text-ellipsis($line) {
   display: -webkit-box; //作为弹性伸缩盒子模型显示。
   overflow: hidden;

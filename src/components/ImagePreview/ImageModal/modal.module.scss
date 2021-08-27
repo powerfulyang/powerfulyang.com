@@ -5,12 +5,22 @@
   z-index: 100;
   @apply w-full h-full;
   .blur {
-    @apply backdrop-filter backdrop-blur-xl w-full h-full p-10;
+    @apply w-full h-full p-20 overflow-hidden;
   }
   .image {
     z-index: 101;
     object-fit: contain;
-    cursor: var(--cursor-pointer);
     @apply w-full h-full;
+  }
+  .next {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    z-index: 101;
+    transform: translateY(-50%);
+  }
+  .prev {
+    left: 0;
+    @extend .next;
   }
 }

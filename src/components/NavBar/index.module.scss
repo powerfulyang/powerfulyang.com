@@ -21,7 +21,6 @@
     @apply rounded-full mx-4;
   }
   .user {
-    cursor: var(--cursor-pointer);
     @apply flex items-center mr-4 text-pink-400;
     .nickname {
       display: none;

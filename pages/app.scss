@@ -16,24 +16,10 @@
   font-display: swap;
 }
 
-a,
-button,
-svg,
-use,
-path {
-  @extend .cursor-self-pointer;
-}
-
 html,
 body,
 #__next {
   position: relative;
-  cursor: url('/cursor/default.png'), auto;
-
-  --nav-height: 4rem;
-  --cursor-pointer: url('/cursor/pointer.png'), auto;
-  --footer-height: 3rem;
-
   @apply w-full h-auto;
 }
 
@@ -53,9 +39,25 @@ body,
   根元素 一般是 html ？
  */
 :root {
+  --nav-height: 4rem;
+  --footer-height: 3rem;
+
   font-size: calc(0.5em + 0.5vw);
+  cursor: url('/cursor/default.png'), auto;
+}
+
+.pointer {
+  cursor: url('/cursor/pointer.png'), pointer;
 }
 
 body {
   overflow: overlay;
+}
+
+a,
+button,
+svg,
+use,
+path {
+  @extend .pointer;
 }

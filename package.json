@@ -5,7 +5,8 @@
   "description": "home page",
   "scripts": {
     "test": "jest",
-    "start:dev": "cross-env NODE_OPTIONS='--inspect=127.0.0.1:9230' next dev",
+    "start:debug": "cross-env NODE_OPTIONS='--inspect=127.0.0.1:9230' next dev",
+    "start:dev": "next dev",
     "build": "next build",
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",

@@ -9,7 +9,7 @@ const Event = () => {
     });
   });
   return (
-    <div className="w-full h-full m-auto absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 cursor-pointer">
+    <div className="w-full h-full m-auto absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
       click me
     </div>
   );

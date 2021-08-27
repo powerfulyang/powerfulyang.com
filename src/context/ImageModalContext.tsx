@@ -1,13 +1,18 @@
 import { Context, createContext, Dispatch } from 'react';
+import { Asset } from '@/types/Asset';
 
 export type ImageModalContextState = {
   visible?: boolean;
   selectImage?: string;
+  origin?: [number, number];
+  images?: Asset[];
+  linkImages?: [number, number];
 };
 
 export enum ImageModalContextActionType {
   close,
   open,
+  updateImages,
 }
 
 export type ImageModalContextAction = {

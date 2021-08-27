@@ -16,7 +16,6 @@ type LazyImageExtendProps = {
   inViewAction?: (id?: number) => void;
   assetId?: number;
 };
-
 const variants = {
   loading: {
     scale: 1.4,
@@ -40,11 +39,11 @@ export const LazyImage: FC<
 
         if (intersectionRatio > 0 && src) {
           const _target = target as HTMLImageElement;
-          _target.src = getCosObjectThumbnailUrl(src)!;
           inViewAction?.(assetId);
           _target.onload = () => {
             setLoading(false);
           };
+          _target.src = getCosObjectThumbnailUrl(src)!;
           _target.onerror = () => {
             _target.src = '/default.png';
           };
@@ -68,12 +67,11 @@ export const LazyImage: FC<
 
   return (
     <div className={classNames(className, 'overflow-hidden', 'rounded')}>
-      <motion.div
+      <motion.a
         variants={variants}
         initial="loading"
         animate={!loading && 'loaded'}
         className="w-full h-full"
-        style={{ originX: 0.5, originY: 0.5 }}
         transition={{ duration: 1.2 }}
       >
         <img
@@ -90,7 +88,7 @@ export const LazyImage: FC<
           alt={alt}
           ref={ref}
         />
-      </motion.div>
+      </motion.a>
     </div>
   );
 };
