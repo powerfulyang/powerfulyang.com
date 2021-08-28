@@ -7,8 +7,7 @@ import { Asset } from '@/types/Asset';
 import { ImagePreview } from '@/components/ImagePreview/Index';
 import { useImmer } from '@powerfulyang/hooks';
 import useSWR from 'swr';
-import { LazyImage } from '@/components/LazyImage';
-import { last } from 'ramda';
+import { ImageThumbnailWrap } from '@/components/ImagePreview/ImageThumbnailWrap';
 import styles from './index.module.scss';
 
 type GalleryProps = {
@@ -52,18 +51,16 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
     <main className={styles.gallery}>
       <ImagePreview images={images}>
         {images.map((asset, index) => (
-          <div key={asset.id} data-img={index} className={styles.image_wrap}>
-            <LazyImage
-              className={styles.image}
-              src={asset.objectUrl}
-              assetId={asset.id}
-              inViewAction={(id) => {
-                if (data && id === last(data)?.id) {
-                  loadMore();
-                }
-              }}
-            />
-          </div>
+          <ImageThumbnailWrap
+            index={index}
+            key={asset.id}
+            asset={asset}
+            inViewAction={(id) => {
+              if (data && id === data[0].id) {
+                loadMore();
+              }
+            }}
+          />
         ))}
       </ImagePreview>
     </main>

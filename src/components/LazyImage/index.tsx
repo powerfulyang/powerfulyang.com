@@ -18,8 +18,8 @@ type LazyImageExtendProps = {
 };
 const variants = {
   loading: {
-    scale: 1.4,
-    filter: 'blur(20px)',
+    scale: 1.5,
+    filter: 'blur(40px)',
   },
   loaded: {
     scale: 1,
@@ -32,28 +32,30 @@ export const LazyImage: FC<
 > = ({ src, className, alt, inViewAction, assetId, ...props }) => {
   const [loading, setLoading] = useState(true);
   const observerRef = useRef<IntersectionObserver>();
+  const ref = useRef<HTMLImageElement>(null);
+  const [imgUrl, setImgUrl] = useState('/transparent.png');
   useEffect(() => {
     observerRef.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        const { target, intersectionRatio } = entry;
+        const { target, intersectionRatio } = entry as unknown as {
+          target: HTMLImageElement;
+          intersectionRatio: number;
+        };
 
         if (intersectionRatio > 0 && src) {
-          const _target = target as HTMLImageElement;
+          const _target = new Image();
+          const source = getCosObjectThumbnailUrl(src)!;
           inViewAction?.(assetId);
           _target.onload = () => {
             setLoading(false);
+            setImgUrl(source);
           };
-          _target.src = getCosObjectThumbnailUrl(src)!;
-          _target.onerror = () => {
-            _target.src = '/default.png';
-          };
-          observerRef.current?.unobserve(_target);
+          _target.src = source;
+          observerRef.current?.unobserve(target);
         }
       });
     });
   }, [assetId, inViewAction, src]);
-
-  const ref = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const observerRefCurrent = observerRef?.current!;
@@ -66,11 +68,11 @@ export const LazyImage: FC<
   const bgUrl = useClientState(() => `url(${CosUtils.getCosObjectBlurUrl(src)})`);
 
   return (
-    <div className={classNames(className, 'overflow-hidden', 'rounded')}>
-      <motion.a
+    <div className={classNames(className, 'overflow-hidden rounded pointer')}>
+      <motion.div
         variants={variants}
         initial="loading"
-        animate={!loading && 'loaded'}
+        animate={(!loading && 'loaded') || 'loading'}
         className="w-full h-full"
         transition={{ duration: 1.2 }}
       >
@@ -81,14 +83,14 @@ export const LazyImage: FC<
               [styles.loading]: loading,
               [styles.loaded_img]: !loading,
             },
-            'object-cover w-full h-full',
+            'object-cover w-full h-full bg-no-repeat bg-cover',
           )}
           style={{ backgroundImage: bgUrl }}
-          src="/transparent.png"
+          src={imgUrl}
           alt={alt}
           ref={ref}
         />
-      </motion.a>
+      </motion.div>
     </div>
   );
 };

@@ -48,18 +48,4 @@
   }
 
   @apply grid gap-4 grid-cols-3 p-4 bg-white overflow-auto;
-
-  .image_wrap {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-top: 100%;
-    .image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-  }
 }

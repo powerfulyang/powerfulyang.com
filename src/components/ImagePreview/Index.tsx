@@ -1,5 +1,4 @@
-import React, { Children, cloneElement, FC, MouseEvent, ReactElement, useEffect } from 'react';
-import { ImageModal } from '@/components/ImagePreview/ImageModal';
+import React, { Children, cloneElement, FC, ReactElement, useEffect } from 'react';
 import {
   ImageModalContext,
   ImageModalContextAction,
@@ -8,17 +7,19 @@ import {
 } from '@/context/ImageModalContext';
 import { useImmerReducer } from '@powerfulyang/hooks';
 import { Asset } from '@/types/Asset';
+import dynamic from 'next/dynamic';
+
+const DynamicImageModal = dynamic(() => import('@/components/ImagePreview/ImageModal'), {
+  ssr: false,
+});
 
 const reducer = (draft: ImageModalContextState, action: ImageModalContextAction) => {
   switch (action.type) {
     case ImageModalContextActionType.close:
-      draft.visible = false;
+      draft.selectIndex = undefined;
       break;
     case ImageModalContextActionType.open:
-      draft.visible = true;
-      draft.selectImage = action.payload?.selectImage;
-      draft.origin = action.payload?.origin;
-      draft.linkImages = action.payload?.linkImages;
+      draft.selectIndex = action.payload?.selectIndex;
       break;
     case ImageModalContextActionType.updateImages:
       draft.images = action.payload?.images;
@@ -28,10 +29,7 @@ const reducer = (draft: ImageModalContextState, action: ImageModalContextAction)
 };
 
 export const ImagePreview: FC<{ images: Asset[] }> = ({ children, images }) => {
-  const [state, dispatch] = useImmerReducer(reducer, {
-    visible: false,
-    selectImage: '',
-  });
+  const [state, dispatch] = useImmerReducer(reducer, {});
   useEffect(() => {
     dispatch({
       type: ImageModalContextActionType.updateImages,
@@ -43,35 +41,28 @@ export const ImagePreview: FC<{ images: Asset[] }> = ({ children, images }) => {
   return (
     <>
       <ImageModalContext.Provider value={{ state, dispatch }}>
-        {state.visible && <ImageModal />}
+        <DynamicImageModal />
+        {Children.map(
+          children as any,
+          (
+            child: ReactElement<{
+              onClick: () => void;
+              index: number;
+            }>,
+          ) => {
+            return cloneElement(child, {
+              onClick() {
+                dispatch({
+                  type: ImageModalContextActionType.open,
+                  payload: {
+                    selectIndex: child.props.index,
+                  },
+                });
+              },
+            });
+          },
+        )}
       </ImageModalContext.Provider>
-      {Children.map(
-        children as any,
-        (
-          child: ReactElement<{
-            'data-img': number;
-            onClick: (e: MouseEvent) => void;
-          }>,
-        ) => {
-          return cloneElement(child, {
-            onClick(e: MouseEvent) {
-              const target = e.currentTarget as HTMLDivElement;
-              const { left, right, top, bottom, width, height } = target.getBoundingClientRect();
-              const cx = (left + right - width) / 2;
-              const cy = (top + bottom - height) / 2;
-              const index = child?.props?.['data-img'];
-              dispatch({
-                type: ImageModalContextActionType.open,
-                payload: {
-                  selectImage: images[index].objectUrl,
-                  origin: [cx, cy],
-                  linkImages: [index - 1, index + 1],
-                },
-              });
-            },
-          });
-        },
-      )}
     </>
   );
 };

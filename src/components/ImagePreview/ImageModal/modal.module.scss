@@ -3,24 +3,25 @@
   top: 0;
   left: 0;
   z-index: 100;
-  @apply w-full h-full;
+  @apply w-full h-full backdrop-blur-xl backdrop-filter;
   .blur {
     @apply w-full h-full p-20 overflow-hidden;
   }
   .image {
     z-index: 101;
-    object-fit: contain;
-    @apply w-full h-full;
+    @apply w-full h-full object-contain;
   }
   .next {
     position: absolute;
     top: 50%;
-    right: 0;
+    right: 1rem;
     z-index: 101;
+    font-size: 2rem;
     transform: translateY(-50%);
+    @apply hover:text-black opacity-60 text-white;
   }
   .prev {
-    left: 0;
+    left: 1rem;
     @extend .next;
   }
 }
