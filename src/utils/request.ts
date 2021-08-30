@@ -14,7 +14,8 @@ export const request = async (url: string, options: RequestOptions) => {
   const { method = 'GET', ctx, body, query } = options;
   const baseUrl = process.env.BASE_URL;
   const headers = pick(['x-real-ip', 'cookie'], ctx.req.headers || { 'x-real-ip': '127.0.0.1' });
-  return nodeFetch(`${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`, {
+  const requestUrl = `${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`;
+  return nodeFetch(requestUrl, {
     method,
     headers: {
       ...headers,

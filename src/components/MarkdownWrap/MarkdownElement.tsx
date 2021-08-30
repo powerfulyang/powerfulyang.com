@@ -100,7 +100,14 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
         style={atomDark}
         language={language}
         PreTag="div"
-        customStyle={{ borderRadius: 0, margin: 0, backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+        codeTagProps={{
+          style: { fontFamily: `Fira Code, sans-serif` },
+        }}
+        customStyle={{
+          borderRadius: 0,
+          margin: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        }}
       >
         {children}
       </SyntaxHighlighter>

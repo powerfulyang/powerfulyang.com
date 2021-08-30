@@ -3,7 +3,6 @@ import { GetServerSidePropsContext } from 'next';
 import { request } from '@/utils/request';
 import { Post } from '@/types/Post';
 import { Link } from '@/components/Link';
-import { groupBy } from 'ramda';
 import classNames from 'classnames';
 import { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
@@ -12,14 +11,12 @@ import { Clock } from '@/components/Clock';
 import styles from './index.module.scss';
 
 type IndexProps = {
-  data: {
-    posts: Post[];
-  };
+  posts: Post[];
   years: number[];
   year: number;
 };
 
-const Index: LayoutFC<IndexProps> = ({ data: { posts }, years, year }) => {
+const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   return (
     <div className={styles.body}>
       <Clock />
@@ -65,23 +62,24 @@ Index.getLayout = (page) => {
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { query } = ctx;
-  const res = await request('/public/post', { ctx });
-  const { data, pathViewCount } = await res.json();
-  const { posts } = data;
-  const groupedPosts = groupBy(
-    (post: any) => new Date(post.createAt).getFullYear().toString(),
-    posts,
-  );
-  const years = Object.keys(groupedPosts).sort((m, n) => Number(n) - Number(m));
-  const { year = years[0] } = query;
+  const tmp = await request('/public/post/years', {
+    ctx,
+  });
+  let { data: years } = await tmp.json();
+  years = years.reverse();
+  const year = query.year || years[0];
+  const res = await request('/public/post', { ctx, query: { publishYear: year } });
+  const {
+    data: { posts },
+    pathViewCount,
+  } = await res.json();
+
   return {
     props: {
-      data: {
-        posts: groupedPosts[year as any],
-      },
-      years,
-      year,
       pathViewCount,
+      years,
+      posts,
+      year,
     },
   };
 };

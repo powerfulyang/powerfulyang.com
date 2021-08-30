@@ -38,10 +38,14 @@
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
     @apply m-auto flex align-middle justify-center flex-col mb-4 overflow-hidden relative;
     .banner_bg {
-      height: 300px;
+      height: 150px;
       background-repeat: no-repeat;
+      background-position-y: 15%;
       background-size: cover;
       @apply m-auto w-full;
+      @screen sm {
+        height: 300px;
+      }
     }
     .author_info {
       @apply m-auto flex pb-4 flex-wrap w-full;

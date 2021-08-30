@@ -16,6 +16,20 @@
   font-display: swap;
 }
 
+/**
+  0.5em保证了最小字号，1vw则确保了字体能随着视口缩放。
+  能保证基础字号从iPhone6里的11.75px一直过渡到1200px屏幕的20px。
+  根元素 一般是 html ？
+ */
+:root {
+  --nav-height: 4rem;
+  --footer-height: 3rem;
+  --scrollbar-bg: rgb(1 2 3 / 40%);
+
+  font-size: calc(0.5em + 0.5vw);
+  cursor: url('/cursor/default.png'), auto;
+}
+
 html,
 body,
 #__next {
@@ -25,25 +39,13 @@ body,
 
 ::-webkit-scrollbar {
   width: 6px;
+  height: 9px;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbar-bg);
   border-radius: 10px;
-}
-
-/**
-  0.5em保证了最小字号，1vw则确保了字体能随着视口缩放。
-  能保证基础字号从iPhone6里的11.75px一直过渡到1200px屏幕的20px。
-  根元素 一般是 html ？
- */
-:root {
-  --nav-height: 4rem;
-  --footer-height: 3rem;
-
-  font-size: calc(0.5em + 0.5vw);
-  cursor: url('/cursor/default.png'), auto;
 }
 
 .pointer {

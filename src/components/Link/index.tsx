@@ -15,7 +15,7 @@ export const Link: FC<{ to: string; className?: string }> = ({ children, classNa
       onClick={async (e) => {
         e.preventDefault();
         dispatch({ type: GlobalContextActionType.LinkRedirectStart });
-        await router.push(to);
+        await router.replace(to);
         dispatch({ type: GlobalContextActionType.LinkRedirectEnd });
       }}
     >

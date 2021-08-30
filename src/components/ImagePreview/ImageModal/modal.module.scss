@@ -18,7 +18,7 @@
     z-index: 101;
     font-size: 2rem;
     transform: translateY(-50%);
-    @apply hover:text-black opacity-60 text-white;
+    @apply hover:text-white opacity-60 text-black;
   }
   .prev {
     left: 1rem;

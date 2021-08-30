@@ -1,5 +1,6 @@
 .editor {
-  @apply w-full h-full flex flex-col;
+  height: 100vh;
+  @apply w-full flex flex-col;
   .toolbar {
     @apply flex text-gray-600 align-middle bg-gray-200 p-2 w-full justify-start;
     .icon {
@@ -13,7 +14,7 @@
     }
   }
   .main {
-    height: calc(100% - 2rem);
+    flex: 1;
     @apply flex w-full;
     .input_content {
       @apply w-1/2 rounded p-2 shadow-lg;
