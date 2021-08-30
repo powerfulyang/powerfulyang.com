@@ -63,3 +63,7 @@ use,
 path {
   @extend .pointer;
 }
+
+:where(div[data-name='mojs-shape']) {
+  pointer-events: none;
+}
