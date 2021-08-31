@@ -1,4 +1,3 @@
-import nodeFetch from 'node-fetch';
 import { pick } from 'ramda';
 import { GetServerSidePropsContext } from 'next';
 import { stringify } from 'querystring';
@@ -15,7 +14,7 @@ export const request = async (url: string, options: RequestOptions) => {
   const baseUrl = process.env.BASE_URL;
   const headers = pick(['x-real-ip', 'cookie'], ctx.req.headers || { 'x-real-ip': '127.0.0.1' });
   const requestUrl = `${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`;
-  return nodeFetch(requestUrl, {
+  return fetch(requestUrl, {
     method,
     headers: {
       ...headers,

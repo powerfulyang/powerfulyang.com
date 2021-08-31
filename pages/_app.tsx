@@ -5,6 +5,8 @@ import { isClient } from '@powerfulyang/utils';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { Header } from '@/components/Head';
 
+require('intersection-observer');
+
 export default function App({ Component, pageProps }: AppProps) {
   if (isClient) {
     const scriptElem = document.createElement('script');

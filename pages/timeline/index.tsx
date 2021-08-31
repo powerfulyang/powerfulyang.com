@@ -156,7 +156,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
               </div>
               <div className={styles.content}>
                 <div className={styles.text}>{feed.content}</div>
-                <div className={styles.assets}>
+                <div className={classNames(styles.assets, 'py-4')}>
                   <ImagePreview images={feed.assets}>
                     {feed.assets?.map((asset) => (
                       <ImageThumbnailWrap key={asset.id} asset={asset} />
