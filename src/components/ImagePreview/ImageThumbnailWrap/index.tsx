@@ -5,8 +5,7 @@ import styles from './index.module.scss';
 
 export const ImageThumbnailWrap: FC<{
   asset: Asset;
-  inViewAction: (id?: number) => void;
-  index: number;
+  inViewAction?: (id?: number) => void;
   onClick?: () => void;
 }> = ({ asset, inViewAction, onClick }) => {
   return (
@@ -16,7 +15,7 @@ export const ImageThumbnailWrap: FC<{
         src={asset.objectUrl}
         assetId={asset.id}
         inViewAction={(id) => {
-          inViewAction(id);
+          inViewAction?.(id);
         }}
       />
     </div>

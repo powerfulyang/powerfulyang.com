@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, ClipboardEvent, useEffect, useRef, useState } from 'react';
 import { UserLayout } from '@/layout/UserLayout';
 import { GetServerSidePropsContext } from 'next';
 import { clientRequest, request } from '@/utils/request';
@@ -8,6 +8,11 @@ import classNames from 'classnames';
 import { LayoutFC } from '@/types/GlobalContext';
 import { User } from '@/types/User';
 import { constants } from 'http2';
+import { handlePasteImage } from '@/utils/copy';
+import { Asset } from '@/types/Asset';
+import { ImagePreview } from '@/components/ImagePreview';
+import { ImageThumbnailWrap } from '@/components/ImagePreview/ImageThumbnailWrap';
+import { useImmer } from '@powerfulyang/hooks';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -17,17 +22,20 @@ type TimelineProps = {
 
 const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   const [content, setContent] = useState('');
+  const [assets, setAssets] = useImmer<Asset[]>([]);
   const [feeds, setFeeds] = useState(sourceFeeds);
   const [userBg, setUserBg] = useState('/transparent.png');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const submitTimeline = async () => {
     const res = await clientRequest('/feed', {
-      body: { content },
+      body: { content, assets },
       method: 'POST',
     });
     if (res.status === 'ok') {
       const { data } = await clientRequest('/public/feed');
       setFeeds(data);
       setContent('');
+      setAssets([]);
     }
   };
   useEffect(() => {
@@ -35,6 +43,39 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
       setUserBg(`url(${CosUtils.getCosObjectUrl(user?.timelineBackground?.objectUrl)})`);
     }
   }, [user]);
+
+  const uploadFiles = async (formData: FormData) => {
+    const res = await clientRequest('/asset', {
+      method: 'POST',
+      body: formData,
+    });
+    const { data } = res;
+    return data;
+  };
+
+  const paste = async (e: ClipboardEvent) => {
+    const formData = await handlePasteImage(e);
+    if (formData) {
+      const images = await uploadFiles(formData);
+      setAssets((draft) => {
+        draft.push(...images);
+      });
+    }
+  };
+
+  const uploadImages = async (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files!;
+    const { length } = files;
+    const formData = new FormData();
+    for (let i = 0; i < length; i++) {
+      formData.append('files', files.item(i)!);
+    }
+    const images = await uploadFiles(formData);
+    setAssets((draft) => {
+      draft.push(...images);
+    });
+  };
+
   return (
     <div className={styles.wrap}>
       <div className={styles.timeline_show}>
@@ -61,10 +102,34 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                 onChange={(e) => {
                   setContent(e.target.value);
                 }}
+                ref={textareaRef}
                 value={content}
+                onPaste={paste}
               />
             </div>
+            <div
+              className={classNames(styles.assets, {
+                'py-4': assets.length,
+              })}
+            >
+              <ImagePreview images={assets}>
+                {assets?.map((asset) => (
+                  <ImageThumbnailWrap key={asset.id} asset={asset} />
+                ))}
+              </ImagePreview>
+            </div>
             <div className="text-right mr-4 mt-2 mb-4">
+              <label htmlFor="upload" className="inline-block pr-4 text-pink-400 text-lg pointer">
+                上传图片
+                <input
+                  id="upload"
+                  hidden
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={uploadImages}
+                />
+              </label>
               <button
                 onClick={submitTimeline}
                 type="button"
@@ -92,11 +157,11 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
               <div className={styles.content}>
                 <div className={styles.text}>{feed.content}</div>
                 <div className={styles.assets}>
-                  {feed.assets?.map((asset) => (
-                    <div key={asset.id}>
-                      <img src={asset.objectUrl} alt="" />
-                    </div>
-                  ))}
+                  <ImagePreview images={feed.assets}>
+                    {feed.assets?.map((asset) => (
+                      <ImageThumbnailWrap key={asset.id} asset={asset} />
+                    ))}
+                  </ImagePreview>
                 </div>
               </div>
             </div>

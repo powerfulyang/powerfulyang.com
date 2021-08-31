@@ -6,7 +6,7 @@ export class Feed {
 
   content: string;
 
-  assets?: Asset[];
+  assets: Asset[];
 
   createBy: User;
 

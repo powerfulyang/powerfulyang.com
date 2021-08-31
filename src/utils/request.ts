@@ -6,7 +6,7 @@ import { stringify } from 'querystring';
 export type RequestOptions = {
   method?: string;
   ctx: GetServerSidePropsContext;
-  body?: Record<string, any>;
+  body?: Record<string, any> | FormData;
   query?: Record<string, any>;
 };
 
@@ -36,14 +36,18 @@ export const clientRequest = async <T = any>(
 ): Promise<ApiResponse<T>> => {
   const baseUrl = BASE_URL;
   const { method = 'GET', body, query } = options;
+  const isFile = body instanceof FormData;
+  const requestBody = isFile ? body : JSON.stringify(body);
+  const requestHeaders = new Headers();
+  if (!isFile) {
+    requestHeaders.set('content-type', 'application/json');
+  }
   const res = await fetch(`${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`, {
     method,
-    headers: {
-      'content-type': 'application/json',
-    },
+    headers: requestHeaders,
     mode: 'cors',
     credentials: 'include',
-    body: JSON.stringify(body),
+    body: requestBody as BodyInit,
   });
   return res.json();
 };

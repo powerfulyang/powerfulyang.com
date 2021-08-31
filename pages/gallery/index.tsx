@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { clientRequest, request } from '@/utils/request';
 import { Asset } from '@/types/Asset';
-import { ImagePreview } from '@/components/ImagePreview/Index';
+import { ImagePreview } from '@/components/ImagePreview';
 import { useImmer } from '@powerfulyang/hooks';
 import useSWR from 'swr';
 import { ImageThumbnailWrap } from '@/components/ImagePreview/ImageThumbnailWrap';
@@ -50,9 +50,8 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
   return (
     <main className={styles.gallery}>
       <ImagePreview images={images}>
-        {images.map((asset, index) => (
+        {images.map((asset) => (
           <ImageThumbnailWrap
-            index={index}
             key={asset.id}
             asset={asset}
             inViewAction={(id) => {

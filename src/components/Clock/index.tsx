@@ -6,7 +6,6 @@ import styles from './index.module.scss';
 
 export const Clock: FC<HTMLProps<HTMLDivElement>> = ({ className }) => {
   const [time, setTime] = useState<string>();
-  const [start, setStart] = useState(false);
   useEffect(() => {
     const sub = interval().subscribe(() => {
       setTime(TimeFormat());
@@ -15,28 +14,17 @@ export const Clock: FC<HTMLProps<HTMLDivElement>> = ({ className }) => {
       sub.unsubscribe();
     };
   }, []);
-  useEffect(() => {
-    if (time?.[5] === '0') {
-      setStart(true);
-    }
-  }, [time]);
   return (
     <div className={classNames(styles.clock, className)}>
       {time && (
         <>
           <img src={`/numbers/${time[0]}.gif`} alt="" />
           <img src={`/numbers/${time[1]}.gif`} alt="" />
-          <span className="mx-2">:</span>
+          <span className="mx-2 text-2xl">:</span>
           <img src={`/numbers/${time[2]}.gif`} alt="" />
           <img src={`/numbers/${time[3]}.gif`} alt="" />
-          <span className="mx-2">:</span>
-          <img
-            src={`/numbers/${time[4]}.gif`}
-            alt=""
-            className={classNames({
-              [styles.rotate]: start,
-            })}
-          />
+          <span className="mx-2 text-2xl">:</span>
+          <img src={`/numbers/${time[4]}.gif`} alt="" />
           <img src={`/numbers/${time[5]}.gif`} alt="" />
         </>
       )}

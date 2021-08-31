@@ -25,19 +25,23 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
     img.onload = () => {
       setLoadingImg(false);
     };
-    img.src = CosUtils.getCosObjectUrl(imgUrl)!;
+    if (imgUrl) {
+      img.src = CosUtils.getCosObjectUrl(imgUrl)!;
+    }
   }, [imgUrl]);
-  const [imgSrc, setImgSrc] = useState('');
+  const [imgSrc, setImgSrc] = useState<string>();
   const [animating, setAnimating] = useState(true);
   useEffect(() => {
     setLoadingImg(true);
     setAnimating(true);
   }, [imgUrl]);
   useEffect(() => {
-    if (animating) {
-      setImgSrc(CosUtils.getCosObjectThumbnailUrl(imgUrl)!);
-    } else {
-      setImgSrc(CosUtils.getCosObjectUrl(imgUrl)!);
+    if (imgUrl) {
+      if (animating) {
+        setImgSrc(CosUtils.getCosObjectThumbnailUrl(imgUrl)!);
+      } else {
+        setImgSrc(CosUtils.getCosObjectUrl(imgUrl)!);
+      }
     }
   }, [imgUrl, animating]);
   const showPrevImage = () => {
@@ -61,7 +65,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       {selectIndex !== 0 && (
         <Icon type="icon-arrow-left" className={styles.prev} onClick={showPrevImage} />
       )}
-      {selectIndex !== images?.length && (
+      {selectIndex !== Number(images?.length) - 1 && (
         <Icon type="icon-arrow-right" className={styles.next} onClick={showNextImage} />
       )}
       <div className={styles.blur}>

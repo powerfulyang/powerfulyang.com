@@ -1,4 +1,4 @@
-import React, { Children, cloneElement, FC, ReactElement, useEffect } from 'react';
+import React, { Children, cloneElement, FC, useEffect } from 'react';
 import {
   ImageModalContext,
   ImageModalContextAction,
@@ -42,26 +42,18 @@ export const ImagePreview: FC<{ images: Asset[] }> = ({ children, images }) => {
     <>
       <ImageModalContext.Provider value={{ state, dispatch }}>
         <DynamicImageModal />
-        {Children.map(
-          children as any,
-          (
-            child: ReactElement<{
-              onClick: () => void;
-              index: number;
-            }>,
-          ) => {
-            return cloneElement(child, {
-              onClick() {
-                dispatch({
-                  type: ImageModalContextActionType.open,
-                  payload: {
-                    selectIndex: child.props.index,
-                  },
-                });
-              },
-            });
-          },
-        )}
+        {Children.map(children as any, (child, index) => {
+          return cloneElement(child, {
+            onClick() {
+              dispatch({
+                type: ImageModalContextActionType.open,
+                payload: {
+                  selectIndex: index,
+                },
+              });
+            },
+          });
+        })}
       </ImageModalContext.Provider>
     </>
   );
