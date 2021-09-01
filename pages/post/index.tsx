@@ -8,6 +8,7 @@ import { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { DateFormat } from '@/utils/lib';
 import { Clock } from '@/components/Clock';
+import { constants } from 'http2';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -62,23 +63,28 @@ Index.getLayout = (page) => {
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { query } = ctx;
-  const tmp = await request('/public/post/years', {
+  let isPublic = true;
+  const t = await request('/user/current', { ctx });
+  if (t.status === constants.HTTP_STATUS_OK) {
+    isPublic = false;
+  }
+  const tmp = await request(isPublic ? '/public/post/years' : '/post/years', {
     ctx,
   });
   let { data: years } = await tmp.json();
   years = years.reverse();
   const year = query.year || years[0];
-  const res = await request('/public/post', { ctx, query: { publishYear: year } });
-  const {
-    data: { posts },
-    pathViewCount,
-  } = await res.json();
+  const res = await request(isPublic ? '/public/post' : '/post', {
+    ctx,
+    query: { publishYear: year },
+  });
+  const { data, pathViewCount } = await res.json();
 
   return {
     props: {
       pathViewCount,
       years,
-      posts,
+      posts: data,
       year,
     },
   };

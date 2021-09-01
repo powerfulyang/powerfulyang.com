@@ -8,15 +8,18 @@ import { ImagePreview } from '@/components/ImagePreview';
 import { useImmer } from '@powerfulyang/hooks';
 import useSWR from 'swr';
 import { ImageThumbnailWrap } from '@/components/ImagePreview/ImageThumbnailWrap';
+import { constants } from 'http2';
 import styles from './index.module.scss';
 
 type GalleryProps = {
   assets: Asset[];
+  isPublic: boolean;
 };
 
-export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
+export const Gallery: LayoutFC<GalleryProps> = ({ assets, isPublic }) => {
   const [images, setImages] = useImmer(assets);
   const [page, setPage] = useState(2);
+  const [reqUrl] = useState(() => (isPublic ? '/public/asset' : '/asset'));
   const [noMore, setNoMore] = useState(false);
   const loadMore = () => {
     if (!noMore) {
@@ -26,7 +29,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
     }
   };
   const { data } = useSWR(
-    ['/public/gallery', page],
+    [reqUrl, page],
     async (url, currentPage) => {
       const res = await clientRequest<[Asset[]]>(url, {
         query: { currentPage, pageSize: 30 },
@@ -67,7 +70,12 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const res = await request('/public/gallery', {
+  let isPublic = true;
+  const t = await request('/user/current', { ctx });
+  if (t.status === constants.HTTP_STATUS_OK) {
+    isPublic = false;
+  }
+  const res = await request(isPublic ? '/public/asset' : '/asset', {
     ctx,
     query: {
       pageSize: 30,
@@ -78,6 +86,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     props: {
       assets: data[0],
       pathViewCount,
+      isPublic,
     },
   };
 };

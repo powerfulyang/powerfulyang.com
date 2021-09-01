@@ -179,18 +179,18 @@ Timeline.getLayout = (page) => {
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const res = await request(`/public/feed`, { ctx });
-  const { data, pathViewCount } = await res.json();
   const tmp = await request('/user/current', { ctx });
-  let user;
+  let user = null;
+  let url = '/public/feed';
   if (tmp.status === constants.HTTP_STATUS_OK) {
-    const { data: tmpUser } = await tmp.json();
-    user = tmpUser;
-  } else {
-    user = data[0]?.createBy;
+    const { data: u } = await tmp.json();
+    user = u;
+    url = '/feed';
   }
+  const res = await request(url, { ctx });
+  const { data, pathViewCount } = await res.json();
   return {
-    props: { sourceFeeds: data || [], pathViewCount, user },
+    props: { sourceFeeds: data, pathViewCount, user },
   };
 };
 
