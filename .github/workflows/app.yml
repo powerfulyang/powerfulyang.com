@@ -35,7 +35,7 @@ jobs:
             ${{ runner.os }}-
       - name: Dockerize
         id: dockerize
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
           name: ${{ matrix.docker-repository }}
           username: ${{ secrets.DOCKER_USERNAME }}
