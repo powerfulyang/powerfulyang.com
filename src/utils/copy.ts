@@ -1,39 +1,49 @@
 import { ClipboardEvent } from 'react';
+import { clientRequest } from '@/utils/request';
+import { Asset } from '@/types/Asset';
+import { AssetBucket, Bucket } from '@/types/Bucket';
 
-export const handlePaste = async (e: ClipboardEvent) => {
-  const result: {
-    files: File[];
-  } = {
-    files: [],
-  };
+export const handlePasteImageAndReturnFileList = async (e: ClipboardEvent) => {
   const { types } = e.clipboardData;
 
   if (types.every((x) => x.startsWith('text'))) {
-    return result;
+    return null;
   }
   const count = e.clipboardData.files.length;
   if (count) {
     e.preventDefault();
-    for (let i = 0; i < count; i++) {
-      const file = e.clipboardData.files.item(i);
-      if (file) {
-        result.files.push(file);
-      }
-    }
+    return e.clipboardData.files;
   }
-  return result;
+  return null;
 };
 
-export const handlePasteImage = async (e: ClipboardEvent) => {
-  const result = await handlePaste(e);
-  const { files } = result;
+export const uploadFileListAndReturnAsset = async (
+  files: FileList,
+  bucketName: AssetBucket = AssetBucket.upload,
+) => {
   const count = files.length;
-  const formData = new FormData();
   if (count) {
+    const formData = new FormData();
     for (let i = 0; i < count; i++) {
-      formData.append(`files`, files[i]);
+      formData.append(`files`, files.item(i)!);
     }
-    return formData;
+    const res = await clientRequest(`/asset/${bucketName}`, {
+      method: 'POST',
+      body: formData,
+    });
+    const { data } = res;
+    return data;
+  }
+  return null;
+};
+
+export const handlePasteImageAndReturnAsset = async (
+  e: ClipboardEvent,
+  bucketName: Bucket['bucketName'] = AssetBucket.upload,
+): Promise<Asset[] | null> => {
+  const files = await handlePasteImageAndReturnFileList(e);
+  if (files) {
+    return uploadFileListAndReturnAsset(files, bucketName);
   }
   return null;
 };

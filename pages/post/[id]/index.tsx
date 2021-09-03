@@ -6,6 +6,7 @@ import { GetServerSidePropsContext } from 'next';
 import { MarkdownWrap } from '@/components/MarkdownWrap';
 import { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
+import { extractMetaData } from '@/utils/toc';
 import styles from './index.module.scss';
 
 type PostProps = {
@@ -17,9 +18,10 @@ const PostDetail: LayoutFC<PostProps> = ({ data }) => {
   const postInfo = `post=>${createBy.nickname}|${DateFormat(createAt)}|${content.length}  \r\n\r\n`;
   const tagsInfo = `tags=>${(tags || []).join('|')}  \r\n\r\n`;
   const contents = content.replace(/(\r\n|\n)/, `\r\n\r\n${postInfo}${tagsInfo}`);
+  const [, s] = extractMetaData(contents);
   return (
     <main className={styles.post_wrap}>
-      <MarkdownWrap source={contents} className={styles.post} />
+      <MarkdownWrap source={s} className={styles.post} />
     </main>
   );
 };

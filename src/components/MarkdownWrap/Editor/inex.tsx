@@ -1,15 +1,20 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { ClipboardEvent, FC, useEffect, useRef, useState } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
 import { MarkdownWrap } from '@/components/MarkdownWrap';
-import MonacoEditor from '@monaco-editor/react';
+import MonacoEditor, { Monaco } from '@monaco-editor/react';
 import { VoidFunction } from '@powerfulyang/utils';
 import { extractMetaData } from '@/utils/toc';
+import { editor } from 'monaco-editor';
+import { fromEvent } from 'rxjs';
+import { handlePasteImageAndReturnAsset } from '@/utils/copy';
+import { AssetBucket } from '@/types/Bucket';
 import styles from './index.module.scss';
+
+type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
 type MarkdownEditorProps = {
   defaultValue?: string;
-  onChange?: VoidFunction<string>;
   onPost?: VoidFunction;
 };
 
@@ -18,23 +23,55 @@ export type MarkdownMetadata = {
   tags: string[];
 };
 
-export const MarkdownEditor: FC<MarkdownEditorProps> = ({
-  defaultValue = '',
-  onChange,
-  onPost,
-}) => {
+export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onPost }) => {
   const [input, setInput] = useState(defaultValue);
   const [toRender, setToRender] = useState('');
-  const [metadata, setMetadata] = useState<MarkdownMetadata>();
+  const ref = useRef<{
+    editor: IStandaloneCodeEditor;
+    monaco: Monaco;
+  }>();
+
   useEffect(() => {
-    if (input) {
-      const [m, c] = extractMetaData(input);
-      setToRender(c);
-      setMetadata(m);
-      onChange?.(input);
-    }
-  }, [input, onChange]);
-  const post = () => onPost?.(metadata, input);
+    const [, r] = extractMetaData(input);
+    setToRender(r);
+  }, [input]);
+
+  useEffect(() => {
+    const s = fromEvent<ClipboardEvent>(window, 'paste').subscribe(async (e) => {
+      const isFocus = ref.current?.editor.hasTextFocus();
+      if (!isFocus) {
+        return;
+      }
+      const r = await handlePasteImageAndReturnAsset(e, AssetBucket.post);
+      if (r?.length) {
+        const text = r
+          .map((asset) => {
+            return `![${asset.objectUrl}](${asset.objectUrl})`;
+          })
+          .join('\r\n');
+        const pos = ref.current?.editor.getPosition();
+        const selection = ref.current?.editor.getSelection();
+
+        const range = new ref.current!.monaco.Range(
+          selection?.startLineNumber || pos?.lineNumber || 0,
+          selection?.startColumn || pos?.column || 0,
+          selection?.endLineNumber || pos?.lineNumber || 0,
+          selection?.endColumn || pos?.column || 0,
+        );
+        ref.current?.editor.executeEdits('', [
+          {
+            range,
+            text: `\r\n${text}\r\n`,
+          },
+        ]);
+      }
+    });
+    return () => {
+      s.unsubscribe();
+    };
+  }, []);
+
+  const post = () => onPost?.(input);
   return (
     <>
       <div className={classNames(styles.editor)}>
@@ -59,9 +96,15 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
               defaultLanguage="markdown"
               defaultValue={input}
               onChange={(v) => {
-                setInput(v!);
+                setInput(v || '');
               }}
               options={{ minimap: { enabled: false } }}
+              onMount={(e, m) => {
+                ref.current = {
+                  editor: e,
+                  monaco: m,
+                };
+              }}
             />
           </section>
           <section className={styles.preview}>

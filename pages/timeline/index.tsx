@@ -8,11 +8,12 @@ import classNames from 'classnames';
 import { LayoutFC } from '@/types/GlobalContext';
 import { User } from '@/types/User';
 import { constants } from 'http2';
-import { handlePasteImage } from '@/utils/copy';
+import { handlePasteImageAndReturnAsset, uploadFileListAndReturnAsset } from '@/utils/copy';
 import { Asset } from '@/types/Asset';
 import { ImagePreview } from '@/components/ImagePreview';
 import { ImageThumbnailWrap } from '@/components/ImagePreview/ImageThumbnailWrap';
 import { useImmer } from '@powerfulyang/hooks';
+import { AssetBucket } from '@/types/Bucket';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -44,19 +45,9 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     }
   }, [user]);
 
-  const uploadFiles = async (formData: FormData) => {
-    const res = await clientRequest('/asset', {
-      method: 'POST',
-      body: formData,
-    });
-    const { data } = res;
-    return data;
-  };
-
   const paste = async (e: ClipboardEvent) => {
-    const formData = await handlePasteImage(e);
-    if (formData) {
-      const images = await uploadFiles(formData);
+    const images = await handlePasteImageAndReturnAsset(e, AssetBucket.timeline);
+    if (images) {
       setAssets((draft) => {
         draft.push(...images);
       });
@@ -65,15 +56,12 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
 
   const uploadImages = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files!;
-    const { length } = files;
-    const formData = new FormData();
-    for (let i = 0; i < length; i++) {
-      formData.append('files', files.item(i)!);
+    const images = await uploadFileListAndReturnAsset(files, AssetBucket.timeline);
+    if (images) {
+      setAssets((draft) => {
+        draft.push(...images);
+      });
     }
-    const images = await uploadFiles(formData);
-    setAssets((draft) => {
-      draft.push(...images);
-    });
   };
 
   return (

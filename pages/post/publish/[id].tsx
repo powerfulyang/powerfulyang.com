@@ -3,7 +3,7 @@ import { MarkdownEditor } from '@/components/MarkdownWrap/Editor/inex';
 import { GetServerSidePropsContext } from 'next';
 import { clientRequest, request } from '@/utils/request';
 import { Post } from '@/types/Post';
-import { extractTitle } from '@/utils/toc';
+import { extractMetaData, extractTitle } from '@/utils/toc';
 import { useRouter } from 'next/router';
 
 type PublishProps = {
@@ -12,7 +12,8 @@ type PublishProps = {
 
 const Publish: FC<PublishProps> = ({ post }) => {
   const router = useRouter();
-  const handlePost = async (metadata: Record<string, any>, input: string) => {
+  const handlePost = async (input: string) => {
+    const [metadata] = extractMetaData(input);
     const res = await clientRequest<Post>('/post', {
       method: 'POST',
       body: {
@@ -24,12 +25,7 @@ const Publish: FC<PublishProps> = ({ post }) => {
     });
     return router.push(`/post/${res.data.id}`);
   };
-  return (
-    <MarkdownEditor
-      defaultValue={post.content}
-      onPost={(metadata, input) => handlePost(metadata, input)}
-    />
-  );
+  return <MarkdownEditor defaultValue={post.content} onPost={(input) => handlePost(input)} />;
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {

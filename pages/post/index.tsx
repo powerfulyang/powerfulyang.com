@@ -41,7 +41,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
           {posts.map((post) => {
             return (
               <div key={post.id} className="flex items-center">
-                <span className="inline-block text-pink-400 whitespace-nowrap">
+                <span className="inline-block text-pink-400 whitespace-nowrap w-28 text-right">
                   {DateFormat(post.createAt)}
                 </span>
                 <Link className={classNames(styles.article_title)} to={`/post/${post.id}`}>
