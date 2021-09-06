@@ -8,7 +8,13 @@ import {
   UnorderedListComponent,
 } from 'react-markdown/lib/ast-to-react';
 import classNames from 'classnames';
+import useSWRImmutable from 'swr/immutable';
+import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
+import { LazyImage } from '@/components/LazyImage';
+import { clientRequest } from '@/utils/request';
+import { CosUtils } from '@/utils/lib';
 import styles from './index.module.scss';
+import { copyTextToClipboard } from '@/utils/copyTextToClipboard';
 
 export const H1: FC = ({ children }) => {
   return (
@@ -92,7 +98,9 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
           <span>{language}</span>
         </div>
         <div className={styles.toolbar_action}>
-          <button type="button">Copy Code</button>
+          <button type="button" onClick={() => copyTextToClipboard(children.toString())}>
+            Copy Code
+          </button>
         </div>
       </div>
       <SyntaxHighlighter
@@ -134,4 +142,21 @@ export const Li: LiComponent = ({ children, ordered, index }) => {
       {children}
     </li>
   );
+};
+
+const AssetImage: FC<{ src?: string }> = ({ src }) => {
+  const { data } = useSWRImmutable([src], async (id: string) => {
+    const res = await clientRequest(`/asset/${id}`);
+    return {
+      dataSrc: CosUtils.getCosObjectUrl(res.data.objectUrl),
+      dataBlurSrc: CosUtils.getCosObjectBlurUrl(res.data.objectUrl),
+    };
+  });
+  return <LazyImage src={data?.dataSrc} blurSrc={data?.dataBlurSrc} alt="" />;
+};
+export const Img = ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+  if (alt === MarkdownImageFromAssetManageAltConstant) {
+    return <AssetImage src={src} />;
+  }
+  return <img src={src} alt={alt} />;
 };

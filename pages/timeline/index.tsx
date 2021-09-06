@@ -67,66 +67,70 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   return (
     <div className={styles.wrap}>
       <div className={styles.timeline_show}>
-        <div className={styles.banner}>
-          <div
-            style={{
-              backgroundImage: userBg,
-            }}
-            className={styles.banner_bg}
-          />
-          <div className={styles.author_info}>
-            <img src={user?.avatar} className={styles.author_avatar} alt="" />
-            <div className={styles.author_nickname}>{user?.nickname}</div>
-            <div className={styles.author_bio}>
-              <span>{user?.bio}</span>
-            </div>
-          </div>
-        </div>
         {user && (
-          <div className={styles.timeline_input}>
-            <div className={styles.timeline_textarea}>
-              <textarea
-                name="timeline_input"
-                onChange={(e) => {
-                  setContent(e.target.value);
+          <>
+            <div className={styles.banner}>
+              <div
+                style={{
+                  backgroundImage: userBg,
                 }}
-                ref={textareaRef}
-                value={content}
-                onPaste={paste}
+                className={styles.banner_bg}
               />
+              <div className={styles.author_info}>
+                <img src={user?.avatar} className={styles.author_avatar} alt="" />
+                <div className={styles.author_nickname}>{user?.nickname}</div>
+                <div className={styles.author_bio}>
+                  <span>{user?.bio}</span>
+                </div>
+              </div>
             </div>
-            <div
-              className={classNames(styles.assets, {
-                'py-4': assets.length,
-              })}
-            >
-              <ImagePreview images={assets}>
-                {assets?.map((asset) => (
-                  <ImageThumbnailWrap key={asset.id} asset={asset} />
-                ))}
-              </ImagePreview>
-            </div>
-            <div className="text-right mr-4 mt-2 mb-4">
-              <label htmlFor="upload" className="inline-block pr-4 text-pink-400 text-lg pointer">
-                上传图片
-                <input
-                  id="upload"
-                  hidden
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={uploadImages}
+
+            <div className={styles.timeline_input}>
+              <div className={styles.timeline_textarea}>
+                <textarea
+                  name="timeline_input"
+                  onChange={(e) => {
+                    setContent(e.target.value);
+                  }}
+                  ref={textareaRef}
+                  value={content}
+                  onPaste={paste}
+                  placeholder="写点什么..."
                 />
-              </label>
-              <button
-                onClick={submitTimeline}
-                type="button"
-                className={classNames(styles.timeline_submit, 'pointer')}
+              </div>
+              <div
+                className={classNames(styles.assets, {
+                  'py-4': assets.length,
+                })}
               >
-                发送
-              </button>
+                <ImagePreview images={assets}>
+                  {assets?.map((asset) => (
+                    <ImageThumbnailWrap key={asset.id} asset={asset} />
+                  ))}
+                </ImagePreview>
+              </div>
+              <div className="text-right mr-4 mt-2 mb-4">
+                <label htmlFor="upload" className="inline-block pr-4 text-pink-400 text-lg pointer">
+                  上传图片
+                  <input
+                    id="upload"
+                    hidden
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={uploadImages}
+                  />
+                </label>
+                <button
+                  onClick={submitTimeline}
+                  type="button"
+                  className={classNames(styles.timeline_submit, 'pointer')}
+                >
+                  发送
+                </button>
+              </div>
             </div>
-          </div>
+          </>
         )}
         <div className={styles.feeds}>
           {feeds.map((feed) => (

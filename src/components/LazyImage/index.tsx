@@ -7,14 +7,13 @@ import React, {
   useState,
 } from 'react';
 import classNames from 'classnames';
-import { CosUtils, getCosObjectThumbnailUrl } from '@/utils/lib';
-import { useClientState } from '@/hooks/useClientState';
 import { motion } from 'framer-motion';
 import styles from './index.module.scss';
 
 type LazyImageExtendProps = {
   inViewAction?: (id?: number) => void;
   assetId?: number;
+  blurSrc?: string;
 };
 const variants = {
   loading: {
@@ -29,43 +28,36 @@ const variants = {
 
 export const LazyImage: FC<
   DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & LazyImageExtendProps
-> = ({ src, className, alt, inViewAction, assetId, ...props }) => {
+> = ({ src, className, alt, inViewAction, assetId, blurSrc, ...props }) => {
   const [loading, setLoading] = useState(true);
-  const observerRef = useRef<IntersectionObserver>();
   const ref = useRef<HTMLImageElement>(null);
   const [imgUrl, setImgUrl] = useState('/transparent.png');
   useEffect(() => {
-    observerRef.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const { target, intersectionRatio } = entry as unknown as {
-          target: HTMLImageElement;
-          intersectionRatio: number;
-        };
+    if (src) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const { target, intersectionRatio } = entry;
 
-        if (intersectionRatio > 0 && src) {
-          const _target = new Image();
-          const source = getCosObjectThumbnailUrl(src)!;
-          inViewAction?.(assetId);
-          _target.onload = () => {
-            setLoading(false);
-            setImgUrl(source);
-          };
-          _target.src = source;
-          observerRef.current?.unobserve(target);
-        }
+          if (intersectionRatio > 0) {
+            const _target = new Image();
+            const source = src;
+            inViewAction?.(assetId);
+            _target.onload = () => {
+              setLoading(false);
+              setImgUrl(source);
+            };
+            _target.src = source;
+            observer.unobserve(target);
+          }
+        });
       });
-    });
+      observer.observe(ref.current!);
+      return () => {
+        observer.disconnect();
+      };
+    }
+    return () => {};
   }, [assetId, inViewAction, src]);
-
-  useEffect(() => {
-    const observerRefCurrent = observerRef?.current!;
-    observerRefCurrent.observe(ref.current!);
-    return () => {
-      observerRefCurrent.disconnect();
-    };
-  }, []);
-
-  const bgUrl = useClientState(() => `url(${CosUtils.getCosObjectBlurUrl(src)})`);
 
   return (
     <div className={classNames(className, 'overflow-hidden rounded pointer')}>
@@ -85,7 +77,7 @@ export const LazyImage: FC<
             },
             'object-cover w-full h-full bg-no-repeat bg-cover',
           )}
-          style={{ backgroundImage: bgUrl }}
+          style={{ backgroundImage: blurSrc }}
           src={imgUrl}
           alt={alt}
           ref={ref}

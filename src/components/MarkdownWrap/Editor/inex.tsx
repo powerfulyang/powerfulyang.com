@@ -9,6 +9,7 @@ import { editor } from 'monaco-editor';
 import { fromEvent } from 'rxjs';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/types/Bucket';
+import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import styles from './index.module.scss';
 
 type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
@@ -46,7 +47,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onP
       if (r?.length) {
         const text = r
           .map((asset) => {
-            return `![${asset.objectUrl}](${asset.objectUrl})`;
+            return `![${MarkdownImageFromAssetManageAltConstant}](${asset.id})`;
           })
           .join('\r\n');
         const pos = ref.current?.editor.getPosition();

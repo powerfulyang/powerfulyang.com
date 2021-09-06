@@ -1,14 +1,14 @@
-import { LayoutFC } from '@/types/GlobalContext';
-import { UserLayout } from '@/layout/UserLayout';
 import React, { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
+import { useImmer } from '@powerfulyang/hooks';
+import { constants } from 'http2';
+import useSWRImmutable from 'swr/immutable';
+import { LayoutFC } from '@/types/GlobalContext';
+import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
 import { Asset } from '@/types/Asset';
 import { ImagePreview } from '@/components/ImagePreview';
-import { useImmer } from '@powerfulyang/hooks';
-import useSWR from 'swr';
 import { ImageThumbnailWrap } from '@/components/ImagePreview/ImageThumbnailWrap';
-import { constants } from 'http2';
 import styles from './index.module.scss';
 
 type GalleryProps = {
@@ -28,16 +28,12 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, isPublic }) => {
       });
     }
   };
-  const { data } = useSWR(
-    [reqUrl, page],
-    async (url, currentPage) => {
-      const res = await clientRequest<[Asset[]]>(url, {
-        query: { currentPage, pageSize: 30 },
-      });
-      return res.data[0];
-    },
-    { revalidateOnFocus: false },
-  );
+  const { data } = useSWRImmutable([reqUrl, page], async (url, currentPage) => {
+    const res = await clientRequest<[Asset[]]>(url, {
+      query: { currentPage, pageSize: 30 },
+    });
+    return res.data[0];
+  });
 
   useEffect(() => {
     if (data) {
