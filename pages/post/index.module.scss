@@ -49,7 +49,7 @@ $text-color: #51525d;
   .article_title {
     font-family: 'Zpix', sans-serif;
     text-rendering: geometricPrecision;
-    @apply text-base hover:text-pink-400 font-normal ml-8;
+    @apply text-base hover:text-pink-400 font-normal ml-4;
     @extend .text-color;
     @extend .line-1-ellipsis;
   }

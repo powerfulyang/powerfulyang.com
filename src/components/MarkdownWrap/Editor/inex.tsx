@@ -1,12 +1,12 @@
 import React, { ClipboardEvent, FC, useEffect, useRef, useState } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
-import { MarkdownWrap } from '@/components/MarkdownWrap';
 import MonacoEditor, { Monaco } from '@monaco-editor/react';
 import { VoidFunction } from '@powerfulyang/utils';
-import { extractMetaData } from '@/utils/toc';
 import { editor } from 'monaco-editor';
 import { fromEvent } from 'rxjs';
+import { extractMetaData } from '@/utils/toc';
+import { MarkdownWrap } from '@/components/MarkdownWrap';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/types/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
@@ -74,45 +74,41 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onP
 
   const post = () => onPost?.(input);
   return (
-    <>
-      <div className={classNames(styles.editor)}>
-        <section className={styles.toolbar}>
-          <Icon className={styles.icon} type="icon-bold" />
-          <Icon className={styles.icon} type="icon-header" />
-          <Icon className={styles.icon} type="icon-italic" />
-          <Icon className={styles.icon} type="icon-quote" />
-          <Icon className={styles.icon} type="icon-strikethrough" />
-          <Icon className={styles.icon} type="icon-underline" />
-          <Icon className={styles.icon} type="icon-code" />
-          <Icon className={styles.icon} type="icon-pre" />
-          <Icon className={styles.icon} type="icon-table" />
-          <Icon className={styles.icon} type="icon-orderedlist" />
-          <Icon className={styles.icon} type="icon-unorderedlist" />
-          <Icon className={styles.icon} type="icon-wrap" />
-          <Icon className={classNames(styles.icon, styles.post)} type="icon-send" onClick={post} />
+    <div className={classNames(styles.editor)}>
+      <section className={styles.toolbar}>
+        <Icon className={styles.icon} type="icon-bold" />
+        <Icon className={styles.icon} type="icon-header" />
+        <Icon className={styles.icon} type="icon-italic" />
+        <Icon className={styles.icon} type="icon-quote" />
+        <Icon className={styles.icon} type="icon-strikethrough" />
+        <Icon className={styles.icon} type="icon-underline" />
+        <Icon className={styles.icon} type="icon-code" />
+        <Icon className={styles.icon} type="icon-pre" />
+        <Icon className={styles.icon} type="icon-table" />
+        <Icon className={styles.icon} type="icon-orderedlist" />
+        <Icon className={styles.icon} type="icon-unorderedlist" />
+        <Icon className={styles.icon} type="icon-wrap" />
+        <Icon className={classNames(styles.icon, styles.post)} type="icon-send" onClick={post} />
+      </section>
+      <main className={styles.main}>
+        <section className={styles.input_content}>
+          <MonacoEditor
+            defaultLanguage="markdown"
+            defaultValue={input}
+            onChange={(v) => {
+              setInput(v || '');
+            }}
+            options={{ minimap: { enabled: false } }}
+            onMount={(e, m) => {
+              ref.current = {
+                editor: e,
+                monaco: m,
+              };
+            }}
+          />
         </section>
-        <main className={styles.main}>
-          <section className={styles.input_content}>
-            <MonacoEditor
-              defaultLanguage="markdown"
-              defaultValue={input}
-              onChange={(v) => {
-                setInput(v || '');
-              }}
-              options={{ minimap: { enabled: false } }}
-              onMount={(e, m) => {
-                ref.current = {
-                  editor: e,
-                  monaco: m,
-                };
-              }}
-            />
-          </section>
-          <section className={styles.preview}>
-            <MarkdownWrap source={toRender} />
-          </section>
-        </main>
-      </div>
-    </>
+        <MarkdownWrap className={styles.preview} source={toRender} />
+      </main>
+    </div>
   );
 };

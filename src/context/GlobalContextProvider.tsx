@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { LinkContext } from '@/context/LinkContext';
 import { useImmerReducer } from '@powerfulyang/hooks';
+import { LinkContext } from '@/context/LinkContext';
 import { GlobalContextState } from '@/types/GlobalContext';
 
 export enum GlobalContextActionType {

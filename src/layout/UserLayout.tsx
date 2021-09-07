@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { NavBar } from '@/components/NavBar';
 import useSWR from 'swr';
-import { swrRequest } from '@/utils/request';
 import { useRouter } from 'next/router';
+import { NavBar } from '@/components/NavBar';
+import { swrRequest } from '@/utils/request';
 import { Footer } from '@/components/Footer';
 
 export enum Menu {

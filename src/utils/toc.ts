@@ -1,6 +1,6 @@
-import { MarkdownMetadata } from '@/components/MarkdownWrap/Editor/inex';
 import { isNull } from '@powerfulyang/utils';
 import { trim } from 'ramda';
+import { MarkdownMetadata } from '@/components/MarkdownWrap/Editor/inex';
 
 export const generateToc = (content: string) => {
   const reg = /(#{1,4})\s(.+)\n/g;

@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 import React, { FC, useContext, useEffect, useRef } from 'react';
-import { ImageModalContent } from '@/components/ImagePreview/ImageModal/Modal';
 import { isClient } from '@powerfulyang/utils';
+import { ImageModalContent } from '@/components/ImagePreview/ImageModal/Modal';
 import { ImageModalContext } from '@/context/ImageModalContext';
 
 type ImageModalProps = {

@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
+import classNames from 'classnames';
+import { isNumeric } from '@powerfulyang/utils';
 import { User } from '@/types/User';
 import { ProjectName } from '@/constant/Constant';
 import { Menu } from '@/layout/UserLayout';
-import classNames from 'classnames';
-import { isNumeric } from '@powerfulyang/utils';
 import styles from './index.module.scss';
 import { Link } from '../Link';
 

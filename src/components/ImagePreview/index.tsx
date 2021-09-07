@@ -1,13 +1,13 @@
 import React, { Children, cloneElement, FC, useEffect } from 'react';
+import { useImmerReducer } from '@powerfulyang/hooks';
+import dynamic from 'next/dynamic';
 import {
   ImageModalContext,
   ImageModalContextAction,
   ImageModalContextActionType,
   ImageModalContextState,
 } from '@/context/ImageModalContext';
-import { useImmerReducer } from '@powerfulyang/hooks';
 import { Asset } from '@/types/Asset';
-import dynamic from 'next/dynamic';
 
 const DynamicImageModal = dynamic(() => import('@/components/ImagePreview/ImageModal'), {
   ssr: false,
