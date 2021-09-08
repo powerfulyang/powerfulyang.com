@@ -1,6 +1,7 @@
 import { isNull } from '@powerfulyang/utils';
 import { trim } from 'ramda';
 import { MarkdownMetadata } from '@/components/MarkdownWrap/Editor/inex';
+import { Asset } from '@/types/Asset';
 
 export const generateToc = (content: string) => {
   const reg = /(#{1,4})\s(.+)\n/g;
@@ -19,7 +20,7 @@ export const generateToc = (content: string) => {
 };
 
 export function extractMetaData(text: string = '') {
-  const metaData: Record<string, string | string[]> = {};
+  const metaData: Record<string, string | string[] | Asset> = {};
 
   const metaRegExp = RegExp(/^---[\r\n](((?!---).|[\r\n])*)[\r\n]---$/m);
   const rawMetaData = metaRegExp.exec(text);
@@ -34,6 +35,8 @@ export function extractMetaData(text: string = '') {
       if (key && value) {
         if (key === 'tags') {
           metaData[key] = value.split(',').map(trim);
+        } else if (key === 'poster') {
+          metaData[key] = { id: value } as unknown as Asset;
         } else {
           metaData[key] = value.trim();
         }

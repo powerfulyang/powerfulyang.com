@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page: any) => page);
   return (
     <GlobalContextProvider>
-      <Header />
+      <Header title={pageProps.title} />
       {getLayout(<Component {...pageProps} />)}
     </GlobalContextProvider>
   );

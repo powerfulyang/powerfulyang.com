@@ -182,7 +182,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const res = await request(url, { ctx });
   const { data, pathViewCount } = await res.json();
   return {
-    props: { sourceFeeds: data, pathViewCount, user },
+    props: { sourceFeeds: data, pathViewCount, user, title: '说说' },
   };
 };
 

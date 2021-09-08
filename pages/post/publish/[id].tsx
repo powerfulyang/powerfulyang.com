@@ -45,6 +45,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   return {
     props: {
       post,
+      title: '发布新的日志',
     },
   };
 };

@@ -83,6 +83,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       assets: data[0],
       pathViewCount,
       isPublic,
+      title: '图片墙',
     },
   };
 };

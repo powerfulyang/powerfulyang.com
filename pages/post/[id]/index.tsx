@@ -38,7 +38,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const res = await request(`/public/post/${id}`, { ctx });
   const { data, pathViewCount } = await res.json();
   return {
-    props: { data, pathViewCount },
+    props: { data, pathViewCount, title: data.title },
   };
 };
 

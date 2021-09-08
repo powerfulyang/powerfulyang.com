@@ -11,6 +11,7 @@ import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/types/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import styles from './index.module.scss';
+import { Asset } from '@/types/Asset';
 
 type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
@@ -22,6 +23,7 @@ type MarkdownEditorProps = {
 export type MarkdownMetadata = {
   author: string;
   tags: string[];
+  poster: Asset;
 };
 
 export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onPost }) => {

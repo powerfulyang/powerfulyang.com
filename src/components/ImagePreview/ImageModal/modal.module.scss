@@ -3,13 +3,23 @@
   top: 0;
   left: 0;
   z-index: 100;
-  @apply w-full h-full backdrop-blur-xl backdrop-filter;
+  backdrop-filter: blur(20px);
+  @apply w-full h-full;
   .blur {
-    @apply w-full h-full p-20 overflow-hidden;
+    @apply w-full h-full overflow-hidden;
+    @screen sm {
+      @apply p-20;
+    }
   }
   .image {
     z-index: 101;
     @apply w-full h-full object-contain;
+  }
+  .hidden-xs {
+    display: none;
+    @screen sm {
+      display: block;
+    }
   }
   .next {
     position: absolute;
@@ -19,6 +29,7 @@
     font-size: 2rem;
     transform: translateY(-50%);
     @apply hover:text-white opacity-60 text-black;
+    @extend .hidden-xs;
   }
   .prev {
     left: 1rem;
