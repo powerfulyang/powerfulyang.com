@@ -33,9 +33,26 @@
   .title {
     display: none;
     @screen sm {
+      display: inline-block;
+      color: transparent;
       font-family: 'Zpix', Sans serif;
-      @include rainbowText;
+      background: linear-gradient(90deg, #47cf73, #ffdd40, #ae63e4, #0ebeff, #47cf73);
+      -webkit-background-clip: text;
       @apply text-2xl mx-10;
+    }
+    &::after,
+    &::before {
+      position: absolute;
+      color: transparent;
+      background: linear-gradient(90deg, #47cf73, #ffdd40, #ae63e4, #0ebeff, #47cf73);
+      -webkit-background-clip: text;
+      transform: translateY(100%) rotateZ(30deg);
+      content: attr(data-text); // 又学会一个东西
+      @apply text-xs;
+    }
+    &::after {
+      left: 0;
+      transform: translateX(100%) translateY(100%) rotateZ(-30deg);
     }
   }
   .left {
