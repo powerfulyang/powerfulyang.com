@@ -1,10 +1,5 @@
 @import '../../src/styles/styles';
 
-$text-color: #51525d;
-.text-color {
-  color: $text-color;
-}
-
 .body {
   z-index: -1;
   min-height: calc(100vh - var(--nav-height) - var(--footer-height));
@@ -50,10 +45,9 @@ $text-color: #51525d;
   }
 
   .article_title {
+    display: inline;
     font-family: 'Zpix', sans-serif;
     @apply text-lg font-normal px-4 -mt-2;
-    @extend .text-color;
-    @include rainbowText;
-    @include text-ellipsis(1);
+    @extend .rainbowText;
   }
 }

@@ -42,7 +42,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             return (
               <Link key={post.id} to={`/post/${post.id}`}>
                 <div className="bg-white rounded-xl shadow-lg my-8 overflow-hidden">
-                  <div className="pointer w-full h-[16rem] overflow-hidden shadow">
+                  <div className="pointer w-full h-[16rem] overflow-hidden">
                     <img
                       src={post.poster.objectUrl}
                       alt=""
@@ -53,11 +53,10 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                     <span className="inline-block text-base whitespace-nowrap px-4 text-blue-400 font-normal">
                       {DateFormat(post.createAt)}
                     </span>
-                    <span
-                      title={post.title}
-                      className={classNames('flex items-center', styles.article_title)}
-                    >
-                      {post.title}
+                    <span title={post.title} className={classNames('flex items-center')}>
+                      <div className="line-1-ellipsis text-blue-400">
+                        <span className={styles.article_title}>{post.title}</span>
+                      </div>
                     </span>
                   </div>
                 </div>
