@@ -1,8 +1,9 @@
-import React, { ChangeEvent, ClipboardEvent, MouseEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, ClipboardEvent, MouseEvent, useRef, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
 import { constants } from 'http2';
 import { useImmer } from '@powerfulyang/hooks';
+import useSWR, { useSWRConfig } from 'swr';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
 import { Feed } from '@/types/Feed';
@@ -15,6 +16,7 @@ import { ImagePreview } from '@/components/ImagePreview';
 import { ImageThumbnailWrap } from '@/components/ImagePreview/ImageThumbnailWrap';
 import { AssetBucket } from '@/types/Bucket';
 import styles from './index.module.scss';
+import { Switch } from '@/components/Switch';
 
 type TimelineProps = {
   sourceFeeds: Feed[];
@@ -24,29 +26,38 @@ type TimelineProps = {
 const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   const [content, setContent] = useState('');
   const [assets, setAssets] = useImmer<Asset[]>([]);
-  const [feeds, setFeeds] = useState(sourceFeeds);
-  const [userBg, setUserBg] = useState('/transparent.png');
+  const { mutate } = useSWRConfig();
+  const { data: feeds } = useSWR(
+    'api-fetch-feed',
+    async () => {
+      let url = '/public/feed';
+      if (user) {
+        url = '/feed';
+      }
+      const { data } = await clientRequest<Feed[]>(url);
+      return data;
+    },
+    { fallbackData: sourceFeeds },
+  );
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [isPublic, setIsPublic] = useState(false);
+  const handlePostPrivacy = (checked: boolean) => {
+    setIsPublic(checked);
+  };
   const submitTimeline = async (e: MouseEvent) => {
     import('@/components/mo.js/Material').then((res) => {
       res.poofClick(e);
     });
     const res = await clientRequest('/feed', {
-      body: { content, assets },
+      body: { content, assets, public: isPublic },
       method: 'POST',
     });
     if (res.status === 'ok') {
-      const { data } = await clientRequest('/public/feed');
-      setFeeds(data);
       setContent('');
       setAssets([]);
+      mutate('api-fetch-feed');
     }
   };
-  useEffect(() => {
-    if (user?.timelineBackground?.objectUrl) {
-      setUserBg(`url(${CosUtils.getCosObjectUrl(user?.timelineBackground?.objectUrl)})`);
-    }
-  }, [user]);
 
   const paste = async (e: ClipboardEvent) => {
     const images = await handlePasteImageAndReturnAsset(e, AssetBucket.timeline);
@@ -75,7 +86,9 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
             <div className={styles.banner}>
               <div
                 style={{
-                  backgroundImage: userBg,
+                  backgroundImage: `url(${CosUtils.getCosObjectUrl(
+                    user?.timelineBackground?.objectUrl,
+                  )})`,
                 }}
                 className={styles.banner_bg}
               />
@@ -112,8 +125,13 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                   ))}
                 </ImagePreview>
               </div>
-              <div className="text-right mr-4 mt-2 mb-4">
-                <label htmlFor="upload" className="inline-block pr-4 text-pink-400 text-lg pointer">
+              <div className="flex items-center justify-end text-right pr-4 mt-4 mb-4">
+                <Switch
+                  onChange={handlePostPrivacy}
+                  checkedDescription="公开"
+                  uncheckedDescription="私密"
+                />
+                <label htmlFor="upload" className="inline-block px-4 text-pink-400 text-lg pointer">
                   上传图片
                   <input
                     id="upload"
@@ -137,7 +155,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
           </>
         )}
         <div className={styles.feeds}>
-          {feeds.map((feed) => (
+          {feeds?.map((feed) => (
             <div key={feed.id} className={styles.container}>
               <div className={styles.author}>
                 <div className={styles.avatar}>
@@ -162,7 +180,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
               </div>
             </div>
           ))}
-          {!feeds.length && <div className="text-lg text-pink-400 text-center">No Content!</div>}
+          {!feeds?.length && <div className="text-lg text-pink-400 text-center">No Content!</div>}
         </div>
       </div>
     </div>

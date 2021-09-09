@@ -22,9 +22,7 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
   return (
     <div className={styles.nav_placeholder}>
       <nav className={styles.nav}>
-        <span data-text={ProjectName} className={classNames(styles.title)}>
-          {ProjectName}
-        </span>
+        <span className={classNames(styles.title)}>{ProjectName}</span>
         <div className={styles.menus}>
           {Object.keys(Menu)
             .filter((x) => !isNumeric(x))

@@ -1,0 +1,58 @@
+import classNames from 'classnames';
+import React, { FC, useState } from 'react';
+import { inc } from 'ramda';
+import styles from './index.module.scss';
+
+let i = 0;
+
+type SwitchProps = {
+  checkedDescription?: string;
+  uncheckedDescription?: string;
+  onChange?: (checked: boolean) => void;
+  checked?: boolean;
+};
+
+export const Switch: FC<SwitchProps> = ({
+  checkedDescription = '是',
+  uncheckedDescription = '否',
+  onChange,
+  checked,
+}) => {
+  const [id] = useState(() => {
+    i = inc(i);
+    return `internal_switch_id_${i}`;
+  });
+
+  return (
+    <>
+      <input
+        id={id}
+        hidden
+        className={styles.switch}
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => {
+          onChange?.(e.target.checked);
+        }}
+      />
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      <label className={styles.toggle_item} htmlFor={id}>
+        <div
+          className={styles.desc}
+          data-checked-desc={checkedDescription}
+          data-unchecked-desc={uncheckedDescription}
+        />
+        <div className={styles.dog}>
+          <div className={styles.ear} />
+          <div className={classNames(styles.right, styles.ear)} />
+          <div className={styles.face}>
+            <div className={styles.eyes} />
+            <div className={styles.mouth}>
+              <div className={styles.tongue} />
+            </div>
+          </div>
+        </div>
+      </label>
+    </>
+  );
+};

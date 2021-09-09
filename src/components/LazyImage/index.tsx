@@ -77,7 +77,7 @@ export const LazyImage: FC<
             },
             'object-cover w-full h-full bg-no-repeat bg-cover',
           )}
-          style={{ backgroundImage: blurSrc }}
+          style={{ backgroundImage: blurSrc && `url(${blurSrc})` }}
           src={imgUrl}
           alt={alt}
           ref={ref}

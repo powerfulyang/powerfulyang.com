@@ -33,26 +33,52 @@
   .title {
     display: none;
     @screen sm {
+      position: relative;
       display: inline-block;
       color: transparent;
       font-family: 'Zpix', Sans serif;
       background: linear-gradient(90deg, #47cf73, #ffdd40, #ae63e4, #0ebeff, #47cf73);
       -webkit-background-clip: text;
       @apply text-2xl mx-10;
-    }
-    &::after,
-    &::before {
-      position: absolute;
-      color: transparent;
-      background: linear-gradient(90deg, #47cf73, #ffdd40, #ae63e4, #0ebeff, #47cf73);
-      -webkit-background-clip: text;
-      transform: translateY(100%) rotateZ(30deg);
-      content: attr(data-text); // 又学会一个东西
-      @apply text-xs;
-    }
-    &::after {
-      left: 0;
-      transform: translateX(100%) translateY(100%) rotateZ(-30deg);
+      @extend .pointer;
+      @keyframes border-transform {
+        0%,
+        100% {
+          border-radius: 16% 13% 15% 14% / 25% 34% 45% 54%;
+        }
+        14% {
+          border-radius: 34% 26% 51% 44% / 24% 36% 44% 25%;
+        }
+        28% {
+          border-radius: 65% 34% 23% 46% / 24% 67% 43% 55%;
+        }
+        42% {
+          border-radius: 61% 23% 45% 84% / 76% 23% 16% 33%;
+        }
+        56% {
+          border-radius: 16% 23% 36% 43% / 47% 45% 45% 43%;
+        }
+        70% {
+          border-radius: 75% 25% 13% 36% / 15% 36% 23% 44%;
+        }
+        84% {
+          border-radius: 41% 52% 54% 56% / 93% 46% 39% 16%;
+        }
+      }
+      &::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: -1;
+        display: block;
+        width: 100%;
+        height: 130%;
+        background: linear-gradient(217deg, #47cf73, #448ad5, #b8eaf9);
+        box-shadow: 0 6px 20px 0 rgb(16 39 112 / 30%);
+        transform: translate(-50%, -50%);
+        animation: border-transform 6s linear infinite;
+        content: '';
+      }
     }
   }
   .left {

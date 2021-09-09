@@ -7,7 +7,7 @@ import { Post } from '@/types/Post';
 import { Link } from '@/components/Link';
 import { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
-import { DateFormat } from '@/utils/lib';
+import { CosUtils, DateFormat } from '@/utils/lib';
 import { Clock } from '@/components/Clock';
 import styles from './index.module.scss';
 
@@ -44,9 +44,9 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 <div className="bg-white rounded-xl shadow-lg my-8 overflow-hidden">
                   <div className="pointer w-full h-[16rem] overflow-hidden">
                     <img
-                      src={post.poster.objectUrl}
+                      src={CosUtils.getCosObjectUrl(post.poster.objectUrl)}
                       alt=""
-                      className="object-cover w-full h-full hover:scale-110 transition-all duration-300"
+                      className="object-cover w-full h-full scale-125 hover:scale-100 transition-all duration-300"
                     />
                   </div>
                   <div className="flex h-[6rem] flex-col justify-evenly">

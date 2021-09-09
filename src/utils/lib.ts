@@ -14,12 +14,14 @@ export const TimeFormat = () => {
 };
 
 export const styles = {
-  thumbnail: '&imageMogr2/thumbnail/300x/interlace/1',
+  thumbnail: '&imageMogr2/thumbnail/300x/interlace/1/quality/100',
   thumbnail_webp: '&imageMogr2/thumbnail/300x/format/webp/interlace/1/quality/100',
   webp: '&imageMogr2/format/webp/interlace/1/quality/100',
   origin: '',
-  blur: '&imageMogr2/thumbnail/10x/interlace/1',
-  blur_webp: '&imageMogr2/thumbnail/10x/format/webp/interlace/1/quality/100',
+  blur: '&imageMogr2/interlace/1/quality/1',
+  blur_webp: '&imageMogr2/format/webp/interlace/1/quality/1',
+  thumbnail_blur: '&imageMogr2/thumbnail/300x/interlace/1/quality/1',
+  thumbnail_blur_webp: '&imageMogr2/thumbnail/300x/format/webp/interlace/1/quality/1',
 };
 
 export const getCosObjectBlurUrl = (objectUrl?: string) => {
@@ -36,8 +38,16 @@ export const getCosObjectUrl = (objectUrl?: string) => {
   return objectUrl && `${objectUrl}${(isSupportWebp() && styles.webp) || styles.origin}`;
 };
 
+export const getCosObjectThumbnailBlurUrl = (objectUrl?: string) => {
+  return (
+    objectUrl &&
+    `${objectUrl}${(isSupportWebp() && styles.thumbnail_blur_webp) || styles.thumbnail_blur}`
+  );
+};
+
 export const CosUtils = {
   getCosObjectThumbnailUrl,
   getCosObjectUrl,
   getCosObjectBlurUrl,
+  getCosObjectThumbnailBlurUrl,
 } as const;

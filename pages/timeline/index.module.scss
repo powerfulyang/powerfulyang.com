@@ -7,6 +7,11 @@
   .timeline_show {
     width: min(100%, 600px);
     margin: auto;
+    .feeds {
+      &:first-child {
+        @apply mt-4;
+      }
+    }
   }
   .assets {
     @apply grid gap-2 grid-cols-3 overflow-auto;
@@ -34,7 +39,7 @@
       }
     }
     .timeline_submit {
-      @apply text-2xl bg-blue-400 text-white rounded w-24 h-10 mt-2;
+      @apply text-2xl bg-blue-400 text-white rounded w-24 h-10;
       @extend .pointer;
       &:disabled {
         @apply bg-gray-300 cursor-not-allowed;
