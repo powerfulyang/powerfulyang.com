@@ -3,7 +3,6 @@ import Head from 'next/head';
 import { __prod__ } from '@powerfulyang/utils';
 import dayjs from 'dayjs';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat';
-import { TwitterFav } from '@/components/dynamic';
 import { Redirecting } from '../Redirecting';
 
 dayjs.extend(LocalizedFormat);
@@ -41,7 +40,6 @@ export const Header: FC<HeaderProps> = ({ title }) => {
         )}
       </Head>
       <Redirecting />
-      <TwitterFav />
     </>
   );
 };

@@ -37,24 +37,27 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             </Link>
           ))}
         </div>
-        <section className={classNames(styles.titles, 'mt-4')}>
+        <section className={classNames('mt-4')}>
           {posts.map((post) => {
             return (
               <Link key={post.id} to={`/post/${post.id}`}>
                 <div className="bg-white rounded-xl shadow-lg my-8 overflow-hidden">
-                  <div className="pointer w-full h-[16rem] overflow-hidden">
+                  <div className="pointer w-full h-[16rem] overflow-hidden shadow">
                     <img
                       src={post.poster.objectUrl}
                       alt=""
                       className="object-cover w-full h-full hover:scale-110 transition-all duration-300"
                     />
                   </div>
-                  <div className="flex items-center h-[6rem]">
-                    <span className={classNames('flex-1 flex items-center')}>
-                      <span className={styles.article_title}>{post.title}</span>
-                    </span>
-                    <span className="inline-block text-pink-400 whitespace-nowrap w-28 text-right mr-4">
+                  <div className="flex h-[6rem] flex-col justify-evenly">
+                    <span className="inline-block text-base whitespace-nowrap px-4 text-blue-400 font-normal">
                       {DateFormat(post.createAt)}
+                    </span>
+                    <span
+                      title={post.title}
+                      className={classNames('flex items-center', styles.article_title)}
+                    >
+                      {post.title}
                     </span>
                   </div>
                 </div>

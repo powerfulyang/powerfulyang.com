@@ -1,4 +1,3 @@
-@import '../base';
 @import '../../src/styles/styles';
 
 $text-color: #51525d;
@@ -14,11 +13,17 @@ $text-color: #51525d;
 }
 
 .years {
+  display: flex;
+  align-items: center;
+  height: 3rem;
   .year {
+    display: flex;
+    align-items: center;
+    font-family: 'Zpix', Sans serif;
     @apply mr-4 italic text-gray-300;
   }
   .active {
-    @apply text-pink-400;
+    @include rainbowText;
   }
 }
 
@@ -43,14 +48,12 @@ $text-color: #51525d;
   @screen sm {
     width: 600px;
   }
-  .titles {
-    line-height: 3rem;
-  }
+
   .article_title {
     font-family: 'Zpix', sans-serif;
-    @apply text-base hover:text-pink-400 font-normal ml-4;
+    @apply text-lg font-normal px-4 -mt-2;
     @extend .text-color;
-    @extend .line-1-ellipsis;
     @include rainbowText;
+    @include text-ellipsis(1);
   }
 }

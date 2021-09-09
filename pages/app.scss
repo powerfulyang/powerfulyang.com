@@ -1,6 +1,6 @@
 @charset "UTF-8";
 @import '~@powerfulyang/components/dist/es/index.css';
-@import './base';
+@import '../src/styles/styles';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira%20Code:wght@200;300;400;500;600;700&display=swap');
 
@@ -46,10 +46,6 @@ body,
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbar-bg);
   border-radius: 10px;
-}
-
-.pointer {
-  cursor: url('/cursor/pointer.png'), pointer;
 }
 
 body {

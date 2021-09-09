@@ -50,7 +50,11 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
               <img src={user.avatar} alt="avatar" />
             </>
           )}
-          {!user && <span onClick={login}>Login</span>}
+          {!user && (
+            <span className="pointer" onClick={login}>
+              Login
+            </span>
+          )}
         </div>
       </nav>
     </div>

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ClipboardEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, ClipboardEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
 import { constants } from 'http2';
@@ -27,7 +27,10 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   const [feeds, setFeeds] = useState(sourceFeeds);
   const [userBg, setUserBg] = useState('/transparent.png');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const submitTimeline = async () => {
+  const submitTimeline = async (e: MouseEvent) => {
+    import('@/components/mo.js/Material').then((res) => {
+      res.poofClick(e);
+    });
     const res = await clientRequest('/feed', {
       body: { content, assets },
       method: 'POST',
@@ -124,7 +127,8 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                 <button
                   onClick={submitTimeline}
                   type="button"
-                  className={classNames(styles.timeline_submit, 'pointer')}
+                  disabled={!content}
+                  className={classNames(styles.timeline_submit)}
                 >
                   发送
                 </button>

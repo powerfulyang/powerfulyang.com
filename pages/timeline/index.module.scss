@@ -35,6 +35,10 @@
     }
     .timeline_submit {
       @apply text-2xl bg-blue-400 text-white rounded w-24 h-10 mt-2;
+      @extend .pointer;
+      &:disabled {
+        @apply bg-gray-300 cursor-not-allowed;
+      }
     }
     .assets {
       @extend .assets;
