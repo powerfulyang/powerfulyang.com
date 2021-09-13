@@ -10,6 +10,7 @@ import { UserLayout } from '@/layout/UserLayout';
 import { CosUtils, DateFormat } from '@/utils/lib';
 import { Clock } from '@/components/Clock';
 import styles from './index.module.scss';
+import { LazyImage } from '@/components/LazyImage';
 
 type IndexProps = {
   posts: Post[];
@@ -41,12 +42,12 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
           {posts.map((post) => {
             return (
               <Link key={post.id} to={`/post/${post.id}`}>
-                <div className="bg-white rounded-xl shadow-lg my-8 overflow-hidden">
-                  <div className="pointer w-full h-[16rem] overflow-hidden">
-                    <img
+                <div className="bg-white rounded-xl shadow-lg my-8">
+                  <div className="h-[16rem] overflow-hidden">
+                    <LazyImage
+                      className="h-[16rem] scale-100 md:hover:scale-110 transition-all duration-500"
                       src={CosUtils.getCosObjectUrl(post.poster.objectUrl)}
-                      alt=""
-                      className="object-cover w-full h-full scale-125 hover:scale-100 transition-all duration-300"
+                      blurSrc={CosUtils.getCosObjectBlurUrl(post.poster.objectUrl)}
                     />
                   </div>
                   <div className="flex h-[6rem] flex-col justify-evenly">

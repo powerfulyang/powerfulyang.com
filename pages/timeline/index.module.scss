@@ -53,11 +53,10 @@
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
     @apply m-auto flex align-middle justify-center flex-col mb-4 overflow-hidden relative;
     .banner_bg {
+      z-index: -1;
       height: 150px;
-      background-repeat: no-repeat;
-      background-position-y: 15%;
-      background-size: cover;
-      @apply m-auto w-full;
+      object-fit: cover;
+      @apply m-auto w-full rounded-none;
       @screen sm {
         height: 300px;
       }

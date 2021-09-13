@@ -17,7 +17,7 @@ export const Footer: FC<FooterProps> = ({ pathViewCount }) => {
           target="_blank"
           rel="noreferrer"
         >
-          粤ICP备19128686号-1
+          粤ICP备19128686号
         </a>
       </div>
       <div className="text-sm">

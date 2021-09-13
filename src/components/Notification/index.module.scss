@@ -1,0 +1,30 @@
+@import '../../styles/styles';
+
+.notification {
+  max-width: 70vw;
+  font-family: 'Zpix', Sans serif;
+  box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
+  @apply flex rounded bg-white py-4 px-6 items-start mb-4;
+  .status {
+    @apply text-2xl px-1;
+    &.success {
+      color: #5fcf65;
+    }
+    &.error {
+      color: #ec788d;
+    }
+    &.warn {
+      color: cornflowerblue;
+    }
+  }
+  .title {
+    @apply text-2xl font-medium;
+  }
+  .content {
+    @apply text-gray-400 text-sm;
+  }
+  .close {
+    @extend .pointer;
+    @apply text-2xl text-gray-400;
+  }
+}

@@ -17,6 +17,7 @@ import { ImageThumbnailWrap } from '@/components/ImagePreview/ImageThumbnailWrap
 import { AssetBucket } from '@/types/Bucket';
 import styles from './index.module.scss';
 import { Switch } from '@/components/Switch';
+import { LazyImage } from '@/components/LazyImage';
 
 type TimelineProps = {
   sourceFeeds: Feed[];
@@ -84,12 +85,9 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
         {user && (
           <>
             <div className={styles.banner}>
-              <div
-                style={{
-                  backgroundImage: `url(${CosUtils.getCosObjectUrl(
-                    user?.timelineBackground?.objectUrl,
-                  )})`,
-                }}
+              <LazyImage
+                src={CosUtils.getCosObjectUrl(user?.timelineBackground?.objectUrl)}
+                blurSrc={CosUtils.getCosObjectBlurUrl(user?.timelineBackground?.objectUrl)}
                 className={styles.banner_bg}
               />
               <div className={styles.author_info}>

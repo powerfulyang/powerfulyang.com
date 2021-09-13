@@ -27,7 +27,7 @@
   --scrollbar-bg: rgb(1 2 3 / 40%);
 
   font-size: calc(12px + 0.2vw);
-  cursor: url('/cursor/default.png'), auto;
+  @extend .cursor-default;
 }
 
 html,
@@ -52,14 +52,10 @@ body {
   overflow: overlay;
 }
 
-a,
-button,
-svg,
-use,
-path {
-  @extend .pointer;
-}
-
 :where(div[data-name='mojs-shape']) {
   pointer-events: none;
+}
+
+.notification-collection {
+  @apply fixed right-8 top-8;
 }
