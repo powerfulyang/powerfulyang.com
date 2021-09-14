@@ -135,7 +135,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                     id="upload"
                     hidden
                     type="file"
-                    accept="image/*"
+                    accept="image/*,image/heic,image/heif"
                     multiple
                     onChange={uploadImages}
                   />
