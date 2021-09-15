@@ -1,12 +1,15 @@
 import { pick } from 'ramda';
 import { GetServerSidePropsContext } from 'next';
-import { stringify } from 'querystring';
 
 export type RequestOptions = {
   method?: string;
   ctx: GetServerSidePropsContext;
   body?: Record<string, any> | FormData;
   query?: Record<string, any>;
+};
+
+const stringify = (query: RequestOptions['query']) => {
+  return new URLSearchParams(query).toString();
 };
 
 export const request = async (url: string, options: RequestOptions) => {

@@ -55,7 +55,6 @@
     .banner_bg {
       z-index: -1;
       height: 150px;
-      object-fit: cover;
       @apply m-auto w-full rounded-none;
       @screen sm {
         height: 300px;

@@ -7,9 +7,10 @@ import { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
 import { Asset } from '@/types/Asset';
-import { ImagePreview } from '@/components/ImagePreview';
-import { ImageThumbnailWrap } from '@/components/ImagePreview/ImageThumbnailWrap';
 import styles from './index.module.scss';
+import { Masonry } from '@/components/Masonry';
+import { LazyImage } from '@/components/LazyImage';
+import { CosUtils } from '@/utils/lib';
 
 type GalleryProps = {
   assets: Asset[];
@@ -48,11 +49,13 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, isPublic }) => {
 
   return (
     <main className={styles.gallery}>
-      <ImagePreview images={images}>
+      <Masonry>
         {images.map((asset) => (
-          <ImageThumbnailWrap
+          <LazyImage
             key={asset.id}
-            asset={asset}
+            assetId={asset.id}
+            src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
+            blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
             inViewAction={(id) => {
               if (data && id === data[0].id) {
                 loadMore();
@@ -60,7 +63,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, isPublic }) => {
             }}
           />
         ))}
-      </ImagePreview>
+      </Masonry>
     </main>
   );
 };

@@ -14,6 +14,7 @@ type LazyImageExtendProps = {
   inViewAction?: (id?: number) => void;
   assetId?: number;
   blurSrc?: string;
+  imageClassName?: string;
 };
 const variants = {
   loading: {
@@ -28,10 +29,10 @@ const variants = {
 
 export const LazyImage: FC<
   DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & LazyImageExtendProps
-> = ({ src, className, alt, inViewAction, assetId, blurSrc, ...props }) => {
+> = ({ src, className, alt, inViewAction, assetId, blurSrc, imageClassName, ...props }) => {
   const [loading, setLoading] = useState(true);
   const ref = useRef<HTMLImageElement>(null);
-  const [imgUrl, setImgUrl] = useState('/transparent.png');
+  const [imgUrl, setImgUrl] = useState(blurSrc);
   useEffect(() => {
     if (src) {
       const observer = new IntersectionObserver((entries) => {
@@ -60,13 +61,13 @@ export const LazyImage: FC<
   }, [assetId, inViewAction, src]);
 
   return (
-    <div className={classNames(className, 'overflow-hidden rounded pointer')}>
+    <div className={classNames(className, 'overflow-hidden pointer')}>
       <motion.div
         variants={variants}
         initial="loading"
         animate={(!loading && 'loaded') || 'loading'}
-        className="w-full h-full"
         transition={{ duration: 1.2 }}
+        className="w-full h-full"
       >
         <img
           {...props}
@@ -75,9 +76,9 @@ export const LazyImage: FC<
               [styles.loading]: loading,
               [styles.loaded_img]: !loading,
             },
-            'object-cover w-full h-full bg-no-repeat bg-cover',
+            'bg-no-repeat bg-cover',
+            imageClassName,
           )}
-          style={{ backgroundImage: blurSrc && `url(${blurSrc})` }}
           src={imgUrl}
           alt={alt}
           ref={ref}

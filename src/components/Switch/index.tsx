@@ -1,9 +1,7 @@
 import classNames from 'classnames';
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { inc } from 'ramda';
 import styles from './index.module.scss';
-
-let i = 0;
 
 type SwitchProps = {
   checkedDescription?: string;
@@ -18,9 +16,10 @@ export const Switch: FC<SwitchProps> = ({
   onChange,
   checked,
 }) => {
+  const i = useRef(0);
   const [id] = useState(() => {
-    i = inc(i);
-    return `internal_switch_id_${i}`;
+    i.current = inc(i.current);
+    return `internal_switch_id_${i.current}`;
   });
 
   return (
