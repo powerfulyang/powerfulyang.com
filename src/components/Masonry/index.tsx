@@ -27,7 +27,7 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
   }, [colNum, children]);
   return (
     <div
-      className={classNames('grid gap-8 mx-8', {
+      className={classNames('grid gap-4 mx-4', {
         'grid-cols-2': isMobile,
         'grid-cols-4': !isMobile,
       })}
@@ -37,7 +37,7 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
           <div className="flex flex-col" key={String(index)}>
             {nodes.map((node) =>
               cloneElement(node, {
-                className: 'mt-8 shadow-xl rounded',
+                className: 'mt-4 shadow-xl rounded',
               }),
             )}
           </div>

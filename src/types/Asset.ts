@@ -1,4 +1,6 @@
-import { Bucket } from '@/types/Bucket';
+import { Metadata } from 'sharp';
+import type { Bucket } from '@/types/Bucket';
+import type { Exif } from '@/types/Exif';
 
 export class Asset {
   id: number;
@@ -22,6 +24,10 @@ export class Asset {
   sha1: string;
 
   pHash: string;
+
+  exif: Exif;
+
+  metadata: Metadata;
 
   createAt: Date;
 

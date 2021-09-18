@@ -15,7 +15,6 @@ export const ImageThumbnailWrap: FC<{
         className={styles.image}
         src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
         blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
-        imageClassName="object-cover w-full h-full"
         assetId={asset.id}
         inViewAction={(id) => {
           inViewAction?.(id);

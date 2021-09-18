@@ -29,7 +29,16 @@ const variants = {
 
 export const LazyImage: FC<
   DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & LazyImageExtendProps
-> = ({ src, className, alt, inViewAction, assetId, blurSrc, imageClassName, ...props }) => {
+> = ({
+  src,
+  className,
+  alt,
+  inViewAction,
+  assetId,
+  blurSrc,
+  imageClassName = 'object-cover w-full h-full',
+  ...props
+}) => {
   const [loading, setLoading] = useState(true);
   const ref = useRef<HTMLImageElement>(null);
   const [imgUrl, setImgUrl] = useState(blurSrc);
