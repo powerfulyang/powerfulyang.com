@@ -32,4 +32,6 @@ export class Asset {
   createAt: Date;
 
   updateAt: Date;
+
+  size: { width: number; height: number };
 }

@@ -61,8 +61,8 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, isPublic }) => {
                 loadMore();
               }
             }}
-            width={asset.metadata.width}
-            height={asset.metadata.height}
+            width={asset.size.width}
+            height={asset.size.height}
           />
         ))}
       </Masonry>
