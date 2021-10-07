@@ -85,9 +85,9 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const tmp = await request(isPublic ? '/public/post/years' : '/post/years', {
     ctx,
   });
-  let { data: years } = await tmp.json();
+  let { data: years = [] } = await tmp.json();
   years = years.reverse();
-  const year = query.year || years[0];
+  const year = query.year || years[0] || 0;
   const res = await request(isPublic ? '/public/post' : '/post', {
     ctx,
     query: { publishYear: year },

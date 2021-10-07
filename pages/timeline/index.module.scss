@@ -8,7 +8,7 @@
     width: min(100%, 600px);
     margin: auto;
     .feeds {
-      &:first-child {
+      &:first-child.container {
         @apply mt-4;
       }
     }

@@ -178,7 +178,9 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
               </div>
             </div>
           ))}
-          {!feeds?.length && <div className="text-lg text-pink-400 text-center">No Content!</div>}
+          {!feeds?.length && (
+            <div className="text-lg text-pink-400 text-center pt-4">No Content!</div>
+          )}
         </div>
       </div>
     </div>
