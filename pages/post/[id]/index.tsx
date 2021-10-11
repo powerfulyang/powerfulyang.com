@@ -8,6 +8,7 @@ import { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { extractMetaData } from '@/utils/toc';
 import styles from './index.module.scss';
+import { getCurrentUser } from '@/service/getCurrentUser';
 
 type PostProps = {
   data: Post;
@@ -27,8 +28,12 @@ const PostDetail: LayoutFC<PostProps> = ({ data }) => {
 };
 
 PostDetail.getLayout = (page) => {
-  const { pathViewCount } = page.props;
-  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
+  const { pathViewCount, user } = page.props;
+  return (
+    <UserLayout user={user} pathViewCount={pathViewCount}>
+      {page}
+    </UserLayout>
+  );
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
@@ -37,8 +42,9 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   } = ctx;
   const res = await request(`/public/post/${id}`, { ctx });
   const { data, pathViewCount } = await res.json();
+  const user = await getCurrentUser(ctx);
   return {
-    props: { data, pathViewCount, title: data.title },
+    props: { data, pathViewCount, title: data.title, user },
   };
 };
 

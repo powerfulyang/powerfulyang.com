@@ -8,8 +8,8 @@
     width: min(100%, 600px);
     margin: auto;
     .feeds {
-      &:first-child.container {
-        @apply mt-4;
+      &:first-child {
+        @apply pt-4;
       }
     }
   }
@@ -30,7 +30,7 @@
       font-size: 30px;
       box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
       inline-size: 100%;
-      block-size: 20vh;
+      block-size: max(20vh, 150px);
       @apply rounded overflow-hidden;
       textarea {
         padding: 1rem;

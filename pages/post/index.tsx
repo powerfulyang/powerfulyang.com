@@ -1,7 +1,6 @@
 import React from 'react';
 import { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
-import { constants } from 'http2';
 import { request } from '@/utils/request';
 import { Post } from '@/types/Post';
 import { Link } from '@/components/Link';
@@ -11,6 +10,7 @@ import { CosUtils, DateFormat } from '@/utils/lib';
 import { Clock } from '@/components/Clock';
 import styles from './index.module.scss';
 import { LazyImage } from '@/components/LazyImage';
+import { getCurrentUser } from '@/service/getCurrentUser';
 
 type IndexProps = {
   posts: Post[];
@@ -71,29 +71,28 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
 };
 
 Index.getLayout = (page) => {
-  const { pathViewCount } = page.props;
-  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
+  const { pathViewCount, user } = page.props;
+  return (
+    <UserLayout user={user} pathViewCount={pathViewCount}>
+      {page}
+    </UserLayout>
+  );
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { query } = ctx;
-  let isPublic = true;
-  const t = await request('/user/current', { ctx });
-  if (t.status === constants.HTTP_STATUS_OK) {
-    isPublic = false;
-  }
-  const tmp = await request(isPublic ? '/public/post/years' : '/post/years', {
+  const tmp = await request('/public/post/years', {
     ctx,
   });
   let { data: years = [] } = await tmp.json();
   years = years.reverse();
-  const year = query.year || years[0] || 0;
-  const res = await request(isPublic ? '/public/post' : '/post', {
+  const year = query.year || years[0];
+  const res = await request('/public/post', {
     ctx,
     query: { publishYear: year },
   });
   const { data, pathViewCount } = await res.json();
-
+  const user = await getCurrentUser(ctx);
   return {
     props: {
       pathViewCount,
@@ -101,6 +100,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       posts: data,
       year,
       title: '日志',
+      user,
     },
   };
 };

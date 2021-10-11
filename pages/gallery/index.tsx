@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { useImmer } from '@powerfulyang/hooks';
-import { constants } from 'http2';
 import useSWRImmutable from 'swr/immutable';
 import { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
@@ -11,16 +10,16 @@ import styles from './index.module.scss';
 import { Masonry } from '@/components/Masonry';
 import { LazyImage } from '@/components/LazyImage';
 import { CosUtils } from '@/utils/lib';
+import { getCurrentUser } from '@/service/getCurrentUser';
 
 type GalleryProps = {
   assets: Asset[];
-  isPublic: boolean;
 };
 
-export const Gallery: LayoutFC<GalleryProps> = ({ assets, isPublic }) => {
+export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
   const [images, setImages] = useImmer(assets);
   const [page, setPage] = useState(2);
-  const [reqUrl] = useState(() => (isPublic ? '/public/asset' : '/asset'));
+  const [reqUrl] = useState(() => '/public/asset');
   const [noMore, setNoMore] = useState(false);
   const loadMore = () => {
     if (!noMore) {
@@ -71,31 +70,31 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, isPublic }) => {
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  let isPublic = true;
-  const t = await request('/user/current', { ctx });
-  if (t.status === constants.HTTP_STATUS_OK) {
-    isPublic = false;
-  }
-  const res = await request(isPublic ? '/public/asset' : '/asset', {
+  const res = await request('/public/asset', {
     ctx,
     query: {
       pageSize: 30,
     },
   });
   const { data, pathViewCount } = await res.json();
+  const user = await getCurrentUser(ctx);
   return {
     props: {
       assets: data[0],
       pathViewCount,
-      isPublic,
       title: '图片墙',
+      user,
     },
   };
 };
 
 Gallery.getLayout = (page) => {
-  const { pathViewCount } = page.props;
-  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
+  const { pathViewCount, user } = page.props;
+  return (
+    <UserLayout user={user} pathViewCount={pathViewCount}>
+      {page}
+    </UserLayout>
+  );
 };
 
 export default Gallery;

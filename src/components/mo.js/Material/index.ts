@@ -1,5 +1,5 @@
 import mojs from '@mojs/core';
-import { MouseEvent } from 'react';
+import { getElementRandomPointInRectangle } from '@/utils/getRandomPointInRectangle';
 
 const DURATION = 200;
 
@@ -42,10 +42,8 @@ const cloud = new mojs.Burst({
 const poof = new mojs.Timeline();
 poof.add(circle, cloud);
 
-export const poofClick = (e: MouseEvent) => {
-  const x = e.pageX,
-    y = e.pageY;
-
+export const poofClickPlay = (e: HTMLElement) => {
+  const [x, y] = getElementRandomPointInRectangle(e);
   const coords = { x, y };
   circle.tune(coords);
   cloud.tune(coords);

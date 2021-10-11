@@ -1,5 +1,6 @@
 import { pick } from 'ramda';
 import { GetServerSidePropsContext } from 'next';
+import { SUCCESS } from '@/constant/Constant';
 
 export type RequestOptions = {
   method?: string;
@@ -28,7 +29,7 @@ export const request = async (url: string, options: RequestOptions) => {
 };
 
 export type ApiResponse<T = any> = {
-  status: 'ok';
+  status: typeof SUCCESS;
   data: T;
 };
 

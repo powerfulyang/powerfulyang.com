@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { NavBar } from '@/components/NavBar';
-import { swrRequest } from '@/utils/request';
 import { Footer } from '@/components/Footer';
+import { User } from '@/types/User';
 
 export enum Menu {
   post,
@@ -13,9 +12,9 @@ export enum Menu {
 
 type UserLayoutProps = {
   pathViewCount?: number;
+  user: User;
 };
-export const UserLayout: FC<UserLayoutProps> = ({ children, pathViewCount }) => {
-  const { data: { data: user } = {} } = useSWR('/user/current', swrRequest());
+export const UserLayout: FC<UserLayoutProps> = ({ children, pathViewCount, user }) => {
   const { pathname } = useRouter();
   return (
     <>

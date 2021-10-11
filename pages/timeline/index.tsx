@@ -1,9 +1,10 @@
-import React, { ChangeEvent, ClipboardEvent, MouseEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, ClipboardEvent, useEffect, useRef, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
-import { constants } from 'http2';
 import { useImmer } from '@powerfulyang/hooks';
-import useSWR, { useSWRConfig } from 'swr';
+import { useSWRConfig } from 'swr';
+import { interval } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
 import { Feed } from '@/types/Feed';
@@ -18,6 +19,9 @@ import { AssetBucket } from '@/types/Bucket';
 import styles from './index.module.scss';
 import { Switch } from '@/components/Switch';
 import { LazyImage } from '@/components/LazyImage';
+import { getCurrentUser } from '@/service/getCurrentUser';
+import { useFeeds } from '@/queries/useFeeds';
+import { SUCCESS } from '@/constant/Constant';
 
 type TimelineProps = {
   sourceFeeds: Feed[];
@@ -27,37 +31,34 @@ type TimelineProps = {
 const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   const [content, setContent] = useState('');
   const [assets, setAssets] = useImmer<Asset[]>([]);
+  const [disable, setDisable] = useState(true);
   const { mutate } = useSWRConfig();
-  const { data: feeds } = useSWR(
-    'api-fetch-feed',
-    async () => {
-      let url = '/public/feed';
-      if (user) {
-        url = '/feed';
-      }
-      const { data } = await clientRequest<Feed[]>(url);
-      return data;
-    },
-    { fallbackData: sourceFeeds },
-  );
+  const feeds = useFeeds(sourceFeeds);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isPublic, setIsPublic] = useState(false);
   const handlePostPrivacy = (checked: boolean) => {
     setIsPublic(checked);
   };
-  const submitTimeline = async (e: MouseEvent) => {
-    import('@/components/mo.js/Material').then((res) => {
-      res.poofClick(e);
-    });
+  const ref = useRef<HTMLButtonElement>(null);
+  const submitTimeline = async () => {
+    const { poofClickPlay } = await import('@/components/mo.js/Material');
+    const subscribe = interval(500)
+      .pipe(startWith(0))
+      .subscribe(() => {
+        poofClickPlay(ref.current!);
+        setDisable(true);
+      });
     const res = await clientRequest('/feed', {
       body: { content, assets, public: isPublic },
       method: 'POST',
     });
-    if (res.status === 'ok') {
+    subscribe.unsubscribe();
+    if (res.status === SUCCESS) {
       setContent('');
       setAssets([]);
-      mutate('api-fetch-feed');
+      await mutate(useFeeds.name);
     }
+    setDisable(false);
   };
 
   const paste = async (e: ClipboardEvent) => {
@@ -68,6 +69,12 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
       });
     }
   };
+
+  useEffect(() => {
+    if (content) {
+      setDisable(false);
+    }
+  }, [content]);
 
   const uploadImages = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files!;
@@ -143,7 +150,8 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                 <button
                   onClick={submitTimeline}
                   type="button"
-                  disabled={!content}
+                  ref={ref}
+                  disabled={disable}
                   className={classNames(styles.timeline_submit)}
                 >
                   发送
@@ -188,20 +196,17 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
 };
 
 Timeline.getLayout = (page) => {
-  const { pathViewCount } = page.props;
-  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
+  const { pathViewCount, user } = page.props;
+  return (
+    <UserLayout user={user} pathViewCount={pathViewCount}>
+      {page}
+    </UserLayout>
+  );
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const tmp = await request('/user/current', { ctx });
-  let user = null;
-  let url = '/public/feed';
-  if (tmp.status === constants.HTTP_STATUS_OK) {
-    const { data: u } = await tmp.json();
-    user = u;
-    url = '/feed';
-  }
-  const res = await request(url, { ctx });
+  const res = await request('/public/feed', { ctx });
+  const user = await getCurrentUser(ctx);
   const { data, pathViewCount } = await res.json();
   return {
     props: { sourceFeeds: data, pathViewCount, user, title: '说说' },
