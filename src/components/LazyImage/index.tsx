@@ -56,6 +56,10 @@ export const LazyImage: FC<
               setLoading(false);
               setImgUrl(source);
             };
+            _target.onerror = () => {
+              setLoading(false);
+              setImgUrl('/broken_image.png');
+            };
             _target.src = source;
             observer.unobserve(target);
           }
