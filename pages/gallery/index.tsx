@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { useImmer } from '@powerfulyang/hooks';
-import useSWRImmutable from 'swr/immutable';
+import { useQuery } from 'react-query';
 import { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
@@ -28,9 +28,9 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
       });
     }
   };
-  const { data } = useSWRImmutable([reqUrl, page], async (url, currentPage) => {
-    const res = await clientRequest<[Asset[]]>(url, {
-      query: { currentPage, pageSize: 30 },
+  const { data } = useQuery([reqUrl, page], async () => {
+    const res = await clientRequest<[Asset[]]>(reqUrl, {
+      query: { currentPage: page, pageSize: 30 },
     });
     return res.data[0];
   });

@@ -8,7 +8,7 @@ import {
   UnorderedListComponent,
 } from 'react-markdown/lib/ast-to-react';
 import classNames from 'classnames';
-import useSWRImmutable from 'swr/immutable';
+import { useQuery } from 'react-query';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { LazyImage } from '@/components/LazyImage';
 import { clientRequest } from '@/utils/request';
@@ -145,8 +145,8 @@ export const Li: LiComponent = ({ children, ordered, index }) => {
 };
 
 const AssetImage: FC<{ src?: string }> = ({ src }) => {
-  const { data } = useSWRImmutable([src], async (id: string) => {
-    const res = await clientRequest(`/asset/${id}`);
+  const { data } = useQuery([src], async () => {
+    const res = await clientRequest(`/asset/${src}`);
     return {
       dataSrc: CosUtils.getCosObjectUrl(res.data.objectUrl),
       dataBlurSrc: CosUtils.getCosObjectBlurUrl(res.data.objectUrl),

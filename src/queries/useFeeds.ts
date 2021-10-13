@@ -1,15 +1,15 @@
-import useSWR from 'swr';
+import { useQuery } from 'react-query';
 import { clientRequest } from '@/utils/request';
 import { Feed } from '@/types/Feed';
 
 export const useFeeds = (sourceFeeds: Feed[]) => {
-  const { data: feeds } = useSWR(
+  const { data: feeds } = useQuery(
     useFeeds.name,
     async () => {
       const { data } = await clientRequest<Feed[]>('/public/feed');
       return data;
     },
-    { fallbackData: sourceFeeds },
+    { initialData: sourceFeeds },
   );
   return feeds;
 };

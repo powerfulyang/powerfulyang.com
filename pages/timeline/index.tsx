@@ -2,9 +2,9 @@ import React, { ChangeEvent, ClipboardEvent, useEffect, useRef, useState } from 
 import { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
 import { useImmer } from '@powerfulyang/hooks';
-import { useSWRConfig } from 'swr';
 import { interval } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { useQueryClient } from 'react-query';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
 import { Feed } from '@/types/Feed';
@@ -32,7 +32,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   const [content, setContent] = useState('');
   const [assets, setAssets] = useImmer<Asset[]>([]);
   const [disable, setDisable] = useState(true);
-  const { mutate } = useSWRConfig();
+  const queryClient = useQueryClient();
   const feeds = useFeeds(sourceFeeds);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isPublic, setIsPublic] = useState(false);
@@ -56,7 +56,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     if (res.status === SUCCESS) {
       setContent('');
       setAssets([]);
-      await mutate(useFeeds.name);
+      await queryClient.invalidateQueries(useFeeds.name);
     }
     setDisable(false);
   };

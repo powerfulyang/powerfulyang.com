@@ -54,7 +54,3 @@ export const clientRequest = async <T = any>(
   });
   return res.json();
 };
-
-export const swrRequest = (options: Omit<RequestOptions, 'ctx'> = {}) => {
-  return async (url: string) => clientRequest(url, options);
-};

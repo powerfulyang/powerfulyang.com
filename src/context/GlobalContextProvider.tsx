@@ -1,7 +1,17 @@
 import React, { FC } from 'react';
 import { useImmerReducer } from '@powerfulyang/hooks';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { LinkContext } from '@/context/LinkContext';
 import { GlobalContextState } from '@/types/GlobalContext';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+    },
+  },
+});
 
 export enum GlobalContextActionType {
   LinkRedirectStart,
@@ -31,13 +41,15 @@ export const GlobalContextProvider: FC = ({ children }) => {
     isRedirecting: false,
   });
   return (
-    <LinkContext.Provider
-      value={{
-        state,
-        dispatch,
-      }}
-    >
-      {children}
-    </LinkContext.Provider>
+    <QueryClientProvider client={queryClient}>
+      <LinkContext.Provider
+        value={{
+          state,
+          dispatch,
+        }}
+      >
+        {children}
+      </LinkContext.Provider>
+    </QueryClientProvider>
   );
 };
