@@ -29,6 +29,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "~/*": [
+        "./pages/*"
       ]
     },
     "isolatedModules": true,

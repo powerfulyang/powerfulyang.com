@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { FC } from 'react';
-import styles from '../../index.module.scss';
+import styles from '~/admin/index.module.scss';
 
 type Props = {
   categoryItems: string[];
