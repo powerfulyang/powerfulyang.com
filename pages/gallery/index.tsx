@@ -1,86 +1,80 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import { useImmer } from '@powerfulyang/hooks';
-import { useQuery } from 'react-query';
-import { LayoutFC } from '@/types/GlobalContext';
+import { useInfiniteQuery } from 'react-query';
+import { flatten, last } from 'ramda';
+import { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
-import { Asset } from '@/types/Asset';
+import { Asset } from '@/type/Asset';
 import styles from './index.module.scss';
 import { Masonry } from '@/components/Masonry';
 import { LazyImage } from '@/components/LazyImage';
 import { CosUtils } from '@/utils/lib';
 import { getCurrentUser } from '@/service/getCurrentUser';
+import { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 
 type GalleryProps = {
   assets: Asset[];
 };
 
 export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
-  const [images, setImages] = useImmer(assets);
-  const [page, setPage] = useState(2);
-  const [reqUrl] = useState(() => '/public/asset');
-  const [noMore, setNoMore] = useState(false);
-  const loadMore = () => {
-    if (!noMore) {
-      setPage((prevState) => {
-        return prevState + 1;
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
+    'assets',
+    async ({ pageParam }) => {
+      const res = await clientRequest<InfiniteQueryResponse<Asset>>('/public/asset/infiniteQuery', {
+        query: { id: pageParam || last(assets)?.id, size: 30 },
       });
-    }
-  };
-  const { data } = useQuery([reqUrl, page], async () => {
-    const res = await clientRequest<[Asset[]]>(reqUrl, {
-      query: { currentPage: page, pageSize: 30 },
-    });
-    return res.data[0];
-  });
+      return res.data;
+    },
+    {
+      getNextPageParam(lastPage) {
+        return lastPage.nextCursor;
+      },
+    },
+  );
 
-  useEffect(() => {
-    if (data) {
-      if (!data.length) {
-        setNoMore(true);
-      }
-      setImages((prev) => {
-        prev.push(...data);
-      });
-    }
-  }, [data, setImages]);
+  const resources = useMemo(() => {
+    return [...assets, ...((data?.pages && flatten(data?.pages.map((x) => x.resources))) || [])];
+  }, [assets, data?.pages]);
 
   return (
     <main className={styles.gallery}>
       <Masonry>
-        {images.map((asset) => (
-          <LazyImage
-            key={asset.id}
-            assetId={asset.id}
-            src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
-            blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
-            inViewAction={(id) => {
-              if (data && id === data[0].id) {
-                loadMore();
-              }
-            }}
-            width={asset.size.width}
-            height={asset.size.height}
-          />
-        ))}
+        {resources.map((asset) => {
+          return (
+            <LazyImage
+              title={`${asset.id}`}
+              key={asset.id}
+              assetId={asset.id}
+              src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
+              blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
+              inViewAction={async (id) => {
+                if (id === last(resources)?.id) {
+                  hasNextPage && !isFetching && (await fetchNextPage());
+                }
+              }}
+              width={asset.size.width}
+              height={asset.size.height}
+            />
+          );
+        })}
       </Masonry>
     </main>
   );
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const res = await request('/public/asset', {
+  const res = await request('/public/asset/infiniteQuery', {
     ctx,
     query: {
-      pageSize: 30,
+      size: 30,
     },
   });
   const { data, pathViewCount } = await res.json();
   const user = await getCurrentUser(ctx);
   return {
     props: {
-      assets: data[0],
+      assets: data.resources,
       pathViewCount,
       title: '图片墙',
       user,

@@ -1,4 +1,4 @@
-import { pick } from 'ramda';
+import { isNil, pick, reject } from 'ramda';
 import { GetServerSidePropsContext } from 'next';
 import { SUCCESS } from '@/constant/Constant';
 
@@ -10,7 +10,7 @@ export type RequestOptions = {
 };
 
 const stringify = (query: RequestOptions['query']) => {
-  return new URLSearchParams(query).toString();
+  return new URLSearchParams(query && reject(isNil, query)).toString();
 };
 
 export const request = async (url: string, options: RequestOptions) => {
@@ -45,7 +45,8 @@ export const clientRequest = async <T = any>(
   if (!isFile) {
     requestHeaders.set('content-type', 'application/json');
   }
-  const res = await fetch(`${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`, {
+  const isValidQuery = query && Object.values(query).some((x) => !isNil(x));
+  const res = await fetch(`${baseUrl}${url}${isValidQuery ? `?${stringify(query)}` : ''}`, {
     method,
     headers: requestHeaders,
     mode: 'cors',

@@ -7,7 +7,7 @@ import {
   ImageModalContextActionType,
   ImageModalContextState,
 } from '@/context/ImageModalContext';
-import { Asset } from '@/types/Asset';
+import { Asset } from '@/type/Asset';
 
 const DynamicImageModal = dynamic(() => import('@/components/ImagePreview/ImageModal'), {
   ssr: false,

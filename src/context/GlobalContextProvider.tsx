@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useImmerReducer } from '@powerfulyang/hooks';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { LinkContext } from '@/context/LinkContext';
-import { GlobalContextState } from '@/types/GlobalContext';
+import { GlobalContextState } from '@/type/GlobalContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {

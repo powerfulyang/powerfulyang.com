@@ -1,5 +1,5 @@
 import { Context, createContext, Dispatch } from 'react';
-import { Asset } from '@/types/Asset';
+import { Asset } from '@/type/Asset';
 
 export type ImageModalContextState = {
   selectIndex?: number;

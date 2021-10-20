@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useRouter } from 'next/router';
 import { NavBar } from '@/components/NavBar';
 import { Footer } from '@/components/Footer';
-import { User } from '@/types/User';
+import { User } from '@/type/User';
 
 export enum Menu {
   post,

@@ -3,7 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { MarkdownEditor } from '@/components/MarkdownWrap/Editor/inex';
 import { clientRequest, request } from '@/utils/request';
-import { Post } from '@/types/Post';
+import { Post } from '@/type/Post';
 import { extractMetaData, extractTitle } from '@/utils/toc';
 
 type PublishProps = {

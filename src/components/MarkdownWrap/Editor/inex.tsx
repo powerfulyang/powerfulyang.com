@@ -8,10 +8,10 @@ import { fromEvent } from 'rxjs';
 import { extractMetaData } from '@/utils/toc';
 import { MarkdownWrap } from '@/components/MarkdownWrap';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
-import { AssetBucket } from '@/types/Bucket';
+import { AssetBucket } from '@/type/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import styles from './index.module.scss';
-import { Asset } from '@/types/Asset';
+import { Asset } from '@/type/Asset';
 
 type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 

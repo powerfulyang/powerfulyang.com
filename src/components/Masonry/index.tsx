@@ -18,7 +18,7 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
       if (draft[i]) {
         draft[i].push(current);
       } else {
-        draft[i] = [];
+        draft[i] = [current];
       }
       return draft;
     }, []);

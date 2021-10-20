@@ -1,7 +1,7 @@
 import { ClipboardEvent } from 'react';
 import { clientRequest } from '@/utils/request';
-import { Asset } from '@/types/Asset';
-import { AssetBucket, Bucket } from '@/types/Bucket';
+import { Asset } from '@/type/Asset';
+import { AssetBucket, Bucket } from '@/type/Bucket';
 
 export const handlePasteImageAndReturnFileList = async (e: ClipboardEvent) => {
   const { types } = e.clipboardData;
