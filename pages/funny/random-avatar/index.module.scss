@@ -1,0 +1,54 @@
+.gradient_bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  &::before {
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 100vh;
+    height: 100vh;
+    background-image: radial-gradient(
+      rgba(133, 233, 244, 0.8) 20%,
+      rgba(133, 233, 244, 0.6) 40%,
+      rgba(133, 233, 244, 0.4) 60%,
+      rgba(133, 233, 244, 0.2) 80%,
+      transparent 100%
+    );
+    border-radius: 50%;
+    opacity: 0.2;
+    filter: blur(4rem);
+    content: '';
+  }
+  &::after {
+    position: absolute;
+    bottom: -50%;
+    left: -20%;
+    width: 100vh;
+    height: 100vh;
+    background-image: radial-gradient(
+      rgba(105, 103, 254, 0.8) 20%,
+      rgba(105, 103, 254, 0.6) 40%,
+      rgba(105, 103, 254, 0.4) 60%,
+      rgba(105, 103, 254, 0.2) 80%,
+      transparent 100%
+    );
+    border-radius: 50%;
+    opacity: 0.2;
+    filter: blur(4rem);
+    content: '';
+  }
+}
+
+.logo {
+  font-family: 'Caveat', sans-serif;
+  @apply uppercase text-gray-400 text-2xl flex items-center p-8;
+}
+
+.content {
+  &::before {
+    content: 'todo item';
+  }
+}

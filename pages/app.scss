@@ -1,8 +1,8 @@
 @charset "UTF-8";
 @import '~@powerfulyang/components/dist/es/index.css';
 @import '../src/styles/styles';
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira%20Code:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -33,8 +33,7 @@
 html,
 body,
 #__next {
-  position: relative;
-  @apply w-full h-auto;
+  @apply w-full h-full;
 }
 
 ::-webkit-scrollbar {

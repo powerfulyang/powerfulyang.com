@@ -22,12 +22,12 @@ export const Footer: FC<FooterProps> = ({ pathViewCount }) => {
       </div>
       <div className="text-sm">
         <span>
-          © {new Date().getFullYear()} Power by
+          {`© ${new Date().getFullYear()} Power by `}
           <a
             href="https://github.com/powerfulyang/powerfulyang.com"
             target="_blank"
             rel="noreferrer"
-            className="ml-2 text-pink-400"
+            className="text-pink-400"
           >
             powerfulyang
           </a>

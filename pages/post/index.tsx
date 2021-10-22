@@ -42,7 +42,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
           {posts.map((post) => {
             return (
               <Link key={post.id} to={`/post/${post.id}`}>
-                <div className="bg-white rounded-xl shadow-lg my-8">
+                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
                   <div className="h-[16rem] overflow-hidden">
                     <LazyImage
                       className="h-[16rem] scale-100 md:hover:scale-110 transition-all duration-500"
