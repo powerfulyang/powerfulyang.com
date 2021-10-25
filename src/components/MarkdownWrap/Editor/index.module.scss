@@ -1,25 +1,32 @@
 .editor {
   height: 100vh;
   @apply w-full;
+
   .toolbar {
     @apply flex text-gray-600 align-middle bg-gray-200 p-2 w-full justify-start;
+
     .icon {
       @apply mx-2 text-lg p-0.5 rounded;
+
       &:hover {
         @apply bg-blue-300;
       }
+
       &.post {
         @apply text-blue-400 ml-auto mr-2;
       }
     }
   }
+
   .main {
     height: calc(100vh - 3rem);
     overflow: hidden;
     @apply flex w-full shadow-lg;
+
     .input_content {
       @apply w-1/2 rounded p-2;
     }
+
     .preview {
       border-left: 1px solid black;
       @apply h-full w-1/2 overflow-y-auto;

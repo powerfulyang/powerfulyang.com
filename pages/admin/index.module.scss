@@ -30,7 +30,7 @@
   --dropdown-hover: rgb(42 46 60);
   --popup-bg: rgb(22 25 37);
   --search-bg: #14162b;
-  --overlay-bg: rgba(36, 39, 59, 0.3);
+  --overlay-bg: rgb(36 39 59 / 30%);
   --scrollbar-bg: rgb(1 2 3 / 40%);
 }
 
@@ -42,8 +42,9 @@
   padding: 8px;
   background-color: var(--dropdown-bg);
   border-radius: 50%;
-  box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.2);
+  box-shadow: -1px 3px 8px -1px rgb(0 0 0 / 20%);
   cursor: pointer;
+
   svg {
     flex-shrink: 0;
     width: 24px;
@@ -65,7 +66,7 @@
   font-size: 15px;
   background-color: var(--theme-bg-color);
   border-radius: 14px;
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
 }
 
@@ -81,9 +82,11 @@
   @media screen and (max-width: 480px) {
     padding: 0 16px;
   }
+
   &-menu {
     display: flex;
     align-items: center;
+
     a {
       padding: 20px 30px;
       color: var(--inactive-color);
@@ -95,6 +98,7 @@
           display: none;
         }
       }
+
       &.is-active,
       &:hover {
         color: var(--theme-color);
@@ -106,6 +110,7 @@
 
 .notify {
   position: relative;
+
   &::before {
     position: absolute;
     top: 16px;
@@ -141,6 +146,7 @@
   height: 40px;
   padding-left: 16px;
   border-radius: 4px;
+
   input {
     width: 100%;
     height: 100%;
@@ -157,6 +163,7 @@
     border: none;
     border-radius: 4px;
     box-shadow: 0 0 0 2px rgb(134 140 160 / 2%);
+
     &::placeholder {
       color: var(--inactive-color);
       font-weight: 500;
@@ -172,6 +179,7 @@
   align-items: center;
   margin-left: auto;
   padding: 0 16px 0 40px;
+
   svg {
     flex-shrink: 0;
     width: 22px;
@@ -181,6 +189,7 @@
 
 .notification {
   position: relative;
+
   &-number {
     position: absolute;
     top: -6px;
@@ -195,6 +204,7 @@
     background-color: #3a6df0;
     border-radius: 50%;
   }
+
   & + svg {
     margin-left: 22px;
     @media screen and (max-width: 945px) {
@@ -217,6 +227,7 @@
   .header-profile {
     display: none;
   }
+
   .search-bar {
     max-width: 600px;
     margin: auto;
@@ -224,6 +235,7 @@
     box-shadow: 0 0 0 1px var(--border-color);
     transition: 0.4s;
   }
+
   .menu-circle {
     margin-right: 0;
   }
@@ -259,6 +271,7 @@
   display: flex;
   flex-direction: column;
   white-space: nowrap;
+
   a {
     display: flex;
     align-items: center;
@@ -269,10 +282,12 @@
     text-decoration: none;
     border-radius: 6px;
     transition: 0.3s;
+
     &:hover {
       background-color: var(--hover-menu-bg);
     }
   }
+
   svg {
     width: 16px;
     margin-right: 8px;
@@ -295,11 +310,13 @@
   align-items: center;
   height: 58px;
   border-bottom: 1px solid var(--border-color);
+
   .header-menu {
     margin-left: 150px;
     @media screen and (max-width: 1055px) {
       margin: auto;
     }
+
     a {
       padding: 20px 24px;
     }
@@ -332,6 +349,7 @@
   @media screen and (max-width: 510px) {
     padding: 20px;
   }
+
   &-header {
     display: flex;
     align-items: center;
@@ -359,6 +377,7 @@
       padding: 20px;
     }
   }
+
   &.overlay {
     background-color: var(--overlay-bg);
     transition: 0.3s;
@@ -372,14 +391,15 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(36, 39, 59, 0.8);
+  background-color: rgb(36 39 59 / 80%);
   visibility: hidden;
-  opacity: 0;
+  opacity: 0%;
   transition: 0.3s;
   pointer-events: all;
+
   &.is-active {
     visibility: visible;
-    opacity: 1;
+    opacity: 100%;
   }
 }
 
@@ -389,6 +409,7 @@
   margin: 0;
   font-weight: 500;
   font-size: 17px;
+
   svg {
     width: 28px;
     margin-right: 14px;
@@ -396,7 +417,7 @@
 }
 
 .content-text {
-  display: -webkit-box;
+  display: box;
   margin-top: 16px;
   overflow: hidden;
   color: #ebecec;
@@ -438,10 +459,12 @@
   display: flex;
   flex-direction: column;
   margin-top: 30px;
+
   &-title {
     margin-bottom: 14px;
     color: var(--content-title-color);
   }
+
   ul {
     display: flex;
     flex-direction: column;
@@ -454,6 +477,7 @@
     border: 1px solid var(--theme-bg-color);
     border-radius: 14px;
     cursor: pointer;
+
     li {
       display: flex;
       align-items: center;
@@ -464,19 +488,24 @@
       white-space: nowrap;
       list-style: none;
       transition: 0.3s;
+
       &:hover {
         background-color: var(--theme-bg-color);
+
         &:first-child {
           border-radius: 13px 13px 0 0;
         }
+
         &:last-child {
           border-radius: 0 0 13px 13px;
         }
       }
+
       & + li {
         border-top: 1px solid var(--border-color);
       }
     }
+
     svg {
       flex-shrink: 0;
       width: 28px;
@@ -494,6 +523,7 @@
     width: 120px;
   }
 }
+
 .status {
   position: relative;
   width: 140px;
@@ -502,6 +532,7 @@
   @media screen and (max-width: 700px) {
     display: none;
   }
+
   &-circle {
     position: absolute;
     top: 4px;
@@ -510,10 +541,12 @@
     height: 6px;
     background-color: #396df0;
     border-radius: 50%;
+
     &.green {
       background-color: #3bf083;
     }
   }
+
   &-button {
     margin-top: 0;
     padding: 6px 24px;
@@ -521,11 +554,13 @@
     @media screen and (max-width: 390px) {
       padding: 6px 14px;
     }
+
     &.open {
       color: var(--button-inactive);
       background: none;
       border: 1px solid var(--button-inactive);
     }
+
     &:not(.open):hover {
       color: #fff;
       border-color: #fff;
@@ -562,6 +597,7 @@
   background: transparent;
   border: none;
   cursor: pointer;
+
   ul {
     position: absolute;
     top: 20px;
@@ -570,9 +606,10 @@
     height: 110px;
     background: var(--dropdown-bg);
     transform: translateY(10px);
-    opacity: 0;
+    opacity: 0%;
     transition: all 0.4s ease;
     pointer-events: none;
+
     li a {
       color: var(--theme-color);
       font-size: 12px;
@@ -584,8 +621,9 @@
 .dropdown.is-active {
   ul {
     transform: translateY(25px);
-    opacity: 1;
+    opacity: 100%;
     pointer-events: all;
+
     li:hover {
       background-color: var(--dropdown-hover);
     }
@@ -616,18 +654,21 @@
   white-space: normal;
   background-color: var(--popup-bg);
   border-radius: 6px;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 30px rgb(0 0 0 / 40%);
   transform: (translate(-50%, -50%));
+
   visibility: hidden;
-  opacity: 0;
+  opacity: 0%;
   transition: all 0.3s;
   @media screen and (max-width: 570px) {
     width: 100%;
   }
+
   &.visible {
     visibility: visible;
-    opacity: 1;
+    opacity: 100%;
   }
+
   &__title {
     display: flex;
     align-items: center;
@@ -635,12 +676,14 @@
     padding-bottom: 20px;
     border-bottom: 1px solid var(--border-color);
   }
+
   &__subtitle {
     margin: 20px 0;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.8em;
     white-space: normal;
+
     a {
       color: var(--theme-color);
     }
@@ -661,6 +704,7 @@
   align-items: center;
   font-weight: 400;
   font-size: 14px;
+
   & + .checkbox-wrapper {
     margin: 20px 0 40px;
   }
@@ -673,6 +717,7 @@
 .checkbox + label {
   display: flex;
   align-items: center;
+
   &::before {
     flex-shrink: 0;
     width: 15px;
@@ -697,6 +742,7 @@
 .content-button-wrapper {
   margin-top: auto;
   margin-left: auto;
+
   .open {
     margin-right: 8px;
   }
@@ -720,23 +766,28 @@
   border-radius: 14px;
   cursor: pointer;
   transition: 0.3s ease;
+
   &:hover {
     background-color: var(--theme-bg-color);
     transform: scale(1.02);
   }
+
   svg {
     flex-shrink: 0;
     width: 28px;
     margin-right: 12px;
     border-radius: 6px;
   }
+
   & + .app-card {
     margin-left: 20px;
   }
+
   span {
     display: flex;
     align-items: center;
   }
+
   &__subtext {
     margin-top: 20px;
     padding-bottom: 20px;
@@ -745,6 +796,7 @@
     line-height: 1.6em;
     border-bottom: 1px solid var(--border-color);
   }
+
   &-buttons {
     display: flex;
     align-items: center;
@@ -753,6 +805,7 @@
   }
   @media screen and (max-width: 1110px) {
     width: calc(50% - 20px);
+
     &:last-child {
       margin-top: 20px;
       margin-left: 0;
@@ -761,6 +814,7 @@
   @media screen and (max-width: 565px) {
     width: calc(100% - 20px);
     margin-top: 20px;
+
     & + .app-card {
       margin-left: 0;
     }

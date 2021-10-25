@@ -6,8 +6,6 @@ export function doSomething(fn: DescribableFunction) {
   console.log(`${fn.description} returned ${fn(6)}`);
 }
 
-const func: DescribableFunction = (arg) => {
-  return !!arg;
-};
+const func: DescribableFunction = (arg) => !!arg;
 func.description = 'description';
 doSomething(func);

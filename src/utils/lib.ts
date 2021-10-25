@@ -1,17 +1,11 @@
 import dayjs from 'dayjs';
 import { isSupportWebp } from '@powerfulyang/utils';
 
-export const DateFormat = (date?: Date) => {
-  return dayjs(date).format('ll');
-};
+export const DateFormat = (date?: Date) => dayjs(date).format('ll');
 
-export const DateTimeFormat = (date?: Date) => {
-  return dayjs(date).format('llll');
-};
+export const DateTimeFormat = (date?: Date) => dayjs(date).format('llll');
 
-export const TimeFormat = () => {
-  return dayjs().format('HHmmss');
-};
+export const TimeFormat = () => dayjs().format('HHmmss');
 
 export const styles = {
   thumbnail: '&imageMogr2/thumbnail/interlace/1/quality/30',
@@ -24,26 +18,18 @@ export const styles = {
   thumbnail_blur_webp: '&imageMogr2/thumbnail/format/webp/interlace/1/quality/1',
 };
 
-export const getCosObjectBlurUrl = (objectUrl?: string) => {
-  return objectUrl && `${objectUrl}${(isSupportWebp() && styles.blur_webp) || styles.blur}`;
-};
+export const getCosObjectBlurUrl = (objectUrl?: string) =>
+  objectUrl && `${objectUrl}${(isSupportWebp() && styles.blur_webp) || styles.blur}`;
 
-export const getCosObjectThumbnailUrl = (objectUrl?: string) => {
-  return (
-    objectUrl && `${objectUrl}${(isSupportWebp() && styles.thumbnail_webp) || styles.thumbnail}`
-  );
-};
+export const getCosObjectThumbnailUrl = (objectUrl?: string) =>
+  objectUrl && `${objectUrl}${(isSupportWebp() && styles.thumbnail_webp) || styles.thumbnail}`;
 
-export const getCosObjectUrl = (objectUrl?: string) => {
-  return objectUrl && `${objectUrl}${(isSupportWebp() && styles.webp) || styles.origin}`;
-};
+export const getCosObjectUrl = (objectUrl?: string) =>
+  objectUrl && `${objectUrl}${(isSupportWebp() && styles.webp) || styles.origin}`;
 
-export const getCosObjectThumbnailBlurUrl = (objectUrl?: string) => {
-  return (
-    objectUrl &&
-    `${objectUrl}${(isSupportWebp() && styles.thumbnail_blur_webp) || styles.thumbnail_blur}`
-  );
-};
+export const getCosObjectThumbnailBlurUrl = (objectUrl?: string) =>
+  objectUrl &&
+  `${objectUrl}${(isSupportWebp() && styles.thumbnail_blur_webp) || styles.thumbnail_blur}`;
 
 export const CosUtils = {
   getCosObjectThumbnailUrl,

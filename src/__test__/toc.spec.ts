@@ -76,7 +76,7 @@ describe('markdown toc', () => {
     expect(res).toBeDefined();
   });
 
-  it('extract header ', function () {
+  it('extract header ', () => {
     const t = '## Headers\n';
     const reg = /#{1,4}\s(.+)\n/g;
     const v = reg.exec(t);

@@ -3,9 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import styles from './index.module.scss';
 import { request } from '@/utils/request';
 
-const Asset: FC<any> = ({ data }) => {
-  return <div className={styles.asset}>{JSON.stringify(data)}</div>;
-};
+const Asset: FC<any> = ({ data }) => <div className={styles.asset}>{JSON.stringify(data)}</div>;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const {

@@ -5,22 +5,26 @@
   z-index: 100;
   backdrop-filter: blur(20px);
   @apply w-full h-full;
+
   .blur {
     @apply w-full h-full overflow-hidden;
     @screen sm {
       @apply p-20;
     }
   }
+
   .image {
     z-index: 101;
     @apply w-full h-full object-contain;
   }
+
   .hidden-xs {
     display: none;
     @screen sm {
       display: block;
     }
   }
+
   .next {
     position: absolute;
     top: 50%;
@@ -31,6 +35,7 @@
     @apply hover:text-white opacity-60 text-black;
     @extend .hidden-xs;
   }
+
   .prev {
     left: 1rem;
     @extend .next;

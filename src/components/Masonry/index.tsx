@@ -12,17 +12,19 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
       setColNum(2);
     }
   }, []);
-  const arrayNodes = useMemo(() => {
-    return children.reduce((draft: ReactElement[][], current, index) => {
-      const i = index % colNum;
-      if (draft[i]) {
-        draft[i].push(current);
-      } else {
-        draft[i] = [current];
-      }
-      return draft;
-    }, []);
-  }, [colNum, children]);
+  const arrayNodes = useMemo(
+    () =>
+      children.reduce((draft: ReactElement[][], current, index) => {
+        const i = index % colNum;
+        if (draft[i]) {
+          draft[i].push(current);
+        } else {
+          draft[i] = [current];
+        }
+        return draft;
+      }, []),
+    [colNum, children],
+  );
   return (
     <div
       className={classNames('grid gap-4 mx-4', {
@@ -30,17 +32,15 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
         'grid-cols-4': colNum === 4,
       })}
     >
-      {arrayNodes.map((nodes, index) => {
-        return (
-          <div className="flex flex-col" key={String(index)}>
-            {nodes.map((node) =>
-              cloneElement(node, {
-                className: 'mt-4 shadow-xl rounded',
-              }),
-            )}
-          </div>
-        );
-      })}
+      {arrayNodes.map((nodes, index) => (
+        <div className="flex flex-col" key={String(index)}>
+          {nodes.map((node) =>
+            cloneElement(node, {
+              className: 'mt-4 shadow-xl rounded',
+            }),
+          )}
+        </div>
+      ))}
     </div>
   );
 };

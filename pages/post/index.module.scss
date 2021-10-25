@@ -11,12 +11,14 @@
   display: flex;
   align-items: center;
   height: 3rem;
+
   .year {
     display: flex;
     align-items: center;
     font-family: 'Zpix', Sans serif;
     @apply mr-4 italic text-gray-300;
   }
+
   .active {
     @include rainbowText;
   }
@@ -28,9 +30,11 @@
   color: #ccc;
   vertical-align: middle;
 }
+
 .github {
   @extend .twitter;
 }
+
 .instagram {
   @extend .twitter;
 }

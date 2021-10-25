@@ -11,7 +11,7 @@
     "start": "next start",
     "prettier": "prettier \"{src,pages}/**/*.{tsx,ts,scss}\" --write",
     "lint": "eslint . --ext .ts,.tsx --fix",
-    "fix:style": "stylelint --fix \"src/**/*.scss\" \"pages/**/*.scss\" --syntax scss"
+    "fix:style": "stylelint --fix \"src/**/*.scss\" \"pages/**/*.scss\""
   },
   "license": "MIT",
   "repository": {
@@ -36,18 +36,18 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-markdown": "^7.1.0",
-    "react-query": "^3.27.0",
+    "react-query": "^3.28.0",
     "react-syntax-highlighter": "^15.4.4",
     "remark-gfm": "^3.0.0",
     "rxjs": "^7.4.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^11.1.2",
-    "@powerfulyang/lint": "^0.2.20",
+    "@powerfulyang/lint": "^0.3.9",
     "@types/d3": "^7.1.0",
     "@types/jest": "^27.0.2",
     "@types/ramda": "^0.27.45",
-    "@types/react": "^17.0.31",
+    "@types/react": "^17.0.32",
     "@types/react-dom": "^17.0.10",
     "@types/react-syntax-highlighter": "^13.5.2",
     "@types/sharp": "^0.29.2",

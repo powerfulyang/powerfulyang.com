@@ -4,7 +4,6 @@
     "target": "es6",
     "module": "esnext",
     "jsx": "preserve",
-    "allowJs": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
@@ -41,7 +40,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.glsl"
+    "**/*.glsl",
+    ".eslintrc.js"
   ],
   "exclude": [
     "node_modules"

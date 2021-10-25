@@ -6,10 +6,12 @@
   overflow: hidden;
   color: transparent;
   background: linear-gradient(90deg, #47cf73, #ffdd40, #ae63e4, #0ebeff, #47cf73);
-  -webkit-background-clip: text;
+  background-clip: text;
+
   &:focus {
     outline: 0;
   }
+
   &::after {
     position: absolute;
     top: -50px;
@@ -19,10 +21,11 @@
     height: 155px;
     background: #ccc;
     transform: rotate(35deg);
-    opacity: 0.5;
+    opacity: 50%;
     transition: all 1350ms cubic-bezier(0.19, 1, 0.22, 1);
     content: '';
   }
+
   &:hover {
     &::after {
       left: 120%;

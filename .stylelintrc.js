@@ -1,9 +1,5 @@
-const lint = require('@powerfulyang/lint');
+const stylelint = require('@powerfulyang/lint/dist/stylelint');
 
 module.exports = {
-  ...lint.stylelint,
-  rules: {
-    ...lint.stylelint.rules,
-    // overflow: overlay
-  },
+  ...stylelint,
 };

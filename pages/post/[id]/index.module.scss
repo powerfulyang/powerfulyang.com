@@ -3,6 +3,7 @@
   min-height: calc(100vh - var(--footer-height) - var(--nav-height));
   background-color: #fcfcff;
   @apply py-8 px-4;
+
   .post {
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
     @apply mx-auto rounded-lg py-16 px-8;

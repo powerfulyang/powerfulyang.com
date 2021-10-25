@@ -9,9 +9,8 @@ export type RequestOptions = {
   query?: Record<string, any>;
 };
 
-const stringify = (query: RequestOptions['query']) => {
-  return new URLSearchParams(query && reject(isNil, query)).toString();
-};
+const stringify = (query: RequestOptions['query']) =>
+  new URLSearchParams(query && reject(isNil, query)).toString();
 
 export const request = async (url: string, options: RequestOptions) => {
   const { method = 'GET', ctx, body, query } = options;

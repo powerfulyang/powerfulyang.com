@@ -4,18 +4,22 @@
   width: 100%;
   min-height: calc(100vh - var(--footer-height) - var(--nav-height));
   @apply pb-10;
+
   .timeline_show {
     width: min(100%, 600px);
     margin: auto;
+
     .feeds {
       &:first-child {
         @apply pt-4;
       }
     }
   }
+
   .assets {
     @apply grid gap-2 grid-cols-3 overflow-auto;
   }
+
   .timeline_input {
     flex: 1;
     width: min(100%, 600px);
@@ -26,32 +30,39 @@
       @apply px-0;
     }
     @apply mx-auto;
+
     .timeline_textarea {
       font-size: 30px;
       box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
       inline-size: 100%;
       block-size: max(20vh, 150px);
       @apply rounded overflow-hidden;
+
       textarea {
         padding: 1rem;
         outline: none;
         @apply w-full h-full;
       }
     }
+
     .timeline_submit {
       @apply text-2xl bg-blue-400 text-white rounded w-24 h-10;
       @extend .pointer;
+
       &:disabled {
         @apply bg-gray-300 cursor-not-allowed;
       }
     }
+
     .assets {
       @extend .assets;
     }
   }
+
   .banner {
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
     @apply m-auto flex align-middle justify-center flex-col mb-4 overflow-hidden relative;
+
     .banner_bg {
       z-index: -1;
       height: 150px;
@@ -60,20 +71,25 @@
         height: 300px;
       }
     }
+
     .author_info {
       @apply m-auto flex pb-4 flex-wrap w-full;
+
       .author_avatar {
         width: 80px;
         margin-top: -40px;
         @apply rounded-xl mr-4 ml-8;
       }
+
       .author_nickname {
         align-self: flex-end;
         font-family: 'Zpix', sans-serif;
         @apply text-lg font-medium mb-2;
       }
+
       .author_bio {
         @apply w-full mt-4 ml-6;
+
         span {
           @include rainbowText;
         }
@@ -81,6 +97,7 @@
     }
   }
 }
+
 .container {
   position: relative;
   width: 90%;
@@ -101,24 +118,31 @@
     width: 600px;
   }
   @apply mx-auto p-4 rounded mb-4;
+
   .author {
     @apply flex justify-start items-center mb-6;
+
     .avatar {
       @apply w-14 mr-4;
+
       img {
         @apply rounded-full;
       }
     }
+
     .nickname {
       @include rainbowText;
     }
   }
+
   .content {
     @apply text-lg ml-16 pl-2 pr-16;
+
     .text {
       font-family: 'Zpix', serif;
       @apply text-base font-normal text-gray-600 break-words;
     }
+
     .assets {
       @extend .assets;
     }

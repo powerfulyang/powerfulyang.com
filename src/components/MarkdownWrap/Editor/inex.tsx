@@ -48,9 +48,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onP
       const r = await handlePasteImageAndReturnAsset(e, AssetBucket.post);
       if (r?.length) {
         const text = r
-          .map((asset) => {
-            return `![${MarkdownImageFromAssetManageAltConstant}](${asset.id})`;
-          })
+          .map((asset) => `![${MarkdownImageFromAssetManageAltConstant}](${asset.id})`)
           .join('\r\n');
         const pos = ref.current?.editor.getPosition();
         const selection = ref.current?.editor.getSelection();

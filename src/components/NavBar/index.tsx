@@ -18,43 +18,39 @@ export const login = () => {
   window.location.href = `https://admin.powerfulyang.com/user/login?redirect=${encodeURI(href)}`;
 };
 
-export const NavBar: FC<NavBarProps> = ({ user, active }) => {
-  return (
-    <div className={styles.nav_placeholder}>
-      <nav className={styles.nav}>
-        <span className={classNames(styles.title)}>{ProjectName}</span>
-        <div className={styles.menus}>
-          {Object.keys(Menu)
-            .filter((x) => !isNumeric(x))
-            .map((x) => {
-              return (
-                <Link
-                  key={x}
-                  className={classNames({
-                    [styles.active]: Reflect.get(Menu, x) === active,
-                  })}
-                  to={`/${x}`}
-                >
-                  {x}
-                </Link>
-              );
-            })}
-        </div>
+export const NavBar: FC<NavBarProps> = ({ user, active }) => (
+  <div className={styles.nav_placeholder}>
+    <nav className={styles.nav}>
+      <span className={classNames(styles.title)}>{ProjectName}</span>
+      <div className={styles.menus}>
+        {Object.keys(Menu)
+          .filter((x) => !isNumeric(x))
+          .map((x) => (
+            <Link
+              key={x}
+              className={classNames({
+                [styles.active]: Reflect.get(Menu, x) === active,
+              })}
+              to={`/${x}`}
+            >
+              {x}
+            </Link>
+          ))}
+      </div>
 
-        <div className={styles.user}>
-          {user && (
-            <>
-              <span className={styles.nickname}>{user.nickname}</span>
-              <img src={user.avatar} alt="avatar" />
-            </>
-          )}
-          {!user && (
-            <span className="pointer" onClick={login}>
-              Login
-            </span>
-          )}
-        </div>
-      </nav>
-    </div>
-  );
-};
+      <div className={styles.user}>
+        {user && (
+          <>
+            <span className={styles.nickname}>{user.nickname}</span>
+            <img src={user.avatar} alt="avatar" />
+          </>
+        )}
+        {!user && (
+          <button type="button" className="pointer" onClick={login}>
+            Login
+          </button>
+        )}
+      </div>
+    </nav>
+  </div>
+);

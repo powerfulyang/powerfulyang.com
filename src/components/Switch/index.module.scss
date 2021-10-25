@@ -8,6 +8,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   @apply bg-gray-400;
+
   .desc {
     position: absolute;
     top: 50%;
@@ -17,10 +18,12 @@
     text-align: center;
     transform: translateY(-50%);
     @apply text-lg;
+
     &::before {
       content: attr(data-unchecked-desc);
     }
   }
+
   .dog {
     position: absolute;
     top: 6px;
@@ -30,6 +33,7 @@
     height: 40px;
     transition: 0.6s ease;
   }
+
   .eyes {
     position: absolute;
     width: 8px;
@@ -39,6 +43,7 @@
     box-shadow: 16px 0 0 #222, 22px -4px 0 12px #e4ac04;
     transform: translate(8px, 14px);
   }
+
   .ear {
     position: absolute;
     bottom: 80%;
@@ -50,6 +55,7 @@
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     box-shadow: inset 4px 0 0 0 #fff, inset -4px 0 0 0 #fff;
     transform: rotate(-40deg);
+
     &.right {
       right: 0;
       left: auto;
@@ -58,6 +64,7 @@
       transition: 0.4s ease-in-out;
     }
   }
+
   .face {
     position: absolute;
     z-index: 8;
@@ -67,6 +74,7 @@
     background: #fff;
     border-radius: 50%;
   }
+
   .mouth {
     position: absolute;
     bottom: 8px;
@@ -78,6 +86,7 @@
     border-radius: 2px 2px 20px 20px;
     transform: scale(0);
     transition: 0.1s ease;
+
     .tongue {
       width: 8px;
       height: 8px;
@@ -87,25 +96,31 @@
     }
   }
 }
+
 .switch:checked {
   & ~ .toggle_item {
     background: #e4ac04;
+
     .desc {
       right: unset;
       left: 0;
       color: white;
+
       &::before {
         content: attr(data-checked-desc);
       }
     }
+
     .dog {
       left: 45px;
       transform: rotate(360deg);
     }
+
     .mouth {
       transform: scale(1);
       transition-delay: 0.7s;
     }
+
     .ear.right {
       transform: scaleX(-1) rotate(-35deg);
       transition-delay: 0.6s;

@@ -1,12 +1,11 @@
+import React, { useState } from 'react';
 import { Collapse } from '@/components/Collapse';
-import { useState } from 'react';
 
 const CollapseDemo = () => {
   const [collapsed, setCollapsed] = useState(true);
 
   return (
-    <div onClick={() => setCollapsed((d) => !d)}>
-      111
+    <button type="button" onClick={() => setCollapsed((d) => !d)}>
       <Collapse collapsed={collapsed}>
         abcd <br />
         abcd <br />
@@ -15,7 +14,7 @@ const CollapseDemo = () => {
         abcd <br />
         abcd <br />
       </Collapse>
-    </div>
+    </button>
   );
 };
 

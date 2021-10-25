@@ -49,18 +49,18 @@ export const LazyImage: FC<
           const { target, intersectionRatio } = entry;
 
           if (intersectionRatio > 0) {
-            const _target = new Image();
+            const img = new Image();
             const source = src;
             inViewAction?.(assetId);
-            _target.onload = () => {
+            img.onload = () => {
               setLoading(false);
               setImgUrl(source);
             };
-            _target.onerror = () => {
+            img.onerror = () => {
               setLoading(false);
               setImgUrl('/broken_image.png');
             };
-            _target.src = source;
+            img.src = source;
             observer.unobserve(target);
           }
         });

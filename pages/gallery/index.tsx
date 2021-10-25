@@ -33,31 +33,30 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
     },
   );
 
-  const resources = useMemo(() => {
-    return [...assets, ...((data?.pages && flatten(data?.pages.map((x) => x.resources))) || [])];
-  }, [assets, data?.pages]);
+  const resources = useMemo(
+    () => [...assets, ...((data?.pages && flatten(data?.pages.map((x) => x.resources))) || [])],
+    [assets, data?.pages],
+  );
 
   return (
     <main className={styles.gallery}>
       <Masonry>
-        {resources.map((asset) => {
-          return (
-            <LazyImage
-              title={`${asset.id}`}
-              key={asset.id}
-              assetId={asset.id}
-              src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
-              blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
-              inViewAction={async (id) => {
-                if (id === last(resources)?.id) {
-                  hasNextPage && !isFetching && (await fetchNextPage());
-                }
-              }}
-              width={asset.size.width}
-              height={asset.size.height}
-            />
-          );
-        })}
+        {resources.map((asset) => (
+          <LazyImage
+            title={`${asset.id}`}
+            key={asset.id}
+            assetId={asset.id}
+            src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
+            blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
+            inViewAction={async (id) => {
+              if (id === last(resources)?.id) {
+                hasNextPage && !isFetching && (await fetchNextPage());
+              }
+            }}
+            width={asset.size.width}
+            height={asset.size.height}
+          />
+        ))}
       </Masonry>
     </main>
   );

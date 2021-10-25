@@ -16,36 +16,30 @@ import { CosUtils } from '@/utils/lib';
 import styles from './index.module.scss';
 import { copyTextToClipboard } from '@/utils/copyTextToClipboard';
 
-export const H1: FC = ({ children }) => {
-  return (
-    <h1 className="flex justify-center w-full pb-2 px-6">
-      <span className={styles.heading1}>
-        <span className={styles.prefix} />
-        <span className={styles.content}>{children}</span>
-        <span className={styles.suffix} />
-      </span>
-    </h1>
-  );
-};
+export const H1: FC = ({ children }) => (
+  <h1 className="flex justify-center w-full pb-2 px-6">
+    <span className={styles.heading1}>
+      <span className={styles.prefix} />
+      <span className={styles.content}>{children}</span>
+      <span className={styles.suffix} />
+    </span>
+  </h1>
+);
 
-export const Link: FC<any> = ({ href, children }) => {
-  return (
-    <a rel="noreferrer" className={styles.link} target="_blank" href={href}>
-      {children}
-    </a>
-  );
-};
+export const Link: FC<any> = ({ href, children }) => (
+  <a rel="noreferrer" className={styles.link} target="_blank" href={href}>
+    {children}
+  </a>
+);
 
-export const BlockQuote: FC = ({ children }) => {
-  return <blockquote className={styles.blockquote}>{children}</blockquote>;
-};
+export const BlockQuote: FC = ({ children }) => (
+  <blockquote className={styles.blockquote}>{children}</blockquote>
+);
 
-export const Table: FC = (props) => {
-  return <table className={styles.table}>{props.children}</table>;
-};
+export const Table: FC = ({ children }) => <table className={styles.table}>{children}</table>;
 
-export const Paragraph = (props: any) => {
-  const text = props.node.children[0].value;
+export const Paragraph: FC<any> = ({ node, children }) => {
+  const text = node.children[0].value;
   if (text?.startsWith('tags=>')) {
     const tags = text.trim().replace('tags=>', '').split('|');
     return (
@@ -78,7 +72,7 @@ export const Paragraph = (props: any) => {
       </div>
     );
   }
-  return <p>{props.children}</p>;
+  return <p>{children}</p>;
 };
 
 export const Code: CodeComponent = ({ node, inline, className, children, ...props }) => {
@@ -123,9 +117,7 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
   );
 };
 
-export const Pre: FC = ({ children }) => {
-  return <pre>{children}</pre>;
-};
+export const Pre: FC = ({ children }) => <pre>{children}</pre>;
 
 export const Ul: UnorderedListComponent = ({ children, ...props }) => {
   const { className } = props;
@@ -135,14 +127,12 @@ export const Ul: UnorderedListComponent = ({ children, ...props }) => {
   return <ul>{children}</ul>;
 };
 
-export const Li: LiComponent = ({ children, ordered, index }) => {
-  return (
-    <li>
-      {ordered && <span className={styles.ordered_list_index}>{index + 1}</span>}
-      {children}
-    </li>
-  );
-};
+export const Li: LiComponent = ({ children, ordered, index }) => (
+  <li>
+    {ordered && <span className={styles.ordered_list_index}>{index + 1}</span>}
+    {children}
+  </li>
+);
 
 const AssetImage: FC<{ src?: string }> = ({ src }) => {
   const { data } = useQuery([src], async () => {

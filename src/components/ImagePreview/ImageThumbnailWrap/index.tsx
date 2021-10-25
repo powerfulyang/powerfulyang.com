@@ -8,18 +8,16 @@ export const ImageThumbnailWrap: FC<{
   asset: Asset;
   inViewAction?: (id?: number) => void;
   onClick?: () => void;
-}> = ({ asset, inViewAction, onClick }) => {
-  return (
-    <div className={styles.image_wrap} onClick={onClick}>
-      <LazyImage
-        className={styles.image}
-        src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
-        blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
-        assetId={asset.id}
-        inViewAction={(id) => {
-          inViewAction?.(id);
-        }}
-      />
-    </div>
-  );
-};
+}> = ({ asset, inViewAction, onClick }) => (
+  <button type="button" className={styles.image_wrap} onClick={onClick}>
+    <LazyImage
+      className={styles.image}
+      src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
+      blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
+      assetId={asset.id}
+      inViewAction={(id) => {
+        inViewAction?.(id);
+      }}
+    />
+  </button>
+);

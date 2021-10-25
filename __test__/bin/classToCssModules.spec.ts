@@ -1,5 +1,5 @@
-import { classToCssModules } from '../../bin/classToCssModules';
 import path from 'path';
+import { classToCssModules } from '../../bin/classToCssModules';
 
 describe('bin', () => {
   it('pages/admin to css module', () => {

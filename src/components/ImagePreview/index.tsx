@@ -42,8 +42,8 @@ export const ImagePreview: FC<{ images: Asset[] }> = ({ children, images }) => {
     <>
       <ImageModalContext.Provider value={{ state, dispatch }}>
         <DynamicImageModal />
-        {Children.map(children as any, (child, index) => {
-          return cloneElement(child, {
+        {Children.map(children as any, (child, index) =>
+          cloneElement(child, {
             onClick() {
               dispatch({
                 type: ImageModalContextActionType.open,
@@ -52,8 +52,8 @@ export const ImagePreview: FC<{ images: Asset[] }> = ({ children, images }) => {
                 },
               });
             },
-          });
-        })}
+          }),
+        )}
       </ImageModalContext.Provider>
     </>
   );

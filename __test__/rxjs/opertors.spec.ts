@@ -81,9 +81,7 @@ describe('operators', () => {
   });
 
   it('concat', (done) => {
-    const delayedMessage = (message: any, delayedTime = 1000) => {
-      return EMPTY.pipe(startWith(message), delay(delayedTime));
-    };
+    const delayedMessage = (message: any, delayedTime = 1000) => EMPTY.pipe(startWith(message), delay(delayedTime));
 
     concat(
       delayedMessage('Get Ready!'),
@@ -101,15 +99,15 @@ describe('operators', () => {
   });
 
   it('concatAll', (complete) => {
-    //emit a value every 2 seconds
+    // emit a value every 2 seconds
     const source$ = interval(2000).pipe(take(2));
     const example$ = source$.pipe(
-      //for demonstration, add 10 to and return as observable
+      // for demonstration, add 10 to and return as observable
       map((val) => of(val + 10)),
-      //merge values from inner observable
+      // merge values from inner observable
       concatAll(),
     );
-    //output: 'Example with Basic Observable 10', 'Example with Basic Observable 11'...
+    // output: 'Example with Basic Observable 10', 'Example with Basic Observable 11'...
     example$.subscribe({
       next(val) {
         console.log('Example with Basic Observable:', val);
