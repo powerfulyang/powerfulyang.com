@@ -21,6 +21,7 @@
     "@mojs/core": "^1.2.1",
     "@monaco-editor/react": "^4.3.1",
     "@powerfulyang/components": "^0.7.28",
+    "@powerfulyang/funny-avatar": "^0.1.1",
     "@powerfulyang/hooks": "^0.2.19",
     "@powerfulyang/utils": "^0.7.20",
     "autoprefixer": "^10.3.7",

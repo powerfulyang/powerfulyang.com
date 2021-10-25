@@ -1,5 +1,5 @@
 @mixin text-ellipsis($line) {
-  display: box; //作为弹性伸缩盒子模型显示。
+  display: flex; //作为弹性伸缩盒子模型显示。
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-box-orient: vertical; //设置伸缩盒子的子元素排列方式--从上到下垂直排列
