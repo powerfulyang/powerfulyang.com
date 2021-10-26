@@ -47,10 +47,6 @@ body,
   border-radius: 10px;
 }
 
-body {
-  overflow: overlay;
-}
-
 :where(div[data-name='mojs-shape']) {
   pointer-events: none;
 }

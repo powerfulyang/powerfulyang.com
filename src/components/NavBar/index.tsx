@@ -46,7 +46,7 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => (
           </>
         )}
         {!user && (
-          <button type="button" className="pointer" onClick={login}>
+          <button type="button" className="cursor-pointer" onClick={login}>
             Login
           </button>
         )}

@@ -42,9 +42,9 @@
       color: transparent;
       font-family: 'Zpix', Sans serif;
       background: linear-gradient(90deg, #47cf73, #ffdd40, #ae63e4, #0ebeff, #47cf73);
-      background-clip: text;
+      -webkit-background-clip: text;
       @apply text-2xl mx-10;
-      @extend .pointer;
+      @extend .cursor-pointer;
       @keyframes border-transform {
         0%,
         100% {

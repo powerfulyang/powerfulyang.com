@@ -31,7 +31,7 @@
   }
 
   .close {
-    @extend .pointer;
+    @extend .cursor-pointer;
     @apply text-2xl text-gray-400;
   }
 }

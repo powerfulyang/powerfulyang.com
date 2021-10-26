@@ -74,7 +74,7 @@ export const LazyImage: FC<
   }, [assetId, inViewAction, src]);
 
   return (
-    <div className={classNames(className, 'overflow-hidden pointer')}>
+    <div className={classNames(className, 'overflow-hidden cursor-pointer')}>
       <motion.div
         variants={variants}
         initial="loading"
