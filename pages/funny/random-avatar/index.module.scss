@@ -59,19 +59,20 @@
       left: 50%;
       z-index: 100;
       transform: translate(-50%, -50%);
-      @apply w-full h-1/2;
+      @apply w-full flex justify-center items-center flex-col;
+      .config_operation {
+        @apply w-full flex justify-center mt-16 relative;
+        .do_random {
+          background: #2a2f37;
+          @apply text-gray-400 mx-8 py-3 px-4 rounded-lg;
+          @extend .cursor-pointer;
+        }
+        .download {
+          @extend .do_random;
+        }
+      }
     }
 
-    .config_operation {
-      @apply w-full flex justify-center mt-20;
-      .do_random {
-        background: #2a2f37;
-        @apply text-gray-400 mx-4 py-3 px-4 rounded-lg;
-        @extend .cursor-pointer;
-      }
-      .download {
-        @extend .do_random;
-      }
-    }
+
   }
 }

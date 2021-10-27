@@ -35,7 +35,8 @@
     },
     "isolatedModules": true,
     "strictPropertyInitialization": false,
-    "allowJs": true
+    "allowJs": true,
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",

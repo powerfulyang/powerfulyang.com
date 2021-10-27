@@ -3,6 +3,7 @@ import { genConfig, ReactNiceAvatar } from '@powerfulyang/funny-avatar';
 import { useImmer } from '@powerfulyang/hooks';
 import { NiceAvatarProps } from '@powerfulyang/funny-avatar/src/types';
 import html2canvas from 'html2canvas';
+import Image from 'next/Image';
 import styles from './index.module.scss';
 
 const RandomAvatar = () => {
@@ -22,11 +23,16 @@ const RandomAvatar = () => {
     <div className={styles.wrap}>
       <main className={styles.main}>
         <div className={styles.logo}>
-          <ReactNiceAvatar shape="square" className="w-16 h-16" />
+          <Image
+            src="/icons/apple-touch-icon.png"
+            width={50}
+            height={50}
+            className="rounded-full"
+          />
           <span className="ml-4">funny avatar</span>
         </div>
-        <div id="AvatarPreview" className={styles.avatar_preview}>
-          <ReactNiceAvatar className="w-[20rem] h-[20rem] m-auto" {...config} />
+        <div className={styles.avatar_preview}>
+          <ReactNiceAvatar className="w-[30vh] h-[30vh]" {...config} />
           <div className={styles.config_operation}>
             <button type="button" className={styles.do_random} onClick={randomAvatar}>
               随机一个
