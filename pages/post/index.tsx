@@ -1,10 +1,10 @@
 import React from 'react';
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
 import { request } from '@/utils/request';
-import { Post } from '@/type/Post';
+import type { Post } from '@/type/Post';
 import { Link } from '@/components/Link';
-import { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { CosUtils, DateFormat } from '@/utils/lib';
 import { Clock } from '@/components/Clock';

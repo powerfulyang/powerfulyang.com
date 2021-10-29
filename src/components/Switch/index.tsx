@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { FC, useRef, useState } from 'react';
+import type { FC} from 'react';
+import React, { useRef, useState } from 'react';
 import { inc } from 'ramda';
 import styles from './index.module.scss';
 

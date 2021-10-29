@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom';
-import React, { FC, useEffect, useRef } from 'react';
+import type { FC} from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
 import styles from './index.module.scss';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppProps } from 'next/app';
+import type { AppProps } from 'next/app';
 import './app.scss';
 import { isClient } from '@powerfulyang/utils';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';

@@ -1,6 +1,5 @@
-const base = require.resolve('@powerfulyang/lint/dist/eslint');
+const { eslint } = require('@powerfulyang/lint');
 
 module.exports = {
-  extends: [base],
-  rules: {},
+  ...eslint,
 };

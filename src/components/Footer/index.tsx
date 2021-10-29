@@ -1,5 +1,6 @@
 import { Icon } from '@powerfulyang/components';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
 

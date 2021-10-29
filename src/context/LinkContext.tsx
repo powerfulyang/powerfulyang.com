@@ -1,6 +1,7 @@
-import { Context, createContext, Dispatch } from 'react';
-import { LinkContextState } from '@/type/GlobalContext';
-import { GlobalContextAction } from '@/context/GlobalContextProvider';
+import type { Context, Dispatch } from 'react';
+import { createContext } from 'react';
+import type { LinkContextState } from '@/type/GlobalContext';
+import type { GlobalContextAction } from '@/context/GlobalContextProvider';
 
 export const LinkContext = createContext(null) as unknown as Context<{
   state: LinkContextState;

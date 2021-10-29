@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
-import { GetServerSidePropsContext } from 'next';
+import type { FC } from 'react';
+import React from 'react';
+import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { MarkdownEditor } from '@/components/MarkdownWrap/Editor/inex';
 import { clientRequest, request } from '@/utils/request';
-import { Post } from '@/type/Post';
+import type { Post } from '@/type/Post';
 import { extractMetaData, extractTitle } from '@/utils/toc';
 
 type PublishProps = {

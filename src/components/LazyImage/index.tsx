@@ -1,7 +1,8 @@
-import React, {
+import type {
   DetailedHTMLProps,
   FC,
-  ImgHTMLAttributes,
+  ImgHTMLAttributes} from 'react';
+import React, {
   useEffect,
   useRef,
   useState,

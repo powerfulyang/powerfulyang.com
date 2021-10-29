@@ -1,5 +1,5 @@
-import { Asset } from '@/type/Asset';
-import { User } from '@/type/User';
+import type { Asset } from '@/type/Asset';
+import type { User } from '@/type/User';
 
 export class Feed {
   id?: number;

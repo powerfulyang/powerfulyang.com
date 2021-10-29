@@ -1,4 +1,4 @@
-import { Asset } from './Asset';
+import type { Asset } from './Asset';
 
 export interface User {
   id: number;

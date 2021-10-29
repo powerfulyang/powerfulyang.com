@@ -1,4 +1,4 @@
-import { Metadata } from 'sharp';
+import type { Metadata } from 'sharp';
 import type { Bucket } from '@/type/Bucket';
 import type { Exif } from '@/type/Exif';
 

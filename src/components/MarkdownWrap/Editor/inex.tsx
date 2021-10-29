@@ -1,9 +1,11 @@
-import React, { ClipboardEvent, FC, useEffect, useRef, useState } from 'react';
+import type { ClipboardEvent, FC} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
-import MonacoEditor, { Monaco } from '@monaco-editor/react';
-import { VoidFunction } from '@powerfulyang/utils';
-import { editor } from 'monaco-editor';
+import type { Monaco } from '@monaco-editor/react';
+import MonacoEditor from '@monaco-editor/react';
+import type { VoidFunction } from '@powerfulyang/utils';
+import type { editor } from 'monaco-editor';
 import { fromEvent } from 'rxjs';
 import { extractMetaData } from '@/utils/toc';
 import { MarkdownWrap } from '@/components/MarkdownWrap';
@@ -11,7 +13,7 @@ import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/type/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import styles from './index.module.scss';
-import { Asset } from '@/type/Asset';
+import type { Asset } from '@/type/Asset';
 
 type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 

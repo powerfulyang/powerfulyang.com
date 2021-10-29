@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
-import React, { FC, useContext } from 'react';
+import type { FC} from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames';
 import { LinkContext } from '@/context/LinkContext';
 import { GlobalContextActionType } from '@/context/GlobalContextProvider';

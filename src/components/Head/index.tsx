@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import Head from 'next/head';
-import { __prod__ } from '@powerfulyang/utils';
 import dayjs from 'dayjs';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat';
+import { isProdProcess } from '@powerfulyang/utils';
 import { Redirecting } from '../Redirecting';
 
 dayjs.extend(LocalizedFormat);
@@ -21,7 +22,7 @@ export const Header: FC<HeaderProps> = ({ title }) => (
       />
       <link rel="manifest" href="/manifest.json" />
       <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-      {__prod__ && (
+      {isProdProcess && (
         <>
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0JKGR6P0S" />
           <script

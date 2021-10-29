@@ -1,4 +1,5 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import type { FC} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { Icon } from '@powerfulyang/components';

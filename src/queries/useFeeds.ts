@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { clientRequest } from '@/utils/request';
-import { Feed } from '@/type/Feed';
+import type { Feed } from '@/type/Feed';
 
 export const useFeeds = (sourceFeeds: Feed[]) => {
   const { data: feeds } = useQuery(

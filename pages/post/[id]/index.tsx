@@ -1,10 +1,10 @@
 import React from 'react';
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 import { DateFormat } from '@/utils/lib';
-import { Post } from '@/type/Post';
+import type { Post } from '@/type/Post';
 import { request } from '@/utils/request';
 import { MarkdownWrap } from '@/components/MarkdownWrap';
-import { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { extractMetaData } from '@/utils/toc';
 import styles from './index.module.scss';

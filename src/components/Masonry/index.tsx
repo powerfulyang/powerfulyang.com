@@ -1,4 +1,5 @@
-import React, { cloneElement, FC, ReactElement, useEffect, useMemo, useState } from 'react';
+import type { FC, ReactElement} from 'react';
+import React, { cloneElement, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 
 export type MasonryProps = {

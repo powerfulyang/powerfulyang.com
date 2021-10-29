@@ -1,6 +1,6 @@
 import { isNil, pick, reject } from 'ramda';
-import { GetServerSidePropsContext } from 'next';
-import { SUCCESS } from '@/constant/Constant';
+import type { GetServerSidePropsContext } from 'next';
+import type { SUCCESS } from '@/constant/Constant';
 
 export type RequestOptions = {
   method?: string;

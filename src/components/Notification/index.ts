@@ -1,7 +1,8 @@
 import dynamic from 'next/dynamic';
 import ReactDOM from 'react-dom';
 import React from 'react';
-import { getNotificationParent, NotificationProps } from '@/components/Notification/Notification';
+import type { NotificationProps } from '@/components/Notification/Notification';
+import { getNotificationParent } from '@/components/Notification/Notification';
 
 export const Notification = dynamic(import('./Notification'), {
   ssr: false,

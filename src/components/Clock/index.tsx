@@ -1,4 +1,5 @@
-import React, { FC, HTMLProps, useEffect, useState } from 'react';
+import type { FC, HTMLProps} from 'react';
+import React, { useEffect, useState } from 'react';
 import { interval } from 'rxjs';
 import classNames from 'classnames';
 import { TimeFormat } from '@/utils/lib';

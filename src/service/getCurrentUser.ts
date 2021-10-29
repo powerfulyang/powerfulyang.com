@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 import { request } from '@/utils/request';
 
 export const getCurrentUser = async (ctx: GetServerSidePropsContext) => {

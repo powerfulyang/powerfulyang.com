@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { LazyImage } from '@/components/LazyImage';
-import { Asset } from '@/type/Asset';
+import type { Asset } from '@/type/Asset';
 import { CosUtils } from '@/utils/lib';
 import styles from './index.module.scss';
 

@@ -1,20 +1,21 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { Icon, IconTag } from '@powerfulyang/components';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import {
+import type {
   CodeComponent,
   LiComponent,
   UnorderedListComponent,
 } from 'react-markdown/lib/ast-to-react';
 import classNames from 'classnames';
 import { useQuery } from 'react-query';
+import { copyToClipBoard } from '@powerfulyang/utils';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { LazyImage } from '@/components/LazyImage';
 import { clientRequest } from '@/utils/request';
 import { CosUtils } from '@/utils/lib';
 import styles from './index.module.scss';
-import { copyTextToClipboard } from '@/utils/copyTextToClipboard';
 
 export const H1: FC = ({ children }) => (
   <h1 className="flex justify-center w-full pb-2 px-6">
@@ -92,7 +93,7 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
           <span>{language}</span>
         </div>
         <div className={styles.toolbar_action}>
-          <button type="button" onClick={() => copyTextToClipboard(children.toString())}>
+          <button type="button" onClick={() => copyToClipBoard(children.toString())}>
             Copy Code
           </button>
         </div>

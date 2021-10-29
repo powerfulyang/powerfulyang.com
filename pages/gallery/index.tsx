@@ -1,17 +1,17 @@
 import React, { useMemo } from 'react';
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 import { useInfiniteQuery } from 'react-query';
 import { flatten, last } from 'ramda';
-import { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
-import { Asset } from '@/type/Asset';
+import type { Asset } from '@/type/Asset';
 import styles from './index.module.scss';
 import { Masonry } from '@/components/Masonry';
 import { LazyImage } from '@/components/LazyImage';
 import { CosUtils } from '@/utils/lib';
 import { getCurrentUser } from '@/service/getCurrentUser';
-import { InfiniteQueryResponse } from '@/type/InfiniteQuery';
+import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 
 type GalleryProps = {
   assets: Asset[];

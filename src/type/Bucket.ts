@@ -1,4 +1,4 @@
-import { Asset } from '@/type/Asset';
+import type { Asset } from '@/type/Asset';
 
 export enum AssetBucket {
   instagram = 'instagram',

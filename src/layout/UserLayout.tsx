@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import { NavBar } from '@/components/NavBar';
 import { Footer } from '@/components/Footer';
-import { User } from '@/type/User';
+import type { User } from '@/type/User';
 
 export enum Menu {
   post,

@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import type { FC} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
 

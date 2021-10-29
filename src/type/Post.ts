@@ -1,5 +1,5 @@
-import { User } from '@/type/User';
-import { Asset } from '@/type/Asset';
+import type { User } from '@/type/User';
+import type { Asset } from '@/type/Asset';
 
 type PathViewCount = {
   pathViewCount: number;
