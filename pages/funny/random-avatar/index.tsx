@@ -1,7 +1,7 @@
 import React from 'react';
 import { genConfig, FunnyAvatar } from '@powerfulyang/funny-avatar';
 import { useImmer } from '@powerfulyang/hooks';
-import Image from 'next/Image';
+import Image from 'next/image';
 import styles from './index.module.scss';
 
 const RandomAvatar = () => {
