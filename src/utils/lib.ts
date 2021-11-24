@@ -5,7 +5,7 @@ export const DateFormat = (date?: Date) => dayjs(date).format('ll');
 
 export const DateTimeFormat = (date?: Date) => dayjs(date).format('llll');
 
-export const TimeFormat = () => dayjs().format('HHmmss');
+export const TimeFormat = () => dayjs().format('HH:mm:ss');
 
 export const styles = {
   thumbnail: '&imageMogr2/thumbnail/interlace/1/quality/30',

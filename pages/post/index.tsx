@@ -7,7 +7,6 @@ import { Link } from '@/components/Link';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { CosUtils, DateFormat } from '@/utils/lib';
-import { Clock } from '@/components/Clock';
 import styles from './index.module.scss';
 import { LazyImage } from '@/components/LazyImage';
 import { getCurrentUser } from '@/service/getCurrentUser';
@@ -20,7 +19,6 @@ type IndexProps = {
 
 const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => (
   <div className={styles.body}>
-    <Clock />
     <main className={styles.main}>
       <div className={styles.years}>
         {years.map((x) => (
@@ -40,7 +38,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => (
       <section className={classNames('mt-4')}>
         {posts.map((post) => (
           <Link key={post.id} to={`/post/${post.id}`}>
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="bg-white rounded-xl shadow-lg mt-6 overflow-hidden">
               <div className="h-[16rem] overflow-hidden">
                 <LazyImage
                   className="h-[16rem] scale-100 md:hover:scale-110 transition-all duration-500"

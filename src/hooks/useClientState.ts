@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useFixed } from '@powerfulyang/hooks';
 
-export const useClientState = (func: () => string) => {
-  const [r, setR] = useState<string>();
-  const fixedFunc = useFixed(func);
+export const useClientState = <T>(func: () => T) => {
+  const [r, setR] = useState<T>();
   useEffect(() => {
-    setR(fixedFunc());
-  }, [fixedFunc]);
-  return r;
+    setR(func);
+  }, []);
+  return [r, setR] as const;
 };

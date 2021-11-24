@@ -1,3 +1,7 @@
 .clock {
-  @apply flex flex-1 justify-center items-center text-pink-400;
+  @apply flex justify-center items-center text-pink-400 ;
+  img{
+    @apply object-contain h-14;
+  }
 }
+

@@ -7,6 +7,7 @@ import { ProjectName } from '@/constant/Constant';
 import { Menu } from '@/layout/UserLayout';
 import styles from './index.module.scss';
 import { Link } from '../Link';
+import { Clock } from '@/components/Clock';
 
 type NavBarProps = {
   user: User;
@@ -40,10 +41,11 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => (
       </div>
 
       <div className={styles.user}>
+        <Clock className="mr-4" />
         {user && (
           <>
             <span className={styles.nickname}>{user.nickname}</span>
-            <img src={user.avatar} alt="avatar" />
+            <img src={user.avatar} className={styles.avatar} alt="avatar" />
           </>
         )}
         {!user && (
