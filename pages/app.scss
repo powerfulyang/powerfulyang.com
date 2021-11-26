@@ -53,4 +53,7 @@ body,
 
 .notification-collection {
   @apply fixed right-8 top-8;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }

@@ -8,27 +8,37 @@ export const Notification = dynamic(import('./Notification'), {
   ssr: false,
 });
 
-const renderNotification = ({ type, title, content }: NotificationProps) => {
+export type RenderNotificationProps = Omit<NotificationProps, 'onClose'>;
+
+const renderNotification = ({ type, title, content }: RenderNotificationProps) => {
   const parent = getNotificationParent();
-  const div = document.createElement('div');
-  parent.appendChild(div);
+  const fragment = document.createDocumentFragment();
+  parent.appendChild(fragment);
+  const onClose = () => {
+    ReactDOM.unmountComponentAtNode(fragment);
+  };
   ReactDOM.render(
     React.createElement(Notification, {
       type,
       title,
       content,
+      onClose,
     }),
-    div,
+    fragment,
   );
 };
 export const notification = {
-  success({ title, content }: NotificationProps) {
-    return renderNotification({ title, content, type: 'success' });
+  animating: false,
+  success({ title, content }: RenderNotificationProps) {
+    this.animating = true;
+    renderNotification({ title, content, type: 'success' });
   },
-  warn({ title, content }: NotificationProps) {
-    return renderNotification({ title, content, type: 'warn' });
+  warn({ title, content }: RenderNotificationProps) {
+    this.animating = true;
+    renderNotification({ title, content, type: 'warn' });
   },
-  error({ title, content }: NotificationProps) {
-    return renderNotification({ title, content, type: 'error' });
+  error({ title, content }: RenderNotificationProps) {
+    this.animating = true;
+    renderNotification({ title, content, type: 'error' });
   },
 };

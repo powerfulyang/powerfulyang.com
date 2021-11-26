@@ -1,14 +1,17 @@
 import { createPortal } from 'react-dom';
-import type { FC} from 'react';
+import type { FC } from 'react';
 import React, { useEffect, useRef } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
+import { AnimatePresence, motion } from 'framer-motion';
+import { timer } from 'rxjs';
 import styles from './index.module.scss';
 
 export type NotificationProps = {
   title?: string;
   content?: string;
   type?: 'success' | 'warn' | 'error';
+  onClose: VoidFunction;
 };
 
 export const getNotificationParent = () => {
@@ -21,37 +24,62 @@ export const getNotificationParent = () => {
   return parent;
 };
 
-const Notification: FC<NotificationProps> = ({ title, content, type = 'success' }) => {
+const Notification: FC<NotificationProps> = ({ title, content, type = 'success', onClose }) => {
   const dialogNode = useRef<HTMLElement>(document.createElement('section'));
 
   useEffect(() => {
     const dialog = dialogNode.current;
     const parent = getNotificationParent();
     parent.appendChild(dialog);
+    const subscribe = timer(1500).subscribe(() => {
+      onClose();
+    });
     return () => {
-      document.body.removeChild(parent!);
+      subscribe.unsubscribe();
     };
   }, []);
+  const [visible, setVisible] = React.useState(true);
+
+  const close = () => {
+    onClose();
+  };
 
   return (
     <>
       {createPortal(
-        <div className={styles.notification}>
-          <div className="flex">
-            <section className={classNames(styles.status, styles[type])}>
-              <Icon type={`icon-${type}`} />
-            </section>
-            <div className="mx-4">
-              <section className={styles.title}>{title}</section>
-              <section className={styles.content}>{content}</section>
-            </div>
-          </div>
-          <div>
-            <section className={styles.close}>
-              <Icon type="icon-close" />
-            </section>
-          </div>
-        </div>,
+        <AnimatePresence>
+          {visible && (
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: -20 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              transition={{ duration: 0.3 }}
+              className={styles.notification}
+              onAnimationEnd={() => {
+                if (!visible) {
+                  close();
+                }
+              }}
+            >
+              <div className="flex">
+                <section className={classNames(styles.status, styles[type])}>
+                  <Icon type={`icon-${type}`} />
+                </section>
+                <div className="mx-2">
+                  <section className={styles.title}>{title}</section>
+                  <section className={styles.content}>{content}</section>
+                </div>
+              </div>
+              <button type="button" className={styles.close} onClick={() => setVisible(false)}>
+                <Icon type="icon-close" />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>,
         dialogNode.current,
       )}
     </>

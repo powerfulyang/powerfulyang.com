@@ -1,4 +1,4 @@
-import type { FC} from 'react';
+import type { FC } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
@@ -17,15 +17,13 @@ export const Collapse: FC<CollapseProps> = ({ children, collapsed }) => {
   useEffect(() => {
     const div = divRef.current!;
     if (collapsed) {
-      if (ref.current === 0) {
-        // first render
-        setRenderClass('h-auto overflow-visible visible');
-      } else {
-        div.style.height = `${div.scrollHeight}px`;
-      }
-    } else {
       div.style.height = `0px`;
       setRenderClass('overflow-hidden');
+    } else if (ref.current === 0) {
+      // first render
+      setRenderClass('h-auto overflow-visible visible');
+    } else {
+      div.style.height = `${div.scrollHeight}px`;
     }
   }, [collapsed]);
   return (

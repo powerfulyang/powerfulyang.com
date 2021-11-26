@@ -7,7 +7,7 @@
   @apply flex rounded bg-white py-4 px-6 items-start mb-4;
 
   .status {
-    @apply text-2xl px-1;
+    @apply text-xl;
 
     &.success {
       color: #5fcf65;
@@ -23,7 +23,7 @@
   }
 
   .title {
-    @apply text-2xl font-medium;
+    @apply text-lg font-medium;
   }
 
   .content {
@@ -31,7 +31,8 @@
   }
 
   .close {
+    transform: scaleY(1.1) scaleX(0.9);
     @extend .cursor-pointer;
-    @apply text-2xl text-gray-400;
+    @apply text-xl text-gray-400 hover:text-gray-600;
   }
 }

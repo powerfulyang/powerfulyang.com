@@ -6,6 +6,7 @@ const CollapseDemo = () => {
 
   return (
     <button type="button" onClick={() => setCollapsed((d) => !d)}>
+      {collapsed ? '展开' : '收起'}
       <Collapse collapsed={collapsed}>
         abcd <br />
         abcd <br />
