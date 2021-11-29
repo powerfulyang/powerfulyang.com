@@ -27,7 +27,7 @@
     "classnames": "^2.3.1",
     "d3": "^7.1.1",
     "dayjs": "^1.10.7",
-    "framer-motion": "^5.3.2",
+    "framer-motion": "^5.3.3",
     "intersection-observer": "^0.12.0",
     "monaco-editor": "^0.30.1",
     "monaco-markdown": "0.0.11",
@@ -36,18 +36,18 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-markdown": "^7.1.0",
-    "react-query": "^3.33.4",
+    "react-query": "^3.33.7",
     "react-syntax-highlighter": "^15.4.5",
     "remark-gfm": "^3.0.1",
     "rxjs": "^7.4.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.0.4",
-    "@powerfulyang/lint": "^0.5.1",
+    "@powerfulyang/lint": "^0.7.0",
     "@types/d3": "^7.1.0",
     "@types/jest": "^27.0.3",
-    "@types/ramda": "^0.27.50",
-    "@types/react": "^17.0.36",
+    "@types/ramda": "^0.27.55",
+    "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@types/react-syntax-highlighter": "^13.5.2",
     "@types/sharp": "^0.29.4",
@@ -56,13 +56,11 @@
     "file-loader": "^6.2.0",
     "glslify-loader": "^2.0.0",
     "next-pwa": "^5.4.1",
-    "postcss": "^8.3.11",
     "raw-loader": "^4.0.2",
-    "sass": "^1.43.4",
     "tailwindcss": "^2.2.19",
     "tsconfig-paths-jest": "0.0.1",
     "typescript": "^4.5.2",
     "url-loader": "^4.1.1",
-    "webpack": "^5.64.2"
+    "webpack": "^5.64.4"
   }
 }

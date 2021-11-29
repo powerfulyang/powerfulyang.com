@@ -1,4 +1,4 @@
-import type { FC, ReactElement} from 'react';
+import type { FC, ReactElement } from 'react';
 import React, { cloneElement, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 
@@ -9,9 +9,8 @@ export type MasonryProps = {
 export const Masonry: FC<MasonryProps> = ({ children }) => {
   const [colNum, setColNum] = useState(4);
   useEffect(() => {
-    if (window.innerWidth < 768) {
-      setColNum(2);
-    }
+    const num = Math.floor(window.innerWidth / 350);
+    setColNum(num);
   }, []);
   const arrayNodes = useMemo(
     () =>
@@ -28,10 +27,10 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
   );
   return (
     <div
-      className={classNames('grid gap-4 mx-4', {
-        'grid-cols-2': colNum === 2,
-        'grid-cols-4': colNum === 4,
-      })}
+      className={classNames('grid gap-4 mx-4')}
+      style={{
+        gridTemplateColumns: `repeat(${colNum}, 1fr)`,
+      }}
     >
       {arrayNodes.map((nodes, index) => (
         <div className="flex flex-col" key={String(index)}>

@@ -42,8 +42,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.glsl",
-    ".eslintrc.js"
+    "**/*.glsl"
   ],
   "exclude": [
     "node_modules"
