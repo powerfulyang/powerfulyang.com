@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { FC} from 'react';
+import type { FC } from 'react';
 import React, { useRef, useState } from 'react';
 import { inc } from 'ramda';
 import styles from './index.module.scss';
@@ -36,7 +36,7 @@ export const Switch: FC<SwitchProps> = ({
         }}
       />
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label className={styles.toggle_item} htmlFor={id}>
+      <label className={styles.toggleItem} htmlFor={id}>
         <div
           className={styles.desc}
           data-checked-desc={checkedDescription}

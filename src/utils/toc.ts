@@ -12,7 +12,7 @@ export const generateToc = (content: string) => {
       // exec 会修改RegExp 对象的lastIndex 属性 lastIndex 属性是成功匹配后下一次匹配的开始位置。
       const rex = reg2.exec(x);
       return {
-        level: rex?.[1].length! - 1,
+        level: Number(rex?.[1].length) - 1,
         heading: rex?.[2]!,
       };
     }) || []
@@ -22,7 +22,7 @@ export const generateToc = (content: string) => {
 export function extractMetaData(text: string = '') {
   const metaData: Record<string, string | string[] | Asset> = {};
 
-  const metaRegExp = RegExp(/^---[\r\n](((?!---).|[\r\n])*)[\r\n]---$/m);
+  const metaRegExp = /^---[\r\n](((?!---).|[\r\n])*)[\r\n]---$/m;
   const rawMetaData = metaRegExp.exec(text);
 
   let keyValues;

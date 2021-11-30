@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useImmerReducer } from '@powerfulyang/hooks';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { LinkContext } from '@/context/LinkContext';
@@ -41,16 +41,10 @@ export const GlobalContextProvider: FC = ({ children }) => {
   const [state, dispatch] = useImmerReducer(reducer, {
     isRedirecting: false,
   });
+  const memo = useMemo(() => ({ state, dispatch }), [state, dispatch]);
   return (
     <QueryClientProvider client={queryClient}>
-      <LinkContext.Provider
-        value={{
-          state,
-          dispatch,
-        }}
-      >
-        {children}
-      </LinkContext.Provider>
+      <LinkContext.Provider value={memo}>{children}</LinkContext.Provider>
     </QueryClientProvider>
   );
 };

@@ -7,7 +7,7 @@ import { Header } from '@/components/Head';
 
 require('intersection-observer');
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   if (isClient) {
     const scriptElem = document.createElement('script');
     scriptElem.src = '//at.alicdn.com/t/font_178634_m4uqhewthnm.js';
@@ -21,4 +21,6 @@ export default function App({ Component, pageProps }: AppProps) {
       {getLayout(<Component {...pageProps} />)}
     </GlobalContextProvider>
   );
-}
+};
+
+export default App;

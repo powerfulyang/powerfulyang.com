@@ -21,7 +21,7 @@
     height: 155px;
     background: #ccc;
     transform: rotate(35deg);
-    opacity: 50%;
+    opacity: 0.5;
     transition: all 1350ms cubic-bezier(0.19, 1, 0.22, 1);
     content: '';
   }
@@ -35,6 +35,6 @@
   }
 }
 
-.rainbowText {
+.rainbow-text {
   @include rainbowText;
 }

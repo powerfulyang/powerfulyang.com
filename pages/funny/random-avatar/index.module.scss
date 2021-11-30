@@ -1,7 +1,9 @@
 @import '../../base';
+
 .wrap {
   @apply bg-[#14161a] h-full;
-  .gradient_bg {
+
+  .gradient-bg {
     position: fixed;
     top: 0;
     left: 0;
@@ -22,7 +24,7 @@
         transparent 100%
       );
       border-radius: 50%;
-      opacity: 20%;
+      opacity: 0.2;
       filter: blur(4rem);
       content: '';
     }
@@ -41,7 +43,7 @@
         transparent 100%
       );
       border-radius: 50%;
-      opacity: 20%;
+      opacity: 0.2;
       filter: blur(4rem);
       content: '';
     }
@@ -53,26 +55,27 @@
       @apply uppercase text-gray-400 text-2xl flex items-center p-8;
     }
 
-    .avatar_preview {
+    .avatar-preview {
       position: absolute;
       top: 50%;
       left: 50%;
       z-index: 100;
       transform: translate(-50%, -50%);
       @apply w-full flex justify-center items-center flex-col;
-      .config_operation {
+
+      .config-operation {
         @apply w-full flex justify-center mt-16 relative;
-        .do_random {
+
+        .do-random {
           background: #2a2f37;
           @apply text-gray-400 mx-8 py-3 px-4 rounded-lg;
           @extend .cursor-pointer;
         }
+
         .download {
-          @extend .do_random;
+          @extend .do-random;
         }
       }
     }
-
-
   }
 }

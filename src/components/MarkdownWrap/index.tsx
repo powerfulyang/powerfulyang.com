@@ -13,7 +13,7 @@ export type MarkdownWrapProps = {
 
 export const MarkdownWrap: FC<MarkdownWrapProps> = ({ source, className }) => (
   <ReactMarkdown
-    className={classNames(styles.markdown_body, className)}
+    className={classNames(styles.markdownBody, className)}
     remarkPlugins={[remarkGfm]}
     components={{
       h1: H1,

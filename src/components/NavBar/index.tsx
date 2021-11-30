@@ -21,7 +21,7 @@ export const login = () => {
 };
 
 export const NavBar: FC<NavBarProps> = ({ user, active }) => (
-  <div className={styles.nav_placeholder}>
+  <div className={styles.navPlaceholder}>
     <nav className={styles.nav}>
       <span className={classNames(styles.title)}>{ProjectName}</span>
       <div className={styles.menus}>

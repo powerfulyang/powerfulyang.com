@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import type { FC} from 'react';
+import type { FC } from 'react';
 import React, { useContext } from 'react';
 import classNames from 'classnames';
 import { LinkContext } from '@/context/LinkContext';

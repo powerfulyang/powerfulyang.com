@@ -10,7 +10,7 @@ const Notify = () => {
     });
     notification.warn({ title: '你注意!' });
   }, []);
-  return <></>;
+  return <div>notification</div>;
 };
 
 export default Notify;

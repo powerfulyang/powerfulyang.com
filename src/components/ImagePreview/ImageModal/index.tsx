@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import type { FC} from 'react';
+import type { FC } from 'react';
 import React, { useContext, useEffect, useRef } from 'react';
 import { ImageModalContent } from '@/components/ImagePreview/ImageModal/Modal';
 import { ImageModalContext } from '@/context/ImageModalContext';
@@ -30,6 +30,6 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
   }, [parentNode, selectIndex]);
 
   return <>{createPortal(<ImageModalContent />, dialogNode.current)}</>;
-};
+}
 
 export default ImageModal;

@@ -18,51 +18,51 @@ type IndexProps = {
 };
 
 const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => (
-  <div className={styles.body}>
-    <main className={styles.main}>
-      <div className={styles.years}>
-        {years.map((x) => (
-          <Link key={x} to={`?year=${x}`}>
-            <span className={classNames(styles.year)}>
-              <span
-                className={classNames('pr-1', {
-                  [`text-lg ${styles.active}`]: x === year,
-                })}
-              >
-                #{x}
+    <div className={styles.body}>
+      <main className={styles.main}>
+        <div className={styles.years}>
+          {years.map((x) => (
+            <Link key={x} to={`?year=${x}`}>
+              <span className={classNames(styles.year)}>
+                <span
+                  className={classNames('pr-1', {
+                    [`text-lg ${styles.active}`]: x === year,
+                  })}
+                >
+                  #{x}
+                </span>
               </span>
-            </span>
-          </Link>
-        ))}
-      </div>
-      <section className={classNames('mt-4')}>
-        {posts.map((post) => (
-          <Link key={post.id} to={`/post/${post.id}`}>
-            <div className="bg-white rounded-xl shadow-lg mt-6 overflow-hidden">
-              <div className="h-[16rem] overflow-hidden">
-                <LazyImage
-                  className="h-[16rem] scale-100 md:hover:scale-110 transition-all duration-500"
-                  src={CosUtils.getCosObjectUrl(post.poster.objectUrl)}
-                  blurSrc={CosUtils.getCosObjectBlurUrl(post.poster.objectUrl)}
-                />
+            </Link>
+          ))}
+        </div>
+        <section className={classNames('mt-4')}>
+          {posts.map((post) => (
+            <Link key={post.id} to={`/post/${post.id}`}>
+              <div className="bg-white rounded-xl shadow-lg mt-6 overflow-hidden">
+                <div className="h-[16rem] overflow-hidden">
+                  <LazyImage
+                    className="h-[16rem] scale-100 md:hover:scale-110 transition-all duration-500"
+                    src={CosUtils.getCosObjectUrl(post.poster.objectUrl)}
+                    blurSrc={CosUtils.getCosObjectBlurUrl(post.poster.objectUrl)}
+                  />
+                </div>
+                <div className="flex h-[6rem] flex-col justify-evenly">
+                  <span className="inline-block text-base whitespace-nowrap px-4 text-blue-400 font-normal">
+                    {DateFormat(post.createAt)}
+                  </span>
+                  <span title={post.title} className={classNames('flex items-center')}>
+                    <div className="line-1-ellipsis text-blue-400">
+                      <span className={styles.articleTitle}>{post.title}</span>
+                    </div>
+                  </span>
+                </div>
               </div>
-              <div className="flex h-[6rem] flex-col justify-evenly">
-                <span className="inline-block text-base whitespace-nowrap px-4 text-blue-400 font-normal">
-                  {DateFormat(post.createAt)}
-                </span>
-                <span title={post.title} className={classNames('flex items-center')}>
-                  <div className="line-1-ellipsis text-blue-400">
-                    <span className={styles.article_title}>{post.title}</span>
-                  </div>
-                </span>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </section>
-    </main>
-  </div>
-);
+            </Link>
+          ))}
+        </section>
+      </main>
+    </div>
+  )
 
 Index.getLayout = (page) => {
   const { pathViewCount, user } = page.props;

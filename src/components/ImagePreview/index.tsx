@@ -1,14 +1,9 @@
-import type { FC} from 'react';
-import React, { Children, cloneElement, useEffect } from 'react';
+import type { FC } from 'react';
+import React, { useMemo, Children, cloneElement, useEffect } from 'react';
 import { useImmerReducer } from '@powerfulyang/hooks';
 import dynamic from 'next/dynamic';
-import type {
-  ImageModalContextAction,
-  ImageModalContextState} from '@/context/ImageModalContext';
-import {
-  ImageModalContext,
-  ImageModalContextActionType
-} from '@/context/ImageModalContext';
+import type { ImageModalContextAction, ImageModalContextState } from '@/context/ImageModalContext';
+import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
 import type { Asset } from '@/type/Asset';
 
 const DynamicImageModal = dynamic(() => import('@/components/ImagePreview/ImageModal'), {
@@ -40,23 +35,22 @@ export const ImagePreview: FC<{ images: Asset[] }> = ({ children, images }) => {
       },
     });
   }, [dispatch, images]);
+  const memo = useMemo(() => ({ state, dispatch }), [state, dispatch]);
   return (
-    <>
-      <ImageModalContext.Provider value={{ state, dispatch }}>
-        <DynamicImageModal />
-        {Children.map(children as any, (child, index) =>
-          cloneElement(child, {
-            onClick() {
-              dispatch({
-                type: ImageModalContextActionType.open,
-                payload: {
-                  selectIndex: index,
-                },
-              });
-            },
-          }),
-        )}
-      </ImageModalContext.Provider>
-    </>
+    <ImageModalContext.Provider value={memo}>
+      <DynamicImageModal />
+      {Children.map(children as any, (child, index) =>
+        cloneElement(child, {
+          onClick() {
+            dispatch({
+              type: ImageModalContextActionType.open,
+              payload: {
+                selectIndex: index,
+              },
+            });
+          },
+        }),
+      )}
+    </ImageModalContext.Provider>
   );
 };

@@ -1,4 +1,4 @@
-import type { ChangeEvent, ClipboardEvent} from 'react';
+import type { ChangeEvent, ClipboardEvent } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import type { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
@@ -89,26 +89,26 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
 
   return (
     <div className={styles.wrap}>
-      <div className={styles.timeline_show}>
+      <div className={styles.timelineShow}>
         {user && (
           <>
             <div className={styles.banner}>
               <LazyImage
                 src={CosUtils.getCosObjectUrl(user?.timelineBackground?.objectUrl)}
                 blurSrc={CosUtils.getCosObjectBlurUrl(user?.timelineBackground?.objectUrl)}
-                className={styles.banner_bg}
+                className={styles.bannerBg}
               />
-              <div className={styles.author_info}>
-                <img src={user?.avatar} className={styles.author_avatar} alt="" />
-                <div className={styles.author_nickname}>{user?.nickname}</div>
-                <div className={styles.author_bio}>
+              <div className={styles.authorInfo}>
+                <img src={user?.avatar} className={styles.authorAvatar} alt="" />
+                <div className={styles.authorNickname}>{user?.nickname}</div>
+                <div className={styles.authorBio}>
                   <span>{user?.bio}</span>
                 </div>
               </div>
             </div>
 
-            <div className={styles.timeline_input}>
-              <div className={styles.timeline_textarea}>
+            <div className={styles.timelineInput}>
+              <div className={styles.timelineTextarea}>
                 <textarea
                   name="timeline_input"
                   onChange={(e) => {
@@ -153,7 +153,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                   type="button"
                   ref={ref}
                   disabled={disable}
-                  className={classNames(styles.timeline_submit)}
+                  className={classNames(styles.timelineSubmit)}
                 >
                   发送
                 </button>
@@ -194,7 +194,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
       </div>
     </div>
   );
-};
+}
 
 Timeline.getLayout = (page) => {
   const { pathViewCount, user } = page.props;

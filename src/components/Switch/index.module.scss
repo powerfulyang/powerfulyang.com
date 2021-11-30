@@ -1,4 +1,4 @@
-.toggle_item {
+.toggle-item {
   position: relative;
   display: inline-block;
   width: 95px;
@@ -98,7 +98,7 @@
 }
 
 .switch:checked {
-  & ~ .toggle_item {
+  & ~ .toggle-item {
     background: #e4ac04;
 
     .desc {

@@ -15,6 +15,7 @@ type UserLayoutProps = {
   pathViewCount?: number;
   user: User;
 };
+
 export const UserLayout: FC<UserLayoutProps> = ({ children, pathViewCount, user }) => {
   const { pathname } = useRouter();
   return (

@@ -24,7 +24,12 @@ export const getNotificationParent = () => {
   return parent;
 };
 
-const Notification: FC<NotificationProps> = ({ title, content, type = 'success', onClose }) => {
+const Notification: FC<NotificationProps> = ({
+  title,
+  content,
+  type = 'success',
+  onClose,
+}) => {
   const dialogNode = useRef<HTMLElement>(document.createElement('section'));
 
   useEffect(() => {
@@ -84,6 +89,6 @@ const Notification: FC<NotificationProps> = ({ title, content, type = 'success',
       )}
     </>
   );
-};
+}
 
 export default Notification;

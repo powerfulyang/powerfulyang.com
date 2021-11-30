@@ -10,7 +10,7 @@ export const ImageThumbnailWrap: FC<{
   inViewAction?: (id?: number) => void;
   onClick?: () => void;
 }> = ({ asset, inViewAction, onClick }) => (
-  <button type="button" className={styles.image_wrap} onClick={onClick}>
+  <button type="button" className={styles.imageWrap} onClick={onClick}>
     <LazyImage
       className={styles.image}
       src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}

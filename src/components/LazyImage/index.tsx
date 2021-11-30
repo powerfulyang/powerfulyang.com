@@ -1,12 +1,5 @@
-import type {
-  DetailedHTMLProps,
-  FC,
-  ImgHTMLAttributes} from 'react';
-import React, {
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import type { DetailedHTMLProps, FC, ImgHTMLAttributes } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import styles from './index.module.scss';
@@ -88,7 +81,7 @@ export const LazyImage: FC<
           className={classNames(
             {
               [styles.loading]: loading,
-              [styles.loaded_img]: !loading,
+              [styles.loadedImg]: !loading,
             },
             'bg-no-repeat bg-cover',
             imageClassName,

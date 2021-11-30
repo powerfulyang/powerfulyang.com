@@ -15,7 +15,7 @@
   .year {
     display: flex;
     align-items: center;
-    font-family: 'Zpix', Sans serif;
+    font-family: 'Zpix', sans-serif;
     @apply mr-4 italic text-gray-300;
   }
 
@@ -48,10 +48,10 @@
     width: 600px;
   }
 
-  .article_title {
+  .article-title {
     display: inline;
     font-family: 'Zpix', sans-serif;
     @apply text-lg font-normal px-4 -mt-2;
-    @extend .rainbowText;
+    @extend .rainbow-text;
   }
 }

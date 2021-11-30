@@ -17,6 +17,6 @@ const CollapseDemo = () => {
       </Collapse>
     </button>
   );
-};
+}
 
 export default CollapseDemo;

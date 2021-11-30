@@ -21,19 +21,19 @@ const RandomAvatar = () => {
           />
           <span className="ml-4">funny avatar</span>
         </div>
-        <div className={styles.avatar_preview}>
+        <div className={styles.avatarPreview}>
           <FunnyAvatar className="w-[30vh] h-[30vh]" {...config} />
-          <div className={styles.config_operation}>
-            <button type="button" className={styles.do_random} onClick={randomAvatar}>
+          <div className={styles.configOperation}>
+            <button type="button" className={styles.doRandom} onClick={randomAvatar}>
               随机一个
             </button>
           </div>
         </div>
       </main>
 
-      <section className={styles.gradient_bg} />
+      <section className={styles.gradientBg} />
     </div>
   );
-};
+}
 
 export default RandomAvatar;

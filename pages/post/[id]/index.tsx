@@ -21,11 +21,11 @@ const PostDetail: LayoutFC<PostProps> = ({ data }) => {
   const contents = content.replace(/(\r\n|\n)/, `\r\n\r\n${postInfo}${tagsInfo}`);
   const [, s] = extractMetaData(contents);
   return (
-    <main className={styles.post_wrap}>
+    <main className={styles.postWrap}>
       <MarkdownWrap source={s} className={styles.post} />
     </main>
   );
-};
+}
 
 PostDetail.getLayout = (page) => {
   const { pathViewCount, user } = page.props;

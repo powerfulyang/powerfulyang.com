@@ -1,6 +1,6 @@
 @import 'src/styles/styles';
 
-.nav_placeholder {
+.nav-placeholder {
   height: var(--nav-height);
 }
 
@@ -17,7 +17,6 @@
   box-shadow: 0 0 20px 10px rgb(160 44 219 / 7%);
   backdrop-filter: blur(5px);
 
-
   .user {
     @apply flex items-center mr-4 text-pink-400;
 
@@ -29,7 +28,7 @@
       }
     }
 
-    .avatar{
+    .avatar {
       width: 2.5rem;
       @apply rounded-full mx-4;
     }
@@ -41,9 +40,9 @@
       position: relative;
       display: inline-block;
       color: transparent;
-      font-family: 'Zpix', Sans serif;
+      font-family: 'Zpix', sans-serif;
       background: linear-gradient(90deg, #47cf73, #ffdd40, #ae63e4, #0ebeff, #47cf73);
-      -webkit-background-clip: text;
+      background-clip: text;
       @apply text-2xl mx-10;
       @extend .cursor-pointer;
       @keyframes border-transform {

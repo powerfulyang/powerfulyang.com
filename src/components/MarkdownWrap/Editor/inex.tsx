@@ -1,4 +1,4 @@
-import type { ClipboardEvent, FC} from 'react';
+import type { ClipboardEvent, FC } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
@@ -93,7 +93,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onP
         <Icon className={classNames(styles.icon, styles.post)} type="icon-send" onClick={post} />
       </section>
       <main className={styles.main}>
-        <section className={styles.input_content}>
+        <section className={styles.inputContent}>
           <MonacoEditor
             defaultLanguage="markdown"
             defaultValue={input}

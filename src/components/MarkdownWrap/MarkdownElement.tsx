@@ -57,18 +57,18 @@ export const Paragraph: FC<any> = ({ node, children }) => {
     const postDate = info[1];
     const wordCount = info[2];
     return (
-      <div className={styles.post_info}>
+      <div className={styles.postInfo}>
         <span className={styles.author}>
           <Icon type="icon-author" />
-          <span className={styles.post_info_comment}>{author}</span>
+          <span className={styles.postInfoComment}>{author}</span>
         </span>
         <span className={styles.date}>
           <Icon type="icon-date" />
-          <span className={styles.post_info_comment}>发表于{postDate}</span>
+          <span className={styles.postInfoComment}>发表于{postDate}</span>
         </span>
-        <span className={styles.word_count}>
+        <span className={styles.wordCount}>
           <Icon type="icon-count" />
-          <span className={styles.post_info_comment}>文字总数{wordCount}</span>
+          <span className={styles.postInfoComment}>文字总数{wordCount}</span>
         </span>
       </div>
     );
@@ -80,7 +80,7 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
   const match = /language-(\w+)/.exec(className || '');
   if (inline) {
     return (
-      <code className={classNames(className, styles.inline_code)} {...props}>
+      <code className={classNames(className, styles.inlineCode)} {...props}>
         {children}
       </code>
     );
@@ -89,10 +89,10 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
   return (
     <>
       <div className={styles.toolbar}>
-        <div className={styles.toolbar_language}>
+        <div className={styles.toolbarLanguage}>
           <span>{language}</span>
         </div>
-        <div className={styles.toolbar_action}>
+        <div className={styles.toolbarAction}>
           <button type="button" onClick={() => copyToClipBoard(children.toString())}>
             Copy Code
           </button>
@@ -130,7 +130,7 @@ export const Ul: UnorderedListComponent = ({ children, ...props }) => {
 
 export const Li: LiComponent = ({ children, ordered, index }) => (
   <li>
-    {ordered && <span className={styles.ordered_list_index}>{index + 1}</span>}
+    {ordered && <span className={styles.orderedListIndex}>{index + 1}</span>}
     {children}
   </li>
 );

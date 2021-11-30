@@ -1,7 +1,7 @@
 $primary-color: #dec6fb;
 $heading-color: rgb(37 99 235 / 80%);
 
-.markdown_body {
+.markdown-body {
   width: min(900px, 100%);
   // 父元素设置 min-height 子元素设置 height 100% 继承不了的情况解决 给父元素设置 display: flex
   line-height: 1.75;
@@ -123,7 +123,7 @@ $heading-color: rgb(37 99 235 / 80%);
     @apply rounded-lg overflow-hidden my-4;
   }
 
-  .inline_code {
+  .inline-code {
     padding: 0.2rem;
     color: #4a4a4a;
     @apply rounded bg-blue-100;
@@ -135,14 +135,14 @@ $heading-color: rgb(37 99 235 / 80%);
     background-color: rgb(34 31 31);
     @apply flex text-blue-400 align-middle;
 
-    .toolbar_language {
+    .toolbar-language {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
 
-    .toolbar_action {
+    .toolbar-action {
       margin-left: auto;
       @apply mr-2;
     }
@@ -155,8 +155,6 @@ $heading-color: rgb(37 99 235 / 80%);
       height: 11px;
       background: #fc625d;
       border-radius: 50%;
-      border-radius: 50%;
-      box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
       box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
       transform: translate(50%, -50%);
       content: ' ';
@@ -221,10 +219,10 @@ $heading-color: rgb(37 99 235 / 80%);
     }
   }
 
-  .post_info {
+  .post-info {
     @apply flex justify-center flex-wrap my-8;
 
-    .post_info_comment {
+    .post-info-comment {
       @apply text-sm text-pink-500 pl-1;
     }
 
@@ -240,11 +238,11 @@ $heading-color: rgb(37 99 235 / 80%);
       @extend .my;
     }
 
-    .word_count {
+    .word-count {
       @extend .my;
     }
 
-    .view_count {
+    .view-count {
       @extend .my;
     }
 
@@ -261,7 +259,7 @@ $heading-color: rgb(37 99 235 / 80%);
     padding-left: 2em;
     list-style-type: disc;
 
-    &.contains_task_list {
+    &.contains-task-list {
       padding-left: 1em;
       list-style-type: none;
     }
@@ -283,7 +281,7 @@ $heading-color: rgb(37 99 235 / 80%);
     li {
       display: list-item;
 
-      .ordered_list_index {
+      .ordered-list-index {
         @apply text-blue-400 pr-2;
 
         &::after {
