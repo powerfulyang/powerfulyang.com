@@ -1,12 +1,13 @@
 const webpack = require('webpack');
 const withPWA = require('next-pwa');
+const withPlugins = require('next-compose-plugins');
 const withCamelCaseCSSModules = require('./plugins/next-css-modules');
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const analyzer = withBundleAnalyzer({
+const config = {
   webpack(config, _options) {
     config.plugins.push(
       new webpack.DefinePlugin({
@@ -240,8 +241,6 @@ const analyzer = withBundleAnalyzer({
   experimental: {
     esmExternals: true,
   },
-});
+};
 
-const camelCaseCSSModules = withCamelCaseCSSModules(analyzer);
-
-module.exports = withPWA(camelCaseCSSModules);
+module.exports = withPlugins([[withPWA], [withBundleAnalyzer], [withCamelCaseCSSModules]], config);
