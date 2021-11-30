@@ -11,7 +11,7 @@
     "start": "next start",
     "prettier": "prettier \"{src,pages}/**/*.{tsx,ts,scss}\" --write",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "fix:style": "stylelint --fix \"src/**/*.scss\" \"pages/**/*.scss\""
+    "fix:style": "stylelint --fix \\\"src/**/*.scss\\\" \\\"src/pages/**/*.scss\\\""
   },
   "license": "MIT",
   "repository": {

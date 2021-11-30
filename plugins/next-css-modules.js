@@ -1,4 +1,7 @@
-// https://github.com/vercel/next.js/discussions/11267#discussioncomment-1758
+/**
+ * https://github.com/vercel/next.js/discussions/11267#discussioncomment-1758
+ */
+
 module.exports = {
   webpack: (config) => {
     const rules = config.module.rules
@@ -8,7 +11,7 @@ module.exports = {
     rules.forEach((rule) => {
       rule.use.forEach((moduleLoader) => {
         if (
-          /css-loader\/(dist|cjs)/.test(moduleLoader.loader) &&
+          /css-loader([/\\])(dist|cjs|src)/.test(moduleLoader.loader) &&
           typeof moduleLoader.options.modules === 'object'
         ) {
           // eslint-disable-next-line no-param-reassign

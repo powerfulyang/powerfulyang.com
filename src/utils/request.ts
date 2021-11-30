@@ -36,7 +36,7 @@ export const clientRequest = async <T = any>(
   url: string,
   options: Omit<RequestOptions, 'ctx'> = {},
 ): Promise<ApiResponse<T>> => {
-  const baseUrl = BASE_URL;
+  const baseUrl = process.env.BASE_URL;
   const { method = 'GET', body, query } = options;
   const isFile = body instanceof FormData;
   const requestBody = isFile ? body : JSON.stringify(body);

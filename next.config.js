@@ -1,19 +1,14 @@
-const webpack = require('webpack');
 const withPWA = require('next-pwa');
 const withPlugins = require('next-compose-plugins');
 const withCamelCaseCSSModules = require('./plugins/next-css-modules');
+const { isDevProcess } = require('@powerfulyang/utils');
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
 const config = {
-  webpack(config, _options) {
-    config.plugins.push(
-      new webpack.DefinePlugin({
-        BASE_URL: JSON.stringify(process.env.BASE_URL),
-      }),
-    );
+  webpack(config) {
     config.module.rules.push({
       test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
       use: {
@@ -44,6 +39,7 @@ const config = {
   },
   pwa: {
     dest: 'public',
+    disable: isDevProcess,
     runtimeCaching: [
       {
         urlPattern: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
@@ -241,6 +237,9 @@ const config = {
   experimental: {
     esmExternals: true,
   },
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  },
 };
 
-module.exports = withPlugins([[withPWA], [withBundleAnalyzer], [withCamelCaseCSSModules]], config);
+module.exports = withPlugins([[withCamelCaseCSSModules], [withPWA], [withBundleAnalyzer]], config);
