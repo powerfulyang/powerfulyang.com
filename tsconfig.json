@@ -13,38 +13,21 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "lib": [
-      "es5",
-      "es6",
-      "es7",
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es5", "es6", "es7", "es2017", "dom"],
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "~/*": [
-        "./pages/*"
-      ]
+      "@/*": ["./src/*"],
+      "~/*": ["./pages/*"]
     },
     "isolatedModules": true,
     "strictPropertyInitialization": false,
     "allowJs": true,
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.glsl"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.glsl", "plugins"],
+  "exclude": ["node_modules"]
 }

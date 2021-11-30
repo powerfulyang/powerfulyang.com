@@ -55,6 +55,7 @@
     "eslint-config-next": "^12.0.4",
     "file-loader": "^6.2.0",
     "glslify-loader": "^2.0.0",
+    "next-compose-plugins": "^2.2.1",
     "next-pwa": "^5.4.1",
     "raw-loader": "^4.0.2",
     "tailwindcss": "^2.2.19",

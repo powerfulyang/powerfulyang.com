@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const withPWA = require('next-pwa');
+const withCamelCaseCSSModules = require('./plugins/next-css-modules');
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -157,9 +158,7 @@ const analyzer = withBundleAnalyzer({
         },
       },
       {
-        urlPattern: ({ url }) => {
-          return url.origin.startsWith('https//api.powerfulyang.com/api');
-        },
+        urlPattern: ({ url }) => url.origin.startsWith('https//api.powerfulyang.com/api'),
         handler: 'NetworkFirst',
         method: 'GET',
         options: {
@@ -186,7 +185,7 @@ const analyzer = withBundleAnalyzer({
         urlPattern: ({ url }) => {
           const isSameOrigin = self.origin === url.origin;
           if (!isSameOrigin) return false;
-          const pathname = url.pathname;
+          const { pathname } = url;
           // Exclude /api/auth/callback/* to fix OAuth workflow in Safari without impact other environment
           // Above route is default for next-auth, you may need to change it if your OAuth workflow has a different callback route
           // Issue: https://github.com/shadowwalker/next-pwa/issues/131#issuecomment-821894809
@@ -208,7 +207,7 @@ const analyzer = withBundleAnalyzer({
         urlPattern: ({ url }) => {
           const isSameOrigin = self.origin === url.origin;
           if (!isSameOrigin) return false;
-          const pathname = url.pathname;
+          const { pathname } = url;
           return !pathname.startsWith('/api/');
         },
         handler: 'NetworkFirst',
@@ -243,4 +242,6 @@ const analyzer = withBundleAnalyzer({
   },
 });
 
-module.exports = withPWA(analyzer);
+const camelCaseCSSModules = withCamelCaseCSSModules(analyzer);
+
+module.exports = withPWA(camelCaseCSSModules);
