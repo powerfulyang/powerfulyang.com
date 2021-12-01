@@ -34,6 +34,6 @@ const RandomAvatar = () => {
       <section className={styles.gradientBg} />
     </div>
   );
-}
+};
 
 export default RandomAvatar;

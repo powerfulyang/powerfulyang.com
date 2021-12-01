@@ -30,6 +30,6 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
   }, [parentNode, selectIndex]);
 
   return <>{createPortal(<ImageModalContent />, dialogNode.current)}</>;
-}
+};
 
 export default ImageModal;

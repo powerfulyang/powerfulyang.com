@@ -25,7 +25,7 @@ const PostDetail: LayoutFC<PostProps> = ({ data }) => {
       <MarkdownWrap source={s} className={styles.post} />
     </main>
   );
-}
+};
 
 PostDetail.getLayout = (page) => {
   const { pathViewCount, user } = page.props;

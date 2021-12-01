@@ -27,7 +27,7 @@ const Publish: FC<PublishProps> = ({ post }) => {
     return router.push(`/post/${res.data.id}`);
   };
   return <MarkdownEditor defaultValue={post.content} onPost={(input) => handlePost(input)} />;
-}
+};
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { query } = ctx;

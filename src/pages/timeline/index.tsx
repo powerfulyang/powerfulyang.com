@@ -194,7 +194,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
       </div>
     </div>
   );
-}
+};
 
 Timeline.getLayout = (page) => {
   const { pathViewCount, user } = page.props;

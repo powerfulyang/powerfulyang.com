@@ -5,13 +5,15 @@
   "description": "home page",
   "scripts": {
     "test": "jest",
-    "start:dev": "next dev",
+    "postinstall": "npx husky install",
+    "start:dev": "rimraf ./.next && next dev",
     "build": "next build",
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
-    "prettier": "prettier \"{src,pages}/**/*.{tsx,ts,scss}\" --write",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "fix:style": "stylelint --fix \\\"src/**/*.scss\\\" \\\"src/pages/**/*.scss\\\""
+    "precommit": "npm run prettier && npm run lint:js && npm run lint:style && npm run test",
+    "prettier": "prettier \"src/**/*.{tsx,ts,scss}\" --write",
+    "lint:js": "eslint . --ext .ts,.tsx --fix",
+    "lint:style": "stylelint --fix \"src/**/*.scss\""
   },
   "license": "MIT",
   "repository": {
@@ -55,6 +57,7 @@
     "eslint-config-next": "^12.0.4",
     "file-loader": "^6.2.0",
     "glslify-loader": "^2.0.0",
+    "husky": "^7.0.4",
     "next-compose-plugins": "^2.2.1",
     "next-pwa": "^5.4.1",
     "raw-loader": "^4.0.2",

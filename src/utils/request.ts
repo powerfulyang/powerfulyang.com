@@ -14,7 +14,7 @@ const stringify = (query: RequestOptions['query']) =>
 
 export const request = async (url: string, options: RequestOptions) => {
   const { method = 'GET', ctx, body, query } = options;
-  const baseUrl = process.env.BASE_URL;
+  const baseUrl = process.env.SERVER_BASE_URL;
   const headers = pick(['x-real-ip', 'cookie'], ctx.req.headers || { 'x-real-ip': '127.0.0.1' });
   const requestUrl = `${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`;
   return fetch(requestUrl, {
@@ -36,7 +36,7 @@ export const clientRequest = async <T = any>(
   url: string,
   options: Omit<RequestOptions, 'ctx'> = {},
 ): Promise<ApiResponse<T>> => {
-  const baseUrl = process.env.BASE_URL;
+  const baseUrl = process.env.CLIENT_BASE_URL;
   const { method = 'GET', body, query } = options;
   const isFile = body instanceof FormData;
   const requestBody = isFile ? body : JSON.stringify(body);

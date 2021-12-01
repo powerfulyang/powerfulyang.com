@@ -49,7 +49,6 @@
   }
 
   .article-title {
-    display: inline;
     font-family: 'Zpix', sans-serif;
     @apply text-lg font-normal px-4 -mt-2;
     @extend .rainbow-text;
