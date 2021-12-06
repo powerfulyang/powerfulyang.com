@@ -1,5 +1,4 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
@@ -13,21 +12,34 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "lib": ["es5", "es6", "es7", "es2017", "dom"],
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "strict": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "~/*": ["./pages/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
     "isolatedModules": true,
     "strictPropertyInitialization": false,
     "allowJs": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "noEmit": true,
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.glsl", "plugins"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.glsl",
+    "plugins"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

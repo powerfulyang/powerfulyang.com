@@ -4,6 +4,6 @@ export const useClientState = <T>(func: () => T) => {
   const [r, setR] = useState<T>();
   useEffect(() => {
     setR(func);
-  }, []);
+  }, [func]);
   return [r, setR] as const;
 };

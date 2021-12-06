@@ -15,7 +15,7 @@ export const Clock: FC<HTMLProps<HTMLDivElement>> = ({ className }) => {
     return () => {
       sub.unsubscribe();
     };
-  }, []);
+  }, [setTime]);
   return (
     <div className={classNames(styles.clock, className, 'pointer')} title={`当前时间 ${time}`}>
       {time && (

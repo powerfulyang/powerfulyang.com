@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React from 'react';
-import { Icon, IconTag } from '@powerfulyang/components';
+import { Icon } from '@powerfulyang/components';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import type {
@@ -46,7 +46,7 @@ export const Paragraph: FC<any> = ({ node, children }) => {
     return (
       <div className="my-4 lg:ml-6 sm:ml-2">
         {tags.map((tag: string) => (
-          <IconTag key={tag} value={tag} />
+          <Icon type="icon-tag" key={tag} />
         ))}
       </div>
     );

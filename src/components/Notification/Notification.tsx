@@ -37,7 +37,7 @@ const Notification: FC<NotificationProps> = ({ title, content, type = 'success',
     return () => {
       subscribe.unsubscribe();
     };
-  }, []);
+  }, [onClose]);
   const [visible, setVisible] = React.useState(true);
 
   const close = () => {
