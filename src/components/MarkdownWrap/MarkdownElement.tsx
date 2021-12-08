@@ -16,6 +16,7 @@ import { LazyImage } from '@/components/LazyImage';
 import { clientRequest } from '@/utils/request';
 import { CosUtils } from '@/utils/lib';
 import styles from './index.module.scss';
+import { notification } from '@/components/Notification';
 
 export const H1: FC = ({ children }) => (
   <h1 className="flex justify-center w-full pb-2 px-6">
@@ -95,7 +96,16 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
           <span>{language}</span>
         </div>
         <div className={styles.toolbarAction}>
-          <button type="button" onClick={() => copyToClipBoard(renderText)}>
+          <button
+            type="button"
+            onClick={async () => {
+              await copyToClipBoard(renderText);
+              return notification.success({
+                title: '复制成功',
+                content: '代码已复制到剪贴板',
+              });
+            }}
+          >
             Copy Code
           </button>
         </div>
