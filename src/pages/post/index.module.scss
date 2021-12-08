@@ -50,7 +50,7 @@
 
   .article-title {
     font-family: 'Zpix', sans-serif;
-    @apply text-lg font-normal px-4 -mt-2;
+    @apply text-lg font-normal px-4;
     @extend .rainbow-text;
   }
 }

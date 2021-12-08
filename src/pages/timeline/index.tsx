@@ -34,7 +34,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   const [assets, setAssets] = useImmer<Asset[]>([]);
   const [disable, setDisable] = useState(true);
   const queryClient = useQueryClient();
-  const feeds = useFeeds(sourceFeeds);
+  const [, feeds] = useFeeds(sourceFeeds);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isPublic, setIsPublic] = useState(false);
   const handlePostPrivacy = (checked: boolean) => {
@@ -122,7 +122,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
               </div>
               <div
                 className={classNames(styles.assets, {
-                  'py-4': assets.length,
+                  'py-2': assets.length,
                 })}
               >
                 <ImagePreview images={assets}>
@@ -177,7 +177,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
               </div>
               <div className={styles.content}>
                 <div className={styles.text}>{feed.content}</div>
-                <div className={classNames(styles.assets, 'py-4')}>
+                <div className={classNames(styles.assets, 'py-2')}>
                   <ImagePreview images={feed.assets}>
                     {feed.assets?.map((asset) => (
                       <ImageThumbnailWrap key={asset.id} asset={asset} />

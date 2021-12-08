@@ -2,6 +2,7 @@ import type { DetailedHTMLProps, FC, ImgHTMLAttributes } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
+import { assets } from '@powerfulyang/components';
 import styles from './index.module.scss';
 
 type LazyImageExtendProps = {
@@ -12,8 +13,8 @@ type LazyImageExtendProps = {
 };
 const variants = {
   loading: {
-    scale: 1.5,
-    filter: 'blur(40px)',
+    scale: 1.3,
+    filter: 'blur(32px)',
   },
   loaded: {
     scale: 1,
@@ -52,7 +53,7 @@ export const LazyImage: FC<
             };
             img.onerror = () => {
               setLoading(false);
-              setImgUrl('/broken_image.png');
+              setImgUrl(assets.brokenImg);
             };
             img.src = source;
             observer.unobserve(target);
@@ -73,17 +74,15 @@ export const LazyImage: FC<
         variants={variants}
         initial="loading"
         animate={(!loading && 'loaded') || 'loading'}
-        transition={{ duration: 1.2 }}
+        transition={{ duration: 0.88 }}
         className="w-full h-full"
       >
         <img
           {...props}
           className={classNames(
             {
-              [styles.loading]: loading,
               [styles.loadedImg]: !loading,
             },
-            'bg-no-repeat bg-cover',
             imageClassName,
           )}
           src={imgUrl}

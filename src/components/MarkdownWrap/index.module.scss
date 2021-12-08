@@ -124,9 +124,9 @@ $heading-color: rgb(37 99 235 / 80%);
   }
 
   .inline-code {
-    padding: 0.2rem;
     color: #4a4a4a;
-    @apply rounded bg-blue-100;
+    word-break: break-all;
+    @apply rounded bg-blue-100 px-2 mx-2 py-1;
   }
 
   .toolbar {

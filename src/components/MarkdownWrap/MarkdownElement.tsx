@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Icon } from '@powerfulyang/components';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -78,14 +78,16 @@ export const Paragraph: FC<any> = ({ node, children }) => {
 
 export const Code: CodeComponent = ({ node, inline, className, children, ...props }) => {
   const match = /language-(\w+)/.exec(className || '');
+  const renderText = useMemo(() => children.toString().replace(/\s*\n$/, ''), [children]);
   if (inline) {
     return (
       <code className={classNames(className, styles.inlineCode)} {...props}>
-        {children}
+        {renderText}
       </code>
     );
   }
   const language = match?.[1] || 'unknown';
+
   return (
     <>
       <div className={styles.toolbar}>
@@ -93,7 +95,7 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
           <span>{language}</span>
         </div>
         <div className={styles.toolbarAction}>
-          <button type="button" onClick={() => copyToClipBoard(children.toString())}>
+          <button type="button" onClick={() => copyToClipBoard(renderText)}>
             Copy Code
           </button>
         </div>
@@ -112,7 +114,7 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
           backgroundColor: 'rgba(0, 0, 0, 0.8)',
         }}
       >
-        {children}
+        {renderText}
       </SyntaxHighlighter>
     </>
   );
