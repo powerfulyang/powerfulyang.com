@@ -4,54 +4,65 @@ import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { timer } from 'rxjs';
+import { usePortal } from '@powerfulyang/hooks';
 import styles from './index.module.scss';
-import { usePortal } from '@/hooks/usePortal';
 
 export type NotificationProps = {
   title?: string;
   content?: string;
   type?: 'success' | 'warn' | 'error';
   onClose: VoidFunction;
+  autoClose?: boolean;
+  delay?: number;
 };
 
 export const getNotificationParent = () => {
-  let parent = document.querySelector('.notification-collection');
+  let parent = document.querySelector('#notification-collection');
   if (!parent) {
     parent = document.createElement('div');
-    parent.className = 'notification-collection';
+    parent.id = 'notification-collection';
     document.body.appendChild(parent);
   }
   return parent;
 };
 
-const Notification: FC<NotificationProps> = ({ title, content, type = 'success', onClose }) => {
-  const dialogNode = useRef(document.createDocumentFragment());
+const Notification: FC<NotificationProps> = ({
+  title,
+  content,
+  type = 'success',
+  onClose,
+  delay = 1500,
+  autoClose = true,
+}) => {
+  const dialogNode = useRef(document.createElement('section'));
   const { Portal } = usePortal({
     container: dialogNode.current,
   });
+  const [visible, setVisible] = React.useState(true);
 
   useEffect(() => {
     const dialog = dialogNode.current;
     const parent = getNotificationParent();
     parent.appendChild(dialog);
-    const subscribe = timer(1500).subscribe(() => {
-      onClose();
+    const subscribe = timer(delay).subscribe(() => {
+      autoClose && setVisible(false);
     });
     return () => {
+      parent.removeChild(dialog);
       subscribe.unsubscribe();
     };
-  }, [onClose]);
-  const [visible, setVisible] = React.useState(true);
-
-  const close = () => {
-    onClose();
-  };
+  }, [autoClose, delay]);
 
   return (
     <Portal>
-      <AnimatePresence>
+      <AnimatePresence
+        onExitComplete={() => {
+          onClose();
+        }}
+      >
         {visible && (
           <motion.div
+            key="notification"
             variants={{
               hidden: { opacity: 0, y: -20 },
               visible: { opacity: 1, y: 0 },
@@ -59,13 +70,8 @@ const Notification: FC<NotificationProps> = ({ title, content, type = 'success',
             initial="hidden"
             animate="visible"
             exit="hidden"
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.4 }}
             className={styles.notification}
-            onAnimationEnd={() => {
-              if (!visible) {
-                close();
-              }
-            }}
           >
             <div className="flex">
               <section className={classNames(styles.status, styles[type])}>

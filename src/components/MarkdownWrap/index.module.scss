@@ -124,9 +124,10 @@ $heading-color: rgb(37 99 235 / 80%);
   }
 
   .inline-code {
-    color: #4a4a4a;
+    color: #7887ac;
+    font-family: 'Fira Code', sans-serif;
     word-break: break-all;
-    @apply rounded bg-blue-100 px-2 mx-2 py-1;
+    @apply rounded bg-blue-100 px-2 py-1;
   }
 
   .toolbar {
@@ -223,7 +224,7 @@ $heading-color: rgb(37 99 235 / 80%);
     @apply flex justify-center flex-wrap my-8;
 
     .post-info-comment {
-      @apply text-sm text-pink-500 pl-1;
+      @apply text-sm text-pink-500;
     }
 
     .my {

@@ -137,7 +137,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                   checkedDescription="公开"
                   uncheckedDescription="私密"
                 />
-                <label htmlFor="upload" className="inline-block px-4 text-pink-400 text-lg pointer">
+                <label htmlFor="upload" className="inline-block px-4 text-pink-400 text-lg">
                   上传图片
                   <input
                     id="upload"

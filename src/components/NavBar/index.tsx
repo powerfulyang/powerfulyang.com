@@ -41,18 +41,20 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => (
       </div>
 
       <div className={styles.user}>
-        <Clock className="mr-4" />
-        {user && (
+        {(user && (
           <>
             <span className={styles.nickname}>{user.nickname}</span>
             <img src={user.avatar} className={styles.avatar} alt="avatar" />
           </>
-        )}
-        {!user && (
-          <button type="button" className="cursor-pointer" onClick={login}>
+        )) || (
+          <button type="button" className="pointer" onClick={login}>
             Login
           </button>
         )}
+
+        <div className="hidden sm:block ml-4">
+          <Clock />
+        </div>
       </div>
     </nav>
   </div>

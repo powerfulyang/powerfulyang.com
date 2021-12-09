@@ -69,7 +69,7 @@
         .do-random {
           background: #2a2f37;
           @apply text-gray-400 mx-8 py-3 px-4 rounded-lg;
-          @extend .cursor-pointer;
+          @extend .pointer;
         }
 
         .download {

@@ -32,7 +32,7 @@
 
   .close {
     transform: scaleY(1.1) scaleX(0.9);
-    @extend .cursor-pointer;
+    @extend .pointer;
     @apply text-xl text-gray-400 hover:text-gray-600;
   }
 }

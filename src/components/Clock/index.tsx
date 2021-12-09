@@ -17,7 +17,7 @@ export const Clock: FC<HTMLProps<HTMLDivElement>> = ({ className }) => {
     };
   }, [setTime]);
   return (
-    <div className={classNames(styles.clock, className, 'pointer')} title={`当前时间 ${time}`}>
+    <div className={classNames(styles.clock, className)} title={`当前时间 ${time}`}>
       {time && (
         <>
           <img src={`/numbers/${time[0]}.gif`} alt="" />

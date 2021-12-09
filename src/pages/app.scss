@@ -36,9 +36,10 @@
   --nav-height: 4rem;
   --footer-height: 3rem;
   --scrollbar-bg: rgb(1 2 3 / 40%);
+  --notification-z-index: 10000;
 
   font-size: calc(12px + 0.2vw);
-  @extend .cursor-default;
+  @extend .default;
 }
 
 html,
@@ -50,9 +51,10 @@ body {
   pointer-events: none;
 }
 
-.notification-collection {
+#notification-collection {
   @apply fixed right-8 top-8;
 
+  z-index: var(--notification-z-index);
   display: flex;
   flex-direction: column;
   align-items: flex-end;

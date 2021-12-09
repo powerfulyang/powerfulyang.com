@@ -28,17 +28,13 @@ const renderNotification = ({ type, title, content }: RenderNotificationProps) =
   );
 };
 export const notification = {
-  animating: false,
   success({ title, content }: RenderNotificationProps) {
-    this.animating = true;
     renderNotification({ title, content, type: 'success' });
   },
   warn({ title, content }: RenderNotificationProps) {
-    this.animating = true;
     renderNotification({ title, content, type: 'warn' });
   },
   error({ title, content }: RenderNotificationProps) {
-    this.animating = true;
     renderNotification({ title, content, type: 'error' });
   },
 };

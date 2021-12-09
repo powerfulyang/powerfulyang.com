@@ -90,7 +90,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
             (loadingImg && 'loadingImg') ||
             (!loadingImg && 'complete')
           }
-          className={classNames(styles.image, 'cursor-pointer')}
+          className={classNames(styles.image, 'pointer')}
           src={imgSrc}
           onClick={closeModal}
           transition={{ duration: 0.5 }}

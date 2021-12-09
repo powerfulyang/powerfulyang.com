@@ -47,7 +47,10 @@ export const Paragraph: FC<any> = ({ node, children }) => {
     return (
       <div className="my-4 lg:ml-6 sm:ml-2">
         {tags.map((tag: string) => (
-          <Icon type="icon-tag" key={tag} />
+          <div key={tag}>
+            <Icon type="icon-tag" />
+            <span className="text-blue-400">{tag}</span>
+          </div>
         ))}
       </div>
     );
