@@ -1,3 +1,5 @@
+@import '../../../styles/styles';
+
 .wrap {
   position: fixed;
   top: 0;
@@ -14,7 +16,7 @@
   }
 
   .image {
-    z-index: 101;
+    z-index: var(--image-preview-z-index);
     @apply w-full h-full object-contain;
   }
 
@@ -32,7 +34,8 @@
     z-index: 101;
     font-size: 2rem;
     transform: translateY(-50%);
-    @apply hover:text-white opacity-60 text-black;
+    @apply hover:text-blue-400 opacity-60 text-black;
+    @extend .pointer;
     @extend .hidden-xs;
   }
 

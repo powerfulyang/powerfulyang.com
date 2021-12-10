@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { useMemo, Children, cloneElement, useEffect } from 'react';
+import React, { Children, cloneElement, useEffect, useMemo } from 'react';
 import { useImmerReducer } from '@powerfulyang/hooks';
 import dynamic from 'next/dynamic';
 import type { ImageModalContextAction, ImageModalContextState } from '@/context/ImageModalContext';
@@ -39,8 +39,8 @@ export const ImagePreview: FC<{ images: Asset[] }> = ({ children, images }) => {
   return (
     <ImageModalContext.Provider value={memo}>
       <DynamicImageModal />
-      {Children.map(children as any, (child, index) =>
-        cloneElement(child, {
+      {Children.map(children, (child, index) =>
+        cloneElement(<div>{child}</div>, {
           onClick() {
             dispatch({
               type: ImageModalContextActionType.open,

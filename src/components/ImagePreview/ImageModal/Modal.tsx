@@ -1,8 +1,9 @@
 import type { FC } from 'react';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { motion } from 'framer-motion';
-import { Icon } from '@powerfulyang/components';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Icon, Spinner } from '@powerfulyang/components';
+import { isDefined } from '@powerfulyang/utils';
 import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
 import { CosUtils } from '@/utils/lib';
 import styles from './modal.module.scss';
@@ -19,47 +20,54 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       type: ImageModalContextActionType.close,
     });
   };
-  const imgUrl = images?.[selectIndex!]?.objectUrl;
+  const imgUrl = useMemo(
+    () => isDefined(selectIndex) && images?.[selectIndex]?.objectUrl,
+    [images, selectIndex],
+  );
+  const [animated, setAnimated] = useState(false);
   const [loadingImg, setLoadingImg] = useState(true);
   useEffect(() => {
     const img = new Image();
     img.onload = () => {
-      setLoadingImg(false);
+      // setLoadingImg(false);
     };
     if (imgUrl) {
       img.src = CosUtils.getCosObjectUrl(imgUrl)!;
     }
   }, [imgUrl]);
   const [imgSrc, setImgSrc] = useState<string>();
-  const [animating, setAnimating] = useState(true);
   useEffect(() => {
     setLoadingImg(true);
-    setAnimating(true);
   }, [imgUrl]);
   useEffect(() => {
     if (imgUrl) {
-      if (animating) {
-        setImgSrc(CosUtils.getCosObjectThumbnailUrl(imgUrl)!);
-      } else {
-        setImgSrc(CosUtils.getCosObjectUrl(imgUrl)!);
+      if (loadingImg) {
+        setImgSrc(CosUtils.getCosObjectThumbnailUrl(imgUrl));
+      } else if (animated) {
+        setImgSrc(CosUtils.getCosObjectUrl(imgUrl));
       }
     }
-  }, [imgUrl, animating]);
+  }, [animated, imgUrl, loadingImg]);
   const showPrevImage = () => {
-    dispatch({
-      type: ImageModalContextActionType.open,
-      payload: {
-        selectIndex: selectIndex! - 1,
-      },
-    });
+    if (isDefined(selectIndex)) {
+      dispatch({
+        type: ImageModalContextActionType.open,
+        payload: {
+          selectIndex: selectIndex - 1,
+        },
+      });
+    }
   };
+
   const showNextImage = () => {
-    dispatch({
-      type: ImageModalContextActionType.open,
-      payload: {
-        selectIndex: selectIndex! + 1,
-      },
-    });
+    if (isDefined(selectIndex)) {
+      dispatch({
+        type: ImageModalContextActionType.open,
+        payload: {
+          selectIndex: selectIndex + 1,
+        },
+      });
+    }
   };
   return (
     <div className={classNames(styles.wrap)}>
@@ -69,37 +77,34 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       {selectIndex !== Number(images?.length) - 1 && (
         <Icon type="icon-arrow-right" className={styles.next} onClick={showNextImage} />
       )}
+      {loadingImg && <Spinner />}
       <div className={styles.blur}>
-        <motion.img
-          variants={{
-            initial: {
-              filter: 'blur(20px)',
-              scale: 0.3,
-            },
-            loadingImg: {
-              filter: 'blur(10px)',
-              scale: 1,
-            },
-            complete: {
-              filter: 'blur(0px)',
-              scale: 1,
-            },
-          }}
-          animate={
-            (selectIndex === undefined && 'initial') ||
-            (loadingImg && 'loadingImg') ||
-            (!loadingImg && 'complete')
-          }
-          className={classNames(styles.image, 'pointer')}
-          src={imgSrc}
-          onClick={closeModal}
-          transition={{ duration: 0.5 }}
-          onAnimationComplete={(v) => {
-            if (v === 'complete') {
-              setAnimating(false);
-            }
-          }}
-        />
+        <AnimatePresence>
+          {isDefined(selectIndex) && (
+            <motion.img
+              onAnimationComplete={(label) => {
+                if (label === 'complete') {
+                  setAnimated(true);
+                }
+              }}
+              variants={{
+                initial: {
+                  filter: 'blur(20px)',
+                  scale: 0.3,
+                },
+                complete: {
+                  filter: 'blur(0px)',
+                  scale: 1,
+                },
+              }}
+              initial="initial"
+              animate="complete"
+              className={classNames(styles.image, 'pointer')}
+              src={imgSrc}
+              onClick={closeModal}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

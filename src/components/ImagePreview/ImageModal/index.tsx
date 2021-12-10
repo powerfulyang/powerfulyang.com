@@ -1,6 +1,6 @@
-import { createPortal } from 'react-dom';
 import type { FC } from 'react';
 import React, { useContext, useEffect, useRef } from 'react';
+import { usePortal } from '@powerfulyang/hooks';
 import { ImageModalContent } from '@/components/ImagePreview/ImageModal/Modal';
 import { ImageModalContext } from '@/context/ImageModalContext';
 
@@ -10,6 +10,7 @@ type ImageModalProps = {
 
 const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
   const dialogNode = useRef<HTMLElement>(document.createElement('section'));
+  const { Portal } = usePortal({ container: dialogNode.current });
   const {
     state: { selectIndex },
   } = useContext(ImageModalContext);
@@ -23,13 +24,17 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
       style.overflow = 'hidden';
       return () => {
         style.overflow = originalOverflowRef;
-        document.body.removeChild(dialog);
+        parent.removeChild(dialog);
       };
     }
     return () => {};
   }, [parentNode, selectIndex]);
 
-  return <>{createPortal(<ImageModalContent />, dialogNode.current)}</>;
+  return (
+    <Portal>
+      <ImageModalContent />
+    </Portal>
+  );
 };
 
 export default ImageModal;

@@ -37,6 +37,7 @@
   --footer-height: 3rem;
   --scrollbar-bg: rgb(1 2 3 / 40%);
   --notification-z-index: 10000;
+  --image-preview-z-index: 100;
 
   font-size: calc(12px + 0.2vw);
   @extend .default;

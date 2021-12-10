@@ -66,10 +66,11 @@ const Notification: FC<NotificationProps> = ({
             variants={{
               hidden: { opacity: 0, y: -20 },
               visible: { opacity: 1, y: 0 },
+              exited: { opacity: 0, x: 50 },
             }}
             initial="hidden"
             animate="visible"
-            exit="hidden"
+            exit="exited"
             transition={{ duration: 0.4 }}
             className={styles.notification}
           >
