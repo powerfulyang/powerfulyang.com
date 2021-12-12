@@ -1,10 +1,10 @@
-$primary-color: #dec6fb;
+$primary-color: #c9b6e2;
 $heading-color: rgb(37 99 235 / 80%);
 
 .markdown-body {
   width: min(900px, 100%);
   // 父元素设置 min-height 子元素设置 height 100% 继承不了的情况解决 给父元素设置 display: flex
-  line-height: 1.75;
+  line-height: 2;
   letter-spacing: 1px;
   background-color: #fff;
   background-image: linear-gradient(90deg, rgb(50 0 0 / 5%) 3%, rgb(0 0 0 / 0%) 3%),
@@ -41,7 +41,7 @@ $heading-color: rgb(37 99 235 / 80%);
 
     .content {
       word-break: break-word;
-      @apply block px-20 text-2xl font-medium text-center;
+      @apply block px-10 sm:px-20 py-4 sm:py-2 text-2xl font-medium text-center;
     }
 
     .suffix {
@@ -221,10 +221,12 @@ $heading-color: rgb(37 99 235 / 80%);
   }
 
   .post-info {
-    @apply flex justify-center flex-wrap my-8;
+    font-family: 'Zpix', serif;
+    @apply flex flex-wrap my-8 sm:justify-center px-10;
 
     .post-info-comment {
-      @apply text-sm text-pink-500;
+      color: $heading-color;
+      @apply text-sm align-middle;
     }
 
     .my {
@@ -270,7 +272,7 @@ $heading-color: rgb(37 99 235 / 80%);
       padding-left: 0.2em;
 
       &::marker {
-        @apply text-blue-400;
+        color: $heading-color;
       }
     }
   }

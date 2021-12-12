@@ -38,3 +38,10 @@
 .rainbow-text {
   @include rainbowText;
 }
+
+.hidden-xs {
+  display: none;
+  @screen sm {
+    display: block;
+  }
+}

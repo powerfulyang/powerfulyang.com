@@ -1,12 +1,11 @@
 @charset "UTF-8";
-@import '../../node_modules/@powerfulyang/components/dist/es/index.css';
 @import '../styles/styles';
 @import url('https://fonts.googleapis.com/css2?family=Fira%20Code:wght@200;300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
 
 @font-face {
   font-weight: normal;
@@ -36,10 +35,12 @@
   --nav-height: 4rem;
   --footer-height: 3rem;
   --scrollbar-bg: rgb(1 2 3 / 40%);
-  --notification-z-index: 10000;
   --image-preview-z-index: 100;
 
   font-size: calc(12px + 0.2vw);
+  font-family: 'Fira Code', sans-serif;
+  font-style: normal;
+  font-weight: normal;
   @extend .default;
 }
 
@@ -50,13 +51,4 @@ body {
 
 :where(div[data-name='mojs-shape']) {
   pointer-events: none;
-}
-
-#notification-collection {
-  @apply fixed right-8 top-8;
-
-  z-index: var(--notification-z-index);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
 }

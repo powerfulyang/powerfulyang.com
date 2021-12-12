@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React, { useMemo } from 'react';
-import { Icon } from '@powerfulyang/components';
+import { Icon, notification } from '@powerfulyang/components';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import type {
@@ -16,7 +16,6 @@ import { LazyImage } from '@/components/LazyImage';
 import { clientRequest } from '@/utils/request';
 import { CosUtils } from '@/utils/lib';
 import styles from './index.module.scss';
-import { notification } from '@/components/Notification';
 
 export const H1: FC = ({ children }) => (
   <h1 className="flex justify-center w-full pb-2 px-6">
@@ -48,8 +47,8 @@ export const Paragraph: FC<any> = ({ node, children }) => {
       <div className="my-4 lg:ml-6 sm:ml-2">
         {tags.map((tag: string) => (
           <div key={tag}>
-            <Icon type="icon-tag" />
-            <span className="text-blue-400">{tag}</span>
+            <Icon type="icon-tag" className="text-xl" />
+            <span className="text-[#FFB356] text-sm">{tag}</span>
           </div>
         ))}
       </div>
@@ -62,17 +61,17 @@ export const Paragraph: FC<any> = ({ node, children }) => {
     const wordCount = info[2];
     return (
       <div className={styles.postInfo}>
-        <span className={styles.author}>
+        <span className={styles.author} title={`publish by ${author}`}>
           <Icon type="icon-author" />
           <span className={styles.postInfoComment}>{author}</span>
         </span>
         <span className={styles.date}>
           <Icon type="icon-date" />
-          <span className={styles.postInfoComment}>发表于{postDate}</span>
+          <span className={styles.postInfoComment}>publish at {postDate}</span>
         </span>
         <span className={styles.wordCount}>
           <Icon type="icon-count" />
-          <span className={styles.postInfoComment}>文字总数{wordCount}</span>
+          <span className={styles.postInfoComment}>word count {wordCount}</span>
         </span>
       </div>
     );

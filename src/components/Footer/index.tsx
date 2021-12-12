@@ -9,7 +9,7 @@ type FooterProps = {
 };
 export const Footer: FC<FooterProps> = ({ pathViewCount }) => (
   <footer className={classNames(styles.footer)}>
-    <div className="text-gray-400 text-sm hidden sm:block">
+    <div className="text-gray-400 text-sm hidden-xs">
       <span className="mr-1">备案号:</span>
       <a
         className="text-pink-400"
@@ -33,19 +33,22 @@ export const Footer: FC<FooterProps> = ({ pathViewCount }) => (
         </a>
       </span>
     </div>
-    <div className="text-sm">
-      <span className="hidden sm:inline text-pink-400">{pathViewCount}人临幸</span>
-      <span className="ml-4 text-gray-400 text-lg">
-        <a className="mr-2" href="https://twitter.com/hutyxxx" target="_blank" rel="noreferrer">
+    <div className="text-sm flex items-baseline">
+      <div className="hidden-xs text-pink-400 contents space-x-1">
+        <Icon type="icon-view" className="self-center" />
+        <span>{pathViewCount}人临幸</span>
+      </div>
+      <div className="text-gray-400 text-lg space-x-1 contents">
+        <a className="ml-4" href="https://twitter.com/hutyxxx" target="_blank" rel="noreferrer">
           <Icon className={styles.twitter} type="icon-twitter" />
         </a>
-        <a className="mr-2" href="https://github.com/powerfulyang" target="_blank" rel="noreferrer">
+        <a href="https://github.com/powerfulyang" target="_blank" rel="noreferrer">
           <Icon className={styles.github} type="icon-github" />
         </a>
         <a href="https://instagram.com/powerfulyang" target="_blank" rel="noreferrer">
           <Icon className={styles.instagram} type="icon-instagram" />
         </a>
-      </span>
+      </div>
     </div>
   </footer>
 );

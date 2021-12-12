@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import React from 'react';
 import classNames from 'classnames';
-import { isNumeric } from '@powerfulyang/utils';
+import { getEnumKeys } from '@powerfulyang/utils';
 import type { User } from '@/type/User';
 import { ProjectName } from '@/constant/Constant';
 import { Menu } from '@/layout/UserLayout';
@@ -25,19 +25,17 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => (
     <nav className={styles.nav}>
       <span className={classNames(styles.title)}>{ProjectName}</span>
       <div className={styles.menus}>
-        {Object.keys(Menu)
-          .filter((x) => !isNumeric(x))
-          .map((x) => (
-            <Link
-              key={x}
-              className={classNames({
-                [styles.active]: Reflect.get(Menu, x) === active,
-              })}
-              to={`/${x}`}
-            >
-              {x}
-            </Link>
-          ))}
+        {getEnumKeys(Menu).map((x) => (
+          <Link
+            key={x}
+            className={classNames({
+              [styles.active]: Reflect.get(Menu, x) === active,
+            })}
+            to={`/${x}`}
+          >
+            {x}
+          </Link>
+        ))}
       </div>
 
       <div className={styles.user}>
@@ -52,7 +50,7 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => (
           </button>
         )}
 
-        <div className="hidden sm:block ml-4">
+        <div className="hidden-xs ml-4">
           <Clock />
         </div>
       </div>

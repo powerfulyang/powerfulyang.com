@@ -20,13 +20,6 @@
     @apply w-full h-full object-contain;
   }
 
-  .hidden-xs {
-    display: none;
-    @screen sm {
-      display: block;
-    }
-  }
-
   .next {
     position: absolute;
     top: 50%;

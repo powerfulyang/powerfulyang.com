@@ -22,10 +22,10 @@ export const Clock: FC<HTMLProps<HTMLDivElement>> = ({ className }) => {
         <>
           <img src={`/numbers/${time[0]}.gif`} alt="" />
           <img src={`/numbers/${time[1]}.gif`} alt="" />
-          <span className="mx-1 text-2xl">:</span>
+          <span className="mx-1 text-xl">:</span>
           <img src={`/numbers/${time[3]}.gif`} alt="" />
           <img src={`/numbers/${time[4]}.gif`} alt="" />
-          <span className="mx-1 text-2xl">:</span>
+          <span className="mx-1 text-xl">:</span>
           <img src={`/numbers/${time[6]}.gif`} alt="" />
           <img src={`/numbers/${time[7]}.gif`} alt="" />
         </>

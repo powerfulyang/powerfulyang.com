@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Icon, Spinner } from '@powerfulyang/components';
+import { Icon } from '@powerfulyang/components';
 import { isDefined } from '@powerfulyang/utils';
 import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
 import { CosUtils } from '@/utils/lib';
@@ -77,7 +77,6 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       {selectIndex !== Number(images?.length) - 1 && (
         <Icon type="icon-arrow-right" className={styles.next} onClick={showNextImage} />
       )}
-      {loadingImg && <Spinner />}
       <div className={styles.blur}>
         <AnimatePresence>
           {isDefined(selectIndex) && (
