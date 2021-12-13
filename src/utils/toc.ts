@@ -48,7 +48,7 @@ export function extractMetaData(text: string = '') {
 }
 
 export const extractTitle = (content: string) => {
-  const reg = /#?\s(.+)[\n]/g;
+  const reg = /#\s(.+)[\r\n]/g;
   const title = reg.exec(content);
   if (isNull(title)) {
     throw new Error('Markdown Format Error!');

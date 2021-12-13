@@ -90,7 +90,11 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onP
         <Icon className={styles.icon} type="icon-orderedlist" />
         <Icon className={styles.icon} type="icon-unorderedlist" />
         <Icon className={styles.icon} type="icon-wrap" />
-        <Icon className={classNames(styles.icon, styles.post)} type="icon-send" onClick={post} />
+        <Icon
+          className={classNames(styles.icon, styles.post, 'pointer')}
+          type="icon-send"
+          onClick={post}
+        />
       </section>
       <main className={styles.main}>
         <section className={styles.inputContent}>
