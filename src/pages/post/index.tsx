@@ -36,22 +36,22 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             </Link>
           ))}
         </div>
-        <section className={classNames('mt-4')}>
+        <section className="mt-6">
           {posts.map((post) => (
             <Link key={post.id} to={`/post/${post.id}`}>
-              <div className="bg-white rounded-xl shadow-lg mt-6 overflow-hidden">
-                <div className="h-[16rem] overflow-hidden">
+              <div className="bg-white rounded-xl shadow-lg mb-8 overflow-hidden">
+                <div className="h-[12rem] sm:h-[18rem] rounded-t-xl overflow-hidden">
                   <LazyImage
-                    className="h-[16rem] scale-100 md:hover:scale-110 transition-all duration-500"
+                    containerClassName="h-full scale-100 md:hover:scale-110 transition-all duration-500"
                     src={CosUtils.getCosObjectUrl(post.poster.objectUrl)}
                     blurSrc={CosUtils.getCosObjectBlurUrl(post.poster.objectUrl)}
                   />
                 </div>
-                <div className="flex h-[6rem] flex-col justify-evenly">
-                  <span className="inline-block text-base whitespace-nowrap px-4 text-blue-400 font-normal">
+                <div className="flex flex-col">
+                  <span className="inline-block text-base whitespace-nowrap px-4 my-2 text-blue-400 font-normal">
                     {DateFormat(post.createAt)}
                   </span>
-                  <span title={post.title} className={classNames('flex items-center')}>
+                  <span title={post.title} className={classNames('flex items-center mb-2')}>
                     <div className="line-1-ellipsis text-blue-400">
                       <span className={styles.articleTitle}>{post.title}</span>
                     </div>

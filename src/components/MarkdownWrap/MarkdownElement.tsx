@@ -44,9 +44,9 @@ export const Paragraph: FC<any> = ({ node, children }) => {
   if (text?.startsWith('tags=>')) {
     const tags = text.trim().replace('tags=>', '').split('|');
     return (
-      <div className="my-4 lg:ml-6 sm:ml-2">
+      <div className="lg:ml-6 sm:ml-2 flex flex-wrap">
         {tags.map((tag: string) => (
-          <div key={tag}>
+          <div key={tag} className="my-2 mr-2">
             <Icon type="icon-tag" className="text-xl" />
             <span className="text-[#FFB356] text-sm">{tag}</span>
           </div>
@@ -58,20 +58,10 @@ export const Paragraph: FC<any> = ({ node, children }) => {
     const info = text.trim().replace('post=>', '').split('|');
     const author = info[0];
     const postDate = info[1];
-    const wordCount = info[2];
     return (
       <div className={styles.postInfo}>
-        <span className={styles.author} title={`publish by ${author}`}>
-          <Icon type="icon-author" />
-          <span className={styles.postInfoComment}>{author}</span>
-        </span>
-        <span className={styles.date}>
-          <Icon type="icon-date" />
-          <span className={styles.postInfoComment}>publish at {postDate}</span>
-        </span>
-        <span className={styles.wordCount}>
-          <Icon type="icon-count" />
-          <span className={styles.postInfoComment}>word count {wordCount}</span>
+        <span className={styles.postInfoComment} title={`author by ${author}`}>
+          published at {postDate}
         </span>
       </div>
     );

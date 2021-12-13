@@ -166,7 +166,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
             <div key={feed.id} className={styles.container}>
               <div className={styles.author}>
                 <div className={styles.avatar}>
-                  <img src={feed.createBy.avatar} alt="用户头像" />
+                  <LazyImage src={feed.createBy.avatar} alt="用户头像" />
                 </div>
                 <div>
                   <div className={classNames('text-lg', styles.nickname)}>
@@ -177,10 +177,10 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
               </div>
               <div className={styles.content}>
                 <div className={styles.text}>{feed.content}</div>
-                <div className={classNames(styles.assets, 'py-2')}>
+                <div hidden={!feed.assets?.length} className={classNames(styles.assets, 'mb-2')}>
                   <ImagePreview images={feed.assets}>
                     {feed.assets?.map((asset) => (
-                      <ImageThumbnailWrap key={asset.id} asset={asset} />
+                      <ImageThumbnailWrap key={asset.id} className={styles.img} asset={asset} />
                     ))}
                   </ImagePreview>
                 </div>

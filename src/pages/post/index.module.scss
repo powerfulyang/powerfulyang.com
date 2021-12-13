@@ -4,19 +4,19 @@
   z-index: -1;
   min-height: calc(100vh - var(--nav-height) - var(--footer-height));
   background-color: #fcfcff;
-  @apply w-full p-4;
+  @apply w-full;
 }
 
 .years {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  height: 3rem;
+  @apply mt-2;
 
   .year {
     display: flex;
     align-items: center;
-    font-family: 'Zpix', sans-serif;
-    @apply mr-4 italic text-gray-300;
+    @apply mr-4 mt-4 italic text-gray-300;
   }
 
   .active {
@@ -24,32 +24,14 @@
   }
 }
 
-.twitter {
-  width: 1.5rem;
-  height: 1.5rem;
-  color: #ccc;
-  vertical-align: middle;
-}
-
-.github {
-  @extend .twitter;
-}
-
-.instagram {
-  @extend .twitter;
-}
-
 .main {
   width: 90%;
   margin: auto;
-  font-family: 'Fira Code', sans-serif;
-  @apply mt-6;
   @screen sm {
     width: 600px;
   }
 
   .article-title {
-    font-family: 'Zpix', sans-serif;
     @apply text-lg font-normal px-4;
     @extend .rainbow-text;
   }

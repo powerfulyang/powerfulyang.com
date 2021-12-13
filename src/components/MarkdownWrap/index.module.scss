@@ -41,7 +41,7 @@ $heading-color: rgb(37 99 235 / 80%);
 
     .content {
       word-break: break-word;
-      @apply block px-10 sm:px-20 py-4 sm:py-2 text-2xl font-medium text-center;
+      @apply block px-10 sm:px-12 py-4 sm:py-2 text-2xl font-medium text-center;
     }
 
     .suffix {
@@ -177,7 +177,7 @@ $heading-color: rgb(37 99 235 / 80%);
 
   // blockquote
   .blockquote {
-    @apply p-4 bg-gray-300 border-l-4 border-blue-400 my-4;
+    @apply p-4 bg-gray-300 border-l-4 border-blue-400 my-4 break-all;
 
     p {
       @apply my-0;
@@ -222,38 +222,11 @@ $heading-color: rgb(37 99 235 / 80%);
 
   .post-info {
     font-family: 'Zpix', serif;
-    @apply flex flex-wrap my-8 sm:justify-center px-10;
+    @apply text-center mt-4;
 
     .post-info-comment {
       color: $heading-color;
       @apply text-sm align-middle;
-    }
-
-    .my {
-      @apply mx-4;
-    }
-
-    .author {
-      @extend .my;
-    }
-
-    .date {
-      @extend .my;
-    }
-
-    .word-count {
-      @extend .my;
-    }
-
-    .view-count {
-      @extend .my;
-    }
-
-    .qrcode {
-      @extend .my;
-      @media (max-width: 768px) {
-        display: none;
-      }
     }
   }
 

@@ -53,8 +53,9 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
                 hasNextPage && !isFetching && (await fetchNextPage());
               }
             }}
-            width={asset.size.width}
-            height={asset.size.height}
+            style={{
+              aspectRatio: `${asset.size.width} / ${asset.size.height}`,
+            }}
           />
         ))}
       </Masonry>

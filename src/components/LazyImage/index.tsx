@@ -9,7 +9,7 @@ type LazyImageExtendProps = {
   inViewAction?: (id?: number) => void;
   assetId?: number;
   blurSrc?: string;
-  imageClassName?: string;
+  containerClassName?: string;
 };
 const variants = {
   loading: {
@@ -24,19 +24,24 @@ const variants = {
 
 export const LazyImage: FC<
   DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & LazyImageExtendProps
-> = ({
-  src,
-  className,
-  alt,
-  inViewAction,
-  assetId,
-  blurSrc,
-  imageClassName = 'object-cover w-full h-full',
-  ...props
-}) => {
+> = ({ src, className, alt, inViewAction, assetId, blurSrc, containerClassName, ...props }) => {
   const [loading, setLoading] = useState(true);
+  const [imgUrl, setImgUrl] = useState('/transparent.png');
+  useEffect(() => {
+    if (blurSrc) {
+      const image = new Image();
+      image.src = blurSrc;
+      image.onload = () => {
+        setImgUrl((prevState) => {
+          if (prevState === '/transparent.png') {
+            return blurSrc;
+          }
+          return prevState;
+        });
+      };
+    }
+  }, [blurSrc]);
   const ref = useRef<HTMLImageElement>(null);
-  const [imgUrl, setImgUrl] = useState(blurSrc);
   useEffect(() => {
     if (src) {
       const observer = new IntersectionObserver((entries) => {
@@ -69,11 +74,11 @@ export const LazyImage: FC<
   }, [assetId, inViewAction, src]);
 
   return (
-    <div className={classNames(className, 'overflow-hidden pointer')}>
+    <div className={classNames(containerClassName, 'overflow-hidden pointer')}>
       <motion.div
         variants={variants}
         initial="loading"
-        animate={(!loading && 'loaded') || 'loading'}
+        animate={!loading && 'loaded'}
         transition={{ duration: 0.88 }}
         className="w-full h-full"
       >
@@ -83,7 +88,9 @@ export const LazyImage: FC<
             {
               [styles.loadedImg]: !loading,
             },
-            imageClassName,
+            className,
+            styles.loadingImg,
+            'w-full h-full object-cover',
           )}
           src={imgUrl}
           alt={alt}

@@ -1,3 +1,25 @@
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
+
 .loaded-img {
   @apply shadow-lg;
+}
+
+.loading-img {
+  background: linear-gradient(
+    30deg,
+    rgb(0 0 0 / 10%) 25%,
+    rgb(0 0 0 / 5%) 50%,
+    rgb(0 0 0 / 10%) 75%,
+    rgb(0 0 0 / 5%) 100%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
 }

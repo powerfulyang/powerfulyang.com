@@ -9,7 +9,7 @@ export type MasonryProps = {
 export const Masonry: FC<MasonryProps> = ({ children }) => {
   const [colNum, setColNum] = useState(4);
   useEffect(() => {
-    const num = Math.floor(window.innerWidth / 350);
+    const num = Math.ceil(window.innerWidth / 400 + 2);
     setColNum(num);
   }, []);
   const arrayNodes = useMemo(
@@ -27,18 +27,20 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
   );
   return (
     <div
-      className={classNames('grid gap-4 mx-4')}
+      className={classNames('grid gap-2 sm:gap-4 mx-2 sm:mx-4 mb-2 sm:mb-4')}
       style={{
         gridTemplateColumns: `repeat(${colNum}, 1fr)`,
       }}
     >
       {arrayNodes.map((nodes, index) => (
         <div className="flex flex-col" key={String(index)}>
-          {nodes.map((node) =>
-            cloneElement(node, {
-              className: 'mt-4 shadow-xl rounded',
-            }),
-          )}
+          {nodes.map((node, i) => (
+            <div key={String(i)} className="mt-2 sm:mt-4">
+              {cloneElement(node, {
+                className: 'rounded-lg',
+              })}
+            </div>
+          ))}
         </div>
       ))}
     </div>
