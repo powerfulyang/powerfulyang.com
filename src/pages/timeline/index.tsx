@@ -15,7 +15,7 @@ import type { User } from '@/type/User';
 import { handlePasteImageAndReturnAsset, uploadFileListAndReturnAsset } from '@/utils/copy';
 import type { Asset } from '@/type/Asset';
 import { ImagePreview } from '@/components/ImagePreview';
-import { ImageThumbnailWrap } from '@/components/ImagePreview/ImageThumbnailWrap';
+import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
 import { AssetBucket } from '@/type/Bucket';
 import styles from './index.module.scss';
 import { Switch } from '@/components/Switch';
@@ -96,10 +96,11 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
               <LazyImage
                 src={CosUtils.getCosObjectUrl(user?.timelineBackground?.objectUrl)}
                 blurSrc={CosUtils.getCosObjectBlurUrl(user?.timelineBackground?.objectUrl)}
+                containerClassName="z-[-1]"
                 className={styles.bannerBg}
               />
               <div className={styles.authorInfo}>
-                <img src={user?.avatar} className={styles.authorAvatar} alt="" />
+                <LazyImage src={user?.avatar} containerClassName={styles.authorAvatar} alt="" />
                 <div className={styles.authorNickname}>{user?.nickname}</div>
                 <div className={styles.authorBio}>
                   <span>{user?.bio}</span>
@@ -127,7 +128,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
               >
                 <ImagePreview images={assets}>
                   {assets?.map((asset) => (
-                    <ImageThumbnailWrap key={asset.id} asset={asset} />
+                    <AssetImageThumbnail key={asset.id} asset={asset} />
                   ))}
                 </ImagePreview>
               </div>
@@ -166,7 +167,11 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
             <div key={feed.id} className={styles.container}>
               <div className={styles.author}>
                 <div className={styles.avatar}>
-                  <LazyImage src={feed.createBy.avatar} alt="用户头像" />
+                  <LazyImage
+                    containerClassName="rounded-full"
+                    src={feed.createBy.avatar}
+                    alt="用户头像"
+                  />
                 </div>
                 <div>
                   <div className={classNames('text-lg', styles.nickname)}>
@@ -180,7 +185,11 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                 <div hidden={!feed.assets?.length} className={classNames(styles.assets, 'mb-2')}>
                   <ImagePreview images={feed.assets}>
                     {feed.assets?.map((asset) => (
-                      <ImageThumbnailWrap key={asset.id} className={styles.img} asset={asset} />
+                      <AssetImageThumbnail
+                        key={asset.id}
+                        containerClassName={styles.img}
+                        asset={asset}
+                      />
                     ))}
                   </ImagePreview>
                 </div>

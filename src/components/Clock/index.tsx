@@ -18,6 +18,9 @@ export const Clock: FC<HTMLProps<HTMLDivElement>> = ({ className }) => {
   }, [setTime]);
   return (
     <div className={classNames(styles.clock, className)} title={`当前时间 ${time}`}>
+      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+        <img hidden key={item} src={`/numbers/${item}.gif`} alt="" />
+      ))}
       {time && (
         <>
           <img src={`/numbers/${time[0]}.gif`} alt="" />

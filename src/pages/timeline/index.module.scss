@@ -19,7 +19,7 @@
   .assets {
     @apply grid gap-2 grid-cols-3 mt-2;
 
-    img {
+    .img {
       @apply aspect-square w-full h-full object-cover rounded;
     }
   }
@@ -64,7 +64,6 @@
     @apply m-auto flex align-middle justify-center flex-col mb-4 overflow-hidden relative;
 
     .banner-bg {
-      z-index: -1;
       height: 150px;
       @apply m-auto w-full rounded-none;
       @screen sm {
@@ -78,7 +77,7 @@
       .author-avatar {
         width: 80px;
         margin-top: -40px;
-        @apply rounded-xl mr-4 ml-8;
+        @apply rounded-lg mr-4 ml-8;
       }
 
       .author-nickname {
@@ -124,10 +123,6 @@
 
     .avatar {
       @apply w-14 mr-4;
-
-      img {
-        @apply rounded-full;
-      }
     }
 
     .nickname {

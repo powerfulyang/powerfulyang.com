@@ -4,24 +4,7 @@
   z-index: -1;
   min-height: calc(100vh - var(--nav-height) - var(--footer-height));
   background-color: #fcfcff;
-  @apply w-full;
-}
-
-.years {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  @apply mt-2;
-
-  .year {
-    display: flex;
-    align-items: center;
-    @apply mr-4 mt-4 italic text-gray-300;
-  }
-
-  .active {
-    @include rainbowText;
-  }
+  @apply py-4 pb-10;
 }
 
 .main {
@@ -34,5 +17,21 @@
   .article-title {
     @apply text-lg font-normal px-4;
     @extend .rainbow-text;
+  }
+
+  .years {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .year {
+      display: flex;
+      align-items: center;
+      @apply mr-4 mt-4 italic text-gray-300;
+    }
+
+    .active {
+      @include rainbowText;
+    }
   }
 }

@@ -1,5 +1,5 @@
 .clock {
-  @apply flex justify-center items-center text-pink-400;
+  @apply flex justify-center items-center text-pink-400 relative;
 
   img {
     @apply object-contain h-12;

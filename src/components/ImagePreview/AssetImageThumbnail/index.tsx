@@ -5,17 +5,19 @@ import { LazyImage } from '@/components/LazyImage';
 import type { Asset } from '@/type/Asset';
 import { CosUtils } from '@/utils/lib';
 
-export const ImageThumbnailWrap: FC<{
+export const AssetImageThumbnail: FC<{
   asset: Asset;
   inViewAction?: (id?: number) => void;
   onClick?: () => void;
   className?: string;
-}> = ({ asset, inViewAction, onClick, className }) => (
+  containerClassName?: string;
+}> = ({ asset, inViewAction, onClick, className, containerClassName }) => (
   <LazyImage
     className={classNames(className)}
     src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
     blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
     assetId={asset.id}
+    containerClassName={classNames(containerClassName)}
     inViewAction={(id) => {
       inViewAction?.(id);
     }}

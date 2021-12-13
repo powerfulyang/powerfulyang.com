@@ -18,7 +18,7 @@ import { CosUtils } from '@/utils/lib';
 import styles from './index.module.scss';
 
 export const H1: FC = ({ children }) => (
-  <h1 className="flex justify-center w-full pb-2 px-6">
+  <h1 className="flex justify-center w-full pb-2 md:px-6">
     <span className={styles.heading1}>
       <span className={styles.prefix} />
       <span className={styles.content}>{children}</span>

@@ -53,6 +53,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
                 hasNextPage && !isFetching && (await fetchNextPage());
               }
             }}
+            containerClassName="rounded-lg shadow-lg"
             style={{
               aspectRatio: `${asset.size.width} / ${asset.size.height}`,
             }}

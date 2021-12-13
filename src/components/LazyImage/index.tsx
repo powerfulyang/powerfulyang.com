@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { assets } from '@powerfulyang/components';
+import { useMountedRef } from '@powerfulyang/hooks';
 import styles from './index.module.scss';
 
 type LazyImageExtendProps = {
@@ -27,23 +28,26 @@ export const LazyImage: FC<
 > = ({ src, className, alt, inViewAction, assetId, blurSrc, containerClassName, ...props }) => {
   const [loading, setLoading] = useState(true);
   const [imgUrl, setImgUrl] = useState('/transparent.png');
+  const isMount = useMountedRef();
   useEffect(() => {
     if (blurSrc) {
       const image = new Image();
       image.src = blurSrc;
       image.onload = () => {
-        setImgUrl((prevState) => {
-          if (prevState === '/transparent.png') {
-            return blurSrc;
-          }
-          return prevState;
-        });
+        if (isMount.current) {
+          setImgUrl((prevState) => {
+            if (prevState === '/transparent.png') {
+              return blurSrc;
+            }
+            return prevState;
+          });
+        }
       };
     }
-  }, [blurSrc]);
+  }, [blurSrc, isMount]);
   const ref = useRef<HTMLImageElement>(null);
   useEffect(() => {
-    if (src) {
+    if (src && ref.current) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           const { target, intersectionRatio } = entry;
@@ -53,25 +57,29 @@ export const LazyImage: FC<
             const source = src;
             inViewAction?.(assetId);
             img.onload = () => {
-              setLoading(false);
-              setImgUrl(source);
+              if (isMount.current) {
+                setImgUrl(source);
+                setLoading(false);
+              }
             };
             img.onerror = () => {
-              setLoading(false);
-              setImgUrl(assets.brokenImg);
+              if (isMount.current) {
+                setLoading(false);
+                setImgUrl(assets.brokenImg);
+              }
             };
             img.src = source;
             observer.unobserve(target);
           }
         });
       });
-      observer.observe(ref.current!);
+      observer.observe(ref.current);
       return () => {
         observer.disconnect();
       };
     }
     return () => {};
-  }, [assetId, inViewAction, src]);
+  }, [assetId, inViewAction, isMount, src]);
 
   return (
     <div className={classNames(containerClassName, 'overflow-hidden pointer')}>

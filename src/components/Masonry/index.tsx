@@ -1,5 +1,5 @@
 import type { FC, ReactElement } from 'react';
-import React, { cloneElement, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
 
 export type MasonryProps = {
@@ -36,9 +36,7 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
         <div className="flex flex-col" key={String(index)}>
           {nodes.map((node, i) => (
             <div key={String(i)} className="mt-2 sm:mt-4">
-              {cloneElement(node, {
-                className: 'rounded-lg',
-              })}
+              {node}
             </div>
           ))}
         </div>

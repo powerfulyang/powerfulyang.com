@@ -17,7 +17,7 @@ $heading-color: rgb(37 99 235 / 80%);
     border-color: $primary-color;
     border-width: 1px;
     $h-box: -0.5rem;
-    @apply relative block h-auto p-2 font-bold text-center text-black border-solid;
+    @apply relative block h-auto p-2 text-center text-black border-solid;
 
     &::before {
       top: $h-box;
@@ -41,7 +41,7 @@ $heading-color: rgb(37 99 235 / 80%);
 
     .content {
       word-break: break-word;
-      @apply block px-10 sm:px-12 py-4 sm:py-2 text-2xl font-medium text-center;
+      @apply block px-2 sm:px-16 py-4 sm:py-2 text-2xl font-medium text-center;
     }
 
     .suffix {
@@ -59,13 +59,23 @@ $heading-color: rgb(37 99 235 / 80%);
   }
 
   h2 {
-    width: 100%;
     color: $heading-color;
-    @apply inline-block text-2xl align-middle font-semibold my-4;
+    @apply inline-block text-xl align-middle font-medium my-4 relative;
 
     &::before {
       content: '#';
-      @apply text-2xl font-semibold pr-2;
+      @apply text-xl font-medium pr-2;
+    }
+
+    &::after {
+      position: absolute;
+      width: calc(100% - 0.7rem);
+      left: 1rem;
+      bottom: 0;
+      height: 40%;
+      background-color: #ffb356;
+      opacity: 0.4;
+      content: ' ';
     }
   }
 
@@ -127,7 +137,7 @@ $heading-color: rgb(37 99 235 / 80%);
     color: #7887ac;
     font-family: 'Fira Code', sans-serif;
     word-break: break-all;
-    @apply rounded bg-blue-100 px-2 py-1;
+    @apply rounded bg-blue-100 px-2 py-0.5;
   }
 
   .toolbar {

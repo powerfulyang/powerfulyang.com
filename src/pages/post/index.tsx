@@ -39,7 +39,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
         <section className="mt-6">
           {posts.map((post) => (
             <Link key={post.id} to={`/post/${post.id}`}>
-              <div className="bg-white rounded-xl shadow-lg mb-8 overflow-hidden">
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden mt-8">
                 <div className="h-[12rem] sm:h-[18rem] rounded-t-xl overflow-hidden">
                   <LazyImage
                     containerClassName="h-full scale-100 md:hover:scale-110 transition-all duration-500"
