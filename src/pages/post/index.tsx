@@ -52,9 +52,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                     {DateFormat(post.createAt)}
                   </span>
                   <span title={post.title} className={classNames('flex items-center mb-2')}>
-                    <div className="line-1-ellipsis text-blue-400">
-                      <span className={styles.articleTitle}>{post.title}</span>
-                    </div>
+                    <span className={styles.articleTitle}>{post.title}</span>
                   </span>
                 </div>
               </div>

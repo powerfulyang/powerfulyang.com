@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import { isSupportWebp } from '@powerfulyang/utils';
 
-export const DateFormat = (date?: Date) => dayjs(date).format('ll');
+export const DateFormat = (date?: Date | string) => dayjs(date).format('ll');
 
-export const DateTimeFormat = (date?: Date) => dayjs(date).format('llll');
+export const DateTimeFormat = (date?: Date | string) => dayjs(date).format('llll');
 
 export const TimeFormat = () => dayjs().format('HH:mm:ss');
 

@@ -7,8 +7,7 @@ import MonacoEditor from '@monaco-editor/react';
 import type { VoidFunction } from '@powerfulyang/utils';
 import type { editor } from 'monaco-editor';
 import { fromEvent } from 'rxjs';
-import { extractMetaData } from '@/utils/toc';
-import { MarkdownWrap } from '@/components/MarkdownWrap';
+import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/type/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
@@ -26,20 +25,15 @@ export type MarkdownMetadata = {
   author: string;
   tags: string[];
   poster: Asset;
+  date: string;
 };
 
 export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onPost }) => {
   const [input, setInput] = useState(defaultValue);
-  const [toRender, setToRender] = useState('');
   const ref = useRef<{
     editor: IStandaloneCodeEditor;
     monaco: Monaco;
   }>();
-
-  useEffect(() => {
-    const [, r] = extractMetaData(input);
-    setToRender(r);
-  }, [input]);
 
   useEffect(() => {
     const s = fromEvent<ClipboardEvent>(window, 'paste').subscribe(async (e) => {
@@ -113,7 +107,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onP
             }}
           />
         </section>
-        <MarkdownWrap className={styles.preview} source={toRender} />
+        <MarkdownContainer className={styles.preview} source={input} />
       </main>
     </div>
   );

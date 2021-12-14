@@ -27,6 +27,35 @@ export const H1: FC = ({ children }) => (
   </h1>
 );
 
+export const H2: FC = ({ children }) => {
+  return (
+    <div>
+      <h2>{children}</h2>
+    </div>
+  );
+};
+
+export const H3: FC = ({ children }) => {
+  return (
+    <div>
+      <h3>
+        <span className={classNames(styles.mainColor, 'pr-2')}>##</span>
+        {children}
+      </h3>
+    </div>
+  );
+};
+
+export const H4: FC = ({ children }) => {
+  return (
+    <div>
+      <h4 className="truncate" title={String(children)}>
+        {children}
+      </h4>
+    </div>
+  );
+};
+
 export const Link: FC<any> = ({ href, children }) => (
   <a rel="noreferrer" className={styles.link} target="_blank" href={href}>
     {children}

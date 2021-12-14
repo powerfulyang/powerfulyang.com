@@ -34,7 +34,9 @@ export const Footer: FC<FooterProps> = ({ pathViewCount }) => (
       </span>
     </div>
     <div className="text-sm flex items-baseline">
-      <div className="hidden-xs text-pink-400">{pathViewCount}人临幸</div>
+      <div hidden={!pathViewCount} className="hidden-xs text-pink-400">
+        {pathViewCount}人临幸
+      </div>
       <div className="text-gray-400 text-lg space-x-1 contents">
         <a className="ml-4" href="https://twitter.com/hutyxxx" target="_blank" rel="noreferrer">
           <Icon className={styles.twitter} type="icon-twitter" />

@@ -1,11 +1,12 @@
-.editor {
-  height: 100vh;
-  @apply w-full;
+@import '../../../styles/styles.scss';
 
+.editor {
   .toolbar {
-    @apply flex text-gray-600 align-middle bg-gray-200 p-2 w-full justify-start;
+    height: 2rem;
+    @apply flex text-gray-600 align-middle bg-gray-200 w-full justify-start items-center;
 
     .icon {
+      @extend .pointer;
       @apply mx-2 text-lg p-0.5 rounded;
 
       &:hover {
@@ -19,12 +20,11 @@
   }
 
   .main {
-    height: calc(100vh - 3rem);
-    overflow: hidden;
-    @apply flex w-full shadow-lg;
+    height: calc(100vh - 2rem - var(--footer-height));
+    @apply flex w-full;
 
     .input-content {
-      @apply w-1/2 rounded p-2;
+      @apply w-1/2;
     }
 
     .preview {

@@ -1,12 +1,10 @@
 import React from 'react';
 import type { GetServerSidePropsContext } from 'next';
-import { DateFormat } from '@/utils/lib';
 import type { Post } from '@/type/Post';
 import { request } from '@/utils/request';
-import { MarkdownWrap } from '@/components/MarkdownWrap';
+import { MarkdownContainer } from '@/components/MarkdownContainer';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
-import { extractMetaData } from '@/utils/toc';
 import styles from './index.module.scss';
 import { getCurrentUser } from '@/service/getCurrentUser';
 
@@ -15,14 +13,11 @@ type PostProps = {
 };
 
 const PostDetail: LayoutFC<PostProps> = ({ data }) => {
-  const { tags, content, createBy, createAt } = data;
-  const postInfo = `post=>${createBy.nickname}|${DateFormat(createAt)}|${content.length}  \r\n\r\n`;
-  const tagsInfo = `tags=>${(tags || []).join('|')}  \r\n\r\n`;
-  const contents = content.replace(/(\r\n|\n)/, `\r\n\r\n${postInfo}${tagsInfo}`);
-  const [, s] = extractMetaData(contents);
+  const { content } = data;
+
   return (
     <main className={styles.postWrap}>
-      <MarkdownWrap source={s} className={styles.post} />
+      <MarkdownContainer source={content} className={styles.post} />
     </main>
   );
 };

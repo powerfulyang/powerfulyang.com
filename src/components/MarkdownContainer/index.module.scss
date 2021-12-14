@@ -1,5 +1,7 @@
 $primary-color: #c9b6e2;
 $heading-color: rgb(37 99 235 / 80%);
+$main-color: #ffb356;
+$fade-main-color: rgb(243 187 131 / 32%);
 
 .markdown-body {
   width: min(900px, 100%);
@@ -12,6 +14,10 @@ $heading-color: rgb(37 99 235 / 80%);
   background-position: center center;
   background-size: 20px 20px;
   @apply box-border h-auto min-h-full px-8 py-10;
+
+  .main-color {
+    color: $main-color;
+  }
 
   .heading1 {
     border-color: $primary-color;
@@ -60,73 +66,102 @@ $heading-color: rgb(37 99 235 / 80%);
 
   h2 {
     color: $heading-color;
-    @apply inline-block text-xl align-middle font-medium my-4 relative;
+    background-image: linear-gradient(
+      60deg,
+      $fade-main-color,
+      rgb(0 0 0 / 0%) 20%,
+      $fade-main-color 50%,
+      rgb(0 0 0 / 0%) 80%,
+      $fade-main-color
+    );
+    background-color: white;
+
+    @apply inline-block text-lg align-middle font-medium my-4 p-2 py-3 relative rounded-lg;
 
     &::before {
       content: '#';
-      @apply text-xl font-medium pr-2;
-    }
-
-    &::after {
-      position: absolute;
-      width: calc(100% - 0.7rem);
-      left: 1rem;
-      bottom: 0;
-      height: 40%;
-      background-color: #ffb356;
-      opacity: 0.4;
-      content: ' ';
-    }
-  }
-
-  h3 {
-    color: $heading-color;
-    text-align: left;
-    @apply text-lg text-xl font-medium my-3;
-
-    &::before {
-      content: '##';
-      @apply text-xl font-medium pr-2;
+      color: $main-color;
+      @apply pr-2;
     }
   }
 
   h4 {
     color: $heading-color;
-    @apply text-lg font-medium inline-block my-2;
+    text-align: left;
+    @apply inline-block text-lg font-medium my-3 px-1 relative;
 
     &::before {
       content: '###';
-      @apply text-lg font-semibold pr-2;
+      color: $main-color;
+      @apply pr-2;
+    }
+
+    &::after {
+      position: absolute;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      bottom: 0;
+      left: 0;
+      background-image: linear-gradient(
+        360deg,
+        rgb(0 0 0 / 0%) 10%,
+        #ffb356 10%,
+        #ffb356 45%,
+        rgb(0 0 0 / 0%) 45%
+      );
+      background-size: 1.75rem 1.75rem;
+      opacity: 0.5;
+      content: '';
+    }
+  }
+
+  h3 {
+    color: $heading-color;
+    @apply text-lg font-medium inline-block my-2 relative p-2 px-6;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      content: '「';
+      color: $main-color;
+    }
+
+    &::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      content: '」';
+      color: $main-color;
     }
   }
 
   .link {
     position: relative;
-    display: inline-block;
-    color: $heading-color;
+    @apply text-purple-400;
 
     &::after {
       position: absolute;
-      bottom: 0;
+      bottom: -2px;
       left: 0;
       width: 100%;
-      height: 2px;
+      height: 1px;
       transform: scaleX(0);
       transform-origin: right bottom;
       transition: transform 0.3s ease;
       content: '';
-      @apply bg-blue-400;
+      @apply bg-purple-500;
     }
 
     &:hover::after {
-      transform: scaleX(1);
+      transform: scaleX(1) scaleY(1.5);
       transform-origin: left bottom;
     }
-  }
 
-  a {
-    color: $heading-color;
-    @apply text-base pb-0.5;
+    &:visited {
+      @apply text-purple-500;
+    }
   }
 
   pre {
@@ -187,7 +222,7 @@ $heading-color: rgb(37 99 235 / 80%);
 
   // blockquote
   .blockquote {
-    @apply p-4 bg-gray-300 border-l-4 border-blue-400 my-4 break-all;
+    @apply p-4 bg-gray-300 border-l-4 border-purple-400 my-4 break-all;
 
     p {
       @apply my-0;
@@ -231,7 +266,6 @@ $heading-color: rgb(37 99 235 / 80%);
   }
 
   .post-info {
-    font-family: 'Zpix', serif;
     @apply text-center mt-4;
 
     .post-info-comment {

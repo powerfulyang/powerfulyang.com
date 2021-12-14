@@ -181,7 +181,11 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                 </div>
               </div>
               <div className={styles.content}>
-                <div className={styles.text}>{feed.content}</div>
+                <div className={styles.text}>
+                  {feed.content.split('\n').map((line, index) => (
+                    <div key={String(index)}>{line}</div>
+                  ))}
+                </div>
                 <div hidden={!feed.assets?.length} className={classNames(styles.assets, 'mb-2')}>
                   <ImagePreview images={feed.assets}>
                     {feed.assets?.map((asset) => (

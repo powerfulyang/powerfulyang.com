@@ -1,6 +1,6 @@
 import { isNull } from '@powerfulyang/utils';
 import { trim } from 'ramda';
-import type { MarkdownMetadata } from '@/components/MarkdownWrap/Editor/inex';
+import type { MarkdownMetadata } from '@/components/MarkdownContainer/Editor/inex';
 import type { Asset } from '@/type/Asset';
 
 export const generateToc = (content: string) => {

@@ -2,10 +2,11 @@ import type { FC } from 'react';
 import React from 'react';
 import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { MarkdownEditor } from '@/components/MarkdownWrap/Editor/inex';
+import { MarkdownEditor } from '@/components/MarkdownContainer/Editor/inex';
 import { clientRequest, request } from '@/utils/request';
 import type { Post } from '@/type/Post';
 import { extractMetaData, extractTitle } from '@/utils/toc';
+import { Footer } from '@/components/Footer';
 
 type PublishProps = {
   post: Post;
@@ -26,7 +27,12 @@ const Publish: FC<PublishProps> = ({ post }) => {
     });
     return router.push(`/post/${res.data.id}`);
   };
-  return <MarkdownEditor defaultValue={post.content} onPost={(input) => handlePost(input)} />;
+  return (
+    <>
+      <MarkdownEditor defaultValue={post.content} onPost={(input) => handlePost(input)} />
+      <Footer />
+    </>
+  );
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
@@ -43,6 +49,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   } else {
     post = {};
   }
+
   return {
     props: {
       post,
