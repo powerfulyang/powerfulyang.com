@@ -7,6 +7,7 @@ import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import styles from './index.module.scss';
 import { getCurrentUser } from '@/service/getCurrentUser';
+import { MarkdownToc } from '@/components/MarkdownContainer/Toc';
 
 type PostProps = {
   data: Post;
@@ -16,9 +17,12 @@ const PostDetail: LayoutFC<PostProps> = ({ data }) => {
   const { content } = data;
 
   return (
-    <main className={styles.postWrap}>
-      <MarkdownContainer source={content} className={styles.post} />
-    </main>
+    <div className={styles.container}>
+      <main className={styles.postWrap}>
+        <MarkdownContainer source={content} className={styles.post} />
+      </main>
+      <MarkdownToc content={content} />
+    </div>
   );
 };
 

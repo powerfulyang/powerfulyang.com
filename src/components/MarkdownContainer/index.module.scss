@@ -310,4 +310,10 @@ $fade-main-color: rgb(243 187 131 / 32%);
       }
     }
   }
+
+  .anchor {
+    position: absolute;
+    left: 50%;
+    top: calc(-0.5rem - var(--nav-height));
+  }
 }

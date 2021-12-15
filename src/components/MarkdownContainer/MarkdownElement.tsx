@@ -18,27 +18,32 @@ import { CosUtils } from '@/utils/lib';
 import styles from './index.module.scss';
 
 export const H1: FC = ({ children }) => (
-  <h1 className="flex justify-center w-full pb-2 md:px-6">
-    <span className={styles.heading1}>
-      <span className={styles.prefix} />
-      <span className={styles.content}>{children}</span>
-      <span className={styles.suffix} />
-    </span>
-  </h1>
+  <div className="relative">
+    <div id={String(children).trim()} className={styles.anchor} />
+    <h1 className="flex justify-center w-full pb-2 md:px-6">
+      <span className={styles.heading1}>
+        <span className={styles.prefix} />
+        <span className={styles.content}>{children}</span>
+        <span className={styles.suffix} />
+      </span>
+    </h1>
+  </div>
 );
 
 export const H2: FC = ({ children }) => {
   return (
-    <div>
-      <h2>{children}</h2>
+    <div className="relative">
+      <div id={String(children).trim()} className={styles.anchor} />
+      <h2 id={String(children)}>{children}</h2>
     </div>
   );
 };
 
 export const H3: FC = ({ children }) => {
   return (
-    <div>
-      <h3>
+    <div className="relative">
+      <div id={String(children).trim()} className={styles.anchor} />
+      <h3 id={String(children)}>
         <span className={classNames(styles.mainColor, 'pr-2')}>##</span>
         {children}
       </h3>
@@ -48,8 +53,9 @@ export const H3: FC = ({ children }) => {
 
 export const H4: FC = ({ children }) => {
   return (
-    <div>
-      <h4 className="truncate" title={String(children)}>
+    <div className="relative">
+      <div id={String(children).trim()} className={styles.anchor} />
+      <h4 id={String(children)} className="truncate max-w-full" title={String(children)}>
         {children}
       </h4>
     </div>

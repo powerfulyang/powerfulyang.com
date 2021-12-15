@@ -1,0 +1,9 @@
+.toc {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: var(--markdown-toc-width);
+  padding-top: calc(var(--nav-height) + 4rem);
+  padding-right: 1rem;
+  @apply text-purple-500;
+}
