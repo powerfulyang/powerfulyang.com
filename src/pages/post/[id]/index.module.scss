@@ -1,18 +1,17 @@
-.container {
+.post-wrap {
   background-color: #fcfcff;
+  min-height: calc(100vh - var(--nav-height) - var(--footer-height));
+  @apply py-8;
 
-  .post-wrap {
-    display: flex;
-    min-height: calc(100vh - var(--footer-height) - var(--nav-height));
-
-    @apply py-8 px-4 sm:mr-[var(--markdown-toc-width)];
-
-    .post {
-      box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
-      @apply ml-auto mr-4 rounded-lg py-16 px-8;
-      @screen sm {
-        @apply px-10 py-20;
-      }
+  .post {
+    float: left;
+    position: relative;
+    left: calc(50%);
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
+    @apply rounded-lg py-16 px-8;
+    @screen sm {
+      @apply px-10 py-20;
     }
   }
 }

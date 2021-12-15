@@ -137,33 +137,6 @@ $fade-main-color: rgb(243 187 131 / 32%);
     }
   }
 
-  .link {
-    position: relative;
-    @apply text-purple-400;
-
-    &::after {
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      transform: scaleX(0);
-      transform-origin: right bottom;
-      transition: transform 0.3s ease;
-      content: '';
-      @apply bg-purple-500;
-    }
-
-    &:hover::after {
-      transform: scaleX(1) scaleY(1.5);
-      transform-origin: left bottom;
-    }
-
-    &:visited {
-      @apply text-purple-500;
-    }
-  }
-
   pre {
     @apply rounded-lg overflow-hidden my-4;
   }
@@ -313,7 +286,6 @@ $fade-main-color: rgb(243 187 131 / 32%);
 
   .anchor {
     position: absolute;
-    left: 50%;
     top: calc(-0.5rem - var(--nav-height));
   }
 }

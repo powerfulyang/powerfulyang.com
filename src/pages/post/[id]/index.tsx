@@ -17,12 +17,11 @@ const PostDetail: LayoutFC<PostProps> = ({ data }) => {
   const { content } = data;
 
   return (
-    <div className={styles.container}>
-      <main className={styles.postWrap}>
-        <MarkdownContainer source={content} className={styles.post} />
-      </main>
+    <main className={styles.postWrap}>
+      <MarkdownContainer source={content} className={styles.post} />
       <MarkdownToc content={content} />
-    </div>
+      <div style={{ clear: 'both' }} />
+    </main>
   );
 };
 

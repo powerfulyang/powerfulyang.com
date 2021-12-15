@@ -34,7 +34,7 @@ export const H2: FC = ({ children }) => {
   return (
     <div className="relative">
       <div id={String(children).trim()} className={styles.anchor} />
-      <h2 id={String(children)}>{children}</h2>
+      <h2>{children}</h2>
     </div>
   );
 };
@@ -43,7 +43,7 @@ export const H3: FC = ({ children }) => {
   return (
     <div className="relative">
       <div id={String(children).trim()} className={styles.anchor} />
-      <h3 id={String(children)}>
+      <h3>
         <span className={classNames(styles.mainColor, 'pr-2')}>##</span>
         {children}
       </h3>
@@ -55,7 +55,7 @@ export const H4: FC = ({ children }) => {
   return (
     <div className="relative">
       <div id={String(children).trim()} className={styles.anchor} />
-      <h4 id={String(children)} className="truncate max-w-full" title={String(children)}>
+      <h4 className="truncate max-w-full" title={String(children)}>
         {children}
       </h4>
     </div>
@@ -63,7 +63,7 @@ export const H4: FC = ({ children }) => {
 };
 
 export const Link: FC<any> = ({ href, children }) => (
-  <a rel="noreferrer" className={styles.link} target="_blank" href={href}>
+  <a rel="noreferrer" className="link" target="_blank" href={href}>
     {children}
   </a>
 );
