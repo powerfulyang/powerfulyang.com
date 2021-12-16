@@ -2,7 +2,6 @@ import type { FC } from 'react';
 import React from 'react';
 import classNames from 'classnames';
 import { getEnumKeys } from '@powerfulyang/utils';
-import { useRouter } from 'next/router';
 import type { User } from '@/type/User';
 import { ProjectName } from '@/constant/Constant';
 import { Menu } from '@/layout/UserLayout';
@@ -22,13 +21,12 @@ export const login = () => {
 };
 
 export const NavBar: FC<NavBarProps> = ({ user, active }) => {
-  const router = useRouter();
   return (
     <div className={styles.navPlaceholder}>
       <nav className={styles.nav}>
-        <button type="button" onClick={() => router.push('/')} className={classNames(styles.title)}>
+        <Link to="/" className={classNames(styles.title)}>
           {ProjectName}
-        </button>
+        </Link>
         <div className={styles.menus}>
           {getEnumKeys(Menu).map((x) => (
             <Link

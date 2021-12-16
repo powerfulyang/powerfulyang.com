@@ -1,3 +1,9 @@
+@keyframes redirecting {
+  to {
+    background-position: -200% 0;
+  }
+}
+
 .redirecting {
   position: fixed;
   top: 0;
@@ -23,11 +29,6 @@
     #e774bd 0,
     #e774bd
   );
-  animation: redirecting 3s linear infinite;
-}
-
-@keyframes redirecting {
-  to {
-    background-position: 930px 0;
-  }
+  background-size: 200% 100%;
+  animation: redirecting 5s linear infinite;
 }

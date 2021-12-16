@@ -21,14 +21,16 @@ export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
               style={{
                 marginLeft: `${item.level * 1.5}rem`,
               }}
-              href={`#${item.heading}`}
+              href={`#${encodeURIComponent(item.heading.trim())}`}
               title={item.heading}
               onClick={(e) => {
                 e.preventDefault();
-                router.push(`#${item.heading}`);
                 document.getElementById(item.heading.trim())?.scrollIntoView({
                   behavior: 'smooth',
                 });
+                setTimeout(() => {
+                  return router.push(`#${encodeURIComponent(item.heading.trim())}`);
+                }, 300);
               }}
             >
               <span className="text-blue-400">{new Array(item.level).fill(0).map(() => '#')} </span>
