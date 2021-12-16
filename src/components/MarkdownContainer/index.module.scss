@@ -1,7 +1,7 @@
 $primary-color: #c9b6e2;
 $heading-color: rgb(37 99 235 / 80%);
 $main-color: #ffb356;
-$fade-main-color: rgb(243 187 131 / 32%);
+$fade-main-color: rgb(255 179 86 / 20%);
 
 .markdown-body {
   width: min(900px, 100%);
@@ -70,11 +70,12 @@ $fade-main-color: rgb(243 187 131 / 32%);
       60deg,
       $fade-main-color,
       rgb(0 0 0 / 0%) 20%,
+      rgb(0 0 0 / 0%) 30%,
       $fade-main-color 50%,
+      rgb(0 0 0 / 0%) 70%,
       rgb(0 0 0 / 0%) 80%,
       $fade-main-color
     );
-    background-color: white;
 
     @apply inline-block text-lg align-middle font-medium my-4 p-2 py-3 relative rounded-lg;
 

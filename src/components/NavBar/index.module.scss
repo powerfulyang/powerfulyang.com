@@ -41,8 +41,20 @@
       display: inline-block;
       color: transparent;
       font-family: 'Zpix', sans-serif;
-      background: linear-gradient(90deg, #47cf73, #ffdd40, #ae63e4, #0ebeff, #47cf73);
+      background: linear-gradient(
+          -45deg,
+          rgb(255 245 102),
+          rgb(168 255 202),
+          rgb(255 173 97),
+          rgb(255 133 122),
+          rgb(255 255 255),
+          rgb(255 92 201),
+          rgb(98 121 234),
+          rgb(102 255 230)
+        )
+        0 0% / 200%;
       background-clip: text;
+      animation: 5s ease-in-out 0s infinite normal none running flow;
       @apply text-2xl mx-10;
       @extend .pointer;
       @keyframes border-transform {

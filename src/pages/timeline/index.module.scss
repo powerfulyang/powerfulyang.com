@@ -87,7 +87,8 @@
       }
 
       .author-bio {
-        @apply w-full mt-4 ml-6;
+        font-family: 'Zpix', sans-serif;
+        @apply w-full mt-4 ml-8 text-xl font-medium;
 
         span {
           @include rainbowText;

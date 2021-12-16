@@ -4,7 +4,7 @@ import Document, { Head, Html, Main, NextScript } from 'next/document';
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="zh-cmn-Hans">
+      <Html lang="zh">
         <link rel="preload" href="/zpix.woff" as="font" crossOrigin="anonymous" />
         <Head />
         <body>

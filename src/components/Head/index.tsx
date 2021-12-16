@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat';
 import { isProdProcess } from '@powerfulyang/utils';
 import { Redirecting } from '../Redirecting';
+import { ProjectName } from '@/constant/Constant';
 
 dayjs.extend(LocalizedFormat);
 
@@ -15,7 +16,7 @@ export interface HeaderProps {
 export const Header: FC<HeaderProps> = ({ title }) => (
   <>
     <Head>
-      <title>{`${(title && `${title} - `) || ''}萝卜の小屋`}</title>
+      <title>{`${(title && `${title} - `) || ''}${ProjectName}`}</title>
       <meta
         name="viewport"
         content="initial-scale=1.0, width=device-width,minimum-scale=1.0, maximum-scale=1.0"

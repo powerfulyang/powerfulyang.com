@@ -48,7 +48,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <span className="inline-block text-base whitespace-nowrap px-4 my-2 text-blue-400 font-normal">
+                  <span className="inline-block text-base whitespace-nowrap px-4 mt-4 text-gray-400 font-normal">
                     {DateFormat(post.createAt)}
                   </span>
                   <span title={post.title} className={classNames('flex items-center mb-2')}>
