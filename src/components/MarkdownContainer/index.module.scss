@@ -213,6 +213,8 @@ $fade-main-color: rgb(243 187 131 / 32%);
         th {
           padding: 1em;
           border-left: cornflowerblue 2px solid;
+          width: max-content;
+          white-space: nowrap;
 
           &:first-child {
             border: none;
@@ -229,6 +231,8 @@ $fade-main-color: rgb(243 187 131 / 32%);
           padding: 0.5em;
           text-align: center;
           border-left: cornflowerblue 2px solid;
+          width: max-content;
+          white-space: nowrap;
 
           &:first-child {
             border: none;

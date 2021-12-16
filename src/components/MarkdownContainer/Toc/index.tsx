@@ -15,9 +15,9 @@ export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
       <span className="inline-block text-gray-400 mb-2 text-lg">目录:</span>
       {toc.map((item) => {
         return (
-          <div key={item.heading} className="mt-2">
+          <div key={item.heading} className="mt-2 truncate">
             <a
-              className="truncate link"
+              className="link"
               style={{
                 marginLeft: `${item.level * 1.5}rem`,
               }}

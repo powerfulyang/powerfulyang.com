@@ -72,7 +72,11 @@ export const BlockQuote: FC = ({ children }) => (
   <blockquote className={styles.blockquote}>{children}</blockquote>
 );
 
-export const Table: FC = ({ children }) => <table className={styles.table}>{children}</table>;
+export const Table: FC = ({ children }) => (
+  <div className="overflow-auto">
+    <table className={styles.table}>{children}</table>
+  </div>
+);
 
 export const Paragraph: FC<any> = ({ node, children }) => {
   const text = node.children[0].value;
