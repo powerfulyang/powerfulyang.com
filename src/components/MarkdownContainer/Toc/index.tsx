@@ -1,7 +1,8 @@
 import type { FC } from 'react';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
+import { scrollIntoView } from '@powerfulyang/utils';
 import { generateToc } from '@/utils/toc';
 import styles from './index.module.scss';
 
@@ -10,10 +11,13 @@ export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
     return generateToc(content);
   }, [content]);
   const router = useRouter();
+  const ref = useRef('');
   return (
     <div className={classNames('hidden-xs', styles.toc)}>
       <span className="inline-block text-gray-400 mb-2 text-lg">目录:</span>
       {toc.map((item) => {
+        const heading = item.heading.trim();
+        const encodeHeading = encodeURIComponent(heading);
         return (
           <div key={item.heading} className="mt-2 truncate">
             <a
@@ -21,16 +25,20 @@ export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
               style={{
                 marginLeft: `${item.level * 1.5}rem`,
               }}
-              href={`#${encodeURIComponent(item.heading.trim())}`}
+              href={`#${encodeHeading}`}
               title={item.heading}
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById(item.heading.trim())?.scrollIntoView({
-                  behavior: 'smooth',
-                });
-                setTimeout(() => {
-                  return router.push(`#${encodeURIComponent(item.heading.trim())}`);
-                }, 300);
+                ref.current = `#${encodeHeading}`;
+                scrollIntoView(
+                  document.getElementById(heading),
+                  {
+                    behavior: 'smooth',
+                  },
+                  () => {
+                    return router.replace(ref.current);
+                  },
+                );
               }}
             >
               <span className="text-blue-400">{new Array(item.level).fill(0).map(() => '#')} </span>
