@@ -7,6 +7,7 @@ import MonacoEditor from '@monaco-editor/react';
 import type { VoidFunction } from '@powerfulyang/utils';
 import type { editor } from 'monaco-editor';
 import { fromEvent } from 'rxjs';
+import { useBeforeUnload } from '@powerfulyang/hooks';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/type/Bucket';
@@ -34,6 +35,10 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onP
     editor: IStandaloneCodeEditor;
     monaco: Monaco;
   }>();
+
+  useBeforeUnload(() => {
+    return !!input;
+  }, '您的内容尚未发布，确定要离开吗？');
 
   useEffect(() => {
     const s = fromEvent<ClipboardEvent>(window, 'paste').subscribe(async (e) => {

@@ -7,7 +7,6 @@ import { ProjectName } from '@/constant/Constant';
 import { Menu } from '@/layout/UserLayout';
 import styles from './index.module.scss';
 import { Link } from '../Link';
-import { Clock } from '@/components/Clock';
 
 type NavBarProps = {
   user: User;
@@ -52,10 +51,6 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
               Login
             </button>
           )}
-
-          <div className="hidden-xs ml-4">
-            <Clock />
-          </div>
         </div>
       </nav>
     </div>

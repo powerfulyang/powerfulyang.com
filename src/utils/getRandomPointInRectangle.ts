@@ -4,7 +4,12 @@ export const getRandomPointInRectangle = (x1: number, x2: number, y1: number, y2
   return [x, y];
 };
 
-export const getElementRandomPointInRectangle = (e: HTMLElement) => {
-  const { top, left, right, bottom } = e.getBoundingClientRect();
-  return getRandomPointInRectangle(left, right, top, bottom);
+export const getRandomPointInElement = (e: HTMLElement) => {
+  const { offsetTop, offsetHeight, offsetWidth, offsetLeft } = e;
+  return getRandomPointInRectangle(
+    offsetLeft,
+    offsetWidth + offsetLeft,
+    offsetTop,
+    offsetHeight + offsetTop,
+  );
 };

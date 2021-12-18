@@ -8,10 +8,10 @@ import { clientRequest, request } from '@/utils/request';
 import type { Asset } from '@/type/Asset';
 import styles from './index.module.scss';
 import { Masonry } from '@/components/Masonry';
-import { LazyImage } from '@/components/LazyImage';
-import { CosUtils } from '@/utils/lib';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
+import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
+import { ImagePreview } from '@/components/ImagePreview';
 
 type GalleryProps = {
   assets: Asset[];
@@ -40,26 +40,27 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
 
   return (
     <main className={styles.gallery}>
-      <Masonry>
-        {resources.map((asset) => (
-          <LazyImage
-            title={`${asset.id}`}
-            key={asset.id}
-            assetId={asset.id}
-            src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
-            blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
-            inViewAction={async (id) => {
-              if (id === last(resources)?.id) {
-                hasNextPage && !isFetching && (await fetchNextPage());
-              }
-            }}
-            containerClassName="rounded-lg shadow-lg"
-            style={{
-              aspectRatio: `${asset.size.width} / ${asset.size.height}`,
-            }}
-          />
-        ))}
-      </Masonry>
+      <ImagePreview selfControl={false} images={resources}>
+        <Masonry>
+          {resources.map((asset) => (
+            <AssetImageThumbnail
+              title={`${asset.id}`}
+              key={asset.id}
+              assetId={asset.id}
+              asset={asset}
+              inViewAction={async (id) => {
+                if (id === last(resources)?.id) {
+                  hasNextPage && !isFetching && (await fetchNextPage());
+                }
+              }}
+              containerClassName="rounded-lg shadow-lg"
+              style={{
+                aspectRatio: `${asset.size.width} / ${asset.size.height}`,
+              }}
+            />
+          ))}
+        </Masonry>
+      </ImagePreview>
     </main>
   );
 };

@@ -4,7 +4,7 @@ import type { Feed } from '@/type/Feed';
 
 export const useFeeds = (sourceFeeds: Feed[]) => {
   const { data: feeds, isFetching } = useQuery(
-    useFeeds.name,
+    'useFeeds',
     async () => {
       const { data } = await clientRequest<Feed[]>('/public/feed');
       return data;
@@ -13,3 +13,5 @@ export const useFeeds = (sourceFeeds: Feed[]) => {
   );
   return [isFetching, feeds] as const;
 };
+
+useFeeds.Key = 'useFeeds';

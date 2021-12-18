@@ -42,7 +42,12 @@
   font-family: 'Fira Code', sans-serif;
   font-style: normal;
   font-weight: normal;
+
   @extend .default;
+
+  body {
+    overflow: overlay;
+  }
 
   .link {
     position: relative;

@@ -1,26 +1,21 @@
-import type { FC } from 'react';
+import type { DetailedHTMLProps, FC, ImgHTMLAttributes } from 'react';
 import React from 'react';
-import classNames from 'classnames';
+import type { MotionProps } from 'framer-motion';
+import type { LazyImageExtendProps } from '@/components/LazyImage';
 import { LazyImage } from '@/components/LazyImage';
 import type { Asset } from '@/type/Asset';
 import { CosUtils } from '@/utils/lib';
 
-export const AssetImageThumbnail: FC<{
-  asset: Asset;
-  inViewAction?: (id?: number) => void;
-  onClick?: () => void;
-  className?: string;
-  containerClassName?: string;
-}> = ({ asset, inViewAction, onClick, className, containerClassName }) => (
+export const AssetImageThumbnail: FC<
+  DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> &
+    LazyImageExtendProps &
+    MotionProps & {
+      asset: Asset;
+    }
+> = ({ asset, ...props }) => (
   <LazyImage
-    className={classNames(className)}
+    {...props}
     src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
     blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
-    assetId={asset.id}
-    containerClassName={classNames(containerClassName)}
-    inViewAction={(id) => {
-      inViewAction?.(id);
-    }}
-    onClick={onClick}
   />
 );

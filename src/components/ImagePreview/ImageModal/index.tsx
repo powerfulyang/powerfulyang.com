@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import React, { useContext, useEffect, useRef } from 'react';
 import { usePortal } from '@powerfulyang/hooks';
+import { isDefined } from '@powerfulyang/utils';
 import { ImageModalContent } from '@/components/ImagePreview/ImageModal/Modal';
 import { ImageModalContext } from '@/context/ImageModalContext';
 
@@ -15,7 +16,7 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
     state: { selectIndex },
   } = useContext(ImageModalContext);
   useEffect(() => {
-    if (selectIndex !== undefined) {
+    if (isDefined(selectIndex)) {
       const dialog = dialogNode.current;
       const parent = parentNode || document.body;
       parent.appendChild(dialog);

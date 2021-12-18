@@ -42,7 +42,7 @@ const config = {
     disable: isDevProcess,
     runtimeCaching: [
       {
-        urlPattern: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
+        urlPattern: /^https:\/\/fonts\.(gstatic)\.com\/.*/i,
         handler: 'CacheFirst',
         options: {
           cacheName: 'google-fonts-webfonts',
@@ -53,7 +53,7 @@ const config = {
         },
       },
       {
-        urlPattern: /^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,
+        urlPattern: /^https:\/\/fonts\.(googleapis)\.com\/.*/i,
         handler: 'StaleWhileRevalidate',
         options: {
           cacheName: 'google-fonts-stylesheets',
@@ -109,7 +109,7 @@ const config = {
         },
       },
       {
-        urlPattern: /\.(?:mp4)$/i,
+        urlPattern: /\.(mp4)$/i,
         handler: 'CacheFirst',
         options: {
           rangeRequests: true,
@@ -121,7 +121,7 @@ const config = {
         },
       },
       {
-        urlPattern: /\.(?:js)$/i,
+        urlPattern: /\.(js)$/i,
         handler: 'StaleWhileRevalidate',
         options: {
           cacheName: 'static-js-assets',

@@ -25,7 +25,11 @@ const reducer = (draft: ImageModalContextState, action: ImageModalContextAction)
   }
 };
 
-export const ImagePreview: FC<{ images: Asset[] }> = ({ children, images }) => {
+export const ImagePreview: FC<{ images: Asset[]; selfControl?: boolean }> = ({
+  children,
+  images,
+  selfControl = true,
+}) => {
   const [state, dispatch] = useImmerReducer(reducer, {});
   useEffect(() => {
     dispatch({
@@ -42,12 +46,13 @@ export const ImagePreview: FC<{ images: Asset[] }> = ({ children, images }) => {
       {Children.map(children, (child, index) =>
         cloneElement(<div>{child}</div>, {
           onClick() {
-            dispatch({
-              type: ImageModalContextActionType.open,
-              payload: {
-                selectIndex: index,
-              },
-            });
+            selfControl &&
+              dispatch({
+                type: ImageModalContextActionType.open,
+                payload: {
+                  selectIndex: index,
+                },
+              });
           },
         }),
       )}

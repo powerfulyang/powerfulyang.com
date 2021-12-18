@@ -1,30 +1,23 @@
 import type { DetailedHTMLProps, FC, ImgHTMLAttributes } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
+import type { MotionProps } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { assets } from '@powerfulyang/components';
 import { useMountedRef } from '@powerfulyang/hooks';
 import styles from './index.module.scss';
 
-type LazyImageExtendProps = {
+export type LazyImageExtendProps = {
   inViewAction?: (id?: number) => void;
   assetId?: number;
   blurSrc?: string;
   containerClassName?: string;
 };
-const variants = {
-  loading: {
-    scale: 1.3,
-    filter: 'blur(32px)',
-  },
-  loaded: {
-    scale: 1,
-    filter: 'blur(0px)',
-  },
-};
 
 export const LazyImage: FC<
-  DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & LazyImageExtendProps
+  DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> &
+    LazyImageExtendProps &
+    MotionProps
 > = ({ src, className, alt, inViewAction, assetId, blurSrc, containerClassName, ...props }) => {
   const [loading, setLoading] = useState(true);
   const [imgUrl, setImgUrl] = useState('/transparent.png');
@@ -82,29 +75,34 @@ export const LazyImage: FC<
   }, [assetId, inViewAction, isMount, src]);
 
   return (
-    <div className={classNames(containerClassName, 'overflow-hidden pointer')}>
-      <motion.div
-        variants={variants}
+    <motion.div className={classNames(containerClassName, 'w-full h-full overflow-hidden')}>
+      <motion.img
+        {...props}
+        variants={{
+          loading: {
+            scale: 1.3,
+            filter: 'blur(32px)',
+          },
+          loaded: {
+            scale: 1,
+            filter: 'blur(0px)',
+          },
+        }}
         initial="loading"
         animate={!loading && 'loaded'}
         transition={{ duration: 0.88 }}
-        className="w-full h-full"
-      >
-        <img
-          {...props}
-          className={classNames(
-            {
-              [styles.loadedImg]: !loading,
-            },
-            className,
-            styles.loadingImg,
-            'w-full h-full object-cover',
-          )}
-          src={imgUrl}
-          alt={alt}
-          ref={ref}
-        />
-      </motion.div>
-    </div>
+        className={classNames(
+          {
+            [styles.loadedImg]: !loading,
+          },
+          'w-full h-full object-cover pointer',
+          className,
+          styles.loadingImg,
+        )}
+        src={imgUrl}
+        alt={alt}
+        ref={ref}
+      />
+    </motion.div>
   );
 };

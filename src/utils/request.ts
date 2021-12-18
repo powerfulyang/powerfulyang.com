@@ -1,5 +1,6 @@
 import { isNil, pick, reject } from 'ramda';
 import type { GetServerSidePropsContext } from 'next';
+import { notification } from '@powerfulyang/components';
 import type { SUCCESS } from '@/constant/Constant';
 
 export type RequestOptions = {
@@ -36,21 +37,37 @@ export const clientRequest = async <T = any>(
   url: string,
   options: Omit<RequestOptions, 'ctx'> = {},
 ): Promise<ApiResponse<T>> => {
-  const baseUrl = process.env.CLIENT_BASE_URL;
-  const { method = 'GET', body, query } = options;
-  const isFile = body instanceof FormData;
-  const requestBody = isFile ? body : JSON.stringify(body);
-  const requestHeaders = new Headers();
-  if (!isFile) {
-    requestHeaders.set('content-type', 'application/json');
+  try {
+    const baseUrl = process.env.CLIENT_BASE_URL;
+    const { method = 'GET', body, query } = options;
+    const isFile = body instanceof FormData;
+    const requestBody = isFile ? body : JSON.stringify(body);
+    const requestHeaders = new Headers();
+    if (!isFile) {
+      requestHeaders.set('content-type', 'application/json');
+    }
+    const isValidQuery = query && Object.values(query).some((x) => !isNil(x));
+    const res = await fetch(`${baseUrl}${url}${isValidQuery ? `?${stringify(query)}` : ''}`, {
+      method,
+      headers: requestHeaders,
+      mode: 'cors',
+      credentials: 'include',
+      body: requestBody as BodyInit,
+    });
+
+    const json = await res.json();
+    if (res.status !== 200) {
+      notification.error({
+        message: `请求错误：${res.status}`,
+        description: json.message,
+      });
+    }
+    return json;
+  } catch (e: any) {
+    notification.error({
+      message: `请求错误: ${e.message}`,
+      description: e.stack,
+    });
+    throw e;
   }
-  const isValidQuery = query && Object.values(query).some((x) => !isNil(x));
-  const res = await fetch(`${baseUrl}${url}${isValidQuery ? `?${stringify(query)}` : ''}`, {
-    method,
-    headers: requestHeaders,
-    mode: 'cors',
-    credentials: 'include',
-    body: requestBody as BodyInit,
-  });
-  return res.json();
 };

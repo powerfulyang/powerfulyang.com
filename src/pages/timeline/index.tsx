@@ -2,24 +2,23 @@ import type { ChangeEvent, ClipboardEvent } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import type { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
-import { useImmer } from '@powerfulyang/hooks';
+import { useBeforeUnload, useImmer } from '@powerfulyang/hooks';
 import { interval } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { useQueryClient } from 'react-query';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
 import type { Feed } from '@/type/Feed';
-import { CosUtils, DateTimeFormat } from '@/utils/lib';
+import { DateTimeFormat } from '@/utils/lib';
 import type { LayoutFC } from '@/type/GlobalContext';
 import type { User } from '@/type/User';
-import { handlePasteImageAndReturnAsset, uploadFileListAndReturnAsset } from '@/utils/copy';
+import { handlePasteImageAndReturnFileList, uploadFileListAndReturnAsset } from '@/utils/copy';
 import type { Asset } from '@/type/Asset';
 import { ImagePreview } from '@/components/ImagePreview';
 import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
 import { AssetBucket } from '@/type/Bucket';
 import styles from './index.module.scss';
 import { Switch } from '@/components/Switch';
-import { LazyImage } from '@/components/LazyImage';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import { useFeeds } from '@/queries/useFeeds';
 import { SUCCESS } from '@/constant/Constant';
@@ -31,8 +30,9 @@ type TimelineProps = {
 
 const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   const [content, setContent] = useState('');
-  const [assets, setAssets] = useImmer<Asset[]>([]);
+  const [assets, setAssets, resetAssets] = useImmer<Asset[]>([]);
   const [disable, setDisable] = useState(true);
+  const [uploading, setUploading] = useState(false);
   const queryClient = useQueryClient();
   const [, feeds] = useFeeds(sourceFeeds);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -41,13 +41,14 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     setIsPublic(checked);
   };
   const ref = useRef<HTMLButtonElement>(null);
+  const [submitting, setSubmitting] = useState(false);
   const submitTimeline = async () => {
+    setSubmitting(true);
     const { poofClickPlay } = await import('@/components/mo.js/Material');
     const subscribe = interval(500)
       .pipe(startWith(0))
       .subscribe(() => {
-        poofClickPlay(ref.current!);
-        setDisable(true);
+        ref.current && poofClickPlay(ref.current);
       });
     const res = await clientRequest('/feed', {
       body: { content, assets, public: isPublic },
@@ -56,36 +57,54 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     subscribe.unsubscribe();
     if (res.status === SUCCESS) {
       setContent('');
-      setAssets([]);
-      await queryClient.invalidateQueries(useFeeds.name);
+      resetAssets();
+      await queryClient.invalidateQueries(useFeeds.Key);
     }
-    setDisable(false);
+    setSubmitting(false);
+  };
+
+  const uploadImages = async (files: FileList) => {
+    setUploading(true);
+    const images = await uploadFileListAndReturnAsset(files, AssetBucket.timeline);
+    setUploading(false);
+    if (images) {
+      setAssets((draft) => {
+        images.forEach((image) => {
+          if (!draft.find((asset) => asset.id === image.id)) {
+            draft.push(image);
+          }
+        });
+      });
+    }
   };
 
   const paste = async (e: ClipboardEvent) => {
-    const images = await handlePasteImageAndReturnAsset(e, AssetBucket.timeline);
-    if (images) {
-      setAssets((draft) => {
-        draft.push(...images);
-      });
+    const files = await handlePasteImageAndReturnFileList(e);
+    if (files) {
+      await uploadImages(files);
     }
   };
 
   useEffect(() => {
-    if (content) {
+    if (submitting) {
+      setDisable(true);
+    } else if (content) {
       setDisable(false);
+    } else {
+      setDisable(true);
     }
-  }, [content]);
+  }, [content, submitting]);
 
-  const uploadImages = async (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files!;
-    const images = await uploadFileListAndReturnAsset(files, AssetBucket.timeline);
-    if (images) {
-      setAssets((draft) => {
-        draft.push(...images);
-      });
+  async function upload(e: ChangeEvent<HTMLInputElement>) {
+    const { files } = e.target;
+    if (files) {
+      await uploadImages(files);
     }
-  };
+  }
+
+  useBeforeUnload(() => {
+    return !!(content || assets.length);
+  }, '您的内容尚未发布，确定要离开吗？');
 
   return (
     <div className={styles.wrap}>
@@ -93,14 +112,13 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
         {user && (
           <>
             <div className={styles.banner}>
-              <LazyImage
-                src={CosUtils.getCosObjectUrl(user?.timelineBackground?.objectUrl)}
-                blurSrc={CosUtils.getCosObjectBlurUrl(user?.timelineBackground?.objectUrl)}
-                containerClassName="z-[-1]"
-                className={styles.bannerBg}
+              <AssetImageThumbnail
+                asset={user.timelineBackground}
+                containerClassName={styles.bannerBg}
+                className={classNames(styles.bannerImage)}
               />
               <div className={styles.authorInfo}>
-                <LazyImage src={user?.avatar} containerClassName={styles.authorAvatar} alt="" />
+                <img src={user?.avatar} className={styles.authorAvatar} alt="" />
                 <div className={styles.authorNickname}>{user?.nickname}</div>
                 <div className={styles.authorBio}>
                   <span>{user?.bio}</span>
@@ -111,6 +129,9 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
             <div className={styles.timelineInput}>
               <div className={styles.timelineTextarea}>
                 <textarea
+                  className={classNames({
+                    'cursor-progress': uploading,
+                  })}
                   name="timeline_input"
                   onChange={(e) => {
                     setContent(e.target.value);
@@ -128,7 +149,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
               >
                 <ImagePreview images={assets}>
                   {assets?.map((asset) => (
-                    <AssetImageThumbnail key={asset.id} asset={asset} />
+                    <AssetImageThumbnail className={styles.img} key={asset.id} asset={asset} />
                   ))}
                 </ImagePreview>
               </div>
@@ -138,7 +159,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                   checkedDescription="公开"
                   uncheckedDescription="私密"
                 />
-                <label htmlFor="upload" className="inline-block px-4 text-pink-400 text-lg">
+                <label htmlFor="upload" className="inline-block px-4 text-pink-400 text-lg pointer">
                   上传图片
                   <input
                     id="upload"
@@ -146,7 +167,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                     type="file"
                     accept="image/*,image/heic,image/heif"
                     multiple
-                    onChange={uploadImages}
+                    onChange={upload}
                   />
                 </label>
                 <button
@@ -167,17 +188,13 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
             <div key={feed.id} className={styles.container}>
               <div className={styles.author}>
                 <div className={styles.avatar}>
-                  <LazyImage
-                    containerClassName="rounded-full"
-                    src={feed.createBy.avatar}
-                    alt="用户头像"
-                  />
+                  <img className="rounded" src={feed.createBy.avatar} alt="用户头像" />
                 </div>
                 <div>
                   <div className={classNames('text-lg', styles.nickname)}>
                     {feed.createBy.nickname}
                   </div>
-                  <div className="text-gray-400 text-xs">{DateTimeFormat(feed.createAt)}</div>
+                  <div className="text-gray-600 text-xs">{DateTimeFormat(feed.createAt)}</div>
                 </div>
               </div>
               <div className={styles.content}>
@@ -189,11 +206,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                 <div hidden={!feed.assets?.length} className={classNames(styles.assets, 'mb-2')}>
                   <ImagePreview images={feed.assets}>
                     {feed.assets?.map((asset) => (
-                      <AssetImageThumbnail
-                        key={asset.id}
-                        containerClassName={styles.img}
-                        asset={asset}
-                      />
+                      <AssetImageThumbnail key={asset.id} className={styles.img} asset={asset} />
                     ))}
                   </ImagePreview>
                 </div>

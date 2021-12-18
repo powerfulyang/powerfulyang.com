@@ -28,7 +28,7 @@ export const uploadFileListAndReturnAsset = async (
     for (let i = 0; i < count; i++) {
       formData.append(`files`, files.item(i)!);
     }
-    const res = await clientRequest(`/asset/${bucketName}`, {
+    const res = await clientRequest<Asset[]>(`/asset/${bucketName}`, {
       method: 'POST',
       body: formData,
     });

@@ -132,8 +132,8 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
             onClick={async () => {
               await copyToClipBoard(renderText);
               return notification.success({
-                title: '复制成功',
-                content: '代码已复制到剪贴板',
+                message: '复制成功',
+                description: '代码已复制到剪贴板',
               });
             }}
           >

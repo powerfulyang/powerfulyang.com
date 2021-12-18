@@ -20,7 +20,7 @@
     @apply grid gap-2 grid-cols-3 mt-2;
 
     .img {
-      @apply aspect-square w-full h-full object-cover rounded;
+      @apply aspect-square object-cover rounded;
     }
   }
 
@@ -65,13 +65,14 @@
 
     .banner-bg {
       height: 150px;
-      @apply m-auto w-full rounded-none;
+      @apply m-auto w-full;
       @screen sm {
         height: 300px;
       }
     }
 
     .author-info {
+      z-index: 2;
       @apply m-auto flex pb-4 flex-wrap w-full;
 
       .author-avatar {
@@ -123,16 +124,16 @@
     @apply flex justify-start items-center mb-6;
 
     .avatar {
-      @apply w-14 mr-4;
+      @apply w-14 mr-2;
     }
 
     .nickname {
-      @include rainbowText;
+      @apply text-blue-600;
     }
   }
 
   .content {
-    @apply text-lg px-2;
+    @apply text-lg;
 
     .text {
       font-family: 'Zpix', serif;

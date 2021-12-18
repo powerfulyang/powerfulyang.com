@@ -1,5 +1,5 @@
 import mojs from '@mojs/core';
-import { getElementRandomPointInRectangle } from '@/utils/getRandomPointInRectangle';
+import { getRandomPointInElement } from '@/utils/getRandomPointInRectangle';
 
 const DURATION = 200;
 
@@ -43,7 +43,7 @@ const poof = new mojs.Timeline();
 poof.add(circle, cloud);
 
 export const poofClickPlay = (e: HTMLElement) => {
-  const [x, y] = getElementRandomPointInRectangle(e);
+  const [x, y] = getRandomPointInElement(e);
   const coords = { x, y };
   circle.tune(coords);
   cloud.tune(coords);

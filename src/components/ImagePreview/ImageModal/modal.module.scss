@@ -1,22 +1,18 @@
 @import '../../../styles/styles';
 
+.clear {
+  backdrop-filter: unset !important;
+}
+
 .wrap {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: var(--image-preview-z-index);
   backdrop-filter: blur(20px);
   @apply w-full h-full;
 
-  .blur {
-    @apply w-full h-full overflow-hidden;
-    @screen sm {
-      @apply p-20;
-    }
-  }
-
   .image {
-    z-index: var(--image-preview-z-index);
     @apply w-full h-full object-contain;
   }
 
@@ -27,7 +23,14 @@
     z-index: 101;
     font-size: 2rem;
     transform: translateY(-50%);
-    @apply hover:text-blue-400 opacity-60 text-black;
+    @apply opacity-60 text-black;
+
+    @media (hover: hover) {
+      &:hover {
+        @apply text-blue-400;
+      }
+    }
+
     @extend .pointer;
     @extend .hidden-xs;
   }

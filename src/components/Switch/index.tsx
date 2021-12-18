@@ -36,7 +36,7 @@ export const Switch: FC<SwitchProps> = ({
         }}
       />
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label className={styles.toggleItem} htmlFor={id}>
+      <label className={classNames(styles.toggleItem)} htmlFor={id}>
         <div
           className={styles.desc}
           data-checked-desc={checkedDescription}

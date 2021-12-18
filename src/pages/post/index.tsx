@@ -6,10 +6,10 @@ import type { Post } from '@/type/Post';
 import { Link } from '@/components/Link';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
-import { CosUtils, DateFormat } from '@/utils/lib';
+import { DateFormat } from '@/utils/lib';
 import styles from './index.module.scss';
-import { LazyImage } from '@/components/LazyImage';
 import { getCurrentUser } from '@/service/getCurrentUser';
+import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
 
 type IndexProps = {
   posts: Post[];
@@ -41,10 +41,9 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             <Link key={post.id} to={`/post/${post.id}`}>
               <div className="bg-white rounded-xl shadow-lg overflow-hidden mt-8">
                 <div className="h-[12rem] sm:h-[18rem] rounded-t-xl overflow-hidden">
-                  <LazyImage
+                  <AssetImageThumbnail
                     containerClassName="h-full scale-100 md:hover:scale-110 transition-all duration-500"
-                    src={CosUtils.getCosObjectUrl(post.poster.objectUrl)}
-                    blurSrc={CosUtils.getCosObjectBlurUrl(post.poster.objectUrl)}
+                    asset={post.poster}
                   />
                 </div>
                 <div className="flex flex-col">

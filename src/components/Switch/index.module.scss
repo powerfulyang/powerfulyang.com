@@ -1,3 +1,5 @@
+@import '../../styles/styles';
+
 .toggle-item {
   position: relative;
   display: inline-block;
@@ -5,9 +7,10 @@
   height: 50px;
   border-radius: 50px;
   transform-origin: 20% center;
-  cursor: pointer;
   transition: all 0.3s ease;
   @apply bg-gray-400;
+
+  @extend .pointer;
 
   .desc {
     position: absolute;
