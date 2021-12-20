@@ -19,7 +19,7 @@
 
   .w-full-image {
     @screen sm {
-      width: calc(100% - 5rem * 2);
+      width: calc(100% - 100px * 2);
     }
   }
 

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Icon } from '@powerfulyang/components';
 import { isDefined, isUndefined } from '@powerfulyang/utils';
+import { fromEvent } from 'rxjs';
 import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
 import { CosUtils } from '@/utils/lib';
 import styles from './modal.module.scss';
@@ -28,10 +29,17 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
   }, [images, selectIndex]);
   const isWider = useMemo(() => {
     if (Number(image?.size.width) === Number(image?.size.height)) {
-      return document.body.clientWidth >= document.body.clientHeight;
+      return window.visualViewport.width >= window.visualViewport.height;
     }
     return Number(image?.size.width) > Number(image?.size.height);
   }, [image]);
+  const isWiderThanScreen = useMemo(() => {
+    return Number(image?.size.width) > window.visualViewport.width - 100 * 2;
+  }, [image]);
+  const isHigherThanScreen = useMemo(() => {
+    return Number(image?.size.height) > window.visualViewport.height;
+  }, [image]);
+
   const [imgSrc, setImgSrc] = useState<string>();
   const [animated, setAnimated] = useState<boolean>(false);
   const closeModal = () => {
@@ -108,6 +116,27 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
   };
 
   const ref = useRef(false);
+  const fadeImage = () => {
+    ref.current = true;
+    setImgSrc(undefined);
+  };
+
+  useEffect(() => {
+    const subscription = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
+      if (e.code === 'Escape' || e.code === 'ArrowUp' || e.code === 'ArrowDown') {
+        fadeImage();
+      }
+      if (e.code === 'ArrowLeft') {
+        showPrevImage();
+      }
+      if (e.code === 'ArrowRight') {
+        showNextImage();
+      }
+    });
+    return () => {
+      subscription.unsubscribe();
+    };
+  });
 
   return (
     <button
@@ -115,10 +144,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       className={classNames(styles.wrap, {
         [styles.clear]: isUndefined(selectIndex),
       })}
-      onClick={() => {
-        setImgSrc(undefined);
-        ref.current = true;
-      }}
+      onClick={fadeImage}
     >
       {enableShowPrevImage && (
         <Icon
@@ -136,7 +162,16 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
           onClick={showNextImage}
         />
       )}
-      <div className="sm:px-20 w-full h-full flex justify-center items-center">
+      <motion.div
+        className="w-full h-full flex justify-center items-center"
+        drag="y"
+        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={0.5}
+        onDragEnd={(_, { offset, velocity }) => {
+          const swipe = swipePower(offset.y, velocity.y);
+          Math.abs(swipe) > swipeConfidenceThreshold && fadeImage();
+        }}
+      >
         <AnimatePresence initial={false} custom={{ animated, loadingImg, direction }}>
           {isDefined(imgSrc) && (
             <motion.img
@@ -209,12 +244,12 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
               animate="animate"
               exit="exit"
               className={classNames(styles.image, 'pointer', {
-                [styles.wFullImage]: isWider,
-                'h-full': !isWider,
+                [styles.wFullImage]: isWider && isWiderThanScreen,
+                'h-full': !isWider && isHigherThanScreen,
               })}
               src={imgSrc}
               transition={{
-                x: { type: 'spring', stiffness: 300, damping: 30 },
+                x: { type: 'spring', stiffness: 500, damping: 50 },
                 opacity: { duration: 0.2 },
               }}
               drag="x"
@@ -232,7 +267,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
             />
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </button>
   );
 };
