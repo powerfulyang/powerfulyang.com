@@ -15,8 +15,7 @@
   }
 
   .article-title {
-    @apply text-lg font-normal px-4;
-    @extend .rainbow-text;
+    @apply font-normal px-4 py-2 text-purple-400;
   }
 
   .years {
@@ -31,7 +30,7 @@
     }
 
     .active {
-      @include rainbowText;
+      @apply text-purple-400;
     }
   }
 }

@@ -27,11 +27,6 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
         <Link to="/" className={classNames(styles.title)}>
           {ProjectName}
         </Link>
-        <img
-          alt=""
-          className="h-full rounded-full ml-4 sm:hidden"
-          src="/icons/apple-touch-icon.png"
-        />
         <div className={styles.menus}>
           {getEnumKeys(Menu).map((x) => (
             <div key={x} className="w-auto h-full relative flex items-center justify-center">

@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { usePortal } from '@powerfulyang/hooks';
-import { isDefined } from '@powerfulyang/utils';
+import { isDefined, scrollIntoView } from '@powerfulyang/utils';
 import { ImageModalContent } from '@/components/ImagePreview/ImageModal/Modal';
 import { ImageModalContext } from '@/context/ImageModalContext';
 
@@ -13,7 +13,7 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
   const dialogNode = useRef<HTMLElement>(document.createElement('section'));
   const { Portal } = usePortal({ container: dialogNode.current });
   const {
-    state: { selectIndex },
+    state: { selectIndex, images },
   } = useContext(ImageModalContext);
   const showModal = useMemo(() => isDefined(selectIndex), [selectIndex]);
   useEffect(() => {
@@ -31,6 +31,16 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
     }
     return () => {};
   }, [parentNode, showModal]);
+
+  useEffect(() => {
+    if (isDefined(images) && isDefined(selectIndex)) {
+      const { id } = images[selectIndex];
+      scrollIntoView(document.getElementById(String(id)), {
+        behavior: 'smooth',
+        block: 'nearest',
+      });
+    }
+  }, [images, selectIndex]);
 
   return (
     <Portal>

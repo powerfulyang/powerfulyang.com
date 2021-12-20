@@ -28,16 +28,16 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
     return null;
   }, [images, selectIndex]);
   const isWider = useMemo(() => {
-    if (Number(image?.size.width) === Number(image?.size.height)) {
-      return window.visualViewport.width >= window.visualViewport.height;
-    }
-    return Number(image?.size.width) > Number(image?.size.height);
+    return (
+      window.visualViewport.height / window.visualViewport.width >
+      Number(image?.size.height) / Number(image?.size.width)
+    );
   }, [image]);
   const isWiderThanScreen = useMemo(() => {
-    return Number(image?.size.width) > window.visualViewport.width - 100 * 2;
+    return Number(image?.size.width) >= window.visualViewport.width - 100 * 2;
   }, [image]);
   const isHigherThanScreen = useMemo(() => {
-    return Number(image?.size.height) > window.visualViewport.height;
+    return Number(image?.size.height) >= window.visualViewport.height;
   }, [image]);
 
   const [imgSrc, setImgSrc] = useState<string>();
@@ -51,6 +51,14 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
     () => isDefined(selectIndex) && images?.[selectIndex]?.objectUrl,
     [images, selectIndex],
   );
+  // const prevImgUrl = useMemo(
+  //   () => isDefined(selectIndex) && images?.[selectIndex - 1]?.objectUrl,
+  //   [images, selectIndex],
+  // );
+  // const nextImgUrl = useMemo(
+  //   () => isDefined(selectIndex) && images?.[selectIndex + 1]?.objectUrl,
+  //   [images, selectIndex],
+  // );
   const [loadingImg, setLoadingImg] = useState(true);
   useEffect(() => {
     animated &&
@@ -162,16 +170,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
           onClick={showNextImage}
         />
       )}
-      <motion.div
-        className="w-full h-full flex justify-center items-center"
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
-        dragElastic={0.5}
-        onDragEnd={(_, { offset, velocity }) => {
-          const swipe = swipePower(offset.y, velocity.y);
-          Math.abs(swipe) > swipeConfidenceThreshold && fadeImage();
-        }}
-      >
+      <motion.div className="w-full h-full flex justify-center items-center">
         <AnimatePresence initial={false} custom={{ animated, loadingImg, direction }}>
           {isDefined(imgSrc) && (
             <motion.img
@@ -192,7 +191,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
                 initial: ({ direction: d, animated: a }) => {
                   if (a) {
                     return {
-                      x: d > 0 ? 1000 : -1000,
+                      x: d > 0 ? '130vw' : '-130vw',
                       opacity: 0,
                     };
                   }
@@ -224,8 +223,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
                   if (a && !ref.current) {
                     return {
                       zIndex: 0,
-                      opacity: 0,
-                      x: d > 0 ? -1000 : 1000,
+                      x: d > 0 ? '-130vw' : '130vw',
                     };
                   }
                   return {
@@ -249,17 +247,19 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
               })}
               src={imgSrc}
               transition={{
-                x: { type: 'spring', stiffness: 500, damping: 50 },
+                x: { type: 'spring', stiffness: 300, damping: 30 },
                 opacity: { duration: 0.2 },
               }}
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.5}
               onDragEnd={(_, { offset, velocity }) => {
-                const swipe = swipePower(offset.x, velocity.x);
-                if (swipe < -swipeConfidenceThreshold) {
+                const swipeX = swipePower(offset.x, velocity.x);
+                const swipeY = swipePower(offset.y, velocity.y);
+                Math.abs(swipeY) > swipeConfidenceThreshold && fadeImage();
+                if (swipeX < -swipeConfidenceThreshold) {
                   showNextImage();
-                } else if (swipe > swipeConfidenceThreshold) {
+                } else if (swipeX > swipeConfidenceThreshold) {
                   showPrevImage();
                 }
               }}

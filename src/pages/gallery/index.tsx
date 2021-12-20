@@ -40,10 +40,11 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
 
   return (
     <main className={styles.gallery}>
-      <ImagePreview selfControl={false} images={resources}>
+      <ImagePreview parentControl={false} images={resources}>
         <Masonry>
           {resources.map((asset) => (
             <AssetImageThumbnail
+              id={String(asset.id)}
               title={`${asset.id}`}
               key={asset.id}
               assetId={asset.id}
