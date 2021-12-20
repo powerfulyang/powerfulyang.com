@@ -13,7 +13,14 @@
   @apply w-full h-full;
 
   .image {
-    @apply w-full h-full object-contain;
+    object-fit: scale-down;
+    @apply absolute;
+  }
+
+  .w-full-image {
+    @screen sm {
+      width: calc(100% - 5rem * 2);
+    }
   }
 
   .next {

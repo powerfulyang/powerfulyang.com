@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { usePortal } from '@powerfulyang/hooks';
 import { isDefined } from '@powerfulyang/utils';
 import { ImageModalContent } from '@/components/ImagePreview/ImageModal/Modal';
@@ -15,8 +15,9 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
   const {
     state: { selectIndex },
   } = useContext(ImageModalContext);
+  const showModal = useMemo(() => isDefined(selectIndex), [selectIndex]);
   useEffect(() => {
-    if (isDefined(selectIndex)) {
+    if (showModal) {
       const dialog = dialogNode.current;
       const parent = parentNode || document.body;
       parent.appendChild(dialog);
@@ -29,7 +30,7 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
       };
     }
     return () => {};
-  }, [parentNode, selectIndex]);
+  }, [parentNode, showModal]);
 
   return (
     <Portal>

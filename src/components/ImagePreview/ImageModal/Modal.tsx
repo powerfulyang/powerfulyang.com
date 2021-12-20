@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -10,11 +10,28 @@ import styles from './modal.module.scss';
 
 type ImageModalContentProps = {};
 
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset: number, velocity: number) => {
+  return Math.abs(offset) * velocity;
+};
+
 export const ImageModalContent: FC<ImageModalContentProps> = () => {
   const {
     state: { images, selectIndex },
     dispatch,
   } = useContext(ImageModalContext);
+  const image = useMemo(() => {
+    if (isDefined(images) && isDefined(selectIndex)) {
+      return images[selectIndex];
+    }
+    return null;
+  }, [images, selectIndex]);
+  const isWider = useMemo(() => {
+    if (Number(image?.size.width) === Number(image?.size.height)) {
+      return document.body.clientWidth >= document.body.clientHeight;
+    }
+    return Number(image?.size.width) > Number(image?.size.height);
+  }, [image]);
   const [imgSrc, setImgSrc] = useState<string>();
   const [animated, setAnimated] = useState<boolean>(false);
   const closeModal = () => {
@@ -29,7 +46,6 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
   const [loadingImg, setLoadingImg] = useState(true);
   useEffect(() => {
     animated &&
-      !loadingImg &&
       imgUrl &&
       setImgSrc((prevState) => {
         if (isDefined(prevState)) {
@@ -37,7 +53,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
         }
         return prevState;
       });
-  }, [animated, imgUrl, loadingImg]);
+  }, [animated, imgUrl]);
   useEffect(() => {
     if (imgUrl) {
       const img = new Image();
@@ -49,28 +65,6 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
     }
   }, [imgUrl]);
 
-  const showPrevImage = () => {
-    if (isDefined(selectIndex)) {
-      dispatch({
-        type: ImageModalContextActionType.open,
-        payload: {
-          selectIndex: selectIndex - 1,
-        },
-      });
-    }
-  };
-
-  const showNextImage = () => {
-    if (isDefined(selectIndex)) {
-      dispatch({
-        type: ImageModalContextActionType.open,
-        payload: {
-          selectIndex: selectIndex + 1,
-        },
-      });
-    }
-  };
-  const touchRef = useRef<number[]>([]);
   const enableShowPrevImage = useMemo(() => {
     if (isDefined(imgSrc) && isDefined(selectIndex)) {
       return selectIndex > 0;
@@ -84,28 +78,46 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
     }
     return false;
   }, [images, imgSrc, selectIndex]);
+
+  const [direction, setDirection] = useState(0);
+
+  const showPrevImage = (e?: MouseEvent) => {
+    e?.stopPropagation();
+    if (isDefined(selectIndex) && enableShowPrevImage) {
+      setDirection(-1);
+      dispatch({
+        type: ImageModalContextActionType.open,
+        payload: {
+          selectIndex: selectIndex - 1,
+        },
+      });
+    }
+  };
+
+  const showNextImage = (e?: MouseEvent) => {
+    e?.stopPropagation();
+    if (isDefined(selectIndex) && enableShowNextImage) {
+      setDirection(1);
+      dispatch({
+        type: ImageModalContextActionType.open,
+        payload: {
+          selectIndex: selectIndex + 1,
+        },
+      });
+    }
+  };
+
+  const ref = useRef(false);
+
   return (
-    <div
+    <button
+      type="button"
       className={classNames(styles.wrap, {
         [styles.clear]: isUndefined(selectIndex),
       })}
-      onTouchStart={(e) => {
-        touchRef.current = [e.touches[0].clientX, e.touches[0].clientY];
-      }}
-      onTouchEnd={(e) => {
-        const [startX, startY] = touchRef.current;
-        const [endX, endY] = [e.changedTouches[0].clientX, e.changedTouches[0].clientY];
-        const distanceX = endX - startX;
-        const distanceY = endY - startY;
-        if (Math.abs(distanceX) > Math.abs(distanceY)) {
-          if (distanceX > 0) {
-            enableShowPrevImage && showPrevImage();
-          } else {
-            enableShowNextImage && showNextImage();
-          }
-        } else {
-          setImgSrc(undefined);
-        }
+      onClick={() => {
+        setImgSrc(undefined);
+        ref.current = true;
       }}
     >
       {enableShowPrevImage && (
@@ -124,56 +136,103 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
           onClick={showNextImage}
         />
       )}
-      <div className="sm:px-20 w-full h-full">
-        <AnimatePresence>
+      <div className="sm:px-20 w-full h-full flex justify-center items-center">
+        <AnimatePresence initial={false} custom={{ animated, loadingImg, direction }}>
           {isDefined(imgSrc) && (
             <motion.img
+              key={selectIndex}
               onAnimationComplete={(label) => {
-                if (label === 'complete') {
+                if (label === 'animate') {
                   setAnimated(true);
                 } else if (label === 'exit') {
-                  setLoadingImg(true);
-                  setAnimated(false);
-                  closeModal();
+                  if (ref.current) {
+                    ref.current = false;
+                    setLoadingImg(true);
+                    setAnimated(false);
+                    closeModal();
+                  }
                 }
               }}
               variants={{
-                initial: {
-                  opacity: 0,
-                  filter: 'blur(50px)',
-                  scale: 0.3,
+                initial: ({ direction: d, animated: a }) => {
+                  if (a) {
+                    return {
+                      x: d > 0 ? 1000 : -1000,
+                      opacity: 0,
+                    };
+                  }
+                  return {
+                    opacity: 0,
+                    filter: 'blur(50px)',
+                    scale: 0.3,
+                  };
                 },
-                complete: {
-                  opacity: 1,
-                  filter: 'blur(10px)',
-                  scale: 1,
+                animate: ({ animated: a, loadingImg: b }) => {
+                  if (a && !b) {
+                    return {
+                      zIndex: 1,
+                      opacity: 1,
+                      filter: 'blur(0)',
+                      scale: 1,
+                      x: 0,
+                    };
+                  }
+                  return {
+                    zIndex: 1,
+                    opacity: 1,
+                    filter: 'blur(10px)',
+                    scale: 1,
+                    x: 0,
+                  };
                 },
-                loaded: {
-                  opacity: 1,
-                  filter: 'blur(0)',
-                  scale: 1,
-                  transition: {
-                    type: false,
-                  },
+                exit: ({ direction: d, animated: a }) => {
+                  if (a && !ref.current) {
+                    return {
+                      zIndex: 0,
+                      opacity: 0,
+                      x: d > 0 ? -1000 : 1000,
+                    };
+                  }
+                  return {
+                    zIndex: 0,
+                    opacity: 0,
+                    scale: 0.7,
+                  };
                 },
-                exit: {
-                  opacity: 0,
-                  scale: 0.8,
-                  transition: { duration: 0.3 },
-                },
+              }}
+              custom={{
+                animated,
+                loadingImg,
+                direction,
               }}
               initial="initial"
-              animate={animated && !loadingImg ? 'loaded' : 'complete'}
+              animate="animate"
               exit="exit"
-              className={classNames(styles.image, 'pointer')}
+              className={classNames(styles.image, 'pointer', {
+                [styles.wFullImage]: isWider,
+                'h-full': !isWider,
+              })}
               src={imgSrc}
-              onClick={() => {
-                setImgSrc(undefined);
+              transition={{
+                x: { type: 'spring', stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 },
               }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.5}
+              onDragEnd={(_, { offset, velocity }) => {
+                const swipe = swipePower(offset.x, velocity.x);
+                if (swipe < -swipeConfidenceThreshold) {
+                  showNextImage();
+                } else if (swipe > swipeConfidenceThreshold) {
+                  showPrevImage();
+                }
+              }}
+              onClick={(e) => e.stopPropagation()}
             />
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </button>
   );
 };
