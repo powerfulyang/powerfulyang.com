@@ -6,6 +6,7 @@ import { useBeforeUnload, useImmer } from '@powerfulyang/hooks';
 import { interval } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { useQueryClient } from 'react-query';
+import { Collection } from '@powerfulyang/utils';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
 import type { Feed } from '@/type/Feed';
@@ -69,11 +70,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     setUploading(false);
     if (images) {
       setAssets((draft) => {
-        images.forEach((image) => {
-          if (!draft.find((asset) => asset.id === image.id)) {
-            draft.push(image);
-          }
-        });
+        return Collection.merge(draft, images, 'id');
       });
     }
   };

@@ -56,7 +56,7 @@ export const clientRequest = async <T = any>(
     });
 
     const json = await res.json();
-    if (res.status !== 200) {
+    if (res.status >= 300) {
       notification.error({
         message: `请求错误：${res.status}`,
         description: json.message,
