@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import React from 'react';
 import classNames from 'classnames';
 import { getEnumKeys } from '@powerfulyang/utils';
+import { motion } from 'framer-motion';
 import type { User } from '@/type/User';
 import { ProjectName } from '@/constant/Constant';
 import { Menu } from '@/layout/UserLayout';
@@ -26,17 +27,27 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
         <Link to="/" className={classNames(styles.title)}>
           {ProjectName}
         </Link>
+        <img
+          alt=""
+          className="h-full rounded-full ml-4 sm:hidden"
+          src="/icons/apple-touch-icon.png"
+        />
         <div className={styles.menus}>
           {getEnumKeys(Menu).map((x) => (
-            <Link
-              key={x}
-              className={classNames({
-                [styles.active]: Reflect.get(Menu, x) === active,
-              })}
-              to={`/${x}`}
-            >
-              {x}
-            </Link>
+            <div key={x} className="w-auto h-full relative flex items-center justify-center">
+              <Link
+                key={x}
+                className={classNames({
+                  [styles.active]: Reflect.get(Menu, x) === active,
+                })}
+                to={`/${x}`}
+              >
+                {x}
+              </Link>
+              {Reflect.get(Menu, x) === active && (
+                <motion.div key="activeTab" className={styles.activeTab} layoutId="activeTab" />
+              )}
+            </div>
           ))}
         </div>
 
