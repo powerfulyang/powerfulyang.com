@@ -1,7 +1,7 @@
 import type { FC, MouseEvent } from 'react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import { Icon } from '@powerfulyang/components';
 import { isDefined, isUndefined } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
@@ -51,14 +51,14 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
     () => isDefined(selectIndex) && images?.[selectIndex]?.objectUrl,
     [images, selectIndex],
   );
-  // const prevImgUrl = useMemo(
-  //   () => isDefined(selectIndex) && images?.[selectIndex - 1]?.objectUrl,
-  //   [images, selectIndex],
-  // );
-  // const nextImgUrl = useMemo(
-  //   () => isDefined(selectIndex) && images?.[selectIndex + 1]?.objectUrl,
-  //   [images, selectIndex],
-  // );
+  const prevImgUrl = useMemo(
+    () => isDefined(selectIndex) && images?.[selectIndex - 1]?.objectUrl,
+    [images, selectIndex],
+  );
+  const nextImgUrl = useMemo(
+    () => isDefined(selectIndex) && images?.[selectIndex + 1]?.objectUrl,
+    [images, selectIndex],
+  );
   const [loadingImg, setLoadingImg] = useState(true);
   useEffect(() => {
     animated &&
@@ -96,30 +96,31 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
   }, [images, imgSrc, selectIndex]);
 
   const [direction, setDirection] = useState(0);
+  const x = useMotionValue(0);
 
   const showPrevImage = (e?: MouseEvent) => {
     e?.stopPropagation();
     if (isDefined(selectIndex) && enableShowPrevImage) {
-      setDirection(-1);
-      dispatch({
-        type: ImageModalContextActionType.open,
-        payload: {
-          selectIndex: selectIndex - 1,
-        },
-      });
+      x.updateAndNotify(window.visualViewport.width, true);
+      // dispatch({
+      //   type: ImageModalContextActionType.open,
+      //   payload: {
+      //     selectIndex: selectIndex - 1,
+      //   },
+      // });
     }
   };
 
   const showNextImage = (e?: MouseEvent) => {
     e?.stopPropagation();
     if (isDefined(selectIndex) && enableShowNextImage) {
-      setDirection(1);
-      dispatch({
-        type: ImageModalContextActionType.open,
-        payload: {
-          selectIndex: selectIndex + 1,
-        },
-      });
+      x.updateAndNotify(-window.visualViewport.width, true);
+      // dispatch({
+      //   type: ImageModalContextActionType.open,
+      //   payload: {
+      //     selectIndex: selectIndex + 1,
+      //   },
+      // });
     }
   };
 
@@ -172,8 +173,25 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       )}
       <motion.div className="w-full h-full flex justify-center items-center">
         <AnimatePresence initial={false} custom={{ animated, loadingImg, direction }}>
+          {prevImgUrl && (
+            <motion.img
+              key={prevImgUrl}
+              className={classNames(styles.image, styles.wFullImage, styles.with, '-left-full')}
+              style={{ x }}
+              src={prevImgUrl}
+            />
+          )}
+          {nextImgUrl && (
+            <motion.img
+              key={nextImgUrl}
+              className={classNames(styles.image, styles.wFullImage, styles.with, 'left-full')}
+              style={{ x }}
+              src={nextImgUrl}
+            />
+          )}
           {isDefined(imgSrc) && (
             <motion.img
+              style={{ x }}
               key={selectIndex}
               onAnimationComplete={(label) => {
                 if (label === 'animate') {
@@ -188,12 +206,9 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
                 }
               }}
               variants={{
-                initial: ({ direction: d, animated: a }) => {
+                initial: ({ animated: a, direction: d }) => {
                   if (a) {
-                    return {
-                      x: d > 0 ? '130vw' : '-130vw',
-                      opacity: 0,
-                    };
+                    return {};
                   }
                   return {
                     opacity: 0,
@@ -201,14 +216,13 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
                     scale: 0.3,
                   };
                 },
-                animate: ({ animated: a, loadingImg: b }) => {
+                animate: ({ animated: a, loadingImg: b, direction: d }) => {
                   if (a && !b) {
                     return {
                       zIndex: 1,
                       opacity: 1,
                       filter: 'blur(0)',
                       scale: 1,
-                      x: 0,
                     };
                   }
                   return {
@@ -216,20 +230,19 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
                     opacity: 1,
                     filter: 'blur(10px)',
                     scale: 1,
-                    x: 0,
                   };
                 },
                 exit: ({ direction: d, animated: a }) => {
                   if (a && !ref.current) {
                     return {
                       zIndex: 0,
-                      x: d > 0 ? '-130vw' : '130vw',
                     };
                   }
                   return {
                     zIndex: 0,
                     opacity: 0,
                     scale: 0.7,
+                    x: 0,
                   };
                 },
               }}
@@ -247,16 +260,15 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
               })}
               src={imgSrc}
               transition={{
-                x: { type: 'spring', stiffness: 300, damping: 30 },
+                x: { duration: 10 },
                 opacity: { duration: 0.2 },
               }}
               drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.5}
               onDragEnd={(_, { offset, velocity }) => {
                 const swipeX = swipePower(offset.x, velocity.x);
                 const swipeY = swipePower(offset.y, velocity.y);
-                Math.abs(swipeY) > swipeConfidenceThreshold && fadeImage();
+                // Math.abs(swipeY) > swipeConfidenceThreshold && fadeImage();
                 if (swipeX < -swipeConfidenceThreshold) {
                   showNextImage();
                 } else if (swipeX > swipeConfidenceThreshold) {

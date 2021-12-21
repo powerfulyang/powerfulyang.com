@@ -23,6 +23,10 @@
     }
   }
 
+  .with {
+    @apply w-full h-full top-0;
+  }
+
   .next {
     position: absolute;
     top: 50%;
