@@ -1,7 +1,7 @@
 import type { FC, MouseEvent } from 'react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Icon } from '@powerfulyang/components';
 import { isDefined, isUndefined } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
@@ -101,7 +101,8 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
   const showPrevImage = (e?: MouseEvent) => {
     e?.stopPropagation();
     if (isDefined(selectIndex) && enableShowPrevImage) {
-      x.updateAndNotify(window.visualViewport.width, true);
+      x.stop();
+      setDirection(-1);
       // dispatch({
       //   type: ImageModalContextActionType.open,
       //   payload: {
@@ -114,7 +115,8 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
   const showNextImage = (e?: MouseEvent) => {
     e?.stopPropagation();
     if (isDefined(selectIndex) && enableShowNextImage) {
-      x.updateAndNotify(-window.visualViewport.width, true);
+      x.stop();
+      setDirection(1);
       // dispatch({
       //   type: ImageModalContextActionType.open,
       //   payload: {
@@ -192,10 +194,30 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
           {isDefined(imgSrc) && (
             <motion.img
               style={{ x }}
-              key={selectIndex}
+              key={imgSrc}
               onAnimationComplete={(label) => {
                 if (label === 'animate') {
                   setAnimated(true);
+                  if (isDefined(selectIndex)) {
+                    if (direction === 1) {
+                      dispatch({
+                        type: ImageModalContextActionType.open,
+                        payload: {
+                          selectIndex: selectIndex + 1,
+                        },
+                      });
+                      setDirection(0);
+                    }
+                    if (direction === -1) {
+                      dispatch({
+                        type: ImageModalContextActionType.open,
+                        payload: {
+                          selectIndex: selectIndex - 1,
+                        },
+                      });
+                      setDirection(0);
+                    }
+                  }
                 } else if (label === 'exit') {
                   if (ref.current) {
                     ref.current = false;
@@ -223,6 +245,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
                       opacity: 1,
                       filter: 'blur(0)',
                       scale: 1,
+                      x: (d === 1 && '-100vw') || (d === -1 && '100vw') || 0,
                     };
                   }
                   return {
@@ -235,7 +258,11 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
                 exit: ({ direction: d, animated: a }) => {
                   if (a && !ref.current) {
                     return {
-                      zIndex: 0,
+                      zIndex: 1,
+                      x: 0,
+                      opacity: 0,
+                      scale: 0,
+                      transition: { type: false },
                     };
                   }
                   return {
@@ -260,8 +287,8 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
               })}
               src={imgSrc}
               transition={{
-                x: { duration: 10 },
                 opacity: { duration: 0.2 },
+                x: { duration: 10 },
               }}
               drag="x"
               dragElastic={0.5}
