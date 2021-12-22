@@ -29,7 +29,11 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
         </Link>
         <div className={styles.menus}>
           {getEnumKeys(Menu).map((x) => (
-            <div key={x} className="w-auto h-full relative flex items-center justify-center">
+            <motion.div
+              layout
+              key={x}
+              className="w-auto h-full relative flex items-center justify-center"
+            >
               <Link
                 key={x}
                 className={classNames({
@@ -40,9 +44,9 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
                 {x}
               </Link>
               {Reflect.get(Menu, x) === active && (
-                <motion.div key="activeTab" className={styles.activeTab} layoutId="activeTab" />
+                <motion.div className={styles.activeTab} layoutId="nav-active-tab" />
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
 

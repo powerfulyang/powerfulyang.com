@@ -1,7 +1,7 @@
-import type { FC, MouseEvent } from 'react';
+import type { FC, MouseEvent, TouchEvent } from 'react';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Icon } from '@powerfulyang/components';
 import { isDefined, isUndefined } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
@@ -27,18 +27,6 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
     }
     return null;
   }, [images, selectIndex]);
-  const isWider = useMemo(() => {
-    return (
-      window.visualViewport.height / window.visualViewport.width >
-      Number(image?.size.height) / Number(image?.size.width)
-    );
-  }, [image]);
-  const isWiderThanScreen = useMemo(() => {
-    return Number(image?.size.width) >= window.visualViewport.width - 100 * 2;
-  }, [image]);
-  const isHigherThanScreen = useMemo(() => {
-    return Number(image?.size.height) >= window.visualViewport.height;
-  }, [image]);
 
   const [imgSrc, setImgSrc] = useState<string>();
   const [animated, setAnimated] = useState<boolean>(false);
@@ -51,14 +39,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
     () => isDefined(selectIndex) && images?.[selectIndex]?.objectUrl,
     [images, selectIndex],
   );
-  const prevImgUrl = useMemo(
-    () => isDefined(selectIndex) && images?.[selectIndex - 1]?.objectUrl,
-    [images, selectIndex],
-  );
-  const nextImgUrl = useMemo(
-    () => isDefined(selectIndex) && images?.[selectIndex + 1]?.objectUrl,
-    [images, selectIndex],
-  );
+
   const [loadingImg, setLoadingImg] = useState(true);
   useEffect(() => {
     animated &&
@@ -95,34 +76,27 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
     return false;
   }, [images, imgSrc, selectIndex]);
 
-  const [direction, setDirection] = useState(0);
-  const x = useMotionValue(0);
-
   const showPrevImage = (e?: MouseEvent) => {
     e?.stopPropagation();
     if (isDefined(selectIndex) && enableShowPrevImage) {
-      x.stop();
-      setDirection(-1);
-      // dispatch({
-      //   type: ImageModalContextActionType.open,
-      //   payload: {
-      //     selectIndex: selectIndex - 1,
-      //   },
-      // });
+      dispatch({
+        type: ImageModalContextActionType.open,
+        payload: {
+          selectIndex: selectIndex - 1,
+        },
+      });
     }
   };
 
   const showNextImage = (e?: MouseEvent) => {
     e?.stopPropagation();
     if (isDefined(selectIndex) && enableShowNextImage) {
-      x.stop();
-      setDirection(1);
-      // dispatch({
-      //   type: ImageModalContextActionType.open,
-      //   payload: {
-      //     selectIndex: selectIndex + 1,
-      //   },
-      // });
+      dispatch({
+        type: ImageModalContextActionType.open,
+        payload: {
+          selectIndex: selectIndex + 1,
+        },
+      });
     }
   };
 
@@ -149,6 +123,47 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
     };
   });
 
+  const [x, setX] = useState(0);
+  const startPositionRef = useRef<[number, number]>([0, 0]);
+  /**
+   * 1 代表横向移动
+   * 2 代表纵向移动
+   */
+  const actionRef = useRef(0);
+
+  const onTouchStart = (e: TouchEvent<HTMLImageElement> | MouseEvent<HTMLImageElement>) => {
+    let clientX = 0;
+    let clientY = 0;
+    if ('changedTouches' in e) {
+      clientX = e.changedTouches[0].clientX;
+      clientY = e.changedTouches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+    actionRef.current = 1;
+    startPositionRef.current = [clientX, clientY];
+  };
+
+  const onTouchMove = (e: TouchEvent<HTMLImageElement> | MouseEvent<HTMLImageElement>) => {
+    const [startX, startY] = startPositionRef.current;
+    let offsetX = 0;
+    if ('changedTouches' in e) {
+      const { clientX, clientY } = e.changedTouches && e.changedTouches[0];
+      offsetX = clientX - startX;
+    } else {
+      const { clientX, clientY } = e;
+      offsetX = clientX - startX;
+    }
+    if (actionRef.current === 1) {
+      setX(offsetX);
+    }
+  };
+
+  const onTouchEnd = () => {
+    actionRef.current = 0;
+  };
+
   return (
     <button
       type="button"
@@ -173,139 +188,63 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
           onClick={showNextImage}
         />
       )}
-      <motion.div className="w-full h-full flex justify-center items-center">
-        <AnimatePresence initial={false} custom={{ animated, loadingImg, direction }}>
-          {prevImgUrl && (
-            <motion.img
-              key={prevImgUrl}
-              className={classNames(styles.image, styles.wFullImage, styles.with, '-left-full')}
-              style={{ x }}
-              src={prevImgUrl}
-            />
-          )}
-          {nextImgUrl && (
-            <motion.img
-              key={nextImgUrl}
-              className={classNames(styles.image, styles.wFullImage, styles.with, 'left-full')}
-              style={{ x }}
-              src={nextImgUrl}
-            />
-          )}
-          {isDefined(imgSrc) && (
-            <motion.img
-              style={{ x }}
-              key={imgSrc}
-              onAnimationComplete={(label) => {
-                if (label === 'animate') {
-                  setAnimated(true);
-                  if (isDefined(selectIndex)) {
-                    if (direction === 1) {
-                      dispatch({
-                        type: ImageModalContextActionType.open,
-                        payload: {
-                          selectIndex: selectIndex + 1,
-                        },
-                      });
-                      setDirection(0);
-                    }
-                    if (direction === -1) {
-                      dispatch({
-                        type: ImageModalContextActionType.open,
-                        payload: {
-                          selectIndex: selectIndex - 1,
-                        },
-                      });
-                      setDirection(0);
-                    }
-                  }
-                } else if (label === 'exit') {
-                  if (ref.current) {
-                    ref.current = false;
-                    setLoadingImg(true);
-                    setAnimated(false);
-                    closeModal();
-                  }
-                }
-              }}
-              variants={{
-                initial: ({ animated: a, direction: d }) => {
-                  if (a) {
-                    return {};
-                  }
-                  return {
-                    opacity: 0,
-                    filter: 'blur(50px)',
-                    scale: 0.3,
-                  };
-                },
-                animate: ({ animated: a, loadingImg: b, direction: d }) => {
-                  if (a && !b) {
-                    return {
-                      zIndex: 1,
-                      opacity: 1,
-                      filter: 'blur(0)',
-                      scale: 1,
-                      x: (d === 1 && '-100vw') || (d === -1 && '100vw') || 0,
-                    };
-                  }
-                  return {
-                    zIndex: 1,
-                    opacity: 1,
-                    filter: 'blur(10px)',
-                    scale: 1,
-                  };
-                },
-                exit: ({ direction: d, animated: a }) => {
-                  if (a && !ref.current) {
-                    return {
-                      zIndex: 1,
-                      x: 0,
-                      opacity: 0,
-                      scale: 0,
-                      transition: { type: false },
-                    };
-                  }
-                  return {
-                    zIndex: 0,
-                    opacity: 0,
-                    scale: 0.7,
-                    x: 0,
-                  };
-                },
-              }}
-              custom={{
-                animated,
-                loadingImg,
-                direction,
-              }}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className={classNames(styles.image, 'pointer', {
-                [styles.wFullImage]: isWider && isWiderThanScreen,
-                'h-full': !isWider && isHigherThanScreen,
-              })}
-              src={imgSrc}
-              transition={{
-                opacity: { duration: 0.2 },
-                x: { duration: 10 },
-              }}
-              drag="x"
-              dragElastic={0.5}
-              onDragEnd={(_, { offset, velocity }) => {
-                const swipeX = swipePower(offset.x, velocity.x);
-                const swipeY = swipePower(offset.y, velocity.y);
-                // Math.abs(swipeY) > swipeConfidenceThreshold && fadeImage();
-                if (swipeX < -swipeConfidenceThreshold) {
-                  showNextImage();
-                } else if (swipeX > swipeConfidenceThreshold) {
-                  showPrevImage();
-                }
-              }}
-              onClick={(e) => e.stopPropagation()}
-            />
-          )}
-        </AnimatePresence>
+      <motion.div className="w-full h-full flex justify-center items-center flex-nowrap overflow-hidden">
+        {isDefined(images) &&
+          isDefined(selectIndex) &&
+          images
+            .slice(Math.max(0, selectIndex - 1), Math.min(selectIndex + 2, images.length + 1))
+            .map((asset, index) => {
+              const url = CosUtils.getCosObjectUrl(asset.objectUrl);
+              const realIndex = selectIndex === 0 ? selectIndex + index : selectIndex - 1 + index;
+              const isPrev = selectIndex > realIndex;
+              const isNext = selectIndex < realIndex;
+              const isWider =
+                window.visualViewport.height / window.visualViewport.width >
+                Number(asset?.size.height) / Number(asset?.size.width);
+              const isWiderThanScreen =
+                Number(asset?.size.width) >= window.visualViewport.width - 100 * 2;
+              const isHigherThanScreen = Number(asset?.size.height) >= window.visualViewport.height;
+              return (
+                <motion.img
+                  custom={{
+                    isPrev,
+                    isNext,
+                    x,
+                  }}
+                  variants={{
+                    animate: ({ isPrev: p, isNext: n }) => {
+                      if (p) {
+                        return {
+                          x: window.visualViewport.width * (realIndex - selectIndex) + x,
+                        };
+                      }
+                      if (n) {
+                        return {
+                          x: window.visualViewport.width * (realIndex - selectIndex) + x,
+                        };
+                      }
+                      return { x: window.visualViewport.width * (realIndex - selectIndex) + x };
+                    },
+                  }}
+                  initial="animate"
+                  animate="animate"
+                  key={asset.id}
+                  className={classNames(styles.image, 'pointer', {
+                    [styles.wFullImage]: isWider && isWiderThanScreen,
+                    'h-full': !isWider && isHigherThanScreen,
+                  })}
+                  src={url}
+                  alt={asset.comment}
+                  onTouchStart={onTouchStart}
+                  onTouchMove={onTouchMove}
+                  onTouchEnd={onTouchEnd}
+                  onMouseDown={onTouchStart}
+                  onMouseMove={onTouchMove}
+                  onMouseUp={onTouchEnd}
+                  draggable={false}
+                />
+              );
+            })}
       </motion.div>
     </button>
   );

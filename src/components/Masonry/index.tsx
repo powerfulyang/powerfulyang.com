@@ -41,7 +41,7 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
             <button
               type="button"
               key={String(i)}
-              className="mt-2 sm:mt-4"
+              className="mt-2 sm:mt-4 rounded-lg shadow-lg"
               onClick={() => {
                 dispatch({
                   type: ImageModalContextActionType.open,
