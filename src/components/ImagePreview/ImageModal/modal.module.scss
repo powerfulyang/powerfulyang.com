@@ -10,6 +10,7 @@
   left: 0;
   z-index: var(--image-preview-z-index);
   backdrop-filter: blur(20px);
+  user-select: none;
   @apply w-full h-full;
 
   .image {
