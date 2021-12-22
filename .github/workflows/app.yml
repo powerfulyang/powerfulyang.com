@@ -1,7 +1,9 @@
-name: app
+name: powerfulyang.com
 
 on:
   push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -22,17 +24,6 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
       - name: Dockerize
         id: dockerize
         uses: elgohr/Publish-Docker-Github-Action@3.04
