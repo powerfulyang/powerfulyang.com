@@ -29,11 +29,7 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
         </Link>
         <div className={styles.menus}>
           {getEnumKeys(Menu).map((x) => (
-            <motion.div
-              layout
-              key={x}
-              className="w-auto h-full relative flex items-center justify-center"
-            >
+            <motion.div key={x} className="w-auto h-full relative flex items-center justify-center">
               <Link
                 key={x}
                 className={classNames({
