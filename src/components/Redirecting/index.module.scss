@@ -32,3 +32,39 @@
   background-size: 200% 100%;
   animation: redirecting 5s linear infinite;
 }
+
+.indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(
+      to right top,
+      #f16f5c,
+      #5b56dd,
+      #e15ced,
+      #27e559,
+      #18c8c9,
+      #dc8987,
+      #bb83d6,
+      #e774bd 50%,
+      transparent 50%
+    )
+    no-repeat;
+  background-size: 100% calc(100% - 100vh);
+  z-index: 9999;
+  pointer-events: none;
+  mix-blend-mode: darken;
+}
+
+.indicator::after {
+  content: '';
+  position: fixed;
+  top: 2px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: #fff;
+  z-index: 9999;
+}

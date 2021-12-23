@@ -7,10 +7,13 @@ import styles from './index.module.scss';
 export const Redirecting: FC = () => {
   const { state } = useContext(LinkContext);
   return (
-    <div
-      className={classNames(styles.redirecting, {
-        invisible: !state.isRedirecting,
-      })}
-    />
+    <>
+      <div
+        className={classNames(styles.redirecting, {
+          invisible: !state.isRedirecting,
+        })}
+      />
+      <div className={styles.indicator} />
+    </>
   );
 };
