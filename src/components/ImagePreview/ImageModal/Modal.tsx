@@ -183,7 +183,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
                 const isNext = selectIndex < realIndex;
                 const isMain = selectIndex === realIndex;
                 const isWider =
-                  window.visualViewport.height / window.visualViewport.width >
+                  window.visualViewport.height / (window.visualViewport.width - 100 * 2) >
                   Number(asset?.size.height) / Number(asset?.size.width);
                 const isWiderThanScreen =
                   Number(asset?.size.width) >= window.visualViewport.width - 100 * 2;
