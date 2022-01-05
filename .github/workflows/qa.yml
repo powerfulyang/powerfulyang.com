@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: setup env
-        run: mv .env.example .env
+        run: mv .env.qa .env
       - name: Install packages
         run: npm ci
       - name: Build
