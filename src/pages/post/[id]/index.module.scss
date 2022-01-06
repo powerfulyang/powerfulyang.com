@@ -1,20 +1,12 @@
 .post-wrap {
   background-color: #fcfcff;
+  display: flex;
   min-height: calc(100vh - var(--nav-height) - var(--footer-height));
-  @apply py-8 px-2;
+  @apply py-8 px-2 justify-center;
 
   .post {
-    float: left;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
-    width: min(900px, calc(100%));
+    width: min(800px, calc(100%));
     @apply rounded-lg py-16 px-8;
-    @screen sm {
-      left: calc(50% - var(--markdown-toc-width) / 2);
-      width: min(900px, calc(100% - var(--markdown-toc-width)));
-      @apply px-10 py-20;
-    }
   }
 }

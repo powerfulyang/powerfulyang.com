@@ -1,7 +1,7 @@
 @import '../../base';
 
 .wrap {
-  @apply bg-[#14161a] h-full;
+  @apply bg-[#14161a] h-[100vh];
 
   .gradient-bg {
     position: fixed;

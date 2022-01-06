@@ -1,9 +1,7 @@
 .toc {
   position: sticky;
   top: calc(var(--nav-height) + 2rem);
-  left: calc(50% + 450px - var(--markdown-toc-width) / 2);
-  float: left;
   width: var(--markdown-toc-width);
-  padding-top: 3rem;
-  @apply text-purple-500 pl-6;
+  align-self: start;
+  @apply text-purple-500 pl-4;
 }

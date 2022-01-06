@@ -24,9 +24,11 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
   return (
     <div className={styles.navPlaceholder}>
       <nav className={styles.nav}>
-        <Link to="/" className={classNames(styles.title)}>
-          {ProjectName}
-        </Link>
+        <div className="w-[15ch] text-xl px-3 py-1 mx-4">
+          <Link to="/" className={classNames(styles.title)}>
+            {ProjectName}
+          </Link>
+        </div>
         <div className={styles.menus}>
           {getEnumKeys(Menu).map((x) => (
             <motion.div key={x} className="w-auto h-full relative flex items-center justify-center">

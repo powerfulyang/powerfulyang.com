@@ -46,7 +46,7 @@
   @extend .default;
 
   body {
-    overflow: overlay;
+    scrollbar-gutter: stable;
     position: relative;
   }
 

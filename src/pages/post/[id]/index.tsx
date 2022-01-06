@@ -20,7 +20,6 @@ const PostDetail: LayoutFC<PostProps> = ({ data }) => {
     <main className={styles.postWrap}>
       <MarkdownContainer source={content} className={styles.post} />
       <MarkdownToc content={content} />
-      <div style={{ clear: 'both' }} />
     </main>
   );
 };
