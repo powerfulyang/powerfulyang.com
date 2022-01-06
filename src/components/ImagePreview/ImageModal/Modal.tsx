@@ -6,8 +6,8 @@ import { Icon } from '@powerfulyang/components';
 import { isDefined, isUndefined } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
 import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
-import { CosUtils } from '@/utils/lib';
 import styles from './modal.module.scss';
+import { ModalImage } from '@/components/ImagePreview/ImageModal/ModalImage';
 
 type ImageModalContentProps = {};
 
@@ -177,82 +177,15 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
             images
               .slice(Math.max(0, selectIndex - 1), Math.min(selectIndex + 2, images.length + 1))
               .map((asset, index) => {
-                const url = CosUtils.getCosObjectUrl(asset.objectUrl);
-                const realIndex = selectIndex === 0 ? selectIndex + index : selectIndex - 1 + index;
-                const isPrev = selectIndex > realIndex;
-                const isNext = selectIndex < realIndex;
-                const isMain = selectIndex === realIndex;
-                const isWider =
-                  window.visualViewport.height / (window.visualViewport.width - 100 * 2) >
-                  Number(asset?.size.height) / Number(asset?.size.width);
-                const isWiderThanScreen =
-                  Number(asset?.size.width) >= window.visualViewport.width - 100 * 2;
-                const isHigherThanScreen =
-                  Number(asset?.size.height) >= window.visualViewport.height;
                 return (
                   open && (
-                    <motion.img
-                      custom={{
-                        isPrev,
-                        isNext,
-                        x,
-                      }}
-                      onAnimationComplete={(label) => {
-                        if (isMain && label === 'exit') {
-                          destroy();
-                        }
-                      }}
-                      variants={{
-                        initial: () => {
-                          return {
-                            opacity: 0,
-                            filter: 'blur(50px)',
-                            scale: 0.4,
-                            x: window.visualViewport.width * (realIndex - selectIndex),
-                          };
-                        },
-                        animate: ({ isPrev: p, isNext: n, x: ox }) => {
-                          const offset: number = (p && -20) || (n && 20) || 0;
-                          let t = {};
-                          if (actionRef.current !== 0) {
-                            t = {
-                              transition: {
-                                type: false,
-                              },
-                            };
-                          }
-                          return {
-                            x:
-                              window.visualViewport.width * (realIndex - selectIndex) +
-                              Number(ox) +
-                              offset,
-                            opacity: 1,
-                            filter: 'blur(0px)',
-                            scale: 1,
-                            ...t,
-                          };
-                        },
-                        exit: () => {
-                          return {
-                            x: window.visualViewport.width * (realIndex - selectIndex),
-                            opacity: 0,
-                            scale: 0.8,
-                          };
-                        },
-                      }}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      key={asset.id}
-                      transition={{ duration: 0.3 }}
-                      className={classNames(styles.image, 'pointer', {
-                        [styles.wFullImage]: isWider && isWiderThanScreen,
-                        'h-full': !isWider && isHigherThanScreen,
-                      })}
-                      src={url}
-                      alt={asset.comment}
-                      draggable={false}
-                      onClick={(e) => e.stopPropagation()}
+                    <ModalImage
+                      actionRef={actionRef}
+                      asset={asset}
+                      selectIndex={selectIndex}
+                      index={index}
+                      destroy={destroy}
+                      x={x}
                     />
                   )
                 );
