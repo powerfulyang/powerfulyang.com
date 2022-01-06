@@ -42,5 +42,5 @@ jobs:
           script: |
             docker pull ${{ matrix.docker-repository }}
             cd ~/applications
-            docker-compose up -d --force-recreate powerfulyang.com
+            docker-compose up -d
             docker image prune -a -f
