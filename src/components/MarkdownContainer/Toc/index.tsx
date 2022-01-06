@@ -41,7 +41,9 @@ export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
                 );
               }}
             >
-              <span className="text-blue-400">{new Array(item.level).fill(0).map(() => '#')} </span>
+              <span className="text-purple-500">
+                {new Array(item.level).fill(0).map(() => '#')}{' '}
+              </span>
               {item.heading}
             </a>
           </div>

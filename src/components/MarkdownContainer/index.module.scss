@@ -1,7 +1,6 @@
 $primary-color: #c9b6e2;
 $heading-color: rgb(37 99 235 / 80%);
 $main-color: #ffb356;
-$fade-main-color: rgb(255 179 86 / 20%);
 
 .markdown-body {
   width: min(900px, 100%);
@@ -67,17 +66,13 @@ $fade-main-color: rgb(255 179 86 / 20%);
   h2 {
     color: $heading-color;
     background-image: linear-gradient(
-      60deg,
-      $fade-main-color,
-      rgb(0 0 0 / 0%) 20%,
-      rgb(0 0 0 / 0%) 30%,
-      $fade-main-color 50%,
-      rgb(0 0 0 / 0%) 70%,
-      rgb(0 0 0 / 0%) 80%,
-      $fade-main-color
+      45deg,
+      rgb(0 0 255 / 10%),
+      rgb(255 255 255 / 10%) 30%,
+      rgb(255 255 255 / 10%) 70%,
+      rgb(0 0 255 / 10%)
     );
-
-    @apply inline-block text-lg align-middle font-medium my-4 p-2 py-3 relative rounded-lg;
+    @apply inline-block text-lg align-middle font-medium my-4 px-2 py-3 relative rounded-lg;
 
     &::before {
       content: '#';

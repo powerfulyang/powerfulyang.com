@@ -6,7 +6,7 @@
 
   .post {
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
-    width: min(800px, calc(100%));
+    width: min(900px, 100%);
     @apply rounded-lg py-16 px-8;
   }
 }

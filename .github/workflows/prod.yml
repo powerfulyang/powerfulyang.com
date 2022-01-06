@@ -1,4 +1,4 @@
-name: powerfulyang.com-prod
+name: prod
 
 on:
   push:

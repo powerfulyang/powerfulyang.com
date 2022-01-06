@@ -14,6 +14,7 @@ type ModalImageProps = {
   actionRef: any;
   destroy: () => void;
   x: number;
+  y: number;
 };
 
 export const ModalImage: FC<ModalImageProps> = ({
@@ -23,6 +24,7 @@ export const ModalImage: FC<ModalImageProps> = ({
   actionRef,
   destroy,
   x,
+  y,
 }) => {
   const [url, setUrl] = useState(() => CosUtils.getCosObjectThumbnailUrl(asset.objectUrl));
   const [loaded, setLoaded] = useState(false);
@@ -57,6 +59,7 @@ export const ModalImage: FC<ModalImageProps> = ({
         isNext,
         x,
         loaded,
+        y,
       }}
       onAnimationComplete={(label) => {
         if (isMain && label === 'exit') {
@@ -75,7 +78,7 @@ export const ModalImage: FC<ModalImageProps> = ({
             x: window.visualViewport.width * (realIndex - selectIndex),
           };
         },
-        animate: ({ isPrev: p, isNext: n, x: ox, loaded: l }) => {
+        animate: ({ isPrev: p, isNext: n, x: ox, loaded: l, y: oy }) => {
           const offset: number = (p && -20) || (n && 20) || 0;
           let t = {};
           if (actionRef.current !== 0) {
@@ -88,16 +91,17 @@ export const ModalImage: FC<ModalImageProps> = ({
           return {
             x: window.visualViewport.width * (realIndex - selectIndex) + Number(ox) + offset,
             opacity: 1,
-            filter: l ? 'blur(0px)' : 'blur(50px)',
-            scale: 1,
+            filter: l ? 'blur(0px)' : 'blur(20px)',
+            scale: oy ? 1 - oy / window.visualViewport.height : 1,
+            y: oy,
             ...t,
           };
         },
-        exit: () => {
+        exit: ({ y: oy }) => {
           return {
             x: window.visualViewport.width * (realIndex - selectIndex),
             opacity: 0,
-            scale: 0.8,
+            scale: oy ? 0.3 : 0.8,
           };
         },
       }}

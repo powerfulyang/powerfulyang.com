@@ -35,33 +35,30 @@
   }
 
   .title {
-    display: none;
-    @screen sm {
-      position: relative;
-      display: block;
-      color: transparent;
-      font-family: 'Zpix', sans-serif;
-      background: linear-gradient(
-          -45deg,
-          rgb(255 245 102),
-          rgb(168 255 202),
-          rgb(255 173 97),
-          rgb(255 133 122),
-          rgb(255 255 255),
-          rgb(255 92 201),
-          rgb(98 121 234),
-          rgb(102 255 230)
-        )
-        0 0% / 200%;
-      background-clip: text;
-      width: 15ch;
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 0.1em solid black;
-      animation: 5s ease-in-out 0s infinite normal none running flow, typing 2s steps(9, end),
-        blink-caret 0.5s step-end infinite alternate;
-      @extend .pointer;
-    }
+    position: relative;
+    display: block;
+    color: transparent;
+    font-family: 'Zpix', sans-serif;
+    background: linear-gradient(
+        -45deg,
+        rgb(255 245 102),
+        rgb(168 255 202),
+        rgb(255 173 97),
+        rgb(255 133 122),
+        rgb(255 255 255),
+        rgb(255 92 201),
+        rgb(98 121 234),
+        rgb(102 255 230)
+      )
+      0 0% / 200%;
+    background-clip: text;
+    width: 15ch;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 0.07em solid rgb(255 92 201);
+    animation: 5s ease-in-out 0s infinite normal none running flow, typing 2s steps(9, end),
+      blink-caret 0.5s step-end infinite alternate;
+    @extend .pointer;
   }
 
   .left {

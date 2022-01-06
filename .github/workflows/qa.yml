@@ -1,9 +1,9 @@
-name: powerfulyang.com-qa
+name: qa
 
 on:
   push:
     branches:
-      - master
+      - qa
 
 jobs:
   build:

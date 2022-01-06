@@ -63,6 +63,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
   );
 
   const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
   const startPositionRef = useRef<[number, number]>([0, 0]);
   /**
    * 1 代表横向移动
@@ -80,34 +81,50 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       clientX = e.clientX;
       clientY = e.clientY;
     }
-    actionRef.current = 1;
     startPositionRef.current = [clientX, clientY];
+    actionRef.current = 3;
   };
 
   const onTouchMove = (e: TouchEvent<HTMLDivElement> | MouseEvent<HTMLDivElement>) => {
-    // TODO: Y 轴滑动
-    const [startX] = startPositionRef.current;
+    const [startX, startY] = startPositionRef.current;
     let offsetX: number;
+    let offsetY: number;
     if ('changedTouches' in e) {
-      const { clientX } = e.changedTouches && e.changedTouches[0];
+      const { clientX, clientY } = e.changedTouches && e.changedTouches[0];
       offsetX = clientX - startX;
+      offsetY = clientY - startY;
     } else {
-      const { clientX } = e;
+      const { clientX, clientY } = e;
       offsetX = clientX - startX;
+      offsetY = clientY - startY;
+    }
+    if (actionRef.current === 3 && Math.abs(offsetX) > Math.abs(offsetY)) {
+      actionRef.current = 1;
+    }
+    if (actionRef.current === 3 && Math.abs(offsetX) < Math.abs(offsetY)) {
+      actionRef.current = 2;
     }
     if (actionRef.current === 1) {
       setX(offsetX / 2);
+    }
+    if (actionRef.current === 2 && offsetY > 0) {
+      setY(offsetY / 2);
     }
   };
 
   const onTouchEnd = () => {
     actionRef.current = 0;
-    if (x > 20) {
+    if (x > 50) {
       showPrevImage();
-    } else if (x < -20) {
+    } else if (x < -50) {
       showNextImage();
     }
     setX(0);
+    if (y > 50) {
+      setOpen(false);
+    } else {
+      setY(0);
+    }
   };
 
   const fadeOutImage = () => {
@@ -119,6 +136,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       type: ImageModalContextActionType.close,
     });
     setOpen(true);
+    setY(0);
   };
 
   useEffect(() => {
@@ -141,9 +159,13 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
   return (
     <div
       role="presentation"
-      className={classNames(styles.wrap, {
-        [styles.clear]: isUndefined(selectIndex),
-      })}
+      className={classNames(
+        styles.wrap,
+        {
+          [styles.clear]: isUndefined(selectIndex),
+        },
+        'pointer',
+      )}
       onClick={fadeOutImage}
     >
       {enableShowPrevImage && (
@@ -180,12 +202,14 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
                 return (
                   open && (
                     <ModalImage
+                      key={asset.id}
                       actionRef={actionRef}
                       asset={asset}
                       selectIndex={selectIndex}
                       index={index}
                       destroy={destroy}
                       x={x}
+                      y={y}
                     />
                   )
                 );

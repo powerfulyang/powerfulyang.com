@@ -24,7 +24,7 @@ export const NavBar: FC<NavBarProps> = ({ user, active }) => {
   return (
     <div className={styles.navPlaceholder}>
       <nav className={styles.nav}>
-        <div className="w-[15ch] text-xl px-3 py-1 mx-4">
+        <div className="w-[15ch] text-xl px-3 py-1 mx-4 hidden-xs">
           <Link to="/" className={classNames(styles.title)}>
             {ProjectName}
           </Link>
