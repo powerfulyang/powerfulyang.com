@@ -10,9 +10,6 @@
 .main {
   width: 90%;
   margin: auto;
-  @screen sm {
-    width: 600px;
-  }
 
   .article-title {
     @apply font-normal px-4 py-2 text-purple-400;
@@ -32,5 +29,11 @@
     .active {
       @apply text-purple-400;
     }
+  }
+
+  .post-preview {
+    display: flex;
+    justify-content: center;
+    @apply py-10;
   }
 }

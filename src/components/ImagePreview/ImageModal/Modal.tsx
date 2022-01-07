@@ -114,13 +114,13 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
 
   const onTouchEnd = () => {
     actionRef.current = 0;
-    if (x > 50) {
+    if (x > 20) {
       showPrevImage();
-    } else if (x < -50) {
+    } else if (x < -20) {
       showNextImage();
     }
     setX(0);
-    if (y > 50) {
+    if (y > 20) {
       setOpen(false);
     } else {
       setY(0);

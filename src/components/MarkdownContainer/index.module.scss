@@ -12,7 +12,7 @@ $main-color: #ffb356;
     linear-gradient(360deg, rgb(50 0 0 / 5%) 3%, rgb(0 0 0 / 0%) 3%);
   background-position: center center;
   background-size: 20px 20px;
-  @apply box-border h-auto min-h-full px-8 py-10;
+  @apply box-border h-auto px-8 py-10;
 
   .main-color {
     color: $main-color;

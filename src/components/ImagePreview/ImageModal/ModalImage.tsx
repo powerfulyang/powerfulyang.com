@@ -28,6 +28,7 @@ export const ModalImage: FC<ModalImageProps> = ({
 }) => {
   const [url, setUrl] = useState(() => CosUtils.getCosObjectThumbnailUrl(asset.objectUrl));
   const [loaded, setLoaded] = useState(false);
+  const [animated, setAnimated] = useState(false);
   useEffect(() => {
     const originUrl = CosUtils.getCosObjectUrl(asset.objectUrl);
     if (originUrl) {
@@ -42,6 +43,12 @@ export const ModalImage: FC<ModalImageProps> = ({
       };
     }
   }, [asset]);
+  useEffect(() => {
+    if (animated && loaded && url !== assets.brokenImg) {
+      setUrl(CosUtils.getCosObjectUrl(asset.objectUrl));
+    }
+  }, [animated, asset.objectUrl, loaded, url]);
+
   const realIndex = selectIndex === 0 ? selectIndex + index : selectIndex - 1 + index;
   const isPrev = selectIndex > realIndex;
   const isNext = selectIndex < realIndex;
@@ -58,15 +65,16 @@ export const ModalImage: FC<ModalImageProps> = ({
         isPrev,
         isNext,
         x,
-        loaded,
         y,
+        loaded,
+        animated,
       }}
       onAnimationComplete={(label) => {
         if (isMain && label === 'exit') {
           destroy();
         }
-        if (label === 'animate' && loaded) {
-          setUrl(CosUtils.getCosObjectUrl(asset.objectUrl));
+        if (label === 'animate') {
+          setAnimated(true);
         }
       }}
       variants={{
@@ -78,7 +86,7 @@ export const ModalImage: FC<ModalImageProps> = ({
             x: window.visualViewport.width * (realIndex - selectIndex),
           };
         },
-        animate: ({ isPrev: p, isNext: n, x: ox, loaded: l, y: oy }) => {
+        animate: ({ isPrev: p, isNext: n, x: ox, loaded: l, animated: a, y: oy }) => {
           const offset: number = (p && -20) || (n && 20) || 0;
           let t = {};
           if (actionRef.current !== 0) {
@@ -91,7 +99,7 @@ export const ModalImage: FC<ModalImageProps> = ({
           return {
             x: window.visualViewport.width * (realIndex - selectIndex) + Number(ox) + offset,
             opacity: 1,
-            filter: l ? 'blur(0px)' : 'blur(20px)',
+            filter: l && a ? 'blur(0px)' : 'blur(20px)',
             scale: oy ? 1 - oy / window.visualViewport.height : 1,
             y: oy,
             ...t,
