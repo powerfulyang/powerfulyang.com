@@ -12,7 +12,9 @@
   margin: auto;
 
   .article-title {
-    @apply font-normal px-4 py-2 text-purple-400;
+    @apply font-normal px-4 py-2 text-white font-semibold text-2xl;
+
+    backdrop-filter: brightness(0.8);
   }
 
   .years {
@@ -34,6 +36,46 @@
   .post-preview {
     display: flex;
     justify-content: center;
-    @apply py-10;
+    position: fixed;
+    inset: 0;
+    z-index: 12;
+    padding: 2rem 0;
+  }
+
+  .post-title {
+    position: absolute;
+    z-index: 3;
+    top: 3rem;
+    padding: 2rem;
+    @apply text-lg w-full;
+  }
+
+  .overlay {
+    background: rgb(0 0 0 / 50%);
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+  }
+
+  .card {
+    position: relative;
+    padding: 25px;
+    height: 460px;
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+
+  .card:nth-child(4n + 1),
+  .card:nth-child(4n + 4) {
+    flex: 0 0 60%;
+    max-width: 60%;
+  }
+
+  .card:nth-child(odd) {
+    padding-left: 0;
+  }
+
+  .card:nth-child(even) {
+    padding-right: 0;
   }
 }
