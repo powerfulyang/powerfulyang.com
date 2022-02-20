@@ -13,8 +13,6 @@
 
   .article-title {
     @apply font-normal px-4 py-2 text-white font-semibold text-2xl;
-
-    backdrop-filter: brightness(0.8);
   }
 
   .years {
@@ -39,7 +37,11 @@
     position: fixed;
     inset: 0;
     z-index: 12;
-    padding: 2rem 0;
+    overflow: hidden;
+  }
+
+  .layout {
+    max-width: 700px;
   }
 
   .post-title {
@@ -55,6 +57,7 @@
     position: fixed;
     inset: 0;
     z-index: 9;
+    will-change: opacity;
   }
 
   .card {

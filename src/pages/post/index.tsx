@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import type { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { request } from '@/utils/request';
 import type { Post } from '@/type/Post';
 import { Link } from '@/components/Link';
@@ -11,7 +11,6 @@ import { DateFormat } from '@/utils/lib';
 import styles from './index.module.scss';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
-import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
 
 type IndexProps = {
   posts: Post[];
@@ -21,6 +20,10 @@ type IndexProps = {
 
 const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   const [selectedPostId, setSelectedPostId] = useState(0);
+  const selectedPost = useMemo(
+    () => posts.find((post) => post.id === selectedPostId),
+    [posts, selectedPostId],
+  );
 
   const showPost = (postId: number) => {
     setSelectedPostId(postId);
@@ -59,7 +62,6 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
         <section className="flex flex-wrap">
           {posts.map((post) => (
             <div key={post.id} className={styles.card}>
-              {selectedPostId === post.id && <div className={styles.overlay} />}
               <div className={classNames('flex flex-col', styles.postTitle)}>
                 <span className="flex">
                   <span className={classNames(styles.articleTitle)}>
@@ -73,49 +75,24 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
               <motion.div
                 id={`post-${post.id}`}
                 layoutId={`post-${post.id}`}
-                transition={
-                  selectedPostId
-                    ? {
-                        type: 'spring',
-                        stiffness: 200,
-                        damping: 30,
-                      }
-                    : {
-                        type: 'spring',
-                        stiffness: 300,
-                        damping: 35,
-                      }
-                }
-                className={classNames('pointer w-full h-full overflow-hidden rounded-xl', {
-                  [styles.postPreview]: selectedPostId === post.id,
-                })}
+                className={classNames('pointer w-full h-full overflow-hidden rounded-xl')}
                 onClick={() => togglePost(post.id)}
               >
-                <div
-                  className={classNames({
-                    'w-[60%] overflow-auto': selectedPostId === post.id,
-                    'overflow-hidden mt-8': selectedPostId !== post.id,
-                  })}
-                >
+                <div className={classNames('overflow-hidden mt-8')}>
                   <motion.div
                     className="h-[400px] rounded-t-xl overflow-hidden"
                     layoutId={`post-poster-${post.id}`}
-                    style={{
-                      originX: 0,
-                      originY: 0,
-                    }}
                   >
-                    <AssetImageThumbnail
-                      asset={post.poster}
-                      containerClassName="h-full scale-100 md:hover:scale-110 transition-all duration-500"
+                    <motion.img
+                      layoutId={`post-poster-img-${post.id}`}
+                      src={post.poster.objectUrl}
+                      alt=""
                     />
                   </motion.div>
                   <motion.div
-                    style={{
-                      originX: 0,
-                      originY: 0,
-                    }}
+                    className={styles.layout}
                     layoutId={`post-content-${post.id}`}
+                    layout="position"
                   >
                     <MarkdownContainer source={post.content} />
                   </motion.div>
@@ -124,6 +101,51 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             </div>
           ))}
         </section>
+        <AnimatePresence>
+          {selectedPost && (
+            <>
+              <motion.div
+                className={styles.overlay}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, transition: { duration: 0.15 } }}
+                transition={{ duration: 0.2, delay: 0.15 }}
+                style={{ pointerEvents: 'auto' }}
+              />
+              <div className={styles.postPreview}>
+                <motion.div
+                  id={`post-${selectedPost.id}`}
+                  layoutId={`post-${selectedPost.id}`}
+                  className={classNames(
+                    'pointer w-full h-full overflow-hidden rounded-xl',
+                    styles.postPreview,
+                  )}
+                  onClick={() => togglePost(selectedPostId)}
+                >
+                  <div className={styles.layout}>
+                    <motion.div
+                      className="h-[400px] rounded-t-xl overflow-hidden"
+                      layoutId={`post-poster-${selectedPost.id}`}
+                    >
+                      <motion.img
+                        layoutId={`post-poster-img-${selectedPost.id}`}
+                        src={selectedPost.poster.objectUrl}
+                        alt=""
+                      />
+                    </motion.div>
+                    <motion.div
+                      className={styles.layout}
+                      layoutId={`post-content-${selectedPost.id}`}
+                      layout="position"
+                    >
+                      <MarkdownContainer source={selectedPost.content} />
+                    </motion.div>
+                  </div>
+                </motion.div>
+              </div>
+            </>
+          )}
+        </AnimatePresence>
       </main>
     </div>
   );

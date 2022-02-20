@@ -12,24 +12,45 @@ export type LazyImageExtendProps = {
   assetId?: number;
   blurSrc?: string;
   containerClassName?: string;
+  /**
+   * 是否需要加载动画
+   */
+  blur?: boolean;
 };
 
 export const LazyImage: FC<
   DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> &
     LazyImageExtendProps &
     MotionProps
-> = ({ src, className, alt, inViewAction, assetId, blurSrc, containerClassName, ...props }) => {
-  const [loading, setLoading] = useState(true);
-  const [imgUrl, setImgUrl] = useState('/transparent.png');
+> = ({
+  src,
+  className,
+  alt,
+  inViewAction,
+  assetId,
+  blurSrc,
+  containerClassName,
+  blur = true,
+  ...props
+}) => {
+  const [loading, setLoading] = useState(() => {
+    return !!blur;
+  });
+  const [imgUrl, setImgUrl] = useState(() => {
+    if (blur) {
+      return assets.transparentImg;
+    }
+    return src;
+  });
   const isMount = useMountedRef();
   useEffect(() => {
-    if (blurSrc) {
+    if (blurSrc && blur) {
       const image = new Image();
       image.src = blurSrc;
       image.onload = () => {
         if (isMount.current) {
           setImgUrl((prevState) => {
-            if (prevState === '/transparent.png') {
+            if (prevState === assets.transparentImg) {
               return blurSrc;
             }
             return prevState;
@@ -37,10 +58,10 @@ export const LazyImage: FC<
         }
       };
     }
-  }, [blurSrc, isMount]);
+  }, [blur, blurSrc, isMount]);
   const ref = useRef<HTMLImageElement>(null);
   useEffect(() => {
-    if (src && ref.current) {
+    if (src && ref.current && blur) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           const { target, intersectionRatio } = entry;
@@ -72,7 +93,7 @@ export const LazyImage: FC<
       };
     }
     return () => {};
-  }, [assetId, inViewAction, isMount, src]);
+  }, [assetId, blur, inViewAction, isMount, src]);
 
   return (
     <div className={classNames(containerClassName, 'w-full h-full overflow-hidden')}>
@@ -93,7 +114,7 @@ export const LazyImage: FC<
             willChange: 'scroll-position',
           },
         }}
-        initial="loading"
+        initial={blur ? 'loading' : 'loaded'}
         animate={!loading && 'loaded'}
         className={classNames(
           {
