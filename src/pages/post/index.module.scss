@@ -7,6 +7,46 @@
   @apply py-4 pb-10;
 }
 
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  height: 420px;
+  width: 100vw;
+}
+
+.post-preview {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  z-index: 12;
+  overflow: hidden;
+  padding: 65px 0;
+
+  .content {
+    height: auto;
+    max-width: 700px;
+    overflow: hidden;
+    pointer-events: none;
+    position: relative;
+    border-radius: 20px;
+  }
+
+  .image {
+    z-index: 1;
+  }
+}
+
+.overlay {
+  background: rgb(0 0 0 / 50%);
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  will-change: opacity;
+}
+
 .main {
   width: 90%;
   margin: auto;
@@ -31,19 +71,6 @@
     }
   }
 
-  .post-preview {
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    inset: 0;
-    z-index: 12;
-    overflow: hidden;
-  }
-
-  .layout {
-    max-width: 700px;
-  }
-
   .post-title {
     position: absolute;
     z-index: 3;
@@ -52,20 +79,23 @@
     @apply text-lg w-full;
   }
 
-  .overlay {
-    background: rgb(0 0 0 / 50%);
-    position: fixed;
-    inset: 0;
-    z-index: 9;
-    will-change: opacity;
-  }
-
   .card {
     position: relative;
     padding: 25px;
     height: 460px;
     flex: 0 0 40%;
     max-width: 40%;
+
+    .content {
+      pointer-events: auto;
+      position: relative;
+      border-radius: 20px;
+      background: #1c1c1e;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+    }
   }
 
   .card:nth-child(4n + 1),

@@ -180,7 +180,7 @@ export const Li: LiComponent = ({ children, ordered, index }) => (
 
 const AssetImage: FC<{ src?: string }> = ({ src }) => {
   const { data } = useQuery([src], async () => {
-    const res = await clientRequest(`/asset/${src}`);
+    const res = await clientRequest(`/public/asset/${src}`);
     return {
       dataSrc: CosUtils.getCosObjectUrl(res.data.objectUrl),
       dataBlurSrc: CosUtils.getCosObjectBlurUrl(res.data.objectUrl),

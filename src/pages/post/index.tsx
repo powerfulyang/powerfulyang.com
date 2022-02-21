@@ -42,112 +42,101 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   };
 
   return (
-    <div className={styles.body}>
-      <main className={styles.main} id="main">
-        <div className={classNames(styles.years, 'mx-8')}>
-          {years.map((x) => (
-            <Link key={x} to={`?year=${x}`}>
-              <span className={classNames(styles.year)}>
-                <span
-                  className={classNames('pr-1', {
-                    [`text-lg ${styles.active}`]: x === year,
-                  })}
-                >
-                  #{x}
-                </span>
-              </span>
-            </Link>
-          ))}
-        </div>
-        <section className="flex flex-wrap">
-          {posts.map((post) => (
-            <div key={post.id} className={styles.card}>
-              <div className={classNames('flex flex-col', styles.postTitle)}>
-                <span className="flex">
-                  <span className={classNames(styles.articleTitle)}>
-                    {DateFormat(post.createAt)}
+    <>
+      <div className={styles.body}>
+        <main className={styles.main} id="main">
+          <div className={classNames(styles.years, 'mx-8')}>
+            {years.map((x) => (
+              <Link key={x} to={`?year=${x}`}>
+                <span className={classNames(styles.year)}>
+                  <span
+                    className={classNames('pr-1', {
+                      [`text-lg ${styles.active}`]: x === year,
+                    })}
+                  >
+                    #{x}
                   </span>
                 </span>
-                <span title={post.title} className={classNames('flex items-center')}>
-                  <span className={classNames(styles.articleTitle, 'truncate')}>{post.title}</span>
-                </span>
-              </div>
-              <motion.div
-                id={`post-${post.id}`}
-                layoutId={`post-${post.id}`}
-                className={classNames('pointer w-full h-full overflow-hidden rounded-xl')}
-                onClick={() => togglePost(post.id)}
-              >
-                <div className={classNames('overflow-hidden mt-8')}>
-                  <motion.div
-                    className="h-[400px] rounded-t-xl overflow-hidden"
-                    layoutId={`post-poster-${post.id}`}
-                  >
-                    <motion.img
-                      layoutId={`post-poster-img-${post.id}`}
-                      src={post.poster.objectUrl}
-                      alt=""
-                    />
-                  </motion.div>
-                  <motion.div
-                    className={styles.layout}
-                    layoutId={`post-content-${post.id}`}
-                    layout="position"
-                  >
-                    <MarkdownContainer source={post.content} />
-                  </motion.div>
-                </div>
-              </motion.div>
-            </div>
-          ))}
-        </section>
-        <AnimatePresence>
-          {selectedPost && (
-            <>
-              <motion.div
-                className={styles.overlay}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, transition: { duration: 0.15 } }}
-                transition={{ duration: 0.2, delay: 0.15 }}
-                style={{ pointerEvents: 'auto' }}
-              />
-              <div className={styles.postPreview}>
+              </Link>
+            ))}
+          </div>
+          <section className="flex flex-wrap">
+            {posts.map((post) => (
+              <div key={post.id} className={styles.card}>
                 <motion.div
-                  id={`post-${selectedPost.id}`}
-                  layoutId={`post-${selectedPost.id}`}
+                  id={`post-${post.id}`}
+                  layoutId={`post-${post.id}`}
                   className={classNames(
-                    'pointer w-full h-full overflow-hidden rounded-xl',
-                    styles.postPreview,
+                    'pointer w-full h-full overflow-hidden rounded-xl relative',
                   )}
-                  onClick={() => togglePost(selectedPostId)}
+                  onClick={() => togglePost(post.id)}
                 >
-                  <div className={styles.layout}>
-                    <motion.div
-                      className="h-[400px] rounded-t-xl overflow-hidden"
-                      layoutId={`post-poster-${selectedPost.id}`}
-                    >
+                  <motion.div layoutId={`post-container-${post.id}`} className={styles.content}>
+                    <div className={classNames('flex flex-col', styles.postTitle)}>
+                      <span className="flex">
+                        <span className={classNames(styles.articleTitle)}>
+                          {DateFormat(post.createAt)}
+                        </span>
+                      </span>
+                      <span title={post.title} className={classNames('flex items-center')}>
+                        <span className={classNames(styles.articleTitle, 'truncate')}>
+                          {post.title}
+                        </span>
+                      </span>
+                    </div>
+                    <motion.div className={styles.image} layoutId={`post-poster-${post.id}`}>
                       <motion.img
-                        layoutId={`post-poster-img-${selectedPost.id}`}
-                        src={selectedPost.poster.objectUrl}
+                        width={post.poster.size.width}
+                        height={post.poster.size.height}
+                        src={post.poster.objectUrl}
                         alt=""
                       />
                     </motion.div>
-                    <motion.div
-                      className={styles.layout}
-                      layoutId={`post-content-${selectedPost.id}`}
-                      layout="position"
-                    >
-                      <MarkdownContainer source={selectedPost.content} />
+                    <motion.div layoutId={`post-content-${post.id}`}>
+                      <MarkdownContainer source={post.content} />
                     </motion.div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               </div>
-            </>
-          )}
-        </AnimatePresence>
-      </main>
-    </div>
+            ))}
+          </section>
+        </main>
+      </div>
+      <AnimatePresence>
+        {selectedPost && (
+          <>
+            <motion.div
+              className={styles.overlay}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 0.15 } }}
+              transition={{ duration: 0.2, delay: 0.15 }}
+              style={{ pointerEvents: 'auto' }}
+            />
+            <motion.div
+              id={`post-${selectedPost.id}`}
+              layoutId={`post-${selectedPost.id}`}
+              className={classNames('pointer', styles.postPreview)}
+              onClick={() => togglePost(selectedPostId)}
+            >
+              <motion.div layoutId={`post-container-${selectedPost.id}`} className={styles.content}>
+                <motion.div className={styles.image} layoutId={`post-poster-${selectedPost.id}`}>
+                  <motion.img
+                    width={selectedPost.poster.size.width}
+                    height={selectedPost.poster.size.height}
+                    src={selectedPost.poster.objectUrl}
+                    alt=""
+                  />
+                </motion.div>
+                <motion.div layoutId={`post-content-${selectedPost.id}`}>
+                  <MarkdownContainer source={selectedPost.content} />
+                </motion.div>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
