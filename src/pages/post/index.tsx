@@ -60,7 +60,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
               </Link>
             ))}
           </div>
-          <section className="flex flex-wrap">
+          <section className="flex flex-wrap w-[900px] m-auto">
             {posts.map((post) => (
               <div key={post.id} className={styles.card}>
                 <motion.div
@@ -71,7 +71,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                   )}
                   onClick={() => togglePost(post.id)}
                 >
-                  <motion.div layoutId={`post-container-${post.id}`} className={styles.content}>
+                  <motion.div layoutId={`post-container-${post.id}`} className={styles.container}>
                     <div className={classNames('flex flex-col', styles.postTitle)}>
                       <span className="flex">
                         <span className={classNames(styles.articleTitle)}>
@@ -92,7 +92,11 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                         alt=""
                       />
                     </motion.div>
-                    <motion.div layoutId={`post-content-${post.id}`}>
+                    <motion.div
+                      layout="position"
+                      className={styles.content}
+                      layoutId={`post-content-${post.id}`}
+                    >
                       <MarkdownContainer source={post.content} />
                     </motion.div>
                   </motion.div>
@@ -119,7 +123,10 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
               className={classNames('pointer', styles.postPreview)}
               onClick={() => togglePost(selectedPostId)}
             >
-              <motion.div layoutId={`post-container-${selectedPost.id}`} className={styles.content}>
+              <motion.div
+                layoutId={`post-container-${selectedPost.id}`}
+                className={styles.container}
+              >
                 <motion.div className={styles.image} layoutId={`post-poster-${selectedPost.id}`}>
                   <motion.img
                     width={selectedPost.poster.size.width}
@@ -128,7 +135,11 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                     alt=""
                   />
                 </motion.div>
-                <motion.div layoutId={`post-content-${selectedPost.id}`}>
+                <motion.div
+                  layout="position"
+                  className={styles.content}
+                  layoutId={`post-content-${selectedPost.id}`}
+                >
                   <MarkdownContainer source={selectedPost.content} />
                 </motion.div>
               </motion.div>
