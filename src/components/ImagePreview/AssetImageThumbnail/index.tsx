@@ -15,7 +15,7 @@ export const AssetImageThumbnail: FC<
 > = ({ asset, ...props }) => (
   <LazyImage
     {...props}
-    src={CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)}
-    blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
+    src={CosUtils.getCosObjectThumbnailUrl(asset?.objectUrl)}
+    blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset?.objectUrl)}
   />
 );

@@ -113,7 +113,20 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
   const renderText = useMemo(() => children.toString().replace(/\s*\n$/, ''), [children]);
   if (inline) {
     return (
-      <code className={classNames(className, styles.inlineCode)} {...props}>
+      <code
+        role="presentation"
+        title="点击复制"
+        onClick={() => {
+          copyToClipBoard(renderText).then(() => {
+            notification.success({
+              message: '复制成功',
+              description: '已复制到剪贴板',
+            });
+          });
+        }}
+        className={classNames(className, styles.inlineCode, 'pointer')}
+        {...props}
+      >
         {renderText}
       </code>
     );

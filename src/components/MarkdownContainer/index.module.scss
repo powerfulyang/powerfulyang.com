@@ -44,7 +44,7 @@ $main-color: #ffb356;
         0 -3px $primary-color;
     }
 
-    .container {
+    .content {
       word-break: break-word;
       @apply block px-2 sm:px-16 py-4 sm:py-2 text-2xl font-medium text-center;
     }
