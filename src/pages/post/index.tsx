@@ -1,7 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import type { KeyboardEvent } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import type { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+import { fromEvent } from 'rxjs';
+import { useRouter } from 'next/router';
 import { request } from '@/utils/request';
 import type { Post } from '@/type/Post';
 import { Link } from '@/components/Link';
@@ -25,6 +28,17 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
     [posts, selectedPostId],
   );
 
+  useEffect(() => {
+    if (selectedPostId) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+    return () => {};
+  }, [selectedPostId]);
+
   const showPost = (postId: number) => {
     setSelectedPostId(postId);
   };
@@ -41,8 +55,21 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
     }
   };
 
+  const router = useRouter();
+
+  useEffect(() => {
+    const sub = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
+      if (e.key === 'Escape') {
+        hiddenPost();
+      }
+    });
+    return () => {
+      sub.unsubscribe();
+    };
+  }, []);
+
   return (
-    <>
+    <AnimateSharedLayout>
       <div className={styles.body}>
         <main className={styles.main} id="main">
           <div className={classNames(styles.years, 'mx-8')}>
@@ -60,7 +87,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
               </Link>
             ))}
           </div>
-          <section className="flex flex-wrap w-[900px] m-auto">
+          <section className="flex flex-wrap m-auto">
             {posts.map((post) => (
               <div key={post.id} className={styles.card}>
                 <motion.div
@@ -69,10 +96,15 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                   className={classNames(
                     'pointer w-full h-full overflow-hidden rounded-xl relative',
                   )}
-                  onClick={() => togglePost(post.id)}
+                  onClick={(e) => {
+                    if (e.metaKey || e.ctrlKey) {
+                      return router.push(`/post/${post.id}`);
+                    }
+                    return togglePost(post.id);
+                  }}
                 >
                   <motion.div layoutId={`post-container-${post.id}`} className={styles.container}>
-                    <div className={classNames('flex flex-col', styles.postTitle)}>
+                    <motion.div className={classNames('flex flex-col', styles.postTitle)}>
                       <span className="flex">
                         <span className={classNames(styles.articleTitle)}>
                           {DateFormat(post.createAt)}
@@ -83,20 +115,11 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                           {post.title}
                         </span>
                       </span>
-                    </div>
-                    <motion.div className={styles.image} layoutId={`post-poster-${post.id}`}>
-                      <motion.img
-                        width={post.poster.size.width}
-                        height={post.poster.size.height}
-                        src={post.poster.objectUrl}
-                        alt=""
-                      />
                     </motion.div>
-                    <motion.div
-                      layout="position"
-                      className={styles.content}
-                      layoutId={`post-content-${post.id}`}
-                    >
+                    <motion.div className={styles.image} layoutId={`post-poster-${post.id}`}>
+                      <motion.img src={post.poster.objectUrl} alt="" />
+                    </motion.div>
+                    <motion.div className={styles.content} layoutId={`post-content-${post.id}`}>
                       <MarkdownContainer source={post.content} />
                     </motion.div>
                   </motion.div>
@@ -120,26 +143,22 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             <motion.div
               id={`post-${selectedPost.id}`}
               layoutId={`post-${selectedPost.id}`}
-              className={classNames('pointer', styles.postPreview)}
-              onClick={() => togglePost(selectedPostId)}
+              className={classNames(styles.postPreview)}
+              onClick={() => {
+                togglePost(selectedPostId);
+              }}
             >
               <motion.div
                 layoutId={`post-container-${selectedPost.id}`}
                 className={styles.container}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
               >
                 <motion.div className={styles.image} layoutId={`post-poster-${selectedPost.id}`}>
-                  <motion.img
-                    width={selectedPost.poster.size.width}
-                    height={selectedPost.poster.size.height}
-                    src={selectedPost.poster.objectUrl}
-                    alt=""
-                  />
+                  <motion.img src={selectedPost.poster.objectUrl} alt="" />
                 </motion.div>
-                <motion.div
-                  layout="position"
-                  className={styles.content}
-                  layoutId={`post-content-${selectedPost.id}`}
-                >
+                <motion.div className={styles.content} layoutId={`post-content-${selectedPost.id}`}>
                   <MarkdownContainer source={selectedPost.content} />
                 </motion.div>
               </motion.div>
@@ -147,7 +166,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
           </>
         )}
       </AnimatePresence>
-    </>
+    </AnimateSharedLayout>
   );
 };
 

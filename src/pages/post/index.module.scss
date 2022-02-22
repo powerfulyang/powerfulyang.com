@@ -1,10 +1,12 @@
 @import '../../styles/styles';
 
+$popover-container-width: min(90vw, 800px);
+
 .body {
   z-index: -1;
   min-height: calc(100vh - var(--nav-height) - var(--footer-height));
   background-color: #fcfcff;
-  @apply py-4 pb-10;
+  @apply py-4 pb-10 px-28;
 }
 
 .image {
@@ -13,7 +15,20 @@
   left: 0;
   overflow: hidden;
   height: 420px;
-  width: 100vw;
+  width: 90vw;
+}
+
+.post-title {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  padding: 2rem;
+  @apply text-lg w-full;
+
+  .article-title {
+    color: #0ebeff;
+    @apply font-normal px-4 py-2 font-semibold text-2xl;
+  }
 }
 
 .post-preview {
@@ -22,24 +37,26 @@
   position: fixed;
   inset: 0;
   z-index: 12;
-  overflow: hidden;
   padding: 65px 0;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  scrollbar-width: none;
 
   .container {
-    height: auto;
-    max-width: 700px;
+    z-index: 14;
+    width: $popover-container-width;
+    height: max-content;
     overflow: hidden;
-    pointer-events: none;
     position: relative;
     border-radius: 20px;
 
     .content {
       margin-top: 420px;
     }
-  }
-
-  .image {
-    z-index: 1;
   }
 }
 
@@ -55,32 +72,21 @@
   width: 90%;
   margin: auto;
 
-  .article-title {
-    @apply font-normal px-4 py-2 text-white font-semibold text-2xl;
-  }
-
   .years {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 
     .year {
       display: flex;
       align-items: center;
-      @apply mr-4 mt-4 italic text-gray-300;
+      @apply mr-4 mt-4 text-gray-300 text-xl;
     }
 
     .active {
       @apply text-purple-400;
     }
-  }
-
-  .post-title {
-    position: absolute;
-    z-index: 3;
-    top: 3rem;
-    padding: 2rem;
-    @apply text-lg w-full;
   }
 
   .card {
@@ -91,7 +97,6 @@
     max-width: 40%;
 
     .container {
-      pointer-events: auto;
       position: relative;
       border-radius: 20px;
       background: #1c1c1e;
@@ -103,6 +108,7 @@
       .content {
         position: absolute;
         top: 100%;
+        width: $popover-container-width;
       }
     }
   }

@@ -96,7 +96,7 @@ export const LazyImage: FC<
   }, [assetId, blur, inViewAction, isMount, src]);
 
   return (
-    <div className={classNames(containerClassName, 'w-full h-full overflow-hidden')}>
+    <span className={classNames(containerClassName, 'w-full h-full overflow-hidden block')}>
       <motion.img
         {...props}
         variants={{
@@ -128,6 +128,6 @@ export const LazyImage: FC<
         alt={alt}
         ref={ref}
       />
-    </div>
+    </span>
   );
 };

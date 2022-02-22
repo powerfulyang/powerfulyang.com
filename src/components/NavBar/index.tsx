@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import React from 'react';
 import classNames from 'classnames';
 import { getEnumKeys } from '@powerfulyang/utils';
-import { motion } from 'framer-motion';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 import type { User } from '@/type/User';
 import { ProjectName } from '@/constant/Constant';
 import { Menu } from '@/layout/UserLayout';
@@ -22,45 +22,50 @@ export const login = () => {
 
 export const NavBar: FC<NavBarProps> = ({ user, active }) => {
   return (
-    <div className={styles.navPlaceholder}>
-      <nav className={styles.nav}>
-        <div className="w-[15ch] text-xl px-3 py-1 mx-4 hidden-xs">
-          <Link to="/" className={classNames(styles.title)}>
-            {ProjectName}
-          </Link>
-        </div>
-        <div className={styles.menus}>
-          {getEnumKeys(Menu).map((x) => (
-            <motion.div key={x} className="w-auto h-full relative flex items-center justify-center">
-              <Link
+    <AnimateSharedLayout>
+      <div className={styles.navPlaceholder}>
+        <nav className={styles.nav}>
+          <div className="w-[15ch] text-xl px-3 py-1 mx-4 hidden-xs">
+            <Link to="/" className={classNames(styles.title)}>
+              {ProjectName}
+            </Link>
+          </div>
+          <div className={styles.menus}>
+            {getEnumKeys(Menu).map((x) => (
+              <motion.div
                 key={x}
-                className={classNames({
-                  [styles.active]: Reflect.get(Menu, x) === active,
-                })}
-                to={`/${x}`}
+                className="w-auto h-full relative flex items-center justify-center"
               >
-                {x}
-              </Link>
-              {Reflect.get(Menu, x) === active && (
-                <motion.div className={styles.activeTab} layoutId="nav-active-tab" />
-              )}
-            </motion.div>
-          ))}
-        </div>
+                <Link
+                  key={x}
+                  className={classNames({
+                    [styles.active]: Reflect.get(Menu, x) === active,
+                  })}
+                  to={`/${x}`}
+                >
+                  {x}
+                </Link>
+                {Reflect.get(Menu, x) === active && (
+                  <motion.div className={styles.activeTab} layoutId="nav-active-tab" />
+                )}
+              </motion.div>
+            ))}
+          </div>
 
-        <div className={styles.user}>
-          {(user && (
-            <>
-              <span className={styles.nickname}>{user.nickname}</span>
-              <img src={user.avatar} className={styles.avatar} alt="avatar" />
-            </>
-          )) || (
-            <button type="button" className="pointer" onClick={login}>
-              Login
-            </button>
-          )}
-        </div>
-      </nav>
-    </div>
+          <div className={styles.user}>
+            {(user && (
+              <>
+                <span className={styles.nickname}>{user.nickname}</span>
+                <img src={user.avatar} className={styles.avatar} alt="avatar" />
+              </>
+            )) || (
+              <button type="button" className="pointer" onClick={login}>
+                Login
+              </button>
+            )}
+          </div>
+        </nav>
+      </div>
+    </AnimateSharedLayout>
   );
 };

@@ -42,11 +42,11 @@
   font-family: 'Fira Code', sans-serif;
   font-style: normal;
   font-weight: normal;
+  scrollbar-gutter: stable;
 
   @extend .default;
 
   body {
-    scrollbar-gutter: stable;
     position: relative;
   }
 
