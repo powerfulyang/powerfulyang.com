@@ -24,7 +24,7 @@ export const LazyImage: FC<
     MotionProps
 > = ({
   src,
-  className,
+  className = 'object-cover w-full h-full pointer',
   alt,
   inViewAction,
   assetId,
@@ -121,7 +121,6 @@ export const LazyImage: FC<
             [styles.loadedImg]: !loading,
             [styles.loadingImg]: loading,
           },
-          'w-full h-full object-cover pointer',
           className,
         )}
         src={imgUrl}

@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Icon, notification } from '@powerfulyang/components';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -16,6 +16,7 @@ import { LazyImage } from '@/components/LazyImage';
 import { clientRequest } from '@/utils/request';
 import { CosUtils } from '@/utils/lib';
 import styles from './index.module.scss';
+import { MDContainerContext } from '@/components/MarkdownContainer/index';
 
 export const H1: FC = ({ children }) => (
   <div className="relative">
@@ -191,19 +192,23 @@ export const Li: LiComponent = ({ children, ordered, index }) => (
   </li>
 );
 
-const AssetImage: FC<{ src?: string }> = ({ src }) => {
-  const { data } = useQuery([src], async () => {
-    const res = await clientRequest(`/public/asset/${src}`);
-    return {
-      dataSrc: CosUtils.getCosObjectUrl(res.data.objectUrl),
-      dataBlurSrc: CosUtils.getCosObjectBlurUrl(res.data.objectUrl),
-    };
+const AssetImage: FC<{ id: string }> = ({ id }) => {
+  const { blur } = useContext(MDContainerContext);
+  const { data } = useQuery({
+    queryKey: ['md-asset-img', id],
+    queryFn: async () => {
+      const res = await clientRequest(`/public/asset/${id}`);
+      return {
+        dataSrc: CosUtils.getCosObjectUrl(res.data.objectUrl),
+        dataBlurSrc: CosUtils.getCosObjectBlurUrl(res.data.objectUrl),
+      };
+    },
   });
-  return <LazyImage src={data?.dataSrc} blurSrc={data?.dataBlurSrc} alt="" />;
+  return <LazyImage blur={blur} src={data?.dataSrc} blurSrc={data?.dataBlurSrc} alt="" />;
 };
 export const Img = ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) => {
   if (alt === MarkdownImageFromAssetManageAltConstant) {
-    return <AssetImage src={src} />;
+    return <AssetImage id={src!} />;
   }
   return <img src={src} alt={alt} />;
 };
