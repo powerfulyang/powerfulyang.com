@@ -6,7 +6,7 @@ $popover-container-width: min(90vw, 700px);
   z-index: -1;
   min-height: calc(100vh - var(--nav-height) - var(--footer-height));
   background-color: #fcfcff;
-  @apply py-4 pb-10 px-28;
+  @apply py-4 pb-10 sm:px-28;
 }
 
 .post-preview {
@@ -37,7 +37,7 @@ $popover-container-width: min(90vw, 700px);
       left: 0;
       overflow: hidden;
       height: 420px;
-      width: 100vw;
+      width: max-content;
     }
 
     .content {
@@ -57,7 +57,6 @@ $popover-container-width: min(90vw, 700px);
 }
 
 .main {
-  width: 90%;
   margin: auto;
 
   .years {
@@ -116,7 +115,7 @@ $popover-container-width: min(90vw, 700px);
         left: 0;
         overflow: hidden;
         height: 420px;
-        width: 100vw;
+        width: max-content;
       }
 
       .content {
@@ -139,5 +138,26 @@ $popover-container-width: min(90vw, 700px);
 
   .card:nth-child(even) {
     padding-right: 0;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .card {
+      flex: 1 0 100%;
+      max-width: 100%;
+    }
+
+    .card:nth-child(4n + 1),
+    .card:nth-child(4n + 4) {
+      flex: 1 0 100%;
+      max-width: 100%;
+    }
+
+    .card:nth-child(odd) {
+      @apply px-8;
+    }
+
+    .card:nth-child(even) {
+      @apply px-8;
+    }
   }
 }

@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { fromEvent } from 'rxjs';
 import { useRouter } from 'next/router';
+import { useAtom } from 'jotai';
 import { request } from '@/utils/request';
 import type { Post } from '@/type/Post';
 import { Link } from '@/components/Link';
@@ -15,6 +16,7 @@ import { getCurrentUser } from '@/service/getCurrentUser';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { DateTimeFormat } from '@/utils/lib';
 import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
+import { linkAtom } from '@/components/Redirecting';
 
 type IndexProps = {
   posts: Post[];
@@ -24,6 +26,8 @@ type IndexProps = {
 
 const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   const [selectedPostId, setSelectedPostId] = useState(0);
+  const [, setIsRedirecting] = useAtom(linkAtom);
+
   const selectedPost = useMemo(
     () => posts.find((post) => post.id === selectedPostId),
     [posts, selectedPostId],
@@ -88,16 +92,18 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
               </Link>
             ))}
           </div>
-          <section className="flex flex-wrap w-[100%] max-w-[1300px] m-auto">
+          <section className="flex flex-wrap w-[100%] max-w-[1000px] m-auto">
             {posts.map((post) => (
               <motion.div
                 key={post.id}
                 className={classNames('pointer', styles.card)}
-                onClick={(e) => {
+                onClick={async (e) => {
                   if (e.metaKey || e.ctrlKey) {
-                    return router.push(`/post/${post.id}`);
+                    setIsRedirecting(true);
+                    await router.push(`/post/${post.id}`);
+                    setIsRedirecting(false);
                   }
-                  return togglePost(post.id);
+                  togglePost(post.id);
                 }}
               >
                 <AnimatePresence initial={false}>

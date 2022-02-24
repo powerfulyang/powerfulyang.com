@@ -1,16 +1,18 @@
 import type { FC } from 'react';
-import React, { useContext } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { LinkContext } from '@/context/LinkContext';
+import { atom, useAtom } from 'jotai';
 import styles from './index.module.scss';
 
+export const linkAtom = atom(false);
+
 export const Redirecting: FC = () => {
-  const { state } = useContext(LinkContext);
+  const [isRedirecting] = useAtom(linkAtom);
   return (
     <>
       <div
         className={classNames(styles.redirecting, {
-          invisible: !state.isRedirecting,
+          invisible: !isRedirecting,
         })}
       />
       <div className={styles.indicator} />

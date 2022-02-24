@@ -1,23 +1,24 @@
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import React, { useContext } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { LinkContext } from '@/context/LinkContext';
-import { GlobalContextActionType } from '@/context/GlobalContextProvider';
+import { useAtom } from 'jotai';
 import styles from './index.module.scss';
+import { linkAtom } from '@/components/Redirecting';
 
 export const Link: FC<{ to: string; className?: string }> = ({ children, className, to }) => {
   const router = useRouter();
-  const { dispatch } = useContext(LinkContext);
+  const [, setIsRedirecting] = useAtom(linkAtom);
+
   return (
     <a
       className={classNames(styles.link, className)}
       href={to}
       onClick={async (e) => {
         e.preventDefault();
-        dispatch({ type: GlobalContextActionType.LinkRedirectStart });
+        setIsRedirecting(true);
         await router.push(to);
-        dispatch({ type: GlobalContextActionType.LinkRedirectEnd });
+        setIsRedirecting(false);
       }}
     >
       {children}

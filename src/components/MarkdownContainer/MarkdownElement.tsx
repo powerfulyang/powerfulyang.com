@@ -204,11 +204,19 @@ const AssetImage: FC<{ id: string }> = ({ id }) => {
       };
     },
   });
-  return <LazyImage blur={blur} src={data?.dataSrc} blurSrc={data?.dataBlurSrc} alt="" />;
+  return (
+    <LazyImage
+      containerClassName="mt-2"
+      blur={blur}
+      src={data?.dataSrc}
+      blurSrc={data?.dataBlurSrc}
+      alt=""
+    />
+  );
 };
 export const Img = ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) => {
   if (alt === MarkdownImageFromAssetManageAltConstant) {
     return <AssetImage id={src!} />;
   }
-  return <img src={src} alt={alt} />;
+  return <img className="w-full mt-2" src={src} alt={alt} />;
 };
