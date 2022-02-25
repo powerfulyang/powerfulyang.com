@@ -24,7 +24,7 @@ export const LazyImage: FC<
     MotionProps
 > = ({
   src,
-  className = 'object-cover w-full h-auto pointer',
+  className = 'object-cover w-full',
   alt,
   inViewAction,
   assetId,
@@ -96,7 +96,7 @@ export const LazyImage: FC<
   }, [assetId, blur, inViewAction, isMount, src]);
 
   return (
-    <span className={classNames(containerClassName, 'w-full h-auto overflow-hidden block')}>
+    <span className={classNames(containerClassName, 'overflow-hidden block pointer')}>
       <motion.img
         {...props}
         variants={{

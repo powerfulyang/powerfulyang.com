@@ -114,7 +114,7 @@ $popover-container-width: min(90vw, 700px);
         left: 0;
         overflow: hidden;
         height: 420px;
-        max-width: max-content;
+        width: max-content;
 
         img {
           min-width: 700px;
@@ -122,7 +122,7 @@ $popover-container-width: min(90vw, 700px);
       }
 
       .content {
-        padding: 460px 35px 35px;
+        padding: 420px 0 0;
         max-width: 700px;
         width: 90vw;
       }
