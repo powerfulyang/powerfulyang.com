@@ -12,7 +12,7 @@ $popover-container-width: min(90vw, 700px);
 .post-preview {
   position: fixed;
   inset: 0;
-  z-index: 12;
+  z-index: var(--post-preview-z-index);
   padding: 35px 0;
   overflow: auto;
 
@@ -52,7 +52,7 @@ $popover-container-width: min(90vw, 700px);
   background: rgb(0 0 0 / 50%);
   position: fixed;
   inset: 0;
-  z-index: 9;
+  z-index: var(--post-preview-z-index);
   will-change: opacity;
 }
 
@@ -68,11 +68,11 @@ $popover-container-width: min(90vw, 700px);
     .year {
       display: flex;
       align-items: center;
-      @apply mr-4 mt-4 text-gray-300 text-xl;
+      @apply mx-4 mt-4 text-gray-400;
     }
 
     .active {
-      @apply text-purple-400;
+      @apply text-purple-500;
     }
   }
 
@@ -86,19 +86,18 @@ $popover-container-width: min(90vw, 700px);
     .card-header {
       position: absolute;
       inset: 0;
-      padding: 60px;
       z-index: 2;
+      width: calc(100% - 50px);
 
       &-title {
         display: inline-block;
         background-color: rgb(0 0 0 / 30%);
-        @apply text-2xl text-white p-4 rounded-t-xl;
+        @apply text-2xl text-white p-4 rounded-xl;
       }
 
       &-date {
-        background-color: rgb(0 0 0 / 30%);
         display: inline-block;
-        @apply text-gray-200 text-sm p-2 rounded-b-xl;
+        @apply text-gray-200 text-sm;
       }
     }
 
@@ -115,7 +114,11 @@ $popover-container-width: min(90vw, 700px);
         left: 0;
         overflow: hidden;
         height: 420px;
-        width: max-content;
+        max-width: max-content;
+
+        img {
+          min-width: 700px;
+        }
       }
 
       .content {
@@ -132,32 +135,20 @@ $popover-container-width: min(90vw, 700px);
     max-width: 60%;
   }
 
-  .card:nth-child(odd) {
-    padding-left: 0;
-  }
-
-  .card:nth-child(even) {
-    padding-right: 0;
-  }
-
   @media only screen and (max-width: 600px) {
     .card {
       flex: 1 0 100%;
       max-width: 100%;
+
+      .card-header {
+        padding: 10px;
+      }
     }
 
     .card:nth-child(4n + 1),
     .card:nth-child(4n + 4) {
       flex: 1 0 100%;
       max-width: 100%;
-    }
-
-    .card:nth-child(odd) {
-      @apply px-8;
-    }
-
-    .card:nth-child(even) {
-      @apply px-8;
     }
   }
 }

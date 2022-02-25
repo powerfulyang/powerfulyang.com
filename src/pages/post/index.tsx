@@ -76,14 +76,14 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   return (
     <>
       <div className={styles.body}>
-        <main className={styles.main} id="main">
-          <div className={classNames(styles.years, 'mx-8')}>
+        <main className={styles.main}>
+          <div className={classNames(styles.years)}>
             {years.map((x) => (
               <Link key={x} to={`?year=${x}`}>
                 <span className={classNames(styles.year)}>
                   <span
                     className={classNames('pr-1', {
-                      [`text-lg ${styles.active}`]: x === year,
+                      [styles.active]: x === year,
                     })}
                   >
                     #{x}
@@ -96,6 +96,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             {posts.map((post) => (
               <motion.div
                 key={post.id}
+                title={`${post.id}`}
                 className={classNames('pointer', styles.card)}
                 onClick={async (e) => {
                   if (e.metaKey || e.ctrlKey) {
@@ -112,19 +113,19 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
                       className={styles.cardHeader}
                     >
-                      <div>
-                        <div className={styles.cardHeaderTitle}>{post.title}</div>
-                      </div>
-                      <div>
+                      <div className={styles.cardHeaderTitle}>
+                        <div>{post.title}</div>
                         <div className={styles.cardHeaderDate}>{DateTimeFormat(post.createAt)}</div>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-                <motion.div layoutId={`post-container-${post.id}`} className={styles.container}>
+                <motion.div
+                  layoutId={`post-container-${post.id}`}
+                  className={classNames(styles.container)}
+                >
                   <motion.div className={styles.image} layoutId={`post-poster-${post.id}`}>
                     <AssetImageThumbnail className="object-none" asset={post.poster} />
                   </motion.div>
@@ -155,7 +156,11 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
               }}
             >
               <motion.div
-                transition={{ type: 'spring', stiffness: 150, damping: 35 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 150,
+                  damping: 35,
+                }}
                 layoutId={`post-container-${selectedPost.id}`}
                 className={classNames(styles.container, 'default')}
                 onClick={(e) => {

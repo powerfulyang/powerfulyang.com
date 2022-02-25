@@ -12,11 +12,10 @@ import classNames from 'classnames';
 import { useQuery } from 'react-query';
 import { copyToClipBoard } from '@powerfulyang/utils';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
-import { LazyImage } from '@/components/LazyImage';
 import { clientRequest } from '@/utils/request';
-import { CosUtils } from '@/utils/lib';
 import styles from './index.module.scss';
 import { MDContainerContext } from '@/components/MarkdownContainer/index';
+import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
 
 export const H1: FC = ({ children }) => (
   <div className="relative">
@@ -198,25 +197,24 @@ const AssetImage: FC<{ id: string }> = ({ id }) => {
     queryKey: ['md-asset-img', id],
     queryFn: async () => {
       const res = await clientRequest(`/public/asset/${id}`);
-      return {
-        dataSrc: CosUtils.getCosObjectUrl(res.data.objectUrl),
-        dataBlurSrc: CosUtils.getCosObjectBlurUrl(res.data.objectUrl),
-      };
+      return res.data;
     },
   });
   return (
-    <LazyImage
-      containerClassName="mt-2"
-      blur={blur}
-      src={data?.dataSrc}
-      blurSrc={data?.dataBlurSrc}
-      alt=""
-    />
+    (data && (
+      <AssetImageThumbnail keepAspectRatio containerClassName="mt-2" blur={blur} asset={data} />
+    )) ||
+    null
   );
 };
 export const Img = ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) => {
-  if (alt === MarkdownImageFromAssetManageAltConstant) {
-    return <AssetImage id={src!} />;
+  if (alt === MarkdownImageFromAssetManageAltConstant && src) {
+    return <AssetImage id={src} />;
   }
-  return <img className="w-full mt-2" src={src} alt={alt} />;
+  // 因为开发的时候 图片没有被缓存 会出现高度突然变化的问题 导致页面闪烁
+  return (
+    <span className="w-full mt-2 block">
+      <img src={src} alt={alt} />
+    </span>
+  );
 };

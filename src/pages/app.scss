@@ -35,8 +35,17 @@
   --nav-height: 4rem;
   --footer-height: 3rem;
   --scrollbar-bg: rgb(1 2 3 / 40%);
-  --image-preview-z-index: 100;
   --markdown-toc-width: 20rem;
+
+  /**
+    z-index 相关变量
+  */
+  --nav-z-index: 3;
+  --indicator-z-index: 4;
+  --image-preview-z-index: 5;
+  --post-preview-z-index: 5;
+  --redirecting-z-index: 9999999;
+  // end of z-index variables
 
   font-size: calc(12px + 0.2vw);
   font-family: 'Fira Code', sans-serif;
@@ -52,7 +61,7 @@
 
   .link {
     position: relative;
-    @apply text-purple-400;
+    @apply text-purple-400 break-words;
 
     &::after {
       position: absolute;

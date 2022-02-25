@@ -15,7 +15,7 @@ export const Redirecting: FC = () => {
           invisible: !isRedirecting,
         })}
       />
-      <div className={styles.indicator} />
+      {!isRedirecting && <div className={styles.indicator} />}
     </>
   );
 };

@@ -11,10 +11,15 @@ export const AssetImageThumbnail: FC<
     LazyImageExtendProps &
     MotionProps & {
       asset: Asset;
+      keepAspectRatio?: boolean;
     }
-> = ({ asset, ...props }) => (
+> = ({ asset, style, keepAspectRatio, ...props }) => (
   <LazyImage
     {...props}
+    style={{
+      ...(keepAspectRatio ? { aspectRatio: `${asset?.size.width} / ${asset?.size.height}` } : {}),
+      ...style,
+    }}
     src={CosUtils.getCosObjectThumbnailUrl(asset?.objectUrl)}
     blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset?.objectUrl)}
   />
