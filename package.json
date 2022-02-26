@@ -50,7 +50,7 @@
     "@powerfulyang/lint": "^0.7.10",
     "@types/d3": "^7.1.0",
     "@types/jest": "^27.4.1",
-    "@types/ramda": "^0.27.65",
+    "@types/ramda": "^0.28.0",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@types/react-syntax-highlighter": "^13.5.2",
@@ -62,7 +62,7 @@
     "next-compose-plugins": "^2.2.1",
     "next-pwa": "^5.4.4",
     "raw-loader": "^4.0.2",
-    "tsconfig-paths-jest": "0.0.1",
+    "tsconfig-paths-jest": "^0.0.1",
     "url-loader": "^4.1.1"
   }
 }
