@@ -78,18 +78,18 @@
       .author-avatar {
         width: 80px;
         margin-top: -40px;
-        @apply rounded-lg mr-4 ml-8;
+        @apply rounded-lg mr-4 ml-8 select-none;
       }
 
       .author-nickname {
         align-self: flex-end;
         font-family: 'Zpix', sans-serif;
-        @apply text-lg font-medium mb-2;
+        @apply text-lg font-medium mb-2 cursor-text;
       }
 
       .author-bio {
         font-family: 'Zpix', sans-serif;
-        @apply w-full mt-4 ml-8 text-xl font-medium;
+        @apply w-full mt-4 ml-8 text-xl font-medium cursor-text;
 
         span {
           @include rainbowText;
@@ -128,7 +128,7 @@
     }
 
     .nickname {
-      @apply text-blue-600;
+      @apply text-blue-600 cursor-text;
     }
   }
 
@@ -138,7 +138,7 @@
     .text {
       font-family: 'Zpix', serif;
       white-space: pre-line;
-      @apply font-normal text-gray-600 break-all;
+      @apply font-normal text-gray-600 break-all cursor-text;
     }
   }
 }

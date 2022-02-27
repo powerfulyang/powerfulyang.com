@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React, { useContext, useMemo } from 'react';
-import { Icon, notification } from '@powerfulyang/components';
+import { Icon } from '@powerfulyang/components';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import type {
@@ -10,12 +10,12 @@ import type {
 } from 'react-markdown/lib/ast-to-react';
 import classNames from 'classnames';
 import { useQuery } from 'react-query';
-import { copyToClipBoard } from '@powerfulyang/utils';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { clientRequest } from '@/utils/request';
 import styles from './index.module.scss';
 import { MDContainerContext } from '@/components/MarkdownContainer/index';
 import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
+import { copyToClipboardAndNotify } from '@/utils/copy';
 
 export const H1: FC = ({ children }) => (
   <div className="relative">
@@ -34,7 +34,7 @@ export const H2: FC = ({ children }) => {
   return (
     <div className="relative">
       <div id={String(children).trim()} className={styles.anchor} />
-      <h2>{children}</h2>
+      <h2 className="cursor-text">{children}</h2>
     </div>
   );
 };
@@ -44,8 +44,7 @@ export const H3: FC = ({ children }) => {
     <div className="relative">
       <div id={String(children).trim()} className={styles.anchor} />
       <h3>
-        <span className={classNames(styles.mainColor, 'pr-2')}>##</span>
-        {children}
+        <span>{children}</span>
       </h3>
     </div>
   );
@@ -55,7 +54,7 @@ export const H4: FC = ({ children }) => {
   return (
     <div className="relative">
       <div id={String(children).trim()} className={styles.anchor} />
-      <h4 className="truncate max-w-full" title={String(children)}>
+      <h4 className="truncate max-w-full cursor-text" title={String(children)}>
         {children}
       </h4>
     </div>
@@ -85,10 +84,15 @@ export const Paragraph: FC<any> = ({ node, children }) => {
     return (
       <div className="lg:ml-6 sm:ml-2 flex flex-wrap">
         {tags.map((tag: string) => (
-          <div key={tag} className="my-2 mr-2">
+          <button
+            type="button"
+            key={tag}
+            className="my-2 mr-2 pointer"
+            onClick={() => copyToClipboardAndNotify(tag)}
+          >
             <Icon type="icon-tag" className="text-xl" />
             <span className="text-[#FFB356] text-sm">{tag}</span>
-          </div>
+          </button>
         ))}
       </div>
     );
@@ -117,12 +121,7 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
         role="presentation"
         title="点击复制"
         onClick={() => {
-          copyToClipBoard(renderText).then(() => {
-            notification.success({
-              message: '复制成功',
-              description: '已复制到剪贴板',
-            });
-          });
+          return copyToClipboardAndNotify(renderText);
         }}
         className={classNames(className, styles.inlineCode, 'pointer')}
         {...props}
@@ -142,12 +141,8 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
         <div className={styles.toolbarAction}>
           <button
             type="button"
-            onClick={async () => {
-              await copyToClipBoard(renderText);
-              return notification.success({
-                message: '复制成功',
-                description: '代码已复制到剪贴板',
-              });
+            onClick={() => {
+              return copyToClipboardAndNotify(renderText);
             }}
           >
             Copy Code

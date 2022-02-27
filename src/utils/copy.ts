@@ -1,4 +1,6 @@
 import type { ClipboardEvent } from 'react';
+import { copyToClipBoard } from '@powerfulyang/utils';
+import { notification } from '@powerfulyang/components';
 import { clientRequest } from '@/utils/request';
 import type { Asset } from '@/type/Asset';
 import type { Bucket } from '@/type/Bucket';
@@ -47,4 +49,11 @@ export const handlePasteImageAndReturnAsset = async (
     return uploadFileListAndReturnAsset(files, bucketName);
   }
   return null;
+};
+
+export const copyToClipboardAndNotify = async (text: string | Blob) => {
+  await copyToClipBoard(text);
+  return notification.success({
+    message: '复制成功',
+  });
 };

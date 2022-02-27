@@ -115,7 +115,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                 className={classNames(styles.bannerImage)}
               />
               <div className={styles.authorInfo}>
-                <img src={user?.avatar} className={styles.authorAvatar} alt="" />
+                <img draggable={false} src={user?.avatar} className={styles.authorAvatar} alt="" />
                 <div className={styles.authorNickname}>{user?.nickname}</div>
                 <div className={styles.authorBio}>
                   <span>{user?.bio}</span>
@@ -185,13 +185,20 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
             <div key={feed.id} className={styles.container}>
               <div className={styles.author}>
                 <div className={styles.avatar}>
-                  <img className="rounded" src={feed.createBy.avatar} alt="用户头像" />
+                  <img
+                    draggable={false}
+                    className="rounded select-none"
+                    src={feed.createBy.avatar}
+                    alt="用户头像"
+                  />
                 </div>
                 <div>
                   <div className={classNames('text-lg', styles.nickname)}>
                     {feed.createBy.nickname}
                   </div>
-                  <div className="text-gray-600 text-xs">{DateTimeFormat(feed.createAt)}</div>
+                  <div className="text-gray-600 text-xs cursor-text">
+                    {DateTimeFormat(feed.createAt)}
+                  </div>
                 </div>
               </div>
               <div className={styles.content}>
