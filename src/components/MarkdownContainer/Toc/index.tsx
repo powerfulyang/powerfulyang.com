@@ -21,7 +21,7 @@ export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
         return (
           <div key={item.heading} className="mt-2 truncate">
             <a
-              className="link"
+              className="link px-1"
               style={{
                 marginLeft: `${item.level * 1.5}rem`,
               }}
@@ -41,9 +41,7 @@ export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
                 );
               }}
             >
-              <span className="text-purple-500">
-                {new Array(item.level).fill(0).map(() => '#')}{' '}
-              </span>
+              <span className={styles.anchor}>{new Array(item.level).fill(0).map(() => '#')} </span>
               {item.heading}
             </a>
           </div>

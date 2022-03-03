@@ -127,7 +127,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                   className={classNames(styles.container)}
                 >
                   <motion.div className={styles.image} layoutId={`post-poster-${post.id}`}>
-                    <AssetImageThumbnail className="object-none" asset={post.poster} />
+                    <AssetImageThumbnail thumbnail={false} asset={post.poster} />
                   </motion.div>
                   <motion.div className={styles.content} layoutId={`post-content-${post.id}`}>
                     <MarkdownContainer blur={false} source={post.content} />
@@ -158,8 +158,8 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
               <motion.div
                 transition={{
                   type: 'spring',
-                  stiffness: 150,
-                  damping: 35,
+                  stiffness: 200,
+                  damping: 50,
                 }}
                 layoutId={`post-container-${selectedPost.id}`}
                 className={classNames(styles.container, 'default')}
@@ -168,11 +168,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 }}
               >
                 <motion.div className={styles.image} layoutId={`post-poster-${selectedPost.id}`}>
-                  <AssetImageThumbnail
-                    blur={false}
-                    className="object-none"
-                    asset={selectedPost.poster}
-                  />
+                  <AssetImageThumbnail thumbnail={false} blur={false} asset={selectedPost.poster} />
                 </motion.div>
                 <motion.div className={styles.content} layoutId={`post-content-${selectedPost.id}`}>
                   <MarkdownContainer blur={false} source={selectedPost.content} />

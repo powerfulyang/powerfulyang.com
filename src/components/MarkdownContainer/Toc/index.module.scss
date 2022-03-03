@@ -1,7 +1,14 @@
+@import '../index.module';
+
 .toc {
   position: sticky;
   top: calc(var(--nav-height) + 6rem);
   width: var(--markdown-toc-width);
   align-self: start;
   @apply text-purple-500 pl-[2vw];
+
+  .anchor {
+    color: $main-color;
+    @apply text-lg align-middle font-medium;
+  }
 }

@@ -12,15 +12,23 @@ export const AssetImageThumbnail: FC<
     MotionProps & {
       asset: Asset;
       keepAspectRatio?: boolean;
+      /**
+       * 压缩图片资源
+       */
+      thumbnail?: boolean;
     }
-> = ({ asset, style, keepAspectRatio, ...props }) => (
+> = ({ asset, style, keepAspectRatio, thumbnail, ...props }) => (
   <LazyImage
     {...props}
     style={{
       ...(keepAspectRatio ? { aspectRatio: `${asset?.size.width} / ${asset?.size.height}` } : {}),
       ...style,
     }}
-    src={CosUtils.getCosObjectThumbnailUrl(asset?.objectUrl)}
+    src={
+      thumbnail
+        ? CosUtils.getCosObjectThumbnailUrl(asset?.objectUrl)
+        : CosUtils.getCosObjectUrl(asset?.objectUrl)
+    }
     blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset?.objectUrl)}
   />
 );
