@@ -37,6 +37,20 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   const [, feeds] = useFeeds(sourceFeeds);
   const ref = useRef<HTMLButtonElement>(null);
 
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+    watch,
+    reset,
+  } = useForm<FeedCreate>({
+    defaultValues: {
+      content: '',
+      public: true,
+    },
+  });
+
   const mutation = useMutation({
     mutationFn: async (variables: FeedCreate) => {
       const { poofClickPlay } = await import('@/components/mo.js/Material');
@@ -56,6 +70,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     },
     onSuccess() {
       resetAssets();
+      reset();
       return queryClient.invalidateQueries(useFeeds.Key);
     },
   });
@@ -84,19 +99,6 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
       await uploadImages(files);
     }
   }
-
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-    watch,
-  } = useForm<FeedCreate>({
-    defaultValues: {
-      content: '',
-      public: true,
-    },
-  });
 
   const watchFields = watch(['content', 'assets']);
 

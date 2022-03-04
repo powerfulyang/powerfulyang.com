@@ -51,7 +51,7 @@
   font-family: 'Fira Code', sans-serif;
   font-style: normal;
   font-weight: normal;
-  scrollbar-gutter: stable;
+  //scrollbar-gutter: stable; 这个属性并不好用
 
   @extend .default;
 
