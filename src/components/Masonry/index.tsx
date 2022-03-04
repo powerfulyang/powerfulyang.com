@@ -8,22 +8,48 @@ export type MasonryProps = {
 };
 
 export const Masonry: FC<MasonryProps> = ({ children }) => {
-  const [colNum, setColNum] = useState(4);
+  const [colNum, setColNum] = useState(3); // 默认是小屏幕的时候是3列
   useEffect(() => {
     const num = Math.ceil(window.innerWidth / 400 + 2);
     setColNum(num);
   }, []);
   const arrayNodes = useMemo(
     () =>
-      children.reduce((draft: ReactElement[][], current, index) => {
-        const i = index % colNum;
-        if (draft[i]) {
-          draft[i].push(current);
-        } else {
-          draft[i] = [current];
-        }
-        return draft;
-      }, []),
+      children.reduce(
+        (
+          draft: {
+            nodes: [
+              {
+                node: ReactElement;
+                index: number;
+              },
+            ];
+            index: number;
+          }[],
+          current,
+          index,
+        ) => {
+          const i = index % colNum;
+          if (draft[i]) {
+            draft[i].nodes.push({
+              node: current,
+              index,
+            });
+          } else {
+            draft[i] = {
+              nodes: [
+                {
+                  node: current,
+                  index,
+                },
+              ],
+              index: i,
+            };
+          }
+          return draft;
+        },
+        [],
+      ),
     [colNum, children],
   );
 
@@ -35,12 +61,12 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
         gridTemplateColumns: `repeat(${colNum}, 1fr)`,
       }}
     >
-      {arrayNodes.map((nodes, index) => (
-        <div className="flex flex-col" key={String(index)}>
+      {arrayNodes.map(({ nodes, index }) => (
+        <div className="flex flex-col" key={index}>
           {nodes.map((node, i) => (
             <button
               type="button"
-              key={String(i)}
+              key={node.index}
               className="mt-2 sm:mt-4 rounded-lg shadow-lg"
               onClick={() => {
                 dispatch({
@@ -51,7 +77,7 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
                 });
               }}
             >
-              {node}
+              {node.node}
             </button>
           ))}
         </div>

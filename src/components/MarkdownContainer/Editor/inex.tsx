@@ -1,5 +1,5 @@
 import type { ClipboardEvent, FC } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
 import type { Monaco } from '@monaco-editor/react';
@@ -7,7 +7,6 @@ import MonacoEditor from '@monaco-editor/react';
 import type { VoidFunction } from '@powerfulyang/utils';
 import type { editor } from 'monaco-editor';
 import { fromEvent } from 'rxjs';
-import { useBeforeUnload } from '@powerfulyang/hooks';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/type/Bucket';
@@ -17,11 +16,6 @@ import type { Asset } from '@/type/Asset';
 
 type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
-type MarkdownEditorProps = {
-  defaultValue?: string;
-  onPost?: VoidFunction;
-};
-
 export type MarkdownMetadata = {
   author: string;
   tags: string[];
@@ -29,16 +23,23 @@ export type MarkdownMetadata = {
   date: string;
 };
 
-export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onPost }) => {
-  const [input, setInput] = useState(defaultValue);
+type MarkdownEditorProps = {
+  defaultValue?: string;
+  onPost?: VoidFunction;
+  onChange?: VoidFunction<[string | undefined]>;
+  value: string;
+};
+
+export const MarkdownEditor: FC<MarkdownEditorProps> = ({
+  defaultValue = '',
+  onPost,
+  onChange,
+  value,
+}) => {
   const ref = useRef<{
     editor: IStandaloneCodeEditor;
     monaco: Monaco;
   }>();
-
-  useBeforeUnload(() => {
-    return !!input;
-  }, '您的内容尚未发布，确定要离开吗？');
 
   useEffect(() => {
     const s = fromEvent<ClipboardEvent>(window, 'paste').subscribe(async (e) => {
@@ -73,7 +74,6 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onP
     };
   }, []);
 
-  const post = () => onPost?.(input);
   return (
     <div className={classNames(styles.editor)}>
       <section className={styles.toolbar}>
@@ -92,17 +92,16 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onP
         <Icon
           className={classNames(styles.icon, styles.post, 'pointer')}
           type="icon-send"
-          onClick={post}
+          onClick={onPost}
         />
       </section>
       <main className={styles.main}>
         <section className={styles.inputContent}>
           <MonacoEditor
+            value={value}
             defaultLanguage="markdown"
-            defaultValue={input}
-            onChange={(v) => {
-              setInput(v || '');
-            }}
+            defaultValue={defaultValue}
+            onChange={onChange}
             options={{ minimap: { enabled: false } }}
             onMount={(e, m) => {
               ref.current = {
@@ -112,7 +111,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({ defaultValue = '', onP
             }}
           />
         </section>
-        <MarkdownContainer className={styles.preview} source={input} />
+        <MarkdownContainer className={styles.preview} source={value} />
       </main>
     </div>
   );

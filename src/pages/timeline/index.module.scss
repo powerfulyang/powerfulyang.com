@@ -17,7 +17,7 @@
   }
 
   .assets {
-    @apply grid gap-2 grid-cols-3 pt-2 pb-4;
+    @apply grid gap-2 grid-cols-3 py-2;
 
     .img {
       @apply aspect-square object-cover rounded w-full h-full object-cover;

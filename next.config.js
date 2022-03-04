@@ -241,6 +241,9 @@ const config = {
     CLIENT_BASE_URL: process.env.CLIENT_BASE_URL,
     SERVER_BASE_URL: process.env.SERVER_BASE_URL,
   },
+  eslint: {
+    ignoreDuringBuilds: true, //不用自带的
+  },
 };
 
 module.exports = withPlugins([[withCamelCaseCSSModules], [withPWA], [withBundleAnalyzer]], config);

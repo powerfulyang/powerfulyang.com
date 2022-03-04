@@ -1,6 +1,5 @@
 import type { FC } from 'react';
-import React, { useMemo } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
 import { NavBar } from '@/components/NavBar';
 import { Footer } from '@/components/Footer';
 import type { User } from '@/type/User';
@@ -17,13 +16,9 @@ type UserLayoutProps = {
 };
 
 export const UserLayout: FC<UserLayoutProps> = ({ children, pathViewCount, user }) => {
-  const { pathname } = useRouter();
-  const active = useMemo(() => {
-    return pathname.split('/')[1];
-  }, [pathname]);
   return (
     <>
-      <NavBar active={Reflect.get(Menu, active)} user={user} />
+      <NavBar user={user} />
       {children}
       <Footer pathViewCount={pathViewCount} />
     </>

@@ -4,8 +4,6 @@ import type { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { fromEvent } from 'rxjs';
-import { useRouter } from 'next/router';
-import { useAtom } from 'jotai';
 import { request } from '@/utils/request';
 import type { Post } from '@/type/Post';
 import { Link } from '@/components/Link';
@@ -16,7 +14,7 @@ import { getCurrentUser } from '@/service/getCurrentUser';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { DateTimeFormat } from '@/utils/lib';
 import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
-import { linkAtom } from '@/components/Redirecting';
+import { useHistory } from '@/hooks/useHistory';
 
 type IndexProps = {
   posts: Post[];
@@ -26,7 +24,6 @@ type IndexProps = {
 
 const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   const [selectedPostId, setSelectedPostId] = useState(0);
-  const [, setIsRedirecting] = useAtom(linkAtom);
 
   const selectedPost = useMemo(
     () => posts.find((post) => post.id === selectedPostId),
@@ -60,8 +57,6 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
     }
   };
 
-  const router = useRouter();
-
   useEffect(() => {
     const sub = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
       if (e.key === 'Escape') {
@@ -72,6 +67,8 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
       sub.unsubscribe();
     };
   }, []);
+
+  const { pushState } = useHistory();
 
   return (
     <>
@@ -100,11 +97,9 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 className={classNames('pointer', styles.card)}
                 onClick={async (e) => {
                   if (e.metaKey || e.ctrlKey) {
-                    setIsRedirecting(true);
-                    await router.push(`/post/${post.id}`);
-                    setIsRedirecting(false);
+                    return pushState(`/post/${post.id}`);
                   }
-                  togglePost(post.id);
+                  return togglePost(post.id);
                 }}
               >
                 <AnimatePresence initial={false}>

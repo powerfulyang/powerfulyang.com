@@ -1,16 +1,16 @@
 import type { FC } from 'react';
 import { useMemo, useRef } from 'react';
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
 import { scrollIntoView } from '@powerfulyang/utils';
 import { generateToc } from '@/utils/toc';
 import styles from './index.module.scss';
+import { useHistory } from '@/hooks/useHistory';
 
 export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
   const toc = useMemo(() => {
     return generateToc(content);
   }, [content]);
-  const router = useRouter();
+  const { replaceState } = useHistory();
   const ref = useRef('');
   return (
     <div className={classNames('hidden-xs', styles.toc)}>
@@ -36,7 +36,7 @@ export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
                     behavior: 'smooth',
                   },
                   () => {
-                    return router.replace(ref.current);
+                    return replaceState(ref.current);
                   },
                 );
               }}

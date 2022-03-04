@@ -17,7 +17,7 @@ export const AssetImageThumbnail: FC<
        */
       thumbnail?: boolean;
     }
-> = ({ asset, style, keepAspectRatio, thumbnail, ...props }) => (
+> = ({ asset, style, keepAspectRatio = false, thumbnail = true, ...props }) => (
   <LazyImage
     {...props}
     style={{

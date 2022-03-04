@@ -4,10 +4,10 @@ import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
 import styles from './index.module.scss';
 
-export const linkAtom = atom(false);
+export const RedirectingAtom = atom(false);
 
 export const Redirecting: FC = () => {
-  const [isRedirecting] = useAtom(linkAtom);
+  const [isRedirecting] = useAtom(RedirectingAtom);
   return (
     <>
       <div

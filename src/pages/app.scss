@@ -57,6 +57,7 @@
 
   body {
     position: relative;
+    overflow: overlay; // 终归还是要设置overflow: overlay，否则 mac 上还是抖动
   }
 
   .link {

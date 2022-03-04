@@ -1,24 +1,19 @@
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import React from 'react';
 import classNames from 'classnames';
-import { useAtom } from 'jotai';
 import styles from './index.module.scss';
-import { linkAtom } from '@/components/Redirecting';
+import { useHistory } from '@/hooks/useHistory';
 
 export const Link: FC<{ to: string; className?: string }> = ({ children, className, to }) => {
-  const router = useRouter();
-  const [, setIsRedirecting] = useAtom(linkAtom);
+  const { pushState } = useHistory();
 
   return (
     <a
       className={classNames(styles.link, className)}
       href={to}
-      onClick={async (e) => {
+      onClick={(e) => {
         e.preventDefault();
-        setIsRedirecting(true);
-        await router.push(to);
-        setIsRedirecting(false);
+        return pushState(to);
       }}
     >
       {children}

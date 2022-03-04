@@ -1,35 +1,62 @@
 import type { FC } from 'react';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import type { GetServerSidePropsContext } from 'next';
-import { useRouter } from 'next/router';
+import { useBeforeUnload } from '@powerfulyang/hooks';
 import { MarkdownEditor } from '@/components/MarkdownContainer/Editor/inex';
 import { clientRequest, request } from '@/utils/request';
 import type { Post } from '@/type/Post';
 import { extractMetaData, extractTitle } from '@/utils/toc';
 import { Footer } from '@/components/Footer';
+import { useHistory } from '@/hooks/useHistory';
 
 type PublishProps = {
   post: Post;
 };
 
 const Publish: FC<PublishProps> = ({ post }) => {
-  const router = useRouter();
-  const handlePost = async (input: string) => {
-    const [metadata] = extractMetaData(input);
+  const { pushState } = useHistory();
+  const [content, setContent] = useState(post.content);
+
+  const handlePost = async () => {
+    const [metadata] = extractMetaData(content);
     const res = await clientRequest<Post>('/post', {
       method: 'POST',
       body: {
         ...metadata,
-        content: input,
-        title: extractTitle(input),
+        content,
+        title: extractTitle(content),
         id: post.id,
       },
     });
-    return router.push(`/post/${res.data.id}`);
+    return pushState(`/post/${res.data.id}`);
   };
+
+  const saveDraft = useCallback(
+    (draft) => {
+      setContent(draft);
+      if (!post.id) {
+        localStorage.setItem('draft', draft);
+      }
+    },
+    [post.id],
+  );
+
+  useEffect(() => {
+    if (!post.id) {
+      setContent(localStorage.getItem('draft') || '');
+    }
+  }, [post]);
+
+  useBeforeUnload(Boolean(post.id));
+
   return (
     <>
-      <MarkdownEditor defaultValue={post.content} onPost={(input) => handlePost(input)} />
+      <MarkdownEditor
+        value={content}
+        onChange={saveDraft}
+        defaultValue={post.content}
+        onPost={handlePost}
+      />
       <Footer />
     </>
   );

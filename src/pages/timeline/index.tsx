@@ -1,15 +1,16 @@
 import type { ChangeEvent, ClipboardEvent } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import type { GetServerSidePropsContext } from 'next';
 import classNames from 'classnames';
 import { useBeforeUnload, useImmer } from '@powerfulyang/hooks';
 import { interval } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { Collection } from '@powerfulyang/utils';
+import { useForm } from 'react-hook-form';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
-import type { Feed } from '@/type/Feed';
+import type { Feed, FeedCreate } from '@/type/Feed';
 import { DateTimeFormat } from '@/utils/lib';
 import type { LayoutFC } from '@/type/GlobalContext';
 import type { User } from '@/type/User';
@@ -22,7 +23,7 @@ import styles from './index.module.scss';
 import { Switch } from '@/components/Switch';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import { useFeeds } from '@/queries/useFeeds';
-import { SUCCESS } from '@/constant/Constant';
+import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 
 type TimelineProps = {
   sourceFeeds: Feed[];
@@ -30,39 +31,34 @@ type TimelineProps = {
 };
 
 const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
-  const [content, setContent] = useState('');
   const [assets, setAssets, resetAssets] = useImmer<Asset[]>([]);
-  const [disable, setDisable] = useState(true);
   const [uploading, setUploading] = useState(false);
   const queryClient = useQueryClient();
   const [, feeds] = useFeeds(sourceFeeds);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [isPublic, setIsPublic] = useState(false);
-  const handlePostPrivacy = (checked: boolean) => {
-    setIsPublic(checked);
-  };
   const ref = useRef<HTMLButtonElement>(null);
-  const [submitting, setSubmitting] = useState(false);
-  const submitTimeline = async () => {
-    setSubmitting(true);
-    const { poofClickPlay } = await import('@/components/mo.js/Material');
-    const subscribe = interval(500)
-      .pipe(startWith(0))
-      .subscribe(() => {
-        ref.current && poofClickPlay(ref.current);
-      });
-    const res = await clientRequest('/feed', {
-      body: { content, assets, public: isPublic },
-      method: 'POST',
-    });
-    subscribe.unsubscribe();
-    if (res.status === SUCCESS) {
-      setContent('');
+
+  const mutation = useMutation({
+    mutationFn: async (variables: FeedCreate) => {
+      const { poofClickPlay } = await import('@/components/mo.js/Material');
+      const subscribe = interval(500)
+        .pipe(startWith(0))
+        .subscribe(() => {
+          ref.current && poofClickPlay(ref.current);
+        });
+      try {
+        await clientRequest('/feed', {
+          body: variables,
+          method: 'POST',
+        });
+      } finally {
+        subscribe.unsubscribe();
+      }
+    },
+    onSuccess() {
       resetAssets();
-      await queryClient.invalidateQueries(useFeeds.Key);
-    }
-    setSubmitting(false);
-  };
+      return queryClient.invalidateQueries(useFeeds.Key);
+    },
+  });
 
   const uploadImages = async (files: FileList) => {
     setUploading(true);
@@ -82,16 +78,6 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     }
   };
 
-  useEffect(() => {
-    if (submitting) {
-      setDisable(true);
-    } else if (content) {
-      setDisable(false);
-    } else {
-      setDisable(true);
-    }
-  }, [content, submitting]);
-
   async function upload(e: ChangeEvent<HTMLInputElement>) {
     const { files } = e.target;
     if (files) {
@@ -99,9 +85,30 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     }
   }
 
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+    watch,
+  } = useForm<FeedCreate>({
+    defaultValues: {
+      content: '',
+      public: true,
+    },
+  });
+
+  const watchFields = watch(['content', 'assets']);
+
+  useFormDiscardWarning(watchFields);
   useBeforeUnload(() => {
-    return !!(content || assets.length);
-  }, '您的内容尚未发布，确定要离开吗？');
+    const { content, assets: images } = getValues();
+    return Boolean(content || images?.length);
+  }, '内容或图片未保存，确定离开？');
+
+  const onSubmit = (data: FeedCreate) => {
+    mutation.mutate(data);
+  };
 
   return (
     <div className={styles.wrap}>
@@ -124,59 +131,61 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
             </div>
 
             <div className={styles.timelineInput}>
-              <div className={styles.timelineTextarea}>
-                <textarea
-                  className={classNames({
-                    'cursor-progress': uploading,
-                  })}
-                  name="timeline_input"
-                  onChange={(e) => {
-                    setContent(e.target.value);
-                  }}
-                  ref={textareaRef}
-                  value={content}
-                  onPaste={paste}
-                  placeholder="写点什么..."
-                />
-              </div>
-              <div
-                className={classNames(styles.assets, {
-                  'py-2': assets.length,
-                })}
-              >
-                <ImagePreview images={assets}>
-                  {assets?.map((asset) => (
-                    <AssetImageThumbnail className={styles.img} key={asset.id} asset={asset} />
-                  ))}
-                </ImagePreview>
-              </div>
-              <div className="flex items-center justify-end text-right pr-4 mt-4 mb-4">
-                <Switch
-                  onChange={handlePostPrivacy}
-                  checkedDescription="公开"
-                  uncheckedDescription="私密"
-                />
-                <label htmlFor="upload" className="inline-block px-4 text-pink-400 text-lg pointer">
-                  上传图片
-                  <input
-                    id="upload"
-                    hidden
-                    type="file"
-                    accept="image/*,image/heic,image/heif"
-                    multiple
-                    onChange={upload}
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className={styles.timelineTextarea}>
+                  <textarea
+                    {...register('content', {
+                      required: '请写点什么~~~',
+                    })}
+                    className={classNames({
+                      'cursor-progress': uploading,
+                    })}
+                    onPaste={paste}
+                    placeholder="写点什么..."
                   />
-                </label>
-                <button
-                  onClick={submitTimeline}
-                  type="button"
-                  ref={ref}
-                  disabled={disable}
-                  className={classNames(styles.timelineSubmit)}
-                >
-                  发送
-                </button>
-              </div>
+                </div>
+                <div className={classNames(styles.assets)}>
+                  <ImagePreview images={assets}>
+                    {assets?.map((asset) => (
+                      <AssetImageThumbnail className={styles.img} key={asset.id} asset={asset} />
+                    ))}
+                  </ImagePreview>
+                </div>
+                <div className="flex items-center justify-end text-right pr-4 mb-4">
+                  <span className="text-red-500 mr-auto ml-4">{errors.content?.message}</span>
+                  <Switch
+                    {...register('public', {
+                      required: true,
+                    })}
+                    checkedDescription="公开"
+                    uncheckedDescription="私密"
+                  />
+                  <label
+                    htmlFor="assets"
+                    className="inline-block px-4 text-pink-400 text-lg pointer"
+                  >
+                    上传图片
+                    <input
+                      {...register('assets', {
+                        onChange: upload,
+                      })}
+                      id="assets"
+                      hidden
+                      type="file"
+                      accept="image/*,image/heic,image/heif"
+                      multiple
+                    />
+                  </label>
+                  <button
+                    disabled={mutation.isLoading}
+                    type="submit"
+                    ref={ref}
+                    className={classNames(styles.timelineSubmit)}
+                  >
+                    发送
+                  </button>
+                </div>
+              </form>
             </div>
           </>
         )}

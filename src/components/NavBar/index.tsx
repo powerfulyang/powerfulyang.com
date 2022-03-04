@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { getEnumKeys } from '@powerfulyang/utils';
 import { AnimateSharedLayout, motion } from 'framer-motion';
@@ -8,10 +8,10 @@ import { ProjectName } from '@/constant/Constant';
 import { Menu } from '@/layout/UserLayout';
 import styles from './index.module.scss';
 import { Link } from '../Link';
+import { useHistory } from '@/hooks/useHistory';
 
 type NavBarProps = {
   user: User;
-  active: Menu;
 };
 
 export const login = () => {
@@ -20,7 +20,12 @@ export const login = () => {
   window.location.href = `https://admin.powerfulyang.com/user/login?redirect=${encodeURI(href)}`;
 };
 
-export const NavBar: FC<NavBarProps> = ({ user, active }) => {
+export const NavBar: FC<NavBarProps> = ({ user }) => {
+  const { pathname } = useHistory();
+  const active = useMemo(() => {
+    const name = pathname.split('/')[1];
+    return Reflect.get(Menu, name);
+  }, [pathname]);
   return (
     <AnimateSharedLayout>
       <div className={styles.navPlaceholder}>

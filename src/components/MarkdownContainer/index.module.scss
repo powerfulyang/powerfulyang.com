@@ -1,5 +1,5 @@
 $primary-color: #c9b6e2;
-$heading-color: rgb(123 129 144 / 84%);
+$heading-color: black;
 $main-color: #ffb356;
 
 .markdown-body {
@@ -45,7 +45,8 @@ $main-color: #ffb356;
     }
 
     .content {
-      @apply block px-2 sm:px-16 py-4 sm:py-2 text-2xl font-medium text-center cursor-text;
+      color: $heading-color;
+      @apply block px-2 sm:px-16 py-4 sm:py-2 text-2xl text-center cursor-text;
     }
 
     .suffix {
@@ -65,7 +66,7 @@ $main-color: #ffb356;
   h2 {
     color: $heading-color;
     background-image: linear-gradient(45deg, rgb(255 179 86 / 50%), rgb(255 255 255 / 10%) 50%);
-    @apply inline-block text-lg align-middle font-semibold my-4 px-2 py-3 relative rounded-lg;
+    @apply inline-block text-lg align-middle my-4 px-2 py-3 relative rounded-lg;
 
     &::before {
       content: '#';
@@ -77,7 +78,7 @@ $main-color: #ffb356;
   h4 {
     color: $heading-color;
     text-align: left;
-    @apply inline-block text-lg font-semibold my-3 px-1 relative;
+    @apply inline-block text-lg my-3 px-1 relative;
 
     &::before {
       content: '###';
@@ -108,7 +109,7 @@ $main-color: #ffb356;
 
   h3 {
     color: $heading-color;
-    @apply text-lg font-semibold inline-block my-2 relative p-2 px-6;
+    @apply text-lg inline-block my-2 relative p-2 px-6;
 
     &::before {
       position: absolute;

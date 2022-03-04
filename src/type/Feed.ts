@@ -14,3 +14,11 @@ export class Feed {
 
   updateAt?: Date;
 }
+
+export interface FeedCreate {
+  content: string;
+
+  public: boolean;
+
+  assets?: FileList;
+}
