@@ -1,6 +1,6 @@
 import type { KeyboardEvent } from 'react';
-import React, { useEffect, useMemo, useState } from 'react';
-import type { GetServerSidePropsContext } from 'next';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import type { GetServerSideProps } from 'next';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { fromEvent } from 'rxjs';
@@ -41,20 +41,17 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
     return () => {};
   }, [selectedPostId]);
 
+  const ref = useRef<HTMLDivElement>(null);
+
   const showPost = (postId: number) => {
     setSelectedPostId(postId);
+    if (ref.current) {
+      ref.current.style.pointerEvents = 'auto';
+    }
   };
 
   const hiddenPost = () => {
     setSelectedPostId(0);
-  };
-
-  const togglePost = (postId: number) => {
-    if (selectedPostId === postId) {
-      hiddenPost();
-    } else {
-      showPost(postId);
-    }
   };
 
   useEffect(() => {
@@ -99,7 +96,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                   if (e.metaKey || e.ctrlKey) {
                     return pushState(`/post/${post.id}`);
                   }
-                  return togglePost(post.id);
+                  return showPost(post.id);
                 }}
               >
                 <AnimatePresence initial={false}>
@@ -142,13 +139,21 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.15 } }}
               transition={{ duration: 0.8 }}
-              style={{ pointerEvents: 'auto' }}
+              style={{ pointerEvents: 'none' }}
             />
             <motion.div
               className={classNames(styles.postPreview, 'pointer')}
+              ref={ref}
               onClick={() => {
-                togglePost(selectedPostId);
+                if (ref.current) {
+                  // 必须设置 key，否则会导致 选择新的 post 后，依然渲染在旧的 preview container 上
+                  // 加 layoutId 感觉应该也可以解决问题 但是加了之后 ref 似乎不太对，导致 pointerEvents 设置为 none 无效
+                  // 应该来说是 layoutId 的 bug
+                  ref.current.style.pointerEvents = 'none';
+                }
+                hiddenPost();
               }}
+              key={selectedPostId}
             >
               <motion.div
                 transition={{
@@ -186,7 +191,7 @@ Index.getLayout = (page) => {
   );
 };
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { query } = ctx;
   const tmp = await request('/public/post/years', {
     ctx,

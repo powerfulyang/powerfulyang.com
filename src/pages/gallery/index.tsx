@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import type { GetServerSidePropsContext } from 'next';
+import type { GetServerSideProps } from 'next';
 import { useInfiniteQuery } from 'react-query';
 import { flatten, last } from 'ramda';
 import type { LayoutFC } from '@/type/GlobalContext';
@@ -66,7 +66,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
   );
 };
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const res = await request('/public/asset/infiniteQuery', {
     ctx,
     query: {

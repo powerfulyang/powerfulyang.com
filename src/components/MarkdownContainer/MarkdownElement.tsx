@@ -135,12 +135,11 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
   return (
     <>
       <div className={styles.toolbar}>
-        <div className={styles.toolbarLanguage}>
-          <span>{language}</span>
-        </div>
+        <div className={styles.toolbarLanguage}>{language}</div>
         <div className={styles.toolbarAction}>
           <button
             type="button"
+            className="pointer"
             onClick={() => {
               return copyToClipboardAndNotify(renderText);
             }}
@@ -155,7 +154,7 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
         language={language}
         PreTag="div"
         codeTagProps={{
-          style: { fontFamily: `Fira Code, sans-serif` },
+          style: { fontFamily: `Fira Code, sans-serif`, cursor: 'text' },
         }}
         customStyle={{
           borderRadius: 0,

@@ -1,6 +1,6 @@
 import type { ChangeEvent, ClipboardEvent } from 'react';
 import React, { useRef, useState } from 'react';
-import type { GetServerSidePropsContext } from 'next';
+import type { GetServerSideProps } from 'next';
 import classNames from 'classnames';
 import { useBeforeUnload, useImmer } from '@powerfulyang/hooks';
 import { interval } from 'rxjs';
@@ -244,7 +244,7 @@ Timeline.getLayout = (page) => {
   );
 };
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const res = await request('/public/feed', { ctx });
   const user = await getCurrentUser(ctx);
   const { data, pathViewCount } = await res.json();

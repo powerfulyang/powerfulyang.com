@@ -139,7 +139,13 @@ $main-color: #ffb356;
   }
 
   pre {
-    @apply rounded-lg overflow-hidden my-4 cursor-text;
+    @apply rounded-lg overflow-hidden my-4;
+
+    div {
+      &:nth-child(2)::-webkit-scrollbar-thumb {
+        background: #777;
+      }
+    }
   }
 
   .inline-code {
@@ -159,6 +165,7 @@ $main-color: #ffb356;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      cursor: text;
     }
 
     .toolbar-action {

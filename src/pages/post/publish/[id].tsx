@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useState } from 'react';
-import type { GetServerSidePropsContext } from 'next';
+import type { GetServerSideProps } from 'next';
 import { useBeforeUnload } from '@powerfulyang/hooks';
 import { MarkdownEditor } from '@/components/MarkdownContainer/Editor/inex';
 import { clientRequest, request } from '@/utils/request';
@@ -62,7 +62,7 @@ const Publish: FC<PublishProps> = ({ post }) => {
   );
 };
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { query } = ctx;
   const { id } = query;
 

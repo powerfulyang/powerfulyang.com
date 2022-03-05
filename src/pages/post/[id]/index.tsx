@@ -1,5 +1,5 @@
 import React from 'react';
-import type { GetServerSidePropsContext } from 'next';
+import type { GetServerSideProps } from 'next';
 import type { Post } from '@/type/Post';
 import { request } from '@/utils/request';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
@@ -33,7 +33,7 @@ PostDetail.getLayout = (page) => {
   );
 };
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const {
     query: { id },
   } = ctx;

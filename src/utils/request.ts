@@ -1,11 +1,11 @@
 import { isNil, pick, reject } from 'ramda';
-import type { GetServerSidePropsContext } from 'next';
+import type { GetServerSideProps } from 'next';
 import { notification } from '@powerfulyang/components';
 import type { SUCCESS } from '@/constant/Constant';
 
 export type RequestOptions = {
   method?: string;
-  ctx: GetServerSidePropsContext;
+  ctx: Parameters<GetServerSideProps>[0];
   body?: Record<string, any> | FormData;
   query?: Record<string, any>;
 };

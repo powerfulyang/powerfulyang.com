@@ -1,7 +1,7 @@
-import type { GetServerSidePropsContext } from 'next';
+import type { GetServerSideProps } from 'next';
 import { request } from '@/utils/request';
 
-export const getCurrentUser = async (ctx: GetServerSidePropsContext) => {
+export const getCurrentUser: GetServerSideProps = async (ctx) => {
   const res = await request('/user/current', {
     ctx,
   });
