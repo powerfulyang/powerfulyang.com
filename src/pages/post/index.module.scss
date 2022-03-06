@@ -113,6 +113,7 @@ $popover-container-width: min(90vw, 700px);
       height: 100%;
       overflow: hidden;
       border-radius: 20px;
+      isolation: isolate;
 
       .image {
         position: absolute;

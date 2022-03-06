@@ -218,7 +218,12 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                   <div className={classNames(styles.assets)}>
                     <ImagePreview images={feed.assets}>
                       {feed.assets?.map((asset) => (
-                        <AssetImageThumbnail key={asset.id} className={styles.img} asset={asset} />
+                        <AssetImageThumbnail
+                          containerClassName="rounded"
+                          key={asset.id}
+                          className={styles.img}
+                          asset={asset}
+                        />
                       ))}
                     </ImagePreview>
                   </div>

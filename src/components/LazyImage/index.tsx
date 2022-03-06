@@ -96,7 +96,12 @@ export const LazyImage: FC<
   }, [assetId, blur, inViewAction, isMount, src]);
 
   return (
-    <span className={classNames(containerClassName, 'overflow-hidden block pointer select-none')}>
+    <span
+      className={classNames(
+        containerClassName,
+        'overflow-hidden block pointer select-none isolate',
+      )}
+    >
       <motion.img
         {...props}
         draggable={false}

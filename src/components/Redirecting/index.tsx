@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
 import styles from './index.module.scss';
@@ -9,6 +9,11 @@ export const IndicatorAtom = atom(true);
 
 export const useShowIndicator = () => {
   const [showIndicator, setShowIndicator] = useAtom(IndicatorAtom);
+  useEffect(() => {
+    return () => {
+      setShowIndicator(true);
+    };
+  }, [setShowIndicator]);
   return [showIndicator, setShowIndicator] as const;
 };
 
