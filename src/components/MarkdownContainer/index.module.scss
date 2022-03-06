@@ -46,7 +46,7 @@ $main-color: #ffb356;
 
     .content {
       color: $heading-color;
-      @apply block px-2 sm:px-16 py-4 sm:py-2 text-2xl text-center cursor-text;
+      @apply block px-16 py-2 text-lg text-center cursor-text;
     }
 
     .suffix {
@@ -139,7 +139,7 @@ $main-color: #ffb356;
   }
 
   pre {
-    @apply rounded-lg overflow-hidden my-4;
+    @apply rounded-lg overflow-hidden my-4 isolate;
 
     div {
       &:nth-child(2)::-webkit-scrollbar-thumb {

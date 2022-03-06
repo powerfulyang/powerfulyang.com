@@ -44,7 +44,6 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
         <Masonry>
           {resources.map((asset) => (
             <AssetImageThumbnail
-              id={String(asset.id)}
               title={`${asset.id}`}
               key={asset.id}
               assetId={asset.id}
@@ -55,9 +54,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
                 }
               }}
               containerClassName="rounded-lg"
-              style={{
-                aspectRatio: `${asset.size.width} / ${asset.size.height}`,
-              }}
+              keepAspectRatio
             />
           ))}
         </Masonry>

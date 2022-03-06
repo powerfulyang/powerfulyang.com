@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import React from 'react';
 import classNames from 'classnames';
+import { motion } from 'framer-motion';
 import styles from './index.module.scss';
 import { useHistory } from '@/hooks/useHistory';
 
@@ -8,7 +9,7 @@ export const Link: FC<{ to: string; className?: string }> = ({ children, classNa
   const { pushState } = useHistory();
 
   return (
-    <a
+    <motion.a
       className={classNames(styles.link, className)}
       href={to}
       onClick={(e) => {
@@ -17,6 +18,6 @@ export const Link: FC<{ to: string; className?: string }> = ({ children, classNa
       }}
     >
       {children}
-    </a>
+    </motion.a>
   );
 };

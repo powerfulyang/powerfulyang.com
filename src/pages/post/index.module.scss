@@ -2,6 +2,9 @@
 
 $popover-container-width: min(90vw, 700px);
 
+$mobile-poster-height: 40vh;
+$poster-height: 410px;
+
 .body {
   z-index: -1;
   min-height: calc(100vh - var(--nav-height) - var(--footer-height));
@@ -20,8 +23,6 @@ $popover-container-width: min(90vw, 700px);
     width: 0;
   }
 
-  scrollbar-width: none;
-
   .container {
     background-color: #fff;
     max-width: $popover-container-width;
@@ -30,26 +31,37 @@ $popover-container-width: min(90vw, 700px);
     border-radius: 20px;
     margin: auto;
     position: relative;
+    isolation: isolate;
 
     .image {
       position: absolute;
       top: 0;
       left: 0;
-      overflow: hidden;
-      height: 420px;
       width: max-content;
+      z-index: calc(var(--post-preview-z-index) + 1);
+      height: $mobile-poster-height;
+      @screen sm {
+        height: $poster-height;
+      }
 
       img {
         max-width: 700px;
         width: 90vw;
-        height: 410px;
+        height: $mobile-poster-height;
+        @screen sm {
+          height: $poster-height;
+        }
       }
     }
 
     .content {
-      padding: 420px 0 0;
       max-width: 700px;
       width: 90vw;
+      padding: $mobile-poster-height 0 0;
+
+      @screen sm {
+        padding: $poster-height 0 0;
+      }
     }
   }
 }
@@ -75,7 +87,7 @@ $popover-container-width: min(90vw, 700px);
     .year {
       display: flex;
       align-items: center;
-      @apply mx-4 mt-4 text-gray-400;
+      @apply mx-4 text-gray-400;
     }
 
     .active {
@@ -84,11 +96,15 @@ $popover-container-width: min(90vw, 700px);
   }
 
   .card {
-    padding: 25px;
-    height: 460px;
+    padding: 1.5rem;
     flex: 0 0 40%;
     max-width: 40%;
     position: relative;
+    height: $mobile-poster-height;
+
+    @screen sm {
+      height: $poster-height;
+    }
 
     .card-header {
       position: absolute;
@@ -98,7 +114,7 @@ $popover-container-width: min(90vw, 700px);
       &-title {
         display: inline-block;
         background-color: rgb(0 0 0 / 30%);
-        @apply text-2xl text-white p-4 rounded-xl;
+        @apply text-xl text-white p-4 rounded-xl;
       }
 
       &-date {
@@ -119,14 +135,19 @@ $popover-container-width: min(90vw, 700px);
         position: absolute;
         top: 0;
         left: 0;
-        overflow: hidden;
-        height: 420px;
         width: max-content;
+        height: $mobile-poster-height;
+        @screen sm {
+          height: $poster-height;
+        }
 
         img {
           max-width: 700px;
           width: 90vw;
-          height: 410px;
+          height: $mobile-poster-height;
+          @screen sm {
+            height: $poster-height;
+          }
         }
       }
 

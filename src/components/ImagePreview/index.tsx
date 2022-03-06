@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import React, { Children, cloneElement, useEffect, useMemo } from 'react';
 import { useImmerReducer } from '@powerfulyang/hooks';
 import dynamic from 'next/dynamic';
+import { motion } from 'framer-motion';
 import type { ImageModalContextAction, ImageModalContextState } from '@/context/ImageModalContext';
 import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
 import type { Asset } from '@/type/Asset';
@@ -53,8 +54,8 @@ export const ImagePreview: FC<{
       <DynamicImageModal />
       {(parentControl &&
         Children.map(children, (child, index) =>
-          cloneElement(<span>{child}</span>, {
-            onClick() {
+          cloneElement(<motion.span>{child}</motion.span>, {
+            onTap() {
               if (parentControl) {
                 dispatch({
                   type: ImageModalContextActionType.open,

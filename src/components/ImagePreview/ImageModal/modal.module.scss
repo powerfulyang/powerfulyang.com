@@ -6,12 +6,10 @@
 
 .wrap {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   z-index: var(--image-preview-z-index);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   user-select: none;
-  @apply w-full h-full;
 
   .image {
     object-fit: scale-down;

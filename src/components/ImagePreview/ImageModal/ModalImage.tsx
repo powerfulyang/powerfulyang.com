@@ -81,8 +81,8 @@ export const ModalImage: FC<ModalImageProps> = ({
         initial: () => {
           return {
             opacity: 0,
-            filter: 'blur(50px)',
-            scale: 0.4,
+            filter: 'blur(20px)',
+            scale: 0,
             x: window.visualViewport.width * (realIndex - selectIndex),
           };
         },
@@ -105,18 +105,17 @@ export const ModalImage: FC<ModalImageProps> = ({
             ...t,
           };
         },
-        exit: ({ y: oy }) => {
+        exit: () => {
           return {
             x: window.visualViewport.width * (realIndex - selectIndex),
             opacity: 0,
-            scale: oy ? 0.3 : 0.8,
+            scale: 0.3,
           };
         },
       }}
       initial="initial"
       animate="animate"
       exit="exit"
-      key={asset.id}
       transition={{ duration: 0.3 }}
       className={classNames(styles.image, 'pointer', {
         [styles.wFullImage]: isWider && isWiderThanScreen,

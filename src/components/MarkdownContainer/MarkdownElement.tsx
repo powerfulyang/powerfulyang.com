@@ -10,6 +10,7 @@ import type {
 } from 'react-markdown/lib/ast-to-react';
 import classNames from 'classnames';
 import { useQuery } from 'react-query';
+import { motion } from 'framer-motion';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { clientRequest } from '@/utils/request';
 import styles from './index.module.scss';
@@ -20,7 +21,7 @@ import { copyToClipboardAndNotify } from '@/utils/copy';
 export const H1: FC = ({ children }) => (
   <div className="relative">
     <div id={String(children).trim()} className={styles.anchor} />
-    <h1 className="flex justify-center w-full pb-2 md:px-6">
+    <h1 className="flex justify-center w-full pb-2">
       <span className={styles.heading1}>
         <span className={styles.prefix} />
         <span className={styles.content}>{children}</span>
@@ -84,15 +85,15 @@ export const Paragraph: FC<any> = ({ node, children }) => {
     return (
       <div className="lg:ml-6 sm:ml-2 flex flex-wrap">
         {tags.map((tag: string) => (
-          <button
+          <motion.button
             type="button"
             key={tag}
             className="my-2 mr-2 pointer"
-            onClick={() => copyToClipboardAndNotify(tag)}
+            onTap={() => copyToClipboardAndNotify(tag)}
           >
             <Icon type="icon-tag" className="text-xl" />
             <span className="text-[#FFB356] text-sm">{tag}</span>
-          </button>
+          </motion.button>
         ))}
       </div>
     );
@@ -112,22 +113,21 @@ export const Paragraph: FC<any> = ({ node, children }) => {
   return <p>{children}</p>;
 };
 
-export const Code: CodeComponent = ({ node, inline, className, children, ...props }) => {
+export const Code: CodeComponent = ({ inline, className, children }) => {
   const match = /language-(\w+)/.exec(className || '');
   const renderText = useMemo(() => children.toString().replace(/\s*\n$/, ''), [children]);
   if (inline) {
     return (
-      <code
+      <motion.code
         role="presentation"
         title="点击复制"
-        onClick={() => {
+        onTap={() => {
           return copyToClipboardAndNotify(renderText);
         }}
         className={classNames(className, styles.inlineCode, 'pointer')}
-        {...props}
       >
         {renderText}
-      </code>
+      </motion.code>
     );
   }
   const language = match?.[1] || 'unknown';
@@ -137,15 +137,15 @@ export const Code: CodeComponent = ({ node, inline, className, children, ...prop
       <div className={styles.toolbar}>
         <div className={styles.toolbarLanguage}>{language}</div>
         <div className={styles.toolbarAction}>
-          <button
+          <motion.button
             type="button"
             className="pointer"
-            onClick={() => {
+            onTap={() => {
               return copyToClipboardAndNotify(renderText);
             }}
           >
             Copy Code
-          </button>
+          </motion.button>
         </div>
       </div>
       <SyntaxHighlighter

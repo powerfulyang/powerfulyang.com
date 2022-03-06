@@ -51,6 +51,12 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   };
 
   const hiddenPost = () => {
+    if (ref.current) {
+      // 必须设置 key，否则会导致 选择新的 post 后，依然渲染在旧的 preview container 上
+      // 加 layoutId 感觉应该也可以解决问题 但是加了之后 ref 似乎不太对，导致 pointerEvents 设置为 none 无效
+      // 应该来说是 layoutId 的 bug
+      ref.current.style.pointerEvents = 'none';
+    }
     setSelectedPostId(0);
   };
 
@@ -92,7 +98,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 key={post.id}
                 title={`${post.id}`}
                 className={classNames('pointer', styles.card)}
-                onClick={async (e) => {
+                onTap={async (e) => {
                   if (e.metaKey || e.ctrlKey) {
                     return pushState(`/post/${post.id}`);
                   }
@@ -139,18 +145,11 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.15 } }}
               transition={{ duration: 0.8 }}
-              style={{ pointerEvents: 'none' }}
             />
             <motion.div
               className={classNames(styles.postPreview, 'pointer')}
               ref={ref}
               onClick={() => {
-                if (ref.current) {
-                  // 必须设置 key，否则会导致 选择新的 post 后，依然渲染在旧的 preview container 上
-                  // 加 layoutId 感觉应该也可以解决问题 但是加了之后 ref 似乎不太对，导致 pointerEvents 设置为 none 无效
-                  // 应该来说是 layoutId 的 bug
-                  ref.current.style.pointerEvents = 'none';
-                }
                 hiddenPost();
               }}
               key={selectedPostId}
@@ -167,7 +166,11 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                   e.stopPropagation();
                 }}
               >
-                <motion.div className={styles.image} layoutId={`post-poster-${selectedPost.id}`}>
+                <motion.div
+                  onTap={() => hiddenPost()}
+                  className={styles.image}
+                  layoutId={`post-poster-${selectedPost.id}`}
+                >
                   <AssetImageThumbnail thumbnail={false} blur={false} asset={selectedPost.poster} />
                 </motion.div>
                 <motion.div className={styles.content} layoutId={`post-content-${selectedPost.id}`}>

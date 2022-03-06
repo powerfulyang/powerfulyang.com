@@ -1,6 +1,7 @@
 import type { FC, ReactElement } from 'react';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
+import { motion } from 'framer-motion';
 import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
 
 export type MasonryProps = {
@@ -64,11 +65,11 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
       {arrayNodes.map(({ nodes, index }) => (
         <div className="flex flex-col sm:space-y-4 space-y-2 my-4" key={index}>
           {nodes.map((node, i) => (
-            <div
+            <motion.div
               role="presentation"
               key={node.index}
               className="rounded-lg shadow-lg overflow-hidden"
-              onClick={() => {
+              onTap={() => {
                 dispatch({
                   type: ImageModalContextActionType.open,
                   payload: {
@@ -78,7 +79,7 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
               }}
             >
               {node.node}
-            </div>
+            </motion.div>
           ))}
         </div>
       ))}

@@ -157,7 +157,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
   }, [showNextImage, showPrevImage]);
 
   return (
-    <div
+    <motion.div
       role="presentation"
       className={classNames(
         styles.wrap,
@@ -216,6 +216,6 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
               })}
         </AnimatePresence>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };

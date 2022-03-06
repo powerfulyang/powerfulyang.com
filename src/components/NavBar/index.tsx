@@ -59,9 +59,9 @@ export const NavBar: FC<NavBarProps> = ({ user }) => {
               <img src={user.avatar} className={styles.avatar} alt="avatar" />
             </>
           )) || (
-            <button type="button" className="pointer" onClick={login}>
+            <motion.button type="button" className="pointer" onTap={login}>
               Login
-            </button>
+            </motion.button>
           )}
         </div>
       </nav>

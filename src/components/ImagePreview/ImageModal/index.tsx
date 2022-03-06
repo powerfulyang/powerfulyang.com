@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { usePortal } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
+import { fromEvent } from 'rxjs';
 import { ImageModalContent } from '@/components/ImagePreview/ImageModal/Modal';
 import { ImageModalContext } from '@/context/ImageModalContext';
 
@@ -24,9 +25,13 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
       const { style } = parent;
       const originalOverflowRef = style.overflow;
       style.overflow = 'hidden';
+      const subscribe = fromEvent(document.body, 'touchmove', { passive: false }).subscribe((e) => {
+        e.preventDefault(); // 阻止移动端乱七八糟的滚动效果
+      });
       return () => {
         style.overflow = originalOverflowRef;
         parent.removeChild(dialog);
+        subscribe.unsubscribe();
       };
     }
     return () => {};
