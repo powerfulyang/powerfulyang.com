@@ -33,7 +33,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   useEffect(() => {
     if (selectedPostId) {
       const prevOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'clip';
+      document.body.style.overflow = 'hidden';
       return () => {
         document.body.style.overflow = prevOverflow;
       };
