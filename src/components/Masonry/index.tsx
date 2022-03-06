@@ -56,18 +56,18 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
   const { dispatch } = useContext(ImageModalContext);
   return (
     <div
-      className={classNames('grid gap-2 sm:gap-4 mx-2 sm:mx-4 mb-2 sm:mb-4')}
+      className={classNames('grid sm:gap-4 gap-2 sm:px-4 px-2')}
       style={{
         gridTemplateColumns: `repeat(${colNum}, 1fr)`,
       }}
     >
       {arrayNodes.map(({ nodes, index }) => (
-        <div className="flex flex-col" key={index}>
+        <div className="flex flex-col sm:space-y-4 space-y-2 my-4" key={index}>
           {nodes.map((node, i) => (
-            <button
-              type="button"
+            <div
+              role="presentation"
               key={node.index}
-              className="mt-2 sm:mt-4 rounded-lg shadow-lg"
+              className="rounded-lg shadow-lg overflow-hidden"
               onClick={() => {
                 dispatch({
                   type: ImageModalContextActionType.open,
@@ -78,7 +78,7 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
               }}
             >
               {node.node}
-            </button>
+            </div>
           ))}
         </div>
       ))}

@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import type { ImageModalContextAction, ImageModalContextState } from '@/context/ImageModalContext';
 import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
 import type { Asset } from '@/type/Asset';
+import { useShowIndicator } from '@/components/Redirecting';
 
 const DynamicImageModal = dynamic(() => import('@/components/ImagePreview/ImageModal'), {
   ssr: false,
@@ -25,12 +26,11 @@ const reducer = (draft: ImageModalContextState, action: ImageModalContextAction)
   }
 };
 
-export const ImagePreview: FC<{ images: Asset[]; parentControl?: boolean }> = ({
-  children,
-  images,
-  parentControl = true,
-}) => {
-  const [state, dispatch] = useImmerReducer(reducer, {});
+export const ImagePreview: FC<{
+  images: Asset[];
+  parentControl?: boolean;
+}> = ({ children, images, parentControl = true }) => {
+  const [state, dispatch] = useImmerReducer<ImageModalContextState>(reducer, {});
   useEffect(() => {
     dispatch({
       type: ImageModalContextActionType.updateImages,
@@ -40,22 +40,33 @@ export const ImagePreview: FC<{ images: Asset[]; parentControl?: boolean }> = ({
     });
   }, [dispatch, images]);
   const memo = useMemo(() => ({ state, dispatch }), [state, dispatch]);
+  const [, setShowIndicator] = useShowIndicator();
+  useEffect(() => {
+    if (state?.selectIndex !== undefined) {
+      setShowIndicator(false);
+    } else {
+      setShowIndicator(true);
+    }
+  }, [setShowIndicator, state?.selectIndex]);
   return (
     <ImageModalContext.Provider value={memo}>
       <DynamicImageModal />
-      {Children.map(children, (child, index) =>
-        cloneElement(<div>{child}</div>, {
-          onClick() {
-            parentControl &&
-              dispatch({
-                type: ImageModalContextActionType.open,
-                payload: {
-                  selectIndex: index,
-                },
-              });
-          },
-        }),
-      )}
+      {(parentControl &&
+        Children.map(children, (child, index) =>
+          cloneElement(<span>{child}</span>, {
+            onClick() {
+              if (parentControl) {
+                dispatch({
+                  type: ImageModalContextActionType.open,
+                  payload: {
+                    selectIndex: index,
+                  },
+                });
+              }
+            },
+          }),
+        )) ||
+        children}
     </ImageModalContext.Provider>
   );
 };

@@ -23,7 +23,7 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
       parent.appendChild(dialog);
       const { style } = parent;
       const originalOverflowRef = style.overflow;
-      style.overflow = 'hidden';
+      style.overflow = 'clip';
       return () => {
         style.overflow = originalOverflowRef;
         parent.removeChild(dialog);

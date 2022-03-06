@@ -5,9 +5,16 @@ import { atom, useAtom } from 'jotai';
 import styles from './index.module.scss';
 
 export const RedirectingAtom = atom(false);
+export const IndicatorAtom = atom(true);
+
+export const useShowIndicator = () => {
+  const [showIndicator, setShowIndicator] = useAtom(IndicatorAtom);
+  return [showIndicator, setShowIndicator] as const;
+};
 
 export const Redirecting: FC = () => {
   const [isRedirecting] = useAtom(RedirectingAtom);
+  const [showIndicator] = useShowIndicator();
   return (
     <>
       <div
@@ -15,7 +22,7 @@ export const Redirecting: FC = () => {
           invisible: !isRedirecting,
         })}
       />
-      {!isRedirecting && <div className={styles.indicator} />}
+      {!isRedirecting && showIndicator && <div className={styles.indicator} />}
     </>
   );
 };
