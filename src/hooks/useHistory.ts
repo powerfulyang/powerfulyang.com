@@ -4,10 +4,6 @@ import { useCallback } from 'react';
 import { RedirectingAtom } from '@/components/Redirecting';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 
-/**
- * form 锁
- */
-
 export const useHistory = () => {
   const router = useRouter();
   const [, setIsRedirecting] = useAtom(RedirectingAtom);
@@ -16,8 +12,13 @@ export const useHistory = () => {
     (url: string) => {
       const push = () => {
         setIsRedirecting(true);
-        router.push(url).finally(() => {
+        router.push(url, undefined, { scroll: false }).finally(() => {
           setIsRedirecting(false);
+          // 使用 History.scrollRestoration 来使滚动条回到顶部 但是会使 nav=>layoutId 计算出现错误
+          window.scrollTo({
+            behavior: 'smooth',
+            top: 0,
+          });
         });
       };
       if (formWarning) {
