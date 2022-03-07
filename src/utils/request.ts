@@ -40,10 +40,10 @@ export const clientRequest = async <T = any>(
   try {
     const baseUrl = process.env.CLIENT_BASE_URL;
     const { method = 'GET', body, query } = options;
-    const isFile = body instanceof FormData;
-    const requestBody = isFile ? body : JSON.stringify(body);
+    const isFormData = body instanceof FormData;
+    const requestBody = isFormData ? body : JSON.stringify(body);
     const requestHeaders = new Headers();
-    if (!isFile) {
+    if (!isFormData) {
       requestHeaders.set('content-type', 'application/json');
     }
     const isValidQuery = query && Object.values(query).some((x) => !isNil(x));

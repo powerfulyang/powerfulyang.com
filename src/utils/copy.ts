@@ -20,16 +20,27 @@ export const handlePasteImageAndReturnFileList = async (e: ClipboardEvent) => {
   return null;
 };
 
+export const fileListToFormData = (
+  fileList?: FileList,
+  filedName: string = 'files',
+  formData?: FormData,
+) => {
+  const v = formData || new FormData();
+  if (fileList) {
+    for (let i = 0; i < fileList.length; i++) {
+      v.append(filedName, fileList[i]);
+    }
+  }
+  return v;
+};
+
 export const uploadFileListAndReturnAsset = async (
   files: FileList,
   bucketName: AssetBucket = AssetBucket.upload,
 ) => {
   const count = files.length;
   if (count) {
-    const formData = new FormData();
-    for (let i = 0; i < count; i++) {
-      formData.append(`files`, files.item(i)!);
-    }
+    const formData = fileListToFormData(files);
     const res = await clientRequest<Asset[]>(`/asset/${bucketName}`, {
       method: 'POST',
       body: formData,

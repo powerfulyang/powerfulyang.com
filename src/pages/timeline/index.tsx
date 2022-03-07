@@ -1,12 +1,11 @@
-import type { ChangeEvent, ClipboardEvent } from 'react';
-import React, { useRef, useState } from 'react';
+import type { ClipboardEvent } from 'react';
+import React, { useMemo, useRef } from 'react';
 import type { GetServerSideProps } from 'next';
 import classNames from 'classnames';
-import { useBeforeUnload, useImmer } from '@powerfulyang/hooks';
+import { useBeforeUnload } from '@powerfulyang/hooks';
 import { interval } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { useMutation, useQueryClient } from 'react-query';
-import { Collection } from '@powerfulyang/utils';
 import { useForm } from 'react-hook-form';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
@@ -14,16 +13,15 @@ import type { Feed, FeedCreate } from '@/type/Feed';
 import { DateTimeFormat } from '@/utils/lib';
 import type { LayoutFC } from '@/type/GlobalContext';
 import type { User } from '@/type/User';
-import { handlePasteImageAndReturnFileList, uploadFileListAndReturnAsset } from '@/utils/copy';
-import type { Asset } from '@/type/Asset';
+import { fileListToFormData, handlePasteImageAndReturnFileList } from '@/utils/copy';
 import { ImagePreview } from '@/components/ImagePreview';
 import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
-import { AssetBucket } from '@/type/Bucket';
 import styles from './index.module.scss';
 import { Switch } from '@/components/Switch';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import { useFeeds } from '@/queries/useFeeds';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
+import { LazyImage } from '@/components/LazyImage';
 
 type TimelineProps = {
   sourceFeeds: Feed[];
@@ -31,8 +29,6 @@ type TimelineProps = {
 };
 
 const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
-  const [assets, setAssets, resetAssets] = useImmer<Asset[]>([]);
-  const [uploading, setUploading] = useState(false);
   const queryClient = useQueryClient();
   const [, feeds] = useFeeds(sourceFeeds);
   const ref = useRef<HTMLButtonElement>(null);
@@ -41,6 +37,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     register,
     handleSubmit,
     getValues,
+    setValue,
     formState: { errors },
     watch,
     reset,
@@ -60,8 +57,11 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
           ref.current && poofClickPlay(ref.current);
         });
       try {
+        const formData = fileListToFormData(variables.assets, 'assets');
+        formData.append('content', variables.content);
+        formData.append('public', variables.public ? 'true' : 'false');
         await clientRequest('/feed', {
-          body: variables,
+          body: formData,
           method: 'POST',
         });
       } finally {
@@ -69,38 +69,34 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
       }
     },
     onSuccess() {
-      resetAssets();
       reset();
       return queryClient.invalidateQueries(useFeeds.Key);
     },
   });
 
-  const uploadImages = async (files: FileList) => {
-    setUploading(true);
-    const images = await uploadFileListAndReturnAsset(files, AssetBucket.timeline);
-    setUploading(false);
-    if (images) {
-      setAssets((draft) => {
-        return Collection.merge(draft, images, 'id');
-      });
-    }
-  };
-
   const paste = async (e: ClipboardEvent) => {
     const files = await handlePasteImageAndReturnFileList(e);
     if (files) {
-      await uploadImages(files);
+      setValue('assets', files);
     }
   };
 
-  async function upload(e: ChangeEvent<HTMLInputElement>) {
-    const { files } = e.target;
-    if (files) {
-      await uploadImages(files);
-    }
-  }
-
   const watchFields = watch(['content', 'assets']);
+
+  const assets = useMemo(() => {
+    const files = watchFields[1];
+    if (!files) {
+      return [];
+    }
+    const arr = [];
+    for (let i = 0; i < files.length; i++) {
+      arr.push({
+        src: URL.createObjectURL(files[i]),
+        key: i,
+      });
+    }
+    return arr;
+  }, [watchFields]);
 
   useFormDiscardWarning(watchFields);
   useBeforeUnload(() => {
@@ -140,21 +136,26 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                       required: '请写点什么~~~',
                     })}
                     className={classNames({
-                      'cursor-progress': uploading,
+                      'cursor-progress': mutation.isLoading,
                     })}
                     onPaste={paste}
                     placeholder="写点什么..."
                   />
                 </div>
                 <div className={classNames(styles.assets)}>
-                  <ImagePreview images={assets}>
-                    {assets?.map((asset) => (
-                      <AssetImageThumbnail className={styles.img} key={asset.id} asset={asset} />
-                    ))}
-                  </ImagePreview>
+                  {assets.map((item) => (
+                    <LazyImage
+                      containerClassName="rounded shadow-lg"
+                      className={styles.img}
+                      key={item.key}
+                      src={item.src}
+                    />
+                  ))}
                 </div>
+                <span className="text-red-400 my-1 mr-4 block text-right">
+                  {errors.content?.message}
+                </span>
                 <div className="flex items-center justify-end text-right pr-4 mb-4">
-                  <span className="text-red-500 mr-auto ml-4">{errors.content?.message}</span>
                   <Switch
                     {...register('public', {
                       required: true,
@@ -168,9 +169,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
                   >
                     上传图片
                     <input
-                      {...register('assets', {
-                        onChange: upload,
-                      })}
+                      {...register('assets')}
                       id="assets"
                       hidden
                       type="file"

@@ -44,6 +44,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
         <Masonry>
           {resources.map((asset) => (
             <AssetImageThumbnail
+              id={`${asset.id}`}
               title={`${asset.id}`}
               key={asset.id}
               assetId={asset.id}

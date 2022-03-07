@@ -22,16 +22,16 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
       const dialog = dialogNode.current;
       const parent = parentNode || document.body;
       parent.appendChild(dialog);
-      const { style } = parent;
-      const originalOverflowRef = style.overflow;
-      style.overflow = 'hidden';
       const subscribe = fromEvent(document.body, 'touchmove', { passive: false }).subscribe((e) => {
         e.preventDefault(); // 阻止移动端乱七八糟的滚动效果
       });
+      const subscribe2 = fromEvent(document.body, 'wheel', { passive: false }).subscribe((e) => {
+        e.preventDefault(); // 阻止滚动条
+      });
       return () => {
-        style.overflow = originalOverflowRef;
         parent.removeChild(dialog);
         subscribe.unsubscribe();
+        subscribe2.unsubscribe();
       };
     }
     return () => {};
