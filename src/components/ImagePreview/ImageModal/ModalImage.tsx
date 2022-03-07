@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { assets } from '@powerfulyang/components';
 import styles from '@/components/ImagePreview/ImageModal/modal.module.scss';
 import type { Asset } from '@/type/Asset';
@@ -53,11 +53,19 @@ export const ModalImage: FC<ModalImageProps> = ({
   const isPrev = selectIndex > realIndex;
   const isNext = selectIndex < realIndex;
   const isMain = selectIndex === realIndex;
-  const isWider =
-    window.visualViewport.height / (window.visualViewport.width - 100 * 2) >
-    Number(asset?.size.height) / Number(asset?.size.width);
-  const isWiderThanScreen = Number(asset?.size.width) >= window.visualViewport.width - 100 * 2;
-  const isHigherThanScreen = Number(asset?.size.height) >= window.visualViewport.height;
+
+  const isSmallScreen = useMemo(() => {
+    return window.innerWidth < 768;
+  }, []);
+
+  const isWider = useMemo(() => {
+    const width = isSmallScreen
+      ? window.visualViewport.width
+      : window.visualViewport.width - 70 * 2;
+    return (
+      window.visualViewport.height / width > Number(asset?.size.height) / Number(asset?.size.width)
+    );
+  }, [asset?.size.height, asset?.size.width, isSmallScreen]);
 
   return (
     <motion.img
@@ -80,9 +88,9 @@ export const ModalImage: FC<ModalImageProps> = ({
       variants={{
         initial: () => {
           return {
-            opacity: 0,
+            opacity: 0.3,
             filter: 'blur(20px)',
-            scale: 0,
+            scale: 0.3,
             x: window.visualViewport.width * (realIndex - selectIndex),
           };
         },
@@ -109,7 +117,7 @@ export const ModalImage: FC<ModalImageProps> = ({
           return {
             x: window.visualViewport.width * (realIndex - selectIndex),
             opacity: 0,
-            scale: 0.3,
+            scale: 0.5,
           };
         },
       }}
@@ -118,8 +126,8 @@ export const ModalImage: FC<ModalImageProps> = ({
       exit="exit"
       transition={{ duration: 0.3 }}
       className={classNames(styles.image, 'pointer', {
-        [styles.wFullImage]: isWider && isWiderThanScreen,
-        'h-full': !isWider && isHigherThanScreen,
+        [styles.wFullImage]: isWider,
+        'h-full': !isWider,
       })}
       src={url}
       alt={asset.comment}

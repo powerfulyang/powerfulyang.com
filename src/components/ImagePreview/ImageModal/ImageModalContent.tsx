@@ -135,9 +135,14 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
     dispatch({
       type: ImageModalContextActionType.close,
     });
-    setOpen(true);
-    setY(0);
   };
+
+  useEffect(() => {
+    if (isDefined(selectIndex)) {
+      setOpen(true);
+      setY(0);
+    }
+  }, [selectIndex]);
 
   useEffect(() => {
     const subscription = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {

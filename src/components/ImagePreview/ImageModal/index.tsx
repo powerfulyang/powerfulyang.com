@@ -1,9 +1,8 @@
 import type { FC } from 'react';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
-import { usePortal } from '@powerfulyang/hooks';
+import { useLockScroll, usePortal } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
-import { fromEvent } from 'rxjs';
-import { ImageModalContent } from '@/components/ImagePreview/ImageModal/Modal';
+import { ImageModalContent } from '@/components/ImagePreview/ImageModal/ImageModalContent';
 import { ImageModalContext } from '@/context/ImageModalContext';
 
 type ImageModalProps = {
@@ -17,21 +16,14 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
     state: { selectIndex, images },
   } = useContext(ImageModalContext);
   const showModal = useMemo(() => isDefined(selectIndex), [selectIndex]);
+  useLockScroll(isDefined(selectIndex));
   useEffect(() => {
     if (showModal) {
       const dialog = dialogNode.current;
       const parent = parentNode || document.body;
       parent.appendChild(dialog);
-      const subscribe = fromEvent(document.body, 'touchmove', { passive: false }).subscribe((e) => {
-        e.preventDefault(); // 阻止移动端乱七八糟的滚动效果
-      });
-      const subscribe2 = fromEvent(document.body, 'wheel', { passive: false }).subscribe((e) => {
-        e.preventDefault(); // 阻止滚动条
-      });
       return () => {
         parent.removeChild(dialog);
-        subscribe.unsubscribe();
-        subscribe2.unsubscribe();
       };
     }
     return () => {};

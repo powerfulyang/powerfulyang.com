@@ -12,13 +12,13 @@
   user-select: none;
 
   .image {
-    object-fit: scale-down;
+    object-fit: contain;
     @apply absolute;
   }
 
   .w-full-image {
     @screen sm {
-      width: calc(100% - 100px * 2);
+      width: calc(100% - 70px * 2);
     }
   }
 

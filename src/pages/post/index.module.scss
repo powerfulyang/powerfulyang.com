@@ -32,6 +32,7 @@ $poster-height: 410px;
     margin: auto;
     position: relative;
     isolation: isolate;
+    will-change: transform;
 
     .image {
       position: absolute;
@@ -130,6 +131,7 @@ $poster-height: 410px;
       overflow: hidden;
       border-radius: 20px;
       isolation: isolate;
+      will-change: transform;
 
       .image {
         position: absolute;
