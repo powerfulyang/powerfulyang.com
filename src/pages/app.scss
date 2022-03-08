@@ -16,7 +16,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0;
+  width: 6px;
   height: 9px;
   border-radius: 10px;
 }
@@ -24,6 +24,11 @@
 ::-webkit-scrollbar-thumb {
   background: var(--scrollbar-bg);
   border-radius: 10px;
+}
+
+body {
+  width: 100vw;
+  overflow: hidden;
 }
 
 /**
@@ -52,12 +57,14 @@
   font-style: normal;
   font-weight: normal;
   //scrollbar-gutter: stable; 这个属性并不好用
+  overflow-y: auto;
+  overflow-x: hidden;
 
   @extend .default;
 
   body {
-    position: relative;
-    overflow: overlay; // 终归还是要设置overflow: overlay，否则 mac 上还是抖动
+    position: absolute;
+    //overflow: overlay; // 终归还是要设置overflow: overlay，否则 mac 上还是抖动
   }
 
   .link {
@@ -94,4 +101,8 @@
 
 a {
   @extend .pointer;
+}
+
+html {
+  overflow-y: scroll;
 }
