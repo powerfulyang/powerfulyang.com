@@ -8,7 +8,7 @@ require('intersection-observer');
 
 const App = ({ Component, pageProps }: AppProps) => {
   // @ts-ignore
-  const getLayout = Component.getLayout || ((page: any) => page);
+  const getLayout = Component.getLayout || ((page) => page);
   return (
     <GlobalContextProvider>
       <Header title={pageProps.title} />

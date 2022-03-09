@@ -31,15 +31,13 @@
     z-index: calc(var(--image-preview-z-index) + 1);
     font-size: 2rem;
     transform: translateY(-50%);
-    @apply opacity-60 text-black;
+    @apply opacity-60 text-black hidden sm:block;
 
     @media (hover: hover) {
       &:hover {
         @apply text-blue-400;
       }
     }
-
-    @extend .hidden-xs;
   }
 
   .prev {

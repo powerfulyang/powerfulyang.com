@@ -150,13 +150,11 @@ $main-color: #ffb356;
 
   .inline-code {
     color: #7887ac;
-    font-family: 'Fira Code', sans-serif;
-    @apply rounded bg-blue-100 px-2 py-0.5;
+    @apply rounded bg-blue-100 px-2 py-0.5 select-none;
   }
 
   .toolbar {
     position: relative;
-    font-family: 'Fira Code', sans-serif;
     background-color: rgb(34 31 31);
     @apply flex text-blue-400 align-middle;
 
