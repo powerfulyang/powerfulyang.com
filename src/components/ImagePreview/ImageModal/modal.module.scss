@@ -1,5 +1,3 @@
-@import '../../../styles/styles';
-
 .clear {
   backdrop-filter: unset !important;
 }
@@ -41,7 +39,6 @@
       }
     }
 
-    @extend .pointer;
     @extend .hidden-xs;
   }
 

@@ -1,5 +1,3 @@
-@import '../../base';
-
 .wrap {
   @apply bg-[#14161a] h-[100vh];
 
@@ -68,7 +66,6 @@
         .do-random {
           background: #2a2f37;
           @apply text-gray-400 mx-8 py-3 px-4 rounded-lg;
-          @extend .pointer;
         }
 
         .download {
