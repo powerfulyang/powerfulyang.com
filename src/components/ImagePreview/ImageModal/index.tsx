@@ -4,6 +4,7 @@ import { useLockScroll, usePortal } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
 import { ImageModalContent } from '@/components/ImagePreview/ImageModal/ImageModalContent';
 import { ImageModalContext } from '@/context/ImageModalContext';
+import { useHiddenHtmlOverflow } from '@/hooks/useHiddenHtmlOverflow';
 
 type ImageModalProps = {
   parentNode?: HTMLElement;
@@ -16,7 +17,8 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
     state: { selectIndex, images },
   } = useContext(ImageModalContext);
   const showModal = useMemo(() => isDefined(selectIndex), [selectIndex]);
-  useLockScroll(isDefined(selectIndex));
+  useLockScroll(showModal);
+  useHiddenHtmlOverflow(showModal);
   useEffect(() => {
     if (showModal) {
       const dialog = dialogNode.current;

@@ -15,6 +15,7 @@ import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { DateTimeFormat } from '@/utils/lib';
 import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
 import { useHistory } from '@/hooks/useHistory';
+import { useHiddenHtmlOverflow } from '@/hooks/useHiddenHtmlOverflow';
 
 type IndexProps = {
   posts: Post[];
@@ -30,19 +31,9 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
     [posts, selectedPostId],
   );
 
-  useEffect(() => {
-    if (selectedPostId) {
-      const prevOverflow = document.body.style.overflow;
-      document.getElementsByTagName('html')[0].style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = prevOverflow;
-      };
-    }
-    return () => {};
-  }, [selectedPostId]);
-
   const ref = useRef<HTMLDivElement>(null);
+
+  useHiddenHtmlOverflow(Boolean(selectedPostId));
 
   const showPost = (postId: number) => {
     setSelectedPostId(postId);
