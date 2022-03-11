@@ -4,7 +4,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@tailwind variants;
 
 @font-face {
   font-weight: normal;
@@ -59,7 +58,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
 
-  @extend .default !optional;
+  @apply default;
 
   body {
     position: absolute;
@@ -99,7 +98,7 @@ body {
 }
 
 a {
-  @extend .pointer !optional;
+  @apply pointer;
 }
 
 html {
