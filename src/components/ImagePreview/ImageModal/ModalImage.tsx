@@ -113,11 +113,11 @@ export const ModalImage: FC<ModalImageProps> = ({
             ...t,
           };
         },
-        exit: () => {
+        exit: ({ y: oy }) => {
           return {
             x: window.visualViewport.width * (realIndex - selectIndex),
             opacity: 0,
-            scale: 0.5,
+            scale: oy ? 0.3 : 0.6,
           };
         },
       }}

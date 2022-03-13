@@ -195,7 +195,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
             <div key={feed.id} className={styles.container}>
               <div className={styles.author}>
                 <div className={styles.avatar}>
-                  <img
+                  <LazyImage
                     draggable={false}
                     className="rounded select-none"
                     src={feed.createBy.avatar}
