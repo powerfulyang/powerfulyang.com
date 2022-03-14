@@ -29,7 +29,7 @@ export const NavBar: FC<NavBarProps> = ({ user }) => {
   return (
     <div className={styles.navPlaceholder}>
       <nav className={styles.nav}>
-        <div className="w-[15ch] text-xl px-3 py-1 mx-4 hidden-xs">
+        <div className="w-[15ch] text-xl px-3 py-1 mx-4 hidden sm:block">
           <Link to="/" className={classNames(styles.title)}>
             {ProjectName}
           </Link>

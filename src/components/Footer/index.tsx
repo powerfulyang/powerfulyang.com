@@ -9,7 +9,7 @@ type FooterProps = {
 };
 export const Footer: FC<FooterProps> = ({ pathViewCount }) => (
   <footer className={classNames(styles.footer)}>
-    <div className="text-gray-400 text-sm hidden-xs">
+    <div className="text-gray-400 text-sm hidden sm:block">
       <span className="mr-1">备案号:</span>
       <a
         className="text-pink-400"
@@ -34,7 +34,7 @@ export const Footer: FC<FooterProps> = ({ pathViewCount }) => (
       </span>
     </div>
     <div className="text-sm flex items-baseline">
-      <div hidden={!pathViewCount} className="hidden-xs text-pink-400">
+      <div hidden={!pathViewCount} className="hidden sm:block text-pink-400">
         {pathViewCount}人临幸
       </div>
       <div className="text-gray-400 text-lg space-x-1 contents">

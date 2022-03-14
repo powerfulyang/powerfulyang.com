@@ -13,7 +13,7 @@ export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
   const { replaceState } = useHistory();
   const ref = useRef('');
   return (
-    <div className={classNames('hidden-xs', styles.toc)}>
+    <div className={classNames('hidden sm:block', styles.toc)}>
       <span className="inline-block text-gray-400 mb-2 text-lg">目录:</span>
       {toc.map((item) => {
         const heading = item.heading.trim();
