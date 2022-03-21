@@ -150,6 +150,7 @@ $main-color: #ffb356;
 
   .inline-code {
     color: #7887ac;
+    word-break: break-word;
     @apply rounded bg-blue-100 px-2 py-0.5 select-none;
   }
 
@@ -220,6 +221,7 @@ $main-color: #ffb356;
           padding: 1em;
           border-left: cornflowerblue 2px solid;
           width: max-content;
+          white-space: pre;
 
           &:first-child {
             border: none;
@@ -237,6 +239,7 @@ $main-color: #ffb356;
           text-align: center;
           border-left: cornflowerblue 2px solid;
           width: max-content;
+          white-space: pre;
 
           &:first-child {
             border: none;

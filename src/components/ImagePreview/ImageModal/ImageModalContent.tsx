@@ -194,9 +194,9 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
-        onMouseDown={onTouchStart}
-        onMouseMove={onTouchMove}
-        onMouseUp={onTouchEnd}
+        // onMouseDown={onTouchStart}
+        // onMouseMove={onTouchMove}
+        // onMouseUp={onTouchEnd}
       >
         <AnimatePresence initial={false}>
           {isDefined(images) &&

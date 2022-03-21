@@ -49,24 +49,14 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   });
 
   const mutation = useMutation({
-    mutationFn: async (variables: FeedCreate) => {
-      const { poofClickPlay } = await import('@/components/mo.js/Material');
-      const subscribe = interval(500)
-        .pipe(startWith(0))
-        .subscribe(() => {
-          ref.current && poofClickPlay(ref.current);
-        });
-      try {
-        const formData = fileListToFormData(variables.assets, 'assets');
-        formData.append('content', variables.content);
-        formData.append('public', variables.public ? 'true' : 'false');
-        await clientRequest('/feed', {
-          body: formData,
-          method: 'POST',
-        });
-      } finally {
-        subscribe.unsubscribe();
-      }
+    mutationFn: (variables: FeedCreate) => {
+      const formData = fileListToFormData(variables.assets, 'assets');
+      formData.append('content', variables.content);
+      formData.append('public', variables.public ? 'true' : 'false');
+      return clientRequest('/feed', {
+        body: formData,
+        method: 'POST',
+      });
     },
     onSuccess() {
       reset();
@@ -104,26 +94,45 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     return Boolean(content || images?.length);
   }, '内容或图片未保存，确定离开？');
 
-  const onSubmit = (data: FeedCreate) => {
-    mutation.mutate(data);
+  const onSubmit = async (data: FeedCreate) => {
+    const { poofClickPlay } = await import('@/components/mo.js/Material');
+    const source$ = interval(500)
+      .pipe(startWith(0))
+      .subscribe(() => {
+        ref.current && poofClickPlay(ref.current);
+      });
+    mutation.mutate(data, {
+      onSettled() {
+        source$.unsubscribe();
+      },
+    });
   };
+
+  const bannerUser = useMemo(() => {
+    return user || sourceFeeds[0]?.createBy || {};
+  }, [user, sourceFeeds]);
 
   return (
     <div className={styles.wrap}>
       <div className={styles.timelineShow}>
-        {user && (
+        {bannerUser && (
           <>
             <div className={styles.banner}>
               <AssetImageThumbnail
-                asset={user.timelineBackground}
+                asset={bannerUser.timelineBackground}
                 containerClassName={styles.bannerBg}
                 className={classNames(styles.bannerImage)}
               />
               <div className={styles.authorInfo}>
-                <img draggable={false} src={user?.avatar} className={styles.authorAvatar} alt="" />
-                <div className={styles.authorNickname}>{user?.nickname}</div>
+                <img
+                  draggable={false}
+                  src={bannerUser.avatar}
+                  className={styles.authorAvatar}
+                  alt=""
+                />
+                <div className={styles.authorNickname}>{bannerUser.nickname}</div>
                 <div className={styles.authorBio}>
-                  <span>{user?.bio}</span>
+                  <span>{bannerUser.bio}</span>
                 </div>
               </div>
             </div>
