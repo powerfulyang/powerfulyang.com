@@ -9,10 +9,10 @@ export const useHistory = () => {
   const [, setIsRedirecting] = useAtom(RedirectingAtom);
   const [formWarning] = useFormDiscardWarning();
   const pushState = useCallback(
-    (url: string) => {
+    (...args: Parameters<typeof router.push>) => {
       const push = () => {
         setIsRedirecting(true);
-        router.push(url, undefined, { scroll: false }).finally(() => {
+        router.push(args[0], args[1], { scroll: false, ...args[2] }).finally(() => {
           setIsRedirecting(false);
           // 使用 History.scrollRestoration 来使滚动条回到顶部 但是会使 nav=>layoutId 计算出现错误
           window.scrollTo({
@@ -33,5 +33,5 @@ export const useHistory = () => {
     },
     [formWarning, router, setIsRedirecting],
   );
-  return { pushState, replaceState: router.replace, pathname: router.pathname };
+  return { pushState, replaceState: router.replace, pathname: router.pathname, router };
 };

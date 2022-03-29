@@ -32,6 +32,10 @@ const config = {
         destination: '/post',
       },
       {
+        source: '/post/thumbnail/:id',
+        destination: '/post',
+      },
+      {
         source: '/post/publish',
         destination: '/post/publish/0',
       },

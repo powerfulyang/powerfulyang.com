@@ -1,5 +1,5 @@
 import type { KeyboardEvent } from 'react';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { GetServerSideProps } from 'next';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -21,49 +21,70 @@ type IndexProps = {
   posts: Post[];
   years: number[];
   year: number;
+  selectedPostId: number;
 };
 
-const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
-  const [selectedPostId, setSelectedPostId] = useState(0);
-
+const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => {
   const selectedPost = useMemo(
     () => posts.find((post) => post.id === selectedPostId),
     [posts, selectedPostId],
   );
+
+  const history = useHistory();
 
   const ref = useRef<HTMLDivElement>(null);
 
   useHiddenHtmlOverflow(Boolean(selectedPostId));
 
   const showPost = (postId: number) => {
-    setSelectedPostId(postId);
     if (ref.current) {
       ref.current.style.pointerEvents = 'auto';
     }
+    return history.router.push(
+      {
+        pathname: `/post/thumbnail/${postId}`,
+        query: {
+          year: String(year),
+        },
+      },
+      undefined,
+      { scroll: false },
+    );
   };
 
-  const hiddenPost = () => {
+  const hiddenPost = useCallback(() => {
     if (ref.current) {
       // 必须设置 key，否则会导致 选择新的 post 后，依然渲染在旧的 preview container 上
       // 加 layoutId 感觉应该也可以解决问题 但是加了之后 ref 似乎不太对，导致 pointerEvents 设置为 none 无效
       // 应该来说是 layoutId 的 bug
       ref.current.style.pointerEvents = 'none';
     }
-    setSelectedPostId(0);
-  };
+    return history.router.push(
+      {
+        pathname: '/post',
+        query: {
+          year: String(year),
+        },
+      },
+      undefined,
+      { scroll: false },
+    );
+  }, [history, year]);
 
   useEffect(() => {
     const sub = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
       if (e.key === 'Escape') {
-        hiddenPost();
+        return hiddenPost();
       }
+      if (e.key === '.' && selectedPostId) {
+        return history.pushState(`/post/publish/${selectedPostId}`);
+      }
+      return null;
     });
     return () => {
       sub.unsubscribe();
     };
-  }, []);
-
-  const { pushState } = useHistory();
+  }, [hiddenPost, history, selectedPostId]);
 
   return (
     <>
@@ -92,7 +113,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 className={classNames('pointer', styles.card)}
                 onTap={async (e) => {
                   if (e.metaKey || e.ctrlKey) {
-                    return pushState(`/post/${post.id}`);
+                    return history.pushState(`/post/${post.id}`);
                   }
                   return showPost(post.id);
                 }}
@@ -141,9 +162,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             <motion.div
               className={classNames(styles.postPreview, 'pointer')}
               ref={ref}
-              onClick={() => {
-                hiddenPost();
-              }}
+              onClick={() => hiddenPost()}
               key={selectedPostId}
             >
               <motion.div
@@ -191,6 +210,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const tmp = await request('/public/post/years', {
     ctx,
   });
+  const { id = 0 } = query;
   const { data: years = [] } = await tmp.json();
   const year = query.year || years[0];
   const res = await request('/public/post', {
@@ -207,6 +227,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       year,
       title: '日志',
       user,
+      selectedPostId: Number(id),
     },
   };
 };
