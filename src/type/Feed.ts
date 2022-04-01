@@ -2,7 +2,7 @@ import type { Asset } from '@/type/Asset';
 import type { User } from '@/type/User';
 
 export class Feed {
-  id?: number;
+  id: number;
 
   content: string;
 
@@ -10,9 +10,9 @@ export class Feed {
 
   createBy: User;
 
-  createAt?: Date;
+  createAt: Date;
 
-  updateAt?: Date;
+  updateAt: Date;
 }
 
 export interface FeedCreate {
@@ -20,5 +20,5 @@ export interface FeedCreate {
 
   public: boolean;
 
-  assets?: FileList;
+  assets: FileList;
 }

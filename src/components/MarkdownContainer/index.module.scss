@@ -148,8 +148,17 @@ $main-color: #ffb356;
     }
   }
 
-  .inline-code {
+  code {
     color: #7887ac;
+  }
+
+  a {
+    code {
+      @apply text-purple-500;
+    }
+  }
+
+  .inline-code {
     word-break: break-word;
     @apply rounded bg-blue-100 px-2 py-0.5 select-none;
   }

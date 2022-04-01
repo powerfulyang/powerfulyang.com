@@ -1,7 +1,6 @@
 import { isNil, pick, reject } from 'ramda';
 import type { GetServerSideProps } from 'next';
 import { notification } from '@powerfulyang/components';
-import type { SUCCESS } from '@/constant/Constant';
 
 export type RequestOptions = {
   method?: string;
@@ -29,8 +28,9 @@ export const request = async (url: string, options: RequestOptions) => {
 };
 
 export type ApiResponse<T = any> = {
-  status: typeof SUCCESS;
   data: T;
+  pathViewCount: number;
+  message: string;
 };
 
 export const clientRequest = async <T = any>(

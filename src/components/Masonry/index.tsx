@@ -1,5 +1,5 @@
 import type { FC, ReactElement } from 'react';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
@@ -8,12 +8,8 @@ export type MasonryProps = {
   children: ReactElement[];
 };
 
-export const Masonry: FC<MasonryProps> = ({ children }) => {
-  const [colNum, setColNum] = useState(3); // 默认是小屏幕的时候是3列
-  useEffect(() => {
-    const num = Math.ceil(window.innerWidth / 400 + 2);
-    setColNum(num);
-  }, []);
+const Masonry: FC<MasonryProps> = ({ children }) => {
+  const colNum = useMemo(() => Math.ceil(window.innerWidth / 400 + 2), []);
   const arrayNodes = useMemo(
     () =>
       children.reduce(
@@ -86,3 +82,5 @@ export const Masonry: FC<MasonryProps> = ({ children }) => {
     </div>
   );
 };
+
+export default Masonry;

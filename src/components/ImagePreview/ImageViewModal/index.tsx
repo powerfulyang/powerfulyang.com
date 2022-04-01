@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { useLockScroll, usePortal } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
-import { ImageModalContent } from '@/components/ImagePreview/ImageModal/ImageModalContent';
+import { ImageModalContent } from '@/components/ImagePreview/ImageViewModal/ImageModalContent';
 import { ImageModalContext } from '@/context/ImageModalContext';
 import { useHiddenHtmlOverflow } from '@/hooks/useHiddenHtmlOverflow';
 
@@ -10,7 +10,7 @@ type ImageModalProps = {
   parentNode?: HTMLElement;
 };
 
-const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
+const ImageViewModal: FC<ImageModalProps> = ({ parentNode }) => {
   const dialogNode = useRef<HTMLElement>(document.createElement('section'));
   const { Portal } = usePortal({ container: dialogNode.current });
   const {
@@ -48,4 +48,4 @@ const ImageModal: FC<ImageModalProps> = ({ parentNode }) => {
   );
 };
 
-export default ImageModal;
+export default ImageViewModal;
