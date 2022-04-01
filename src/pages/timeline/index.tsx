@@ -1,14 +1,16 @@
 import type { ClipboardEvent } from 'react';
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import type { GetServerSideProps } from 'next';
 import classNames from 'classnames';
 import { useBeforeUnload } from '@powerfulyang/hooks';
 import { interval } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { useMutation, useQueryClient } from 'react-query';
+import { useInfiniteQuery, useMutation, useQueryClient } from 'react-query';
 import { useForm } from 'react-hook-form';
+import { flatten } from 'ramda';
+import { isDefined } from '@powerfulyang/utils';
 import { UserLayout } from '@/layout/UserLayout';
-import { clientRequest, request } from '@/utils/request';
+import { requestAtClient } from '@/utils/client';
 import type { Feed, FeedCreate } from '@/type/Feed';
 import { DateTimeFormat } from '@/utils/lib';
 import type { LayoutFC } from '@/type/GlobalContext';
@@ -19,18 +21,42 @@ import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbna
 import styles from './index.module.scss';
 import { Switch } from '@/components/Switch';
 import { getCurrentUser } from '@/service/getCurrentUser';
-import { useFeeds } from '@/queries/useFeeds';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 import { LazyImage } from '@/components/LazyImage';
+import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
+import { requestAtServer } from '@/utils/server';
 
 type TimelineProps = {
-  sourceFeeds: Feed[];
+  feeds: Feed[];
   user?: User;
+  nextCursor: string;
 };
 
-const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
+const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor }) => {
   const queryClient = useQueryClient();
-  const [, feeds] = useFeeds(sourceFeeds);
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
+    'feeds',
+    async ({ pageParam }) => {
+      const res = await requestAtClient<InfiniteQueryResponse<Feed>>('/public/feed', {
+        query: { cursor: pageParam || nextCursor, size: 10 },
+      });
+      return res.data;
+    },
+    {
+      enabled: isDefined(nextCursor),
+      getNextPageParam(lastPage) {
+        return lastPage.nextCursor;
+      },
+    },
+  );
+
+  // TODO tmp fix
+  useEffect(() => {
+    if (!isFetching) {
+      hasNextPage && fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, isFetching]);
+
   const ref = useRef<HTMLButtonElement>(null);
 
   const {
@@ -53,14 +79,14 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
       const formData = fileListToFormData(variables.assets, 'assets');
       formData.append('content', variables.content);
       formData.append('public', variables.public ? 'true' : 'false');
-      return clientRequest('/feed', {
+      return requestAtClient('/feed', {
         body: formData,
         method: 'POST',
       });
     },
     onSuccess() {
       reset();
-      return queryClient.invalidateQueries(useFeeds.Key);
+      return queryClient.invalidateQueries('feeds');
     },
   });
 
@@ -94,14 +120,14 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
     return Boolean(content || images?.length);
   }, '内容或图片未保存，确定离开？');
 
-  const onSubmit = async (data: FeedCreate) => {
+  const onSubmit = async (v: FeedCreate) => {
     const { poofClickPlay } = await import('@/components/mo.js/Material');
     const source$ = interval(500)
       .pipe(startWith(0))
       .subscribe(() => {
         ref.current && poofClickPlay(ref.current);
       });
-    mutation.mutate(data, {
+    mutation.mutate(v, {
       onSettled() {
         source$.unsubscribe();
       },
@@ -109,8 +135,13 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
   };
 
   const bannerUser = useMemo(() => {
-    return user || sourceFeeds[0]?.createBy || {};
-  }, [user, sourceFeeds]);
+    return user || feeds[0]?.createBy || {};
+  }, [user, feeds]);
+
+  const resources = useMemo(
+    () => [...feeds, ...((data?.pages && flatten(data?.pages.map((x) => x.resources))) || [])],
+    [feeds, data?.pages],
+  );
 
   return (
     <div className={styles.wrap}>
@@ -200,7 +231,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ sourceFeeds, user }) => {
           </>
         )}
         <div className={styles.feeds}>
-          {feeds?.map((feed) => (
+          {resources?.map((feed) => (
             <div key={feed.id} className={styles.container}>
               <div className={styles.author}>
                 <div className={styles.avatar}>
@@ -258,11 +289,22 @@ Timeline.getLayout = (page) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const res = await request('/public/feed', { ctx });
+  const res = await requestAtServer('/public/feed', {
+    ctx,
+    query: {
+      size: 10,
+    },
+  });
   const user = await getCurrentUser(ctx);
   const { data, pathViewCount } = await res.json();
   return {
-    props: { sourceFeeds: data, pathViewCount, user, title: '说说' },
+    props: {
+      feeds: data.resources,
+      nextCursor: data.nextCursor,
+      pathViewCount,
+      user,
+      title: '说说',
+    },
   };
 };
 

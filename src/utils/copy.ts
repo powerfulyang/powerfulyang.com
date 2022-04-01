@@ -1,7 +1,7 @@
 import type { ClipboardEvent } from 'react';
 import { copyToClipBoard } from '@powerfulyang/utils';
 import { notification } from '@powerfulyang/components';
-import { clientRequest } from '@/utils/request';
+import { requestAtClient } from '@/utils/client';
 import type { Asset } from '@/type/Asset';
 import type { Bucket } from '@/type/Bucket';
 import { AssetBucket } from '@/type/Bucket';
@@ -41,7 +41,7 @@ export const uploadFileListAndReturnAsset = async (
   const count = files.length;
   if (count) {
     const formData = fileListToFormData(files);
-    const res = await clientRequest<Asset[]>(`/asset/${bucketName}`, {
+    const res = await requestAtClient<Asset[]>(`/asset/${bucketName}`, {
       method: 'POST',
       body: formData,
     });

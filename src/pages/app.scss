@@ -47,10 +47,10 @@ body {
   --indicator-z-index: 4;
   --image-preview-z-index: 5;
   --post-preview-z-index: 5;
-  --redirecting-z-index: 9999999;
+  --redirecting-z-index: 5;
   // end of z-index variables
 
-  font-size: calc(12px + 0.2vw);
+  font-size: calc(12px + 0.15vw);
   font-family: 'Fira Code', sans-serif;
   font-style: normal;
   font-weight: normal;

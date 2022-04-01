@@ -4,7 +4,6 @@ import type { GetServerSideProps } from 'next';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { fromEvent } from 'rxjs';
-import { request } from '@/utils/request';
 import type { Post } from '@/type/Post';
 import { Link } from '@/components/Link';
 import type { LayoutFC } from '@/type/GlobalContext';
@@ -16,6 +15,7 @@ import { DateTimeFormat } from '@/utils/lib';
 import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
 import { useHistory } from '@/hooks/useHistory';
 import { useHiddenHtmlOverflow } from '@/hooks/useHiddenHtmlOverflow';
+import { requestAtServer } from '@/utils/server';
 
 type IndexProps = {
   posts: Post[];
@@ -76,8 +76,11 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
       if (e.key === 'Escape') {
         return hiddenPost();
       }
-      if (e.key === '.' && selectedPostId) {
-        return history.pushState(`/post/publish/${selectedPostId}`);
+      if (e.key === '.') {
+        if (selectedPostId) {
+          return history.pushState(`/post/publish/${selectedPostId}`);
+        }
+        return history.pushState('/post/publish');
       }
       return null;
     });
@@ -120,26 +123,33 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
               >
                 <AnimatePresence initial={false}>
                   {selectedPostId !== post.id && (
-                    <motion.div
+                    <motion.a
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       className={styles.cardHeader}
+                      href={`/post/${post.id}`}
+                      onClick={(e) => e.preventDefault()}
                     >
                       <div className={styles.cardHeaderTitle}>
                         <div>{post.title}</div>
                         <div className={styles.cardHeaderDate}>{DateTimeFormat(post.createAt)}</div>
                       </div>
-                    </motion.div>
+                    </motion.a>
                   )}
                 </AnimatePresence>
                 <motion.div
                   layoutId={`post-container-${post.id}`}
                   className={classNames(styles.container)}
                 >
-                  <motion.div className={styles.image} layoutId={`post-poster-${post.id}`}>
+                  <motion.a
+                    onClick={(e) => e.preventDefault()}
+                    className={styles.image}
+                    layoutId={`post-poster-${post.id}`}
+                    href={`/post/${post.id}`}
+                  >
                     <AssetImageThumbnail thumbnail={false} asset={post.poster} />
-                  </motion.div>
+                  </motion.a>
                   <motion.div className={styles.content} layoutId={`post-content-${post.id}`}>
                     <MarkdownContainer blur={false} source={post.content} />
                   </motion.div>
@@ -207,13 +217,13 @@ Index.getLayout = (page) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { query } = ctx;
-  const tmp = await request('/public/post/years', {
+  const tmp = await requestAtServer('/public/post/years', {
     ctx,
   });
   const { id = 0 } = query;
   const { data: years = [] } = await tmp.json();
-  const year = query.year || years[0];
-  const res = await request('/public/post', {
+  const year = Number(query.year) || years[0];
+  const res = await requestAtServer('/public/post', {
     ctx,
     query: { publishYear: year },
   });

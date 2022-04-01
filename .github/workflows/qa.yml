@@ -13,9 +13,9 @@ jobs:
         node-version: [lts/*]
         docker-repository: [powerfulyang/qa.powerfulyang.com]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - name: setup env
@@ -42,5 +42,5 @@ jobs:
           script: |
             docker pull ${{ matrix.docker-repository }}
             cd ~/applications
-            docker-compose up -d --force-recreate powerfulyang.com
+            docker-compose up -d --force-recreate qa.powerfulyang.com
             docker image prune -a -f
