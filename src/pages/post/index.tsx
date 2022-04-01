@@ -123,26 +123,33 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
               >
                 <AnimatePresence initial={false}>
                   {selectedPostId !== post.id && (
-                    <motion.div
+                    <motion.a
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       className={styles.cardHeader}
+                      href={`/post/${post.id}`}
+                      onClick={(e) => e.preventDefault()}
                     >
                       <div className={styles.cardHeaderTitle}>
                         <div>{post.title}</div>
                         <div className={styles.cardHeaderDate}>{DateTimeFormat(post.createAt)}</div>
                       </div>
-                    </motion.div>
+                    </motion.a>
                   )}
                 </AnimatePresence>
                 <motion.div
                   layoutId={`post-container-${post.id}`}
                   className={classNames(styles.container)}
                 >
-                  <motion.div className={styles.image} layoutId={`post-poster-${post.id}`}>
+                  <motion.a
+                    onClick={(e) => e.preventDefault()}
+                    className={styles.image}
+                    layoutId={`post-poster-${post.id}`}
+                    href={`/post/${post.id}`}
+                  >
                     <AssetImageThumbnail thumbnail={false} asset={post.poster} />
-                  </motion.div>
+                  </motion.a>
                   <motion.div className={styles.content} layoutId={`post-content-${post.id}`}>
                     <MarkdownContainer blur={false} source={post.content} />
                   </motion.div>
