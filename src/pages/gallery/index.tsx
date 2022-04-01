@@ -2,12 +2,13 @@ import React, { useMemo } from 'react';
 import type { GetServerSideProps } from 'next';
 import { useInfiniteQuery } from 'react-query';
 import { flatten, last } from 'ramda';
+import { isDefined } from '@powerfulyang/utils';
+import dynamic from 'next/dynamic';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientRequest, request } from '@/utils/request';
 import type { Asset } from '@/type/Asset';
 import styles from './index.module.scss';
-import { Masonry } from '@/components/Masonry';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
@@ -15,18 +16,22 @@ import { ImagePreview } from '@/components/ImagePreview';
 
 type GalleryProps = {
   assets: Asset[];
+  nextCursor: string;
 };
 
-export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
+const Masonry = dynamic(() => import('@/components/Masonry'), { ssr: false });
+
+export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor }) => {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
     'assets',
     async ({ pageParam }) => {
-      const res = await clientRequest<InfiniteQueryResponse<Asset>>('/public/asset/infiniteQuery', {
-        query: { id: pageParam || last(assets)?.id, size: 30 },
+      const res = await clientRequest<InfiniteQueryResponse<Asset>>('/public/asset', {
+        query: { cursor: pageParam || nextCursor, size: 30 },
       });
       return res.data;
     },
     {
+      enabled: isDefined(nextCursor),
       getNextPageParam(lastPage) {
         return lastPage.nextCursor;
       },
@@ -65,7 +70,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const res = await request('/public/asset/infiniteQuery', {
+  const res = await request('/public/asset', {
     ctx,
     query: {
       size: 30,
@@ -79,6 +84,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       pathViewCount,
       title: '图片墙',
       user,
+      nextCursor: data.nextCursor,
     },
   };
 };

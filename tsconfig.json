@@ -22,9 +22,9 @@
     "isolatedModules": true,
     "strictPropertyInitialization": false,
     "allowJs": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
     "noEmit": true,
-    "incremental": true
+    "incremental": true,
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.glsl", "plugins", "tailwind.config.js"],
   "exclude": ["node_modules"]

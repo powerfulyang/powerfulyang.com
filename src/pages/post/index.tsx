@@ -76,8 +76,11 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
       if (e.key === 'Escape') {
         return hiddenPost();
       }
-      if (e.key === '.' && selectedPostId) {
-        return history.pushState(`/post/publish/${selectedPostId}`);
+      if (e.key === '.') {
+        if (selectedPostId) {
+          return history.pushState(`/post/publish/${selectedPostId}`);
+        }
+        return history.pushState('/post/publish');
       }
       return null;
     });
@@ -212,7 +215,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   });
   const { id = 0 } = query;
   const { data: years = [] } = await tmp.json();
-  const year = query.year || years[0];
+  const year = Number(query.year) || years[0];
   const res = await request('/public/post', {
     ctx,
     query: { publishYear: year },

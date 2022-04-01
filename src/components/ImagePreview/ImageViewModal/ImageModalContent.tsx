@@ -7,7 +7,7 @@ import { isDefined, isUndefined } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
 import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
 import styles from './modal.module.scss';
-import { ModalImage } from '@/components/ImagePreview/ImageModal/ModalImage';
+import { ModalImage } from '@/components/ImagePreview/ImageViewModal/ModalImage';
 
 type ImageModalContentProps = {};
 
