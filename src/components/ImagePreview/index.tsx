@@ -1,14 +1,14 @@
 import type { FC } from 'react';
 import React, { Children, cloneElement, useEffect, useMemo } from 'react';
 import { useImmerReducer } from '@powerfulyang/hooks';
-import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import type { ImageModalContextAction, ImageModalContextState } from '@/context/ImageModalContext';
 import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
 import type { Asset } from '@/type/Asset';
 import { useShowIndicator } from '@/components/Redirecting';
 
-const DynamicImageModal = dynamic(() => import('@/components/ImagePreview/ImageModal'), {
+const ImageViewModal = dynamic(() => import('@/components/ImagePreview/ImageViewModal'), {
   ssr: false,
 });
 
@@ -51,7 +51,7 @@ export const ImagePreview: FC<{
   }, [setShowIndicator, state?.selectIndex]);
   return (
     <ImageModalContext.Provider value={memo}>
-      <DynamicImageModal />
+      <ImageViewModal />
       {(parentControl &&
         Children.map(children, (child, index) =>
           cloneElement(<motion.span>{child}</motion.span>, {

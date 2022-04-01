@@ -3,11 +3,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import type { GetServerSideProps } from 'next';
 import { useBeforeUnload } from '@powerfulyang/hooks';
 import { MarkdownEditor } from '@/components/MarkdownContainer/Editor/inex';
-import { clientRequest, request } from '@/utils/request';
+import { requestAtClient } from '@/utils/client';
 import type { Post } from '@/type/Post';
 import { extractMetaData, extractTitle } from '@/utils/toc';
 import { Footer } from '@/components/Footer';
 import { useHistory } from '@/hooks/useHistory';
+import { requestAtServer } from '@/utils/server';
 
 type PublishProps = {
   post: Post;
@@ -19,7 +20,7 @@ const Publish: FC<PublishProps> = ({ post }) => {
 
   const handlePost = async () => {
     const [metadata] = extractMetaData(content);
-    const res = await clientRequest<Post>('/post', {
+    const res = await requestAtClient<Post>('/post', {
       method: 'POST',
       body: {
         ...metadata,
@@ -68,7 +69,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   let post;
   if (Number(id)) {
-    const res = await request(`/public/post/${id}`, {
+    const res = await requestAtServer(`/public/post/${id}`, {
       ctx,
     });
     const { data } = await res.json();

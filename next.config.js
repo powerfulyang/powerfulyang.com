@@ -7,25 +7,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+/**
+ * @type {import('next').NextConfig}
+ */
 const config = {
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-      use: {
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-        },
-      },
-    });
-    config.module.rules.push({
-      test: /\.(glsl|vs|fs|vert|frag)$/,
-      exclude: /node_modules/,
-      use: ['raw-loader', 'glslify-loader'],
-    });
-    return config;
-  },
-  async rewrites() {
+  rewrites() {
     return [
       {
         source: '/',
@@ -44,17 +30,19 @@ const config = {
   pwa: {
     dest: 'public',
     disable: isDevProcess,
+    buildExcludes: [/manifest\.js$/],
   },
   experimental: {
     esmExternals: true,
   },
   env: {
     CLIENT_BASE_URL: process.env.CLIENT_BASE_URL,
-    SERVER_BASE_URL: process.env.SERVER_BASE_URL,
   },
   eslint: {
     ignoreDuringBuilds: true, //不用自带的
   },
+  optimizeFonts: false,
+  reactStrictMode: true,
 };
 
 module.exports = withPlugins([[withCamelCaseCSSModules], [withPWA], [withBundleAnalyzer]], config);

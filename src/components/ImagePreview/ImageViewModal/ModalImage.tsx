@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { assets } from '@powerfulyang/components';
-import styles from '@/components/ImagePreview/ImageModal/modal.module.scss';
+import styles from '@/components/ImagePreview/ImageViewModal/modal.module.scss';
 import type { Asset } from '@/type/Asset';
 import { CosUtils } from '@/utils/lib';
 

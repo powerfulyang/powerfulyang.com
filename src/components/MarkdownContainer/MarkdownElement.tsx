@@ -12,7 +12,7 @@ import classNames from 'classnames';
 import { useQuery } from 'react-query';
 import { motion } from 'framer-motion';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
-import { clientRequest } from '@/utils/request';
+import { requestAtClient } from '@/utils/client';
 import styles from './index.module.scss';
 import { MDContainerContext } from '@/components/MarkdownContainer/index';
 import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
@@ -190,7 +190,7 @@ const AssetImage: FC<{ id: string }> = ({ id }) => {
   const { data } = useQuery({
     queryKey: ['md-asset-img', id],
     queryFn: async () => {
-      const res = await clientRequest(`/public/asset/${id}`);
+      const res = await requestAtClient(`/public/asset/${id}`);
       return res.data;
     },
   });

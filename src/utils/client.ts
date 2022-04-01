@@ -1,7 +1,6 @@
-import { isNil, pick, reject } from 'ramda';
+import { isNil, reject } from 'ramda';
 import type { GetServerSideProps } from 'next';
 import { notification } from '@powerfulyang/components';
-import type { SUCCESS } from '@/constant/Constant';
 
 export type RequestOptions = {
   method?: string;
@@ -10,30 +9,16 @@ export type RequestOptions = {
   query?: Record<string, any>;
 };
 
-const stringify = (query: RequestOptions['query']) =>
+export const stringify = (query: RequestOptions['query']) =>
   new URLSearchParams(query && reject(isNil, query)).toString();
 
-export const request = async (url: string, options: RequestOptions) => {
-  const { method = 'GET', ctx, body, query } = options;
-  const baseUrl = process.env.SERVER_BASE_URL;
-  const headers = pick(['x-real-ip', 'cookie'], ctx.req.headers || { 'x-real-ip': '127.0.0.1' });
-  const requestUrl = `${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`;
-  return fetch(requestUrl, {
-    method,
-    headers: {
-      ...headers,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  });
-};
-
 export type ApiResponse<T = any> = {
-  status: typeof SUCCESS;
   data: T;
+  pathViewCount: number;
+  message: string;
 };
 
-export const clientRequest = async <T = any>(
+export const requestAtClient = async <T = any>(
   url: string,
   options: Omit<RequestOptions, 'ctx'> = {},
 ): Promise<ApiResponse<T>> => {
