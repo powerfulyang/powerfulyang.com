@@ -152,9 +152,9 @@ export const Code: CodeComponent = ({ inline, className, children }) => {
         showLineNumbers
         style={atomDark}
         language={language}
-        PreTag="div"
+        PreTag="pre"
         codeTagProps={{
-          style: { fontFamily: `Fira Code, sans-serif`, cursor: 'text' },
+          style: { fontFamily: `Fira Code, sans-serif`, cursor: 'text', whiteSpace: 'pre' },
         }}
         customStyle={{
           borderRadius: 0,

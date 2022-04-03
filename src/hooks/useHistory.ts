@@ -12,13 +12,8 @@ export const useHistory = () => {
     (...args: Parameters<typeof router.push>) => {
       const push = () => {
         setIsRedirecting(true);
-        router.push(args[0], args[1], { scroll: false, ...args[2] }).finally(() => {
+        router.push(args[0], args[1], args[2]).finally(() => {
           setIsRedirecting(false);
-          // 使用 History.scrollRestoration 来使滚动条回到顶部 但是会使 nav=>layoutId 计算出现错误
-          window.scrollTo({
-            behavior: 'smooth',
-            top: 0,
-          });
         });
       };
       if (formWarning) {

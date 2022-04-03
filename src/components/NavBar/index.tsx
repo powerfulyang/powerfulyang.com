@@ -20,12 +20,39 @@ export const login = () => {
   window.location.href = `https://admin.powerfulyang.com/user/login?redirect=${encodeURI(href)}`;
 };
 
-export const NavBar: FC<NavBarProps> = ({ user }) => {
+const Menus: FC = () => {
   const { pathname } = useHistory();
   const active = useMemo(() => {
     const name = pathname.split('/')[1];
     return Reflect.get(Menu, name);
   }, [pathname]);
+
+  return useMemo(() => {
+    return (
+      <div className={styles.menus}>
+        {getEnumKeys(Menu).map((x) => (
+          <motion.div key={x} className="w-auto h-full relative flex items-center justify-center">
+            <Link
+              className={classNames({
+                [styles.active]: Reflect.get(Menu, x) === active,
+              })}
+              to={`/${x}`}
+            >
+              {x}
+            </Link>
+            {Reflect.get(Menu, x) === active && (
+              <motion.div className={styles.activeTab} layoutId="nav-active-tab" />
+            )}
+          </motion.div>
+        ))}
+      </div>
+    );
+  }, [active]);
+};
+
+Menus.displayName = 'Menus';
+
+export const NavBar: FC<NavBarProps> = ({ user }) => {
   return (
     <div className={styles.navPlaceholder}>
       <nav className={styles.nav}>
@@ -34,23 +61,7 @@ export const NavBar: FC<NavBarProps> = ({ user }) => {
             {ProjectName}
           </Link>
         </div>
-        <div className={styles.menus}>
-          {getEnumKeys(Menu).map((x) => (
-            <motion.div key={x} className="w-auto h-full relative flex items-center justify-center">
-              <Link
-                className={classNames({
-                  [styles.active]: Reflect.get(Menu, x) === active,
-                })}
-                to={`/${x}`}
-              >
-                {x}
-              </Link>
-              {Reflect.get(Menu, x) === active && (
-                <motion.div className={styles.activeTab} layoutId="nav-active-tab" />
-              )}
-            </motion.div>
-          ))}
-        </div>
+        <Menus />
 
         <div className={styles.user}>
           {(user && (

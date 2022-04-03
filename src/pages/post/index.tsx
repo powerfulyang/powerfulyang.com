@@ -32,6 +32,13 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
 
   const history = useHistory();
 
+  useEffect(() => {
+    history.router.beforePopState((draft) => {
+      draft.options.scroll = false;
+      return true;
+    });
+  }, [history.router]);
+
   const ref = useRef<HTMLDivElement>(null);
 
   useHiddenHtmlOverflow(Boolean(selectedPostId));
@@ -54,22 +61,10 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
 
   const hiddenPost = useCallback(() => {
     if (ref.current) {
-      // 必须设置 key，否则会导致 选择新的 post 后，依然渲染在旧的 preview container 上
-      // 加 layoutId 感觉应该也可以解决问题 但是加了之后 ref 似乎不太对，导致 pointerEvents 设置为 none 无效
-      // 应该来说是 layoutId 的 bug
       ref.current.style.pointerEvents = 'none';
     }
-    return history.router.push(
-      {
-        pathname: '/post',
-        query: {
-          year: String(year),
-        },
-      },
-      undefined,
-      { scroll: false },
-    );
-  }, [history, year]);
+    return history.router.back();
+  }, [history.router]);
 
   useEffect(() => {
     const sub = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
