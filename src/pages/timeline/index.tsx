@@ -50,7 +50,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor }) => {
     },
   );
 
-  // TODO tmp fix
+  // TODO 滚到底部才应该加载
   useEffect(() => {
     if (!isFetching) {
       hasNextPage && fetchNextPage();
