@@ -8,10 +8,8 @@ export default class MyDocument extends Document {
       <Html lang="zh">
         <Head>
           <link rel="preload" href="/zpix.woff" as="font" crossOrigin="anonymous" />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@200;300;400;500;600;700&display=swap"
-          />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <meta name="application-name" content={ProjectName} />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -47,10 +45,6 @@ export default class MyDocument extends Document {
           <meta property="og:site_name" content={ProjectName} />
           <meta property="og:url" content="https://powerfulyang.com" />
           <meta property="og:image" content="https://powerfulyang.com/icons/apple-touch-icon.png" />
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width,minimum-scale=1.0, maximum-scale=1.0"
-          />
         </Head>
         <body>
           <Main />

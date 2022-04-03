@@ -20,10 +20,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: setup env
         run: mv .env.qa .env
-      - name: Install packages
-        run: npm ci
-      - name: Build
-        run: npm run build
       - name: Dockerize
         id: dockerize
         uses: elgohr/Publish-Docker-Github-Action@3.04

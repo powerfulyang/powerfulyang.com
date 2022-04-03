@@ -41,8 +41,11 @@ const config = {
   eslint: {
     ignoreDuringBuilds: true, //不用自带的
   },
-  optimizeFonts: false,
   reactStrictMode: true,
+  swcMinify: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 module.exports = withPlugins([[withCamelCaseCSSModules], [withPWA], [withBundleAnalyzer]], config);

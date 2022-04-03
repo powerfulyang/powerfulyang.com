@@ -13,7 +13,7 @@
     "tsc": "tsc --noEmit --incremental false",
     "precommit": "npm run tsc && lint-staged && npm run test",
     "prettier": "prettier \"src/**/*.{tsx,ts,scss}\" --write",
-    "lint:js": "eslint . --ext .ts,.tsx --fix",
+    "lint:js": "eslint ./src --ext .ts,.tsx --fix",
     "lint:style": "stylelint --fix \"src/**/*.scss\""
   },
   "license": "MIT",

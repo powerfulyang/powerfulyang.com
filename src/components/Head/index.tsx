@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import React from 'react';
 import dayjs from 'dayjs';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat';
+import Head from 'next/head';
 import { Redirecting } from '../Redirecting';
 import { ProjectName } from '@/constant/Constant';
 
@@ -13,7 +14,17 @@ export interface HeaderProps {
 
 export const Header: FC<HeaderProps> = ({ title }) => (
   <>
-    <title>{`${(title && `${title} - `) || ''}${ProjectName}`}</title>
+    <Head>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+      <meta
+        name="viewport"
+        content="initial-scale=1.0, width=device-width,minimum-scale=1.0, maximum-scale=1.0"
+      />
+      <title>{`${(title && `${title} - `) || ''}${ProjectName}`}</title>
+    </Head>
     <Redirecting />
   </>
 );
