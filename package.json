@@ -58,7 +58,7 @@
     "file-loader": "6.2.0",
     "husky": "7.0.4",
     "next-compose-plugins": "2.2.1",
-    "next-pwa": "^5.4.6",
+    "next-pwa": "5.4.6",
     "tsconfig-paths-jest": "0.0.1"
   }
 }
