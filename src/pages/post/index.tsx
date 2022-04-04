@@ -45,28 +45,32 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
 
   const showPost = useCallback(
     (postId: number) => {
-      if (ref.current) {
-        ref.current.style.pointerEvents = 'auto';
-      }
-      return history.router.push(
-        {
-          pathname: `/post/thumbnail/${postId}`,
-          query: {
-            year: String(year),
+      const closing = ref.current?.getAttribute('data-id');
+      const isDifferent = String(postId) !== closing;
+      return (
+        isDifferent &&
+        history.router.push(
+          {
+            pathname: `/post/thumbnail/${postId}`,
+            query: {
+              year: String(year),
+            },
           },
-        },
-        undefined,
-        { scroll: false },
+          undefined,
+          { scroll: false },
+        )
       );
     },
     [history.router, year],
   );
 
   const hiddenPost = useCallback(() => {
-    if (ref.current) {
+    if (ref.current && ref.current.style.pointerEvents !== 'none') {
+      // 为了能点击再出现
       ref.current.style.pointerEvents = 'none';
+      return history.router.back();
     }
-    return history.router.back();
+    return Promise.resolve();
   }, [history.router]);
 
   useEffect(() => {
@@ -170,6 +174,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
             <motion.div
               className={classNames(styles.postPreview, 'pointer')}
               ref={ref}
+              data-id={selectedPost.id}
               onClick={() => hiddenPost()}
               key={selectedPostId}
             >
