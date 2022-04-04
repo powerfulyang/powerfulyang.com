@@ -28,7 +28,6 @@
     position: absolute;
     top: 50%;
     right: 1rem;
-    z-index: calc(var(--image-preview-z-index) + 1);
     font-size: 2rem;
     transform: translateY(-50%);
     @apply opacity-60 text-black hidden sm:block;

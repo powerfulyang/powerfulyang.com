@@ -9,17 +9,10 @@ export const RedirectingAtom = atom(false);
 export const Redirecting: FC = () => {
   const [isRedirecting] = useAtom(RedirectingAtom);
   return (
-    <>
-      <div
-        className={classNames(styles.redirecting, {
-          invisible: !isRedirecting,
-        })}
-      />
-      <div
-        className={classNames(styles.indicator, {
-          hidden: isRedirecting,
-        })}
-      />
-    </>
+    <div
+      className={classNames(styles.redirecting, {
+        invisible: !isRedirecting,
+      })}
+    />
   );
 };

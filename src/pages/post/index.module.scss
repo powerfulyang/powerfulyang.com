@@ -36,7 +36,6 @@ $poster-height: 410px;
       top: 0;
       left: 0;
       width: max-content;
-      z-index: calc(var(--post-preview-z-index) + 1);
       height: $mobile-poster-height;
       @screen sm {
         height: $poster-height;
@@ -106,7 +105,7 @@ $poster-height: 410px;
 
     .card-header {
       position: absolute;
-      z-index: 2;
+      z-index: 1;
       width: calc(100% - 50px);
 
       &-title {
