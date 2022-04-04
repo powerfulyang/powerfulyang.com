@@ -61,13 +61,18 @@
   }
 
   .left {
-    @apply flex items-center;
+    @apply flex items-center h-full;
   }
 
   .menus {
     flex: 1;
     color: #7d7a9e;
     @apply flex h-full items-center ml-4 sm:ml-0;
+
+    .menu {
+      z-index: 1;
+      @apply mx-4 uppercase font-normal text-sm;
+    }
 
     .active {
       color: #242e4c;
@@ -76,7 +81,6 @@
     .active-tab {
       position: absolute;
       height: 80%;
-      z-index: -2;
 
       @screen sm {
         height: 90%;
@@ -97,10 +101,6 @@
         animation: border-transform 6s linear infinite;
         content: '';
       }
-    }
-
-    a {
-      @apply mx-4 uppercase font-normal text-sm;
     }
   }
 }

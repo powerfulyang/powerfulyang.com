@@ -43,21 +43,24 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
 
   useHiddenHtmlOverflow(Boolean(selectedPostId));
 
-  const showPost = (postId: number) => {
-    if (ref.current) {
-      ref.current.style.pointerEvents = 'auto';
-    }
-    return history.router.push(
-      {
-        pathname: `/post/thumbnail/${postId}`,
-        query: {
-          year: String(year),
+  const showPost = useCallback(
+    (postId: number) => {
+      if (ref.current) {
+        ref.current.style.pointerEvents = 'auto';
+      }
+      return history.router.push(
+        {
+          pathname: `/post/thumbnail/${postId}`,
+          query: {
+            year: String(year),
+          },
         },
-      },
-      undefined,
-      { scroll: false },
-    );
-  };
+        undefined,
+        { scroll: false },
+      );
+    },
+    [history.router, year],
+  );
 
   const hiddenPost = useCallback(() => {
     if (ref.current) {

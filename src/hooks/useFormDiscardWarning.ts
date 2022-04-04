@@ -1,11 +1,10 @@
 import { atom, useAtom } from 'jotai';
-import { useEffect } from 'react';
-import { isEmpty } from '@powerfulyang/utils';
+import { useEffect, useMemo } from 'react';
+import { useBeforeUnload } from '@powerfulyang/hooks';
 
-const FormDiscardWarningAtom = atom(false);
+export const FormDiscardWarningAtom = atom(false);
 
-// 使用全局变量会导致 组件被卸载后 没有回到初始值 导致异常
-export const useFormDiscardWarning = (fields?: any) => {
+export const useFormDiscardWarning = (isModify: () => boolean) => {
   const [formWarning, setFormWarning] = useAtom(FormDiscardWarningAtom);
   useEffect(() => {
     return () => {
@@ -13,12 +12,16 @@ export const useFormDiscardWarning = (fields?: any) => {
     };
   }, [setFormWarning]);
 
+  const isModified = useMemo(isModify, [isModify]);
   useEffect(() => {
-    if (fields) {
-      const result = Object.values(fields).some((field) => !isEmpty(field));
-      setFormWarning(result);
+    if (isModified) {
+      setFormWarning(true);
+    } else {
+      setFormWarning(false);
     }
-  }, [fields, setFormWarning]);
+  }, [isModified, setFormWarning]);
+
+  useBeforeUnload(isModified, '您的表单未保存，确定要离开吗？');
 
   return [formWarning, setFormWarning] as const;
 };

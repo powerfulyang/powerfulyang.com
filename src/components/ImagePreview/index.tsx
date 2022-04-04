@@ -6,7 +6,6 @@ import dynamic from 'next/dynamic';
 import type { ImageModalContextAction, ImageModalContextState } from '@/context/ImageModalContext';
 import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
 import type { Asset } from '@/type/Asset';
-import { useShowIndicator } from '@/components/Redirecting';
 
 const ImageViewModal = dynamic(() => import('@/components/ImagePreview/ImageViewModal'), {
   ssr: false,
@@ -41,14 +40,6 @@ export const ImagePreview: FC<{
     });
   }, [dispatch, images]);
   const memo = useMemo(() => ({ state, dispatch }), [state, dispatch]);
-  const [, setShowIndicator] = useShowIndicator();
-  useEffect(() => {
-    if (state?.selectIndex !== undefined) {
-      setShowIndicator(false);
-    } else {
-      setShowIndicator(true);
-    }
-  }, [setShowIndicator, state?.selectIndex]);
   return (
     <ImageModalContext.Provider value={memo}>
       <ImageViewModal />

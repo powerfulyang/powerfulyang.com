@@ -1,13 +1,13 @@
 import { Icon } from '@powerfulyang/components';
-import type { FC } from 'react';
-import React from 'react';
+import React, { memo } from 'react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
 
 type FooterProps = {
   pathViewCount?: number;
 };
-export const Footer: FC<FooterProps> = ({ pathViewCount }) => (
+
+export const Footer = memo<FooterProps>(({ pathViewCount }) => (
   <footer className={classNames(styles.footer)}>
     <div className="text-gray-400 text-sm hidden sm:block">
       <span className="mr-1">备案号:</span>
@@ -50,4 +50,6 @@ export const Footer: FC<FooterProps> = ({ pathViewCount }) => (
       </div>
     </div>
   </footer>
-);
+));
+
+Footer.displayName = 'Footer';

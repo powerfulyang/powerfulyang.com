@@ -2,17 +2,17 @@ import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
 import { useCallback, useEffect } from 'react';
 import { RedirectingAtom } from '@/components/Redirecting';
-import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
+import { FormDiscardWarningAtom } from '@/hooks/useFormDiscardWarning';
 
 export const useHistory = () => {
   const router = useRouter();
   const [, setIsRedirecting] = useAtom(RedirectingAtom);
-  const [formWarning] = useFormDiscardWarning();
+  const [formWarning] = useAtom(FormDiscardWarningAtom);
   const confirm = useCallback(
     <T extends Function, P extends Function>(ok?: T, fail?: P) => {
       if (formWarning) {
         // eslint-disable-next-line no-alert
-        const bool = window.confirm('还有内容没有提交确定要离开吗？');
+        const bool = window.confirm('您的表单未保存，确定要离开吗？');
         if (bool) {
           return ok?.() || true;
         }
@@ -24,7 +24,12 @@ export const useHistory = () => {
   );
   useEffect(() => {
     router.beforePopState(() => {
-      return confirm(); // TODO 不应该改路由地址，现在是会改掉
+      return confirm(undefined, () => {
+        router.push(router.asPath, undefined, { shallow: true }).catch(() => {
+          throw new Error('拦截跳转出了点小问题!');
+        });
+        return false;
+      });
     });
   }, [formWarning, router, confirm]);
   const pushState = useCallback(

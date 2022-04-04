@@ -4,7 +4,6 @@ $mobile-poster-height: 40vh;
 $poster-height: 410px;
 
 .body {
-  z-index: -1;
   min-height: calc(100vh - var(--nav-height) - var(--footer-height));
   background-color: #fcfcff;
   @apply py-4 pb-10 sm:px-28;
@@ -14,7 +13,7 @@ $poster-height: 410px;
   position: fixed;
   inset: 0;
   z-index: var(--post-preview-z-index);
-  padding: 35px 0;
+  padding: 5rem 0;
   overflow: auto;
 
   &::-webkit-scrollbar {
