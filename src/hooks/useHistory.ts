@@ -23,13 +23,16 @@ export const useHistory = () => {
     [formWarning],
   );
   useEffect(() => {
-    router.beforePopState(() => {
-      return confirm(undefined, () => {
-        router.push(router.asPath, undefined, { shallow: true }).catch(() => {
-          throw new Error('拦截跳转出了点小问题!');
+    router.beforePopState((state) => {
+      if (state.as !== router.asPath) {
+        return confirm(undefined, () => {
+          process.nextTick(() => {
+            window.history.go(1);
+          });
+          return false;
         });
-        return false;
-      });
+      }
+      return true;
     });
   }, [formWarning, router, confirm]);
   const pushState = useCallback(
