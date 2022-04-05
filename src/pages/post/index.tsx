@@ -25,12 +25,50 @@ type IndexProps = {
 };
 
 const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => {
+  const history = useHistory();
   const selectedPost = useMemo(
     () => posts.find((post) => post.id === selectedPostId),
     [posts, selectedPostId],
   );
 
-  const history = useHistory();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useHiddenHtmlOverflow(Boolean(selectedPostId));
+
+  const showPost = useCallback(
+    (postId: number) => {
+      if (ref.current) {
+        ref.current.style.pointerEvents = 'auto';
+      }
+      return history.router.push(
+        {
+          pathname: `/post/thumbnail/${postId}`,
+          query: {
+            year: String(year),
+          },
+        },
+        undefined,
+        { scroll: false },
+      );
+    },
+    [history.router, year],
+  );
+
+  const hiddenPost = useCallback(() => {
+    if (ref.current) {
+      ref.current.style.pointerEvents = 'none';
+    }
+    return history.router.push(
+      {
+        pathname: '/post',
+        query: {
+          year: String(year),
+        },
+      },
+      undefined,
+      { scroll: false },
+    );
+  }, [history.router, year]);
 
   useEffect(() => {
     history.router.beforePopState((draft) => {
@@ -39,43 +77,9 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
     });
   }, [history.router]);
 
-  const ref = useRef<HTMLDivElement>(null);
-
-  useHiddenHtmlOverflow(Boolean(selectedPostId));
-
-  const showPost = useCallback(
-    (postId: number) => {
-      const closing = ref.current?.getAttribute('data-id');
-      const isDifferent = String(postId) !== closing;
-      return (
-        isDifferent &&
-        history.router.push(
-          {
-            pathname: `/post/thumbnail/${postId}`,
-            query: {
-              year: String(year),
-            },
-          },
-          undefined,
-          { scroll: false },
-        )
-      );
-    },
-    [history.router, year],
-  );
-
-  const hiddenPost = useCallback(() => {
-    if (ref.current && ref.current.style.pointerEvents !== 'none') {
-      // 为了能点击再出现
-      ref.current.style.pointerEvents = 'none';
-      return history.router.back();
-    }
-    return Promise.resolve();
-  }, [history.router]);
-
   useEffect(() => {
     const sub = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && selectedPostId) {
         return hiddenPost();
       }
       if (e.key === '.') {
@@ -117,10 +121,14 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
                 title={`${post.id}`}
                 className={classNames('pointer', styles.card)}
                 onTap={async (e) => {
-                  if (e.metaKey || e.ctrlKey) {
-                    return history.pushState(`/post/${post.id}`);
+                  const pointerEvent = e as PointerEvent;
+                  if (pointerEvent.pointerType === 'mouse') {
+                    if (e.metaKey || e.ctrlKey) {
+                      return history.pushState(`/post/${post.id}`);
+                    }
+                    return showPost(post.id);
                   }
-                  return showPost(post.id);
+                  return history.pushState(`/post/${post.id}`);
                 }}
               >
                 <AnimatePresence initial={false}>
@@ -174,8 +182,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
             <motion.div
               className={classNames(styles.postPreview, 'pointer')}
               ref={ref}
-              data-id={selectedPost.id}
-              onClick={() => hiddenPost()}
+              onTap={hiddenPost}
               key={selectedPostId}
             >
               <motion.div
@@ -186,18 +193,22 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
                 }}
                 layoutId={`post-container-${selectedPost.id}`}
                 className={classNames(styles.container, 'default')}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
               >
-                <motion.div
-                  onTap={() => hiddenPost()}
-                  className={styles.image}
-                  layoutId={`post-poster-${selectedPost.id}`}
-                >
-                  <AssetImageThumbnail thumbnail={false} blur={false} asset={selectedPost.poster} />
+                <motion.div className={styles.image} layoutId={`post-poster-${selectedPost.id}`}>
+                  <AssetImageThumbnail
+                    onTap={hiddenPost}
+                    thumbnail={false}
+                    blur={false}
+                    asset={selectedPost.poster}
+                  />
                 </motion.div>
-                <motion.div className={styles.content} layoutId={`post-content-${selectedPost.id}`}>
+                <motion.div
+                  onTap={(e) => {
+                    e.stopImmediatePropagation();
+                  }}
+                  className={styles.content}
+                  layoutId={`post-content-${selectedPost.id}`}
+                >
                   <MarkdownContainer blur={false} source={selectedPost.content} />
                 </motion.div>
               </motion.div>
@@ -223,7 +234,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const tmp = await requestAtServer('/public/post/years', {
     ctx,
   });
-  const { id = 0 } = query;
+  const { id } = query;
   const { data: years = [] } = await tmp.json();
   const year = Number(query.year) || years[0];
   const res = await requestAtServer('/public/post', {

@@ -29,6 +29,14 @@ $poster-height: 410px;
   }
 }
 
+.overlay {
+  background: rgb(0 0 0 / 50%);
+  position: absolute;
+  inset: 0;
+  z-index: var(--post-preview-z-index);
+  pointer-events: none;
+}
+
 .post-preview {
   position: fixed;
   inset: 0;
@@ -50,6 +58,10 @@ $poster-height: 410px;
     position: relative;
     isolation: isolate;
 
+    .image {
+      z-index: 1;
+    }
+
     .content {
       max-width: 700px;
       width: 90vw;
@@ -60,14 +72,6 @@ $poster-height: 410px;
       }
     }
   }
-}
-
-.overlay {
-  background: rgb(0 0 0 / 50%);
-  position: fixed;
-  inset: 0;
-  z-index: var(--post-preview-z-index);
-  pointer-events: none;
 }
 
 .main {
