@@ -9,6 +9,26 @@ $poster-height: 410px;
   @apply py-4 pb-10 sm:px-28;
 }
 
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  height: $mobile-poster-height;
+  @screen sm {
+    height: $poster-height;
+  }
+
+  img {
+    max-width: 700px;
+    width: 90vw;
+    height: $mobile-poster-height;
+    @screen sm {
+      height: $poster-height;
+    }
+  }
+}
+
 .post-preview {
   position: fixed;
   inset: 0;
@@ -29,27 +49,6 @@ $poster-height: 410px;
     margin: auto;
     position: relative;
     isolation: isolate;
-    will-change: transform;
-
-    .image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: max-content;
-      height: $mobile-poster-height;
-      @screen sm {
-        height: $poster-height;
-      }
-
-      img {
-        max-width: 700px;
-        width: 90vw;
-        height: $mobile-poster-height;
-        @screen sm {
-          height: $poster-height;
-        }
-      }
-    }
 
     .content {
       max-width: 700px;
@@ -65,10 +64,9 @@ $poster-height: 410px;
 
 .overlay {
   background: rgb(0 0 0 / 50%);
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: var(--post-preview-z-index);
-  will-change: opacity;
   pointer-events: none;
 }
 
@@ -127,27 +125,6 @@ $poster-height: 410px;
       overflow: hidden;
       border-radius: 20px;
       isolation: isolate;
-      will-change: transform;
-
-      .image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: max-content;
-        height: $mobile-poster-height;
-        @screen sm {
-          height: $poster-height;
-        }
-
-        img {
-          max-width: 700px;
-          width: 90vw;
-          height: $mobile-poster-height;
-          @screen sm {
-            height: $poster-height;
-          }
-        }
-      }
 
       .content {
         padding: 420px 0 0;
