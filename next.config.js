@@ -30,7 +30,6 @@ const config = {
   pwa: {
     dest: 'public',
     disable: isDevProcess,
-    buildExcludes: [/manifest\.js$/],
   },
   experimental: {
     esmExternals: true,

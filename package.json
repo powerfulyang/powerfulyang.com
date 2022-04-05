@@ -29,7 +29,7 @@
     "classnames": "2.3.1",
     "dayjs": "1.11.0",
     "framer-motion": "6.2.8",
-    "jotai": "1.6.1",
+    "jotai": "1.6.2",
     "monaco-editor": "0.33.0",
     "monaco-markdown": "0.0.12",
     "next": "12.1.4",
@@ -55,7 +55,7 @@
     "cross-env": "7.0.3",
     "husky": "7.0.4",
     "next-compose-plugins": "2.2.1",
-    "next-pwa": "5.4.6",
+    "next-pwa": "5.4.7",
     "tsconfig-paths-jest": "0.0.1"
   }
 }
