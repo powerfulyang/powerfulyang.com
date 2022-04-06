@@ -102,7 +102,10 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
             defaultLanguage="markdown"
             defaultValue={defaultValue}
             onChange={onChange}
-            options={{ minimap: { enabled: false } }}
+            options={{
+              minimap: { enabled: false },
+              wordWrap: 'on',
+            }}
             onMount={(e, m) => {
               ref.current = {
                 editor: e,

@@ -24,11 +24,6 @@
   border-radius: 10px;
 }
 
-body {
-  width: 100vw;
-  overflow: hidden;
-}
-
 /**
   0.5em保证了最小字号，1vw则确保了字体能随着视口缩放。
   能保证基础字号从iPhone6里的11.75px一直过渡到1200px屏幕的20px。
@@ -54,13 +49,13 @@ body {
   font-style: normal;
   font-weight: normal;
   //scrollbar-gutter: stable; 这个属性并不好用
-  overflow-y: auto;
   overflow-x: hidden;
 
   @apply default;
 
   body {
-    position: absolute;
+    position: relative;
+    width: 100vw;
     //overflow: overlay; // 终归还是要设置overflow: overlay，否则 mac 上还是抖动
   }
 
@@ -98,8 +93,4 @@ body {
 
 a {
   @apply pointer;
-}
-
-html {
-  overflow-y: scroll;
 }
