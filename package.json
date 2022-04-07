@@ -48,7 +48,7 @@
     "@powerfulyang/lint": "0.7.14",
     "@types/jest": "27.4.1",
     "@types/ramda": "0.28.7",
-    "@types/react": "17.0.43",
+    "@types/react": "17.0.44",
     "@types/react-dom": "17.0.14",
     "@types/react-syntax-highlighter": "13.5.2",
     "@types/sharp": "0.30.1",
