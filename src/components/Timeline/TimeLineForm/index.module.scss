@@ -1,0 +1,42 @@
+.timeline-input {
+  flex: 1;
+  width: min(100%, 600px);
+  height: auto;
+  padding: 0 5%;
+  font-family: 'Zpix', sans-serif;
+  @screen sm {
+    @apply px-0;
+  }
+  @apply mx-auto;
+
+  .timeline-textarea {
+    font-size: 30px;
+    box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
+    inline-size: 100%;
+    block-size: max(20vh, 150px);
+    @apply rounded overflow-hidden mb-4;
+
+    textarea {
+      padding: 1rem;
+      outline: none;
+      @apply w-full h-full;
+    }
+  }
+
+  .timeline-submit {
+    @apply text-2xl bg-blue-400 text-gray-200 rounded w-24 h-10 pointer hover:text-white relative;
+
+    &:disabled {
+      @apply bg-gray-300 cursor-not-allowed;
+    }
+
+    &::before {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(270deg, rgb(255 56 104 / 50%), rgb(77 84 255 / 50%));
+      filter: blur(6px);
+      content: '';
+      z-index: -1;
+    }
+  }
+}

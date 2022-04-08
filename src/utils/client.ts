@@ -22,7 +22,7 @@ export const requestAtClient = async <T = any>(
   url: string,
   options: Omit<RequestOptions, 'ctx'> = {},
 ): Promise<ApiResponse<T>> => {
-  const baseUrl = '/api';
+  const baseUrl = process.env.CLIENT_BASE_URL ? process.env.CLIENT_BASE_URL : '/api';
   const { method = 'GET', body, query } = options;
   const isFormData = body instanceof FormData;
   const requestBody = isFormData ? body : JSON.stringify(body);

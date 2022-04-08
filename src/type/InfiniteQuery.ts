@@ -1,4 +1,5 @@
 export interface InfiniteQueryResponse<T extends Record<'id', number>> {
   resources: T[];
-  nextCursor: string;
+  nextCursor: number;
+  prevCursor: number;
 }

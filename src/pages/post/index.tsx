@@ -236,7 +236,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   });
   const { id } = query;
   const { data: years = [] } = await tmp.json();
-  const year = Number(query.year) || years[0];
+  const year = Number(query.year) || years[0] || new Date().getFullYear();
   const res = await requestAtServer('/public/post', {
     ctx,
     query: { publishYear: year },

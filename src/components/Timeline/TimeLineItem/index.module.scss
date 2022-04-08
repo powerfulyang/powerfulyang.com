@@ -1,0 +1,42 @@
+.container {
+  position: relative;
+  width: 90%;
+  margin: auto;
+  box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
+
+  &::before {
+    position: absolute;
+    z-index: -1;
+    background: linear-gradient(to bottom right, #06aff2 66%, #06f3af 100%);
+    transform: translateY(15%) scale(0.85);
+    filter: blur(30px);
+    content: '';
+    inset: 0;
+  }
+  @screen sm {
+    width: 600px;
+  }
+  @apply mx-auto p-4 sm:pt-10 sm:p-8 rounded mb-4;
+
+  .author {
+    @apply flex justify-start items-center mb-6;
+
+    .avatar {
+      @apply w-14 mr-2;
+    }
+
+    .nickname {
+      @apply text-blue-600 cursor-text;
+    }
+  }
+
+  .content {
+    @apply text-lg;
+
+    .text {
+      font-family: 'Zpix', serif;
+      white-space: pre-line;
+      @apply font-normal text-gray-600 break-all cursor-text;
+    }
+  }
+}

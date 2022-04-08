@@ -3,7 +3,7 @@
 .wrap {
   width: 100%;
   min-height: calc(100vh - var(--footer-height) - var(--nav-height));
-  @apply pb-10;
+  @apply pb-6;
 
   .timeline-show {
     width: min(100%, 600px);
@@ -14,6 +14,10 @@
         @apply pt-4;
       }
     }
+
+    .footer {
+      @apply text-lg text-pink-400 text-center;
+    }
   }
 
   .assets {
@@ -21,49 +25,6 @@
 
     .img {
       @apply aspect-square w-full object-cover;
-    }
-  }
-
-  .timeline-input {
-    flex: 1;
-    width: min(100%, 600px);
-    height: auto;
-    padding: 0 5%;
-    font-family: 'Zpix', sans-serif;
-    @screen sm {
-      @apply px-0;
-    }
-    @apply mx-auto;
-
-    .timeline-textarea {
-      font-size: 30px;
-      box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
-      inline-size: 100%;
-      block-size: max(20vh, 150px);
-      @apply rounded overflow-hidden;
-
-      textarea {
-        padding: 1rem;
-        outline: none;
-        @apply w-full h-full;
-      }
-    }
-
-    .timeline-submit {
-      @apply text-2xl bg-blue-400 text-gray-200 rounded w-24 h-10 pointer hover:text-white relative;
-
-      &:disabled {
-        @apply bg-gray-300 cursor-not-allowed;
-      }
-
-      &::before {
-        position: absolute;
-        inset: 0;
-        background-image: linear-gradient(270deg, rgb(255 56 104 / 50%), rgb(77 84 255 / 50%));
-        filter: blur(6px);
-        content: '';
-        z-index: -1;
-      }
     }
   }
 
@@ -103,49 +64,6 @@
           @include rainbowText;
         }
       }
-    }
-  }
-}
-
-.container {
-  position: relative;
-  width: 90%;
-  margin: auto;
-  box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
-
-  &::before {
-    position: absolute;
-    z-index: -1;
-    background: linear-gradient(to bottom right, #06aff2 66%, #06f3af 100%);
-    transform: translateY(15%) scale(0.85);
-    filter: blur(30px);
-    content: '';
-    inset: 0;
-  }
-  @screen sm {
-    width: 600px;
-  }
-  @apply mx-auto p-4 sm:pt-10 sm:p-8 rounded mb-4;
-
-  .author {
-    @apply flex justify-start items-center mb-6;
-
-    .avatar {
-      @apply w-14 mr-2;
-    }
-
-    .nickname {
-      @apply text-blue-600 cursor-text;
-    }
-  }
-
-  .content {
-    @apply text-lg;
-
-    .text {
-      font-family: 'Zpix', serif;
-      white-space: pre-line;
-      @apply font-normal text-gray-600 break-all cursor-text;
     }
   }
 }
