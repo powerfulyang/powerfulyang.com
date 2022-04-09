@@ -3,6 +3,20 @@ const withPlugins = require('next-compose-plugins');
 const withCamelCaseCSSModules = require('./plugins/next-css-modules');
 const { isDevProcess } = require('@powerfulyang/utils');
 
+const API_ENV = process.env.API_ENV;
+if (API_ENV === 'prod') {
+  process.env.CLIENT_BASE_URL = 'https://api.powerfulyang.com/api';
+  process.env.SERVER_BASE_URL = 'https://api.powerfulyang.com/api';
+}
+if (API_ENV === 'qa') {
+  process.env.CLIENT_BASE_URL = 'https://qa.powerfulyang.com/api';
+  process.env.SERVER_BASE_URL = 'https://qa.powerfulyang.com/api';
+}
+if (API_ENV === 'local') {
+  process.env.CLIENT_BASE_URL = '/api';
+  process.env.SERVER_BASE_URL = 'http://localhost:3001/api';
+}
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });

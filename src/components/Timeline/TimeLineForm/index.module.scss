@@ -14,12 +14,20 @@
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
     inline-size: 100%;
     block-size: max(20vh, 150px);
-    @apply rounded overflow-hidden mb-4;
+    @apply rounded overflow-hidden;
 
     textarea {
       padding: 1rem;
       outline: none;
       @apply w-full h-full;
+    }
+  }
+
+  .assets {
+    @apply grid gap-2 grid-cols-3 py-2;
+
+    .img {
+      @apply aspect-square w-full object-cover;
     }
   }
 

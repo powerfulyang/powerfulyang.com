@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import type { GetServerSideProps } from 'next';
 import { useInfiniteQuery } from 'react-query';
-import { flatten, last } from 'ramda';
-import { isDefined } from '@powerfulyang/utils';
+import { flatten } from 'ramda';
 import dynamic from 'next/dynamic';
+import { lastItem } from '@powerfulyang/utils';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { requestAtClient } from '@/utils/client';
@@ -17,31 +17,55 @@ import { requestAtServer } from '@/utils/server';
 
 type GalleryProps = {
   assets: Asset[];
-  nextCursor: string;
+  nextCursor: number;
+  prevCursor: number;
 };
 
 const Masonry = dynamic(() => import('@/components/Masonry'), { ssr: false });
 
-export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor }) => {
-  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
-    'assets',
+export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor }) => {
+  const { data, fetchPreviousPage, hasPreviousPage } = useInfiniteQuery(
+    ['assets', assets, nextCursor, prevCursor],
     async ({ pageParam }) => {
       const res = await requestAtClient<InfiniteQueryResponse<Asset>>('/public/asset', {
-        query: { cursor: pageParam || nextCursor, size: 30 },
+        query: pageParam,
       });
       return res.data;
     },
     {
-      enabled: isDefined(nextCursor),
+      enabled: false,
       getNextPageParam(lastPage) {
-        return lastPage.nextCursor;
+        return { nextCursor: lastPage.nextCursor };
+      },
+      getPreviousPageParam(firstPage) {
+        const { prevCursor: cursor } = firstPage;
+        if (cursor) {
+          return { prevCursor: cursor };
+        }
+        return cursor;
+      },
+      select(page) {
+        return {
+          pages: [...page.pages].reverse(),
+          pageParams: [...page.pageParams].reverse(),
+        };
+      },
+      initialData: {
+        pages: [
+          {
+            resources: assets,
+            nextCursor,
+            prevCursor,
+          },
+        ],
+        pageParams: [{ nextCursor, prevCursor }],
       },
     },
   );
 
   const resources = useMemo(
-    () => [...assets, ...((data?.pages && flatten(data?.pages.map((x) => x.resources))) || [])],
-    [assets, data?.pages],
+    () => flatten(data?.pages.map((x) => x.resources) || []),
+    [data?.pages],
   );
 
   return (
@@ -55,9 +79,9 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor }) => {
               key={asset.id}
               assetId={asset.id}
               asset={asset}
-              inViewAction={async (id) => {
-                if (id === last(resources)?.id) {
-                  hasNextPage && !isFetching && (await fetchNextPage());
+              inViewAction={(id) => {
+                if (id === lastItem(resources)?.id) {
+                  hasPreviousPage && fetchPreviousPage();
                 }
               }}
               containerClassName="rounded-lg"
@@ -82,10 +106,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       assets: data.resources,
+      nextCursor: data.nextCursor,
+      prevCursor: data.prevCursor,
       pathViewCount,
       title: '图片墙',
       user,
-      nextCursor: data.nextCursor,
     },
   };
 };

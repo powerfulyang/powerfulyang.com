@@ -39,4 +39,12 @@
       @apply font-normal text-gray-600 break-all cursor-text;
     }
   }
+
+  .assets {
+    @apply grid gap-2 grid-cols-3 py-2;
+
+    .img {
+      @apply aspect-square w-full object-cover;
+    }
+  }
 }

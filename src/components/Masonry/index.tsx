@@ -9,7 +9,7 @@ export type MasonryProps = {
 };
 
 const Masonry: FC<MasonryProps> = ({ children }) => {
-  const colNum = useMemo(() => Math.ceil(window.innerWidth / 400 + 2), []);
+  const colNum = useMemo(() => Math.ceil(window.innerWidth / 250 + 1), []);
   const arrayNodes = useMemo(
     () =>
       children.reduce(
