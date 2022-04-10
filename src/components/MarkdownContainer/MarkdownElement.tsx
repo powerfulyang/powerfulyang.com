@@ -15,7 +15,7 @@ import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { requestAtClient } from '@/utils/client';
 import styles from './index.module.scss';
 import { MDContainerContext } from '@/components/MarkdownContainer/index';
-import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { copyToClipboardAndNotify } from '@/utils/copy';
 
 export const H1: FC = ({ children }) => (
@@ -196,7 +196,7 @@ const AssetImage: FC<{ id: string }> = ({ id }) => {
   });
   return (
     (data && (
-      <AssetImageThumbnail keepAspectRatio containerClassName="mt-2" blur={blur} asset={data} />
+      <LazyAssetImage keepAspectRatio containerClassName="mt-2" blur={blur} asset={data} />
     )) ||
     null
   );

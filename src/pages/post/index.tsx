@@ -12,7 +12,7 @@ import styles from './index.module.scss';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { DateTimeFormat } from '@/utils/lib';
-import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { useHistory } from '@/hooks/useHistory';
 import { useHiddenHtmlOverflow } from '@/hooks/useHiddenHtmlOverflow';
 import { requestAtServer } from '@/utils/server';
@@ -158,7 +158,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
                     layoutId={`post-poster-${post.id}`}
                     href={`/post/${post.id}`}
                   >
-                    <AssetImageThumbnail thumbnail={false} asset={post.poster} />
+                    <LazyAssetImage thumbnail={false} asset={post.poster} />
                   </motion.a>
                   <motion.div className={styles.content} layoutId={`post-content-${post.id}`}>
                     <MarkdownContainer blur={false} source={post.content} />
@@ -195,7 +195,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
                 className={classNames(styles.container, 'default')}
               >
                 <motion.div className={styles.image} layoutId={`post-poster-${selectedPost.id}`}>
-                  <AssetImageThumbnail
+                  <LazyAssetImage
                     onTap={hiddenPost}
                     thumbnail={false}
                     blur={false}

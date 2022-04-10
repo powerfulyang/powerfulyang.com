@@ -1,13 +1,13 @@
-.clear {
-  backdrop-filter: unset !important;
-}
-
 .wrap {
   position: fixed;
   inset: 0;
   z-index: var(--image-preview-z-index);
   backdrop-filter: blur(10px);
   user-select: none;
+
+  &.clear {
+    backdrop-filter: none;
+  }
 
   .image {
     object-fit: contain;

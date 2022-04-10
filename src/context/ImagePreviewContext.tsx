@@ -2,23 +2,23 @@ import type { Context, Dispatch } from 'react';
 import { createContext } from 'react';
 import type { Asset } from '@/type/Asset';
 
-export type ImageModalContextState = {
+export type ImagePreviewContextState = {
   selectIndex?: number;
   images?: Asset[];
 };
 
-export enum ImageModalContextActionType {
+export enum ImagePreviewContextActionType {
   close,
   open,
   updateImages,
 }
 
 export type ImageModalContextAction = {
-  type: ImageModalContextActionType;
-  payload?: Partial<ImageModalContextState>;
+  type: ImagePreviewContextActionType;
+  payload?: Partial<ImagePreviewContextState>;
 };
 
-export const ImageModalContext = createContext(null) as unknown as Context<{
-  state: ImageModalContextState;
+export const ImagePreviewContext = createContext(null) as unknown as Context<{
+  state: ImagePreviewContextState;
   dispatch: Dispatch<ImageModalContextAction>;
 }>;

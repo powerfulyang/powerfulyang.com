@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import { LazyImage } from '@/components/LazyImage';
 import { DateTimeFormat } from '@/utils/lib';
 import { ImagePreview } from '@/components/ImagePreview';
-import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import type { Feed } from '@/type/Feed';
 import styles from './index.module.scss';
 
@@ -30,7 +30,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
           <div className={classNames(styles.assets)}>
             <ImagePreview images={feed.assets}>
               {feed.assets?.map((asset) => (
-                <AssetImageThumbnail
+                <LazyAssetImage
                   containerClassName="rounded"
                   key={asset.id}
                   className={styles.img}

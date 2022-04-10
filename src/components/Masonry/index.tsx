@@ -2,7 +2,7 @@ import type { FC, ReactElement } from 'react';
 import React, { useContext, useMemo } from 'react';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
-import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
+import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 
 export type MasonryProps = {
   children: ReactElement[];
@@ -50,7 +50,8 @@ const Masonry: FC<MasonryProps> = ({ children }) => {
     [colNum, children],
   );
 
-  const { dispatch } = useContext(ImageModalContext);
+  const { dispatch } = useContext(ImagePreviewContext);
+
   return (
     <div
       className={classNames('grid sm:gap-4 gap-2 sm:px-4 px-2')}
@@ -60,16 +61,16 @@ const Masonry: FC<MasonryProps> = ({ children }) => {
     >
       {arrayNodes.map(({ nodes, index }) => (
         <div className="flex flex-col sm:space-y-4 space-y-2 my-4" key={index}>
-          {nodes.map((node, i) => (
+          {nodes.map((node) => (
             <motion.div
               role="presentation"
               key={node.index}
               className="rounded-lg shadow-lg overflow-hidden"
               onTap={() => {
                 dispatch({
-                  type: ImageModalContextActionType.open,
+                  type: ImagePreviewContextActionType.open,
                   payload: {
-                    selectIndex: i * colNum + index,
+                    selectIndex: node.index,
                   },
                 });
               }}

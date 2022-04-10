@@ -9,7 +9,7 @@ import { requestAtClient } from '@/utils/client';
 import type { Feed } from '@/type/Feed';
 import type { LayoutFC } from '@/type/GlobalContext';
 import type { User } from '@/type/User';
-import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import styles from './index.module.scss';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
@@ -101,7 +101,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor, prevCursor
     <div className={styles.wrap}>
       <div className={styles.timelineShow}>
         <div className={styles.banner}>
-          <AssetImageThumbnail
+          <LazyAssetImage
             asset={bannerUser.timelineBackground}
             containerClassName={styles.bannerBg}
             className={classNames(styles.bannerImage)}

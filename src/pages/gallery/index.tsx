@@ -11,7 +11,7 @@ import type { Asset } from '@/type/Asset';
 import styles from './index.module.scss';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
-import { AssetImageThumbnail } from '@/components/ImagePreview/AssetImageThumbnail';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { ImagePreview } from '@/components/ImagePreview';
 import { requestAtServer } from '@/utils/server';
 
@@ -73,13 +73,12 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
       <ImagePreview parentControl={false} images={resources}>
         <Masonry>
           {resources.map((asset) => (
-            <AssetImageThumbnail
+            <LazyAssetImage
               id={`${asset.id}`}
               title={`${asset.id}`}
               key={asset.id}
-              assetId={asset.id}
               asset={asset}
-              inViewAction={(id) => {
+              inViewCallback={(id) => {
                 if (id === lastItem(resources)?.id) {
                   hasPreviousPage && fetchPreviousPage();
                 }

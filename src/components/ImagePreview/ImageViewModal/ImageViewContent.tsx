@@ -3,20 +3,20 @@ import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } 
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Icon } from '@powerfulyang/components';
-import { isDefined, isUndefined } from '@powerfulyang/utils';
+import { isDefined } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
-import { ImageModalContext, ImageModalContextActionType } from '@/context/ImageModalContext';
-import styles from './modal.module.scss';
-import { ModalImage } from '@/components/ImagePreview/ImageViewModal/ModalImage';
+import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
+import styles from './content.module.scss';
+import { ImageModal } from '@/components/ImagePreview/ImageViewModal/ImageModal';
 
-type ImageModalContentProps = {};
+type ImageViewContentProps = {};
 
-export const ImageModalContent: FC<ImageModalContentProps> = () => {
+export const ImageViewContent: FC<ImageViewContentProps> = () => {
   const [open, setOpen] = useState(true);
   const {
     state: { images, selectIndex },
     dispatch,
-  } = useContext(ImageModalContext);
+  } = useContext(ImagePreviewContext);
 
   const enableShowPrevImage = useMemo(() => {
     if (isDefined(selectIndex) && open) {
@@ -37,7 +37,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       e?.stopPropagation();
       if (isDefined(selectIndex) && enableShowPrevImage) {
         dispatch({
-          type: ImageModalContextActionType.open,
+          type: ImagePreviewContextActionType.open,
           payload: {
             selectIndex: selectIndex - 1,
           },
@@ -52,7 +52,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       e?.stopPropagation();
       if (isDefined(selectIndex) && enableShowNextImage) {
         dispatch({
-          type: ImageModalContextActionType.open,
+          type: ImagePreviewContextActionType.open,
           payload: {
             selectIndex: selectIndex + 1,
           },
@@ -133,7 +133,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
 
   const destroy = () => {
     dispatch({
-      type: ImageModalContextActionType.close,
+      type: ImagePreviewContextActionType.close,
     });
   };
 
@@ -167,7 +167,7 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
       className={classNames(
         styles.wrap,
         {
-          [styles.clear]: isUndefined(selectIndex),
+          [styles.clear]: !open,
         },
         'pointer',
       )}
@@ -201,22 +201,21 @@ export const ImageModalContent: FC<ImageModalContentProps> = () => {
         <AnimatePresence initial={false}>
           {isDefined(images) &&
             isDefined(selectIndex) &&
+            open &&
             images
               .slice(Math.max(0, selectIndex - 1), Math.min(selectIndex + 2, images.length + 1))
               .map((asset, index) => {
                 return (
-                  open && (
-                    <ModalImage
-                      key={asset.id}
-                      actionRef={actionRef}
-                      asset={asset}
-                      selectIndex={selectIndex}
-                      index={index}
-                      destroy={destroy}
-                      x={x}
-                      y={y}
-                    />
-                  )
+                  <ImageModal
+                    key={asset.id}
+                    actionRef={actionRef}
+                    asset={asset}
+                    selectIndex={selectIndex}
+                    index={index}
+                    destroy={destroy}
+                    x={x}
+                    y={y}
+                  />
                 );
               })}
         </AnimatePresence>

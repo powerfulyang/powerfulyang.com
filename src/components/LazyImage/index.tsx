@@ -1,36 +1,32 @@
-import type { DetailedHTMLProps, FC, ImgHTMLAttributes } from 'react';
+import type { FC } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-import type { MotionProps } from 'framer-motion';
+import type { HTMLMotionProps } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { assets } from '@powerfulyang/components';
 import { useMountedRef } from '@powerfulyang/hooks';
 import styles from './index.module.scss';
 
 export type LazyImageExtendProps = {
-  inViewAction?: (id?: number) => void;
-  assetId?: number;
   blurSrc?: string;
   containerClassName?: string;
   /**
    * 是否需要加载动画
    */
   blur?: boolean;
+  inViewCallback?: () => void;
 };
 
-export const LazyImage: FC<
-  DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> &
-    LazyImageExtendProps &
-    MotionProps
-> = ({
+export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
+
+export const LazyImage: FC<LazyImageProps> = ({
   src,
   className = 'object-cover w-full',
   alt,
-  inViewAction,
-  assetId,
   blurSrc,
   containerClassName,
   blur = true,
+  inViewCallback,
   ...props
 }) => {
   const [loading, setLoading] = useState(() => {
@@ -69,7 +65,7 @@ export const LazyImage: FC<
           if (intersectionRatio > 0) {
             const img = new Image();
             const source = src;
-            inViewAction?.(assetId);
+            inViewCallback?.();
             img.onload = () => {
               if (isMount.current) {
                 setImgUrl(source);
@@ -93,7 +89,7 @@ export const LazyImage: FC<
       };
     }
     return () => {};
-  }, [assetId, blur, inViewAction, isMount, src]);
+  }, [blur, inViewCallback, isMount, src]);
 
   return (
     <span

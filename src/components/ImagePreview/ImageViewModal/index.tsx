@@ -2,8 +2,8 @@ import type { FC } from 'react';
 import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import { useLockScroll, usePortal } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
-import { ImageModalContent } from '@/components/ImagePreview/ImageViewModal/ImageModalContent';
-import { ImageModalContext } from '@/context/ImageModalContext';
+import { ImageViewContent } from '@/components/ImagePreview/ImageViewModal/ImageViewContent';
+import { ImagePreviewContext } from '@/context/ImagePreviewContext';
 import { useHiddenHtmlOverflow } from '@/hooks/useHiddenHtmlOverflow';
 
 type ImageModalProps = {
@@ -15,7 +15,7 @@ const ImageViewModal: FC<ImageModalProps> = ({ parentNode }) => {
   const { Portal } = usePortal({ container: dialogNode.current });
   const {
     state: { selectIndex, images },
-  } = useContext(ImageModalContext);
+  } = useContext(ImagePreviewContext);
   const showModal = useMemo(() => isDefined(selectIndex), [selectIndex]);
   useLockScroll(showModal);
   useHiddenHtmlOverflow(showModal);
@@ -43,7 +43,7 @@ const ImageViewModal: FC<ImageModalProps> = ({ parentNode }) => {
 
   return (
     <Portal>
-      <ImageModalContent />
+      <ImageViewContent />
     </Portal>
   );
 };
