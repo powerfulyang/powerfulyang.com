@@ -34,7 +34,7 @@
     "jotai": "1.6.3",
     "monaco-editor": "0.33.0",
     "monaco-markdown": "0.0.12",
-    "next": "12.1.4",
+    "next": "12.1.5",
     "ramda": "0.28.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
@@ -47,7 +47,7 @@
     "rxjs": "7.5.5"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "12.1.4",
+    "@next/bundle-analyzer": "12.1.5",
     "@powerfulyang/lint": "0.7.14",
     "@types/jest": "27.4.1",
     "@types/ramda": "0.28.8",
