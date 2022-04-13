@@ -2,6 +2,13 @@ const withPWA = require('next-pwa');
 const withPlugins = require('next-compose-plugins');
 const withCamelCaseCSSModules = require('./plugins/next-css-modules');
 const { isDevProcess } = require('@powerfulyang/utils');
+const runtimeCaching = require('next-pwa/cache');
+
+const excludeCacheNames = ['next-data', 'apis'];
+
+const defaultCacheRule = runtimeCaching.filter((x) => {
+  return !excludeCacheNames.includes(x.options.cacheName);
+});
 
 const API_ENV = process.env.API_ENV;
 if (API_ENV === 'prod') {
@@ -44,12 +51,44 @@ const config = {
   pwa: {
     dest: 'public',
     disable: isDevProcess,
+    runtimeCaching: [
+      ...defaultCacheRule,
+      {
+        urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
+        handler: 'NetworkFirst',
+        options: {
+          cacheName: 'next-data',
+          expiration: {
+            maxEntries: 32,
+            maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          },
+          networkTimeoutSeconds: 1, // fall back to cache if api does not response within 1 seconds
+        },
+      },
+      {
+        urlPattern: ({ url }) => {
+          const isSameOrigin = self.origin === url.origin;
+          const pathname = url.pathname;
+          return isSameOrigin && pathname.startsWith('/api/');
+        },
+        handler: 'NetworkFirst',
+        method: 'GET',
+        options: {
+          cacheName: 'apis',
+          expiration: {
+            maxEntries: 16,
+            maxAgeSeconds: 24 * 60 * 60, // 24 hours
+          },
+          networkTimeoutSeconds: 1, // fall back to cache if api does not response within 1 seconds
+        },
+      },
+    ],
   },
   experimental: {
     esmExternals: true,
   },
   env: {
-    CLIENT_BASE_URL: process.env.CLIENT_BASE_URL,
+    CLIENT_BASE_URL: process.env.CLIENT_BASE_URL || '',
   },
   eslint: {
     ignoreDuringBuilds: true, //不用自带的
