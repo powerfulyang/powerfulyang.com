@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import React, { useCallback, useEffect, useState } from 'react';
 import type { GetServerSideProps } from 'next';
 import { useBeforeUnload } from '@powerfulyang/hooks';
@@ -9,12 +8,13 @@ import { extractMetaData, extractTitle } from '@/utils/toc';
 import { Footer } from '@/components/Footer';
 import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
+import type { LayoutFC } from '@/type/GlobalContext';
 
 type PublishProps = {
   post: Post;
 };
 
-const Publish: FC<PublishProps> = ({ post }) => {
+const Publish: LayoutFC<PublishProps> = ({ post }) => {
   const { pushState } = useHistory();
   const [content, setContent] = useState(post.content);
 
@@ -51,14 +51,22 @@ const Publish: FC<PublishProps> = ({ post }) => {
   useBeforeUnload(Boolean(post.id));
 
   return (
+    <MarkdownEditor
+      value={content}
+      onChange={saveDraft}
+      defaultValue={post.content}
+      onPost={handlePost}
+    />
+  );
+};
+
+Publish.displayName = 'Publish';
+Publish.getLayout = (page) => {
+  const { pathViewCount } = page.props;
+  return (
     <>
-      <MarkdownEditor
-        value={content}
-        onChange={saveDraft}
-        defaultValue={post.content}
-        onPost={handlePost}
-      />
-      <Footer />
+      {page}
+      <Footer pathViewCount={pathViewCount} />
     </>
   );
 };
@@ -68,12 +76,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = query;
 
   let post;
+  let pathViewCount = 0;
   if (Number(id)) {
     const res = await requestAtServer(`/public/post/${id}`, {
       ctx,
     });
-    const { data } = await res.json();
-    post = data;
+    const result = await res.json();
+    post = result.data;
+    pathViewCount = result.pathViewCount;
   } else {
     post = {};
   }
@@ -82,6 +92,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: {
       post,
       title: '发布新的日志',
+      pathViewCount,
     },
   };
 };

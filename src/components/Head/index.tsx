@@ -16,10 +16,6 @@ export const Header: FC<HeaderProps> = memo(({ title }) => {
   return (
     <>
       <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <meta
           name="viewport"
           content="initial-scale=1.0, width=device-width,minimum-scale=1.0, maximum-scale=1.0"

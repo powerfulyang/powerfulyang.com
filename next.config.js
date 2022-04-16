@@ -1,8 +1,26 @@
 const withPWA = require('next-pwa');
 const withPlugins = require('next-compose-plugins');
 const withCamelCaseCSSModules = require('./plugins/next-css-modules');
-const { isDevProcess } = require('@powerfulyang/utils');
+const { isDevProcess, isProdProcess } = require('@powerfulyang/utils');
 const runtimeCaching = require('next-pwa/cache');
+const { withSentryConfig } = require('@sentry/nextjs');
+
+/**
+ * @type {string}
+ */
+const API_ENV = process.env.API_ENV;
+
+const sentryWebpackPluginOptions = {
+  // Additional config options for the Sentry Webpack plugin. Keep in mind that
+  // the following options are set automatically, and overriding them is not
+  // recommended:
+  //   release, url, org, project, authToken, configFile, stripPrefix,
+  //   urlPrefix, include, ignore
+
+  silent: false, // Suppresses all logs
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-webpack-plugin#options.
+};
 
 const excludeCacheNames = ['next-data', 'apis'];
 
@@ -10,7 +28,6 @@ const defaultCacheRule = runtimeCaching.filter((x) => {
   return !excludeCacheNames.includes(x.options.cacheName);
 });
 
-const API_ENV = process.env.API_ENV;
 if (API_ENV === 'prod') {
   process.env.CLIENT_BASE_URL = 'https://api.powerfulyang.com/api';
   process.env.SERVER_BASE_URL = 'https://api.powerfulyang.com/api';
@@ -88,16 +105,32 @@ const config = {
     esmExternals: true,
   },
   env: {
-    CLIENT_BASE_URL: process.env.CLIENT_BASE_URL || '',
+    CLIENT_BASE_URL: process.env.CLIENT_BASE_URL,
+    NEXT_PUBLIC_SENTRY_DSN:
+      'https://f4e15b44f3674255b6eed1cb673c0dcb@o417744.ingest.sentry.io/6340260',
   },
   eslint: {
     ignoreDuringBuilds: true, //不用自带的
   },
   reactStrictMode: true,
-  swcMinify: true,
   typescript: {
     ignoreBuildErrors: true,
   },
+  sentry: {
+    disableServerWebpackPlugin: isDevProcess,
+    disableClientWebpackPlugin: isDevProcess,
+  },
+  productionBrowserSourceMaps: isProdProcess,
+  optimizeFonts: false,
+  swcMinify: false,
 };
 
-module.exports = withPlugins([[withCamelCaseCSSModules], [withPWA], [withBundleAnalyzer]], config);
+module.exports = withPlugins(
+  [
+    withCamelCaseCSSModules,
+    withPWA,
+    withBundleAnalyzer,
+    [withSentryConfig, sentryWebpackPluginOptions],
+  ],
+  config,
+);

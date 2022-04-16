@@ -44,11 +44,13 @@
     "react-query": "3.34.20",
     "react-syntax-highlighter": "15.5.0",
     "remark-gfm": "3.0.1",
-    "rxjs": "7.5.5"
+    "rxjs": "7.5.5",
+    "@sentry/nextjs": "6.19.6"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "12.1.5",
     "@powerfulyang/lint": "0.7.14",
+    "@sentry/cli": "2.0.2",
     "@types/jest": "27.4.1",
     "@types/ramda": "0.28.11",
     "@types/react": "17.0.44",
