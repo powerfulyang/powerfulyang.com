@@ -1,6 +1,6 @@
 {
   "name": "powerfulyang.com",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "description": "home page",
   "scripts": {
@@ -10,6 +10,7 @@
     "qa:dev": "cross-env API_ENV=qa next dev",
     "local:dev": "cross-env API_ENV=local next dev",
     "build": "next build",
+    "postbuild": "rimraf ./.next/**/*.map",
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
     "tsc": "tsc --noEmit --incremental false",

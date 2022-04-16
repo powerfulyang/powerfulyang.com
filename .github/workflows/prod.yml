@@ -6,28 +6,26 @@ on:
       - master
 
 jobs:
-  build:
+  deployment:
     runs-on: ubuntu-latest
+    environment: SENTRY
     strategy:
       matrix:
-        node-version: [lts/*]
         docker-repository: [powerfulyang/powerfulyang.com]
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Dockerize
-        id: dockerize
-        uses: elgohr/Publish-Docker-Github-Action@3.04
+      - name: Publish Docker
+        uses: elgohr/Publish-Docker-Github-Action@v4
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         with:
           name: ${{ matrix.docker-repository }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: 'latest'
-      - name: deploy
-        uses: appleboy/ssh-action@master
+          buildargs: SENTRY_AUTH_TOKEN
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
