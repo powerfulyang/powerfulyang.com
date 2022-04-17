@@ -60,7 +60,7 @@
     "cross-env": "7.0.3",
     "husky": "7.0.4",
     "next-compose-plugins": "2.2.1",
-    "next-pwa": "5.5.0",
+    "next-pwa": "5.5.2",
     "tsconfig-paths-jest": "0.0.1"
   }
 }
