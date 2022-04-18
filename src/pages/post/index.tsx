@@ -21,7 +21,7 @@ type IndexProps = {
   posts: Post[];
   years: number[];
   year: number;
-  selectedPostId: number;
+  selectedPostId?: number;
 };
 
 const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => {
@@ -71,13 +71,6 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
   }, [history.router, year]);
 
   useEffect(() => {
-    history.router.beforePopState((draft) => {
-      draft.options.scroll = false;
-      return true;
-    });
-  }, [history.router]);
-
-  useEffect(() => {
     const sub = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
       if (e.key === 'Escape' && selectedPostId) {
         return hiddenPost();
@@ -99,11 +92,12 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
     <>
       <div className={styles.body}>
         <main className={styles.main}>
-          <div className={classNames(styles.years)}>
+          <div className={classNames(styles.years)} role="tablist">
             {years.map((x) => (
               <Link key={x} to={`?year=${x}`}>
                 <span className={classNames(styles.year)}>
                   <span
+                    role="tab"
                     className={classNames('pr-1', {
                       [styles.active]: x === year,
                     })}
@@ -150,7 +144,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
                 </AnimatePresence>
                 <motion.div
                   layoutId={`post-container-${post.id}`}
-                  className={classNames(styles.container)}
+                  className={classNames(styles.container, 'shadow-2xl')}
                 >
                   <motion.a
                     onClick={(e) => e.preventDefault()}

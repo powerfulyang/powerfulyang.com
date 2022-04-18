@@ -34,7 +34,7 @@ export const useHistory = () => {
       }
       return true;
     });
-  }, [formWarning, router, confirm]);
+  }, [router, confirm]);
   const pushState = useCallback(
     (...args: Parameters<typeof router.push>) => {
       const push = () => {

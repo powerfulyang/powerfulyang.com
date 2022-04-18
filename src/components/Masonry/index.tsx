@@ -9,7 +9,7 @@ export type MasonryProps = {
 };
 
 const Masonry: FC<MasonryProps> = ({ children }) => {
-  const colNum = useMemo(() => Math.ceil(window.innerWidth / 250 + 1), []);
+  const colNum = useMemo(() => Math.ceil(window.innerWidth / 420 + 2), []);
   const arrayNodes = useMemo(
     () =>
       children.reduce(
@@ -65,7 +65,6 @@ const Masonry: FC<MasonryProps> = ({ children }) => {
             <motion.div
               role="presentation"
               key={node.index}
-              className="rounded-lg shadow-lg overflow-hidden"
               onTap={() => {
                 dispatch({
                   type: ImagePreviewContextActionType.open,

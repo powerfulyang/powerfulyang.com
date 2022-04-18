@@ -4,27 +4,17 @@
 
 module.exports = {
   webpack: (config) => {
-    const rules = config.module.rules
-      .find((rule) => typeof rule.oneOf === 'object')
-      .oneOf.filter((rule) => Array.isArray(rule.use));
-
-    rules.forEach((rule) => {
-      rule.use.forEach((moduleLoader) => {
-        if (
-          /css-loader([/\\])(dist|cjs|src)/.test(moduleLoader.loader) &&
-          typeof moduleLoader.options.modules === 'object'
-        ) {
+    // camel-case style names from css modules
+    config.module.rules
+      .find(({ oneOf }) => !!oneOf)
+      .oneOf.filter(({ use }) => JSON.stringify(use)?.includes('css-loader'))
+      .reduce((acc, { use }) => acc.concat(use), [])
+      .forEach(({ options }) => {
+        if (options.modules) {
           // eslint-disable-next-line no-param-reassign
-          moduleLoader.options = {
-            ...moduleLoader.options,
-            modules: {
-              ...moduleLoader.options.modules,
-              exportLocalsConvention: 'camelCaseOnly', // https://github.com/webpack-contrib/css-loader#exportlocalsconvention
-            },
-          };
+          options.modules.exportLocalsConvention = 'camelCase';
         }
       });
-    });
 
     return config;
   },

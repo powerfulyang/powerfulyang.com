@@ -5,7 +5,7 @@
   "**/*.{ts,tsx,js,mjs,mts,cjs,cts}": [
     "eslint --fix"
   ],
-  "**/*.{scss}": [
+  "**/*.scss": [
     "stylelint --fix"
   ]
 }

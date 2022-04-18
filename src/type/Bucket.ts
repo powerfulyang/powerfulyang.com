@@ -12,17 +12,17 @@ export enum AssetBucket {
 }
 
 export class Bucket {
-  id!: number;
+  id: number;
 
-  assets!: Asset[];
+  assets: Asset[];
 
-  bucketName!: AssetBucket;
+  Bucket: string;
 
-  bucketRegion!: string;
-
-  acl: string;
+  Region: string;
 
   createAt: Date;
 
   updateAt: Date;
+
+  name: AssetBucket;
 }

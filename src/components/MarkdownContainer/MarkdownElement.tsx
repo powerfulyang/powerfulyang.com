@@ -104,8 +104,8 @@ export const Paragraph: FC<any> = ({ node, children }) => {
     const postDate = info[1];
     return (
       <div className={styles.postInfo}>
-        <span className={styles.postInfoComment} title={`author by ${author}`}>
-          published at {postDate}
+        <span className={styles.postInfoComment}>
+          Published by {author} at {postDate}
         </span>
       </div>
     );
@@ -172,18 +172,13 @@ export const Pre: FC = ({ children }) => <pre>{children}</pre>;
 
 export const Ul: UnorderedListComponent = ({ children, ...props }) => {
   const { className } = props;
-  if (className) {
-    return <ul className={styles.contains_task_list}>{children}</ul>;
+  if (className === 'contains-task-list') {
+    return <ul className={styles.containsTaskList}>{children}</ul>;
   }
   return <ul>{children}</ul>;
 };
 
-export const Li: LiComponent = ({ children, ordered, index }) => (
-  <li>
-    {ordered && <span className={styles.orderedListIndex}>{index + 1}</span>}
-    {children}
-  </li>
-);
+export const Li: LiComponent = ({ children }) => <li>{children}</li>;
 
 const AssetImage: FC<{ id: string }> = ({ id }) => {
   const { blur } = useContext(MDContainerContext);

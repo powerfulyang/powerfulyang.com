@@ -73,19 +73,21 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
       <ImagePreview parentControl={false} images={resources}>
         <Masonry>
           {resources.map((asset) => (
-            <LazyAssetImage
-              id={`${asset.id}`}
-              title={`${asset.id}`}
-              key={asset.id}
-              asset={asset}
-              inViewCallback={(id) => {
-                if (id === lastItem(resources)?.id) {
-                  hasPreviousPage && fetchPreviousPage();
-                }
-              }}
-              containerClassName="rounded-lg"
-              keepAspectRatio
-            />
+            <div key={asset.id}>
+              <LazyAssetImage
+                id={`${asset.id}`}
+                title={`${asset.id}`}
+                asset={asset}
+                inViewCallback={(id) => {
+                  if (id === lastItem(resources)?.id) {
+                    hasPreviousPage && fetchPreviousPage();
+                  }
+                }}
+                containerClassName="rounded-lg shadow-lg"
+                keepAspectRatio
+              />
+              <div className="text-center py-2 text-blue-400">bucket: {asset.bucket.name}</div>
+            </div>
           ))}
         </Masonry>
       </ImagePreview>

@@ -53,11 +53,11 @@ export const uploadFileListAndReturnAsset = async (
 
 export const handlePasteImageAndReturnAsset = async (
   e: ClipboardEvent,
-  bucketName: Bucket['bucketName'] = AssetBucket.upload,
+  name: Bucket['name'] = AssetBucket.upload,
 ): Promise<Asset[] | null> => {
   const files = await handlePasteImageAndReturnFileList(e);
   if (files) {
-    return uploadFileListAndReturnAsset(files, bucketName);
+    return uploadFileListAndReturnAsset(files, name);
   }
   return null;
 };
