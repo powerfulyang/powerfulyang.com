@@ -2,6 +2,9 @@ const withPWA = require('next-pwa');
 const withPlugins = require('next-compose-plugins');
 const withCamelCaseCSSModules = require('./plugins/next-css-modules');
 const { isDevProcess, isProdProcess } = require('@powerfulyang/utils');
+/**
+ * @type {string[]}
+ */
 const runtimeCaching = require('next-pwa/cache');
 const { withSentryConfig } = require('@sentry/nextjs');
 
@@ -29,15 +32,14 @@ const defaultCacheRule = runtimeCaching.filter((x) => {
 });
 
 if (API_ENV === 'prod') {
-  process.env.CLIENT_BASE_URL = 'https://api.powerfulyang.com/api';
+  process.env.CLIENT_BASE_HOST = 'api.powerfulyang.com';
   process.env.SERVER_BASE_URL = 'https://api.powerfulyang.com/api';
 }
 if (API_ENV === 'qa') {
-  process.env.CLIENT_BASE_URL = 'https://qa.powerfulyang.com/api';
+  process.env.CLIENT_BASE_HOST = 'qa.powerfulyang.com';
   process.env.SERVER_BASE_URL = 'https://qa.powerfulyang.com/api';
 }
 if (API_ENV === 'local') {
-  process.env.CLIENT_BASE_URL = '/api';
   process.env.SERVER_BASE_URL = 'http://localhost:3001/api';
 }
 
@@ -105,7 +107,7 @@ const config = {
     esmExternals: true,
   },
   env: {
-    CLIENT_BASE_URL: process.env.CLIENT_BASE_URL,
+    CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST,
     NEXT_PUBLIC_SENTRY_DSN:
       'https://f4e15b44f3674255b6eed1cb673c0dcb@o417744.ingest.sentry.io/6340260',
   },
