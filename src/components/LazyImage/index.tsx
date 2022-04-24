@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import type { HTMLMotionProps } from 'framer-motion';
 import { motion } from 'framer-motion';
-import { assets } from '@powerfulyang/components';
+import { Assets } from '@powerfulyang/components';
 import { useMountedRef } from '@powerfulyang/hooks';
 import styles from './index.module.scss';
 
@@ -34,7 +34,7 @@ export const LazyImage: FC<LazyImageProps> = ({
   });
   const [imgUrl, setImgUrl] = useState(() => {
     if (blur) {
-      return assets.transparentImg;
+      return Assets.transparentImg;
     }
     return src;
   });
@@ -46,7 +46,7 @@ export const LazyImage: FC<LazyImageProps> = ({
       image.onload = () => {
         if (isMount.current) {
           setImgUrl((prevState) => {
-            if (prevState === assets.transparentImg) {
+            if (prevState === Assets.transparentImg) {
               return blurSrc;
             }
             return prevState;
@@ -75,7 +75,7 @@ export const LazyImage: FC<LazyImageProps> = ({
             img.onerror = () => {
               if (isMount.current) {
                 setLoading(false);
-                setImgUrl(assets.brokenImg);
+                setImgUrl(Assets.brokenImg);
               }
             };
             img.src = source;

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { assets } from '@powerfulyang/components';
+import { Assets } from '@powerfulyang/components';
 import { equals } from 'ramda';
 import styles from '@/components/ImagePreview/ImageViewModal/content.module.scss';
 import type { Asset } from '@/type/Asset';
@@ -44,13 +44,13 @@ export const ImageModal = memo<ImageModalProps>(
         };
         img.onerror = () => {
           setLoaded(true);
-          setUrl(assets.brokenImg);
+          setUrl(Assets.brokenImg);
         };
       }
     }, [asset]);
 
     useEffect(() => {
-      if (animated && loaded && url !== assets.brokenImg) {
+      if (animated && loaded && url !== Assets.brokenImg) {
         setUrl(CosUtils.getCosObjectUrl(asset.objectUrl));
       }
     }, [animated, asset.objectUrl, loaded, url]);
