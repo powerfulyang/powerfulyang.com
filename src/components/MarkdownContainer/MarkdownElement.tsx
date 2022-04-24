@@ -5,12 +5,14 @@ import { PrismAsyncLight } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import type {
   CodeComponent,
+  HeadingComponent,
   LiComponent,
   UnorderedListComponent,
 } from 'react-markdown/lib/ast-to-react';
 import classNames from 'classnames';
 import { useQuery } from 'react-query';
 import { motion } from 'framer-motion';
+import type { NormalComponents } from 'react-markdown/lib/complex-types';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { requestAtClient } from '@/utils/client';
 import styles from './index.module.scss';
@@ -18,7 +20,7 @@ import { MDContainerContext } from '@/components/MarkdownContainer/index';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { copyToClipboardAndNotify } from '@/utils/copy';
 
-export const H1: FC = ({ children }) => (
+export const H1: HeadingComponent = ({ children }) => (
   <div className="relative">
     <div id={String(children).trim()} className={styles.anchor} />
     <h1 className="flex justify-center w-full pb-2">
@@ -31,7 +33,7 @@ export const H1: FC = ({ children }) => (
   </div>
 );
 
-export const H2: FC = ({ children }) => {
+export const H2: HeadingComponent = ({ children }) => {
   return (
     <div className="relative">
       <div id={String(children).trim()} className={styles.anchor} />
@@ -40,7 +42,7 @@ export const H2: FC = ({ children }) => {
   );
 };
 
-export const H3: FC = ({ children }) => {
+export const H3: HeadingComponent = ({ children }) => {
   return (
     <div className="relative">
       <div id={String(children).trim()} className={styles.anchor} />
@@ -51,7 +53,7 @@ export const H3: FC = ({ children }) => {
   );
 };
 
-export const H4: FC = ({ children }) => {
+export const H4: HeadingComponent = ({ children }) => {
   return (
     <div className="relative">
       <div id={String(children).trim()} className={styles.anchor} />
@@ -62,23 +64,24 @@ export const H4: FC = ({ children }) => {
   );
 };
 
-export const Link: FC<any> = ({ href, children }) => (
+export const A: NormalComponents['a'] = ({ href, children }) => (
   <a rel="noreferrer" className="link" target="_blank" href={href}>
     {children}
   </a>
 );
 
-export const BlockQuote: FC = ({ children }) => (
+export const BlockQuote: NormalComponents['blockquote'] = ({ children }) => (
   <blockquote className={styles.blockquote}>{children}</blockquote>
 );
 
-export const Table: FC = ({ children }) => (
+export const Table: NormalComponents['table'] = ({ children }) => (
   <div className="overflow-auto">
     <table className={styles.table}>{children}</table>
   </div>
 );
 
-export const Paragraph: FC<any> = ({ node, children }) => {
+export const Paragraph: NormalComponents['p'] = ({ node, children }) => {
+  // @ts-ignore
   const text = node.children[0].value;
   if (text?.startsWith('tags=>')) {
     const tags = text.trim().replace('tags=>', '').split('|');
@@ -168,7 +171,7 @@ export const Code: CodeComponent = ({ inline, className, children }) => {
   );
 };
 
-export const Pre: FC = ({ children }) => <pre>{children}</pre>;
+export const Pre: NormalComponents['pre'] = ({ children }) => <pre>{children}</pre>;
 
 export const Ul: UnorderedListComponent = ({ children, ...props }) => {
   const { className } = props;
@@ -196,7 +199,7 @@ const AssetImage: FC<{ id: string }> = ({ id }) => {
     null
   );
 };
-export const Img = ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+export const Img: NormalComponents['img'] = ({ src, alt }) => {
   if (alt === MarkdownImageFromAssetManageAltConstant && src) {
     return <AssetImage id={src} />;
   }

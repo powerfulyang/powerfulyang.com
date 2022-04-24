@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
@@ -7,7 +7,7 @@ type CollapseProps = {
   collapsed: boolean;
 };
 
-export const Collapse: FC<CollapseProps> = ({ children, collapsed }) => {
+export const Collapse: FC<PropsWithChildren<CollapseProps>> = ({ children, collapsed }) => {
   const ref = useRef(0);
   const divRef = useRef<HTMLDivElement>(null);
   const [renderClass, setRenderClass] = useState('');

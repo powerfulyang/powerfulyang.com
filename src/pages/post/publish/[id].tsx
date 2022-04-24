@@ -33,10 +33,10 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
   };
 
   const saveDraft = useCallback(
-    (draft) => {
-      setContent(draft);
+    (draft?: string) => {
+      setContent(draft || '');
       if (!post.id) {
-        localStorage.setItem('draft', draft);
+        localStorage.setItem('draft', draft || '');
       }
     },
     [post.id],

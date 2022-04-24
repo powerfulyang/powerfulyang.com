@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import React, { Children, cloneElement, useEffect, useMemo } from 'react';
 import { useImmerReducer } from '@powerfulyang/hooks';
 import { motion } from 'framer-motion';
@@ -29,10 +29,12 @@ const reducer = (draft: ImagePreviewContextState, action: ImageModalContextActio
   }
 };
 
-export const ImagePreview: FC<{
-  images: Asset[];
-  parentControl?: boolean;
-}> = ({ children, images, parentControl = true }) => {
+export const ImagePreview: FC<
+  PropsWithChildren<{
+    images: Asset[];
+    parentControl?: boolean;
+  }>
+> = ({ children, images, parentControl = true }) => {
   const [state, dispatch] = useImmerReducer<ImagePreviewContextState>(reducer, {});
   useEffect(() => {
     dispatch({

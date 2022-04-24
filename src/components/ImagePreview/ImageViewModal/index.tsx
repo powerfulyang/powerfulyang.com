@@ -12,7 +12,7 @@ type ImageModalProps = {
 
 const ImageViewModal: FC<ImageModalProps> = ({ parentNode }) => {
   const dialogNode = useRef<HTMLElement>(document.createElement('section'));
-  const { Portal } = usePortal({ container: dialogNode.current });
+  const Portal = usePortal(dialogNode.current);
   const {
     state: { selectIndex, images },
   } = useContext(ImagePreviewContext);
