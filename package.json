@@ -32,7 +32,7 @@
     "@sentry/nextjs": "6.19.6",
     "classnames": "2.3.1",
     "dayjs": "1.11.1",
-    "framer-motion": "6.3.1",
+    "framer-motion": "6.3.2",
     "jotai": "1.6.4",
     "monaco-editor": "0.33.0",
     "monaco-markdown": "0.0.12",
