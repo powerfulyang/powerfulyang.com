@@ -1,26 +1,31 @@
 import type { FC } from 'react';
-import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import { useLockScroll, usePortal } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
+import { useIsomorphicLayoutEffect } from 'framer-motion';
 import { ImageViewContent } from '@/components/ImagePreview/ImageViewModal/ImageViewContent';
 import { ImagePreviewContext } from '@/context/ImagePreviewContext';
 import { useHiddenHtmlOverflow } from '@/hooks/useHiddenHtmlOverflow';
 
-type ImageModalProps = {
+type ImageViewModalProps = {
   parentNode?: HTMLElement;
 };
 
-const ImageViewModal: FC<ImageModalProps> = ({ parentNode }) => {
-  const dialogNode = useRef<HTMLElement>(document.createElement('section'));
-  const Portal = usePortal(dialogNode.current);
+const ImageViewModal: FC<ImageViewModalProps> = ({ parentNode }) => {
+  const dialogNode = useRef<HTMLElement>();
+  const createPortal = useCallback(() => {
+    dialogNode.current = document.createElement('section');
+    return dialogNode.current;
+  }, []);
+  const Portal = usePortal(createPortal);
   const {
     state: { selectIndex, images },
   } = useContext(ImagePreviewContext);
   const showModal = useMemo(() => isDefined(selectIndex), [selectIndex]);
   useLockScroll(showModal);
   useHiddenHtmlOverflow(showModal);
-  useEffect(() => {
-    if (showModal) {
+  useIsomorphicLayoutEffect(() => {
+    if (showModal && dialogNode.current) {
       const dialog = dialogNode.current;
       const parent = parentNode || document.body;
       parent.appendChild(dialog);

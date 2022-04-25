@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Assets } from '@powerfulyang/components';
-import { equals } from 'ramda';
 import styles from '@/components/ImagePreview/ImageViewModal/content.module.scss';
 import type { Asset } from '@/type/Asset';
 import { CosUtils } from '@/utils/lib';
@@ -163,9 +162,6 @@ export const ImageModal = memo<ImageModalProps>(
         onClick={(e) => e.stopPropagation()}
       />
     );
-  },
-  (prevProps, nextProps) => {
-    return equals(prevProps, nextProps);
   },
 );
 

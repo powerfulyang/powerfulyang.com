@@ -71,7 +71,7 @@ export const ImageViewContent: FC<ImageViewContentProps> = () => {
    */
   const actionRef = useRef(0);
 
-  const onTouchStart = (e: TouchEvent<HTMLDivElement> | MouseEvent<HTMLDivElement>) => {
+  const onTouchStart = useCallback((e: TouchEvent<HTMLDivElement> | MouseEvent<HTMLDivElement>) => {
     let clientX: number;
     let clientY: number;
     if ('changedTouches' in e) {
@@ -83,9 +83,9 @@ export const ImageViewContent: FC<ImageViewContentProps> = () => {
     }
     startPositionRef.current = [clientX, clientY];
     actionRef.current = 3;
-  };
+  }, []);
 
-  const onTouchMove = (e: TouchEvent<HTMLDivElement> | MouseEvent<HTMLDivElement>) => {
+  const onTouchMove = useCallback((e: TouchEvent<HTMLDivElement> | MouseEvent<HTMLDivElement>) => {
     const [startX, startY] = startPositionRef.current;
     let offsetX: number;
     let offsetY: number;
@@ -110,9 +110,9 @@ export const ImageViewContent: FC<ImageViewContentProps> = () => {
     if (actionRef.current === 2 && offsetY > 0) {
       setY(offsetY / 2);
     }
-  };
+  }, []);
 
-  const onTouchEnd = () => {
+  const onTouchEnd = useCallback(() => {
     actionRef.current = 0;
     if (x > 20) {
       showPrevImage();
@@ -125,17 +125,17 @@ export const ImageViewContent: FC<ImageViewContentProps> = () => {
     } else {
       setY(0);
     }
-  };
+  }, [showNextImage, showPrevImage, x, y]);
 
-  const fadeOutImage = () => {
+  const fadeOutImage = useCallback(() => {
     setOpen(false);
-  };
+  }, []);
 
-  const destroy = () => {
+  const destroy = useCallback(() => {
     dispatch({
       type: ImagePreviewContextActionType.close,
     });
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     if (isDefined(selectIndex)) {
@@ -159,7 +159,7 @@ export const ImageViewContent: FC<ImageViewContentProps> = () => {
     return () => {
       subscription.unsubscribe();
     };
-  }, [showNextImage, showPrevImage]);
+  }, [fadeOutImage, showNextImage, showPrevImage]);
 
   return (
     <motion.div

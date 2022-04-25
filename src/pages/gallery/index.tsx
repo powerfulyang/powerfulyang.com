@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import type { GetServerSideProps } from 'next';
 import { useInfiniteQuery } from 'react-query';
 import { flatten } from 'ramda';
-import dynamic from 'next/dynamic';
 import { lastItem } from '@powerfulyang/utils';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
@@ -14,14 +13,13 @@ import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { ImagePreview } from '@/components/ImagePreview';
 import { requestAtServer } from '@/utils/server';
+import Masonry from '@/components/Masonry';
 
 type GalleryProps = {
   assets: Asset[];
   nextCursor: number;
   prevCursor: number;
 };
-
-const Masonry = dynamic(() => import('@/components/Masonry'), { ssr: false });
 
 export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor }) => {
   const { data, fetchPreviousPage, hasPreviousPage } = useInfiniteQuery(

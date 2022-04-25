@@ -50,6 +50,10 @@
   font-weight: normal;
   //scrollbar-gutter: stable; 这个属性并不好用
   overflow-x: hidden;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'rlig' 1, 'calt' 0;
+  touch-action: manipulation;
 
   @apply default;
 
@@ -93,4 +97,8 @@
 
 a {
   @apply pointer;
+}
+
+.common-shadow {
+  box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
 }

@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import type { HTMLMotionProps } from 'framer-motion';
-import { motion } from 'framer-motion';
+import { motion, useIsomorphicLayoutEffect } from 'framer-motion';
 import { Assets } from '@powerfulyang/components';
 import { useMountedRef } from '@powerfulyang/hooks';
 import styles from './index.module.scss';
@@ -56,7 +56,7 @@ export const LazyImage: FC<LazyImageProps> = ({
     }
   }, [blur, blurSrc, isMount]);
   const ref = useRef<HTMLImageElement>(null);
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (src && ref.current && blur) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {

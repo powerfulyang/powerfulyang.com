@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { FC, InputHTMLAttributes } from 'react';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useId } from 'react';
 import styles from './index.module.scss';
 
 type SwitchProps = {
@@ -10,20 +10,21 @@ type SwitchProps = {
 
 export const Switch: FC<SwitchProps> = forwardRef<HTMLInputElement, SwitchProps>(
   ({ checkedDescription = '是', uncheckedDescription = '否', name, ...props }, ref) => {
+    const id = useId();
     return (
       <>
         {/* 这里的顺序很有特点的哦，因为 css 使用 ~ 符号，即紧跟着的下一个元素的样式被 input 的 checked 属性控制 */}
         <input
           {...props}
           role="switch"
-          id={name}
+          id={id}
           ref={ref}
           hidden
           className={styles.switch}
           type="checkbox"
         />
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label htmlFor={name} className={classNames(styles.toggleItem)}>
+        <label htmlFor={id} className={classNames(styles.toggleItem)}>
           <div
             className={styles.desc}
             data-checked-desc={checkedDescription}

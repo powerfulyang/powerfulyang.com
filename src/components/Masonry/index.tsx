@@ -1,7 +1,7 @@
 import type { FC, ReactElement } from 'react';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { motion } from 'framer-motion';
+import { motion, useIsomorphicLayoutEffect } from 'framer-motion';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 
 export type MasonryProps = {
@@ -9,7 +9,10 @@ export type MasonryProps = {
 };
 
 const Masonry: FC<MasonryProps> = ({ children }) => {
-  const colNum = useMemo(() => Math.ceil(window.innerWidth / 420 + 2), []);
+  const [colNum, setColNum] = useState(3);
+  useIsomorphicLayoutEffect(() => {
+    setColNum(Math.ceil(window.innerWidth / 420 + 2));
+  }, []);
   const arrayNodes = useMemo(
     () =>
       children.reduce(

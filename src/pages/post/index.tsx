@@ -144,7 +144,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
                 </AnimatePresence>
                 <motion.div
                   layoutId={`post-container-${post.id}`}
-                  className={classNames(styles.container, 'shadow-2xl')}
+                  className={classNames(styles.container, 'common-shadow')}
                 >
                   <motion.a
                     onClick={(e) => e.preventDefault()}

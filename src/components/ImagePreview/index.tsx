@@ -2,17 +2,13 @@ import type { FC, PropsWithChildren } from 'react';
 import React, { Children, cloneElement, useEffect, useMemo } from 'react';
 import { useImmerReducer } from '@powerfulyang/hooks';
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
 import type {
   ImageModalContextAction,
   ImagePreviewContextState,
 } from '@/context/ImagePreviewContext';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import type { Asset } from '@/type/Asset';
-
-const ImageViewModal = dynamic(() => import('@/components/ImagePreview/ImageViewModal'), {
-  ssr: false,
-});
+import ImageViewModal from '@/components/ImagePreview/ImageViewModal';
 
 const reducer = (draft: ImagePreviewContextState, action: ImageModalContextAction) => {
   switch (action.type) {
@@ -35,7 +31,10 @@ export const ImagePreview: FC<
     parentControl?: boolean;
   }>
 > = ({ children, images, parentControl = true }) => {
-  const [state, dispatch] = useImmerReducer<ImagePreviewContextState>(reducer, {});
+  const [state, dispatch] = useImmerReducer<ImagePreviewContextState, ImageModalContextAction>(
+    reducer,
+    {},
+  );
   useEffect(() => {
     dispatch({
       type: ImagePreviewContextActionType.updateImages,

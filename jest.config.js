@@ -5,9 +5,7 @@ const nextJest = require('next/jest');
 const createJestConfig = nextJest();
 
 const customJestConfig = {
-  moduleNameMapper: {
-    ...moduleNameMapper,
-  },
+  moduleNameMapper,
   testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['<rootDir>/.jest/jest.setup.js'],
   transformIgnorePatterns: ['node_modules/(?!react-markdown)'],
