@@ -57,7 +57,7 @@
     "@testing-library/react": "13.1.1",
     "@types/jest": "27.4.1",
     "@types/ramda": "0.28.11",
-    "@types/react": "18.0.7",
+    "@types/react": "18.0.8",
     "@types/react-dom": "18.0.2",
     "@types/react-syntax-highlighter": "13.5.2",
     "@types/sharp": "0.30.2",
