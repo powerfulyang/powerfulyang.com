@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "12.1.5",
-    "@powerfulyang/lint": "1.4.4",
+    "@powerfulyang/lint": "1.4.6",
     "@sentry/cli": "2.0.4",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "13.1.1",
