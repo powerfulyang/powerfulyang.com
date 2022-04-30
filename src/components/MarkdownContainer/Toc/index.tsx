@@ -3,8 +3,8 @@ import { useMemo, useRef } from 'react';
 import classNames from 'classnames';
 import { scrollIntoView } from '@powerfulyang/utils';
 import { generateToc } from '@/utils/toc';
-import styles from './index.module.scss';
 import { useHistory } from '@/hooks/useHistory';
+import styles from './index.module.scss';
 
 export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
   const toc = useMemo(() => {

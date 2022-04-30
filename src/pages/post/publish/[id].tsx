@@ -78,7 +78,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   let post;
   let pathViewCount = 0;
   if (Number(id)) {
-    const res = await requestAtServer(`/public/post/${id}`, {
+    const res = await requestAtServer(`/public/post/${id as string}`, {
       ctx,
     });
     const result = await res.json();

@@ -7,13 +7,13 @@ import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { requestAtClient } from '@/utils/client';
 import type { Asset } from '@/type/Asset';
-import styles from './index.module.scss';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { ImagePreview } from '@/components/ImagePreview';
 import { requestAtServer } from '@/utils/server';
 import Masonry from '@/components/Masonry';
+import styles from './index.module.scss';
 
 type GalleryProps = {
   assets: Asset[];

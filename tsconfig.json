@@ -27,16 +27,6 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "noImplicitAny": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.glsl",
-    "plugins",
-    "tailwind.config.js",
-    "./sentry.client.config.js",
-    "./sentry.server.config.js",
-    "./src/pages/_error.jsx"
-  ],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["node_modules"]
 }

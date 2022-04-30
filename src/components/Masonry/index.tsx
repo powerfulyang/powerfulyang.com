@@ -66,7 +66,6 @@ const Masonry: FC<MasonryProps> = ({ children }) => {
         <div className="flex flex-col sm:space-y-4 space-y-2 my-4" key={index}>
           {nodes.map((node) => (
             <motion.div
-              role="presentation"
               key={node.index}
               onTap={() => {
                 dispatch({

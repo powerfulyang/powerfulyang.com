@@ -1,9 +1,12 @@
 import type { FC } from 'react';
-import React, { createContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import classNames from 'classnames';
+import { DateFormat } from '@/utils/lib';
+import { extractMetaData } from '@/utils/toc';
 import {
+  A,
   BlockQuote,
   Code,
   H1,
@@ -12,25 +15,19 @@ import {
   H4,
   Img,
   Li,
-  A,
+  MDContainerContext,
   Paragraph,
   Pre,
   Table,
   Ul,
 } from './MarkdownElement';
 import styles from './index.module.scss';
-import { DateFormat } from '@/utils/lib';
-import { extractMetaData } from '@/utils/toc';
 
 export type MarkdownContainerProps = {
   source: string;
   className?: string;
   blur?: boolean;
 };
-
-export const MDContainerContext = createContext({
-  blur: true,
-});
 
 export const MarkdownContainer: FC<MarkdownContainerProps> = ({
   source,

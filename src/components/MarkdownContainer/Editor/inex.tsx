@@ -11,8 +11,8 @@ import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/type/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
-import styles from './index.module.scss';
 import type { Asset } from '@/type/Asset';
+import styles from './index.module.scss';
 
 type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 

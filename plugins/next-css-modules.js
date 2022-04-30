@@ -9,10 +9,9 @@ module.exports = {
       .find(({ oneOf }) => !!oneOf)
       .oneOf.filter(({ use }) => JSON.stringify(use)?.includes('css-loader'))
       .reduce((acc, { use }) => acc.concat(use), [])
-      .forEach(({ options }) => {
-        if (options.modules) {
-          // eslint-disable-next-line no-param-reassign
-          options.modules.exportLocalsConvention = 'camelCase';
+      .forEach(({ options: draft }) => {
+        if (draft.modules) {
+          draft.modules.exportLocalsConvention = 'camelCase';
         }
       });
 

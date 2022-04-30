@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { useContext, useMemo } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { Icon } from '@powerfulyang/components';
 import { PrismAsyncLight } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -15,10 +15,13 @@ import { motion } from 'framer-motion';
 import type { NormalComponents } from 'react-markdown/lib/complex-types';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { requestAtClient } from '@/utils/client';
-import styles from './index.module.scss';
-import { MDContainerContext } from '@/components/MarkdownContainer/index';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { copyToClipboardAndNotify } from '@/utils/copy';
+import styles from './index.module.scss';
+
+export const MDContainerContext = createContext({
+  blur: true,
+});
 
 export const H1: HeadingComponent = ({ children }) => (
   <div className="relative">
@@ -122,7 +125,7 @@ export const Code: CodeComponent = ({ inline, className, children }) => {
   if (inline) {
     return (
       <motion.code
-        role="presentation"
+        role="button"
         title="点击复制"
         onTap={() => {
           return copyToClipboardAndNotify(renderText);

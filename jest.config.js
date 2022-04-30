@@ -1,6 +1,10 @@
-const tsconfig = require('./tsconfig.json');
-const moduleNameMapper = require('tsconfig-paths-jest')(tsconfig);
 const nextJest = require('next/jest');
+const { pathsToModuleNameMapper } = require('@powerfulyang/lint');
+const tsconfig = require('./tsconfig.json');
+
+const moduleNameMapper = pathsToModuleNameMapper(tsconfig.compilerOptions.paths, {
+  prefix: '<rootDir>/',
+});
 
 const createJestConfig = nextJest();
 
@@ -8,7 +12,6 @@ const customJestConfig = {
   moduleNameMapper,
   testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['<rootDir>/.jest/jest.setup.js'],
-  transformIgnorePatterns: ['node_modules/(?!react-markdown)'],
 };
 
 const asyncConfig = createJestConfig(customJestConfig);

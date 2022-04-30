@@ -6,13 +6,13 @@ import { Icon } from '@powerfulyang/components';
 import { isDefined } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
-import styles from './content.module.scss';
 import { ImageModal } from '@/components/ImagePreview/ImageViewModal/ImageModal';
+import styles from './content.module.scss';
 
 type ImageViewContentProps = {};
 
 export const ImageViewContent: FC<ImageViewContentProps> = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const {
     state: { images, selectIndex },
     dispatch,
@@ -163,7 +163,7 @@ export const ImageViewContent: FC<ImageViewContentProps> = () => {
 
   return (
     <motion.div
-      role="presentation"
+      role="dialog"
       className={classNames(
         styles.wrap,
         {
@@ -173,7 +173,7 @@ export const ImageViewContent: FC<ImageViewContentProps> = () => {
       )}
       onClick={fadeOutImage}
     >
-      {enableShowPrevImage && (
+      {enableShowPrevImage && isDefined(selectIndex) && (
         <Icon
           key={`${selectIndex}-prev`}
           type="icon-arrow-left"
@@ -181,7 +181,7 @@ export const ImageViewContent: FC<ImageViewContentProps> = () => {
           onClick={showPrevImage}
         />
       )}
-      {enableShowNextImage && (
+      {enableShowNextImage && isDefined(selectIndex) && (
         <Icon
           key={`${selectIndex}-next`}
           type="icon-arrow-right"
