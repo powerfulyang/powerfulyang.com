@@ -26,9 +26,9 @@
   "dependencies": {
     "@mojs/core": "1.3.0",
     "@monaco-editor/react": "4.4.4",
-    "@powerfulyang/components": "1.3.2",
-    "@powerfulyang/hooks": "1.0.6",
-    "@powerfulyang/utils": "1.4.1",
+    "@powerfulyang/components": "1.4.0",
+    "@powerfulyang/hooks": "1.1.0",
+    "@powerfulyang/utils": "1.4.2",
     "@sentry/nextjs": "6.19.7",
     "classnames": "2.3.1",
     "dayjs": "1.11.1",
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "12.1.5",
-    "@powerfulyang/lint": "1.4.8",
+    "@powerfulyang/lint": "1.4.12",
     "@sentry/cli": "2.0.4",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "13.1.1",
