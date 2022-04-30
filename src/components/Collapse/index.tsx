@@ -12,7 +12,7 @@ export const Collapse: FC<PropsWithChildren<CollapseProps>> = ({ children, colla
   const divRef = useRef<HTMLDivElement>(null);
   const [renderClass, setRenderClass] = useState('');
   useEffect(() => {
-    ref.current++;
+    ref.current += 1;
   }, []);
   useEffect(() => {
     const div = divRef.current!;

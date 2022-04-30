@@ -8,7 +8,6 @@ import type { Post } from '@/type/Post';
 import { Link } from '@/components/Link';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
-import styles from './index.module.scss';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { DateTimeFormat } from '@/utils/lib';
@@ -16,6 +15,7 @@ import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { useHistory } from '@/hooks/useHistory';
 import { useHiddenHtmlOverflow } from '@/hooks/useHiddenHtmlOverflow';
 import { requestAtServer } from '@/utils/server';
+import styles from './index.module.scss';
 
 type IndexProps = {
   posts: Post[];

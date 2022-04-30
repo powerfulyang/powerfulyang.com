@@ -1,12 +1,10 @@
-const withPWA = require('next-pwa');
-const withPlugins = require('next-compose-plugins');
-const withCamelCaseCSSModules = require('./plugins/next-css-modules');
-const { isDevProcess, isProdProcess } = require('@powerfulyang/utils');
-/**
- * @type {string[]}
- */
-const runtimeCaching = require('next-pwa/cache');
-const { withSentryConfig } = require('@sentry/nextjs');
+import withPWA from 'next-pwa';
+import withPlugins from 'next-compose-plugins';
+import withCamelCaseCSSModules from './plugins/next-css-modules.js';
+import { isDevProcess, isProdProcess } from '@powerfulyang/utils';
+import runtimeCaching from 'next-pwa/cache.js';
+import { withSentryConfig } from '@sentry/nextjs';
+import withBundleAnalyzer from '@next/bundle-analyzer';
 
 /**
  * @type {string}
@@ -42,10 +40,6 @@ if (API_ENV === 'qa') {
 if (API_ENV === 'local') {
   process.env.SERVER_BASE_URL = 'http://localhost:3001/api';
 }
-
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
 
 /**
  * @type {import('next').NextConfig}
@@ -127,11 +121,16 @@ const config = {
   swcMinify: false,
 };
 
-module.exports = withPlugins(
+export default withPlugins(
   [
     withCamelCaseCSSModules,
     withPWA,
-    withBundleAnalyzer,
+    [
+      withBundleAnalyzer,
+      {
+        enabled: process.env.ANALYZE === 'true',
+      },
+    ],
     [withSentryConfig, sentryWebpackPluginOptions],
   ],
   config,

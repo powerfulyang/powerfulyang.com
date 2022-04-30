@@ -3,8 +3,8 @@ import React, { memo } from 'react';
 import dayjs from 'dayjs';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat';
 import Head from 'next/head';
-import { Redirecting } from '../Redirecting';
 import { ProjectName } from '@/constant/Constant';
+import { Redirecting } from '../Redirecting';
 
 dayjs.extend(LocalizedFormat);
 

@@ -7,11 +7,11 @@ import { interval } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { LazyImage } from '@/components/LazyImage';
 import { Switch } from '@/components/Switch';
-import styles from './index.module.scss';
 import type { Feed, FeedCreate } from '@/type/Feed';
 import { fileListToFormData, handlePasteImageAndReturnFileList } from '@/utils/copy';
 import { requestAtClient } from '@/utils/client';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
+import styles from './index.module.scss';
 
 type Props = {
   onSubmitSuccess: () => void;
@@ -51,8 +51,8 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
   });
 
   const paste = useCallback(
-    async (e: ClipboardEvent) => {
-      const files = await handlePasteImageAndReturnFileList(e);
+    (e: ClipboardEvent) => {
+      const files = handlePasteImageAndReturnFileList(e);
       if (files) {
         setValue('assets', files);
       }
@@ -109,7 +109,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
               'cursor-progress': mutation.isLoading,
             })}
             onPaste={paste}
-            onKeyPress={(e) => {
+            onKeyDown={(e) => {
               if (e.key === 'Enter' && e.ctrlKey) {
                 e.preventDefault();
                 submitButtonRef.current && submitButtonRef.current.click();

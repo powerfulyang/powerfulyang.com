@@ -6,7 +6,7 @@ import type { Asset } from '@/type/Asset';
 import type { Bucket } from '@/type/Bucket';
 import { AssetBucket } from '@/type/Bucket';
 
-export const handlePasteImageAndReturnFileList = async (e: ClipboardEvent) => {
+export const handlePasteImageAndReturnFileList = (e: ClipboardEvent) => {
   const { types } = e.clipboardData;
 
   if (types.every((x) => x.startsWith('text'))) {
@@ -55,7 +55,7 @@ export const handlePasteImageAndReturnAsset = async (
   e: ClipboardEvent,
   name: Bucket['name'] = AssetBucket.upload,
 ): Promise<Asset[] | null> => {
-  const files = await handlePasteImageAndReturnFileList(e);
+  const files = handlePasteImageAndReturnFileList(e);
   if (files) {
     return uploadFileListAndReturnAsset(files, name);
   }

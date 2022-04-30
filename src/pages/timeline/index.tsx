@@ -10,12 +10,12 @@ import type { Feed } from '@/type/Feed';
 import type { LayoutFC } from '@/type/GlobalContext';
 import type { User } from '@/type/User';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import styles from './index.module.scss';
 import { getCurrentUser } from '@/service/getCurrentUser';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { requestAtServer } from '@/utils/server';
 import { TimeLineItem } from '@/components/Timeline/TimeLineItem';
 import { TimeLineForm } from '@/components/Timeline/TimeLineForm';
+import styles from './index.module.scss';
 
 type TimelineProps = {
   feeds: Feed[];

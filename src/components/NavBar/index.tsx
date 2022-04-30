@@ -6,10 +6,15 @@ import { motion } from 'framer-motion';
 import { equals } from 'ramda';
 import type { User } from '@/type/User';
 import { ProjectName } from '@/constant/Constant';
-import { Menu } from '@/layout/UserLayout';
+import { useHistory } from '@/hooks/useHistory';
 import styles from './index.module.scss';
 import { Link } from '../Link';
-import { useHistory } from '@/hooks/useHistory';
+
+export enum Menu {
+  post,
+  timeline,
+  gallery,
+}
 
 type NavBarProps = {
   user: User;
