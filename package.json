@@ -28,7 +28,7 @@
     "@monaco-editor/react": "4.4.4",
     "@powerfulyang/components": "1.4.1",
     "@powerfulyang/hooks": "1.1.1",
-    "@powerfulyang/utils": "1.4.3",
+    "@powerfulyang/utils": "1.4.4",
     "@sentry/nextjs": "6.19.7",
     "classnames": "2.3.1",
     "dayjs": "1.11.1",
