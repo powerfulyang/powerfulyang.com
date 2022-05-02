@@ -1,15 +1,15 @@
 import withPWA from 'next-pwa';
 import withPlugins from 'next-compose-plugins';
-import withCamelCaseCSSModules from './plugins/next-css-modules.js';
 import { isDevProcess, isProdProcess } from '@powerfulyang/utils';
 import runtimeCaching from 'next-pwa/cache.js';
 import { withSentryConfig } from '@sentry/nextjs';
 import withBundleAnalyzer from '@next/bundle-analyzer';
+import withCamelCaseCSSModules from './plugins/next-css-modules.js';
 
 /**
  * @type {string}
  */
-const API_ENV = process.env.API_ENV;
+const { API_ENV } = process.env;
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -30,7 +30,7 @@ const defaultCacheRule = runtimeCaching.filter((x) => {
 });
 
 if (API_ENV === 'prod') {
-  process.env.CLIENT_BASE_HOST = 'api.powerfulyang.com';
+  process.env.CLIENT_BASE_HOST = 'powerfulyang.com';
   process.env.SERVER_BASE_URL = 'https://api.powerfulyang.com/api';
 }
 if (API_ENV === 'qa') {
@@ -80,8 +80,9 @@ const config = {
       },
       {
         urlPattern: ({ url }) => {
+          // eslint-disable-next-line no-restricted-globals
           const isSameOrigin = self.origin === url.origin;
-          const pathname = url.pathname;
+          const { pathname } = url;
           return isSameOrigin && pathname.startsWith('/api/');
         },
         handler: 'NetworkFirst',
@@ -106,7 +107,7 @@ const config = {
       'https://f4e15b44f3674255b6eed1cb673c0dcb@o417744.ingest.sentry.io/6340260',
   },
   eslint: {
-    ignoreDuringBuilds: true, //不用自带的
+    ignoreDuringBuilds: true, // 不用自带的
   },
   reactStrictMode: true,
   typescript: {
