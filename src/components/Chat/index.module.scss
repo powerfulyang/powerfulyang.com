@@ -1,0 +1,16 @@
+.chat {
+  @apply bg-amber-200 w-full relative flex;
+
+  .messages {
+    @apply flex flex-col w-full py-8 px-6 overflow-y-scroll space-y-4;
+
+    height: calc(100% - 10rem);
+  }
+
+  .chat-input {
+    position: absolute;
+    outline: none;
+    bottom: 0;
+    @apply w-full h-40 p-4 bg-pink-200 resize-none;
+  }
+}

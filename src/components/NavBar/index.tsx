@@ -14,6 +14,7 @@ export enum Menu {
   post,
   timeline,
   gallery,
+  airdrop,
 }
 
 type NavBarProps = {

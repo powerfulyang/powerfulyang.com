@@ -176,7 +176,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
             <motion.div
               className={classNames(styles.postPreview, 'pointer')}
               ref={ref}
-              onTap={hiddenPost}
+              onClick={hiddenPost}
               key={selectedPostId}
             >
               <motion.div
@@ -197,8 +197,8 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
                   />
                 </motion.div>
                 <motion.div
-                  onTap={(e) => {
-                    e.stopImmediatePropagation();
+                  onClick={(e) => {
+                    e.stopPropagation();
                   }}
                   className={styles.content}
                   layoutId={`post-content-${selectedPost.id}`}
