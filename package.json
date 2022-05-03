@@ -54,7 +54,7 @@
     "@powerfulyang/lint": "1.6.1",
     "@sentry/cli": "2.0.4",
     "@testing-library/jest-dom": "5.16.4",
-    "@testing-library/react": "13.1.1",
+    "@testing-library/react": "13.2.0",
     "@types/ramda": "0.28.12",
     "@types/react-syntax-highlighter": "15.5.1",
     "@types/sharp": "0.30.2",
