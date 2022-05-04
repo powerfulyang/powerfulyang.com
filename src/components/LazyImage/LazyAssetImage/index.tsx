@@ -35,7 +35,7 @@ export const LazyAssetImage = memo<
     />
   ),
   (prevProps, nextProps) => {
-    return equals(prevProps, nextProps);
+    return equals(prevProps.asset, nextProps.asset);
   },
 );
 

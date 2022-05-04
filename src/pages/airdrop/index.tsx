@@ -145,7 +145,7 @@ const Airdrop: LayoutFC = () => {
 
   const documentVisible = useDocumentVisible();
   useEffect(() => {
-    if (documentVisible === true && peerRef.current?.disconnected) {
+    if (documentVisible && peerRef.current?.disconnected) {
       peerRef.current?.reconnect();
     }
   }, [documentVisible]);

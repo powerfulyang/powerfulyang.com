@@ -15,6 +15,7 @@ import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { requestAtServer } from '@/utils/server';
 import { TimeLineItem } from '@/components/Timeline/TimeLineItem';
 import { TimeLineForm } from '@/components/Timeline/TimeLineForm';
+import { LazyImage } from '@/components/LazyImage';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -107,7 +108,12 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor, prevCursor
             className={classNames(styles.bannerImage)}
           />
           <div className={styles.authorInfo}>
-            <img draggable={false} src={bannerUser.avatar} className={styles.authorAvatar} alt="" />
+            <LazyImage
+              draggable={false}
+              src={bannerUser.avatar}
+              containerClassName={styles.authorAvatar}
+              alt=""
+            />
             <div className={styles.authorNickname}>{bannerUser.nickname}</div>
             <div className={styles.authorBio}>
               <span>{bannerUser.bio}</span>

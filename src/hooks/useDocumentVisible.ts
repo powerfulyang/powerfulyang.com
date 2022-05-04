@@ -6,7 +6,7 @@ function isDocumentVisible() {
 }
 
 export const useDocumentVisible = () => {
-  const [visible, setVisible] = useState<boolean | null>(() => null);
+  const [visible, setVisible] = useState(() => true);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
