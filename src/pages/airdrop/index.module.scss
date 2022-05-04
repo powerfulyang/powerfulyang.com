@@ -1,9 +1,9 @@
 .main {
   display: flex;
-  height: calc(100vh - var(--footer-height) - var(--nav-height));
+  min-height: calc(100vh - var(--footer-height) - var(--nav-height));
 
-  .chats {
-    @apply min-w-[900px] w-1/2 my-8 m-auto flex rounded-lg overflow-hidden;
+  .desktop-chats {
+    @apply min-w-[900px] h-[80vh] w-1/2 m-auto hidden sm:flex rounded-lg overflow-hidden;
 
     .friends {
       @apply flex flex-col w-1/3 divide-y overflow-y-auto;

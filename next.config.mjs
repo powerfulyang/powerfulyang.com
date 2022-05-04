@@ -109,7 +109,7 @@ const config = {
   eslint: {
     ignoreDuringBuilds: true, // 不用自带的
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   typescript: {
     ignoreBuildErrors: true,
   },

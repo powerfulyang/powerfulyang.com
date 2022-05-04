@@ -1,5 +1,4 @@
 import type { ClipboardEvent } from 'react';
-import { copyToClipBoard } from '@powerfulyang/utils';
 import { notification } from '@powerfulyang/components';
 import { requestAtClient } from '@/utils/client';
 import type { Asset } from '@/type/Asset';
@@ -62,9 +61,60 @@ export const handlePasteImageAndReturnAsset = async (
   return null;
 };
 
-export const copyToClipboardAndNotify = async (text: string | Blob) => {
-  await copyToClipBoard(text);
-  return notification.success({
-    message: '复制成功',
+export const convertToPng = (blob: Blob) => {
+  return new Promise<Blob>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d')!;
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob((res) => {
+          if (res) {
+            resolve(res);
+          } else {
+            reject(new Error('convert to png error'));
+          }
+        }, 'image/png');
+      };
+      img.src = reader.result as string;
+    };
+    reader.readAsDataURL(blob);
   });
+};
+
+export const copyToClipBoard = async (content: string | Blob) => {
+  if (typeof content === 'string') {
+    return navigator.clipboard.writeText(content);
+  }
+  if (content.type.startsWith('image')) {
+    let blob = content;
+    if (content.type !== 'image/png') {
+      blob = await convertToPng(content);
+    }
+    return navigator.clipboard.write([
+      new ClipboardItem({
+        'image/png': blob,
+      }),
+    ]);
+  }
+  throw new Error('unsupported type!');
+};
+
+export const copyToClipboardAndNotify = (text: string | Blob) => {
+  copyToClipBoard(text)
+    .then(() => {
+      notification.success({
+        message: '复制成功',
+      });
+    })
+    .catch((e) => {
+      notification.error({
+        message: '复制失败',
+        description: e.message,
+      });
+    });
 };

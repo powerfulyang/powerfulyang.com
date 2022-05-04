@@ -1,8 +1,8 @@
-import type { FC } from 'react';
-import { useEffect, useId, useMemo } from 'react';
+import { memo, useEffect, useId } from 'react';
 import classNames from 'classnames';
 import { copyToClipboardAndNotify } from '@/utils/copy';
 import { isBlob, isString, scrollIntoView } from '@powerfulyang/utils';
+import { LazyImage } from '@/components/LazyImage';
 import styles from './index.module.scss';
 
 type TextMessage = {
@@ -17,25 +17,22 @@ type BlobMessage = {
 
 export type Message = TextMessage | BlobMessage;
 
+export enum MessageSendType {
+  send = 'send',
+  receive = 'receive',
+}
+
 export type ChatMessageEntity = {
   from: string;
   messageId: number;
   chatFriendId: string;
+  sendType: MessageSendType;
 } & Message;
 
-export const getMessageBottomRef = (messageId?: string) =>
-  messageId && document.getElementById(`message-${messageId}`);
-
-export const ChatMessage: FC<ChatMessageEntity> = ({ from, content, messageId, chatFriendId }) => {
+export const ChatMessage = memo<ChatMessageEntity>(({ from, content, sendType }) => {
   const id = useId();
-  const sendType = useMemo(() => {
-    if (chatFriendId !== from) {
-      return 'sent';
-    }
-    return 'received';
-  }, [chatFriendId, from]);
   useEffect(() => {
-    const ref = getMessageBottomRef(id);
+    const ref = document.getElementById(id);
     if (ref) {
       setTimeout(() => {
         scrollIntoView(ref, {
@@ -47,11 +44,14 @@ export const ChatMessage: FC<ChatMessageEntity> = ({ from, content, messageId, c
   return (
     <div
       className={classNames('w-full flex items-start space-x-3 relative', {
-        'flex-row-reverse space-x-reverse': sendType === 'sent',
+        'flex-row-reverse space-x-reverse': sendType === MessageSendType.send,
       })}
-      title={`${messageId}`}
     >
-      <img className="rounded-lg" src={`https://i.pravatar.cc/50?u=${from}`} alt="" />
+      <LazyImage
+        containerClassName="rounded-lg w-[55px] aspect-square"
+        src={`https://i.pravatar.cc/55?u=${from}`}
+        alt=""
+      />
       {isString(content) && (
         <button
           type="button"
@@ -59,7 +59,7 @@ export const ChatMessage: FC<ChatMessageEntity> = ({ from, content, messageId, c
             return copyToClipboardAndNotify(content);
           }}
           className={classNames(styles.message, {
-            [styles.sent]: sendType === 'sent',
+            [styles.sent]: sendType === MessageSendType.send,
           })}
         >
           {content}
@@ -76,7 +76,9 @@ export const ChatMessage: FC<ChatMessageEntity> = ({ from, content, messageId, c
           <img className="rounded-lg" src={URL.createObjectURL(content)} alt="" />
         </button>
       )}
-      <div className="absolute -bottom-8" id={`message-${id}`} />
+      <div className="absolute -bottom-8" id={id} />
     </div>
   );
-};
+});
+
+ChatMessage.displayName = 'ChatMessage';

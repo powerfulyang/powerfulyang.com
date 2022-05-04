@@ -12,6 +12,28 @@ type Props = {
   onSendMessage: (message: SentMessage) => void;
 };
 
+export const sendFileMessage = (
+  fileList: FileList | null,
+  onSendMessage: (message: SentMessage) => void,
+) => {
+  if (fileList) {
+    for (const file of fileList) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const blob = new Blob([reader.result as ArrayBuffer], {
+          type: file.type,
+        });
+        onSendMessage({
+          messageContentType: 'blob',
+          content: blob,
+          fileType: file.type,
+        });
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  }
+};
+
 export const Chat: FC<Props> = ({ messages, onSendMessage }) => {
   const [message, setMessage] = useState('');
   return (
@@ -40,22 +62,7 @@ export const Chat: FC<Props> = ({ messages, onSendMessage }) => {
         }}
         onPaste={(e) => {
           const fileList = handlePasteImageAndReturnFileList(e);
-          if (fileList) {
-            for (const file of fileList) {
-              const reader = new FileReader();
-              reader.onload = () => {
-                const blob = new Blob([reader.result as ArrayBuffer], {
-                  type: file.type,
-                });
-                onSendMessage({
-                  messageContentType: 'blob',
-                  content: blob,
-                  fileType: file.type,
-                });
-              };
-              reader.readAsArrayBuffer(file);
-            }
-          }
+          sendFileMessage(fileList, onSendMessage);
         }}
       />
     </div>
