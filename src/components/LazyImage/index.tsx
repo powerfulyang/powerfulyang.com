@@ -1,10 +1,11 @@
 import type { FC } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { startTransition, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import type { HTMLMotionProps } from 'framer-motion';
-import { motion, useIsomorphicLayoutEffect } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Assets } from '@powerfulyang/components';
-import { useMountedRef } from '@powerfulyang/hooks';
+import { useInView } from 'react-intersection-observer';
+import type { Variants } from 'framer-motion/types/types';
 import styles from './index.module.scss';
 
 export type LazyImageExtendProps = {
@@ -13,7 +14,7 @@ export type LazyImageExtendProps = {
   /**
    * 是否需要加载动画
    */
-  blur?: boolean;
+  lazy?: boolean;
   inViewCallback?: () => void;
 };
 
@@ -22,113 +23,83 @@ export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
 export const LazyImage: FC<LazyImageProps> = ({
   src,
   className = 'object-cover w-full',
-  alt,
   blurSrc,
   containerClassName,
-  blur = true,
+  lazy = true,
   inViewCallback,
+  draggable = false,
   ...props
 }) => {
   const [loading, setLoading] = useState(() => {
-    return !!blur;
+    return lazy;
   });
-  const [imgUrl, setImgUrl] = useState(() => {
-    if (blur) {
-      return Assets.transparentImg;
-    }
-    return src;
+  const [imgSrc, setImgSrc] = useState(() => {
+    return lazy ? blurSrc : src;
   });
-  const isMount = useMountedRef();
-  useEffect(() => {
-    if (blurSrc && blur) {
-      const image = new Image();
-      image.src = blurSrc;
-      image.onload = () => {
-        if (isMount.current) {
-          setImgUrl((prevState) => {
-            if (prevState === Assets.transparentImg) {
-              return blurSrc;
-            }
-            return prevState;
+  const { ref } = useInView({
+    triggerOnce: true,
+    skip: !lazy,
+    onChange: (viewed: boolean) => {
+      if (viewed && src) {
+        const img = new Image();
+        inViewCallback?.();
+        img.onload = () => {
+          startTransition(() => {
+            setImgSrc(src);
+            setLoading(false);
           });
-        }
-      };
-    }
-  }, [blur, blurSrc, isMount]);
-  const ref = useRef<HTMLImageElement>(null);
-  useIsomorphicLayoutEffect(() => {
-    if (src && ref.current && blur) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          const { target, intersectionRatio } = entry;
+        };
+        img.onerror = () => {
+          setImgSrc(Assets.brokenImg);
+          setLoading(false);
+        };
+        img.src = src;
+      }
+    },
+  });
 
-          if (intersectionRatio > 0) {
-            const img = new Image();
-            const source = src;
-            inViewCallback?.();
-            img.onload = () => {
-              if (isMount.current) {
-                setImgUrl(source);
-                setLoading(false);
-              }
-            };
-            img.onerror = () => {
-              if (isMount.current) {
-                setLoading(false);
-                setImgUrl(Assets.brokenImg);
-              }
-            };
-            img.src = source;
-            observer.unobserve(target);
-          }
-        });
-      });
-      observer.observe(ref.current);
-      return () => {
-        observer.disconnect();
-      };
-    }
-    return () => {};
-  }, [blur, inViewCallback, isMount, src]);
-
-  return (
-    <span
-      className={classNames(
-        containerClassName,
-        'pointer isolate block select-none overflow-hidden',
-      )}
-    >
-      <motion.img
-        {...props}
-        draggable={false}
-        variants={{
-          loading: {
-            scale: 1.3,
-            filter: 'blur(32px)',
-            willChange: 'filter, scale',
-          },
-          loaded: {
-            scale: 1,
-            filter: 'blur(0px)',
-            transition: {
-              duration: 0.77,
-            },
-            willChange: 'scroll-position',
-          },
-        }}
-        initial={blur ? 'loading' : 'loaded'}
-        animate={!loading && 'loaded'}
+  const variants = useMemo<Variants>(() => {
+    return {
+      loading: {
+        scale: 1.3,
+        filter: 'blur(32px)',
+      },
+      loaded: {
+        scale: 1,
+        filter: 'blur(0px)',
+        transition: {
+          duration: 0.77,
+          delay: Math.random() * 0.3,
+        },
+      },
+    };
+  }, []);
+  return useMemo(() => {
+    return (
+      <span
         className={classNames(
-          {
-            [styles.loadedImg]: !loading,
-            [styles.loadingImg]: loading,
-          },
-          className,
+          containerClassName,
+          'pointer isolate block select-none overflow-hidden',
         )}
-        src={imgUrl}
-        alt={alt}
-        ref={ref}
-      />
-    </span>
-  );
+      >
+        <motion.img
+          {...props}
+          ref={ref}
+          draggable={draggable}
+          loading="lazy"
+          variants={variants}
+          initial={lazy ? 'loading' : 'loaded'}
+          animate={!loading && 'loaded'}
+          className={classNames(
+            {
+              [styles.loadedImg]: !loading,
+              [styles.loadingImg]: loading,
+            },
+            className,
+          )}
+          src={imgSrc}
+        />
+      </span>
+    );
+  }, [containerClassName, props, ref, draggable, variants, lazy, loading, className, imgSrc]);
 };

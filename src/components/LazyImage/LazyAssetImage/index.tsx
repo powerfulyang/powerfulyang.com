@@ -16,9 +16,18 @@ export const LazyAssetImage = memo<
     inViewCallback?: (assetId: number) => void;
   }
 >(
-  ({ asset, style, keepAspectRatio = false, thumbnail = true, inViewCallback, ...props }) => (
+  ({
+    asset,
+    style,
+    keepAspectRatio = false,
+    thumbnail = true,
+    inViewCallback,
+    draggable = false,
+    ...props
+  }) => (
     <LazyImage
       {...props}
+      draggable={draggable}
       style={{
         ...(keepAspectRatio ? { aspectRatio: `${asset?.size.width} / ${asset?.size.height}` } : {}),
         ...style,
@@ -35,7 +44,7 @@ export const LazyAssetImage = memo<
     />
   ),
   (prevProps, nextProps) => {
-    return equals(prevProps.asset, nextProps.asset);
+    return equals(prevProps.asset.id, nextProps.asset.id);
   },
 );
 

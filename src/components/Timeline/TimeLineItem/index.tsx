@@ -13,7 +13,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
       <div className={styles.author}>
         <div className={styles.avatar}>
           <LazyImage
-            blur={false}
+            lazy={false}
             draggable={false}
             className="select-none rounded"
             src={feed.createBy.avatar}

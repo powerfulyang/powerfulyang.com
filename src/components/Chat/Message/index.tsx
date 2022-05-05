@@ -48,7 +48,7 @@ export const ChatMessage = memo<ChatMessageEntity>(({ from, content, sendType })
       })}
     >
       <LazyImage
-        blur={false}
+        lazy={false}
         containerClassName="rounded-lg w-[55px] aspect-square"
         src={`https://i.pravatar.cc/55?u=${from}`}
         alt=""

@@ -40,29 +40,31 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
   const content = s.replace(/(\r\n|\n)/, `\r\n\r\n${postInfo}${tagsInfo}`);
 
   const initialContext = useMemo(() => ({ blur }), [blur]);
-  return (
-    <MDContainerContext.Provider value={initialContext}>
-      <ReactMarkdown
-        className={classNames(styles.markdownBody, className)}
-        remarkPlugins={[remarkGfm]}
-        components={{
-          h1: H1,
-          h2: H2,
-          h3: H3,
-          h4: H4,
-          blockquote: BlockQuote,
-          table: Table,
-          p: Paragraph,
-          a: A,
-          code: Code,
-          pre: Pre,
-          li: Li,
-          ul: Ul,
-          img: Img,
-        }}
-      >
-        {content}
-      </ReactMarkdown>
-    </MDContainerContext.Provider>
-  );
+  return useMemo(() => {
+    return (
+      <MDContainerContext.Provider value={initialContext}>
+        <ReactMarkdown
+          className={classNames(styles.markdownBody, className)}
+          remarkPlugins={[remarkGfm]}
+          components={{
+            h1: H1,
+            h2: H2,
+            h3: H3,
+            h4: H4,
+            blockquote: BlockQuote,
+            table: Table,
+            p: Paragraph,
+            a: A,
+            code: Code,
+            pre: Pre,
+            li: Li,
+            ul: Ul,
+            img: Img,
+          }}
+        >
+          {content}
+        </ReactMarkdown>
+      </MDContainerContext.Provider>
+    );
+  }, [content, className, initialContext]);
 };

@@ -21,11 +21,12 @@ type IndexProps = {
   posts: Post[];
   years: number[];
   year: number;
-  selectedPostId?: number;
 };
 
-const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => {
+const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   const history = useHistory();
+  const { id } = history.router.query;
+  const selectedPostId = useMemo(() => (id ? Number(id) : null), [id]);
   const selectedPost = useMemo(
     () => posts.find((post) => post.id === selectedPostId),
     [posts, selectedPostId],
@@ -48,7 +49,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
           },
         },
         undefined,
-        { scroll: false },
+        { scroll: false, shallow: true },
       );
     },
     [history.router, year],
@@ -66,7 +67,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
         },
       },
       undefined,
-      { scroll: false },
+      { scroll: false, shallow: true },
     );
   }, [history.router, year]);
 
@@ -93,17 +94,16 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
       <div className={styles.body}>
         <main className={styles.main}>
           <div className={classNames(styles.years)} role="tablist">
-            {years.map((x) => (
+            {years.map((x, i) => (
               <Link key={x} to={`?year=${x}`}>
-                <span className={classNames(styles.year)}>
-                  <span
-                    role="tab"
-                    className={classNames('pr-1', {
-                      [styles.active]: x === year,
-                    })}
-                  >
-                    #{x}
-                  </span>
+                <span
+                  role="tab"
+                  tabIndex={i}
+                  className={classNames(styles.year, 'pr-1', {
+                    [styles.active]: x === year,
+                  })}
+                >
+                  #{x}
                 </span>
               </Link>
             ))}
@@ -127,19 +127,17 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
               >
                 <AnimatePresence initial={false}>
                   {selectedPostId !== post.id && (
-                    <motion.a
+                    <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       className={styles.cardHeader}
-                      href={`/post/${post.id}`}
-                      onClick={(e) => e.preventDefault()}
                     >
                       <div className={styles.cardHeaderTitle}>
                         <div>{post.title}</div>
                         <div className={styles.cardHeaderDate}>{DateTimeFormat(post.createAt)}</div>
                       </div>
-                    </motion.a>
+                    </motion.div>
                   )}
                 </AnimatePresence>
                 <motion.div
@@ -151,6 +149,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
                     className={styles.image}
                     layoutId={`post-poster-${post.id}`}
                     href={`/post/${post.id}`}
+                    draggable={false}
                   >
                     <LazyAssetImage thumbnail={false} asset={post.poster} />
                   </motion.a>
@@ -192,7 +191,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
                   <LazyAssetImage
                     onTap={hiddenPost}
                     thumbnail={false}
-                    blur={false}
+                    lazy={false}
                     asset={selectedPost.poster}
                   />
                 </motion.div>
@@ -228,7 +227,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const tmp = await requestAtServer('/public/post/years', {
     ctx,
   });
-  const { id } = query;
   const { data: years = [] } = await tmp.json();
   const year = Number(query.year) || years[0] || new Date().getFullYear();
   const res = await requestAtServer('/public/post', {
@@ -245,7 +243,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       year,
       title: '日志',
       user,
-      selectedPostId: Number(id),
     },
   };
 };

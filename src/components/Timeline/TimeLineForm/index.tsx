@@ -105,9 +105,12 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
             {...register('content', {
               required: '请写点什么~~~',
             })}
-            className={classNames({
-              'cursor-progress': mutation.isLoading,
-            })}
+            className={classNames(
+              {
+                'cursor-progress': mutation.isLoading,
+              },
+              'resize-none',
+            )}
             onPaste={paste}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && e.ctrlKey) {
