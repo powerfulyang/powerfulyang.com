@@ -14,17 +14,17 @@
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
     inline-size: 100%;
     block-size: max(20vh, 150px);
-    @apply rounded overflow-hidden;
+    @apply overflow-hidden rounded;
 
     textarea {
       padding: 1rem;
       outline: none;
-      @apply w-full h-full;
+      @apply h-full w-full;
     }
   }
 
   .assets {
-    @apply grid gap-2 grid-cols-3 py-2;
+    @apply grid grid-cols-3 gap-2 py-2;
 
     .img {
       @apply aspect-square w-full object-cover;
@@ -32,10 +32,10 @@
   }
 
   .timeline-submit {
-    @apply text-2xl bg-blue-400 text-gray-200 rounded w-24 h-10 pointer hover:text-white relative;
+    @apply pointer relative h-10 w-24 rounded bg-blue-400 text-2xl text-gray-200 hover:text-white;
 
     &:disabled {
-      @apply bg-gray-300 cursor-not-allowed;
+      @apply cursor-not-allowed bg-gray-300;
     }
 
     &::before {

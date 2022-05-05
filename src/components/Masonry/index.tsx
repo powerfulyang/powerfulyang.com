@@ -57,13 +57,13 @@ const Masonry: FC<MasonryProps> = ({ children }) => {
 
   return (
     <div
-      className={classNames('grid sm:gap-4 gap-2 sm:px-4 px-2')}
+      className={classNames('grid gap-2 px-2 sm:gap-4 sm:px-4')}
       style={{
         gridTemplateColumns: `repeat(${colNum}, 1fr)`,
       }}
     >
       {arrayNodes.map(({ nodes, index }) => (
-        <div className="flex flex-col sm:space-y-4 space-y-2 my-4" key={index}>
+        <div className="my-4 flex flex-col space-y-2 sm:space-y-4" key={index}>
           {nodes.map((node) => (
             <motion.div
               key={node.index}

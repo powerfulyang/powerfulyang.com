@@ -108,7 +108,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, selectedPostId }) => 
               </Link>
             ))}
           </div>
-          <section className="flex flex-wrap w-[100%] max-w-[1000px] m-auto">
+          <section className="m-auto flex w-[100%] max-w-[1000px] flex-wrap">
             {posts.map((post) => (
               <motion.div
                 key={post.id}

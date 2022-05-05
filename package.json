@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "12.1.6",
-    "@powerfulyang/lint": "1.6.1",
+    "@powerfulyang/lint": "2.0.0",
     "@sentry/cli": "2.0.4",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "13.2.0",
@@ -60,6 +60,7 @@
     "@types/sharp": "0.30.2",
     "next-compose-plugins": "2.2.1",
     "next-pwa": "5.5.2",
+    "prettier-plugin-tailwindcss": "^0.1.10",
     "tailwindcss": "3.0.24"
   }
 }

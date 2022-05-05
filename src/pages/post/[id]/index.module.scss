@@ -2,11 +2,11 @@
   background-color: #fcfcff;
   display: flex;
   min-height: calc(100vh - var(--nav-height) - var(--footer-height));
-  @apply py-8 px-6 justify-center;
+  @apply justify-center py-8 px-6;
 
   .post {
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
     width: min(900px, 100%);
-    @apply rounded-lg pt-16 sm:pt-20 pb-8 px-6 sm:px-12;
+    @apply rounded-lg px-6 pt-16 pb-8 sm:px-12 sm:pt-20;
   }
 }

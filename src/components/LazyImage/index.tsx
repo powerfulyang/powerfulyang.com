@@ -95,7 +95,7 @@ export const LazyImage: FC<LazyImageProps> = ({
     <span
       className={classNames(
         containerClassName,
-        'overflow-hidden block pointer select-none isolate',
+        'pointer isolate block select-none overflow-hidden',
       )}
     >
       <motion.img

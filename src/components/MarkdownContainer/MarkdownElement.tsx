@@ -26,7 +26,7 @@ export const MDContainerContext = createContext({
 export const H1: HeadingComponent = ({ children }) => (
   <div className="relative">
     <div id={String(children).trim()} className={styles.anchor} />
-    <h1 className="flex justify-center w-full pb-2">
+    <h1 className="flex w-full justify-center pb-2">
       <span className={styles.heading1}>
         <span className={styles.prefix} />
         <span className={styles.content}>{children}</span>
@@ -60,7 +60,7 @@ export const H4: HeadingComponent = ({ children }) => {
   return (
     <div className="relative">
       <div id={String(children).trim()} className={styles.anchor} />
-      <h4 className="truncate max-w-full cursor-text" title={String(children)}>
+      <h4 className="max-w-full cursor-text truncate" title={String(children)}>
         {children}
       </h4>
     </div>
@@ -89,16 +89,16 @@ export const Paragraph: NormalComponents['p'] = ({ node, children }) => {
   if (text?.startsWith('tags=>')) {
     const tags = text.trim().replace('tags=>', '').split('|');
     return (
-      <div className="lg:ml-6 sm:ml-2 flex flex-wrap">
+      <div className="flex flex-wrap sm:ml-2 lg:ml-6">
         {tags.map((tag: string) => (
           <motion.button
             type="button"
             key={tag}
-            className="my-2 mr-2 pointer"
+            className="pointer my-2 mr-2"
             onTap={() => copyToClipboardAndNotify(tag)}
           >
             <Icon type="icon-tag" className="text-xl" />
-            <span className="text-[#FFB356] text-sm">{tag}</span>
+            <span className="text-sm text-[#FFB356]">{tag}</span>
           </motion.button>
         ))}
       </div>
@@ -208,7 +208,7 @@ export const Img: NormalComponents['img'] = ({ src, alt }) => {
   }
   // 因为开发的时候 图片没有被缓存 会出现高度突然变化的问题 导致页面闪烁
   return (
-    <span className="w-full mt-2 block">
+    <span className="mt-2 block w-full">
       <img src={src} alt={alt} />
     </span>
   );

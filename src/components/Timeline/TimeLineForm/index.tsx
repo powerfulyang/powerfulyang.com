@@ -129,8 +129,8 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
             </a>
           ))}
         </div>
-        <span className="text-red-400 my-1 mr-4 block text-right">{errors.content?.message}</span>
-        <div className="flex items-center justify-end text-right pr-4 mb-4">
+        <span className="my-1 mr-4 block text-right text-red-400">{errors.content?.message}</span>
+        <div className="mb-4 flex items-center justify-end pr-4 text-right">
           <Switch
             {...register('public', {
               required: true,
@@ -138,7 +138,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
             checkedDescription="公开"
             uncheckedDescription="私密"
           />
-          <label htmlFor="assets" className="inline-block px-4 text-pink-400 text-lg pointer">
+          <label htmlFor="assets" className="pointer inline-block px-4 text-lg text-pink-400">
             上传图片
             <input
               {...register('assets')}

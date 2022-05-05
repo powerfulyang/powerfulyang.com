@@ -172,19 +172,19 @@ const Airdrop: LayoutFC = () => {
                   src={`https://i.pravatar.cc/55?u=${peerId}`}
                   alt=""
                 />
-                <div className="truncate flex-1 text-left">{peerId}</div>
+                <div className="flex-1 truncate text-left">{peerId}</div>
               </button>
             ))}
         </div>
         {(selectPeerId && (
           <Chat messages={messages.get(selectPeerId) || []} onSendMessage={sendMessage} />
         )) || (
-          <div className="flex w-full h-full bg-amber-200 justify-center items-center">
+          <div className="flex h-full w-full items-center justify-center bg-amber-200">
             未选择聊天对象
           </div>
         )}
       </div>
-      <div className={classNames('sm:hidden grid grid-cols-3 grid-rows-[33vw] gap-4 m-8')}>
+      <div className={classNames('m-8 grid grid-cols-3 grid-rows-[33vw] gap-4 sm:hidden')}>
         {[group, ...connections.keys()].map((peerId) => {
           return (
             <div key={peerId} className="text-center">

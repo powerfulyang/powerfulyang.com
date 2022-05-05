@@ -16,13 +16,13 @@
     }
 
     .footer {
-      @apply text-xs text-pink-400 text-center mt-6 mb-12;
+      @apply mt-6 mb-12 text-center text-xs text-pink-400;
     }
   }
 
   .banner {
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
-    @apply m-auto flex align-middle justify-center flex-col mb-4 overflow-hidden relative;
+    @apply relative m-auto mb-4 flex flex-col justify-center overflow-hidden align-middle;
 
     .banner-bg {
       height: 150px;
@@ -34,23 +34,23 @@
 
     .author-info {
       z-index: 1;
-      @apply m-auto flex pb-4 flex-wrap w-full;
+      @apply m-auto flex w-full flex-wrap pb-4;
 
       .author-avatar {
         width: 80px;
         margin-top: -40px;
-        @apply rounded-lg mr-4 ml-8 select-none;
+        @apply mr-4 ml-8 select-none rounded-lg;
       }
 
       .author-nickname {
         align-self: flex-end;
         font-family: 'Zpix', sans-serif;
-        @apply text-lg font-medium mb-2 cursor-text;
+        @apply mb-2 cursor-text text-lg font-medium;
       }
 
       .author-bio {
         font-family: 'Zpix', sans-serif;
-        @apply w-full mt-4 ml-8 text-xl font-medium cursor-text;
+        @apply mt-4 ml-8 w-full cursor-text text-xl font-medium;
 
         span {
           @include rainbowText;

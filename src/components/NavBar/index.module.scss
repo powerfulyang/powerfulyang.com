@@ -18,7 +18,7 @@
   backdrop-filter: blur(5px);
 
   .user {
-    @apply flex items-center mr-4 text-pink-400;
+    @apply mr-4 flex items-center text-pink-400;
 
     .nickname {
       display: none;
@@ -30,7 +30,7 @@
 
     .avatar {
       width: 2.5rem;
-      @apply rounded-full mx-4;
+      @apply mx-4 rounded-full;
     }
   }
 
@@ -61,17 +61,17 @@
   }
 
   .left {
-    @apply flex items-center h-full;
+    @apply flex h-full items-center;
   }
 
   .menus {
     flex: 1;
     color: #7d7a9e;
-    @apply flex h-full items-center ml-4 sm:ml-0;
+    @apply ml-4 flex h-full items-center sm:ml-0;
 
     .menu {
       z-index: 1;
-      @apply mx-4 uppercase font-normal text-sm;
+      @apply mx-4 text-sm font-normal uppercase;
     }
 
     .active {

@@ -15,14 +15,14 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
           <LazyImage
             blur={false}
             draggable={false}
-            className="rounded select-none"
+            className="select-none rounded"
             src={feed.createBy.avatar}
             alt="用户头像"
           />
         </div>
         <div>
           <div className={classNames('text-lg', styles.nickname)}>{feed.createBy.nickname}</div>
-          <div className="text-gray-600 text-xs cursor-text">{DateTimeFormat(feed.createAt)}</div>
+          <div className="cursor-text text-xs text-gray-600">{DateTimeFormat(feed.createAt)}</div>
         </div>
       </div>
       <div className={styles.content}>

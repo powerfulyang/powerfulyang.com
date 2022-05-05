@@ -39,7 +39,7 @@ const Menus: FC = () => {
     return (
       <div className={styles.menus}>
         {getEnumKeys(Menu).map((x) => (
-          <motion.div key={x} className="w-auto h-full relative flex items-center justify-center">
+          <motion.div key={x} className="relative flex h-full w-auto items-center justify-center">
             <Link
               className={classNames(
                 {
@@ -69,7 +69,7 @@ export const NavBar = memo<NavBarProps>(
       <div className={styles.navPlaceholder}>
         <nav className={styles.nav}>
           <div className={styles.left}>
-            <div className="w-[15ch] text-xl px-3 py-1 mx-4 hidden sm:block">
+            <div className="mx-4 hidden w-[15ch] px-3 py-1 text-xl sm:block">
               <Link to="/" className={classNames(styles.title)}>
                 {ProjectName}
               </Link>

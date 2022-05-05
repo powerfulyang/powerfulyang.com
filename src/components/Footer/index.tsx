@@ -9,7 +9,7 @@ type FooterProps = {
 
 export const Footer = memo<FooterProps>(({ pathViewCount }) => (
   <footer className={classNames(styles.footer)}>
-    <div className="text-gray-400 text-sm hidden sm:block">
+    <div className="hidden text-sm text-gray-400 sm:block">
       <span className="mr-1">备案号:</span>
       <a
         className="text-pink-400"
@@ -33,11 +33,11 @@ export const Footer = memo<FooterProps>(({ pathViewCount }) => (
         </a>
       </span>
     </div>
-    <div className="text-sm flex items-baseline">
-      <div hidden={!pathViewCount} className="hidden sm:block text-pink-400">
+    <div className="flex items-baseline text-sm">
+      <div hidden={!pathViewCount} className="hidden text-pink-400 sm:block">
         {pathViewCount}人临幸
       </div>
-      <div className="text-gray-400 text-lg space-x-1 contents">
+      <div className="contents space-x-1 text-lg text-gray-400">
         <a className="ml-4" href="https://twitter.com/hutyxxx" target="_blank" rel="noreferrer">
           <Icon className={styles.twitter} type="icon-twitter" />
         </a>

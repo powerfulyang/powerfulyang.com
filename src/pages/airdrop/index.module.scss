@@ -3,14 +3,14 @@
   min-height: calc(100vh - var(--footer-height) - var(--nav-height));
 
   .desktop-chats {
-    @apply min-w-[900px] h-[80vh] w-1/2 m-auto hidden sm:flex rounded-lg overflow-hidden;
+    @apply m-auto hidden h-[80vh] w-1/2 min-w-[900px] overflow-hidden rounded-lg sm:flex;
 
     .friends {
-      @apply flex flex-col w-1/3 divide-y overflow-y-auto;
+      @apply flex w-1/3 flex-col divide-y overflow-y-auto;
     }
 
     .friend {
-      @apply pointer flex py-2 px-4 items-center space-x-4;
+      @apply pointer flex items-center space-x-4 py-2 px-4;
 
       &.selected {
         @apply bg-gray-200;

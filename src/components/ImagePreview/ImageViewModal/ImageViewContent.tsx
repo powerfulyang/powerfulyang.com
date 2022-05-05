@@ -190,7 +190,7 @@ export const ImageViewContent: FC<ImageViewContentProps> = () => {
         />
       )}
       <motion.div
-        className="w-full h-full flex justify-center items-center flex-nowrap overflow-hidden"
+        className="flex h-full w-full flex-nowrap items-center justify-center overflow-hidden"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}

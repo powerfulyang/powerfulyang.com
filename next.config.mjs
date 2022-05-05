@@ -116,10 +116,11 @@ const config = {
   sentry: {
     disableServerWebpackPlugin: isDevProcess,
     disableClientWebpackPlugin: isDevProcess,
+    hideSourceMaps: true,
   },
   productionBrowserSourceMaps: isProdProcess,
   optimizeFonts: false,
-  swcMinify: true,
+  swcMinify: false,
 };
 
 export default withPlugins(

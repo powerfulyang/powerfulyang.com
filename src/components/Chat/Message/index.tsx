@@ -43,7 +43,7 @@ export const ChatMessage = memo<ChatMessageEntity>(({ from, content, sendType })
   }, [id]);
   return (
     <div
-      className={classNames('w-full flex items-start space-x-3 relative', {
+      className={classNames('relative flex w-full items-start space-x-3', {
         'flex-row-reverse space-x-reverse': sendType === MessageSendType.send,
       })}
     >
@@ -68,7 +68,7 @@ export const ChatMessage = memo<ChatMessageEntity>(({ from, content, sendType })
       )}
       {isBlob(content) && content.type.startsWith('image') && (
         <button
-          className="max-w-[70%] pointer"
+          className="pointer max-w-[70%]"
           type="button"
           onClick={() => {
             return copyToClipboardAndNotify(content);

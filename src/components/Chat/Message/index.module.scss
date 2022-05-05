@@ -7,7 +7,7 @@
   line-height: 1.7;
   user-select: text;
   max-width: 70%;
-  @apply mt-3 pointer;
+  @apply pointer mt-3;
 
   &.sent {
     border-radius: 20px 4px 20px 20px;

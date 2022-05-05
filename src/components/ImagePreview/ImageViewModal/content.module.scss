@@ -21,7 +21,7 @@
   }
 
   .with {
-    @apply w-full h-full top-0;
+    @apply top-0 h-full w-full;
   }
 
   .next {
@@ -30,7 +30,7 @@
     right: 1rem;
     font-size: 2rem;
     transform: translateY(-50%);
-    @apply opacity-60 text-black hidden sm:block;
+    @apply hidden text-black opacity-60 sm:block;
 
     @media (hover: hover) {
       &:hover {

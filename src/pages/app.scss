@@ -65,7 +65,7 @@
 
   .link {
     position: relative;
-    @apply text-purple-400 break-words;
+    @apply break-words text-purple-400;
 
     &::after {
       position: absolute;

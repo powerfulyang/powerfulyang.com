@@ -84,7 +84,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
                 containerClassName="rounded-lg shadow-lg"
                 keepAspectRatio
               />
-              <div className="text-center py-2 text-blue-400">bucket: {asset.bucket.name}</div>
+              <div className="py-2 text-center text-blue-400">bucket: {asset.bucket.name}</div>
             </div>
           ))}
         </Masonry>

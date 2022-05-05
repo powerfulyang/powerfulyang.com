@@ -4,17 +4,17 @@
     position: relative;
     z-index: 1;
     box-shadow: 0 0 20px 10px rgb(160 44 219 / 7%);
-    @apply flex text-gray-600 align-middle bg-gray-200 w-full justify-start items-center;
+    @apply flex w-full items-center justify-start bg-gray-200 align-middle text-gray-600;
 
     .icon {
-      @apply mx-2 text-lg p-0.5 rounded;
+      @apply mx-2 rounded p-0.5 text-lg;
 
       &:hover {
         @apply bg-blue-300;
       }
 
       &.post {
-        @apply text-blue-400 ml-auto mr-2;
+        @apply ml-auto mr-2 text-blue-400;
       }
     }
   }
