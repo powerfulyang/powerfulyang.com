@@ -1,59 +1,64 @@
 import type { FC, ReactElement } from 'react';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { Children, useContext, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { motion, useIsomorphicLayoutEffect } from 'framer-motion';
+import { useIsomorphicLayoutEffect } from 'framer-motion';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
+import { useImmer } from '@powerfulyang/hooks';
+import type { Asset } from '@/type/Asset';
+
+type MasonryItem = ReactElement<{ asset: Asset; tabIndex: number }>;
+
+const getMapValueMinKey = (items: Map<number, number>): number => {
+  const minValue = Math.min(...items.values());
+  for (const [key, value] of items) {
+    if (value <= minValue) {
+      return key;
+    }
+  }
+  return 0;
+};
 
 export type MasonryProps = {
-  children: ReactElement[];
+  children: MasonryItem[];
 };
 
 const Masonry: FC<MasonryProps> = ({ children }) => {
   const [colNum, setColNum] = useState(3);
+  const rowHeight = useRef(new Map<number, number>());
+  const handled = useRef(new Set<number>());
+  const [masonry, setMasonry] = useImmer(() => new Map<number, Array<MasonryItem>>());
   useIsomorphicLayoutEffect(() => {
-    setColNum(Math.ceil(window.innerWidth / 420 + 2));
+    const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
+    setColNum(clientColNum);
+    for (let i = 0; i < clientColNum; i++) {
+      setMasonry((draft) => {
+        draft.set(i, []);
+      });
+      rowHeight.current.set(i, 0);
+    }
+    return () => {
+      rowHeight.current.clear();
+      handled.current.clear();
+    };
   }, []);
-  const arrayNodes = useMemo(
-    () =>
-      children.reduce(
-        (
-          draft: {
-            nodes: [
-              {
-                node: ReactElement;
-                index: number;
-              },
-            ];
-            index: number;
-          }[],
-          current,
-          index,
-        ) => {
-          const i = index % colNum;
-          if (draft[i]) {
-            draft[i].nodes.push({
-              node: current,
-              index,
-            });
-          } else {
-            draft[i] = {
-              nodes: [
-                {
-                  node: current,
-                  index,
-                },
-              ],
-              index: i,
-            };
-          }
-          return draft;
-        },
-        [],
-      ),
-    [colNum, children],
-  );
 
   const { dispatch } = useContext(ImagePreviewContext);
+
+  useEffect(() => {
+    setMasonry((draft) => {
+      children.forEach((child) => {
+        const has = handled.current.has(child.props.asset.id);
+        if (!has) {
+          handled.current.add(child.props.asset.id);
+          const minHeightKey = getMapValueMinKey(rowHeight.current);
+          const prev = rowHeight.current.get(minHeightKey)!;
+          const aspect = child.props.asset.size.height / child.props.asset.size.width;
+          rowHeight.current.set(minHeightKey, prev + aspect);
+          draft.get(minHeightKey)?.push(child);
+        }
+      });
+    });
+  }, [children, colNum, setMasonry]);
 
   return (
     <div
@@ -62,23 +67,28 @@ const Masonry: FC<MasonryProps> = ({ children }) => {
         gridTemplateColumns: `repeat(${colNum}, 1fr)`,
       }}
     >
-      {arrayNodes.map(({ nodes, index }) => (
-        <div className="my-4 flex flex-col space-y-2 sm:space-y-4" key={index}>
-          {nodes.map((node) => (
-            <motion.div
-              key={node.index}
-              onTap={() => {
-                dispatch({
-                  type: ImagePreviewContextActionType.open,
-                  payload: {
-                    selectIndex: node.index,
-                  },
-                });
-              }}
-            >
-              {node.node}
-            </motion.div>
-          ))}
+      {Array.from(masonry.keys()).map((mItem) => (
+        <div className="my-4 flex flex-col space-y-2 sm:space-y-4" key={mItem}>
+          {Children.map(masonry.get(mItem), (node) => {
+            return (
+              node && (
+                <button
+                  key={node.props.asset.id}
+                  type="button"
+                  onClick={() => {
+                    dispatch({
+                      type: ImagePreviewContextActionType.open,
+                      payload: {
+                        selectIndex: node.props.tabIndex,
+                      },
+                    });
+                  }}
+                >
+                  {node}
+                </button>
+              )
+            );
+          })}
         </div>
       ))}
     </div>

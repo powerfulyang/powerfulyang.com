@@ -3,15 +3,15 @@ import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'reac
 import { useLockScroll, usePortal } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
 import { useIsomorphicLayoutEffect } from 'framer-motion';
-import { ImageViewContent } from '@/components/ImagePreview/ImageViewModal/ImageViewContent';
+import { ImageViewContent } from '@/components/ImagePreview/ImagePreviewModal/ImageViewContent';
 import { ImagePreviewContext } from '@/context/ImagePreviewContext';
 import { useHiddenHtmlOverflow } from '@/hooks/useHiddenHtmlOverflow';
 
-type ImageViewModalProps = {
+type ImagePreviewModalProps = {
   parentNode?: HTMLElement;
 };
 
-const ImageViewModal: FC<ImageViewModalProps> = ({ parentNode }) => {
+const ImagePreviewModal: FC<ImagePreviewModalProps> = ({ parentNode }) => {
   const dialogNode = useRef<HTMLElement>();
   const createPortal = useCallback(() => {
     dialogNode.current = document.createElement('section');
@@ -53,4 +53,4 @@ const ImageViewModal: FC<ImageViewModalProps> = ({ parentNode }) => {
   );
 };
 
-export default ImageViewModal;
+export default ImagePreviewModal;

@@ -16,6 +16,7 @@ import { requestAtServer } from '@/utils/server';
 import { TimeLineItem } from '@/components/Timeline/TimeLineItem';
 import { TimeLineForm } from '@/components/Timeline/TimeLineForm';
 import { LazyImage } from '@/components/LazyImage';
+import { isEmpty, lastItem } from '@powerfulyang/utils';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -73,14 +74,19 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor, prevCursor
     const res = flatten(data?.pages.map((x) => x.resources) || []);
     return (
       <div className={styles.feeds}>
-        {res?.map((feed, index) => (
+        {res?.map((feed) => (
           <Fragment key={feed.id}>
             <TimeLineItem feed={feed} />
-            {index === res.length - 1 &&
+            {feed.id === lastItem(res)?.id &&
               (hasPreviousPage ? (
-                <InView triggerOnce>
-                  {({ ref, inView }) => {
+                <InView
+                  triggerOnce
+                  rootMargin="500px"
+                  onChange={(inView) => {
                     inView && fetchPreviousPage();
+                  }}
+                >
+                  {({ ref }) => {
                     return (
                       <div className={styles.footer} ref={ref}>
                         Loading...
@@ -93,7 +99,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor, prevCursor
               ))}
           </Fragment>
         ))}
-        {res.length === 0 && <div className={styles.footer}>No Content!</div>}
+        {isEmpty(res) && <div className={styles.footer}>No Content!</div>}
       </div>
     );
   }, [data?.pages, fetchPreviousPage, hasPreviousPage]);

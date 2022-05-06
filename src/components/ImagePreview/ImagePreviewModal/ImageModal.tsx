@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Assets } from '@powerfulyang/components';
-import styles from '@/components/ImagePreview/ImageViewModal/content.module.scss';
+import styles from '@/components/ImagePreview/ImagePreviewModal/content.module.scss';
 import type { Asset } from '@/type/Asset';
 import { CosUtils } from '@/utils/lib';
 

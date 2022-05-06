@@ -29,7 +29,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
         <div className={styles.text}>{feed.content}</div>
         {!!feed.assets?.length && (
           <div className={classNames(styles.assets)}>
-            <ImagePreview images={feed.assets}>
+            <ImagePreview parentControl images={feed.assets}>
               {feed.assets?.map((asset) => (
                 <LazyAssetImage
                   containerClassName="rounded"

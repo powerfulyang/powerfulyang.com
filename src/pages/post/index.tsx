@@ -1,5 +1,5 @@
 import type { KeyboardEvent } from 'react';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { GetServerSideProps } from 'next';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -26,7 +26,15 @@ type IndexProps = {
 const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   const history = useHistory();
   const { id } = history.router.query;
-  const selectedPostId = useMemo(() => (id ? Number(id) : null), [id]);
+  const [selectedPostId, setSelectedPostId] = useState(0);
+  useEffect(() => {
+    if (id) {
+      const postId = parseInt(id as string, 10);
+      setSelectedPostId(postId);
+    } else {
+      setSelectedPostId(0);
+    }
+  }, [id]);
   const selectedPost = useMemo(
     () => posts.find((post) => post.id === selectedPostId),
     [posts, selectedPostId],

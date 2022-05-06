@@ -1,14 +1,13 @@
-import type { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren, ReactElement } from 'react';
 import React, { Children, cloneElement, useEffect, useMemo } from 'react';
 import { useImmerReducer } from '@powerfulyang/hooks';
-import { motion } from 'framer-motion';
 import type {
   ImageModalContextAction,
   ImagePreviewContextState,
 } from '@/context/ImagePreviewContext';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import type { Asset } from '@/type/Asset';
-import ImageViewModal from '@/components/ImagePreview/ImageViewModal';
+import ImagePreviewModal from '@/components/ImagePreview/ImagePreviewModal';
 
 const reducer = (draft: ImagePreviewContextState, action: ImageModalContextAction) => {
   switch (action.type) {
@@ -25,12 +24,18 @@ const reducer = (draft: ImagePreviewContextState, action: ImageModalContextActio
   }
 };
 
-export const ImagePreview: FC<
-  PropsWithChildren<{
-    images: Asset[];
-    parentControl?: boolean;
-  }>
-> = ({ children, images, parentControl = true }) => {
+type ParentControlProps = {
+  parentControl: unknown;
+  children: ReactElement<{ onClick: VoidFunction }>[];
+};
+
+type SelfControlProps = PropsWithChildren<unknown>;
+
+type Props = {
+  images: Asset[];
+} & (ParentControlProps | SelfControlProps);
+
+export const ImagePreview: FC<Props> = ({ images, ...props }) => {
   const [state, dispatch] = useImmerReducer<ImagePreviewContextState, ImageModalContextAction>(
     reducer,
     {},
@@ -44,13 +49,12 @@ export const ImagePreview: FC<
     });
   }, [dispatch, images]);
   const memo = useMemo(() => ({ state, dispatch }), [state, dispatch]);
-  return (
-    <ImagePreviewContext.Provider value={memo}>
-      <ImageViewModal />
-      {(parentControl &&
-        Children.map(children, (child, index) =>
-          cloneElement(<motion.span>{child}</motion.span>, {
-            onTap() {
+  const childRender = useMemo(() => {
+    return (
+      ('parentControl' in props &&
+        Children.map(props.children, (child, index) =>
+          cloneElement(child, {
+            onClick() {
               dispatch({
                 type: ImagePreviewContextActionType.open,
                 payload: {
@@ -60,7 +64,14 @@ export const ImagePreview: FC<
             },
           }),
         )) ||
-        children}
+      props.children
+    );
+  }, [dispatch, props]);
+
+  return (
+    <ImagePreviewContext.Provider value={memo}>
+      <ImagePreviewModal />
+      {childRender}
     </ImagePreviewContext.Provider>
   );
 };

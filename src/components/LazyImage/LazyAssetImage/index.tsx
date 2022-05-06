@@ -24,25 +24,29 @@ export const LazyAssetImage = memo<
     inViewCallback,
     draggable = false,
     ...props
-  }) => (
-    <LazyImage
-      {...props}
-      draggable={draggable}
-      style={{
-        ...(keepAspectRatio ? { aspectRatio: `${asset?.size.width} / ${asset?.size.height}` } : {}),
-        ...style,
-      }}
-      src={
-        thumbnail
-          ? CosUtils.getCosObjectThumbnailUrl(asset?.objectUrl)
-          : CosUtils.getCosObjectUrl(asset?.objectUrl)
-      }
-      blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset?.objectUrl)}
-      inViewCallback={() => {
-        inViewCallback?.(asset?.id);
-      }}
-    />
-  ),
+  }) => {
+    return (
+      <LazyImage
+        {...props}
+        draggable={draggable}
+        style={{
+          ...(keepAspectRatio
+            ? { aspectRatio: `${asset?.size.width} / ${asset?.size.height}` }
+            : {}),
+          ...style,
+        }}
+        src={
+          thumbnail
+            ? CosUtils.getCosObjectThumbnailUrl(asset?.objectUrl)
+            : CosUtils.getCosObjectUrl(asset?.objectUrl)
+        }
+        blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset?.objectUrl)}
+        inViewCallback={() => {
+          inViewCallback?.(asset?.id);
+        }}
+      />
+    );
+  },
   (prevProps, nextProps) => {
     return equals(prevProps.asset.id, nextProps.asset.id);
   },

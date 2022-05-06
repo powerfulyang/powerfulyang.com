@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import React, { startTransition, useMemo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import type { HTMLMotionProps } from 'framer-motion';
 import { motion } from 'framer-motion';
@@ -20,61 +19,58 @@ export type LazyImageExtendProps = {
 
 export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
 
-export const LazyImage: FC<LazyImageProps> = ({
-  src,
-  className = 'object-cover w-full',
-  blurSrc,
-  containerClassName,
-  lazy = true,
-  inViewCallback,
-  draggable = false,
-  ...props
-}) => {
-  const [loading, setLoading] = useState(() => {
-    return lazy;
-  });
-  const [imgSrc, setImgSrc] = useState(() => {
-    return lazy ? blurSrc : src;
-  });
-  const { ref } = useInView({
-    triggerOnce: true,
-    skip: !lazy,
-    onChange: (viewed: boolean) => {
-      if (viewed && src) {
-        const img = new Image();
-        inViewCallback?.();
-        img.onload = () => {
-          startTransition(() => {
+export const LazyImage = memo<LazyImageProps>(
+  ({
+    src,
+    className = 'object-cover w-full',
+    blurSrc,
+    containerClassName,
+    lazy = true,
+    inViewCallback,
+    draggable = false,
+    ...props
+  }) => {
+    const [loading, setLoading] = useState(lazy);
+    const [imgSrc, setImgSrc] = useState(() => {
+      return lazy ? blurSrc : src;
+    });
+
+    const { ref } = useInView({
+      triggerOnce: true,
+      skip: !lazy,
+      onChange: (viewed: boolean) => {
+        if (viewed && src) {
+          const img = new Image();
+          inViewCallback?.();
+          img.onload = () => {
             setImgSrc(src);
             setLoading(false);
-          });
-        };
-        img.onerror = () => {
-          setImgSrc(Assets.brokenImg);
-          setLoading(false);
-        };
-        img.src = src;
-      }
-    },
-  });
+          };
+          img.onerror = () => {
+            setImgSrc(Assets.brokenImg);
+            setLoading(false);
+          };
+          img.src = src;
+        }
+      },
+    });
 
-  const variants = useMemo<Variants>(() => {
-    return {
-      loading: {
-        scale: 1.3,
-        filter: 'blur(32px)',
-      },
-      loaded: {
-        scale: 1,
-        filter: 'blur(0px)',
-        transition: {
-          duration: 0.77,
-          delay: Math.random() * 0.3,
+    const variants = useMemo<Variants>(() => {
+      return {
+        loading: {
+          scale: 1.3,
+          filter: 'blur(32px)',
         },
-      },
-    };
-  }, []);
-  return useMemo(() => {
+        loaded: {
+          scale: 1,
+          filter: 'blur(0px)',
+          transition: {
+            duration: 0.66,
+          },
+        },
+      };
+    }, []);
+
     return (
       <span
         className={classNames(
@@ -101,5 +97,7 @@ export const LazyImage: FC<LazyImageProps> = ({
         />
       </span>
     );
-  }, [containerClassName, props, ref, draggable, variants, lazy, loading, className, imgSrc]);
-};
+  },
+);
+
+LazyImage.displayName = 'LazyImage';

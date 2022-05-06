@@ -6,7 +6,7 @@ import { Icon } from '@powerfulyang/components';
 import { isDefined } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
-import { ImageModal } from '@/components/ImagePreview/ImageViewModal/ImageModal';
+import { ImageModal } from '@/components/ImagePreview/ImagePreviewModal/ImageModal';
 import styles from './content.module.scss';
 
 type ImageViewContentProps = {};
