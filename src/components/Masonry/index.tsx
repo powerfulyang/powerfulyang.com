@@ -5,6 +5,7 @@ import { useIsomorphicLayoutEffect } from 'framer-motion';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import { useImmer } from '@powerfulyang/hooks';
 import type { Asset } from '@/type/Asset';
+import { InView } from 'react-intersection-observer';
 
 type MasonryItem = ReactElement<{ asset: Asset; tabIndex: number }>;
 
@@ -20,9 +21,10 @@ const getMapValueMinKey = (items: Map<number, number>): number => {
 
 export type MasonryProps = {
   children: MasonryItem[];
+  onLoadMore: () => void;
 };
 
-const Masonry: FC<MasonryProps> = ({ children }) => {
+const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
   const [colNum, setColNum] = useState(3);
   const rowHeight = useRef(new Map<number, number>());
   const handled = useRef(new Set<number>());
@@ -51,7 +53,7 @@ const Masonry: FC<MasonryProps> = ({ children }) => {
         if (!has) {
           handled.current.add(child.props.asset.id);
           const minHeightKey = getMapValueMinKey(rowHeight.current);
-          const prev = rowHeight.current.get(minHeightKey)!;
+          const prev = rowHeight.current.get(minHeightKey) || 0;
           const aspect = child.props.asset.size.height / child.props.asset.size.width;
           rowHeight.current.set(minHeightKey, prev + aspect);
           draft.get(minHeightKey)?.push(child);
@@ -67,9 +69,12 @@ const Masonry: FC<MasonryProps> = ({ children }) => {
         gridTemplateColumns: `repeat(${colNum}, 1fr)`,
       }}
     >
-      {Array.from(masonry.keys()).map((mItem) => (
+      {Array.from(masonry.keys()).map((mItem, index) => (
         <div className="my-4 flex flex-col space-y-2 sm:space-y-4" key={mItem}>
-          {Children.map(masonry.get(mItem), (node) => {
+          {Children.map(masonry.get(mItem), (node, i) => {
+            const isNeedLoadMore =
+              index === getMapValueMinKey(rowHeight.current) &&
+              i + 1 === masonry.get(mItem)?.length; // 可能出现超长图片的情况，所以监听能看到的最短一列最好
             return (
               node && (
                 <button
@@ -84,7 +89,19 @@ const Masonry: FC<MasonryProps> = ({ children }) => {
                     });
                   }}
                 >
-                  {node}
+                  {(isNeedLoadMore && (
+                    <InView
+                      as="span"
+                      triggerOnce
+                      onChange={(inView) => {
+                        inView && onLoadMore();
+                      }}
+                      rootMargin="200px"
+                    >
+                      {node}
+                    </InView>
+                  )) ||
+                    node}
                 </button>
               )
             );

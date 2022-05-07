@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import type { GetServerSideProps } from 'next';
 import { useInfiniteQuery } from 'react-query';
 import { flatten } from 'ramda';
-import { lastItem } from '@powerfulyang/utils';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { requestAtClient } from '@/utils/client';
@@ -69,7 +68,11 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
   return (
     <main className={styles.gallery}>
       <ImagePreview images={resources}>
-        <Masonry>
+        <Masonry
+          onLoadMore={() => {
+            hasPreviousPage && fetchPreviousPage();
+          }}
+        >
           {resources.map((asset, index) => (
             <LazyAssetImage
               key={asset.id}
@@ -77,11 +80,6 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
               tabIndex={index}
               title={`${asset.id}`}
               asset={asset}
-              inViewCallback={(id) => {
-                if (id === lastItem(resources)?.id) {
-                  hasPreviousPage && fetchPreviousPage();
-                }
-              }}
               containerClassName="rounded-lg shadow-lg"
               keepAspectRatio
             />

@@ -125,7 +125,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor, prevCursor
             />
             <div className={styles.authorNickname}>{bannerUser.nickname}</div>
             <div className={styles.authorBio}>
-              <span>{bannerUser.bio}</span>
+              <span>{bannerUser.bio || '这个人没有留下什么...'}</span>
             </div>
           </div>
         </div>

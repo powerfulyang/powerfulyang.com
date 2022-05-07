@@ -13,18 +13,9 @@ export const LazyAssetImage = memo<
      * 压缩图片资源
      */
     thumbnail?: boolean;
-    inViewCallback?: (assetId: number) => void;
   }
 >(
-  ({
-    asset,
-    style,
-    keepAspectRatio = false,
-    thumbnail = true,
-    inViewCallback,
-    draggable = false,
-    ...props
-  }) => {
+  ({ asset, style, keepAspectRatio = false, thumbnail = true, draggable = false, ...props }) => {
     return (
       <LazyImage
         {...props}
@@ -41,9 +32,6 @@ export const LazyAssetImage = memo<
             : CosUtils.getCosObjectUrl(asset?.objectUrl)
         }
         blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset?.objectUrl)}
-        inViewCallback={() => {
-          inViewCallback?.(asset?.id);
-        }}
       />
     );
   },

@@ -14,7 +14,6 @@ export type LazyImageExtendProps = {
    * 是否需要加载动画
    */
   lazy?: boolean;
-  inViewCallback?: () => void;
 };
 
 export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
@@ -26,7 +25,6 @@ export const LazyImage = memo<LazyImageProps>(
     blurSrc,
     containerClassName,
     lazy = true,
-    inViewCallback,
     draggable = false,
     ...props
   }) => {
@@ -41,7 +39,6 @@ export const LazyImage = memo<LazyImageProps>(
       onChange: (viewed: boolean) => {
         if (viewed && src) {
           const img = new Image();
-          inViewCallback?.();
           img.onload = () => {
             setImgSrc(src);
             setLoading(false);
