@@ -24,28 +24,36 @@ export const requestAtClient = async <T = any>(
 ): Promise<ApiResponse<T>> => {
   const host = process.env.CLIENT_BASE_HOST;
   const baseUrl = `${host ? `//${host}` : ''}/api`;
-  const { method = 'GET', body, query } = options;
-  const isFormData = body instanceof FormData;
-  const requestBody = isFormData ? body : JSON.stringify(body);
-  const requestHeaders = new Headers();
-  if (!isFormData) {
-    requestHeaders.set('content-type', 'application/json');
+  const { method = 'GET', query, body } = options;
+  let requestBody;
+  const headers = new Headers();
+  if (body) {
+    headers.set('content-type', 'application/json');
+    if (body instanceof FormData) {
+      requestBody = body;
+    } else {
+      requestBody = JSON.stringify(body);
+    }
   }
+
   const isValidQuery = query && Object.values(query).some((x) => !isNil(x));
-  const res = await fetch(`${baseUrl}${url}${isValidQuery ? `?${stringify(query)}` : ''}`, {
+  const queryString = isValidQuery ? `?${stringify(query)}` : '';
+  const requestUrl = `${baseUrl}${url}${queryString}`;
+  const res = await fetch(requestUrl, {
     method,
-    headers: requestHeaders,
-    mode: 'cors',
+    headers,
+    mode: host ? 'cors' : 'same-origin',
     credentials: 'include',
-    body: requestBody as BodyInit,
+    body: requestBody,
   });
+
   const json = await res.json();
   if (res.status >= 300) {
     notification.error({
-      message: `请求错误：${res.status}`,
+      message: `请求错误: ${res.status}`,
       description: json.message,
     });
-    throw new Error(json.message); // 请求异常走 onError 回调，但是问题会拿不到错误详情。
+    throw new Error(json.message); // 请求异常走 onError 回调
   }
   return json;
 };

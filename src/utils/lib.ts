@@ -8,14 +8,14 @@ export const DateTimeFormat = (date?: Date | string) => dayjs(date).format('llll
 export const TimeFormat = () => dayjs().format('HH:mm:ss');
 
 export const styles = {
-  thumbnail: '&imageMogr2/thumbnail/interlace/1/quality/30',
-  thumbnail_webp: '&imageMogr2/thumbnail/format/webp/interlace/1/quality/30',
+  thumbnail: '&imageMogr2/thumbnail/400x/interlace/1/quality/30',
+  thumbnail_webp: '&imageMogr2/thumbnail/400x/format/webp/interlace/1/quality/30',
   webp: '&imageMogr2/format/webp/interlace/1/quality/100',
   origin: '',
-  blur: '&imageMogr2/interlace/1/quality/1',
-  blur_webp: '&imageMogr2/format/webp/interlace/1/quality/1',
-  thumbnail_blur: '&imageMogr2/thumbnail/interlace/1/quality/1',
-  thumbnail_blur_webp: '&imageMogr2/thumbnail/format/webp/interlace/1/quality/1',
+  blur: '&imageMogr2/thumbnail/400x/interlace/1/quality/1',
+  blur_webp: '&imageMogr2/thumbnail/400x/format/webp/interlace/1/quality/1',
+  thumbnail_blur: '&imageMogr2/thumbnail/400x/interlace/1/quality/1',
+  thumbnail_blur_webp: '&imageMogr2/thumbnail/400x/format/webp/interlace/1/quality/1',
 };
 
 export const getCosObjectBlurUrl = (objectUrl?: string) =>

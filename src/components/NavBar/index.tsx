@@ -3,7 +3,6 @@ import React, { memo, useMemo } from 'react';
 import classNames from 'classnames';
 import { getEnumKeys } from '@powerfulyang/utils';
 import { motion } from 'framer-motion';
-import { equals } from 'ramda';
 import type { User } from '@/type/User';
 import { ProjectName } from '@/constant/Constant';
 import { useHistory } from '@/hooks/useHistory';
@@ -19,7 +18,8 @@ export enum Menu {
 }
 
 type NavBarProps = {
-  user: User;
+  nickname?: User['nickname'];
+  avatar?: User['avatar'];
 };
 
 export const login = () => {
@@ -63,37 +63,34 @@ const Menus: FC = () => {
 
 Menus.displayName = 'Menus';
 
-export const NavBar = memo<NavBarProps>(
-  ({ user }) => {
-    return (
-      <div className={styles.navPlaceholder}>
-        <nav className={styles.nav}>
-          <div className={styles.left}>
-            <div className="mx-4 hidden w-[15ch] px-3 py-1 text-xl sm:block">
-              <Link to="/" className={classNames(styles.title)}>
-                {ProjectName}
-              </Link>
-            </div>
-            <Menus />
+export const NavBar = memo<NavBarProps>(({ avatar, nickname }) => {
+  return (
+    <div className={styles.navPlaceholder}>
+      <nav className={styles.nav}>
+        <div className={styles.left}>
+          <div className="mx-4 hidden w-[15ch] px-3 py-1 text-xl sm:block">
+            <Link to="/" className={classNames(styles.title)}>
+              {ProjectName}
+            </Link>
           </div>
+          <Menus />
+        </div>
 
-          <div className={styles.user}>
-            {(user && (
-              <>
-                <span className={styles.nickname}>{user.nickname}</span>
-                <LazyImage src={user.avatar} containerClassName={styles.avatar} alt="avatar" />
-              </>
-            )) || (
-              <motion.button type="button" className="pointer" onTap={login}>
-                Login
-              </motion.button>
-            )}
-          </div>
-        </nav>
-      </div>
-    );
-  },
-  (prev, next) => equals(prev.user, next.user),
-);
+        <div className={styles.user}>
+          {(nickname && (
+            <>
+              <span className={styles.nickname}>{nickname}</span>
+              <LazyImage src={avatar} containerClassName={styles.avatar} alt="avatar" />
+            </>
+          )) || (
+            <motion.button type="button" className="pointer" onTap={login}>
+              Login
+            </motion.button>
+          )}
+        </div>
+      </nav>
+    </div>
+  );
+});
 
 NavBar.displayName = 'NavBar';

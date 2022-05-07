@@ -6,7 +6,7 @@ import type { User } from '@/type/User';
 
 type UserLayoutProps = {
   pathViewCount?: number;
-  user: User;
+  user?: User;
 };
 
 export const UserLayout: FC<PropsWithChildren<UserLayoutProps>> = ({
@@ -16,7 +16,7 @@ export const UserLayout: FC<PropsWithChildren<UserLayoutProps>> = ({
 }) => {
   return (
     <>
-      <NavBar user={user} />
+      <NavBar avatar={user?.avatar} nickname={user?.nickname} />
       {children}
       <Footer pathViewCount={pathViewCount} />
     </>

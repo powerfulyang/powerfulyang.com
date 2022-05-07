@@ -1,6 +1,5 @@
 import React, { Fragment, useMemo } from 'react';
 import type { GetServerSideProps } from 'next';
-import classNames from 'classnames';
 import { useInfiniteQuery } from 'react-query';
 import { flatten } from 'ramda';
 import { InView } from 'react-intersection-observer';
@@ -108,17 +107,21 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor, prevCursor
     <div className={styles.wrap}>
       <div className={styles.timelineShow}>
         <div className={styles.banner}>
-          <LazyAssetImage
-            asset={bannerUser.timelineBackground}
-            containerClassName={styles.bannerBg}
-            className={classNames(styles.bannerImage)}
-          />
+          {bannerUser.timelineBackground ? (
+            <LazyAssetImage
+              asset={bannerUser.timelineBackground}
+              containerClassName={styles.bannerBg}
+              alt="banner"
+            />
+          ) : (
+            <LazyImage src="/timeline-banner.webp" blurSrc="/timeline-banner-blur.webp" />
+          )}
           <div className={styles.authorInfo}>
             <LazyImage
               draggable={false}
               src={bannerUser.avatar}
               containerClassName={styles.authorAvatar}
-              alt=""
+              alt="avatar"
             />
             <div className={styles.authorNickname}>{bannerUser.nickname}</div>
             <div className={styles.authorBio}>
