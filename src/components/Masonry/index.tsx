@@ -96,7 +96,7 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
                       onChange={(inView) => {
                         inView && onLoadMore();
                       }}
-                      rootMargin="200px"
+                      rootMargin="400px"
                     >
                       {node}
                     </InView>

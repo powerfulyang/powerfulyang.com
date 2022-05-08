@@ -47,6 +47,6 @@ jobs:
           script_stop: true
           script: |
             docker pull ${{ matrix.docker-repository }}
-            cd ~/applications
+            cd ~/applications/qa
             docker-compose up -d --force-recreate qa.powerfulyang.com
             docker image prune -a -f
