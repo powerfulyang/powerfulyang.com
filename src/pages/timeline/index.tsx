@@ -114,7 +114,11 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor, prevCursor
               alt="banner"
             />
           ) : (
-            <LazyImage src="/timeline-banner.webp" blurSrc="/timeline-banner-blur.webp" />
+            <LazyImage
+              containerClassName={styles.bannerBg}
+              src="/timeline-banner.webp"
+              blurSrc="/timeline-banner-blur.webp"
+            />
           )}
           <div className={styles.authorInfo}>
             <LazyImage

@@ -1,11 +1,11 @@
-import mojs from '@mojs/core';
+import MoJs from '@mojs/core';
 import { getRandomPointInElement } from '@/utils/getRandomPointInRectangle';
 
 const DURATION = 200;
 
 // POOF
 
-const circle = new mojs.Shape({
+const circle = new MoJs.Shape({
   left: 0,
   top: 0,
   fill: 'none',
@@ -21,7 +21,7 @@ const circle = new mojs.Shape({
   isTimelineLess: true,
 });
 
-const cloud = new mojs.Burst({
+const cloud = new MoJs.Burst({
   left: 0,
   top: 0,
   radius: { 4: 49 },
@@ -39,7 +39,7 @@ const cloud = new mojs.Burst({
   },
 });
 
-const poof = new mojs.Timeline();
+const poof = new MoJs.Timeline();
 poof.add(circle, cloud);
 
 export const poofClickPlay = (e: HTMLElement) => {

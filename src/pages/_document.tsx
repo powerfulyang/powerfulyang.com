@@ -1,6 +1,8 @@
 import { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 import { ProjectName } from '@/constant/Constant';
+import Script from 'next/script';
+import { isProdProcess } from '@powerfulyang/utils';
 
 const Document = () => {
   return (
@@ -49,6 +51,24 @@ const Document = () => {
         <meta property="og:url" content="https://powerfulyang.com" />
         <meta property="og:image" content="https://powerfulyang.com/icons/apple-touch-icon.png" />
       </Head>
+      {isProdProcess && (
+        <Script
+          id="google-analytics"
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-T622M0KSVS"
+          onLoad={() => {
+            window.dataLayer = window.dataLayer || [];
+            function gtag(...rest: any[]) {
+              // @ts-ignore
+              // eslint-disable-next-line prefer-rest-params
+              window.dataLayer.push(rest);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'G-T622M0KSVS');
+          }}
+        />
+      )}
       <body>
         <Main />
         <NextScript />

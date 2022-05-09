@@ -120,7 +120,7 @@ const config = {
   },
   productionBrowserSourceMaps: isProdProcess,
   optimizeFonts: false,
-  swcMinify: false,
+  swcMinify: true,
 };
 
 export default withPlugins(

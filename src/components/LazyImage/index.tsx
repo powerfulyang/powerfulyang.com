@@ -21,7 +21,7 @@ export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
 export const LazyImage = memo<LazyImageProps>(
   ({
     src,
-    className = 'object-cover w-full',
+    className = 'object-cover w-full h-full',
     blurSrc,
     containerClassName,
     lazy = true,
@@ -62,7 +62,7 @@ export const LazyImage = memo<LazyImageProps>(
           scale: 1,
           filter: 'blur(0px)',
           transition: {
-            duration: 0.66,
+            duration: 0.5 + Math.random() * 0.5,
           },
         },
       };

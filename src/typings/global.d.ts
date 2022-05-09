@@ -1,3 +1,5 @@
-declare module '@mojs/core' {
-  export default any;
+export declare global {
+  interface Window {
+    dataLayer: any;
+  }
 }
