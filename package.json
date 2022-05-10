@@ -33,7 +33,7 @@
     "classnames": "2.3.1",
     "dayjs": "1.11.2",
     "framer-motion": "6.3.3",
-    "jotai": "1.6.5",
+    "jotai": "1.6.6",
     "monaco-editor": "0.33.0",
     "monaco-markdown": "0.0.12",
     "next": "12.1.6",
