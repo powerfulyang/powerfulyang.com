@@ -31,13 +31,13 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
   const [masonry, setMasonry] = useImmer(() => new Map<number, Array<MasonryItem>>());
   useIsomorphicLayoutEffect(() => {
     const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
-    setColNum(clientColNum);
     for (let i = 0; i < clientColNum; i++) {
       setMasonry((draft) => {
         draft.set(i, []);
       });
       rowHeight.current.set(i, 0);
     }
+    setColNum(clientColNum);
     return () => {
       rowHeight.current.clear();
       handled.current.clear();

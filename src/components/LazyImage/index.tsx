@@ -66,7 +66,7 @@ export const LazyImage = memo<LazyImageProps>(
         <span
           title="free memory"
           style={{ aspectRatio }}
-          className={classNames('block h-full w-full', {
+          className={classNames(className, 'block', {
             hidden: inView,
           })}
         />

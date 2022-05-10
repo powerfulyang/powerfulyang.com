@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type Peer from 'peerjs';
+import type { DataConnection, Peer } from 'peerjs';
 import { useImmer } from '@powerfulyang/hooks';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
@@ -18,7 +18,7 @@ const group = 'LAN';
 
 const Airdrop: LayoutFC = () => {
   const [currentPeerId, setCurrentPeerId] = useState('');
-  const [connections, setConnections] = useImmer(() => new Map<string, Peer.DataConnection>());
+  const [connections, setConnections] = useImmer(() => new Map<string, DataConnection>());
   const messageIdRef = useRef(0);
   const [messages, setMessages] = useImmer<Map<string, ChatMessageEntity[]>>(
     () => new Map([[group, []]]),
@@ -101,7 +101,7 @@ const Airdrop: LayoutFC = () => {
   );
 
   useEffect(() => {
-    const bindNewConnection = (connection: Peer.DataConnection) => {
+    const bindNewConnection = (connection: DataConnection) => {
       connection.on('open', () => {
         setConnections((d) => {
           d.set(connection.peer, connection);
