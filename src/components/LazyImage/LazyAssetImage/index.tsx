@@ -15,23 +15,17 @@ export const LazyAssetImage = memo<
     thumbnail?: boolean;
   }
 >(
-  ({ asset, style, keepAspectRatio = false, thumbnail = true, draggable = false, ...props }) => {
+  ({ asset, keepAspectRatio = false, thumbnail = true, ...props }) => {
     return (
       <LazyImage
         {...props}
-        draggable={draggable}
-        style={{
-          ...(keepAspectRatio
-            ? { aspectRatio: `${asset?.size.width} / ${asset?.size.height}` }
-            : {}),
-          ...style,
-        }}
+        aspectRatio={keepAspectRatio ? `${asset.size.width} / ${asset.size.height}` : undefined}
         src={
           thumbnail
-            ? CosUtils.getCosObjectThumbnailUrl(asset?.objectUrl)
-            : CosUtils.getCosObjectUrl(asset?.objectUrl)
+            ? CosUtils.getCosObjectThumbnailUrl(asset.objectUrl)
+            : CosUtils.getCosObjectUrl(asset.objectUrl)
         }
-        blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset?.objectUrl)}
+        blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
       />
     );
   },

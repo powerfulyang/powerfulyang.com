@@ -2,9 +2,9 @@ import React, { memo, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import type { HTMLMotionProps } from 'framer-motion';
 import { motion } from 'framer-motion';
-import { Assets } from '@powerfulyang/components';
-import { useInView } from 'react-intersection-observer';
+import { InView, useInView } from 'react-intersection-observer';
 import type { Variants } from 'framer-motion/types/types';
+import { Assets } from '@powerfulyang/components';
 import styles from './index.module.scss';
 
 export type LazyImageExtendProps = {
@@ -14,6 +14,7 @@ export type LazyImageExtendProps = {
    * 是否需要加载动画
    */
   lazy?: boolean;
+  aspectRatio?: string;
 };
 
 export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
@@ -25,7 +26,7 @@ export const LazyImage = memo<LazyImageProps>(
     blurSrc,
     containerClassName,
     lazy = true,
-    draggable = false,
+    aspectRatio,
     ...props
   }) => {
     const [loading, setLoading] = useState(lazy);
@@ -33,23 +34,9 @@ export const LazyImage = memo<LazyImageProps>(
       return lazy ? blurSrc : src;
     });
 
-    const { ref } = useInView({
-      triggerOnce: true,
-      skip: !lazy,
-      onChange: (viewed: boolean) => {
-        if (viewed && src) {
-          const img = new Image();
-          img.onload = () => {
-            setImgSrc(src);
-            setLoading(false);
-          };
-          img.onerror = () => {
-            setImgSrc(Assets.brokenImg);
-            setLoading(false);
-          };
-          img.src = src;
-        }
-      },
+    const { ref, inView } = useInView({
+      rootMargin: '400px',
+      initialInView: true,
     });
 
     const variants = useMemo<Variants>(() => {
@@ -74,24 +61,55 @@ export const LazyImage = memo<LazyImageProps>(
           containerClassName,
           'pointer isolate block select-none overflow-hidden',
         )}
+        ref={ref}
       >
-        <motion.img
-          {...props}
-          ref={ref}
-          draggable={draggable}
-          loading="lazy"
-          variants={variants}
-          initial={lazy ? 'loading' : 'loaded'}
-          animate={!loading && 'loaded'}
-          className={classNames(
-            {
-              [styles.loadedImg]: !loading,
-              [styles.loadingImg]: loading,
-            },
-            className,
-          )}
-          src={imgSrc}
+        <span
+          title="free memory"
+          style={{ aspectRatio }}
+          className={classNames('block h-full w-full', {
+            hidden: inView,
+          })}
         />
+        <InView
+          delay={100}
+          triggerOnce
+          skip={!lazy}
+          onChange={(viewed: boolean) => {
+            if (viewed && src) {
+              const img = new Image();
+              img.onload = () => {
+                setImgSrc(src);
+                setLoading(false);
+              };
+              img.onerror = () => {
+                setImgSrc(Assets.brokenImg);
+                setLoading(false);
+              };
+              img.src = src;
+            }
+          }}
+        >
+          {({ ref: imgRef }) => (
+            <motion.img
+              {...props}
+              ref={imgRef}
+              style={{ aspectRatio, ...props.style }}
+              loading="lazy"
+              variants={variants}
+              initial={lazy ? 'loading' : 'loaded'}
+              animate={!loading && 'loaded'}
+              className={classNames(
+                {
+                  [styles.loadedImg]: !loading,
+                  [styles.loadingImg]: loading,
+                  hidden: !inView,
+                },
+                className,
+              )}
+              src={imgSrc}
+            />
+          )}
+        </InView>
       </span>
     );
   },
