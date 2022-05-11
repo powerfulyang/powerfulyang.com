@@ -105,6 +105,7 @@ const config = {
     CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST,
     NEXT_PUBLIC_SENTRY_DSN:
       'https://f4e15b44f3674255b6eed1cb673c0dcb@o417744.ingest.sentry.io/6340260',
+    NEXT_PUBLIC_GA_ID: 'G-T622M0KSVS',
   },
   eslint: {
     ignoreDuringBuilds: true, // 不用自带的
@@ -119,7 +120,7 @@ const config = {
     hideSourceMaps: true,
   },
   productionBrowserSourceMaps: isProdProcess,
-  optimizeFonts: false,
+  optimizeFonts: true,
   swcMinify: true,
 };
 

@@ -1,7 +1,6 @@
 import { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 import { ProjectName } from '@/constant/Constant';
-import { isProdProcess } from '@powerfulyang/utils';
 
 const Document = () => {
   return (
@@ -10,10 +9,6 @@ const Document = () => {
         <link rel="preload" href="/zpix.woff" as="font" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <meta name="application-name" content={ProjectName} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -50,13 +45,6 @@ const Document = () => {
         <meta property="og:url" content="https://powerfulyang.com" />
         <meta property="og:image" content="https://powerfulyang.com/icons/apple-touch-icon.png" />
       </Head>
-      {isProdProcess && (
-        <script
-          id="google-analytics"
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-T622M0KSVS"
-        />
-      )}
       <body>
         <Main />
         <NextScript />

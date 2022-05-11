@@ -12,7 +12,8 @@ RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN \
     && apk del tzdata \
     && npm ci --quiet \
     && SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) npm run build \
-#    && npm prune --omit=dev \ 由于 Next.JS 的 optimizeFonts 功能有 BUG，所以暂时不能 prune
+    && rm -rf next.config.mjs \
+    && npm prune --omit=dev \
     && npm cache clean --force
 
 CMD npm run start

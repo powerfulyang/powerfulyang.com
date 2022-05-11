@@ -5,5 +5,6 @@ declare namespace NodeJS {
 
     API_ENV: string;
     NEXT_PUBLIC_SENTRY_DSN: string;
+    NEXT_PUBLIC_GA_ID: string;
   }
 }

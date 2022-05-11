@@ -28,10 +28,10 @@ export const requestAtClient = async <T = any>(
   let requestBody;
   const headers = new Headers();
   if (body) {
-    headers.set('content-type', 'application/json');
     if (body instanceof FormData) {
       requestBody = body;
     } else {
+      headers.set('content-type', 'application/json');
       requestBody = JSON.stringify(body);
     }
   }
