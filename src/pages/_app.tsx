@@ -32,6 +32,7 @@ const App = ({ Component, pageProps }: AppProps & Props) => {
     }
     return () => {};
   }, [router.events]);
+
   return (
     <GlobalContextProvider>
       <Header title={pageProps.title} />

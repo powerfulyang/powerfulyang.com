@@ -6,7 +6,6 @@ import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { requestAtClient } from '@/utils/client';
 import type { Asset } from '@/type/Asset';
-import { getCurrentUser } from '@/service/getCurrentUser';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { ImagePreview } from '@/components/ImagePreview';
@@ -80,8 +79,11 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
               tabIndex={index}
               title={`${asset.id}`}
               asset={asset}
+              initialInView={index < 20}
               containerClassName="rounded-lg shadow-lg"
               keepAspectRatio
+              triggerOnce={false}
+              draggable={false}
             />
           ))}
         </Masonry>
@@ -94,11 +96,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const res = await requestAtServer('/public/asset', {
     ctx,
     query: {
-      take: 30,
+      take: 20,
     },
   });
   const { data, pathViewCount } = await res.json();
-  const user = await getCurrentUser(ctx);
   return {
     props: {
       assets: data.resources,
@@ -106,18 +107,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       prevCursor: data.prevCursor,
       pathViewCount,
       title: '图片墙',
-      user,
     },
   };
 };
 
 Gallery.getLayout = (page) => {
-  const { pathViewCount, user } = page.props;
-  return (
-    <UserLayout user={user} pathViewCount={pathViewCount}>
-      {page}
-    </UserLayout>
-  );
+  const { pathViewCount } = page.props;
+  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
 };
 
 export default Gallery;

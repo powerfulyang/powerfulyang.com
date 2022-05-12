@@ -3,10 +3,10 @@ import React, { memo, useMemo } from 'react';
 import classNames from 'classnames';
 import { getEnumKeys } from '@powerfulyang/utils';
 import { motion } from 'framer-motion';
-import type { User } from '@/type/User';
 import { ProjectName } from '@/constant/Constant';
 import { useHistory } from '@/hooks/useHistory';
 import { LazyImage } from '@/components/LazyImage';
+import { useUser } from '@/hooks/useUser';
 import styles from './index.module.scss';
 import { Link } from '../Link';
 
@@ -17,10 +17,7 @@ export enum Menu {
   airdrop,
 }
 
-type NavBarProps = {
-  nickname?: User['nickname'];
-  avatar?: User['avatar'];
-};
+type NavBarProps = {};
 
 export const login = () => {
   const { href } = window.location;
@@ -63,7 +60,8 @@ const Menus: FC = () => {
 
 Menus.displayName = 'Menus';
 
-export const NavBar = memo<NavBarProps>(({ avatar, nickname }) => {
+export const NavBar = memo<NavBarProps>(() => {
+  const user = useUser();
   return (
     <div className={styles.navPlaceholder}>
       <nav className={styles.nav}>
@@ -77,10 +75,10 @@ export const NavBar = memo<NavBarProps>(({ avatar, nickname }) => {
         </div>
 
         <div className={styles.user}>
-          {(nickname && (
+          {(user && (
             <>
-              <span className={styles.nickname}>{nickname}</span>
-              <LazyImage src={avatar} containerClassName={styles.avatar} alt="avatar" />
+              <span className={styles.nickname}>{user.nickname}</span>
+              <LazyImage src={user.avatar} containerClassName={styles.avatar} alt="avatar" />
             </>
           )) || (
             <motion.button type="button" className="pointer" onTap={login}>

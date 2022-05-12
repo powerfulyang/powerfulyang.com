@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo, startTransition, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import type { HTMLMotionProps } from 'framer-motion';
 import { motion } from 'framer-motion';
@@ -15,6 +15,8 @@ export type LazyImageExtendProps = {
    */
   lazy?: boolean;
   aspectRatio?: string;
+  initialInView?: boolean;
+  triggerOnce?: boolean;
 };
 
 export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
@@ -27,6 +29,8 @@ export const LazyImage = memo<LazyImageProps>(
     containerClassName,
     lazy = true,
     aspectRatio,
+    initialInView = true,
+    triggerOnce = true,
     ...props
   }) => {
     const [loading, setLoading] = useState(lazy);
@@ -36,7 +40,8 @@ export const LazyImage = memo<LazyImageProps>(
 
     const { ref, inView } = useInView({
       rootMargin: '400px',
-      initialInView: true,
+      initialInView,
+      triggerOnce,
     });
 
     const variants = useMemo<Variants>(() => {
@@ -60,56 +65,56 @@ export const LazyImage = memo<LazyImageProps>(
         className={classNames(
           containerClassName,
           'pointer isolate block select-none overflow-hidden',
+          { 'w-full': !inView },
         )}
+        style={{ aspectRatio: !inView ? aspectRatio : 'auto' }}
         ref={ref}
       >
-        <span
-          title="free memory"
-          style={{ aspectRatio }}
-          className={classNames(className, 'block', {
-            hidden: inView,
-          })}
-        />
-        <InView
-          delay={100}
-          triggerOnce
-          skip={!lazy}
-          onChange={(viewed: boolean) => {
-            if (viewed && src) {
-              const img = new Image();
-              img.onload = () => {
-                setImgSrc(src);
-                setLoading(false);
-              };
-              img.onerror = () => {
-                setImgSrc(Assets.brokenImg);
-                setLoading(false);
-              };
-              img.src = src;
-            }
-          }}
-        >
-          {({ ref: imgRef }) => (
-            <motion.img
-              {...props}
-              ref={imgRef}
-              style={{ aspectRatio, ...props.style }}
-              loading="lazy"
-              variants={variants}
-              initial={lazy ? 'loading' : 'loaded'}
-              animate={!loading && 'loaded'}
-              className={classNames(
-                {
-                  [styles.loadedImg]: !loading,
-                  [styles.loadingImg]: loading,
-                  hidden: !inView,
-                },
-                className,
-              )}
-              src={imgSrc}
-            />
-          )}
-        </InView>
+        {inView && (
+          <InView
+            delay={100}
+            triggerOnce
+            skip={!lazy}
+            onChange={(viewed: boolean) => {
+              if (viewed && src) {
+                const img = new Image();
+                img.onload = () => {
+                  startTransition(() => {
+                    setImgSrc(src);
+                    setLoading(false);
+                  });
+                };
+                img.onerror = () => {
+                  startTransition(() => {
+                    setImgSrc(Assets.brokenImg);
+                    setLoading(false);
+                  });
+                };
+                img.src = src;
+              }
+            }}
+          >
+            {({ ref: imgRef }) => (
+              <motion.img
+                {...props}
+                ref={imgRef}
+                style={{ aspectRatio, ...props.style }}
+                loading="lazy"
+                variants={variants}
+                initial={lazy ? 'loading' : 'loaded'}
+                animate={!loading && 'loaded'}
+                className={classNames(
+                  {
+                    [styles.loadedImg]: !loading,
+                    [styles.loadingImg]: loading,
+                  },
+                  className,
+                )}
+                src={imgSrc}
+              />
+            )}
+          </InView>
+        )}
       </span>
     );
   },

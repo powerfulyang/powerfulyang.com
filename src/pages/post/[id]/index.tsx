@@ -6,7 +6,6 @@ import type { Post } from '@/type/Post';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
-import { getCurrentUser } from '@/service/getCurrentUser';
 import { MarkdownToc } from '@/components/MarkdownContainer/Toc';
 import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
@@ -39,12 +38,8 @@ const PostDetail: LayoutFC<PostProps> = ({ data }) => {
 };
 
 PostDetail.getLayout = (page) => {
-  const { pathViewCount, user } = page.props;
-  return (
-    <UserLayout user={user} pathViewCount={pathViewCount}>
-      {page}
-    </UserLayout>
-  );
+  const { pathViewCount } = page.props;
+  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -53,10 +48,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   } = ctx;
   const res = await requestAtServer(`/public/post/${id as string}`, { ctx });
   const { data, pathViewCount } = await res.json();
-  const user = await getCurrentUser(ctx);
 
   return {
-    props: { data, pathViewCount, title: data.title, user },
+    props: { data, pathViewCount, title: data.title },
   };
 };
 
