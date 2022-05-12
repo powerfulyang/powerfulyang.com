@@ -8,7 +8,6 @@ import type { Post } from '@/type/Post';
 import { Link } from '@/components/Link';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
-import { getCurrentUser } from '@/service/getCurrentUser';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { DateTimeFormat } from '@/utils/lib';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
@@ -222,12 +221,8 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
 };
 
 Index.getLayout = (page) => {
-  const { pathViewCount, user } = page.props;
-  return (
-    <UserLayout user={user} pathViewCount={pathViewCount}>
-      {page}
-    </UserLayout>
-  );
+  const { pathViewCount } = page.props;
+  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -242,7 +237,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     query: { publishYear: year },
   });
   const { data, pathViewCount } = await res.json();
-  const user = await getCurrentUser(ctx);
   return {
     props: {
       pathViewCount,
@@ -250,7 +244,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       posts: data,
       year,
       title: '日志',
-      user,
     },
   };
 };

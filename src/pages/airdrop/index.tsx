@@ -3,8 +3,6 @@ import type { DataConnection, Peer } from 'peerjs';
 import { useImmer } from '@powerfulyang/hooks';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
-import type { GetServerSideProps } from 'next';
-import { getCurrentUser } from '@/service/getCurrentUser';
 import type { SentMessage } from '@/components/Chat';
 import { Chat, sendFileMessage } from '@/components/Chat';
 import classNames from 'classnames';
@@ -214,15 +212,7 @@ const Airdrop: LayoutFC = () => {
 };
 
 Airdrop.getLayout = (page) => {
-  const { user } = page.props;
-  return <UserLayout user={user}>{page}</UserLayout>;
-};
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const user = await getCurrentUser(ctx);
-  return {
-    props: { user },
-  };
+  return <UserLayout>{page}</UserLayout>;
 };
 
 export default Airdrop;

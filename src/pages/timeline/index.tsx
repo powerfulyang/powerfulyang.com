@@ -7,25 +7,23 @@ import { UserLayout } from '@/layout/UserLayout';
 import { requestAtClient } from '@/utils/client';
 import type { Feed } from '@/type/Feed';
 import type { LayoutFC } from '@/type/GlobalContext';
-import type { User } from '@/type/User';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import { getCurrentUser } from '@/service/getCurrentUser';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { requestAtServer } from '@/utils/server';
 import { TimeLineItem } from '@/components/Timeline/TimeLineItem';
 import { TimeLineForm } from '@/components/Timeline/TimeLineForm';
 import { LazyImage } from '@/components/LazyImage';
 import { isEmpty, lastItem } from '@powerfulyang/utils';
+import { useUser } from '@/hooks/useUser';
 import styles from './index.module.scss';
 
 type TimelineProps = {
   feeds: Feed[];
-  user?: User;
   nextCursor: number;
   prevCursor: number;
 };
 
-const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor, prevCursor }) => {
+const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) => {
   const { data, fetchNextPage, fetchPreviousPage, hasPreviousPage } = useInfiniteQuery(
     ['feeds', feeds, nextCursor, prevCursor],
     async ({ pageParam }) => {
@@ -64,7 +62,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor, prevCursor
       },
     },
   );
-
+  const user = useUser();
   const bannerUser = useMemo(() => {
     return user || feeds[0]?.createBy || {};
   }, [user, feeds]);
@@ -94,11 +92,11 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor, prevCursor
                   }}
                 </InView>
               ) : (
-                <div className={styles.footer}>No More!</div>
+                <div className={styles.footer}>已经到达世界的尽头...</div>
               ))}
           </Fragment>
         ))}
-        {isEmpty(res) && <div className={styles.footer}>No Content!</div>}
+        {isEmpty(res) && <div className={styles.footer}>这里只有一片虚无...</div>}
       </div>
     );
   }, [data?.pages, fetchPreviousPage, hasPreviousPage]);
@@ -141,12 +139,8 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, user, nextCursor, prevCursor
 };
 
 Timeline.getLayout = (page) => {
-  const { pathViewCount, user } = page.props;
-  return (
-    <UserLayout user={user} pathViewCount={pathViewCount}>
-      {page}
-    </UserLayout>
-  );
+  const { pathViewCount } = page.props;
+  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -156,7 +150,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       size: 10,
     },
   });
-  const user = await getCurrentUser(ctx);
   const { data, pathViewCount } = await res.json();
   return {
     props: {
@@ -164,7 +157,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       nextCursor: data.nextCursor,
       prevCursor: data.prevCursor,
       pathViewCount,
-      user,
       title: '说说',
     },
   };
