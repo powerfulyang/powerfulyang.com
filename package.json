@@ -37,7 +37,7 @@
     "monaco-editor": "0.33.0",
     "monaco-markdown": "0.0.12",
     "next": "12.1.6",
-    "peerjs": "1.4.3",
+    "peerjs": "1.4.4",
     "ramda": "0.28.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
