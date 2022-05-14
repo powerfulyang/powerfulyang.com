@@ -80,7 +80,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
               title={`${asset.id}`}
               asset={asset}
               initialInView={index < 20}
-              containerClassName="rounded-lg shadow-lg"
+              containerClassName="rounded-lg shadow-lg contain-strict"
               keepAspectRatio
               triggerOnce={false}
               draggable={false}
@@ -96,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const res = await requestAtServer('/public/asset', {
     ctx,
     query: {
-      take: 20,
+      take: 20000,
     },
   });
   const { data, pathViewCount } = await res.json();

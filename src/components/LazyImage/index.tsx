@@ -1,4 +1,4 @@
-import React, { memo, startTransition, useMemo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import type { HTMLMotionProps } from 'framer-motion';
 import { motion } from 'framer-motion';
@@ -64,10 +64,9 @@ export const LazyImage = memo<LazyImageProps>(
       <span
         className={classNames(
           containerClassName,
-          'pointer isolate block select-none overflow-hidden',
-          { 'w-full': !inView },
+          'pointer isolate block w-full select-none overflow-hidden',
         )}
-        style={{ aspectRatio: !inView ? aspectRatio : 'auto' }}
+        style={{ aspectRatio }}
         ref={ref}
       >
         {inView && (
@@ -79,16 +78,12 @@ export const LazyImage = memo<LazyImageProps>(
               if (viewed && src) {
                 const img = new Image();
                 img.onload = () => {
-                  startTransition(() => {
-                    setImgSrc(src);
-                    setLoading(false);
-                  });
+                  setImgSrc(src);
+                  setLoading(false);
                 };
                 img.onerror = () => {
-                  startTransition(() => {
-                    setImgSrc(Assets.brokenImg);
-                    setLoading(false);
-                  });
+                  setImgSrc(Assets.brokenImg);
+                  setLoading(false);
                 };
                 img.src = src;
               }
@@ -98,7 +93,7 @@ export const LazyImage = memo<LazyImageProps>(
               <motion.img
                 {...props}
                 ref={imgRef}
-                style={{ aspectRatio, ...props.style }}
+                style={{ ...props.style }}
                 loading="lazy"
                 variants={variants}
                 initial={lazy ? 'loading' : 'loaded'}
