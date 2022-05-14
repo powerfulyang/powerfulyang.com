@@ -7,6 +7,6 @@
   .post {
     box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
     width: min(900px, 100%);
-    @apply rounded-lg px-6 pt-16 pb-8 sm:px-12 sm:pt-20;
+    @apply rounded-lg sm:px-12 sm:pt-20;
   }
 }

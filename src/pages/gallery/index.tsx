@@ -96,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const res = await requestAtServer('/public/asset', {
     ctx,
     query: {
-      take: 20000,
+      take: 20,
     },
   });
   const { data, pathViewCount } = await res.json();

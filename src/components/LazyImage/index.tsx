@@ -21,6 +21,8 @@ export type LazyImageExtendProps = {
 
 export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
 
+const LOADED_IMAGE_URLS = new Set<string | undefined>();
+
 export const LazyImage = memo<LazyImageProps>(
   ({
     src,
@@ -33,8 +35,14 @@ export const LazyImage = memo<LazyImageProps>(
     triggerOnce = true,
     ...props
   }) => {
-    const [loading, setLoading] = useState(lazy);
+    const [loading, setLoading] = useState(() => {
+      const isLocalData = src?.startsWith('data:') || src?.startsWith('blob:');
+      return lazy && !isLocalData && !LOADED_IMAGE_URLS.has(src);
+    });
     const [imgSrc, setImgSrc] = useState(() => {
+      if (src && lazy) {
+        return LOADED_IMAGE_URLS.has(src) ? src : blurSrc;
+      }
       return lazy ? blurSrc : src;
     });
 
@@ -73,11 +81,12 @@ export const LazyImage = memo<LazyImageProps>(
           <InView
             delay={100}
             triggerOnce
-            skip={!lazy}
+            skip={!loading}
             onChange={(viewed: boolean) => {
               if (viewed && src) {
                 const img = new Image();
                 img.onload = () => {
+                  LOADED_IMAGE_URLS.add(src);
                   setImgSrc(src);
                   setLoading(false);
                 };
@@ -96,7 +105,7 @@ export const LazyImage = memo<LazyImageProps>(
                 style={{ ...props.style }}
                 loading="lazy"
                 variants={variants}
-                initial={lazy ? 'loading' : 'loaded'}
+                initial={loading ? 'loading' : 'loaded'}
                 animate={!loading && 'loaded'}
                 className={classNames(
                   {

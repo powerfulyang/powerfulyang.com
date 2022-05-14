@@ -12,7 +12,7 @@ $main-color: #ffb356;
     linear-gradient(360deg, rgb(50 0 0 / 5%) 3%, rgb(0 0 0 / 0%) 3%);
   background-position: center center;
   background-size: 20px 20px;
-  @apply box-border px-8 py-10;
+  @apply box-border px-6 py-10;
 
   .main-color {
     color: $main-color;
@@ -200,7 +200,7 @@ $main-color: #ffb356;
 
   p {
     line-height: 2rem;
-    @apply cursor-text;
+    @apply cursor-text whitespace-pre-wrap;
   }
 
   strong {
@@ -267,13 +267,16 @@ $main-color: #ffb356;
   }
 
   ol {
-    padding-left: 3em;
+    padding-inline-start: 2.5em;
     @apply block cursor-text list-decimal;
 
     li {
       display: list-item;
 
       &::marker {
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC,
+          Hiragino Sans GB, Source Han Sans SC, Noto Sans CJK SC, Microsoft YaHei,
+          WenQuanYi Micro Hei, WenQuanYi Zen Hei, Helvetica Neue, Arial, sans-serif;
         @apply text-blue-400;
       }
     }
@@ -281,13 +284,12 @@ $main-color: #ffb356;
 
   ul {
     display: block;
-    padding-left: 2em;
+    padding-inline-start: 2em;
     list-style-type: disc;
     cursor: text;
 
     li {
       display: list-item;
-      padding-left: 1em;
 
       &::marker {
         color: $heading-color;
@@ -296,14 +298,14 @@ $main-color: #ffb356;
 
     &.contains-task-list {
       list-style-type: none;
-      padding-left: 0;
+      padding-inline-start: 1em;
 
       li {
         display: flex;
         align-items: center;
 
         input {
-          margin-right: 1em;
+          margin-right: 0.5em;
         }
       }
     }
