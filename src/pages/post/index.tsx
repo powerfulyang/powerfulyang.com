@@ -102,7 +102,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
         <main className={styles.main}>
           <div className={classNames(styles.years)} role="tablist">
             {years.map((x, i) => (
-              <Link key={x} to={`?year=${x}`}>
+              <Link key={x} href={`?year=${x}`}>
                 <span
                   role="tab"
                   tabIndex={i}

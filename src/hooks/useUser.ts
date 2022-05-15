@@ -1,10 +1,26 @@
 import type { User } from '@/type/User';
-import { atom, useAtom } from 'jotai';
-import type { Nullable } from '@powerfulyang/utils';
+import { useQuery } from 'react-query';
+import { requestAtClient } from '@/utils/client';
 
-export const UserAtom = atom<Nullable<User>>(null);
+export const useUser = (enabled: boolean = false) => {
+  const {
+    isFetching,
+    data: user,
+    refetch,
+  } = useQuery({
+    queryKey: 'fetch-user',
+    enabled,
+    queryFn: async () => {
+      try {
+        const result = await requestAtClient<User>('/user/current', { notificationOnError: false });
+        return result.data;
+      } catch {
+        return null;
+      }
+    },
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
 
-export const useUser = () => {
-  const [user] = useAtom(UserAtom);
-  return user;
+  return { isFetching, user, refetch };
 };

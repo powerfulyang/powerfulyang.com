@@ -103,7 +103,7 @@ export const LazyImage = memo<LazyImageProps>(
                 {...props}
                 ref={imgRef}
                 style={{ ...props.style }}
-                loading="lazy"
+                loading={loading ? 'lazy' : 'eager'}
                 variants={variants}
                 initial={loading ? 'loading' : 'loaded'}
                 animate={!loading && 'loaded'}

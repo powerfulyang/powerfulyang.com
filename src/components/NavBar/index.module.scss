@@ -17,23 +17,6 @@
   box-shadow: 0 0 20px 10px rgb(160 44 219 / 7%);
   backdrop-filter: blur(5px);
 
-  .user {
-    @apply mr-4 flex items-center text-pink-400;
-
-    .nickname {
-      display: none;
-      @apply text-pink-400;
-      @screen md {
-        display: block;
-      }
-    }
-
-    .avatar {
-      width: 2.5rem;
-      @apply mx-4 rounded-full;
-    }
-  }
-
   .title {
     position: relative;
     display: block;

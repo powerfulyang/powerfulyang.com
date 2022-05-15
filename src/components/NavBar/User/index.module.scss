@@ -1,0 +1,15 @@
+.user {
+  @apply pointer flex items-center text-pink-400;
+
+  .nickname {
+    display: none;
+    @screen md {
+      display: block;
+    }
+  }
+
+  .avatar {
+    width: 2.5rem;
+    @apply mx-4 rounded-full;
+  }
+}

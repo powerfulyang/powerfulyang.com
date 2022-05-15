@@ -5,8 +5,7 @@ import { getEnumKeys } from '@powerfulyang/utils';
 import { motion } from 'framer-motion';
 import { ProjectName } from '@/constant/Constant';
 import { useHistory } from '@/hooks/useHistory';
-import { LazyImage } from '@/components/LazyImage';
-import { useUser } from '@/hooks/useUser';
+import { NavBarUser } from '@/components/NavBar/User';
 import styles from './index.module.scss';
 import { Link } from '../Link';
 
@@ -14,16 +13,9 @@ export enum Menu {
   post,
   timeline,
   gallery,
-  airdrop,
 }
 
 type NavBarProps = {};
-
-export const login = () => {
-  const { href } = window.location;
-  // 前往中央登录中心
-  window.location.href = `https://admin.powerfulyang.com/user/login?redirect=${encodeURI(href)}`;
-};
 
 const Menus: FC = () => {
   const { pathname } = useHistory();
@@ -44,7 +36,7 @@ const Menus: FC = () => {
                 },
                 styles.menu,
               )}
-              to={`/${x}`}
+              href={`/${x}`}
             >
               {x}
             </Link>
@@ -61,31 +53,18 @@ const Menus: FC = () => {
 Menus.displayName = 'Menus';
 
 export const NavBar = memo<NavBarProps>(() => {
-  const user = useUser();
   return (
     <div className={styles.navPlaceholder}>
       <nav className={styles.nav}>
         <div className={styles.left}>
           <div className="mx-4 hidden w-[15ch] px-3 py-1 text-xl sm:block">
-            <Link to="/" className={classNames(styles.title)}>
+            <Link href="/" className={classNames(styles.title)}>
               {ProjectName}
             </Link>
           </div>
           <Menus />
         </div>
-
-        <div className={styles.user}>
-          {(user && (
-            <>
-              <span className={styles.nickname}>{user.nickname}</span>
-              <LazyImage src={user.avatar} containerClassName={styles.avatar} alt="avatar" />
-            </>
-          )) || (
-            <motion.button type="button" className="pointer" onTap={login}>
-              Login
-            </motion.button>
-          )}
-        </div>
+        <NavBarUser />
       </nav>
     </div>
   );

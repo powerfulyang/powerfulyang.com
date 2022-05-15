@@ -7,6 +7,7 @@ export type RequestOptions = {
   ctx: Parameters<GetServerSideProps>[0];
   body?: Record<string, any> | FormData;
   query?: Record<string, any>;
+  notificationOnError?: boolean;
 };
 
 export const stringify = (query: RequestOptions['query']) =>
@@ -24,7 +25,7 @@ export const requestAtClient = async <T = any>(
 ): Promise<ApiResponse<T>> => {
   const host = process.env.CLIENT_BASE_HOST;
   const baseUrl = `${host ? `//${host}` : ''}/api`;
-  const { method = 'GET', query, body } = options;
+  const { method = 'GET', query, body, notificationOnError = true } = options;
   let requestBody;
   const headers = new Headers();
   if (body) {
@@ -49,10 +50,12 @@ export const requestAtClient = async <T = any>(
 
   const json = await res.json();
   if (res.status >= 300) {
-    notification.error({
-      message: `请求错误: ${res.status}`,
-      description: json.message,
-    });
+    if (notificationOnError) {
+      notification.error({
+        message: `请求错误: ${res.status}`,
+        description: json.message,
+      });
+    }
     throw new Error(json.message); // 请求异常走 onError 回调
   }
   return json;

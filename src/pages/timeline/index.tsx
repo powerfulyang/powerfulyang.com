@@ -62,7 +62,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
       },
     },
   );
-  const user = useUser();
+  const { user } = useUser();
   const bannerUser = useMemo(() => {
     return user || feeds[0]?.createBy || {};
   }, [user, feeds]);

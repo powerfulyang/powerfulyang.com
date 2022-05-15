@@ -6,6 +6,7 @@ import { Header } from '@/components/Head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { isProdProcess } from '@powerfulyang/utils';
+import { Redirecting } from '@/components/Redirecting';
 
 type Props = {
   Component: AppProps['Component'] & { getLayout: any };
@@ -36,6 +37,7 @@ const App = ({ Component, pageProps }: AppProps & Props) => {
   return (
     <GlobalContextProvider>
       <Header title={pageProps.title} />
+      <Redirecting />
       {isProdProcess && (
         <>
           <Script
