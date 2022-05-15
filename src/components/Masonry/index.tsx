@@ -4,6 +4,7 @@ import React, {
   cloneElement,
   Fragment,
   startTransition,
+  useCallback,
   useContext,
   useEffect,
   useId,
@@ -14,6 +15,8 @@ import { useImmer } from '@powerfulyang/hooks';
 import type { Asset } from '@/type/Asset';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import { InView } from 'react-intersection-observer';
+import { fromEvent } from 'rxjs';
+import { flushSync } from 'react-dom';
 
 type MasonryItem = ReactElement<{ asset: Asset; tabIndex: number; onClick: () => void }>;
 
@@ -33,28 +36,51 @@ export type MasonryProps = {
 };
 
 const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
+  const id = useId();
   const rowHeight = useRef(new Map<number, number>());
   const handled = useRef(new Set<number>());
   const [masonry, setMasonry] = useImmer(() => new Map<number, Array<MasonryItem>>());
-  useEffect(() => {
-    const heightRef = rowHeight.current;
-    const handledRef = handled.current;
-    const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
 
+  const init = useCallback(() => {
+    const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
+    flushSync(() => {
+      rowHeight.current.clear();
+      handled.current.clear();
+      setMasonry((draft) => {
+        draft.clear();
+      });
+    });
+    setTimeout(() => {
+      setMasonry((draft) => {
+        for (let i = 0; i < clientColNum; i++) {
+          draft.set(i, []);
+          rowHeight.current.set(i, 0);
+        }
+      });
+    });
+  }, [setMasonry]);
+
+  useEffect(() => {
+    const subscribe = fromEvent(window, 'resize').subscribe(() => {
+      init();
+    });
+    return () => {
+      subscribe.unsubscribe();
+    };
+  }, [init, setMasonry]);
+
+  useEffect(() => {
+    handled.current.clear();
+    rowHeight.current.clear();
+    const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
     setMasonry((draft) => {
+      draft.clear();
       for (let i = 0; i < clientColNum; i++) {
         draft.set(i, []);
         rowHeight.current.set(i, 0);
       }
     });
-
-    return () => {
-      heightRef.clear();
-      handledRef.clear();
-    };
   }, [setMasonry]);
-
-  const id = useId();
 
   useEffect(() => {
     const container = document.getElementById(id);
@@ -77,21 +103,23 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
           draft.get(minHeightKey)?.push(child);
         }
       };
-      children.forEach((child, index) => {
-        // 首屏或者待处理少于20
-        if (index < 20 || children.length - handled.current.size < 20) {
-          // 谢绝白屏
+      if (children.length - handled.current.size > 20) {
+        const head = children.slice(0, 20);
+        setMasonry((draft) => {
+          head.forEach((child) => handle(draft, child));
+        });
+        // 缓一缓加载
+        startTransition(() => {
+          const tail = children.slice(20);
           setMasonry((draft) => {
-            handle(draft, child);
+            tail.forEach((child) => handle(draft, child));
           });
-        } else {
-          startTransition(() => {
-            setMasonry((draft) => {
-              handle(draft, child);
-            });
-          });
-        }
-      });
+        });
+      } else {
+        setMasonry((draft) => {
+          children.forEach((child) => handle(draft, child));
+        });
+      }
     }
   }, [children, setMasonry, masonry.size, id]);
 
