@@ -50,7 +50,7 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
         draft.clear();
       });
     });
-    setTimeout(() => {
+    startTransition(() => {
       setMasonry((draft) => {
         for (let i = 0; i < clientColNum; i++) {
           draft.set(i, []);
@@ -61,8 +61,11 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
   }, [setMasonry]);
 
   useEffect(() => {
-    const subscribe = fromEvent(window, 'resize').subscribe(() => {
-      init();
+    const subscribe = fromEvent<UIEvent>(window, 'resize').subscribe(() => {
+      const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
+      if (clientColNum !== rowHeight.current.size) {
+        init();
+      }
     });
     return () => {
       subscribe.unsubscribe();
