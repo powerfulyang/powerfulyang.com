@@ -81,5 +81,5 @@ export const NavBarUser = () => {
       </button>
     );
   }, [logout, user]);
-  return isFetching ? <span className="pr-4 text-pink-400">Loading...</span> : Component;
+  return isFetching && !user ? <span className="pr-4 text-pink-400">Loading...</span> : Component;
 };

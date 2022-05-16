@@ -37,19 +37,39 @@ export const LazyImage = memo<LazyImageProps>(
   }) => {
     const [loading, setLoading] = useState(() => {
       const isLocalData = src?.startsWith('data:') || src?.startsWith('blob:');
-      return lazy && !isLocalData && !LOADED_IMAGE_URLS.has(src);
+      if (lazy) {
+        // local data 不需要加载动画
+        if (isLocalData) {
+          return false;
+        }
+        // 加载过的图片且 triggerOnce 为 true 不需要加载动画
+        return !(LOADED_IMAGE_URLS.has(src) && triggerOnce);
+      }
+      return false;
     });
     const [imgSrc, setImgSrc] = useState(() => {
-      if (src && lazy) {
+      if (src && lazy && triggerOnce) {
         return LOADED_IMAGE_URLS.has(src) ? src : blurSrc;
       }
-      return lazy ? blurSrc : src;
+      if (src && lazy && !triggerOnce) {
+        return blurSrc;
+      }
+      if (src && !lazy) {
+        return src;
+      }
+      return blurSrc || Assets.brokenImg;
     });
 
     const { ref, inView } = useInView({
       rootMargin: '400px',
       initialInView,
       triggerOnce,
+      onChange: (viewed) => {
+        if (!viewed && !triggerOnce) {
+          setLoading(true);
+          setImgSrc(blurSrc);
+        }
+      },
     });
 
     const variants = useMemo<Variants>(() => {
