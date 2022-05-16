@@ -3,18 +3,16 @@ import { motion } from 'framer-motion';
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Assets } from '@powerfulyang/components';
 import styles from '@/components/ImagePreview/ImagePreviewModal/content.module.scss';
-import type { Asset } from '@/type/Asset';
-import { CosUtils } from '@/utils/lib';
+import type { ImagePreviewItem } from '@/components/ImagePreview';
 
 type ImageModalProps = {
-  asset: Asset;
   selectIndex: number;
   index: number;
   actionRef: any;
   destroy: () => void;
   x: number;
   y: number;
-};
+} & ImagePreviewItem;
 
 type Custom = {
   isPrev: boolean;
@@ -28,13 +26,13 @@ type Custom = {
 };
 
 export const ImageModal = memo<ImageModalProps>(
-  ({ asset, selectIndex, index, actionRef, destroy, x, y }) => {
-    const [url, setUrl] = useState(() => CosUtils.getCosObjectThumbnailUrl(asset.objectUrl));
+  ({ selectIndex, index, actionRef, destroy, x, y, ...rest }) => {
+    const [url, setUrl] = useState(() => rest.thumbnail || rest.original);
     const [loaded, setLoaded] = useState(false);
     const [animated, setAnimated] = useState(false);
 
     useEffect(() => {
-      const originUrl = CosUtils.getCosObjectUrl(asset.objectUrl);
+      const originUrl = rest.original;
       if (originUrl) {
         const img = new Image();
         img.src = originUrl;
@@ -46,13 +44,13 @@ export const ImageModal = memo<ImageModalProps>(
           setUrl(Assets.brokenImg);
         };
       }
-    }, [asset]);
+    }, [rest.original]);
 
     useEffect(() => {
       if (animated && loaded && url !== Assets.brokenImg) {
-        setUrl(CosUtils.getCosObjectUrl(asset.objectUrl));
+        setUrl(rest.original);
       }
-    }, [animated, asset.objectUrl, loaded, url]);
+    }, [animated, loaded, rest.original, url]);
 
     const realIndex = selectIndex === 0 ? selectIndex + index : selectIndex - 1 + index;
     const isPrev = selectIndex > realIndex;
@@ -68,10 +66,9 @@ export const ImageModal = memo<ImageModalProps>(
         ? window.visualViewport.width
         : window.visualViewport.width - 70 * 2;
       return (
-        window.visualViewport.height / width >
-        Number(asset?.size.height) / Number(asset?.size.width)
+        window.visualViewport.height / width > Number(rest.size?.height) / Number(rest.size?.width)
       );
-    }, [asset?.size.height, asset?.size.width, isSmallScreen]);
+    }, [rest.size, isSmallScreen]);
 
     const variants = useMemo(
       () => ({
@@ -157,7 +154,7 @@ export const ImageModal = memo<ImageModalProps>(
           'h-full': !isWider,
         })}
         src={url}
-        alt={asset.comment}
+        alt=""
         draggable={false}
         onClick={(e) => e.stopPropagation()}
       />

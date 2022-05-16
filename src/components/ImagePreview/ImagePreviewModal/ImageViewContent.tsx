@@ -204,12 +204,12 @@ export const ImageViewContent: FC<ImageViewContentProps> = () => {
             open &&
             images
               .slice(Math.max(0, selectIndex - 1), Math.min(selectIndex + 2, images.length + 1))
-              .map((asset, index) => {
+              .map((item, index) => {
                 return (
                   <ImageModal
-                    key={asset.id}
+                    {...item}
+                    key={item.id}
                     actionRef={actionRef}
-                    asset={asset}
                     selectIndex={selectIndex}
                     index={index}
                     destroy={destroy}

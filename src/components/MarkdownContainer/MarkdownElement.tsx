@@ -197,7 +197,13 @@ const AssetImage: FC<{ id: string }> = ({ id }) => {
   });
   return (
     (data && (
-      <LazyAssetImage keepAspectRatio containerClassName="mt-2" lazy={blur} asset={data} />
+      <LazyAssetImage
+        thumbnail={false}
+        keepAspectRatio
+        containerClassName="mt-2"
+        lazy={blur}
+        asset={data}
+      />
     )) ||
     null
   );

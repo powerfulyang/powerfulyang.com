@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { ClipboardEvent } from 'react';
+import type { ChangeEvent, ClipboardEvent } from 'react';
 import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -8,9 +8,18 @@ import { startWith } from 'rxjs/operators';
 import { LazyImage } from '@/components/LazyImage';
 import { Switch } from '@/components/Switch';
 import type { Feed, FeedCreate } from '@/type/Feed';
-import { fileListToFormData, handlePasteImageAndReturnFileList } from '@/utils/copy';
+import {
+  appendToFileList,
+  fileListToFormData,
+  handlePasteImageAndReturnFileList,
+  removeFromFileList,
+} from '@/utils/copy';
 import { requestAtClient } from '@/utils/client';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
+import type { ImagePreviewItem } from '@/components/ImagePreview';
+import { ImagePreview } from '@/components/ImagePreview';
+import { Icon } from '@powerfulyang/components';
+import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
 import styles from './index.module.scss';
 
 type Props = {
@@ -50,35 +59,69 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
     },
   });
 
+  const watchContent = watch('content');
+  const watchAssets = watch('assets');
+
   const paste = useCallback(
     (e: ClipboardEvent) => {
       const files = handlePasteImageAndReturnFileList(e);
       if (files) {
-        setValue('assets', files);
+        const tmp = appendToFileList(watchAssets, files);
+        setValue('assets', tmp);
       }
     },
-    [setValue],
+    [setValue, watchAssets],
   );
 
-  const watchFields = watch(['content', 'assets']);
+  const handledFile = useRef(new WeakMap<File, any>());
+
+  const [images, setImages] = useImmer<ImagePreviewItem[]>([]);
 
   const assets = useMemo(() => {
-    const files = watchFields[1];
+    const files = watchAssets;
     if (!files) {
       return [];
     }
     const arr = [];
     for (let i = 0; i < files.length; i++) {
-      arr.push({
-        src: URL.createObjectURL(files[i]),
-        key: i,
-      });
+      if (!handledFile.current.has(files[i])) {
+        const resourceUrl = URL.createObjectURL(files[i]);
+        const tmp = {
+          src: resourceUrl,
+          key: resourceUrl,
+        };
+        handledFile.current.set(files[i], tmp);
+        arr.push(tmp);
+      } else {
+        arr.push(handledFile.current.get(files[i]));
+      }
     }
     return arr;
-  }, [watchFields]);
+  }, [watchAssets]);
+
+  useIsomorphicLayoutEffect(() => {
+    setImages([]);
+    assets.forEach((item) => {
+      const image = new Image();
+      image.src = item.src;
+      image.onload = () => {
+        setImages((draft) => {
+          draft.push({
+            original: item.src,
+            thumbnail: item.src,
+            size: {
+              width: image.naturalWidth,
+              height: image.naturalHeight,
+            },
+            id: item.src,
+          });
+        });
+      };
+    });
+  }, [assets, setImages]);
 
   useFormDiscardWarning(() => {
-    return watchFields[0] !== '' || watchFields[1]?.length > 0;
+    return watchContent !== '' || watchAssets?.length > 0;
   });
 
   const onSubmit = useCallback(
@@ -122,15 +165,26 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
           />
         </div>
         <div className={classNames(styles.assets)}>
-          {assets.map((item) => (
-            <a key={item.key} href={item.src} target="_blank" rel="noreferrer">
-              <LazyImage
-                containerClassName="rounded shadow-lg"
-                className={styles.img}
-                src={item.src}
-              />
-            </a>
-          ))}
+          <ImagePreview parentControl images={images}>
+            {assets.map((item, index) => (
+              <div key={item.key} className="relative">
+                <Icon
+                  className="pointer absolute -top-5 -right-6 z-[1] h-10 w-10"
+                  type="icon-close"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    URL.revokeObjectURL(item.src);
+                    setValue('assets', removeFromFileList(watchAssets, index));
+                  }}
+                />
+                <LazyImage
+                  containerClassName="rounded shadow-lg"
+                  className={styles.img}
+                  src={item.src}
+                />
+              </div>
+            ))}
+          </ImagePreview>
         </div>
         <span className="my-1 mr-4 block text-right text-red-400">{errors.content?.message}</span>
         <div className="mb-4 flex items-center justify-end pr-4 text-right">
@@ -144,11 +198,19 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
           <label htmlFor="assets" className="pointer inline-block px-4 text-lg text-pink-400">
             上传图片
             <input
-              {...register('assets')}
+              {...register('assets', {
+                onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                  const { files } = e.target;
+                  if (files?.length) {
+                    const tmp = appendToFileList(watchAssets, files);
+                    setValue('assets', tmp);
+                  }
+                },
+              })}
               id="assets"
               hidden
               type="file"
-              accept="image/*,image/heic,image/heif"
+              accept="image/*"
               multiple
             />
           </label>

@@ -39,10 +39,12 @@ const ImagePreviewModal: FC<ImagePreviewModalProps> = ({ parentNode }) => {
   useEffect(() => {
     if (isDefined(images) && isDefined(selectIndex)) {
       const { id } = images[selectIndex];
-      scrollIntoView(document.getElementById(String(id)), {
-        behavior: 'smooth',
-        block: 'nearest',
-      });
+      if (id) {
+        scrollIntoView(document.getElementById(id), {
+          behavior: 'smooth',
+          block: 'nearest',
+        });
+      }
     }
   }, [images, selectIndex]);
 

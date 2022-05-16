@@ -1,10 +1,10 @@
 import type { Context, Dispatch } from 'react';
 import { createContext } from 'react';
-import type { Asset } from '@/type/Asset';
+import type { ImagePreviewItem } from '@/components/ImagePreview';
 
 export type ImagePreviewContextState = {
   selectIndex?: number;
-  images?: Asset[];
+  images?: ImagePreviewItem[];
 };
 
 export enum ImagePreviewContextActionType {

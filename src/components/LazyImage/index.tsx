@@ -48,14 +48,14 @@ export const LazyImage = memo<LazyImageProps>(
       return false;
     });
     const [imgSrc, setImgSrc] = useState(() => {
-      if (src && lazy && triggerOnce) {
-        return LOADED_IMAGE_URLS.has(src) ? src : blurSrc;
+      if (lazy && triggerOnce) {
+        return (LOADED_IMAGE_URLS.has(src) ? src : blurSrc) || src || Assets.brokenImg;
       }
-      if (src && lazy && !triggerOnce) {
-        return blurSrc;
+      if (lazy && !triggerOnce) {
+        return blurSrc || src || Assets.brokenImg;
       }
-      if (src && !lazy) {
-        return src;
+      if (!lazy) {
+        return src || blurSrc || Assets.brokenImg;
       }
       return blurSrc || Assets.brokenImg;
     });
@@ -65,7 +65,7 @@ export const LazyImage = memo<LazyImageProps>(
       initialInView,
       triggerOnce,
       onChange: (viewed) => {
-        if (!viewed && !triggerOnce) {
+        if (!viewed && !triggerOnce && blurSrc) {
           setLoading(true);
           setImgSrc(blurSrc);
         }

@@ -8,7 +8,7 @@ import { requestAtClient } from '@/utils/client';
 import type { Asset } from '@/type/Asset';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import { ImagePreview } from '@/components/ImagePreview';
+import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
 import { requestAtServer } from '@/utils/server';
 import Masonry from '@/components/Masonry';
 import styles from './index.module.scss';
@@ -64,9 +64,13 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
     [data?.pages],
   );
 
+  const images = useMemo(() => {
+    return castAssetsToImagePreviewItem(resources);
+  }, [resources]);
+
   return (
     <main className={styles.gallery}>
-      <ImagePreview images={resources}>
+      <ImagePreview images={images}>
         <Masonry
           onLoadMore={() => {
             hasPreviousPage && fetchPreviousPage();

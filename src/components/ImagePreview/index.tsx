@@ -6,8 +6,10 @@ import type {
   ImagePreviewContextState,
 } from '@/context/ImagePreviewContext';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
-import type { Asset } from '@/type/Asset';
 import ImagePreviewModal from '@/components/ImagePreview/ImagePreviewModal';
+import type { Asset } from '@/type/Asset';
+import { CosUtils } from '@/utils/lib';
+import type { VoidFunction } from '@powerfulyang/utils';
 
 const reducer = (draft: ImagePreviewContextState, action: ImageModalContextAction) => {
   switch (action.type) {
@@ -31,8 +33,34 @@ type ParentControlProps = {
 
 type SelfControlProps = PropsWithChildren<unknown>;
 
+export type ImagePreviewItem = {
+  thumbnail: string;
+  original: string;
+  size?: {
+    width: number;
+    height: number;
+  };
+  id?: string;
+};
+
+export const castAssetsToImagePreviewItem = (assets: Asset[]): ImagePreviewItem[] => {
+  return assets.map((asset) => {
+    const {
+      id,
+      objectUrl,
+      size: { width, height },
+    } = asset;
+    return {
+      id: String(id),
+      original: CosUtils.getCosObjectUrl(objectUrl)!,
+      thumbnail: CosUtils.getCosObjectThumbnailUrl(objectUrl)!,
+      size: { width, height },
+    };
+  });
+};
+
 type Props = {
-  images: Asset[];
+  images: ImagePreviewItem[];
 } & (ParentControlProps | SelfControlProps);
 
 export const ImagePreview: FC<Props> = ({ images, ...props }) => {
@@ -54,7 +82,8 @@ export const ImagePreview: FC<Props> = ({ images, ...props }) => {
       ('parentControl' in props &&
         Children.map(props.children, (child, index) =>
           cloneElement(child, {
-            onClick() {
+            onClick(e: MouseEvent) {
+              child.props.onClick?.(e);
               dispatch({
                 type: ImagePreviewContextActionType.open,
                 payload: {

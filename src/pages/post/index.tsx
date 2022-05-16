@@ -161,7 +161,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                     <LazyAssetImage thumbnail={false} asset={post.poster} />
                   </motion.a>
                   <motion.div className={styles.content} layoutId={`post-content-${post.id}`}>
-                    <MarkdownContainer blur={false} source={post.content} />
+                    <MarkdownContainer source={post.content} />
                   </motion.div>
                 </motion.div>
               </motion.div>
@@ -209,7 +209,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                   className={styles.content}
                   layoutId={`post-content-${selectedPost.id}`}
                 >
-                  <MarkdownContainer blur={false} source={selectedPost.content} />
+                  <MarkdownContainer source={selectedPost.content} />
                 </motion.div>
               </motion.div>
             </motion.div>

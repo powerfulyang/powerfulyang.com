@@ -5,6 +5,27 @@ import type { Asset } from '@/type/Asset';
 import type { Bucket } from '@/type/Bucket';
 import { AssetBucket } from '@/type/Bucket';
 
+export const appendToFileList = (source: FileList, append: FileList) => {
+  const tmp = new DataTransfer();
+  for (let i = 0; i < source?.length; i++) {
+    tmp.items.add(source[i]);
+  }
+  for (let i = 0; i < append.length; i++) {
+    tmp.items.add(append[i]);
+  }
+  return tmp.files;
+};
+
+export const removeFromFileList = (source: FileList, index: number) => {
+  const tmp = new DataTransfer();
+  for (let i = 0; i < source?.length; i++) {
+    if (i !== index) {
+      tmp.items.add(source[i]);
+    }
+  }
+  return tmp.files;
+};
+
 export const handlePasteImageAndReturnFileList = (e: ClipboardEvent) => {
   const { types } = e.clipboardData;
 
