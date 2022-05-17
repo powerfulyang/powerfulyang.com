@@ -3,22 +3,6 @@ import { trim } from 'ramda';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/Editor/inex';
 import type { Asset } from '@/type/Asset';
 
-export const generateToc = (content: string) => {
-  const reg = /(#{1,4})\s(.+)[\r\n\s]/g;
-  const ret = content.match(reg);
-  return (
-    ret?.map((x) => {
-      const reg2 = /(#{1,4})\s(.+)[\r\n\s]/g;
-      // exec 会修改RegExp 对象的 lastIndex 属性 lastIndex 属性是成功匹配后下一次匹配的开始位置。
-      const rex = reg2.exec(x);
-      return {
-        level: Number(rex?.[1].length) - 1,
-        heading: rex?.[2]!,
-      };
-    }) || []
-  );
-};
-
 export function extractMetaData(text: string = '') {
   const metaData: Record<string, string | string[] | Asset> = {};
 

@@ -11,7 +11,6 @@ import type {
 } from 'react-markdown/lib/ast-to-react';
 import classNames from 'classnames';
 import { useQuery } from 'react-query';
-import { motion } from 'framer-motion';
 import type { NormalComponents } from 'react-markdown/lib/complex-types';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { requestAtClient } from '@/utils/client';
@@ -23,9 +22,9 @@ export const MDContainerContext = createContext({
   blur: true,
 });
 
-export const H1: HeadingComponent = ({ children }) => (
+export const H1: HeadingComponent = ({ children, id }) => (
   <div className="relative">
-    <div id={String(children).trim()} className={styles.anchor} />
+    <div id={id} className={styles.anchor} />
     <h1 className="flex w-full justify-center pb-2">
       <span className={styles.heading1}>
         <span className={styles.prefix} />
@@ -36,19 +35,19 @@ export const H1: HeadingComponent = ({ children }) => (
   </div>
 );
 
-export const H2: HeadingComponent = ({ children }) => {
+export const H2: HeadingComponent = ({ children, id }) => {
   return (
     <div className="relative">
-      <div id={String(children).trim()} className={styles.anchor} />
+      <div id={id} className={styles.anchor} />
       <h2 className="cursor-text">{children}</h2>
     </div>
   );
 };
 
-export const H3: HeadingComponent = ({ children }) => {
+export const H3: HeadingComponent = ({ children, id }) => {
   return (
     <div className="relative">
-      <div id={String(children).trim()} className={styles.anchor} />
+      <div id={id} className={styles.anchor} />
       <h3>
         <span>{children}</span>
       </h3>
@@ -56,13 +55,11 @@ export const H3: HeadingComponent = ({ children }) => {
   );
 };
 
-export const H4: HeadingComponent = ({ children }) => {
+export const H4: HeadingComponent = ({ children, id }) => {
   return (
     <div className="relative">
-      <div id={String(children).trim()} className={styles.anchor} />
-      <h4 className="max-w-full cursor-text truncate" title={String(children)}>
-        {children}
-      </h4>
+      <div id={id} className={styles.anchor} />
+      <h4 className="max-w-full cursor-text truncate">{children}</h4>
     </div>
   );
 };
@@ -91,7 +88,7 @@ export const Paragraph: NormalComponents['p'] = ({ node, children }) => {
     return (
       <div className="flex flex-wrap sm:ml-2 lg:ml-6">
         {tags.map((tag: string) => (
-          <motion.button
+          <button
             type="button"
             key={tag}
             className="pointer my-2 mr-2"
@@ -99,7 +96,7 @@ export const Paragraph: NormalComponents['p'] = ({ node, children }) => {
           >
             <Icon type="icon-tag" className="text-xl" />
             <span className="text-sm text-[#FFB356]">{tag}</span>
-          </motion.button>
+          </button>
         ))}
       </div>
     );
@@ -124,16 +121,7 @@ export const Code: CodeComponent = ({ inline, className, children }) => {
   const renderText = useMemo(() => children.toString().replace(/\s*\n$/, ''), [children]);
   if (inline) {
     return (
-      <motion.code
-        role="button"
-        title="点击复制"
-        onTap={() => {
-          return copyToClipboardAndNotify(renderText);
-        }}
-        className={classNames(className, styles.inlineCode, 'pointer')}
-      >
-        {renderText}
-      </motion.code>
+      <code className={classNames(className, styles.inlineCode, 'cursor-text')}>{renderText}</code>
     );
   }
   const language = match?.[1] || 'unknown';
@@ -143,7 +131,7 @@ export const Code: CodeComponent = ({ inline, className, children }) => {
       <div className={styles.toolbar}>
         <div className={styles.toolbarLanguage}>{language}</div>
         <div className={styles.toolbarAction}>
-          <motion.button
+          <button
             type="button"
             className="pointer"
             onClick={() => {
@@ -151,7 +139,7 @@ export const Code: CodeComponent = ({ inline, className, children }) => {
             }}
           >
             Copy Code
-          </motion.button>
+          </button>
         </div>
       </div>
       <PrismAsyncLight

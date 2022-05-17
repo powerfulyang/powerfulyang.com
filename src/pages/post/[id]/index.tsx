@@ -6,9 +6,11 @@ import type { Post } from '@/type/Post';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
+import type { TocItem } from '@/components/MarkdownContainer/Toc';
 import { MarkdownToc } from '@/components/MarkdownContainer/Toc';
 import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
+import { useImmer } from '@powerfulyang/hooks';
 import styles from './index.module.scss';
 
 type PostProps = {
@@ -29,10 +31,12 @@ const PostDetail: LayoutFC<PostProps> = ({ data }) => {
     };
   }, [history, data.id]);
 
+  const [toc, setToc] = useImmer<TocItem[]>([]);
+
   return (
     <main className={styles.postWrap}>
-      <MarkdownContainer source={content} className={styles.post} />
-      <MarkdownToc content={content} />
+      <MarkdownContainer source={content} className={styles.post} onGenerateToc={setToc} />
+      <MarkdownToc toc={toc} />
     </main>
   );
 };

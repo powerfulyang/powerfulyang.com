@@ -1,37 +1,38 @@
 import type { FC } from 'react';
-import { useMemo, useRef } from 'react';
+import { useRef } from 'react';
 import classNames from 'classnames';
 import { scrollIntoView } from '@powerfulyang/utils';
-import { generateToc } from '@/utils/toc';
 import { useHistory } from '@/hooks/useHistory';
 import styles from './index.module.scss';
 
-export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
-  const toc = useMemo(() => {
-    return generateToc(content);
-  }, [content]);
+export type TocItem = {
+  title: string;
+  level: number;
+  id: string;
+};
+
+export const MarkdownToc: FC<{ toc: TocItem[] }> = ({ toc }) => {
   const { replaceState } = useHistory();
   const ref = useRef('');
   return (
     <div className={classNames('hidden sm:block', styles.toc)}>
       <span className="mb-2 inline-block text-lg text-gray-400">目录:</span>
       {toc.map((item) => {
-        const heading = item.heading.trim();
-        const encodeHeading = encodeURIComponent(heading);
+        const { id } = item;
         return (
-          <div key={item.heading} className="mt-2 truncate">
+          <div key={id} className="mt-2 truncate">
             <a
               className="link px-1"
               style={{
                 marginLeft: `${item.level * 1.5}rem`,
               }}
-              href={`#${encodeHeading}`}
-              title={item.heading}
+              href={`#${id}`}
+              title={item.title}
               onClick={(e) => {
                 e.preventDefault();
-                ref.current = `#${encodeHeading}`;
+                ref.current = `#${id}`;
                 scrollIntoView(
-                  document.getElementById(heading),
+                  document.getElementById(id),
                   {
                     behavior: 'smooth',
                   },
@@ -42,7 +43,7 @@ export const MarkdownToc: FC<{ content: string }> = ({ content }) => {
               }}
             >
               <span className={styles.anchor}>{new Array(item.level).fill(0).map(() => '#')} </span>
-              {item.heading}
+              {item.title}
             </a>
           </div>
         );

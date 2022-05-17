@@ -121,7 +121,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 key={post.id}
                 title={`${post.id}`}
                 className={classNames('pointer', styles.card)}
-                onTap={async (e) => {
+                onTap={(e) => {
                   const pointerEvent = e as PointerEvent;
                   if (pointerEvent.pointerType === 'mouse') {
                     if (e.metaKey || e.ctrlKey) {

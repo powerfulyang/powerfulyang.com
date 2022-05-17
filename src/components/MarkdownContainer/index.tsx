@@ -3,8 +3,13 @@ import React, { useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import classNames from 'classnames';
-import { DateFormat } from '@/utils/lib';
-import { extractMetaData } from '@/utils/toc';
+import rehypeSlug from 'rehype-slug';
+import remarkParse from 'remark-parse';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkStringify from 'remark-stringify';
+import { visit } from 'unist-util-visit';
+import { toString } from 'hast-util-to-string';
+import type { TocItem } from '@/components/MarkdownContainer/Toc';
 import {
   A,
   BlockQuote,
@@ -27,25 +32,43 @@ export type MarkdownContainerProps = {
   source: string;
   className?: string;
   blur?: boolean;
+  onGenerateToc?: (toc: TocItem[]) => void;
 };
 
 export const MarkdownContainer: FC<MarkdownContainerProps> = ({
   source,
   className,
   blur = true,
+  onGenerateToc,
 }) => {
-  const [metadata, s] = extractMetaData(source);
-  const postInfo = `post=>${metadata.author}|${DateFormat(metadata.date)}  \r\n\r\n`;
-  const tagsInfo = `tags=>${(metadata.tags || []).join('|')}  \r\n\r\n`;
-  const content = s.replace(/(\r\n|\n)/, `\r\n\r\n${postInfo}${tagsInfo}`);
-
   const initialContext = useMemo(() => ({ blur }), [blur]);
   return useMemo(() => {
     return (
       <MDContainerContext.Provider value={initialContext}>
         <ReactMarkdown
           className={classNames(styles.markdownBody, className)}
-          remarkPlugins={[remarkGfm]}
+          remarkPlugins={[remarkGfm, remarkParse, remarkStringify, remarkFrontmatter]}
+          rehypePlugins={[
+            rehypeSlug,
+            () => {
+              return (tree) => {
+                const toc: TocItem[] = [];
+                visit(tree, 'element', (node) => {
+                  if (/^h(\d+)$/.test(node.tagName)) {
+                    const level = Number(node.tagName.slice(1));
+                    const id = node.properties?.id;
+                    const title = toString(node);
+                    toc.push({
+                      level,
+                      id,
+                      title,
+                    });
+                  }
+                });
+                onGenerateToc?.(toc);
+              };
+            },
+          ]}
           components={{
             h1: H1,
             h2: H2,
@@ -62,9 +85,9 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
             img: Img,
           }}
         >
-          {content}
+          {source}
         </ReactMarkdown>
       </MDContainerContext.Provider>
     );
-  }, [content, className, initialContext]);
+  }, [initialContext, className, source, onGenerateToc]);
 };
