@@ -14,6 +14,8 @@ import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { useHistory } from '@/hooks/useHistory';
 import { useHiddenHtmlOverflow } from '@/hooks/useHiddenHtmlOverflow';
 import { requestAtServer } from '@/utils/server';
+import { isString } from '@powerfulyang/utils';
+import { useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -26,9 +28,9 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   const history = useHistory();
   const { id } = history.router.query;
   const [selectedPostId, setSelectedPostId] = useState(0);
-  useEffect(() => {
-    if (id) {
-      const postId = parseInt(id as string, 10);
+  useIsomorphicLayoutEffect(() => {
+    if (isString(id)) {
+      const postId = parseInt(id, 10);
       setSelectedPostId(postId);
     } else {
       setSelectedPostId(0);
@@ -101,11 +103,9 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
       <div className={styles.body}>
         <main className={styles.main}>
           <div className={classNames(styles.years)} role="tablist">
-            {years.map((x, i) => (
-              <Link key={x} href={`?year=${x}`}>
+            {years.map((x) => (
+              <Link role="tab" key={x} href={`?year=${x}`}>
                 <span
-                  role="tab"
-                  tabIndex={i}
                   className={classNames(styles.year, 'pr-1', {
                     [styles.active]: x === year,
                   })}
@@ -149,7 +149,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 </AnimatePresence>
                 <motion.div
                   layoutId={`post-container-${post.id}`}
-                  className={classNames(styles.container, 'common-shadow')}
+                  className={classNames(styles.container)}
                 >
                   <motion.a
                     onClick={(e) => e.preventDefault()}
@@ -158,7 +158,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                     href={`/post/${post.id}`}
                     draggable={false}
                   >
-                    <LazyAssetImage thumbnail={false} asset={post.poster} />
+                    <LazyAssetImage draggable={false} thumbnail={false} asset={post.poster} />
                   </motion.a>
                   <motion.div className={styles.content} layoutId={`post-content-${post.id}`}>
                     <MarkdownContainer source={post.content} />
@@ -183,7 +183,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
               className={classNames(styles.postPreview, 'pointer')}
               ref={ref}
               onClick={hiddenPost}
-              key={selectedPostId}
+              key={selectedPost.id}
             >
               <motion.div
                 transition={{
@@ -196,6 +196,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
               >
                 <motion.div className={styles.image} layoutId={`post-poster-${selectedPost.id}`}>
                   <LazyAssetImage
+                    draggable={false}
                     onTap={hiddenPost}
                     thumbnail={false}
                     lazy={false}

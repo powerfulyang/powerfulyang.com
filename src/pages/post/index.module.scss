@@ -53,10 +53,10 @@ $poster-height: 410px;
     max-width: $popover-container-width;
     height: max-content;
     overflow: hidden;
-    border-radius: 20px;
     margin: auto;
     position: relative;
     isolation: isolate;
+    @apply rounded-md shadow-md;
 
     .image {
       z-index: 1;
@@ -128,8 +128,8 @@ $poster-height: 410px;
       width: 100%;
       height: 100%;
       overflow: hidden;
-      border-radius: 20px;
       isolation: isolate;
+      @apply rounded-md shadow-md;
 
       .content {
         padding: 420px 0 0;

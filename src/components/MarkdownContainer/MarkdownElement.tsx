@@ -95,7 +95,7 @@ export const Paragraph: NormalComponents['p'] = ({ node, children }) => {
             type="button"
             key={tag}
             className="pointer my-2 mr-2"
-            onTap={() => copyToClipboardAndNotify(tag)}
+            onClick={() => copyToClipboardAndNotify(tag)}
           >
             <Icon type="icon-tag" className="text-xl" />
             <span className="text-sm text-[#FFB356]">{tag}</span>
@@ -146,7 +146,7 @@ export const Code: CodeComponent = ({ inline, className, children }) => {
           <motion.button
             type="button"
             className="pointer"
-            onTap={() => {
+            onClick={() => {
               return copyToClipboardAndNotify(renderText);
             }}
           >
