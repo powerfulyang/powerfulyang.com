@@ -11,12 +11,11 @@ import React, {
   useRef,
 } from 'react';
 import classNames from 'classnames';
-import { useImmer } from '@powerfulyang/hooks';
+import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
 import type { Asset } from '@/type/Asset';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import { InView } from 'react-intersection-observer';
 import { fromEvent } from 'rxjs';
-import { flushSync } from 'react-dom';
 
 type MasonryItem = ReactElement<{ asset: Asset; tabIndex: number; onClick: () => void }>;
 
@@ -41,41 +40,10 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
   const handled = useRef(new Set<number>());
   const [masonry, setMasonry] = useImmer(() => new Map<number, Array<MasonryItem>>());
 
-  const init = useCallback(() => {
+  const recalculate = useCallback(() => {
     const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
-    flushSync(() => {
-      rowHeight.current.clear();
-      handled.current.clear();
-      setMasonry((draft) => {
-        draft.clear();
-      });
-    });
-    startTransition(() => {
-      setMasonry((draft) => {
-        for (let i = 0; i < clientColNum; i++) {
-          draft.set(i, []);
-          rowHeight.current.set(i, 0);
-        }
-      });
-    });
-  }, [setMasonry]);
-
-  useEffect(() => {
-    const subscribe = fromEvent<UIEvent>(window, 'resize').subscribe(() => {
-      const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
-      if (clientColNum !== rowHeight.current.size) {
-        init();
-      }
-    });
-    return () => {
-      subscribe.unsubscribe();
-    };
-  }, [init, setMasonry]);
-
-  useEffect(() => {
-    handled.current.clear();
     rowHeight.current.clear();
-    const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
+    handled.current.clear();
     setMasonry((draft) => {
       draft.clear();
       for (let i = 0; i < clientColNum; i++) {
@@ -85,46 +53,70 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
     });
   }, [setMasonry]);
 
+  useIsomorphicLayoutEffect(() => {
+    recalculate();
+  }, [recalculate]);
+
+  useEffect(() => {
+    const subscribe = fromEvent<UIEvent>(window, 'resize').subscribe(() => {
+      const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
+      if (clientColNum !== rowHeight.current.size) {
+        recalculate();
+      }
+    });
+    return () => {
+      subscribe.unsubscribe();
+    };
+  }, [recalculate, setMasonry]);
+
+  const handle = useCallback(
+    (
+      draft: Map<number, MasonryItem[]>,
+      child: MasonryItem,
+      padding: number,
+      masonryWidth: number,
+    ) => {
+      const has = handled.current.has(child.props.asset.id);
+      if (!has) {
+        handled.current.add(child.props.asset.id);
+        const { size } = draft;
+        const width = (masonryWidth - padding * (size + 1)) / size;
+        const minHeightKey = getMapValueMinKey(rowHeight.current);
+        const prev = rowHeight.current.get(minHeightKey) || 0;
+        const height =
+          (child.props.asset.size.height / child.props.asset.size.width) * width + padding;
+        rowHeight.current.set(minHeightKey, prev + height);
+        draft.get(minHeightKey)?.push(child);
+      }
+    },
+    [],
+  );
+
   useEffect(() => {
     const container = document.getElementById(id);
-
     if (masonry.size && container) {
       const computedStyle = window.getComputedStyle(container);
       const padding = parseFloat(computedStyle.getPropertyValue('grid-gap'));
       const masonryWidth = parseFloat(computedStyle.getPropertyValue('width'));
-      const handle = (draft: Map<number, MasonryItem[]>, child: MasonryItem) => {
-        const has = handled.current.has(child.props.asset.id);
-        if (!has) {
-          handled.current.add(child.props.asset.id);
-          const { size } = draft;
-          const width = (masonryWidth - padding * (size + 1)) / size;
-          const minHeightKey = getMapValueMinKey(rowHeight.current);
-          const prev = rowHeight.current.get(minHeightKey) || 0;
-          const height =
-            (child.props.asset.size.height / child.props.asset.size.width) * width + padding;
-          rowHeight.current.set(minHeightKey, prev + height);
-          draft.get(minHeightKey)?.push(child);
-        }
-      };
       if (children.length - handled.current.size > 20) {
         const head = children.slice(0, 20);
+        const tail = children.slice(20);
         setMasonry((draft) => {
-          head.forEach((child) => handle(draft, child));
+          head.forEach((child) => handle(draft, child, padding, masonryWidth));
         });
         // 缓一缓加载
         startTransition(() => {
-          const tail = children.slice(20);
           setMasonry((draft) => {
-            tail.forEach((child) => handle(draft, child));
+            tail.forEach((child) => handle(draft, child, padding, masonryWidth));
           });
         });
       } else {
         setMasonry((draft) => {
-          children.forEach((child) => handle(draft, child));
+          children.forEach((child) => handle(draft, child, padding, masonryWidth));
         });
       }
     }
-  }, [children, setMasonry, masonry.size, id]);
+  }, [children, setMasonry, masonry.size, id, handle]);
 
   const { dispatch } = useContext(ImagePreviewContext);
 

@@ -68,6 +68,23 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
     return castAssetsToImagePreviewItem(resources);
   }, [resources]);
 
+  const toRender = useMemo(() => {
+    return resources.map((asset, index) => (
+      <LazyAssetImage
+        key={asset.id}
+        id={`${asset.id}`}
+        tabIndex={index}
+        title={`${asset.id}`}
+        asset={asset}
+        initialInView={index < 20}
+        containerClassName="rounded-lg shadow-lg contain-strict"
+        keepAspectRatio
+        triggerOnce={false}
+        draggable={false}
+      />
+    ));
+  }, [resources]);
+
   return (
     <main className={styles.gallery}>
       <ImagePreview images={images}>
@@ -76,20 +93,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
             hasPreviousPage && fetchPreviousPage();
           }}
         >
-          {resources.map((asset, index) => (
-            <LazyAssetImage
-              key={asset.id}
-              id={`${asset.id}`}
-              tabIndex={index}
-              title={`${asset.id}`}
-              asset={asset}
-              initialInView={index < 20}
-              containerClassName="rounded-lg shadow-lg contain-strict"
-              keepAspectRatio
-              triggerOnce={false}
-              draggable={false}
-            />
-          ))}
+          {toRender}
         </Masonry>
       </ImagePreview>
     </main>

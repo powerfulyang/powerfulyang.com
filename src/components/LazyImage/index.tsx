@@ -54,10 +54,7 @@ export const LazyImage = memo<LazyImageProps>(
       if (lazy && !triggerOnce) {
         return blurSrc || src || Assets.brokenImg;
       }
-      if (!lazy) {
-        return src || blurSrc || Assets.brokenImg;
-      }
-      return blurSrc || Assets.brokenImg;
+      return src || blurSrc || Assets.brokenImg;
     });
 
     const { ref, inView } = useInView({
