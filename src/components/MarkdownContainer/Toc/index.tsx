@@ -2,7 +2,6 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 import classNames from 'classnames';
 import { scrollIntoView } from '@powerfulyang/utils';
-import { useHistory } from '@/hooks/useHistory';
 import styles from './index.module.scss';
 
 export type TocItem = {
@@ -12,8 +11,7 @@ export type TocItem = {
 };
 
 export const MarkdownToc: FC<{ toc: TocItem[] }> = ({ toc }) => {
-  const { replaceState } = useHistory();
-  const ref = useRef('');
+  const hashRef = useRef('');
   return (
     <div className={classNames('hidden sm:block', styles.toc)}>
       <span className="mb-2 inline-block text-lg text-gray-400">目录:</span>
@@ -30,14 +28,14 @@ export const MarkdownToc: FC<{ toc: TocItem[] }> = ({ toc }) => {
               title={item.title}
               onClick={(e) => {
                 e.preventDefault();
-                ref.current = `#${id}`;
+                hashRef.current = id;
                 scrollIntoView(
                   document.getElementById(id),
                   {
                     behavior: 'smooth',
                   },
                   () => {
-                    return replaceState(ref.current);
+                    window.location.hash = hashRef.current;
                   },
                 );
               }}

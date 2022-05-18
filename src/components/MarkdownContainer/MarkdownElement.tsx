@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 import React, { createContext, useContext, useMemo } from 'react';
-import { Icon } from '@powerfulyang/components';
 import { PrismAsyncLight } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import type {
@@ -79,42 +78,6 @@ export const Table: NormalComponents['table'] = ({ children }) => (
     <table className={styles.table}>{children}</table>
   </div>
 );
-
-export const Paragraph: NormalComponents['p'] = ({ node, children }) => {
-  // @ts-ignore
-  const text = node.children[0].value;
-  if (text?.startsWith('tags=>')) {
-    const tags = text.trim().replace('tags=>', '').split('|');
-    return (
-      <div className="flex flex-wrap sm:ml-2 lg:ml-6">
-        {tags.map((tag: string) => (
-          <button
-            type="button"
-            key={tag}
-            className="pointer my-2 mr-2"
-            onClick={() => copyToClipboardAndNotify(tag)}
-          >
-            <Icon type="icon-tag" className="text-xl" />
-            <span className="text-sm text-[#FFB356]">{tag}</span>
-          </button>
-        ))}
-      </div>
-    );
-  }
-  if (text?.startsWith('post=>')) {
-    const info = text.trim().replace('post=>', '').split('|');
-    const author = info[0];
-    const postDate = info[1];
-    return (
-      <div className={styles.postInfo}>
-        <span className={styles.postInfoComment}>
-          Published by {author} at {postDate}
-        </span>
-      </div>
-    );
-  }
-  return <p>{children}</p>;
-};
 
 export const Code: CodeComponent = ({ inline, className, children }) => {
   const match = /language-(\w+)/.exec(className || '');

@@ -41,6 +41,7 @@ const esModules = [
   'fault',
   'zwitch',
   'longest-streak',
+  'yaml',
 ].join('|');
 
 module.exports = async () => {

@@ -69,7 +69,7 @@ $main-color: #ffb356;
     @apply relative my-4 inline-block rounded-lg px-2 py-3 align-middle text-lg;
 
     &::before {
-      content: '#';
+      content: '##';
       color: $main-color;
       @apply pr-2;
     }
@@ -81,7 +81,7 @@ $main-color: #ffb356;
     @apply relative my-3 inline-block px-1 text-lg;
 
     &::before {
-      content: '###';
+      content: '####';
       color: $main-color;
       @apply pr-2;
     }
@@ -131,7 +131,7 @@ $main-color: #ffb356;
       @apply cursor-text;
 
       &::before {
-        content: '##';
+        content: '###';
         color: $main-color;
         @apply pr-2;
       }
@@ -258,12 +258,8 @@ $main-color: #ffb356;
   }
 
   .post-info {
-    @apply mt-4 text-center;
-
-    .post-info-comment {
-      color: $heading-color;
-      @apply align-middle text-sm;
-    }
+    color: $heading-color;
+    @apply mt-4 text-center align-middle text-sm;
   }
 
   ol {
