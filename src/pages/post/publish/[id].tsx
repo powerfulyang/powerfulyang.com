@@ -4,11 +4,11 @@ import { useBeforeUnload } from '@powerfulyang/hooks';
 import { MarkdownEditor } from '@/components/MarkdownContainer/Editor/inex';
 import { requestAtClient } from '@/utils/client';
 import type { Post } from '@/type/Post';
-import { extractMetaData, extractTitle } from '@/utils/toc';
 import { Footer } from '@/components/Footer';
 import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
 import type { LayoutFC } from '@/type/GlobalContext';
+import { isNumeric, isString } from '@powerfulyang/utils';
 
 type PublishProps = {
   post: Post;
@@ -17,15 +17,14 @@ type PublishProps = {
 const Publish: LayoutFC<PublishProps> = ({ post }) => {
   const { pushState } = useHistory();
   const [content, setContent] = useState(post.content);
+  const [metadata, setMetadata] = useState({});
 
   const handlePost = async () => {
-    const [metadata] = extractMetaData(content);
     const res = await requestAtClient<Post>('/post', {
       method: 'POST',
       body: {
         ...metadata,
         content,
-        title: extractTitle(content),
         id: post.id,
       },
     });
@@ -46,7 +45,7 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
     if (!post.id) {
       setContent(localStorage.getItem('draft') || '');
     }
-  }, [post]);
+  }, [post.id]);
 
   useBeforeUnload(Boolean(post.id));
 
@@ -56,6 +55,7 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
       onChange={saveDraft}
       defaultValue={post.content}
       onPost={handlePost}
+      onGenerateMetadata={setMetadata}
     />
   );
 };
@@ -77,8 +77,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   let post;
   let pathViewCount = 0;
-  if (Number(id)) {
-    const res = await requestAtServer(`/public/post/${id as string}`, {
+  if (isString(id) && isNumeric(id) && id !== '0') {
+    const res = await requestAtServer(`/public/post/${id}`, {
       ctx,
     });
     const result = await res.json();
@@ -91,7 +91,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       post,
-      title: '发布新的日志',
+      title: '发布日志',
       pathViewCount,
     },
   };

@@ -36,6 +36,7 @@ export type MarkdownContainerProps = {
   className?: string;
   blur?: boolean;
   onGenerateToc?: (toc: TocItem[]) => void;
+  onGenerateMetadata?: (metadata: Record<string, any>) => void;
 };
 
 export const MarkdownContainer: FC<MarkdownContainerProps> = ({
@@ -43,6 +44,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
   className,
   blur = true,
   onGenerateToc,
+  onGenerateMetadata,
 }) => {
   const initialContext = useMemo(() => ({ blur }), [blur]);
   return useMemo(() => {
@@ -68,6 +70,9 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
                       title?: string;
                       tags?: string[];
                     };
+                    process.nextTick(() => {
+                      onGenerateMetadata?.(metadata);
+                    });
                     const {
                       date = DateFormat(),
                       author = 'powerfulyang',
@@ -168,7 +173,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
             tags({ children }) {
               return (
                 <div className="flex flex-wrap sm:ml-2 lg:ml-6">
-                  {children.map((tag: string) => (
+                  {children?.map((tag: string) => (
                     <button
                       type="button"
                       key={tag}
@@ -188,5 +193,5 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
         </ReactMarkdown>
       </MDContainerContext.Provider>
     );
-  }, [initialContext, className, source, onGenerateToc]);
+  }, [initialContext, className, source, onGenerateMetadata, onGenerateToc]);
 };

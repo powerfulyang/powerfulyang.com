@@ -28,6 +28,7 @@ type MarkdownEditorProps = {
   onPost?: VoidFunction;
   onChange?: VoidFunction<[string | undefined]>;
   value: string;
+  onGenerateMetadata?: (metadata: Record<string, any>) => void;
 };
 
 export const MarkdownEditor: FC<MarkdownEditorProps> = ({
@@ -35,6 +36,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
   onPost,
   onChange,
   value,
+  onGenerateMetadata,
 }) => {
   const ref = useRef<{
     editor: IStandaloneCodeEditor;
@@ -114,7 +116,11 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
             }}
           />
         </section>
-        <MarkdownContainer className={styles.preview} source={value} />
+        <MarkdownContainer
+          onGenerateMetadata={onGenerateMetadata}
+          className={styles.preview}
+          source={value}
+        />
       </main>
     </div>
   );

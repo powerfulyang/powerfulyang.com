@@ -130,12 +130,6 @@ $poster-height: 410px;
       overflow: hidden;
       isolation: isolate;
       @apply rounded-md shadow-md;
-
-      .content {
-        padding: 420px 0 0;
-        max-width: 700px;
-        width: 90vw;
-      }
     }
   }
 
