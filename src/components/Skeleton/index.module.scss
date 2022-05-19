@@ -1,0 +1,42 @@
+@function --custom-shade($color, $percent) {
+  @return mix(black, $color, $percent);
+}
+
+$skeleton-color: rgb(190 190 190 / 20%);
+$skeleton-to-color: --custom-shade($skeleton-color, 5%);
+
+.skeleton {
+  @apply h-full w-full;
+
+  &-row {
+    background: linear-gradient(
+      90deg,
+      $skeleton-color 25%,
+      $skeleton-to-color 37%,
+      $skeleton-color 63%
+    );
+    background-size: 400% 100%;
+    border-radius: 5px;
+    animation: skeleton-loading 1.4s ease infinite;
+    transform-origin: left;
+    @apply my-4 mx-8 h-4;
+
+    &:first-child {
+      @apply w-1/2;
+    }
+
+    &:last-child {
+      @apply w-3/4;
+    }
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}

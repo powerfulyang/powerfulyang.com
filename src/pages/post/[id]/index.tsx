@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import type { GetServerSideProps } from 'next';
 import { fromEvent } from 'rxjs';
 import type { Post } from '@/type/Post';
-import { MarkdownContainer } from '@/components/MarkdownContainer';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import type { TocItem } from '@/components/MarkdownContainer/Toc';
@@ -11,6 +10,7 @@ import { MarkdownToc } from '@/components/MarkdownContainer/Toc';
 import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
 import { useImmer } from '@powerfulyang/hooks';
+import { MarkdownContainer } from '@/components/MarkdownContainer';
 import styles from './index.module.scss';
 
 type PostProps = {

@@ -96,7 +96,6 @@ export const LazyImage = memo<LazyImageProps>(
       >
         {inView && (
           <InView
-            delay={100}
             triggerOnce
             skip={!loading}
             onChange={(viewed: boolean) => {

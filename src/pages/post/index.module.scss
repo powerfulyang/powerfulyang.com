@@ -82,7 +82,7 @@ $poster-height: 410px;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    margin-top: 1rem;
+    @apply mb-6 mt-8;
 
     .year {
       display: flex;
@@ -130,6 +130,12 @@ $poster-height: 410px;
       overflow: hidden;
       isolation: isolate;
       @apply rounded-md shadow-md;
+
+      .content {
+        padding: 420px 0 0;
+        max-width: 700px;
+        width: 90vw;
+      }
     }
   }
 

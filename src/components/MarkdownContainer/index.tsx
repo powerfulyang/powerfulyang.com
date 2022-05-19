@@ -195,3 +195,5 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
     );
   }, [initialContext, className, source, onGenerateMetadata, onGenerateToc]);
 };
+
+export default MarkdownContainer;

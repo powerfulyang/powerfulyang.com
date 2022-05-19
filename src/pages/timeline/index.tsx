@@ -110,6 +110,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
               asset={bannerUser.timelineBackground}
               containerClassName={styles.bannerBg}
               alt="banner"
+              thumbnail={false}
             />
           ) : (
             <LazyImage

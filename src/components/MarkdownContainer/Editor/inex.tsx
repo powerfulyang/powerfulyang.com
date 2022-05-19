@@ -1,5 +1,5 @@
 import type { ClipboardEvent, FC } from 'react';
-import React, { useEffect, useRef } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
 import type { Monaco } from '@monaco-editor/react';
@@ -7,11 +7,11 @@ import MonacoEditor from '@monaco-editor/react';
 import type { VoidFunction } from '@powerfulyang/utils';
 import type { editor } from 'monaco-editor';
 import { fromEvent } from 'rxjs';
-import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/type/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import type { Asset } from '@/type/Asset';
+import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
 import styles from './index.module.scss';
 
 type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
@@ -116,11 +116,13 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
             }}
           />
         </section>
-        <MarkdownContainer
-          onGenerateMetadata={onGenerateMetadata}
-          className={styles.preview}
-          source={value}
-        />
+        <Suspense fallback="loading">
+          <LazyMarkdownContainer
+            onGenerateMetadata={onGenerateMetadata}
+            className={styles.preview}
+            source={value}
+          />
+        </Suspense>
       </main>
     </div>
   );

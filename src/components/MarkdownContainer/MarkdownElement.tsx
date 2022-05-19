@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import React, { createContext, useContext, useMemo } from 'react';
 import { PrismAsyncLight } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import atomDark from '@/prism/atom-dark.mjs';
 import type {
   CodeComponent,
   HeadingComponent,
@@ -107,7 +107,7 @@ export const Code: CodeComponent = ({ inline, className, children }) => {
       </div>
       <PrismAsyncLight
         showLineNumbers
-        style={atomDark}
+        style={atomDark as any}
         language={language}
         PreTag="pre"
         codeTagProps={{
@@ -139,7 +139,7 @@ export const Li: LiComponent = ({ children }) => <li>{children}</li>;
 
 const AssetImage: FC<{ id: string }> = ({ id }) => {
   const { blur } = useContext(MDContainerContext);
-  const { data } = useQuery({
+  const { data: asset } = useQuery({
     queryKey: ['md-asset-img', id],
     queryFn: async () => {
       const res = await requestAtClient(`/public/asset/${id}`);
@@ -147,13 +147,13 @@ const AssetImage: FC<{ id: string }> = ({ id }) => {
     },
   });
   return (
-    (data && (
+    (asset && (
       <LazyAssetImage
         thumbnail={false}
         keepAspectRatio
         containerClassName="mt-2"
         lazy={blur}
-        asset={data}
+        asset={asset}
       />
     )) ||
     null

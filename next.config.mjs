@@ -64,6 +64,8 @@ const config = {
   pwa: {
     dest: 'public',
     disable: isDevProcess,
+    sourcemap: false,
+    buildExcludes: [/\.map$/],
     runtimeCaching: [
       ...defaultCacheRule,
       {
@@ -128,12 +130,9 @@ export default withPlugins(
   [
     withCamelCaseCSSModules,
     withPWA,
-    [
-      withBundleAnalyzer,
-      {
-        enabled: process.env.ANALYZE === 'true',
-      },
-    ],
+    withBundleAnalyzer({
+      enabled: process.env.ANALYZE === 'true',
+    }),
     [withSentryConfig, sentryWebpackPluginOptions],
   ],
   config,
