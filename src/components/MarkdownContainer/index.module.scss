@@ -13,7 +13,7 @@ $main-color: #ffb356;
   background-position: center center;
   background-size: 20px 20px;
   word-break: break-word;
-  @apply box-border px-6 py-10;
+  @apply box-border px-6 py-14 sm:py-10;
 
   .main-color {
     color: $main-color;
@@ -47,7 +47,7 @@ $main-color: #ffb356;
 
     .content {
       color: $heading-color;
-      @apply block cursor-text px-16 py-2 text-center text-lg;
+      @apply block min-w-[20ch] cursor-text px-2 py-4 text-center text-lg sm:px-[4ch] sm:py-4;
     }
 
     .suffix {

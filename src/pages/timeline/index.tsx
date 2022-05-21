@@ -15,6 +15,8 @@ import { TimeLineForm } from '@/components/Timeline/TimeLineForm';
 import { LazyImage } from '@/components/LazyImage';
 import { isEmpty, lastItem } from '@powerfulyang/utils';
 import { useUser } from '@/hooks/useUser';
+import Image from 'next/image';
+import bg from '@/assets/timeline-banner.webp';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -113,11 +115,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
               thumbnail={false}
             />
           ) : (
-            <LazyImage
-              containerClassName={styles.bannerBg}
-              src="/timeline-banner.webp"
-              blurSrc="/timeline-banner-blur.webp"
-            />
+            <Image placeholder="blur" className={styles.bannerBg} src={bg} />
           )}
           <div className={styles.authorInfo}>
             <LazyImage

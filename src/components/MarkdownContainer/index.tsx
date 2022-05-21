@@ -74,7 +74,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
                       onGenerateMetadata?.(metadata);
                     });
                     const {
-                      date = DateFormat(),
+                      date = new Date(),
                       author = 'powerfulyang',
                       title = 'No title',
                       tags = [],
@@ -95,7 +95,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
                       children: [
                         {
                           type: 'text',
-                          value: `Published by ${author} on ${date}`,
+                          value: `Published by ${author} on ${DateFormat(date)}`,
                         },
                       ],
                     });

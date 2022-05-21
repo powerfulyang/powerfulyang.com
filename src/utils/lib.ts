@@ -8,18 +8,13 @@ export const DateTimeFormat = (date?: Date | string) => dayjs(date).format('llll
 export const TimeFormat = () => dayjs().format('HH:mm:ss');
 
 export const styles = {
-  thumbnail: '&imageMogr2/thumbnail/400x/interlace/1/quality/30',
-  thumbnail_webp: '&imageMogr2/thumbnail/400x/format/webp/interlace/1/quality/30',
+  thumbnail: '&imageMogr2/thumbnail/300x/interlace/1/quality/90',
+  thumbnail_webp: '&imageMogr2/thumbnail/300x/format/webp/interlace/1/quality/90',
   webp: '&imageMogr2/format/webp/interlace/1/quality/100',
-  origin: '',
-  blur: '&imageMogr2/thumbnail/400x/interlace/1/quality/1',
-  blur_webp: '&imageMogr2/thumbnail/400x/format/webp/interlace/1/quality/1',
-  thumbnail_blur: '&imageMogr2/thumbnail/400x/interlace/1/quality/1',
-  thumbnail_blur_webp: '&imageMogr2/thumbnail/400x/format/webp/interlace/1/quality/1',
+  origin: '&imageMogr2/interlace/1/quality/100',
+  thumbnail_blur: '&imageMogr2/thumbnail/10x/interlace/1/quality/1',
+  thumbnail_blur_webp: '&imageMogr2/thumbnail/10x/format/webp/interlace/1/quality/1',
 };
-
-export const getCosObjectBlurUrl = (objectUrl?: string) =>
-  objectUrl && `${objectUrl}${(isSupportWebp() && styles.blur_webp) || styles.blur}`;
 
 export const getCosObjectThumbnailUrl = (objectUrl?: string) =>
   objectUrl && `${objectUrl}${(isSupportWebp() && styles.thumbnail_webp) || styles.thumbnail}`;
@@ -34,6 +29,5 @@ export const getCosObjectThumbnailBlurUrl = (objectUrl?: string) =>
 export const CosUtils = {
   getCosObjectThumbnailUrl,
   getCosObjectUrl,
-  getCosObjectBlurUrl,
   getCosObjectThumbnailBlurUrl,
 } as const;

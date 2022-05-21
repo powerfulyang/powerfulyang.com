@@ -29,6 +29,7 @@ export type Props = {
 
 const PostPreview: FC<Props> = ({ selectedPost, containerRef, hiddenPost }) => {
   const [show, setShow] = useState(false);
+
   useIsomorphicLayoutEffect(() => {
     if (!selectedPost) {
       setShow(false);
@@ -42,73 +43,70 @@ const PostPreview: FC<Props> = ({ selectedPost, containerRef, hiddenPost }) => {
     },
     {
       enabled: show && !!selectedPost,
-      select(v) {
-        return v.data.content;
+      select: (data) => {
+        return data.data.content;
       },
     },
   );
-  return useMemo(() => {
-    return (
-      <AnimatePresence>
-        {selectedPost && (
-          <>
+
+  return (
+    <AnimatePresence custom={{ show, source }} exitBeforeEnter>
+      {selectedPost && (
+        <>
+          <motion.div
+            className={styles.overlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.15 } }}
+            transition={{ duration: 0.8 }}
+          />
+          <motion.div
+            className={classNames(styles.postPreview, 'pointer')}
+            ref={containerRef}
+            onClick={hiddenPost}
+            key={selectedPost.id}
+          >
             <motion.div
-              className={styles.overlay}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0.15 } }}
-              transition={{ duration: 0.8 }}
-            />
-            <motion.div
-              className={classNames(styles.postPreview, 'pointer')}
-              ref={containerRef}
-              onClick={hiddenPost}
-              key={selectedPost.id}
+              onLayoutAnimationComplete={() => {
+                setShow(true);
+              }}
+              transition={{
+                type: 'spring',
+                stiffness: 200,
+                damping: 50,
+              }}
+              layoutId={`post-container-${selectedPost.id}`}
+              className={classNames(styles.container, 'default')}
             >
+              <motion.div className={styles.image} layoutId={`post-poster-${selectedPost.id}`}>
+                <LazyAssetImage
+                  draggable={false}
+                  onTap={hiddenPost}
+                  thumbnail={false}
+                  asset={selectedPost.poster}
+                />
+              </motion.div>
               <motion.div
-                onLayoutAnimationComplete={() => {
-                  setShow(true);
+                onClick={(e) => {
+                  e.stopPropagation();
                 }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 200,
-                  damping: 50,
-                }}
-                layoutId={`post-container-${selectedPost.id}`}
-                className={classNames(styles.container, 'default')}
+                className={styles.content}
+                layoutId={`post-content-${selectedPost.id}`}
               >
-                <motion.div className={styles.image} layoutId={`post-poster-${selectedPost.id}`}>
-                  <LazyAssetImage
-                    draggable={false}
-                    onTap={hiddenPost}
-                    thumbnail={false}
-                    lazy={false}
-                    asset={selectedPost.poster}
-                  />
-                </motion.div>
-                <motion.div
-                  layout="position"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  className={styles.content}
-                  layoutId={`post-content-${selectedPost.id}`}
-                >
-                  <Suspense fallback={<Skeleton rows={8} />}>
-                    {show && source ? (
-                      <LazyMarkdownContainer blur={false} source={source} />
-                    ) : (
-                      <Skeleton rows={8} />
-                    )}
-                  </Suspense>
-                </motion.div>
+                <Suspense fallback={<Skeleton rows={8} />}>
+                  {(source && (
+                    <motion.div layout="position">
+                      <LazyMarkdownContainer source={source} />
+                    </motion.div>
+                  )) || <Skeleton rows={8} />}
+                </Suspense>
               </motion.div>
             </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    );
-  }, [containerRef, hiddenPost, selectedPost, show, source]);
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
 };
 
 type IndexProps = {
@@ -174,7 +172,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   }, [history.router, year]);
 
   useEffect(() => {
-    const sub = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
+    const sb = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
       if (e.key === 'Escape' && selectedPostId) {
         return hiddenPost();
       }
@@ -187,7 +185,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
       return null;
     });
     return () => {
-      sub.unsubscribe();
+      sb.unsubscribe();
     };
   }, [hiddenPost, history, selectedPostId]);
 
@@ -210,10 +208,19 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
           </div>
           <section className="m-auto flex w-[100%] max-w-[1000px] flex-wrap">
             {posts.map((post) => (
-              <motion.div
+              <motion.a
                 key={post.id}
                 title={`${post.id}`}
                 className={classNames('pointer', styles.card)}
+                href={`/post/${post.id}`}
+                draggable={false}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (e.detail === 0) {
+                    return history.pushState(`/post/${post.id}`);
+                  }
+                  return null;
+                }}
                 onTap={(e) => {
                   const pointerEvent = e as PointerEvent;
                   if (pointerEvent.pointerType === 'mouse') {
@@ -244,20 +251,14 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                   layoutId={`post-container-${post.id}`}
                   className={classNames(styles.container)}
                 >
-                  <motion.a
-                    onClick={(e) => e.preventDefault()}
-                    className={styles.image}
-                    layoutId={`post-poster-${post.id}`}
-                    href={`/post/${post.id}`}
-                    draggable={false}
-                  >
+                  <motion.div className={styles.image} layoutId={`post-poster-${post.id}`}>
                     <LazyAssetImage draggable={false} thumbnail={false} asset={post.poster} />
-                  </motion.a>
+                  </motion.div>
                   <motion.div className={styles.content} layoutId={`post-content-${post.id}`}>
                     <Skeleton rows={8} />
                   </motion.div>
                 </motion.div>
-              </motion.div>
+              </motion.a>
             ))}
           </section>
         </main>

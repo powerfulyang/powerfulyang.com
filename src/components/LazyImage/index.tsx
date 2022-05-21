@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo, startTransition, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import type { HTMLMotionProps } from 'framer-motion';
 import { motion } from 'framer-motion';
@@ -63,8 +63,10 @@ export const LazyImage = memo<LazyImageProps>(
       triggerOnce,
       onChange: (viewed) => {
         if (!viewed && !triggerOnce && blurSrc) {
-          setLoading(true);
-          setImgSrc(blurSrc);
+          startTransition(() => {
+            setLoading(true);
+            setImgSrc(blurSrc);
+          });
         }
       },
     });
@@ -103,8 +105,10 @@ export const LazyImage = memo<LazyImageProps>(
                 const img = new Image();
                 img.onload = () => {
                   LOADED_IMAGE_URLS.add(src);
-                  setImgSrc(src);
-                  setLoading(false);
+                  startTransition(() => {
+                    setImgSrc(src);
+                    setLoading(false);
+                  });
                 };
                 img.onerror = () => {
                   setImgSrc(Assets.brokenImg);
