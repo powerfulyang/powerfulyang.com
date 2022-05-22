@@ -14,7 +14,9 @@ import type { VoidFunction } from '@powerfulyang/utils';
 const reducer = (draft: ImagePreviewContextState, action: ImageModalContextAction) => {
   switch (action.type) {
     case ImagePreviewContextActionType.close:
-      draft.selectIndex = undefined;
+      if (draft.selectIndex === action.payload?.selectIndex) {
+        draft.selectIndex = undefined;
+      }
       break;
     case ImagePreviewContextActionType.open:
       draft.selectIndex = action.payload?.selectIndex;

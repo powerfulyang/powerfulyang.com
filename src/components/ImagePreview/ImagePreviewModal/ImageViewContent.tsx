@@ -131,11 +131,17 @@ export const ImageViewContent: FC<ImageViewContentProps> = () => {
     setOpen(false);
   }, []);
 
-  const destroy = useCallback(() => {
-    dispatch({
-      type: ImagePreviewContextActionType.close,
-    });
-  }, [dispatch]);
+  const destroy = useCallback(
+    (index: number) => {
+      dispatch({
+        type: ImagePreviewContextActionType.close,
+        payload: {
+          selectIndex: index,
+        },
+      });
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     if (isDefined(selectIndex)) {

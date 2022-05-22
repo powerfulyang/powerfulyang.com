@@ -13,9 +13,10 @@ export const LazyAssetImage = memo<
      * 压缩图片资源
      */
     thumbnail?: boolean;
+    previewIndex?: number;
   }
 >(
-  ({ asset, keepAspectRatio = false, thumbnail = true, ...props }) => {
+  ({ asset, keepAspectRatio = false, thumbnail = true, previewIndex, ...props }) => {
     return (
       <LazyImage
         {...props}

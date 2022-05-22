@@ -17,7 +17,7 @@ import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/Im
 import { InView } from 'react-intersection-observer';
 import { fromEvent } from 'rxjs';
 
-type MasonryItem = ReactElement<{ asset: Asset; tabIndex: number; onClick: () => void }>;
+type MasonryItem = ReactElement<{ asset: Asset; previewIndex: number; onClick: () => void }>;
 
 const getMapValueMinKey = (items: Map<number, number>): number => {
   const minValue = Math.min(...items.values());
@@ -138,7 +138,7 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
               dispatch({
                 type: ImagePreviewContextActionType.open,
                 payload: {
-                  selectIndex: node?.props.tabIndex,
+                  selectIndex: node?.props.previewIndex,
                 },
               });
             };

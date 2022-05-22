@@ -9,7 +9,7 @@ type ImageModalProps = {
   selectIndex: number;
   index: number;
   actionRef: any;
-  destroy: () => void;
+  destroy: (index: number) => void;
   x: number;
   y: number;
 } & ImagePreviewItem;
@@ -122,13 +122,13 @@ export const ImageModal = memo<ImageModalProps>(
     const onAnimateComplete = useCallback(
       (label: string) => {
         if (isMain && label === 'exit') {
-          destroy();
+          destroy(selectIndex);
         }
         if (label === 'animate') {
           setAnimated(true);
         }
       },
-      [destroy, isMain],
+      [destroy, isMain, selectIndex],
     );
 
     return (

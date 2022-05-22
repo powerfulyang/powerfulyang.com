@@ -73,7 +73,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
       <LazyAssetImage
         key={asset.id}
         id={`${asset.id}`}
-        tabIndex={index}
+        previewIndex={index}
         title={`${asset.id}`}
         asset={asset}
         initialInView={index < 20}
