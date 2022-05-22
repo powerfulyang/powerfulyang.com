@@ -25,6 +25,7 @@
     @apply relative m-auto mb-4 flex flex-col justify-center overflow-hidden align-middle;
 
     .banner-bg {
+      position: relative;
       height: 150px;
       @apply m-auto w-full;
       @screen sm {

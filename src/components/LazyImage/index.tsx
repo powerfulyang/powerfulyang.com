@@ -21,7 +21,7 @@ export type LazyImageExtendProps = {
 
 export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
 
-const LOADED_IMAGE_URLS = new Set<string | undefined>();
+export const LOADED_IMAGE_URLS = new Set<string | undefined>();
 
 export const LazyImage = memo<LazyImageProps>(
   ({
@@ -111,8 +111,10 @@ export const LazyImage = memo<LazyImageProps>(
                   });
                 };
                 img.onerror = () => {
-                  setImgSrc(Assets.brokenImg);
-                  setLoading(false);
+                  startTransition(() => {
+                    setImgSrc(Assets.brokenImg);
+                    setLoading(false);
+                  });
                 };
                 img.src = src;
               }

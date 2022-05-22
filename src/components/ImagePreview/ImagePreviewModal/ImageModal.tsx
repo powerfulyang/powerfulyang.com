@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { memo, startTransition, useCallback, useEffect, useMemo, useState } from 'react';
 import { Assets } from '@powerfulyang/components';
 import styles from '@/components/ImagePreview/ImagePreviewModal/content.module.scss';
 import type { ImagePreviewItem } from '@/components/ImagePreview';
@@ -27,30 +27,31 @@ type Custom = {
 
 export const ImageModal = memo<ImageModalProps>(
   ({ selectIndex, index, actionRef, destroy, x, y, ...rest }) => {
-    const [url, setUrl] = useState(() => rest.thumbnail || rest.original);
+    const [url, setUrl] = useState(() => {
+      return rest.thumbnail || rest.original;
+    });
     const [loaded, setLoaded] = useState(false);
     const [animated, setAnimated] = useState(false);
 
     useEffect(() => {
       const originUrl = rest.original;
-      if (originUrl) {
+      if (originUrl && animated) {
         const img = new Image();
         img.src = originUrl;
         img.onload = () => {
-          setLoaded(true);
+          startTransition(() => {
+            setUrl(originUrl);
+            setLoaded(true);
+          });
         };
         img.onerror = () => {
-          setLoaded(true);
-          setUrl(Assets.brokenImg);
+          startTransition(() => {
+            setUrl(Assets.brokenImg);
+            setLoaded(true);
+          });
         };
       }
-    }, [rest.original]);
-
-    useEffect(() => {
-      if (animated && loaded && url !== Assets.brokenImg) {
-        setUrl(rest.original);
-      }
-    }, [animated, loaded, rest.original, url]);
+    }, [rest.original, animated]);
 
     const realIndex = selectIndex === 0 ? selectIndex + index : selectIndex - 1 + index;
     const isPrev = selectIndex > realIndex;

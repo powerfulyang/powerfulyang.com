@@ -115,7 +115,9 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
               thumbnail={false}
             />
           ) : (
-            <Image placeholder="blur" className={styles.bannerBg} src={bg} />
+            <div className={styles.bannerBg}>
+              <Image objectFit="cover" layout="fill" placeholder="blur" src={bg} />
+            </div>
           )}
           <div className={styles.authorInfo}>
             <LazyImage
