@@ -110,8 +110,8 @@ const Airdrop: LayoutFC = () => {
           d.delete(connection.peer);
         });
       });
-      connection.on('data', (data: SentMessage) => {
-        receiveMessage(connection.peer, data);
+      connection.on('data', (data) => {
+        receiveMessage(connection.peer, data as SentMessage);
       });
     };
     import('peerjs').then(({ default: Peer }) => {

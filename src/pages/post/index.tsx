@@ -213,7 +213,6 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 title={`${post.id}`}
                 className={classNames('pointer', styles.card)}
                 href={`/post/${post.id}`}
-                draggable={false}
                 onClick={(e) => {
                   e.preventDefault();
                   if (e.detail === 0) {

@@ -47,7 +47,7 @@ $main-color: #ffb356;
 
     .content {
       color: $heading-color;
-      @apply block min-w-[20ch] cursor-text px-2 py-4 text-center text-lg sm:px-[4ch] sm:py-4;
+      @apply block min-w-[20ch] cursor-text px-2 py-4 text-center text-lg sm:px-[4ch] sm:py-2;
     }
 
     .suffix {
