@@ -13,16 +13,16 @@ export type TocItem = {
 export const MarkdownToc: FC<{ toc: TocItem[] }> = ({ toc }) => {
   const hashRef = useRef('');
   return (
-    <div className={classNames('hidden sm:block', styles.toc)}>
+    <div className={classNames('common-shadow hidden sm:block', styles.toc)}>
       <span className="mb-2 inline-block text-lg text-gray-400">目录:</span>
       {toc.map((item) => {
         const { id } = item;
         return (
-          <div key={id} className="mt-2 truncate">
+          <div key={id} className="truncate">
             <a
               className="link px-1"
               style={{
-                marginLeft: `${item.level * 1.5}rem`,
+                marginLeft: `${(item.level - 1) * 1.5}rem`,
               }}
               href={`#${id}`}
               title={item.title}

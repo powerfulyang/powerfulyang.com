@@ -77,7 +77,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
         title={`${asset.id}`}
         asset={asset}
         initialInView={index < 20}
-        containerClassName="rounded-lg shadow-lg contain-strict"
+        containerClassName="rounded-lg shadow-lg contain-strict pointer"
         keepAspectRatio
         triggerOnce={false}
         draggable={false}
