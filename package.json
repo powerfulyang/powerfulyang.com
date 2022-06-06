@@ -66,7 +66,7 @@
     "@types/react-syntax-highlighter": "15.5.1",
     "@types/sharp": "0.30.2",
     "next-compose-plugins": "2.2.1",
-    "next-pwa": "5.5.2",
+    "next-pwa": "5.5.4",
     "prettier-plugin-tailwindcss": "0.1.11",
     "tailwindcss": "3.0.24"
   }
