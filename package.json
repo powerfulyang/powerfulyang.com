@@ -64,7 +64,7 @@
     "@testing-library/react": "13.3.0",
     "@types/ramda": "0.28.14",
     "@types/react-syntax-highlighter": "15.5.1",
-    "@types/sharp": "0.30.2",
+    "@types/sharp": "0.30.3",
     "next-compose-plugins": "2.2.1",
     "next-pwa": "5.5.2",
     "prettier-plugin-tailwindcss": "0.1.11",
