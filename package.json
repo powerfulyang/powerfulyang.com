@@ -29,7 +29,7 @@
     "@powerfulyang/components": "1.4.4",
     "@powerfulyang/hooks": "1.1.1",
     "@powerfulyang/utils": "1.4.4",
-    "@sentry/nextjs": "6.19.7",
+    "@sentry/nextjs": "7.0.0",
     "classnames": "2.3.1",
     "dayjs": "1.11.2",
     "framer-motion": "6.3.10",
