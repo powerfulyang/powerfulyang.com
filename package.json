@@ -31,7 +31,7 @@
     "@powerfulyang/utils": "1.4.4",
     "@sentry/nextjs": "7.0.0",
     "classnames": "2.3.1",
-    "dayjs": "1.11.2",
+    "dayjs": "1.11.3",
     "framer-motion": "6.3.10",
     "hast-util-to-string": "2.0.0",
     "jotai": "1.7.1",
