@@ -1,6 +1,7 @@
 .footer {
   display: flex;
-  position: relative;
+  position: absolute;
+  bottom: 0;
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -8,4 +9,9 @@
   padding: 0 2rem;
   background-color: white;
   box-shadow: 0 0 20px 10px rgb(160 44 219 / 7%);
+}
+
+.placeholder {
+  width: 100%;
+  height: var(--footer-height);
 }

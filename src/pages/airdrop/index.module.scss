@@ -1,6 +1,5 @@
 .main {
   display: flex;
-  min-height: calc(100vh - var(--footer-height) - var(--nav-height));
 
   .desktop-chats {
     @apply m-auto hidden h-[80vh] w-1/2 min-w-[900px] overflow-hidden rounded-lg sm:flex;

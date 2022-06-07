@@ -4,7 +4,6 @@ $mobile-poster-height: 40vh;
 $poster-height: 410px;
 
 .body {
-  min-height: calc(100vh - var(--nav-height) - var(--footer-height));
   background-color: #fcfcff;
   @apply py-4 pb-10 sm:px-28;
 }

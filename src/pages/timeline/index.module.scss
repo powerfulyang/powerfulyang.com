@@ -2,7 +2,6 @@
 
 .wrap {
   width: 100%;
-  min-height: calc(100vh - var(--footer-height) - var(--nav-height));
   @apply pb-6;
 
   .timeline-show {
