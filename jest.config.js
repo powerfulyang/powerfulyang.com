@@ -19,13 +19,10 @@ const asyncConfig = createJestConfig(customJestConfig);
 const esModules = [
   'react-markdown',
   'vfile',
-  'unist-.+',
   'unified',
   'bail',
   'is-plain-obj',
   'trough',
-  'mdast-util-.+',
-  'hast-util-.+',
   'micromark',
   'parse-entities',
   'character-entities',
@@ -33,6 +30,9 @@ const esModules = [
   'comma-separated-tokens',
   'remark-.+',
   'rehype-.+',
+  'unist-.+',
+  'mdast-.+',
+  'hast-.+',
   'space-separated-tokens',
   'decode-named-character-reference',
   'ccount',
@@ -42,6 +42,7 @@ const esModules = [
   'zwitch',
   'longest-streak',
   'yaml',
+  'remark',
 ].join('|');
 
 module.exports = async () => {

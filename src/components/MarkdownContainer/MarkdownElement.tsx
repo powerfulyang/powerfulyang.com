@@ -74,7 +74,7 @@ export const BlockQuote: NormalComponents['blockquote'] = ({ children }) => (
 );
 
 export const Table: NormalComponents['table'] = ({ children }) => (
-  <div className="overflow-auto">
+  <div className="my-4 overflow-auto">
     <table className={styles.table}>{children}</table>
   </div>
 );

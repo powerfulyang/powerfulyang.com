@@ -5,38 +5,34 @@ import { fromEvent } from 'rxjs';
 import type { Post } from '@/type/Post';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
-import type { TocItem } from '@/components/MarkdownContainer/Toc';
-import { MarkdownToc } from '@/components/MarkdownContainer/Toc';
+import { MarkdownTOC } from '@/components/MarkdownContainer/Toc';
 import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
-import { useImmer } from '@powerfulyang/hooks';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
+import { generateTOC } from '@/utils/toc';
 import styles from './index.module.scss';
 
 type PostProps = {
   data: Post;
 };
 
-const PostDetail: LayoutFC<PostProps> = ({ data }) => {
-  const { content } = data;
+const PostDetail: LayoutFC<PostProps> = ({ data: { id, content, toc } }) => {
   const history = useHistory();
   useEffect(() => {
     const keydown$ = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
       if (e.key === '.') {
-        history.pushState(`/post/publish/${data.id}`);
+        history.pushState(`/post/publish/${id}`);
       }
     });
     return () => {
       keydown$.unsubscribe();
     };
-  }, [history, data.id]);
-
-  const [toc, setToc] = useImmer<TocItem[]>([]);
+  }, [history, id]);
 
   return (
     <main className={styles.postWrap}>
-      <MarkdownContainer source={content} className={styles.post} onGenerateToc={setToc} />
-      <MarkdownToc toc={toc} />
+      <MarkdownContainer source={content} className={styles.post} />
+      <MarkdownTOC toc={toc} />
     </main>
   );
 };
@@ -53,8 +49,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const res = await requestAtServer(`/public/post/${id as string}`, { ctx });
   const { data, pathViewCount } = await res.json();
 
+  const toc = await generateTOC(data.content);
+
   return {
-    props: { data, pathViewCount, title: data.title },
+    props: {
+      data: {
+        ...data,
+        toc,
+      },
+      pathViewCount,
+      title: data.title,
+    },
   };
 };
 

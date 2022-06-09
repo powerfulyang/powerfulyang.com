@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { useMemo } from 'react';
+import React, { startTransition, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import classNames from 'classnames';
@@ -7,9 +7,6 @@ import rehypeSlug from 'rehype-slug';
 import remarkParse from 'remark-parse';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkStringify from 'remark-stringify';
-import { visit } from 'unist-util-visit';
-import { toString } from 'hast-util-to-string';
-import type { TocItem } from '@/components/MarkdownContainer/Toc';
 import { parse } from 'yaml';
 import { DateFormat } from '@/utils/lib';
 import { copyToClipboardAndNotify } from '@/utils/copy';
@@ -35,7 +32,6 @@ export type MarkdownContainerProps = {
   source: string;
   className?: string;
   blur?: boolean;
-  onGenerateToc?: (toc: TocItem[]) => void;
   onGenerateMetadata?: (metadata: Record<string, any>) => void;
 };
 
@@ -43,7 +39,6 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
   source,
   className,
   blur = true,
-  onGenerateToc,
   onGenerateMetadata,
 }) => {
   const initialContext = useMemo(() => ({ blur }), [blur]);
@@ -71,7 +66,9 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
                       tags?: string[];
                     };
                     process.nextTick(() => {
-                      onGenerateMetadata?.(metadata);
+                      startTransition(() => {
+                        onGenerateMetadata?.(metadata);
+                      });
                     });
                     const {
                       date = new Date(),
@@ -133,29 +130,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
               },
             },
           }}
-          rehypePlugins={[
-            rehypeSlug,
-            () => {
-              return (tree) => {
-                const toc: TocItem[] = [];
-                visit(tree, 'element', (node) => {
-                  if (/^h(\d+)$/.test(node.tagName)) {
-                    const level = Number(node.tagName.slice(1));
-                    const id = node.properties?.id;
-                    const title = toString(node);
-                    toc.push({
-                      level,
-                      id,
-                      title,
-                    });
-                  }
-                });
-                process.nextTick(() => {
-                  onGenerateToc?.(toc);
-                });
-              };
-            },
-          ]}
+          rehypePlugins={[rehypeSlug]}
           components={{
             h1: H1,
             h2: H2,
@@ -193,7 +168,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
         </ReactMarkdown>
       </MDContainerContext.Provider>
     );
-  }, [initialContext, className, source, onGenerateMetadata, onGenerateToc]);
+  }, [initialContext, className, source, onGenerateMetadata]);
 };
 
 export default MarkdownContainer;

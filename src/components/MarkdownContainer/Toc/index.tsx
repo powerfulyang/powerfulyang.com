@@ -4,13 +4,13 @@ import classNames from 'classnames';
 import { scrollIntoView } from '@powerfulyang/utils';
 import styles from './index.module.scss';
 
-export type TocItem = {
+export type TOCItem = {
   title: string;
   level: number;
   id: string;
 };
 
-export const MarkdownToc: FC<{ toc: TocItem[] }> = ({ toc }) => {
+export const MarkdownTOC: FC<{ toc: TOCItem[] }> = ({ toc }) => {
   const hashRef = useRef('');
   return (
     <div className={classNames('common-shadow hidden sm:block', styles.toc)}>

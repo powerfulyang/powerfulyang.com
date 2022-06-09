@@ -139,6 +139,11 @@ $main-color: #ffb356;
     }
   }
 
+  p {
+    line-height: 2rem;
+    @apply cursor-text whitespace-pre-wrap;
+  }
+
   pre {
     @apply isolate my-4 overflow-hidden rounded-lg;
 
@@ -154,13 +159,18 @@ $main-color: #ffb356;
   }
 
   a {
+    word-break: break-all;
+
     code {
       @apply text-purple-500;
     }
   }
 
   .inline-code {
-    @apply rounded bg-blue-100 px-2 py-0.5;
+    position: relative;
+    display: inline-block;
+    white-space: pre-wrap;
+    @apply my-0.5 rounded bg-blue-100 px-2;
   }
 
   .toolbar {
@@ -196,11 +206,6 @@ $main-color: #ffb356;
 
   svg {
     display: inline-block;
-  }
-
-  p {
-    line-height: 2rem;
-    @apply cursor-text whitespace-pre-wrap;
   }
 
   strong {
