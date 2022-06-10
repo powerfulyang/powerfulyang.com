@@ -1,9 +1,8 @@
-import type { FC, KeyboardEvent, RefObject } from 'react';
-import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { FC, RefObject } from 'react';
+import React, { Suspense, useCallback, useMemo, useRef, useState } from 'react';
 import type { GetServerSideProps } from 'next';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import { fromEvent } from 'rxjs';
 import type { Post } from '@/type/Post';
 import { Link } from '@/components/Link';
 import type { LayoutFC } from '@/type/GlobalContext';
@@ -19,6 +18,8 @@ import { Skeleton } from '@/components/Skeleton';
 import { useQuery } from 'react-query';
 import { requestAtClient } from '@/utils/client';
 import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
+import { useShortcut } from '@/hooks/useShortcut';
+import { notification } from '@powerfulyang/components';
 import styles from './index.module.scss';
 
 export type Props = {
@@ -171,23 +172,28 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
     );
   }, [history.router, year]);
 
-  useEffect(() => {
-    const sb = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
-      if (e.key === 'Escape' && selectedPostId) {
-        return hiddenPost();
-      }
-      if (e.key === '.') {
-        if (selectedPostId) {
-          return history.pushState(`/post/publish/${selectedPostId}`);
-        }
-        return history.pushState('/post/publish');
-      }
-      return null;
+  useShortcut(['Escape'], () => {
+    selectedPostId && hiddenPost();
+  });
+
+  useShortcut(['.'], () => {
+    if (selectedPostId) {
+      return history.pushState(`/post/publish/${selectedPostId}`);
+    }
+    return history.pushState('/post/publish');
+  });
+
+  useShortcut(['Control', 'K'], () => {
+    notification.warn({
+      message: '开始搜索',
     });
-    return () => {
-      sb.unsubscribe();
-    };
-  }, [hiddenPost, history, selectedPostId]);
+  });
+
+  useShortcut(['Meta', 'K'], () => {
+    notification.warn({
+      message: '开始搜索',
+    });
+  });
 
   return (
     <>
