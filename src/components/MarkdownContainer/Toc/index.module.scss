@@ -2,8 +2,8 @@
 
 .toc {
   position: sticky;
-  top: calc(var(--nav-height) + 6rem);
-  height: calc(100vh - var(--nav-height) - 6rem - var(--footer-height));
+  top: calc(var(--nav-height) + 2rem);
+  height: calc(100vh - var(--nav-height) - 2rem - var(--footer-height));
   width: var(--markdown-toc-width);
   align-self: start;
   overflow: scroll;
@@ -11,7 +11,7 @@
   &::-webkit-scrollbar {
     width: 0;
   }
-  @apply ml-4 rounded-lg p-2 text-purple-500;
+  @apply ml-4 rounded-lg p-6 text-purple-500;
 
   .anchor {
     color: $main-color;

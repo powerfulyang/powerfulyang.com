@@ -4,8 +4,13 @@ import { toString } from 'hast-util-to-string';
 import rehypeSlug from 'rehype-slug';
 import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
+import remarkFrontmatter from 'remark-frontmatter';
+import { remarkMetadata } from '@/components/MarkdownContainer';
+import remarkGfm from 'remark-gfm';
+import remarkParse from 'remark-parse';
+import remarkStringify from 'remark-stringify';
 
-const tocExec = (callback: (v: TOCItem[]) => void) => {
+const rehypeTocExec = (callback: (v: TOCItem[]) => void) => {
   return (tree: any) => {
     const tmp: TOCItem[] = [];
     visit(tree, 'element', (node) => {
@@ -31,9 +36,14 @@ const tocExec = (callback: (v: TOCItem[]) => void) => {
 export const generateTOC = async (content: string) => {
   let toc: TOCItem[] = [];
   await remark()
+    .use(remarkGfm)
+    .use(remarkParse)
+    .use(remarkStringify)
+    .use(remarkFrontmatter)
+    .use(remarkMetadata)
     .use(remarkRehype)
     .use(rehypeSlug)
-    .use(tocExec, (v) => {
+    .use(rehypeTocExec, (v) => {
       toc = v;
     })
     .process(content);

@@ -11,6 +11,9 @@ import { parse } from 'yaml';
 import { DateFormat } from '@/utils/lib';
 import { copyToClipboardAndNotify } from '@/utils/copy';
 import { Icon } from '@powerfulyang/components';
+import type { Plugin } from 'unified';
+import type { Root } from 'mdast';
+import styles from './index.module.scss';
 import {
   A,
   BlockQuote,
@@ -26,7 +29,6 @@ import {
   Table,
   Ul,
 } from './MarkdownElement';
-import styles from './index.module.scss';
 
 export type MarkdownContainerProps = {
   source: string;
@@ -35,11 +37,76 @@ export type MarkdownContainerProps = {
   onGenerateMetadata?: (metadata: Record<string, any>) => void;
 };
 
+export const remarkMetadata: Plugin<any, Root, string> = (
+  onGenerateMetadata?: MarkdownContainerProps['onGenerateMetadata'],
+) => {
+  return (draft: any) => {
+    const { children } = draft;
+    const yamlPart = children.find((child: any) => child.type === 'yaml');
+    if (yamlPart) {
+      const formatted = [];
+      try {
+        const metadata = (parse(yamlPart?.value || '') || {}) as {
+          date?: string;
+          author?: string;
+          title?: string;
+          tags?: string[];
+        };
+        process.nextTick(() => {
+          startTransition(() => {
+            onGenerateMetadata?.(metadata);
+          });
+        });
+        const {
+          date = new Date(),
+          author = 'powerfulyang',
+          title = 'No title',
+          tags = [],
+        } = metadata;
+        yamlPart.children = [];
+        formatted.push({
+          type: 'heading',
+          depth: 1,
+          children: [
+            {
+              type: 'text',
+              value: title,
+            },
+          ],
+        });
+        console.log(onGenerateMetadata);
+        if (onGenerateMetadata) {
+          formatted.push({
+            type: 'info',
+            children: [
+              {
+                type: 'text',
+                value: `Published by ${author} on ${DateFormat(date)}`,
+              },
+            ],
+          });
+          formatted.push({
+            type: 'tags',
+            children: tags.map((tag) => ({
+              type: 'text',
+              value: tag,
+            })),
+          });
+        }
+        draft.children = [...formatted, ...children];
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e);
+      }
+    }
+  };
+};
+
 export const MarkdownContainer: FC<MarkdownContainerProps> = ({
   source,
   className,
   blur = true,
-  onGenerateMetadata,
+  onGenerateMetadata = () => {},
 }) => {
   const initialContext = useMemo(() => ({ blur }), [blur]);
   return useMemo(() => {
@@ -52,65 +119,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
             remarkParse,
             remarkStringify,
             remarkFrontmatter,
-            () => {
-              return (draft) => {
-                const { children } = draft;
-                const yamlPart = children.find((child: any) => child.type === 'yaml');
-                if (yamlPart) {
-                  const formatted = [];
-                  try {
-                    const metadata = (parse(yamlPart?.value || '') || {}) as {
-                      date?: string;
-                      author?: string;
-                      title?: string;
-                      tags?: string[];
-                    };
-                    process.nextTick(() => {
-                      startTransition(() => {
-                        onGenerateMetadata?.(metadata);
-                      });
-                    });
-                    const {
-                      date = new Date(),
-                      author = 'powerfulyang',
-                      title = 'No title',
-                      tags = [],
-                    } = metadata;
-                    yamlPart.children = [];
-                    formatted.push({
-                      type: 'heading',
-                      depth: 1,
-                      children: [
-                        {
-                          type: 'text',
-                          value: title,
-                        },
-                      ],
-                    });
-                    formatted.push({
-                      type: 'info',
-                      children: [
-                        {
-                          type: 'text',
-                          value: `Published by ${author} on ${DateFormat(date)}`,
-                        },
-                      ],
-                    });
-                    formatted.push({
-                      type: 'tags',
-                      children: tags.map((tag) => ({
-                        type: 'text',
-                        value: tag,
-                      })),
-                    });
-                    draft.children = [...formatted, ...children];
-                  } catch (e) {
-                    // eslint-disable-next-line no-console
-                    console.error(e);
-                  }
-                }
-              };
-            },
+            [remarkMetadata, onGenerateMetadata],
           ]}
           remarkRehypeOptions={{
             passThrough: ['info', 'tags'],
@@ -168,7 +177,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
         </ReactMarkdown>
       </MDContainerContext.Provider>
     );
-  }, [initialContext, className, source, onGenerateMetadata]);
+  }, [initialContext, className, onGenerateMetadata, source]);
 };
 
 export default MarkdownContainer;

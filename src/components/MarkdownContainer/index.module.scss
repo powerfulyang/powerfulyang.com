@@ -223,16 +223,16 @@ $main-color: #ffb356;
 
   // table
   .table {
-    border: darkgrey 2px dashed;
+    border: darkgrey 1px dashed;
     cursor: text;
 
     thead {
-      border-bottom: cornflowerblue 2px solid;
+      border-bottom: darkgrey 1px dashed;
 
       tr {
         th {
           padding: 1em;
-          border-left: cornflowerblue 2px solid;
+          border-left: darkgrey 1px dashed;
           width: max-content;
           white-space: pre;
 
@@ -245,12 +245,12 @@ $main-color: #ffb356;
 
     tbody {
       tr {
-        border-bottom: darkgrey 2px dashed;
+        border-bottom: darkgrey 1px dashed;
 
         td {
           padding: 0.5em;
           text-align: center;
-          border-left: cornflowerblue 2px solid;
+          border-left: darkgrey 1px dashed;
           width: max-content;
           white-space: pre;
 
