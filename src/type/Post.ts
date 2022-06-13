@@ -12,8 +12,8 @@ export interface Post extends PathViewCount {
   content: string;
   createBy: User;
   tags: string[];
-  createAt: Date;
-  updateAt: Date;
+  createAt: string;
+  updateAt: string;
   poster: Asset;
   toc: TOCItem[];
 }
