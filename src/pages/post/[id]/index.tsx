@@ -53,6 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
+      currentUrl: ctx.req.url,
       data: {
         ...data,
         toc,

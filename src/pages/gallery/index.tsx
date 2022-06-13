@@ -110,6 +110,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { data, pathViewCount } = await res.json();
   return {
     props: {
+      currentUrl: ctx.req.url,
       assets: data.resources,
       nextCursor: data.nextCursor,
       prevCursor: data.prevCursor,

@@ -279,7 +279,10 @@ Index.getLayout = (page) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { query } = ctx;
+  const {
+    query,
+    req: { url },
+  } = ctx;
   const tmp = await requestAtServer('/public/post/years', {
     ctx,
   });
@@ -290,8 +293,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     query: { publishYear: year },
   });
   const { data, pathViewCount } = await res.json();
+  const currentUrl = url;
   return {
     props: {
+      currentUrl,
       pathViewCount,
       years,
       posts: data.map((post: Post) => {

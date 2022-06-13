@@ -72,7 +72,10 @@ Publish.getLayout = (page) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { query } = ctx;
+  const {
+    query,
+    req: { url },
+  } = ctx;
   const { id } = query;
 
   let post;
@@ -90,6 +93,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
+      currentUrl: url,
       post,
       title: '发布日志',
       pathViewCount,

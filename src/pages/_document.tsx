@@ -2,6 +2,8 @@ import { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 import { ProjectName } from '@/constant/Constant';
 
+export const twitter_username = 'hutyxxx';
+
 const Document = () => {
   return (
     <Html lang="zh">
@@ -32,19 +34,6 @@ const Document = () => {
         <link rel="manifest" href="/manifest.json" />
         <link rel="mask-icon" href="/icons/favicon-32x32.png" color="#5bbad5" />
         <link rel="shortcut icon" href="/favicon.ico" />
-
-        <meta name="twitter:card" content={ProjectName} />
-        <meta name="twitter:url" content="https://powerfulyang.com" />
-        <meta name="twitter:title" content={ProjectName} />
-        <meta name="twitter:description" content={ProjectName} />
-        <meta name="twitter:image" content="https://powerfulyang.com/timeline-banner.webp" />
-        <meta name="twitter:creator" content="@hutyxxx" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={ProjectName} />
-        <meta property="og:description" content={ProjectName} />
-        <meta property="og:site_name" content={ProjectName} />
-        <meta property="og:url" content="https://powerfulyang.com" />
-        <meta property="og:image" content="https://powerfulyang.com/timeline-banner.webp" />
       </Head>
       <body>
         <Main />

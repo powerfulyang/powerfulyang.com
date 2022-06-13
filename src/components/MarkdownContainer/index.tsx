@@ -74,7 +74,6 @@ export const remarkMetadata: Plugin<any, Root, string> = (
             },
           ],
         });
-        console.log(onGenerateMetadata);
         if (onGenerateMetadata) {
           formatted.push({
             type: 'info',
