@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import { LazyImage } from '@/components/LazyImage';
-import { DateTimeFormat } from '@/utils/lib';
 import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import type { Feed } from '@/type/Feed';
@@ -22,7 +21,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
         </div>
         <div>
           <div className={classNames('text-lg', styles.nickname)}>{feed.createBy.nickname}</div>
-          <div className="cursor-text text-xs text-gray-600">{DateTimeFormat(feed.createAt)}</div>
+          <div className="cursor-text text-xs text-gray-600">{feed.createAt}</div>
         </div>
       </div>
       <div className={styles.content}>

@@ -17,6 +17,7 @@ import { isEmpty, lastItem } from '@powerfulyang/utils';
 import { useUser } from '@/hooks/useUser';
 import Image from 'next/image';
 import bg from '@/assets/timeline-banner.webp';
+import { DateTimeFormat } from '@/utils/lib';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -155,7 +156,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       currentUrl: ctx.req.url,
-      feeds: data.resources,
+      feeds: data.resources.map((x: Feed) => {
+        return {
+          ...x,
+          createAt: DateTimeFormat(x.createAt),
+        };
+      }),
       nextCursor: data.nextCursor,
       prevCursor: data.prevCursor,
       pathViewCount,

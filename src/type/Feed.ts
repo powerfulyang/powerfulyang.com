@@ -10,9 +10,9 @@ export class Feed {
 
   createBy: User;
 
-  createAt: Date;
+  createAt: string;
 
-  updateAt: Date;
+  updateAt: string;
 }
 
 export interface FeedCreate {
