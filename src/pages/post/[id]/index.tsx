@@ -60,6 +60,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
       pathViewCount,
       title: data.title,
+      description: data.title,
+      keywords: data.tags.join(', '),
     },
   };
 };

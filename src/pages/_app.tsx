@@ -36,7 +36,12 @@ const App = ({ Component, pageProps }: AppProps & Props) => {
 
   return (
     <GlobalContextProvider>
-      <Header title={pageProps.title} currentUrl={pageProps.currentUrl} />
+      <Header
+        title={pageProps.title}
+        currentUrl={pageProps.currentUrl}
+        description={pageProps.description}
+        keywords={pageProps.keywords}
+      />
       <Redirecting />
       {getLayout(<Component {...pageProps} />)}
       <Script
