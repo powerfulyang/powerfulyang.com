@@ -24,7 +24,24 @@ export const requestAtClient = async <T = any>(
   options: Omit<RequestOptions, 'ctx'> = {},
 ): Promise<ApiResponse<T>> => {
   const host = process.env.CLIENT_BASE_HOST;
-  const baseUrl = `${host ? `//${host}` : ''}/api`;
+
+  let baseUrl = '';
+  let mode: RequestMode = 'same-origin';
+  const { origin: currentOrigin, host: currentHost } = window.location;
+  if (url.startsWith('https://')) {
+    const { origin } = new URL(url);
+    if (currentOrigin !== origin) {
+      mode = 'cors';
+    }
+  } else if (host) {
+    baseUrl = `//${host}/api`;
+    if (currentHost !== host) {
+      mode = 'cors';
+    }
+  } else {
+    baseUrl = `/api`;
+  }
+
   const { method = 'GET', query, body, notificationOnError = true } = options;
   let requestBody;
   const headers = new Headers();
@@ -40,10 +57,11 @@ export const requestAtClient = async <T = any>(
   const isValidQuery = query && Object.values(query).some((x) => !isNil(x));
   const queryString = isValidQuery ? `?${stringify(query)}` : '';
   const requestUrl = `${baseUrl}${url}${queryString}`;
+
   const res = await fetch(requestUrl, {
     method,
     headers,
-    mode: host ? 'cors' : 'same-origin',
+    mode,
     credentials: 'include',
     body: requestBody,
   });
