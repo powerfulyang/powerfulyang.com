@@ -1,9 +1,8 @@
 import React, { memo, startTransition, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import type { HTMLMotionProps } from 'framer-motion';
+import type { HTMLMotionProps, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { InView, useInView } from 'react-intersection-observer';
-import type { Variants } from 'framer-motion/types/types';
 import { Assets } from '@powerfulyang/components';
 import styles from './index.module.scss';
 
