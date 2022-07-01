@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { ProjectName } from '@/constant/Constant';
 import { useHistory } from '@/hooks/useHistory';
 import { NavBarUser } from '@/components/NavBar/User';
+import { DocSearch } from '@docsearch/react';
 import styles from './index.module.scss';
 import { Link } from '../Link';
 
@@ -63,7 +64,13 @@ export const NavBar = memo<NavBarProps>(() => {
             </Link>
           </div>
           <Menus />
+          <DocSearch
+            appId="A86PBLLW9T"
+            apiKey="feb9259815bc0476dbbf018ef7fb25c6"
+            indexName="powerfulyang"
+          />
         </div>
+
         <NavBarUser />
       </nav>
     </div>

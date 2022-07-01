@@ -18,7 +18,6 @@ import { Skeleton } from '@/components/Skeleton';
 import { useQuery } from 'react-query';
 import { requestAtClient } from '@/utils/client';
 import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
-import { notification } from '@powerfulyang/components';
 import { useHotkeys } from 'react-hotkeys-hook';
 import styles from './index.module.scss';
 
@@ -181,18 +180,6 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
       return history.pushState(`/post/publish/${selectedPostId}`);
     }
     return history.pushState('/post/publish');
-  });
-
-  useHotkeys('ctrl+k', () => {
-    notification.warn({
-      message: '开始搜索',
-    });
-  });
-
-  useHotkeys('command+k', () => {
-    notification.warn({
-      message: '开始搜索',
-    });
   });
 
   return (
