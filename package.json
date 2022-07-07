@@ -64,7 +64,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "12.1.6",
     "@powerfulyang/lint": "2.0.2",
-    "@sentry/cli": "2.3.0",
+    "@sentry/cli": "2.3.1",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "13.3.0",
     "@types/ramda": "0.28.14",
