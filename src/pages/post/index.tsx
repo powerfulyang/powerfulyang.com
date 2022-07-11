@@ -171,16 +171,24 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
     );
   }, [history.router, year]);
 
-  useHotkeys('escape', () => {
-    selectedPostId && hiddenPost();
-  });
+  useHotkeys(
+    'escape',
+    () => {
+      selectedPostId && hiddenPost();
+    },
+    [selectedPostId, hiddenPost],
+  );
 
-  useHotkeys('.', () => {
-    if (selectedPostId) {
-      return history.pushState(`/post/publish/${selectedPostId}`);
-    }
-    return history.pushState('/post/publish');
-  });
+  useHotkeys(
+    '.',
+    () => {
+      if (selectedPostId) {
+        return history.pushState(`/post/publish/${selectedPostId}`);
+      }
+      return history.pushState('/post/publish');
+    },
+    [selectedPostId, history],
+  );
 
   return (
     <>
