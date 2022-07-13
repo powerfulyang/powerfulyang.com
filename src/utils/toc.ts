@@ -1,4 +1,3 @@
-import type { TOCItem } from '@/components/MarkdownContainer/Toc';
 import { visit } from 'unist-util-visit';
 import { toString } from 'hast-util-to-string';
 import rehypeSlug from 'rehype-slug';
@@ -9,6 +8,7 @@ import { remarkMetadata } from '@/components/MarkdownContainer';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkStringify from 'remark-stringify';
+import type { TOCItem } from '@/components/MarkdownContainer/TOC';
 
 const rehypeTocExec = (callback: (v: TOCItem[]) => void) => {
   return (tree: any) => {

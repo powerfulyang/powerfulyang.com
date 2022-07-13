@@ -12,6 +12,7 @@ export type TOCItem = {
 
 export const MarkdownTOC: FC<{ toc: TOCItem[] }> = ({ toc }) => {
   const hashRef = useRef('');
+
   return (
     <div className={classNames('common-shadow hidden sm:block', styles.toc)}>
       <span className="mb-2 inline-block text-lg text-gray-400">目录:</span>
@@ -35,12 +36,12 @@ export const MarkdownTOC: FC<{ toc: TOCItem[] }> = ({ toc }) => {
                     behavior: 'smooth',
                   },
                   () => {
-                    window.location.hash = hashRef.current;
+                    window.location.hash = `#${hashRef.current}`;
                   },
                 );
               }}
             >
-              <span className={styles.anchor}>{new Array(item.level).fill(0).map(() => '#')} </span>
+              <span className={styles.anchor}>{'#'.repeat(item.level)} </span>
               {item.title}
             </a>
           </div>

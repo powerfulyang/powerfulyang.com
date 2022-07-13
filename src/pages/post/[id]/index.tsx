@@ -5,7 +5,7 @@ import { fromEvent } from 'rxjs';
 import type { Post } from '@/type/Post';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
-import { MarkdownTOC } from '@/components/MarkdownContainer/Toc';
+import { MarkdownTOC } from '@/components/MarkdownContainer/TOC';
 import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
 import { MarkdownContainer } from '@/components/MarkdownContainer';

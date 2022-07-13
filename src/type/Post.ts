@@ -1,6 +1,6 @@
 import type { User } from '@/type/User';
 import type { Asset } from '@/type/Asset';
-import type { TOCItem } from '@/components/MarkdownContainer/Toc';
+import type { TOCItem } from '@/components/MarkdownContainer/TOC';
 
 type PathViewCount = {
   pathViewCount: number;
