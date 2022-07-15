@@ -35,7 +35,7 @@
     "dayjs": "1.11.3",
     "framer-motion": "6.5.1",
     "hast-util-to-string": "2.0.0",
-    "jotai": "1.7.4",
+    "jotai": "1.7.5",
     "monaco-editor": "0.33.0",
     "monaco-markdown": "0.0.12",
     "next": "12.2.2",
