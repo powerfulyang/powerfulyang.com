@@ -43,6 +43,7 @@ const esModules = [
   'longest-streak',
   'yaml',
   'remark',
+  'trim-lines',
 ].join('|');
 
 module.exports = async () => {

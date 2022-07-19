@@ -225,6 +225,8 @@ $main-color: #ffb356;
   .table {
     border: darkgrey 1px dashed;
     cursor: text;
+    width: max-content;
+    white-space: pre;
 
     thead {
       border-bottom: darkgrey 1px dashed;
@@ -233,8 +235,6 @@ $main-color: #ffb356;
         th {
           padding: 1em;
           border-left: darkgrey 1px dashed;
-          width: max-content;
-          white-space: pre;
 
           &:first-child {
             border: none;
@@ -251,8 +251,6 @@ $main-color: #ffb356;
           padding: 0.5em;
           text-align: center;
           border-left: darkgrey 1px dashed;
-          width: max-content;
-          white-space: pre;
 
           &:first-child {
             border: none;
