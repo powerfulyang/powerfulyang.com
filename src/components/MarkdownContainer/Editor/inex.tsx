@@ -10,8 +10,7 @@ import { fromEvent } from 'rxjs';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/type/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
-import type { Asset } from '@/type/Asset';
-import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
+import { MarkdownContainer } from '@/components/MarkdownContainer';
 import styles from './index.module.scss';
 
 type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
@@ -19,7 +18,7 @@ type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 export type MarkdownMetadata = {
   author: string;
   tags: string[];
-  poster: Asset;
+  posterId: string;
   date: string;
 };
 
@@ -117,7 +116,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
           />
         </section>
         <Suspense fallback="loading">
-          <LazyMarkdownContainer
+          <MarkdownContainer
             onGenerateMetadata={onGenerateMetadata}
             className={styles.preview}
             source={value}

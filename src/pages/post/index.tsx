@@ -81,7 +81,7 @@ const PostPreview: FC<Props> = ({ selectedPost, containerRef, hiddenPost }) => {
               <motion.div className={styles.image} layoutId={`post-poster-${selectedPost.id}`}>
                 <LazyAssetImage
                   draggable={false}
-                  onTap={hiddenPost}
+                  onClick={hiddenPost}
                   thumbnail={false}
                   asset={selectedPost.poster}
                 />
@@ -215,18 +215,11 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 className={classNames('pointer', styles.card)}
                 href={`/post/${post.id}`}
                 onClick={(e) => {
-                  e.preventDefault();
-                  if (e.detail === 0) {
-                    return history.pushState(`/post/${post.id}`);
+                  if (e.ctrlKey || e.metaKey) {
+                    return Promise.resolve();
                   }
-                  return null;
-                }}
-                onTap={(e) => {
-                  const pointerEvent = e as PointerEvent;
-                  if (pointerEvent.pointerType === 'mouse') {
-                    if (e.metaKey || e.ctrlKey) {
-                      return history.pushState(`/post/${post.id}`);
-                    }
+                  e.preventDefault();
+                  if (e.shiftKey) {
                     return showPost(post.id);
                   }
                   return history.pushState(`/post/${post.id}`);
