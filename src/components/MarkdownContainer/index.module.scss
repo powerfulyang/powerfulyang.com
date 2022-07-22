@@ -15,8 +15,8 @@ $main-color: #ffb356;
   word-break: break-word;
   @apply box-border px-6 py-14 sm:py-10;
 
-  .main-color {
-    color: $main-color;
+  hr {
+    @apply my-4 border-dashed border-gray-400;
   }
 
   .heading1 {
@@ -269,14 +269,14 @@ $main-color: #ffb356;
     padding-inline-start: 2.5em;
     @apply block cursor-text list-decimal;
 
-    li {
+    & > li {
       display: list-item;
 
       &::marker {
         font-family: -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC,
           Hiragino Sans GB, Source Han Sans SC, Noto Sans CJK SC, Microsoft YaHei,
           WenQuanYi Micro Hei, WenQuanYi Zen Hei, Helvetica Neue, Arial, sans-serif;
-        @apply text-blue-400;
+        @apply font-bold text-blue-400;
       }
     }
   }
@@ -287,7 +287,7 @@ $main-color: #ffb356;
     list-style-type: disc;
     cursor: text;
 
-    li {
+    & > li {
       display: list-item;
 
       &::marker {
@@ -299,7 +299,7 @@ $main-color: #ffb356;
       list-style-type: none;
       padding-inline-start: 1em;
 
-      li {
+      & > li {
         display: flex;
         align-items: center;
 
