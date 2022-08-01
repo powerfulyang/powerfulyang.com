@@ -118,7 +118,7 @@ const Airdrop: LayoutFC = () => {
     import('peerjs').then(({ default: Peer }) => {
       const peer = new Peer({
         host: process.env.CLIENT_BASE_HOST || window.location.host,
-        path: 'api/peerjs',
+        path: 'peer',
       });
       peerRef.current = peer;
 
@@ -144,7 +144,7 @@ const Airdrop: LayoutFC = () => {
 
   const documentVisible = useDocumentVisible();
   useEffect(() => {
-    if (documentVisible && peerRef.current?.disconnected) {
+    if (documentVisible && !peerRef.current?.destroyed && peerRef.current?.disconnected) {
       peerRef.current?.reconnect();
     }
   }, [documentVisible]);
@@ -183,7 +183,7 @@ const Airdrop: LayoutFC = () => {
           </div>
         )}
       </div>
-      <div className={classNames('m-8 grid grid-cols-3 grid-rows-[33vw] gap-4 sm:hidden')}>
+      <div className={classNames('m-8 grid w-full grid-cols-3 grid-rows-[33vw] gap-4 sm:hidden')}>
         {[group, ...connections.keys()].map((peerId) => {
           return (
             <div key={peerId} className="text-center">

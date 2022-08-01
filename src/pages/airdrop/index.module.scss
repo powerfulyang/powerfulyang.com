@@ -1,7 +1,9 @@
 .main {
   display: flex;
-  position: absolute;
-  inset: 0;
+
+  @screen sm {
+    @apply absolute inset-0;
+  }
 
   .desktop-chats {
     @apply m-auto hidden h-[80vh] w-1/2 min-w-[900px] overflow-hidden rounded-lg sm:flex;
