@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import type { GetServerSideProps } from 'next';
 import { useBeforeUnload } from '@powerfulyang/hooks';
+import type { MarkdownMetadata } from '@/components/MarkdownContainer/Editor/inex';
 import { MarkdownEditor } from '@/components/MarkdownContainer/Editor/inex';
 import { requestAtClient } from '@/utils/client';
 import type { Post } from '@/type/Post';
@@ -17,9 +18,8 @@ type PublishProps = {
 const Publish: LayoutFC<PublishProps> = ({ post }) => {
   const { pushState } = useHistory();
   const [content, setContent] = useState(post.content);
-  const [metadata, setMetadata] = useState({});
 
-  const handlePost = async () => {
+  const handlePost = async (metadata: MarkdownMetadata) => {
     const res = await requestAtClient<Post>('/post', {
       method: 'POST',
       body: {
@@ -55,7 +55,6 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
       onChange={saveDraft}
       defaultValue={post.content}
       onPost={handlePost}
-      onGenerateMetadata={setMetadata}
     />
   );
 };

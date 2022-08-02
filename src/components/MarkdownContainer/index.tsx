@@ -13,6 +13,7 @@ import { copyToClipboardAndNotify } from '@/utils/copy';
 import { Icon } from '@powerfulyang/components';
 import type { Plugin } from 'unified';
 import type { Root } from 'mdast';
+import type { MarkdownMetadata } from '@/components/MarkdownContainer/Editor/inex';
 import styles from './index.module.scss';
 import {
   A,
@@ -34,7 +35,7 @@ export type MarkdownContainerProps = {
   source: string;
   className?: string;
   blur?: boolean;
-  onGenerateMetadata?: (metadata: Record<string, any>) => void;
+  onGenerateMetadata?: (metadata: MarkdownMetadata) => void;
 };
 
 export const remarkMetadata: Plugin<any, Root, string> = (
@@ -46,12 +47,7 @@ export const remarkMetadata: Plugin<any, Root, string> = (
     if (yamlPart) {
       const formatted = [];
       try {
-        const metadata = (parse(yamlPart?.value || '') || {}) as {
-          date?: string;
-          author?: string;
-          title?: string;
-          tags?: string[];
-        };
+        const metadata: MarkdownMetadata = parse(yamlPart?.value || '') || {};
         process.nextTick(() => {
           startTransition(() => {
             onGenerateMetadata?.(metadata);

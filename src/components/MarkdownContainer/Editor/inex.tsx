@@ -1,5 +1,5 @@
 import type { ClipboardEvent, FC } from 'react';
-import React, { Suspense, useEffect, useRef } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
 import type { Monaco } from '@monaco-editor/react';
@@ -16,18 +16,18 @@ import styles from './index.module.scss';
 type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
 export type MarkdownMetadata = {
-  author: string;
-  tags: string[];
-  posterId: string;
-  date: string;
+  author?: string;
+  tags?: string[];
+  posterId?: string;
+  date?: string;
+  title?: string;
 };
 
 type MarkdownEditorProps = {
   defaultValue?: string;
-  onPost?: VoidFunction;
+  onPost?: VoidFunction<[MarkdownMetadata]>;
   onChange?: VoidFunction<[string | undefined]>;
   value: string;
-  onGenerateMetadata?: (metadata: Record<string, any>) => void;
 };
 
 export const MarkdownEditor: FC<MarkdownEditorProps> = ({
@@ -35,12 +35,13 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
   onPost,
   onChange,
   value,
-  onGenerateMetadata,
 }) => {
   const ref = useRef<{
     editor: IStandaloneCodeEditor;
     monaco: Monaco;
   }>();
+
+  const [metadata, setMetadata] = useState<MarkdownMetadata>({});
 
   useEffect(() => {
     const s = fromEvent<ClipboardEvent>(window, 'paste').subscribe(async (e) => {
@@ -93,7 +94,9 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
         <Icon
           className={classNames(styles.icon, styles.post, 'pointer')}
           type="icon-send"
-          onClick={onPost}
+          onClick={() => {
+            onPost?.(metadata);
+          }}
         />
       </section>
       <main className={styles.main}>
@@ -117,7 +120,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
         </section>
         <Suspense fallback="loading">
           <MarkdownContainer
-            onGenerateMetadata={onGenerateMetadata}
+            onGenerateMetadata={setMetadata}
             className={styles.preview}
             source={value}
           />
