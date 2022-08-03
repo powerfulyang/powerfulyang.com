@@ -213,7 +213,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 key={post.id}
                 title={`${post.id}`}
                 className={classNames('pointer', styles.card)}
-                href={`/post/${post.id}`}
+                href={`/post/${post.urlTitle}`}
                 onClick={(e) => {
                   if (e.ctrlKey || e.metaKey) {
                     return Promise.resolve();
@@ -222,7 +222,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                   if (e.shiftKey) {
                     return showPost(post.id);
                   }
-                  return history.pushState(`/post/${post.id}`);
+                  return history.pushState(`/post/${post.urlTitle}`);
                 }}
               >
                 <AnimatePresence initial={false}>

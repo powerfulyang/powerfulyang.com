@@ -13,7 +13,11 @@ export const useUser = (enabled: boolean = false) => {
     queryFn: async () => {
       try {
         const result = await requestAtClient<User>('/user/current', { notificationOnError: false });
-        return result.data;
+        const u = result.data;
+        if (u.id) {
+          return u;
+        }
+        return null;
       } catch {
         return null;
       }

@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     ctx,
     data.map((post: Post) => {
       return {
-        loc: `https://powerfulyang.com/post/${post.id}`,
+        loc: `https://powerfulyang.com/post/${post.urlTitle}`,
         lastmod: post.createAt,
         changefreq: 'daily',
         priority: 0.8,
