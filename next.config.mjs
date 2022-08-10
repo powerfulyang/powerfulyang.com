@@ -102,6 +102,7 @@ const config = {
   },
   experimental: {
     esmExternals: true,
+    scrollRestoration: true,
   },
   env: {
     CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST,

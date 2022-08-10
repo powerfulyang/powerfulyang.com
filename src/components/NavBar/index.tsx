@@ -29,7 +29,7 @@ const Menus: FC = () => {
     return (
       <div className={styles.menus}>
         {getEnumKeys(Menu).map((x) => (
-          <motion.div key={x} className="relative flex h-full w-auto items-center justify-center">
+          <motion.div key={x}>
             <Link
               className={classNames(
                 {
@@ -41,9 +41,6 @@ const Menus: FC = () => {
             >
               {x}
             </Link>
-            {Reflect.get(Menu, x) === active && (
-              <motion.div className={styles.activeTab} layoutId="nav-active-tab" />
-            )}
           </motion.div>
         ))}
       </div>
@@ -70,7 +67,6 @@ export const NavBar = memo<NavBarProps>(() => {
             indexName="powerfulyang"
           />
         </div>
-
         <NavBarUser />
       </nav>
     </div>
