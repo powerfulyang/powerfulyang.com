@@ -9,7 +9,9 @@ import withCamelCaseCSSModules from './plugins/next-css-modules.js';
 /**
  * @type {string}
  */
-const { API_ENV } = process.env;
+const { API_ENV, DISABLE_SENTRY_CLI } = process.env;
+
+const isDisableSentry = DISABLE_SENTRY_CLI === 'true';
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -46,7 +48,7 @@ if (API_ENV === 'local') {
  */
 const config = {
   rewrites() {
-    return [
+    return Promise.resolve([
       {
         source: '/',
         destination: '/post',
@@ -59,7 +61,7 @@ const config = {
         source: '/post/publish',
         destination: '/post/publish/0',
       },
-    ];
+    ]);
   },
   pwa: {
     dest: 'public',
@@ -118,8 +120,8 @@ const config = {
     ignoreBuildErrors: true,
   },
   sentry: {
-    disableServerWebpackPlugin: isDevProcess,
-    disableClientWebpackPlugin: isDevProcess,
+    disableServerWebpackPlugin: isDisableSentry,
+    disableClientWebpackPlugin: isDisableSentry,
     hideSourceMaps: true,
   },
   productionBrowserSourceMaps: isProdProcess,
