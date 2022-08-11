@@ -50,7 +50,7 @@ module.exports = async () => {
   const config = await asyncConfig();
   config.transformIgnorePatterns = [
     '^.+\\.module\\.(css|sass|scss)$',
-    `node_modules/(?!${esModules})`,
+    `node_modules/.pnpm/(?!${esModules})`,
   ];
   return config;
 };

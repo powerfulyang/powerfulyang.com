@@ -122,6 +122,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
           )}
           <div className={styles.authorInfo}>
             <LazyImage
+              aspectRatio="1 / 1"
               draggable={false}
               src={bannerUser.avatar}
               containerClassName={styles.authorAvatar}

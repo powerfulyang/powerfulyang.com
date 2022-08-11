@@ -13,7 +13,7 @@ export type LazyImageExtendProps = {
    * 是否需要加载动画
    */
   lazy?: boolean;
-  aspectRatio?: string;
+  aspectRatio?: `${number} / ${number}`;
   initialInView?: boolean;
   triggerOnce?: boolean;
 };
