@@ -38,7 +38,7 @@
     "hast-util-to-string": "2.0.0",
     "jotai": "1.7.8",
     "monaco-editor": "0.34.0",
-    "next": "12.2.4",
+    "next": "12.2.5",
     "next-sitemap": "3.1.17",
     "peerjs": "1.4.7",
     "ramda": "0.28.0",
@@ -65,7 +65,7 @@
     "immer": "9.0.15"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "12.2.4",
+    "@next/bundle-analyzer": "12.2.5",
     "@powerfulyang/lint": "2.0.2",
     "@sentry/cli": "2.5.0",
     "@testing-library/jest-dom": "5.16.5",
