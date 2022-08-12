@@ -18,7 +18,7 @@ specifiers:
   '@types/react-syntax-highlighter': 15.5.4
   '@types/sharp': 0.30.5
   classnames: 2.3.1
-  dayjs: 1.11.4
+  dayjs: 1.11.5
   framer-motion: 7.1.0
   hast-util-to-string: 2.0.0
   immer: 9.0.15
@@ -63,7 +63,7 @@ dependencies:
   '@sentry/nextjs': 7.10.0_opuzalm7bqy6lx7uvhtk6ci2fu
   '@tanstack/react-query': 4.1.0_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.1
-  dayjs: 1.11.4
+  dayjs: 1.11.5
   framer-motion: 7.1.0_biqbaboplfbrettd7655fr4n2y
   hast-util-to-string: 2.0.0
   immer: 9.0.15
@@ -4234,8 +4234,8 @@ packages:
       whatwg-url: 11.0.0
     dev: true
 
-  /dayjs/1.11.4:
-    resolution: {integrity: sha512-Zj/lPM5hOvQ1Bf7uAvewDaUcsJoI6JmNqmHhHl3nyumwe0XHwt8sWdOVAPACJzCebL8gQCi+K49w7iKWnGwX9g==}
+  /dayjs/1.11.5:
+    resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==}
     dev: false
 
   /debug/2.6.9:
