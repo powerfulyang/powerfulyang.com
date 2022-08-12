@@ -2,7 +2,7 @@ import { LazyImage } from '@/components/LazyImage';
 import React, { useMemo } from 'react';
 import { useUser } from '@/hooks/useUser';
 import { Menu } from '@/components/Menu';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { requestAtClient } from '@/utils/client';
 import { notification } from '@powerfulyang/components';
 import { Link } from '@/components/Link';

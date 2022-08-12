@@ -15,7 +15,7 @@ import { requestAtServer } from '@/utils/server';
 import { isString } from '@powerfulyang/utils';
 import { useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
 import { Skeleton } from '@/components/Skeleton';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { requestAtClient } from '@/utils/client';
 import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
 import { useHotkeys } from 'react-hotkeys-hook';

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { ChangeEvent, ClipboardEvent } from 'react';
 import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { interval } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { LazyImage } from '@/components/LazyImage';

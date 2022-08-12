@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { requestAtClient } from '@/utils/client';
 
 const Logs = () => {

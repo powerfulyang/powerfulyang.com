@@ -9,7 +9,7 @@ import type {
   UnorderedListComponent,
 } from 'react-markdown/lib/ast-to-react';
 import classNames from 'classnames';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import type { NormalComponents } from 'react-markdown/lib/complex-types';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { requestAtClient } from '@/utils/client';

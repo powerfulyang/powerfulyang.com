@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import type { GetServerSideProps } from 'next';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { flatten } from 'ramda';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';

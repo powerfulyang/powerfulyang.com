@@ -18,4 +18,6 @@ jest.mock('next/router', () => ({
   },
 }));
 
-jest.mock('react-query', () => ({ useQuery: () => ({ isLoading: false, error: {}, data: [] }) }));
+jest.mock('@tanstack/react-query', () => ({
+  useQuery: () => ({ isLoading: false, error: {}, data: [] }),
+}));

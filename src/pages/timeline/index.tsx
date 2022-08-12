@@ -1,6 +1,6 @@
 import React, { Fragment, useMemo } from 'react';
 import type { GetServerSideProps } from 'next';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { flatten } from 'ramda';
 import { InView } from 'react-intersection-observer';
 import { UserLayout } from '@/layout/UserLayout';
