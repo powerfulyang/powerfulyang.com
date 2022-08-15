@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { copyToClipboardAndNotify } from '@/utils/copy';
 import { isBlob, isString, scrollIntoView } from '@powerfulyang/utils';
 import { LazyImage } from '@/components/LazyImage';
+import { randomAvatar } from '@/utils/lib';
 import styles from './index.module.scss';
 
 type TextMessage = {
@@ -50,7 +51,7 @@ export const ChatMessage = memo<ChatMessageEntity>(({ from, content, sendType })
       <LazyImage
         lazy={false}
         containerClassName="rounded-lg w-[55px] aspect-square"
-        src={`https://i.pravatar.cc/55?u=${from}`}
+        src={randomAvatar(from)}
         alt=""
       />
       {isString(content) && (

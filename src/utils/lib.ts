@@ -31,3 +31,7 @@ export const CosUtils = {
   getCosObjectUrl,
   getCosObjectThumbnailBlurUrl,
 } as const;
+
+export const randomAvatar = (peerId: string) => {
+  return `/api/random/avatar?uuid=${peerId}`;
+};

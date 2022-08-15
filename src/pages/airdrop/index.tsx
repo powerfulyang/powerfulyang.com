@@ -11,6 +11,7 @@ import { MessageSendType } from '@/components/Chat/Message';
 import { LazyImage } from '@/components/LazyImage';
 import { useDocumentVisible } from '@/hooks/useDocumentVisible';
 import type { GetServerSideProps } from 'next';
+import { randomAvatar } from '@/utils/lib';
 import styles from './index.module.scss';
 
 const group = 'LAN';
@@ -168,7 +169,7 @@ const Airdrop: LayoutFC = () => {
               >
                 <LazyImage
                   containerClassName="rounded-lg w-[55px] aspect-square"
-                  src={`https://i.pravatar.cc/55?u=${peerId}`}
+                  src={randomAvatar(peerId)}
                   alt=""
                 />
                 <div className="flex-1 truncate text-left">{peerId}</div>
@@ -190,7 +191,7 @@ const Airdrop: LayoutFC = () => {
               <label htmlFor={peerId}>
                 <LazyImage
                   containerClassName="aspect-square rounded-full"
-                  src={`https://i.pravatar.cc/80?u=${peerId}`}
+                  src={randomAvatar(peerId)}
                   alt=""
                 />
                 <div className="truncate">{peerId}</div>
