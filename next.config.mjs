@@ -123,6 +123,7 @@ const config = {
     disableServerWebpackPlugin: isDisableSentry,
     disableClientWebpackPlugin: isDisableSentry,
     hideSourceMaps: true,
+    widenClientFileUpload: true,
   },
   productionBrowserSourceMaps: isProdProcess,
   optimizeFonts: true,
