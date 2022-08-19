@@ -22,7 +22,7 @@ specifiers:
   framer-motion: 7.2.0
   hast-util-to-string: 2.0.0
   immer: 9.0.15
-  jotai: 1.7.8
+  jotai: 1.8.0
   monaco-editor: 0.34.0
   next: 12.2.5
   next-compose-plugins: 2.2.1
@@ -67,7 +67,7 @@ dependencies:
   framer-motion: 7.2.0_biqbaboplfbrettd7655fr4n2y
   hast-util-to-string: 2.0.0
   immer: 9.0.15
-  jotai: 1.7.8_kdpu3diuezl4zvx2fu243mbgje
+  jotai: 1.8.0_kdpu3diuezl4zvx2fu243mbgje
   monaco-editor: 0.34.0
   next: 12.2.5_twoewwu6sg7cdf3ao6njtbftne
   next-sitemap: 3.1.20_gzpnnaylvtfluxe3m63vhk6hhm
@@ -6641,8 +6641,8 @@ packages:
       - ts-node
     dev: true
 
-  /jotai/1.7.8_kdpu3diuezl4zvx2fu243mbgje:
-    resolution: {integrity: sha512-rXwWz6uLqyZUCRzWIPiYTjI1hjskVxVpDN3lBoOHi66z6uQFkFmKwR8YhcQd+Ex4lODlReuKNIx6WwsF9aKy3g==}
+  /jotai/1.8.0_kdpu3diuezl4zvx2fu243mbgje:
+    resolution: {integrity: sha512-B77a5hIDGCxePYrYBpHP6YePGyNwivA+vXO6QME+8+t3V0y+OHwwnHu4Wy/LWEChE/G8vI+K7P2tlToT8Zmjng==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@babel/core': '*'
