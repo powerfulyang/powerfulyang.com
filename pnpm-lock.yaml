@@ -15,7 +15,7 @@ specifiers:
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.3.0
   '@types/ramda': 0.28.15
-  '@types/react-syntax-highlighter': 15.5.4
+  '@types/react-syntax-highlighter': 15.5.5
   '@types/sharp': 0.30.5
   classnames: 2.3.1
   dayjs: 1.11.5
@@ -100,7 +100,7 @@ devDependencies:
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.3.0_biqbaboplfbrettd7655fr4n2y
   '@types/ramda': 0.28.15
-  '@types/react-syntax-highlighter': 15.5.4
+  '@types/react-syntax-highlighter': 15.5.5
   '@types/sharp': 0.30.5
   next-compose-plugins: 2.2.1
   next-pwa: 5.6.0_ac5rnokcvlkvrycdj6o5wxczke
@@ -2770,7 +2770,7 @@ packages:
   /@types/react-dom/18.0.5:
     resolution: {integrity: sha512-OWPWTUrY/NIrjsAPkAk1wW9LZeIjSvkXRhclsFO8CZcZGCOg2G0YZy4ft+rOyYxy8B7ui5iZzi9OkDebZ7/QSA==}
     dependencies:
-      '@types/react': 18.0.9
+      '@types/react': 18.0.17
     dev: true
 
   /@types/react-dom/18.0.6:
@@ -2779,8 +2779,8 @@ packages:
       '@types/react': 18.0.17
     dev: true
 
-  /@types/react-syntax-highlighter/15.5.4:
-    resolution: {integrity: sha512-GYXA4nRBG4jTGFfYMLO2/yuqyOyaQ415oeJWw6akE5gipOEsGhvXFvWhsctGVMHzAfRI7e/J0B9cpqrfMOwZhA==}
+  /@types/react-syntax-highlighter/15.5.5:
+    resolution: {integrity: sha512-QH3JZQXa2usAvJvSsdSUJ4Yu4j8ReuZpgRrEW+XP+Rmosbn425YshW9iGEb/pAARm8496axHhHUPRH3UmTiB6A==}
     dependencies:
       '@types/react': 18.0.17
     dev: true
