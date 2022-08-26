@@ -22,7 +22,7 @@ specifiers:
   framer-motion: 7.2.1
   hast-util-to-string: 2.0.0
   immer: 9.0.15
-  jotai: 1.8.0
+  jotai: 1.8.1
   monaco-editor: 0.34.0
   next: 12.2.5
   next-compose-plugins: 2.2.1
@@ -67,7 +67,7 @@ dependencies:
   framer-motion: 7.2.1_biqbaboplfbrettd7655fr4n2y
   hast-util-to-string: 2.0.0
   immer: 9.0.15
-  jotai: 1.8.0_kdpu3diuezl4zvx2fu243mbgje
+  jotai: 1.8.1_kdpu3diuezl4zvx2fu243mbgje
   monaco-editor: 0.34.0
   next: 12.2.5_twoewwu6sg7cdf3ao6njtbftne
   next-sitemap: 3.1.21_gzpnnaylvtfluxe3m63vhk6hhm
@@ -106,7 +106,7 @@ devDependencies:
   next-pwa: 5.6.0_ac5rnokcvlkvrycdj6o5wxczke
   prettier-plugin-tailwindcss: 0.1.13_prettier@2.7.1
   tailwindcss: 3.1.8_postcss@8.4.16
-  typescript: 4.7.4
+  typescript: 4.8.2
 
 packages:
 
@@ -1481,10 +1481,10 @@ packages:
       '@types/node': 18.7.1
       chalk: 4.1.2
       cosmiconfig: 7.0.1
-      cosmiconfig-typescript-loader: 2.0.2_halyjfpwylxhibghyngm4yw5ji
+      cosmiconfig-typescript-loader: 2.0.2_7d5epqhssdvv5nkjh2sz355duy
       lodash: 4.17.21
       resolve-from: 5.0.0
-      typescript: 4.7.4
+      typescript: 4.8.2
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -4126,7 +4126,7 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: false
 
-  /cosmiconfig-typescript-loader/2.0.2_halyjfpwylxhibghyngm4yw5ji:
+  /cosmiconfig-typescript-loader/2.0.2_7d5epqhssdvv5nkjh2sz355duy:
     resolution: {integrity: sha512-KmE+bMjWMXJbkWCeY4FJX/npHuZPNr9XF9q9CIQ/bpFwi1qHfCmSiKarrCcRa0LO4fWjk93pVoeRtJAkTGcYNw==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
@@ -4136,8 +4136,8 @@ packages:
     dependencies:
       '@types/node': 18.7.1
       cosmiconfig: 7.0.1
-      ts-node: 10.9.1_lep773egrlwq7kh77ngus6artu
-      typescript: 4.7.4
+      ts-node: 10.9.1_qoo4sgangn6nv2kyw34felmj2m
+      typescript: 4.8.2
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -6680,8 +6680,8 @@ packages:
       - ts-node
     dev: true
 
-  /jotai/1.8.0_kdpu3diuezl4zvx2fu243mbgje:
-    resolution: {integrity: sha512-B77a5hIDGCxePYrYBpHP6YePGyNwivA+vXO6QME+8+t3V0y+OHwwnHu4Wy/LWEChE/G8vI+K7P2tlToT8Zmjng==}
+  /jotai/1.8.1_kdpu3diuezl4zvx2fu243mbgje:
+    resolution: {integrity: sha512-ZhZ15z+94E95aMYpH9MfwFFYP5m8TuFKkEN/6+3P4SC3dXnQc5s+DbMl+kA4RC63OcUlfi9C0nJU3YDnJfqLIg==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@babel/core': '*'
@@ -10142,7 +10142,7 @@ packages:
       yargs-parser: 20.2.9
     dev: true
 
-  /ts-node/10.9.1_lep773egrlwq7kh77ngus6artu:
+  /ts-node/10.9.1_qoo4sgangn6nv2kyw34felmj2m:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -10168,7 +10168,7 @@ packages:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 4.7.4
+      typescript: 4.8.2
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true
@@ -10269,8 +10269,8 @@ packages:
     hasBin: true
     dev: true
 
-  /typescript/4.7.4:
-    resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
+  /typescript/4.8.2:
+    resolution: {integrity: sha512-C0I1UsrrDHo2fYI5oaCGbSejwX4ch+9Y5jTQELvovfmFkK3HHSZJB8MSJcWLmCUBzQBchCrZ9rMRV6GuNrvGtw==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
