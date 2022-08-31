@@ -50,7 +50,7 @@ const PostPreview: FC<Props> = ({ selectedPost, containerRef, hiddenPost }) => {
   );
 
   return (
-    <AnimatePresence custom={{ show, source }} exitBeforeEnter>
+    <AnimatePresence custom={{ show, source }} mode="wait">
       {selectedPost && (
         <>
           <motion.div

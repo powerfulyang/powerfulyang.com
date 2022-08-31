@@ -62,14 +62,18 @@ export const ImageModal = memo<ImageModalProps>(
       return window.innerWidth < 768;
     }, []);
 
+    const viewportWidth = useMemo(() => {
+      return window.visualViewport?.width || window.innerWidth;
+    }, []);
+
+    const viewportHeight = useMemo(() => {
+      return window.visualViewport?.height || window.innerHeight;
+    }, []);
+
     const isWider = useMemo(() => {
-      const width = isSmallScreen
-        ? window.visualViewport.width
-        : window.visualViewport.width - 70 * 2;
-      return (
-        window.visualViewport.height / width > Number(rest.size?.height) / Number(rest.size?.width)
-      );
-    }, [rest.size, isSmallScreen]);
+      const width = isSmallScreen ? viewportWidth : viewportWidth - 70 * 2;
+      return viewportHeight / width > Number(rest.size?.height) / Number(rest.size?.width);
+    }, [isSmallScreen, viewportWidth, viewportHeight, rest.size?.height, rest.size?.width]);
 
     const variants = useMemo(
       () => ({
@@ -78,7 +82,7 @@ export const ImageModal = memo<ImageModalProps>(
             opacity: 0.3,
             filter: 'blur(20px)',
             scale: 0.3,
-            x: window.visualViewport.width * (r - s),
+            x: viewportWidth * (r - s),
           };
         },
         animate: ({
@@ -101,23 +105,23 @@ export const ImageModal = memo<ImageModalProps>(
             };
           }
           return {
-            x: window.visualViewport.width * (r - s) + Number(ox) + offset,
+            x: viewportWidth * (r - s) + Number(ox) + offset,
             opacity: 1,
             filter: l && a ? 'blur(0px)' : 'blur(5px)',
-            scale: oy ? 1 - oy / window.visualViewport.height : 1,
+            scale: oy ? 1 - oy / viewportHeight : 1,
             y: oy,
             ...t,
           };
         },
         exit: ({ y: oy, selectIndex: s, realIndex: r }: Custom) => {
           return {
-            x: window.visualViewport.width * (r - s),
+            x: viewportWidth * (r - s),
             opacity: 0,
             scale: oy ? 0.3 : 0.6,
           };
         },
       }),
-      [actionRef],
+      [actionRef, viewportHeight, viewportWidth],
     );
 
     const onAnimateComplete = useCallback(
