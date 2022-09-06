@@ -4,7 +4,8 @@
   "private": true,
   "description": "home page",
   "scripts": {
-    "bootstrap": "pnpm install --shamefully-hoist --frozen-lockfile",
+    "update:lock": "pnpm i --lockfile-only",
+    "bootstrap": "pnpm install --frozen-lockfile",
     "test": "jest",
     "postinstall": "npx husky install",
     "prod:dev": "cross-env API_ENV=prod next dev",
@@ -62,7 +63,8 @@
     "xterm": "4.19.0",
     "yaml": "2.1.1",
     "reflect-metadata": "0.1.13",
-    "immer": "9.0.15"
+    "immer": "9.0.15",
+    "lodash-es": "4.17.21"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "12.2.5",

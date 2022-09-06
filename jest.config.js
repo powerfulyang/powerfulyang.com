@@ -44,6 +44,7 @@ const esModules = [
   'yaml',
   'remark',
   'trim-lines',
+  'lodash-es',
 ].join('|');
 
 module.exports = async () => {
