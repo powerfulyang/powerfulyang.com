@@ -13,7 +13,7 @@ export const Switch: FC<SwitchProps> = forwardRef<HTMLInputElement, SwitchProps>
     const id = useId();
     return (
       <>
-        {/* 这里的顺序很有特点的哦，因为 css 使用 ~ 符号，即紧跟着的下一个元素的样式被 input 的 checked 属性控制 */}
+        {/* 这里的顺序很有特点的哦，因为 css 使用 + 符号，即紧跟着的下一个元素的样式被 input 的 checked 属性控制 */}
         <input
           {...props}
           role="switch"

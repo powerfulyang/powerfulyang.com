@@ -96,7 +96,7 @@
 }
 
 .switch:checked {
-  & ~ .toggle-item {
+  & + .toggle-item {
     background: #e4ac04;
 
     .desc {
