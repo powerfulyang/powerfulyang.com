@@ -11,7 +11,7 @@ specifiers:
   '@powerfulyang/utils': 1.5.0
   '@sentry/cli': 2.5.2
   '@sentry/nextjs': 7.12.1
-  '@tanstack/react-query': 4.2.3
+  '@tanstack/react-query': 4.3.1
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0
   '@types/ramda': 0.28.15
@@ -62,7 +62,7 @@ dependencies:
   '@powerfulyang/hooks': 1.2.0_7bmcoi7ayon3rtpnfpu5k5ds5q
   '@powerfulyang/utils': 1.5.0_j5hagqx4mwzscud4kyjdvubauy
   '@sentry/nextjs': 7.12.1_e5kluqigttx5sqvfhdifmrnx2m
-  '@tanstack/react-query': 4.2.3_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query': 4.3.1_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.1
   dayjs: 1.11.5
   framer-motion: 7.3.2_biqbaboplfbrettd7655fr4n2y
@@ -2738,12 +2738,12 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@tanstack/query-core/4.2.3:
-    resolution: {integrity: sha512-zdt5lYWs1dZaA3IxJbCgtAfHZJScRZONpiLL7YkeOkrme5MfjQqTpjq7LYbzpyuwPOh2Jx68le0PLl57JFv5hQ==}
+  /@tanstack/query-core/4.3.1:
+    resolution: {integrity: sha512-NrtvJYVxgO2vdXyogchORW2wDh81nHjnH8n51OvaLFilC59DE8hyMzrHmKI4J0MKx8wZvROChVHHXpbBGstR8A==}
     dev: false
 
-  /@tanstack/react-query/4.2.3_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-JLaMOxoJTkiAu7QpevRCt2uI/0vd3E8K/rSlCuRgWlcW5DeJDFpDS5kfzmLO5MOcD97fgsJRrDbxDORxR1FdJA==}
+  /@tanstack/react-query/4.3.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-rVtXi5yRbhK9EGrlrnIsLNSW+bNpu8OuTnSjf5SNau2L6N+0UXrL911rtkIgF908zPKwaOoAqW/dM7d+ICp+Dg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -2754,8 +2754,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.2.3
-      '@types/use-sync-external-store': 0.0.3
+      '@tanstack/query-core': 4.3.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
@@ -3048,10 +3047,6 @@ packages:
 
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
-    dev: false
-
-  /@types/use-sync-external-store/0.0.3:
-    resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
     dev: false
 
   /@types/yargs-parser/21.0.0:
