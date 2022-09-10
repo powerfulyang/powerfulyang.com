@@ -28,7 +28,7 @@ specifiers:
   next: 12.3.0
   next-compose-plugins: 2.2.1
   next-pwa: 5.6.0
-  next-sitemap: 3.1.21
+  next-sitemap: 3.1.22
   peerjs: 1.4.7
   prettier-plugin-tailwindcss: 0.1.13
   ramda: 0.28.0
@@ -72,7 +72,7 @@ dependencies:
   lodash-es: 4.17.21
   monaco-editor: 0.34.0
   next: 12.3.0_vyk55zyolcaieh7zfm7nf7uva4
-  next-sitemap: 3.1.21_oft4srhikjzureldvsn5mwkski
+  next-sitemap: 3.1.22_oft4srhikjzureldvsn5mwkski
   peerjs: 1.4.7
   ramda: 0.28.0
   react: 18.2.0
@@ -7952,8 +7952,8 @@ packages:
       - webpack
     dev: true
 
-  /next-sitemap/3.1.21_oft4srhikjzureldvsn5mwkski:
-    resolution: {integrity: sha512-8upGCtI91FvjNBpeKDZzrzRBlY4BH6qjG7dMe89sdBzJ9B++PVLTzRPlpLHJYOEPukBROsxi2zVuAvePBtsrdw==}
+  /next-sitemap/3.1.22_oft4srhikjzureldvsn5mwkski:
+    resolution: {integrity: sha512-aykbwYTNJ2GKSuxYpXgKK7m/a1Qao03ekUlsNLHvO8XuTTVZDAOe2hGcJtr2vQfXnLeZuSpNUs2IP6hCr4xVZA==}
     engines: {node: '>=14.18'}
     hasBin: true
     peerDependencies:
