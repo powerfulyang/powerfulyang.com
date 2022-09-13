@@ -1,38 +1,66 @@
 import type { FC } from 'react';
 import React, { memo } from 'react';
 import classNames from 'classnames';
-import { motion } from 'framer-motion';
 import { ProjectName } from '@/constant/Constant';
 import { useHistory } from '@/hooks/useHistory';
 import { NavBarUser } from '@/components/NavBar/User';
 import { DocSearch } from '@docsearch/react';
+import { Dropdown, Menu } from '@powerfulyang/components';
 import styles from './index.module.scss';
 import { Link } from '../Link';
 
-export const menus = ['post', 'timeline', 'gallery'];
+export const menus = ['post', 'timeline'];
 
 type NavBarProps = {};
 
 const Menus: FC = () => {
-  const { pathname } = useHistory();
+  const { pathname, pushState } = useHistory();
 
   return (
     <div className={styles.menus}>
       {menus.map((x) => (
-        <motion.div key={x}>
-          <Link
-            className={classNames(
-              {
-                [styles.active]: pathname === `/${x}`,
-              },
-              styles.menu,
-            )}
-            href={`/${x}`}
-          >
-            {x}
-          </Link>
-        </motion.div>
+        <Link
+          key={x}
+          className={classNames(
+            {
+              [styles.active]: pathname === `/${x}`,
+            },
+            styles.menu,
+          )}
+          href={`/${x}`}
+        >
+          {x}
+        </Link>
       ))}
+      <Dropdown
+        className="mt-5"
+        overlay={
+          <Menu itemClassName="hover:bg-pink-200 text-sm">
+            <div className="p-1">
+              <Menu.Item
+                menuKey="gallery"
+                className="pointer"
+                onClick={() => {
+                  pushState('/gallery');
+                }}
+              >
+                Gallery
+              </Menu.Item>
+              <Menu.Item
+                className="pointer"
+                menuKey="airdrop"
+                onClick={() => {
+                  pushState('/airdrop');
+                }}
+              >
+                Airdrop
+              </Menu.Item>
+            </div>
+          </Menu>
+        }
+      >
+        <div className={classNames(styles.menu, 'pointer')}>More</div>
+      </Dropdown>
     </div>
   );
 };

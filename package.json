@@ -16,7 +16,7 @@
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
     "tsc-check": "tsc --noEmit",
-    "precommit": "npm run tsc-check && lint-staged && npm run test",
+    "precommit": "pnpm run tsc-check && lint-staged && pnpm run test",
     "prettier": "prettier \"src/**/*.{tsx,ts,scss}\" --write",
     "lint:js": "eslint ./src --ext .ts,.tsx --fix",
     "lint:style": "stylelint --fix \"src/**/*.scss\""

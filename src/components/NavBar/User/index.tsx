@@ -4,7 +4,6 @@ import { useUser } from '@/hooks/useUser';
 import { useMutation } from '@tanstack/react-query';
 import { requestAtClient } from '@/utils/client';
 import { Dropdown, notification } from '@powerfulyang/components';
-import { Link } from '@/components/Link';
 import styles from './index.module.scss';
 
 export const login = () => {
@@ -38,27 +37,18 @@ export const NavBarUser = () => {
         overlay={
           <div className="divide-y divide-gray-100" role="document">
             <div className="p-1">
-              <Link
-                className="pointer block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-pink-200"
-                role="menuitem"
-                tabIndex={0}
-                href="/airdrop"
-              >
-                AirDrop
-              </Link>
               <span
                 className="pointer block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-pink-200"
                 role="menuitem"
-                tabIndex={-1}
               >
-                Projects
+                Profile
               </span>
             </div>
             <div className="p-1">
               <button
                 className="pointer block w-full rounded-md px-4 py-2 text-left text-sm text-gray-700 hover:bg-pink-200"
                 role="menuitem"
-                tabIndex={-1}
+                tabIndex={0}
                 type="button"
                 onClick={() => logout.mutate()}
               >
