@@ -10,6 +10,9 @@ import Script from 'next/script';
 
 type Props = {
   Component: AppProps['Component'] & { getLayout: any };
+  pageProps: {
+    [key: string]: any;
+  };
 };
 
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;

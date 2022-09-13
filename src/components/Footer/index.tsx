@@ -36,7 +36,7 @@ export const Footer = memo<FooterProps>(({ pathViewCount = 0 }) => (
           </a>
         </span>
       </div>
-      <div className="flex items-baseline text-sm">
+      <div className="flex items-center text-sm">
         <div className="hidden text-pink-400 sm:block">{pathViewCount}人临幸</div>
         <div className="contents space-x-1 text-lg text-gray-400">
           <a
@@ -45,13 +45,13 @@ export const Footer = memo<FooterProps>(({ pathViewCount = 0 }) => (
             target="_blank"
             rel="noreferrer"
           >
-            <Icon className={styles.twitter} type="icon-twitter" />
+            <Icon type="icon-twitter" />
           </a>
           <a href="https://github.com/powerfulyang" target="_blank" rel="noreferrer">
-            <Icon className={styles.github} type="icon-github" />
+            <Icon type="icon-github" />
           </a>
           <a href="https://instagram.com/powerfulyang" target="_blank" rel="noreferrer">
-            <Icon className={styles.instagram} type="icon-instagram" />
+            <Icon type="icon-instagram" />
           </a>
         </div>
       </div>

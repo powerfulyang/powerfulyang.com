@@ -1,7 +1,6 @@
 import type { FC } from 'react';
-import React, { memo, useMemo } from 'react';
+import React, { memo } from 'react';
 import classNames from 'classnames';
-import { getEnumKeys } from '@powerfulyang/utils';
 import { motion } from 'framer-motion';
 import { ProjectName } from '@/constant/Constant';
 import { useHistory } from '@/hooks/useHistory';
@@ -10,42 +9,32 @@ import { DocSearch } from '@docsearch/react';
 import styles from './index.module.scss';
 import { Link } from '../Link';
 
-export enum Menu {
-  post,
-  timeline,
-  gallery,
-}
+export const menus = ['post', 'timeline', 'gallery'];
 
 type NavBarProps = {};
 
 const Menus: FC = () => {
   const { pathname } = useHistory();
-  const active = useMemo(() => {
-    const name = pathname.split('/')[1];
-    return Reflect.get(Menu, name);
-  }, [pathname]);
 
-  return useMemo(() => {
-    return (
-      <div className={styles.menus}>
-        {getEnumKeys(Menu).map((x) => (
-          <motion.div key={x}>
-            <Link
-              className={classNames(
-                {
-                  [styles.active]: Reflect.get(Menu, x) === active,
-                },
-                styles.menu,
-              )}
-              href={`/${x}`}
-            >
-              {x}
-            </Link>
-          </motion.div>
-        ))}
-      </div>
-    );
-  }, [active]);
+  return (
+    <div className={styles.menus}>
+      {menus.map((x) => (
+        <motion.div key={x}>
+          <Link
+            className={classNames(
+              {
+                [styles.active]: pathname === `/${x}`,
+              },
+              styles.menu,
+            )}
+            href={`/${x}`}
+          >
+            {x}
+          </Link>
+        </motion.div>
+      ))}
+    </div>
+  );
 };
 
 Menus.displayName = 'Menus';

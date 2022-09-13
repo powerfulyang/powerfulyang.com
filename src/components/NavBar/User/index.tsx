@@ -1,10 +1,9 @@
 import { LazyImage } from '@/components/LazyImage';
 import React, { useMemo } from 'react';
 import { useUser } from '@/hooks/useUser';
-import { Menu } from '@/components/Menu';
 import { useMutation } from '@tanstack/react-query';
 import { requestAtClient } from '@/utils/client';
-import { notification } from '@powerfulyang/components';
+import { Dropdown, notification } from '@powerfulyang/components';
 import { Link } from '@/components/Link';
 import styles from './index.module.scss';
 
@@ -35,24 +34,24 @@ export const NavBarUser = () => {
 
   const Component = useMemo(() => {
     return user ? (
-      <Menu
+      <Dropdown
         overlay={
-          <div className="divide-y divide-gray-100" role="none">
+          <div className="divide-y divide-gray-100" role="document">
             <div className="p-1">
               <Link
                 className="pointer block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-pink-200"
                 role="menuitem"
-                tabIndex={-1}
+                tabIndex={0}
                 href="/airdrop"
               >
                 AirDrop
               </Link>
               <span
-                className="pointer block cursor-not-allowed rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-pink-200"
+                className="pointer block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-pink-200"
                 role="menuitem"
                 tabIndex={-1}
               >
-                Profile
+                Projects
               </span>
             </div>
             <div className="p-1">
@@ -74,7 +73,7 @@ export const NavBarUser = () => {
           <span className={styles.nickname}>{user.nickname}</span>
           <LazyImage src={user.avatar} containerClassName={styles.avatar} alt="avatar" />
         </div>
-      </Menu>
+      </Dropdown>
     ) : (
       <button type="button" className="pointer mr-4 block text-pink-400" onClick={login}>
         Login
