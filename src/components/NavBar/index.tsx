@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import classNames from 'classnames';
 import { ProjectName } from '@/constant/Constant';
 import { useHistory } from '@/hooks/useHistory';
@@ -16,6 +16,14 @@ type NavBarProps = {};
 const Menus: FC = () => {
   const { pathname, pushState } = useHistory();
 
+  const currentMenu = useMemo(() => {
+    const menu = menus.find((m) => pathname.includes(m));
+    if (pathname === '/gallery' || pathname === '/airdrop') {
+      return 'more';
+    }
+    return menu || 'post';
+  }, [pathname]);
+
   return (
     <div className={styles.menus}>
       {menus.map((x) => (
@@ -23,7 +31,7 @@ const Menus: FC = () => {
           key={x}
           className={classNames(
             {
-              [styles.active]: pathname === `/${x}`,
+              [styles.active]: currentMenu === x,
             },
             styles.menu,
           )}
@@ -33,10 +41,10 @@ const Menus: FC = () => {
         </Link>
       ))}
       <Dropdown
-        className="mt-5"
+        className="right-1/2 mt-5 w-40 origin-top translate-x-1/2 transform"
         overlay={
-          <Menu itemClassName="hover:bg-pink-200 text-sm">
-            <div className="p-1">
+          <Menu itemClassName="hover:bg-pink-200 text-base">
+            <div className="p-1.5">
               <Menu.Item
                 menuKey="gallery"
                 className="pointer"
@@ -59,7 +67,13 @@ const Menus: FC = () => {
           </Menu>
         }
       >
-        <div className={classNames(styles.menu, 'pointer')}>More</div>
+        <div
+          className={classNames(styles.menu, 'pointer', {
+            [styles.active]: currentMenu === 'more',
+          })}
+        >
+          More
+        </div>
       </Dropdown>
     </div>
   );

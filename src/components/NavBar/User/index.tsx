@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { useUser } from '@/hooks/useUser';
 import { useMutation } from '@tanstack/react-query';
 import { requestAtClient } from '@/utils/client';
-import { Dropdown, notification } from '@powerfulyang/components';
+import { Dropdown, Menu, notification } from '@powerfulyang/components';
 import styles from './index.module.scss';
 
 export const login = () => {
@@ -37,12 +37,17 @@ export const NavBarUser = () => {
         overlay={
           <div className="divide-y divide-gray-100" role="document">
             <div className="p-1">
-              <span
+              <Menu.Item
                 className="pointer block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-pink-200"
-                role="menuitem"
+                menuKey="profile"
+                onClick={() => {
+                  notification.error({
+                    message: '暂未实现',
+                  });
+                }}
               >
                 Profile
-              </span>
+              </Menu.Item>
             </div>
             <div className="p-1">
               <button
