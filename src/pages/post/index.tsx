@@ -261,7 +261,10 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
       </div>
       <PostPreview hiddenPost={hiddenPost} selectedPost={selectedPost} containerRef={ref} />
       <BackToTop />
-      <Lottie className="fixed left-10 bottom-28 w-44" animationData={CuteUnicorn} />
+      <Lottie
+        className="fixed left-10 bottom-28 hidden w-44 sm:block"
+        animationData={CuteUnicorn}
+      />
     </>
   );
 };

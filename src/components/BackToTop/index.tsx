@@ -11,7 +11,7 @@ export const BackToTop = () => {
       {isDown && (
         <motion.div
           title="Back to top"
-          className="pointer fixed bottom-20 right-10 w-24"
+          className="pointer fixed bottom-28 right-10 w-28"
           transition={{
             duration: 0.3,
             type: 'keyframes',
@@ -19,15 +19,15 @@ export const BackToTop = () => {
           }}
           initial={{
             opacity: 0,
-            x: '100%',
+            y: '-80px',
           }}
           animate={{
             opacity: 1,
-            x: 0,
+            y: 0,
           }}
           exit={{
             opacity: 0,
-            x: '100%',
+            y: '-80vh',
           }}
         >
           <Lottie
