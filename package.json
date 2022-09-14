@@ -64,7 +64,8 @@
     "yaml": "2.1.1",
     "reflect-metadata": "0.1.13",
     "immer": "9.0.15",
-    "lodash-es": "4.17.21"
+    "lodash-es": "4.17.21",
+    "lottie-react": "2.3.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "12.3.0",
@@ -79,6 +80,7 @@
     "next-pwa": "5.6.0",
     "prettier-plugin-tailwindcss": "0.1.13",
     "tailwindcss": "3.1.8",
-    "typescript": "latest"
+    "typescript": "latest",
+    "jest-canvas-mock": "latest"
   }
 }

@@ -19,6 +19,9 @@ import { useQuery } from '@tanstack/react-query';
 import { requestAtClient } from '@/utils/client';
 import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { BackToTop } from '@/components/BackToTop';
+import Lottie from 'lottie-react';
+import CuteUnicorn from '@/lottie/CuteUnicorn.json';
 import styles from './index.module.scss';
 
 export type Props = {
@@ -257,6 +260,8 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
         </main>
       </div>
       <PostPreview hiddenPost={hiddenPost} selectedPost={selectedPost} containerRef={ref} />
+      <BackToTop />
+      <Lottie className="fixed left-10 bottom-28 w-44" animationData={CuteUnicorn} />
     </>
   );
 };

@@ -18,6 +18,7 @@ import { useUser } from '@/hooks/useUser';
 import Image from 'next/image';
 import bg from '@/assets/timeline-banner.webp';
 import { DateTimeFormat } from '@/utils/lib';
+import { BackToTop } from '@/components/BackToTop';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -137,6 +138,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
         <TimeLineForm onSubmitSuccess={fetchNextPage} />
         {resources}
       </div>
+      <BackToTop />
     </div>
   );
 };
