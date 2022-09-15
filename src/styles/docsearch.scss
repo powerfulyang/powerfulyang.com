@@ -1,0 +1,6 @@
+/* stylelint-disable */
+@import '~@docsearch/css';
+
+button[type='button'].DocSearch-Button {
+  background-color: var(--docsearch-searchbox-background);
+}

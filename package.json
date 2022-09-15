@@ -33,11 +33,15 @@
     "@powerfulyang/hooks": "1.3.0",
     "@powerfulyang/utils": "1.5.0",
     "@sentry/nextjs": "7.12.1",
+    "@tanstack/react-query": "4.3.4",
     "classnames": "2.3.2",
     "dayjs": "1.11.5",
     "framer-motion": "7.3.5",
     "hast-util-to-string": "2.0.0",
+    "immer": "9.0.15",
     "jotai": "1.8.3",
+    "lodash-es": "4.17.21",
+    "lottie-react": "2.3.1",
     "monaco-editor": "0.34.0",
     "next": "12.3.0",
     "next-sitemap": "3.1.22",
@@ -49,8 +53,8 @@
     "react-hotkeys-hook": "3.4.7",
     "react-intersection-observer": "9.4.0",
     "react-markdown": "8.0.3",
-    "@tanstack/react-query": "4.3.4",
     "react-syntax-highlighter": "15.5.0",
+    "reflect-metadata": "0.1.13",
     "rehype-slug": "5.0.1",
     "remark": "14.0.2",
     "remark-frontmatter": "4.0.1",
@@ -61,11 +65,7 @@
     "rxjs": "7.5.6",
     "unist-util-visit": "4.1.1",
     "xterm": "4.19.0",
-    "yaml": "2.1.1",
-    "reflect-metadata": "0.1.13",
-    "immer": "9.0.15",
-    "lodash-es": "4.17.21",
-    "lottie-react": "2.3.1"
+    "yaml": "2.1.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "12.3.0",
@@ -76,11 +76,11 @@
     "@types/ramda": "0.28.15",
     "@types/react-syntax-highlighter": "15.5.5",
     "@types/sharp": "0.30.5",
+    "jest-canvas-mock": "latest",
     "next-compose-plugins": "2.2.1",
     "next-pwa": "5.6.0",
     "prettier-plugin-tailwindcss": "0.1.13",
     "tailwindcss": "3.1.8",
-    "typescript": "latest",
-    "jest-canvas-mock": "latest"
+    "typescript": "latest"
   }
 }

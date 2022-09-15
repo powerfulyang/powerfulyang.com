@@ -1,6 +1,6 @@
 import { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
-import { ProjectName } from '@/constant/Constant';
+import { generateCdnStaticUrl, ProjectName } from '@/constant/Constant';
 
 export const twitter_username = 'hutyxxx';
 
@@ -8,10 +8,15 @@ const Document = () => {
   return (
     <Html lang="zh">
       <Head>
-        <link rel="preload" href="/fonts/zpix.woff" as="font" crossOrigin="anonymous" />
         <link
           rel="preload"
-          href="/fonts/uU9eCBsR6Z2vfE9aq3bL0fxyUs4tcw4W_D1sJVD7Ng.woff2"
+          href={generateCdnStaticUrl('/fonts/zpix.woff')}
+          as="font"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href={generateCdnStaticUrl('/fonts/uU9eCBsR6Z2vfE9aq3bL0fxyUs4tcw4W_D1sJVD7Ng.woff2')}
           as="font"
           crossOrigin="anonymous"
         />

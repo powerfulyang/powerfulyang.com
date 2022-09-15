@@ -11,7 +11,7 @@ export const BackToTop = () => {
       {isDown && (
         <motion.div
           title="Back to top"
-          className="pointer fixed bottom-28 right-10 w-28"
+          className="pointer fixed bottom-28 right-10 hidden w-28 sm:block"
           transition={{
             duration: 0.3,
             type: 'keyframes',
