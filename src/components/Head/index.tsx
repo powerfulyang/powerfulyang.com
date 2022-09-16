@@ -5,18 +5,21 @@ import LocalizedFormat from 'dayjs/plugin/localizedFormat';
 import Head from 'next/head';
 import { ProjectName } from '@/constant/Constant';
 import { twitter_username } from '@/pages/_document';
+import { useRouter } from 'next/router';
 
 dayjs.extend(LocalizedFormat);
 
 export interface HeaderProps {
   title?: string;
-  currentUrl?: string;
   description?: string;
   keywords?: string;
 }
 
-export const Header: FC<HeaderProps> = memo(({ title, currentUrl = '', description, keywords }) => {
+export const Header: FC<HeaderProps> = memo(({ title, description, keywords }) => {
   const t = `${title ? `${title} - ` : ''}${ProjectName}`;
+  const { asPath } = useRouter();
+  const origin = 'https://powerfulyang.com';
+  const currentUrl = `${origin}${asPath}`;
   return (
     <Head>
       <meta
@@ -30,22 +33,16 @@ export const Header: FC<HeaderProps> = memo(({ title, currentUrl = '', descripti
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content={`@${twitter_username}`} />
       <meta name="twitter:creator" content={`@${twitter_username}`} />
-      <meta name="twitter:url" content={`https://powerfulyang.com${currentUrl}`} />
+      <meta name="twitter:url" content={currentUrl} />
       <meta name="twitter:title" content={t} />
       <meta name="twitter:description" content={description} />
-      <meta
-        name="twitter:image"
-        content="https://powerfulyang.com/icons/android-chrome-192x192.png"
-      />
+      <meta name="twitter:image" content={`${origin}/icons/android-chrome-192x192.png`} />
 
       <meta property="og:title" content={t} />
       <meta property="og:type" content="website" />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={currentUrl} />
-      <meta
-        property="og:image"
-        content="https://powerfulyang.com/icons/android-chrome-192x192.png"
-      />
+      <meta property="og:image" content={`${origin}/icons/android-chrome-192x192.png`} />
 
       <title>{t}</title>
     </Head>

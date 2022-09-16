@@ -1,6 +1,6 @@
 import { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
-import { generateCdnStaticUrl, ProjectName } from '@/constant/Constant';
+import { CDN_ORIGIN, generateCdnStaticUrl, ProjectName } from '@/constant/Constant';
 
 export const twitter_username = 'hutyxxx';
 
@@ -8,6 +8,7 @@ const Document = () => {
   return (
     <Html lang="zh">
       <Head>
+        <link rel="preconnect" href={CDN_ORIGIN} crossOrigin="anonymous" />
         <link
           rel="preload"
           href={generateCdnStaticUrl('/fonts/zpix.woff')}

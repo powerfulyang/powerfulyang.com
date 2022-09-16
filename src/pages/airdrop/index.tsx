@@ -10,7 +10,6 @@ import type { ChatMessageEntity } from '@/components/Chat/Message';
 import { MessageSendType } from '@/components/Chat/Message';
 import { LazyImage } from '@/components/LazyImage';
 import { useDocumentVisible } from '@/hooks/useDocumentVisible';
-import type { GetServerSideProps } from 'next';
 import { randomAvatar } from '@/utils/lib';
 import styles from './index.module.scss';
 
@@ -217,11 +216,9 @@ Airdrop.getLayout = (page) => {
   return <UserLayout>{page}</UserLayout>;
 };
 
-// eslint-disable-next-line @typescript-eslint/require-await
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps = () => {
   return {
     props: {
-      currentUrl: ctx.req.url,
       title: 'Airdrop',
     },
   };

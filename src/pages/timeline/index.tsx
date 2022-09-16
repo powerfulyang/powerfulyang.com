@@ -158,7 +158,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { data, pathViewCount } = await res.json();
   return {
     props: {
-      currentUrl: ctx.req.url,
       feeds: data.resources.map((x: Feed) => {
         return {
           ...x,

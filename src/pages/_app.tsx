@@ -41,7 +41,6 @@ const App = ({ Component, pageProps }: AppProps & Props) => {
     <GlobalContextProvider>
       <Header
         title={pageProps.title}
-        currentUrl={pageProps.currentUrl}
         description={pageProps.description}
         keywords={pageProps.keywords}
       />
