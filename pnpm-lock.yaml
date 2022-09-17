@@ -16,7 +16,7 @@ specifiers:
   '@testing-library/react': 13.4.0
   '@types/ramda': 0.28.15
   '@types/react-syntax-highlighter': 15.5.5
-  '@types/sharp': 0.30.5
+  '@types/sharp': 0.31.0
   classnames: 2.3.2
   dayjs: 1.11.5
   framer-motion: 7.3.5
@@ -106,7 +106,7 @@ devDependencies:
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@types/ramda': 0.28.15
   '@types/react-syntax-highlighter': 15.5.5
-  '@types/sharp': 0.30.5
+  '@types/sharp': 0.31.0
   jest-canvas-mock: 2.4.0
   next-compose-plugins: 2.2.1
   next-pwa: 5.6.0_yokqnmkqq65uajc6xvun3dxchi
@@ -3044,8 +3044,8 @@ packages:
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
 
-  /@types/sharp/0.30.5:
-    resolution: {integrity: sha512-EhO29617AIBqxoVtpd1qdBanWpspk/kD2B6qTFRJ31Q23Rdf+DNU1xlHSwtqvwq1vgOqBwq1i38SX+HGCymIQg==}
+  /@types/sharp/0.31.0:
+    resolution: {integrity: sha512-nwivOU101fYInCwdDcH/0/Ru6yIRXOpORx25ynEOc6/IakuCmjOAGpaO5VfUl4QkDtUC6hj+Z2eCQvgXOioknw==}
     dependencies:
       '@types/node': 18.7.18
     dev: true
