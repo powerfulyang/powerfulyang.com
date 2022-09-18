@@ -11,7 +11,7 @@ specifiers:
   '@powerfulyang/utils': 1.5.0
   '@sentry/cli': 2.5.2
   '@sentry/nextjs': 7.13.0
-  '@tanstack/react-query': 4.3.7
+  '@tanstack/react-query': 4.3.8
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0
   '@types/ramda': 0.28.15
@@ -64,7 +64,7 @@ dependencies:
   '@powerfulyang/hooks': 1.3.0_4mrmg6mcfphdcuvywf2zmrtd5u
   '@powerfulyang/utils': 1.5.0_j5hagqx4mwzscud4kyjdvubauy
   '@sentry/nextjs': 7.13.0_z6h2urrzfzjemuinkf5bguhq3y
-  '@tanstack/react-query': 4.3.7_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query': 4.3.8_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
   dayjs: 1.11.5
   framer-motion: 7.3.5_biqbaboplfbrettd7655fr4n2y
@@ -2265,7 +2265,7 @@ packages:
       eslint-config-prettier: 8.5.0_eslint@8.22.0
       eslint-import-resolver-typescript: 3.5.0_2iahngt3u2tkbdlu6s4gkur3pu
       eslint-plugin-eslint-comments: 3.2.0_eslint@8.22.0
-      eslint-plugin-import: 2.26.0_53b6u4h6uwbrpu5ovdb2jbnsyu
+      eslint-plugin-import: 2.26.0_fcj4dwrlsb5xsaov7ow6xxaysy
       eslint-plugin-jest: 27.0.1_aginz73a6ovgy4zmzjghpjgi6u
       eslint-plugin-jsx-a11y: 6.6.1_eslint@8.22.0
       eslint-plugin-react: 7.31.1_eslint@8.22.0
@@ -2750,12 +2750,12 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@tanstack/query-core/4.3.7:
-    resolution: {integrity: sha512-lCoAYhcx8i/o4lCQa06kbg5zqtnRnXp0tOYIm7NcSh6M9QLUcKO6UPoS+T9XwteLYnKcGHa3j3MGnin18fSPHA==}
+  /@tanstack/query-core/4.3.8:
+    resolution: {integrity: sha512-AEUWtCNBIImFZ9tMt/P8V86kIhMHpfoJqAI1auGOLR8Wzeq7Ymiue789PJG0rKYcyViUicBZeHjggMqyEQVMfQ==}
     dev: false
 
-  /@tanstack/react-query/4.3.7_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-aoJs8WXHUILQyEjFwNxDfV9smOTD2kBYeXnN2e7UCQqSfL0k5ZqDK9+zQG8vxiC9ZDBnC3xuoSQG24lYIfiOzA==}
+  /@tanstack/react-query/4.3.8_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-iR1mzhjD5nNhywW8o7FfT4Q4PjFSnfUQk2CRyOToojNiNygM82e22RcmPfLu1z+O+Pl6cMOD0D8NwdNpPZghnw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -2766,7 +2766,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.3.7
+      '@tanstack/query-core': 4.3.8
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
@@ -4629,7 +4629,7 @@ packages:
     dependencies:
       confusing-browser-globals: 1.0.11
       eslint: 8.22.0
-      eslint-plugin-import: 2.26.0_53b6u4h6uwbrpu5ovdb2jbnsyu
+      eslint-plugin-import: 2.26.0_fcj4dwrlsb5xsaov7ow6xxaysy
       object.assign: 4.1.4
       object.entries: 1.1.5
       semver: 6.3.0
@@ -4647,7 +4647,7 @@ packages:
       '@typescript-eslint/parser': 5.37.0_76twfck5d7crjqrmw4yltga7zm
       eslint: 8.22.0
       eslint-config-airbnb-base: 15.0.0_2iahngt3u2tkbdlu6s4gkur3pu
-      eslint-plugin-import: 2.26.0_53b6u4h6uwbrpu5ovdb2jbnsyu
+      eslint-plugin-import: 2.26.0_fcj4dwrlsb5xsaov7ow6xxaysy
     dev: true
 
   /eslint-config-airbnb/19.0.4_it2qjhmc3zyzdfbwuiia4r6ofy:
@@ -4662,7 +4662,7 @@ packages:
     dependencies:
       eslint: 8.22.0
       eslint-config-airbnb-base: 15.0.0_2iahngt3u2tkbdlu6s4gkur3pu
-      eslint-plugin-import: 2.26.0_53b6u4h6uwbrpu5ovdb2jbnsyu
+      eslint-plugin-import: 2.26.0_fcj4dwrlsb5xsaov7ow6xxaysy
       eslint-plugin-jsx-a11y: 6.6.1_eslint@8.22.0
       eslint-plugin-react: 7.31.1_eslint@8.22.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.22.0
@@ -4698,7 +4698,7 @@ packages:
       debug: 4.3.4
       enhanced-resolve: 5.10.0
       eslint: 8.22.0
-      eslint-plugin-import: 2.26.0_53b6u4h6uwbrpu5ovdb2jbnsyu
+      eslint-plugin-import: 2.26.0_fcj4dwrlsb5xsaov7ow6xxaysy
       get-tsconfig: 4.2.0
       globby: 13.1.2
       is-core-module: 2.10.0
@@ -4708,7 +4708,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-module-utils/2.7.4_n3pqdajolz4gizlobfrl7d2kei:
+  /eslint-module-utils/2.7.4_ekg5krbsgda4zriauntmfre2ci:
     resolution: {integrity: sha512-j4GT+rqzCoRKHwURX7pddtIPGySnX9Si/cgMI5ztrcqOPtk5dDEeZ34CQVPphnqkJytlc97Vuk05Um2mJ3gEQA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -4733,7 +4733,6 @@ packages:
       debug: 3.2.7
       eslint: 8.22.0
       eslint-import-resolver-node: 0.3.6
-      eslint-import-resolver-typescript: 3.5.0_2iahngt3u2tkbdlu6s4gkur3pu
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4749,7 +4748,7 @@ packages:
       ignore: 5.2.0
     dev: true
 
-  /eslint-plugin-import/2.26.0_53b6u4h6uwbrpu5ovdb2jbnsyu:
+  /eslint-plugin-import/2.26.0_fcj4dwrlsb5xsaov7ow6xxaysy:
     resolution: {integrity: sha512-hYfi3FXaM8WPLf4S1cikh/r4IxnO6zrhZbEGz2b660EJRbuxgpDS5gkCuYgGWg2xxh2rBuIr4Pvhve/7c31koA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -4766,7 +4765,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.22.0
       eslint-import-resolver-node: 0.3.6
-      eslint-module-utils: 2.7.4_n3pqdajolz4gizlobfrl7d2kei
+      eslint-module-utils: 2.7.4_ekg5krbsgda4zriauntmfre2ci
       has: 1.0.3
       is-core-module: 2.10.0
       is-glob: 4.0.3
@@ -6152,7 +6151,7 @@ packages:
       pretty-format: 29.0.3
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_r66v3hbyjqcyf2okijq7h73tzi
+      ts-node: 10.9.1_qjdcsce5xnzqqhf2ipebqf47p4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -8072,7 +8071,7 @@ packages:
     dependencies:
       lilconfig: 2.0.6
       postcss: 8.4.16
-      ts-node: 10.9.1_r66v3hbyjqcyf2okijq7h73tzi
+      ts-node: 10.9.1_qjdcsce5xnzqqhf2ipebqf47p4
       yaml: 1.10.2
     dev: true
 
@@ -9624,38 +9623,6 @@ packages:
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
       '@types/node': 14.18.29
-      acorn: 8.8.0
-      acorn-walk: 8.2.0
-      arg: 4.1.3
-      create-require: 1.1.1
-      diff: 4.0.2
-      make-error: 1.3.6
-      typescript: 4.8.3
-      v8-compile-cache-lib: 3.0.1
-      yn: 3.1.1
-    dev: true
-
-  /ts-node/10.9.1_r66v3hbyjqcyf2okijq7h73tzi:
-    resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
-    hasBin: true
-    peerDependencies:
-      '@swc/core': '>=1.2.50'
-      '@swc/wasm': '>=1.2.50'
-      '@types/node': '*'
-      typescript: '>=2.7'
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      '@swc/wasm':
-        optional: true
-    dependencies:
-      '@cspotcode/source-map-support': 0.8.1
-      '@swc/core': 1.3.1
-      '@tsconfig/node10': 1.0.9
-      '@tsconfig/node12': 1.0.11
-      '@tsconfig/node14': 1.0.3
-      '@tsconfig/node16': 1.0.3
-      '@types/node': 18.7.18
       acorn: 8.8.0
       acorn-walk: 8.2.0
       arg: 4.1.3
