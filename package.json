@@ -39,7 +39,7 @@
     "framer-motion": "7.3.5",
     "hast-util-to-string": "2.0.0",
     "immer": "9.0.15",
-    "jotai": "1.8.3",
+    "jotai": "1.8.4",
     "lodash-es": "4.17.21",
     "lottie-react": "2.3.1",
     "monaco-editor": "0.34.0",

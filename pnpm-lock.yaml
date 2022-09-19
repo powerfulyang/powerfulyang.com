@@ -23,7 +23,7 @@ specifiers:
   hast-util-to-string: 2.0.0
   immer: 9.0.15
   jest-canvas-mock: latest
-  jotai: 1.8.3
+  jotai: 1.8.4
   lodash-es: 4.17.21
   lottie-react: 2.3.1
   monaco-editor: 0.34.0
@@ -70,7 +70,7 @@ dependencies:
   framer-motion: 7.3.5_biqbaboplfbrettd7655fr4n2y
   hast-util-to-string: 2.0.0
   immer: 9.0.15
-  jotai: 1.8.3_bvxjlyzw3cs37gysd4oynzgxdi
+  jotai: 1.8.4_bvxjlyzw3cs37gysd4oynzgxdi
   lodash-es: 4.17.21
   lottie-react: 2.3.1_biqbaboplfbrettd7655fr4n2y
   monaco-editor: 0.34.0
@@ -6497,8 +6497,8 @@ packages:
       - ts-node
     dev: true
 
-  /jotai/1.8.3_bvxjlyzw3cs37gysd4oynzgxdi:
-    resolution: {integrity: sha512-bNAs/DMD6BEB4xxVku33CI+ZIFyCWG82Ms6JnvYunEvGCnviTTDBl+m0HKgijoHmcNM3fxQ5MARdG+wwokNxog==}
+  /jotai/1.8.4_bvxjlyzw3cs37gysd4oynzgxdi:
+    resolution: {integrity: sha512-bkHDHNxm7bU4+bJL4z96fTlJYN34UDRTu3ghEajJrDepayON9YEaxPrXr7xhLnIRntoFC6eDYYhMNA/ilbj2RQ==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@babel/core': '*'
