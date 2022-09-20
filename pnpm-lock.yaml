@@ -36,7 +36,7 @@ specifiers:
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0
-  react-hook-form: 7.35.0
+  react-hook-form: 7.36.0
   react-hotkeys-hook: 3.4.7
   react-intersection-observer: 9.4.0
   react-markdown: 8.0.3
@@ -80,7 +80,7 @@ dependencies:
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-hook-form: 7.35.0_react@18.2.0
+  react-hook-form: 7.36.0_react@18.2.0
   react-hotkeys-hook: 3.4.7_biqbaboplfbrettd7655fr4n2y
   react-intersection-observer: 9.4.0_react@18.2.0
   react-markdown: 8.0.3_w5j4k42lgipnm43s3brx6h3c34
@@ -8361,8 +8361,8 @@ packages:
       react: 18.2.0
       scheduler: 0.23.0
 
-  /react-hook-form/7.35.0_react@18.2.0:
-    resolution: {integrity: sha512-9CYdOed+Itbiu5VMVxW0PK9mBR3f0gDGJcZEyUSm0eJbDymQ913TRs2gHcQZZmfTC+rtxyDFRuelMxx/+xwMcw==}
+  /react-hook-form/7.36.0_react@18.2.0:
+    resolution: {integrity: sha512-2PmRhTDH90/G1XWbUGpfuFBf7wxj9kYvzPqoZCv4wUGBIfuac0fK3up9sbeoz0ghpLYcFFXRVDKMUXgMutLXTw==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
