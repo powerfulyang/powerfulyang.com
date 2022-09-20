@@ -43,7 +43,7 @@
     "lodash-es": "4.17.21",
     "lottie-react": "2.3.1",
     "monaco-editor": "0.34.0",
-    "next": "12.3.0",
+    "next": "12.3.1",
     "next-sitemap": "3.1.22",
     "peerjs": "1.4.7",
     "ramda": "0.28.0",
@@ -68,7 +68,7 @@
     "yaml": "2.1.1"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "12.3.0",
+    "@next/bundle-analyzer": "12.3.1",
     "@powerfulyang/lint": "3.1.0",
     "@sentry/cli": "2.5.2",
     "@testing-library/jest-dom": "5.16.5",
