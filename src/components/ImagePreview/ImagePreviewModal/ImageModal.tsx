@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
-import React, { memo, startTransition, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Assets } from '@powerfulyang/components';
 import styles from '@/components/ImagePreview/ImagePreviewModal/content.module.scss';
 import type { ImagePreviewItem } from '@/components/ImagePreview';
@@ -23,6 +23,72 @@ type Custom = {
   animated: boolean;
   realIndex: number;
   selectIndex: number;
+  viewportWidth: number;
+  viewportHeight: number;
+  actionRef: any;
+};
+
+const variants = {
+  initial: ({ realIndex: r, selectIndex: s, viewportWidth }: Custom) => {
+    return {
+      opacity: 0.3,
+      filter: 'blur(20px)',
+      scale: 0.3,
+      x: viewportWidth * (r - s),
+    };
+  },
+  animate: ({
+    isPrev: p,
+    isNext: n,
+    x: ox,
+    loaded: l,
+    animated: a,
+    y: oy,
+    realIndex: r,
+    selectIndex: s,
+    actionRef,
+    viewportWidth,
+    viewportHeight,
+  }: Custom) => {
+    const offset: number = (p && -20) || (n && 20) || 0;
+    let t = {};
+    if (actionRef.current !== 0) {
+      t = {
+        transition: {
+          type: false,
+        },
+      };
+    } else if (!a) {
+      t = {
+        transition: {
+          type: 'spring',
+          stiffness: 500,
+          damping: 30,
+        },
+      };
+    } else if (l) {
+      t = {
+        transition: {
+          type: false,
+        },
+      };
+    }
+    return {
+      x: viewportWidth * (r - s) + Number(ox) + offset,
+      opacity: 1,
+      filter: l && a ? 'none' : 'blur(5px)',
+      scale: oy ? 1 - oy / viewportHeight : 1,
+      y: oy,
+      ...t,
+    };
+  },
+  exit: ({ y: oy, selectIndex: s, realIndex: r, viewportWidth }: Custom) => {
+    return {
+      x: viewportWidth * (r - s),
+      opacity: 0,
+      scale: oy ? 0.3 : 0.6,
+    };
+  },
 };
 
 export const ImageModal = memo<ImageModalProps>(
@@ -37,19 +103,16 @@ export const ImageModal = memo<ImageModalProps>(
       const originUrl = rest.original;
       if (originUrl && animated) {
         const img = new Image();
-        img.src = originUrl;
+        img.decoding = 'async';
         img.onload = () => {
-          startTransition(() => {
-            setUrl(originUrl);
-            setLoaded(true);
-          });
+          setUrl(originUrl);
+          setLoaded(true);
         };
         img.onerror = () => {
-          startTransition(() => {
-            setUrl(Assets.brokenImg);
-            setLoaded(true);
-          });
+          setUrl(Assets.brokenImg);
+          setLoaded(true);
         };
+        img.src = originUrl;
       }
     }, [rest.original, animated]);
 
@@ -75,55 +138,6 @@ export const ImageModal = memo<ImageModalProps>(
       return viewportHeight / width > Number(rest.size?.height) / Number(rest.size?.width);
     }, [isSmallScreen, viewportWidth, viewportHeight, rest.size?.height, rest.size?.width]);
 
-    const variants = useMemo(
-      () => ({
-        initial: ({ realIndex: r, selectIndex: s }: Custom) => {
-          return {
-            opacity: 0.3,
-            filter: 'blur(20px)',
-            scale: 0.3,
-            x: viewportWidth * (r - s),
-          };
-        },
-        animate: ({
-          isPrev: p,
-          isNext: n,
-          x: ox,
-          loaded: l,
-          animated: a,
-          y: oy,
-          realIndex: r,
-          selectIndex: s,
-        }: Custom) => {
-          const offset: number = (p && -20) || (n && 20) || 0;
-          let t = {};
-          if (actionRef.current !== 0) {
-            t = {
-              transition: {
-                type: false,
-              },
-            };
-          }
-          return {
-            x: viewportWidth * (r - s) + Number(ox) + offset,
-            opacity: 1,
-            filter: l && a ? 'blur(0px)' : 'blur(5px)',
-            scale: oy ? 1 - oy / viewportHeight : 1,
-            y: oy,
-            ...t,
-          };
-        },
-        exit: ({ y: oy, selectIndex: s, realIndex: r }: Custom) => {
-          return {
-            x: viewportWidth * (r - s),
-            opacity: 0,
-            scale: oy ? 0.3 : 0.6,
-          };
-        },
-      }),
-      [actionRef, viewportHeight, viewportWidth],
-    );
-
     const onAnimateComplete = useCallback(
       (label: string) => {
         if (isMain && label === 'exit') {
@@ -147,6 +161,9 @@ export const ImageModal = memo<ImageModalProps>(
           animated,
           realIndex,
           selectIndex,
+          viewportWidth,
+          viewportHeight,
+          actionRef,
         }}
         onAnimationComplete={onAnimateComplete}
         variants={variants}

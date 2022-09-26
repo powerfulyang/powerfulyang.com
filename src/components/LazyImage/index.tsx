@@ -1,4 +1,4 @@
-import React, { memo, startTransition, useMemo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import type { HTMLMotionProps, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
@@ -62,10 +62,8 @@ export const LazyImage = memo<LazyImageProps>(
       triggerOnce,
       onChange: (viewed) => {
         if (!viewed && !triggerOnce && blurSrc) {
-          startTransition(() => {
-            setLoading(true);
-            setImgSrc(blurSrc);
-          });
+          setLoading(true);
+          setImgSrc(blurSrc);
         }
       },
     });
@@ -73,14 +71,14 @@ export const LazyImage = memo<LazyImageProps>(
     const variants = useMemo<Variants>(() => {
       return {
         loading: {
-          scale: 1.3,
+          scale: 1.1,
           filter: 'blur(32px)',
         },
         loaded: {
           scale: 1,
           filter: 'blur(0px)',
           transition: {
-            duration: 0.5 + Math.random() * 0.5,
+            duration: 0.2 + Math.random() * 0.2,
           },
         },
       };
@@ -102,18 +100,15 @@ export const LazyImage = memo<LazyImageProps>(
             onChange={(viewed: boolean) => {
               if (viewed && src) {
                 const img = new Image();
+                img.decoding = 'async';
                 img.onload = () => {
                   LOADED_IMAGE_URLS.add(src);
-                  startTransition(() => {
-                    setImgSrc(src);
-                    setLoading(false);
-                  });
+                  setImgSrc(src);
+                  setLoading(false);
                 };
                 img.onerror = () => {
-                  startTransition(() => {
-                    setImgSrc(Assets.brokenImg);
-                    setLoading(false);
-                  });
+                  setImgSrc(Assets.brokenImg);
+                  setLoading(false);
                 };
                 img.src = src;
               }
