@@ -66,12 +66,6 @@ const variants = {
           damping: 30,
         },
       };
-    } else if (l) {
-      t = {
-        transition: {
-          type: false,
-        },
-      };
     }
     return {
       x: viewportWidth * (r - s) + Number(ox) + offset,
@@ -106,11 +100,9 @@ export const ImageModal = memo<ImageModalProps>(
         img.decoding = 'async';
         img.onload = () => {
           setUrl(originUrl);
-          setLoaded(true);
         };
         img.onerror = () => {
           setUrl(Assets.brokenImg);
-          setLoaded(true);
         };
         img.src = originUrl;
       }
@@ -179,6 +171,15 @@ export const ImageModal = memo<ImageModalProps>(
         alt=""
         draggable={false}
         onClick={(e) => e.stopPropagation()}
+        onLoad={() => {
+          animated &&
+            requestAnimationFrame(() => {
+              setLoaded(true);
+            });
+        }}
+        onError={() => {
+          setLoaded(true);
+        }}
       />
     );
   },
