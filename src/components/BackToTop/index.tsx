@@ -1,14 +1,27 @@
 import RocketShip from '@/lottie/RocketShip.json';
 import Lottie from 'lottie-react';
 import React from 'react';
-import { useScrollDirection } from '@powerfulyang/hooks';
 import { AnimatePresence, motion } from 'framer-motion';
 
+const useScrollHeight = () => {
+  const [scrollHeight, setScrollHeight] = React.useState(0);
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrollHeight(document.documentElement.scrollTop);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  return scrollHeight;
+};
+
 export const BackToTop = () => {
-  const { isDown } = useScrollDirection();
+  const scrollHeight = useScrollHeight();
   return (
     <AnimatePresence>
-      {isDown && (
+      {scrollHeight > 100 && (
         <motion.div
           title="Back to top"
           className="pointer fixed bottom-28 right-10 hidden w-28 sm:block"

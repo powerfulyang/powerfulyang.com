@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { startTransition, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import classNames from 'classnames';
@@ -49,9 +49,7 @@ export const remarkMetadata: Plugin<any, Root, string> = (
       try {
         const metadata: MarkdownMetadata = parse(yamlPart?.value || '') || {};
         process.nextTick(() => {
-          startTransition(() => {
-            onGenerateMetadata?.(metadata);
-          });
+          onGenerateMetadata?.(metadata);
         });
         const {
           date = new Date(),

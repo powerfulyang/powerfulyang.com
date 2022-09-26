@@ -1,4 +1,4 @@
-import React, { memo, startTransition, useMemo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import type { HTMLMotionProps, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
@@ -62,10 +62,10 @@ export const LazyImage = memo<LazyImageProps>(
       triggerOnce,
       onChange: (viewed) => {
         if (!viewed && !triggerOnce && blurSrc) {
-          startTransition(() => {
+          if (src !== blurSrc) {
             setLoading(true);
             setImgSrc(blurSrc);
-          });
+          }
         }
       },
     });
@@ -73,15 +73,11 @@ export const LazyImage = memo<LazyImageProps>(
     const variants = useMemo<Variants>(() => {
       return {
         loading: {
-          scale: 1.3,
           filter: 'blur(32px)',
+          willChange: 'filter',
         },
         loaded: {
-          scale: 1,
           filter: 'blur(0px)',
-          transition: {
-            duration: 0.5 + Math.random() * 0.5,
-          },
         },
       };
     }, []);
@@ -102,18 +98,15 @@ export const LazyImage = memo<LazyImageProps>(
             onChange={(viewed: boolean) => {
               if (viewed && src) {
                 const img = new Image();
+                img.decoding = 'async';
                 img.onload = () => {
                   LOADED_IMAGE_URLS.add(src);
-                  startTransition(() => {
-                    setImgSrc(src);
-                    setLoading(false);
-                  });
+                  setImgSrc(src);
+                  setLoading(false);
                 };
                 img.onerror = () => {
-                  startTransition(() => {
-                    setImgSrc(Assets.brokenImg);
-                    setLoading(false);
-                  });
+                  setImgSrc(Assets.brokenImg);
+                  setLoading(false);
                 };
                 img.src = src;
               }
@@ -123,7 +116,7 @@ export const LazyImage = memo<LazyImageProps>(
               <motion.img
                 {...props}
                 ref={imgRef}
-                style={{ ...props.style }}
+                style={props.style}
                 loading={loading ? 'lazy' : 'eager'}
                 variants={variants}
                 initial={loading ? 'loading' : 'loaded'}
