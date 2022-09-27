@@ -71,15 +71,10 @@ export const LazyImage = memo<LazyImageProps>(
     const variants = useMemo<Variants>(() => {
       return {
         loading: {
-          scale: 1.1,
           filter: 'blur(32px)',
         },
         loaded: {
-          scale: 1,
-          filter: 'blur(0px)',
-          transition: {
-            duration: 0.2 + Math.random() * 0.2,
-          },
+          filter: 'none',
         },
       };
     }, []);
@@ -104,11 +99,9 @@ export const LazyImage = memo<LazyImageProps>(
                 img.onload = () => {
                   LOADED_IMAGE_URLS.add(src);
                   setImgSrc(src);
-                  setLoading(false);
                 };
                 img.onerror = () => {
                   setImgSrc(Assets.brokenImg);
-                  setLoading(false);
                 };
                 img.src = src;
               }
@@ -131,6 +124,17 @@ export const LazyImage = memo<LazyImageProps>(
                   className,
                 )}
                 src={imgSrc}
+                onLoad={() => {
+                  imgSrc === src &&
+                    requestAnimationFrame(() => {
+                      setLoading(false);
+                    });
+                }}
+                onError={() => {
+                  requestAnimationFrame(() => {
+                    setLoading(false);
+                  });
+                }}
               />
             )}
           </InView>

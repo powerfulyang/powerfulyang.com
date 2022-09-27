@@ -178,7 +178,10 @@ export const ImageModal = memo<ImageModalProps>(
             });
         }}
         onError={() => {
-          setLoaded(true);
+          animated &&
+            requestAnimationFrame(() => {
+              setLoaded(true);
+            });
         }}
       />
     );
