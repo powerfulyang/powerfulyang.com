@@ -4,7 +4,6 @@ import type { HTMLMotionProps, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { InView, useInView } from 'react-intersection-observer';
 import { Assets } from '@powerfulyang/components';
-import styles from './index.module.scss';
 
 export type LazyImageExtendProps = {
   blurSrc?: string;
@@ -42,16 +41,13 @@ export const LazyImage = memo<LazyImageProps>(
           return false;
         }
         // 加载过的图片且 triggerOnce 为 true 不需要加载动画
-        return !(LOADED_IMAGE_URLS.has(src) && triggerOnce);
+        return !LOADED_IMAGE_URLS.has(src);
       }
       return false;
     });
     const [imgSrc, setImgSrc] = useState(() => {
-      if (lazy && triggerOnce) {
+      if (lazy) {
         return (LOADED_IMAGE_URLS.has(src) ? src : blurSrc) || src || Assets.brokenImg;
-      }
-      if (lazy && !triggerOnce) {
-        return blurSrc || src || Assets.brokenImg;
       }
       return src || blurSrc || Assets.brokenImg;
     });
@@ -60,14 +56,6 @@ export const LazyImage = memo<LazyImageProps>(
       rootMargin: '400px',
       initialInView,
       triggerOnce,
-      onChange: (viewed) => {
-        if (!viewed && !triggerOnce && blurSrc) {
-          if (src !== blurSrc) {
-            setLoading(true);
-            setImgSrc(blurSrc);
-          }
-        }
-      },
     });
 
     const variants = useMemo<Variants>(() => {
@@ -78,6 +66,9 @@ export const LazyImage = memo<LazyImageProps>(
         },
         loaded: {
           filter: 'blur(0px)',
+          transitionEnd: {
+            willChange: 'auto',
+          },
         },
       };
     }, []);
@@ -117,17 +108,10 @@ export const LazyImage = memo<LazyImageProps>(
                 {...props}
                 ref={imgRef}
                 style={props.style}
-                loading={loading ? 'lazy' : 'eager'}
                 variants={variants}
                 initial={loading ? 'loading' : 'loaded'}
                 animate={!loading && 'loaded'}
-                className={classNames(
-                  {
-                    [styles.loadedImg]: !loading,
-                    [styles.loadingImg]: loading,
-                  },
-                  className,
-                )}
+                className={classNames(className)}
                 src={imgSrc}
               />
             )}

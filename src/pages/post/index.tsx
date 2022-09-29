@@ -211,7 +211,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             ))}
           </div>
           <section className="m-auto flex w-[100%] max-w-[1000px] flex-wrap">
-            {posts.map((post) => (
+            {posts.map((post, index) => (
               <motion.a
                 key={post.id}
                 title={`${post.id}`}
@@ -248,7 +248,12 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                   className={classNames(styles.container)}
                 >
                   <motion.div className={styles.image} layoutId={`post-poster-${post.id}`}>
-                    <LazyAssetImage draggable={false} thumbnail={false} asset={post.poster} />
+                    <LazyAssetImage
+                      initialInView={index < 5}
+                      draggable={false}
+                      thumbnail={false}
+                      asset={post.poster}
+                    />
                   </motion.div>
                   <motion.div className={styles.content} layoutId={`post-content-${post.id}`}>
                     <Skeleton rows={8} />

@@ -62,17 +62,23 @@ const variants: Variants = {
       };
     } else if (!a) {
       t = {
+        willChange: 'filter',
         transition: {
           type: 'spring',
           stiffness: 500,
           damping: 30,
         },
       };
+    } else if (a && l) {
+      t = {
+        transitionEnd: {
+          willChange: 'auto',
+        },
+      };
     }
     return {
       x: viewportWidth * (r - s) + Number(ox) + offset,
       opacity: 1,
-      willChange: 'transform, opacity, filter',
       filter: l && a ? 'blur(0px)' : 'blur(5px)',
       scale: oy ? 1 - oy / viewportHeight : 1,
       y: oy,
