@@ -47,9 +47,7 @@ export const H3: HeadingComponent = ({ children, id }) => {
   return (
     <div className="relative">
       <div id={id} className={styles.anchor} />
-      <h3>
-        <span>{children}</span>
-      </h3>
+      <h3>{children}</h3>
     </div>
   );
 };
