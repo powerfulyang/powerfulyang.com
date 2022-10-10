@@ -47,7 +47,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
     mutationFn: (variables: FeedCreate) => {
       const formData = fileListToFormData(variables.assets, 'assets');
       formData.append('content', variables.content);
-      formData.append('public', variables.public ? 'true' : 'false');
+      formData.append('public', String(variables.public));
       return requestAtClient<Feed>('/feed', {
         body: formData,
         method: 'POST',
@@ -188,13 +188,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
         </div>
         <span className="my-1 mr-4 block text-right text-red-400">{errors.content?.message}</span>
         <div className="mb-4 flex items-center justify-end pr-4 text-right">
-          <Switch
-            {...register('public', {
-              required: true,
-            })}
-            checkedDescription="公开"
-            uncheckedDescription="私密"
-          />
+          <Switch {...register('public')} checkedDescription="公开" uncheckedDescription="私密" />
           <label htmlFor="assets" className="pointer inline-block px-4 text-lg text-pink-400">
             上传图片
             <input

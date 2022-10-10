@@ -104,6 +104,11 @@ $main-color: #ffb356;
   & > p {
     line-height: 2rem;
     @apply mb-5 cursor-text;
+
+    // 后面紧跟 ul, ol 等时，不要太大的 margin-bottom
+    &:has(+ ul, + ol) {
+      @apply mb-2;
+    }
   }
 
   pre {
@@ -116,23 +121,26 @@ $main-color: #ffb356;
     }
   }
 
-  code {
-    color: #7887ac;
+  :not(pre) code {
+    color: #405363;
+  }
+
+  pre code {
+    @apply text-purple-300;
   }
 
   a {
     word-break: break-all;
 
     code {
-      @apply text-purple-500;
+      @apply pointer text-purple-500;
     }
   }
 
   .inline-code {
-    position: relative;
-    display: inline-block;
     white-space: pre-wrap;
-    @apply my-0.5 rounded bg-blue-100 px-2;
+    background-color: #e6e8ef;
+    @apply rounded px-1 py-0.5;
   }
 
   .toolbar {
@@ -176,7 +184,7 @@ $main-color: #ffb356;
 
   // blockquote
   .blockquote {
-    @apply mb-5 border-l-4 border-purple-400 bg-gray-300 p-4;
+    @apply mb-5 border-l-4 border-purple-400 bg-gray-100 p-4;
 
     p {
       @apply my-0;
