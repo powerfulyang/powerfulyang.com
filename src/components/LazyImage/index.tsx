@@ -4,6 +4,7 @@ import type { HTMLMotionProps, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
 import { InView, useInView } from 'react-intersection-observer';
 import { Assets } from '@powerfulyang/components';
+import styles from './index.module.scss';
 
 export type LazyImageExtendProps = {
   blurSrc?: string;
@@ -111,7 +112,9 @@ export const LazyImage = memo<LazyImageProps>(
                 variants={variants}
                 initial={loading ? 'loading' : 'loaded'}
                 animate={!loading && 'loaded'}
-                className={classNames(className)}
+                className={classNames(className, {
+                  [styles.loading]: loading,
+                })}
                 src={imgSrc}
               />
             )}

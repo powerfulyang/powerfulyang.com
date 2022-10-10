@@ -9,7 +9,7 @@ type SwitchProps = {
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const Switch: FC<SwitchProps> = forwardRef<HTMLInputElement, SwitchProps>(
-  ({ checkedDescription = '是', uncheckedDescription = '否', name, ...props }, ref) => {
+  ({ checkedDescription = '是', uncheckedDescription = '否', ...props }, ref) => {
     const id = useId();
     return (
       <>

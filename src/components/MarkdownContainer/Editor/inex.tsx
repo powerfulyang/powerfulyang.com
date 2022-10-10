@@ -1,5 +1,5 @@
 import type { ClipboardEvent, FC } from 'react';
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useRef } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
 import type { Monaco } from '@monaco-editor/react';
@@ -41,7 +41,10 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
     monaco: Monaco;
   }>();
 
-  const [metadata, setMetadata] = useState<MarkdownMetadata>({});
+  const metadataRef = useRef<MarkdownMetadata>({});
+  const onGenerateMetadata = useCallback((metadata: MarkdownMetadata) => {
+    metadataRef.current = metadata;
+  }, []);
 
   useEffect(() => {
     const s = fromEvent<ClipboardEvent>(window, 'paste').subscribe(async (e) => {
@@ -95,7 +98,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
           className={classNames(styles.icon, styles.post, 'pointer')}
           type="icon-send"
           onClick={() => {
-            onPost?.(metadata);
+            onPost?.(metadataRef.current);
           }}
         />
       </section>
@@ -120,7 +123,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
         </section>
         <Suspense fallback="loading">
           <MarkdownContainer
-            onGenerateMetadata={setMetadata}
+            onGenerateMetadata={onGenerateMetadata}
             className={styles.preview}
             source={value}
           />

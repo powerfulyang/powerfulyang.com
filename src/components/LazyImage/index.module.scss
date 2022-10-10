@@ -1,0 +1,20 @@
+@keyframes bg-move {
+  0% {
+    background-position: -500px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.loading {
+  background-image: linear-gradient(
+    270deg,
+    rgb(100 181 239 / 0%) 48.44%,
+    #64b5ef 75.52%,
+    rgb(100 181 239 / 0%) 100%
+  );
+  background-repeat: no-repeat;
+  animation: bg-move linear 5s infinite;
+}
