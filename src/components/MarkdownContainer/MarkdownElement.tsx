@@ -164,7 +164,7 @@ export const Img: NormalComponents['img'] = ({ src, alt }) => {
   // 因为开发的时候 图片没有被缓存 会出现高度突然变化的问题 导致页面闪烁
   return (
     <span className="mt-2 block w-full">
-      <img src={src} alt={alt} />
+      <img src={src} alt={alt} decoding="async" loading="lazy" />
     </span>
   );
 };

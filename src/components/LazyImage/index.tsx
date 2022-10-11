@@ -41,7 +41,7 @@ export const LazyImage = memo<LazyImageProps>(
         if (isLocalData) {
           return false;
         }
-        // 加载过的图片且 triggerOnce 为 true 不需要加载动画
+        // 加载过的图片不需要加载动画
         return !LOADED_IMAGE_URLS.has(src);
       }
       return false;
