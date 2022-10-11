@@ -2,6 +2,7 @@
 
 .wrap {
   width: 100%;
+  background-color: #f5f5f6;
   @apply pb-6;
 
   .timeline-show {
@@ -20,7 +21,7 @@
   }
 
   .banner {
-    box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
+    background-color: white;
     @apply relative m-auto mb-4 flex flex-col justify-center overflow-hidden align-middle;
 
     .banner-bg {

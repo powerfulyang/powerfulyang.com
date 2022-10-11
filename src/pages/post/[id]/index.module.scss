@@ -1,11 +1,9 @@
 .post-wrap {
-  background-color: #fcfcff;
   display: flex;
   @apply justify-center py-8 px-6;
 
   .post {
-    box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
     width: min(900px, 100%);
-    @apply rounded-lg sm:px-12 sm:pt-20;
+    @apply rounded-lg shadow-lg sm:px-12 sm:pt-20;
   }
 }

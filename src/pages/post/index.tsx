@@ -195,7 +195,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
 
   return (
     <>
-      <div className={styles.body}>
+      <div className={styles.wrap}>
         <main className={styles.main}>
           <div className={classNames(styles.years)} role="tablist">
             {years.map((x) => (
@@ -238,7 +238,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                     >
                       <div className={styles.cardHeaderTitle}>
                         <div>{post.title}</div>
-                        <div className={styles.cardHeaderDate}>{post.createAt}</div>
+                        <div className={styles.cardHeaderDate}>{DateTimeFormat(post.createAt)}</div>
                       </div>
                     </motion.div>
                   )}
@@ -290,12 +290,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: {
       pathViewCount,
       years,
-      posts: data.map((post: Post) => {
-        return {
-          ...post,
-          createAt: DateTimeFormat(post.createAt),
-        };
-      }),
+      posts: data,
       year,
       title: '日志',
     },

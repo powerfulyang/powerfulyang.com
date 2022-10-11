@@ -14,7 +14,7 @@ export const MarkdownTOC: FC<{ toc: TOCItem[] }> = ({ toc }) => {
   const hashRef = useRef('');
 
   return (
-    <div className={classNames('common-shadow hidden sm:block', styles.toc)}>
+    <div className={classNames('hidden sm:block', styles.toc)}>
       <span className="mb-2 inline-block text-lg text-gray-400">目录:</span>
       {toc.map((item) => {
         const { id } = item;

@@ -3,8 +3,8 @@ $popover-container-width: min(90vw, 700px);
 $mobile-poster-height: 40vh;
 $poster-height: 410px;
 
-.body {
-  background-color: #fcfcff;
+.wrap {
+  background-color: #f5f5f6;
   @apply py-4 pb-10 sm:px-28;
 }
 
@@ -54,7 +54,7 @@ $poster-height: 410px;
     margin: auto;
     position: relative;
     isolation: isolate;
-    @apply rounded-md shadow-md;
+    @apply rounded-lg shadow-lg;
 
     .image {
       z-index: 1;
@@ -129,7 +129,7 @@ $poster-height: 410px;
       height: 100%;
       overflow: hidden;
       isolation: isolate;
-      @apply rounded-md sm:shadow-md;
+      @apply rounded-lg sm:shadow-lg;
 
       .image {
         z-index: 1;

@@ -1,11 +1,10 @@
 import dayjs from 'dayjs';
 import { isSupportWebp } from '@powerfulyang/utils';
 
-export const DateFormat = (date?: Date | string) => dayjs(date).format('ll');
+export const DateFormat = (date?: Date | string) => dayjs(date).tz('Asia/Shanghai').format('ll');
 
-export const DateTimeFormat = (date?: Date | string) => dayjs(date).format('llll');
-
-export const TimeFormat = () => dayjs().format('HH:mm:ss');
+export const DateTimeFormat = (date?: Date | string) =>
+  dayjs(date).tz('Asia/Shanghai').format('llll');
 
 export const styles = {
   thumbnail: '&imageMogr2/thumbnail/300x/interlace/1/quality/90',

@@ -2,26 +2,16 @@
   position: relative;
   width: 90%;
   margin: auto;
-  box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
-
-  &::before {
-    position: absolute;
-    z-index: -1;
-    background: linear-gradient(to bottom right, #06aff2 66%, #06f3af 100%);
-    transform: translateY(15%) scale(0.85);
-    filter: blur(30px);
-    content: '';
-    inset: 0;
-  }
+  background-color: white;
 
   @screen sm {
     width: 600px;
   }
 
-  @apply mx-auto mb-4 rounded p-4 sm:p-8 sm:pt-10;
+  @apply mx-auto mb-4 rounded p-4 sm:p-6;
 
   .author {
-    @apply mb-6 flex items-center justify-start;
+    @apply mb-4 flex;
 
     .avatar {
       @apply mr-2 w-14;
