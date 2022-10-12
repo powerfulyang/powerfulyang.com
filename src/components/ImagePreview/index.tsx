@@ -54,8 +54,8 @@ export const castAssetsToImagePreviewItem = (assets: Asset[]): ImagePreviewItem[
     } = asset;
     return {
       id: String(id),
-      original: CosUtils.getCosObjectUrl(objectUrl)!,
-      thumbnail: CosUtils.getCosObjectThumbnailUrl(objectUrl)!,
+      original: CosUtils.getCosObjectUrl(objectUrl),
+      thumbnail: CosUtils.getCosObjectThumbnailUrl(objectUrl),
       size: { width, height },
     };
   });

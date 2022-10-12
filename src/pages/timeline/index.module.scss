@@ -3,6 +3,7 @@
 .wrap {
   width: 100%;
   background-color: #f5f5f6;
+  font-family: 'Zpix', sans-serif;
   @apply pb-6;
 
   .timeline-show {
@@ -16,7 +17,7 @@
     }
 
     .footer {
-      @apply mt-8 text-center text-xs text-pink-400;
+      @apply mt-8 mb-6 text-center text-xs text-pink-400;
     }
   }
 

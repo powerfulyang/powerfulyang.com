@@ -7,22 +7,26 @@ export const DateTimeFormat = (date?: Date | string) =>
   dayjs(date).tz('Asia/Shanghai').format('llll');
 
 export const styles = {
-  thumbnail: '&imageMogr2/thumbnail/300x/interlace/1/quality/90',
-  thumbnail_webp: '&imageMogr2/thumbnail/300x/format/webp/interlace/1/quality/90',
+  thumbnail: (w: number) => `&imageMogr2/thumbnail/${w}x/interlace/1/quality/100`,
+  thumbnail_webp: (w: number = 300) =>
+    `&imageMogr2/thumbnail/${w}x/format/webp/interlace/1/quality/100`,
   webp: '&imageMogr2/format/webp/interlace/1/quality/100',
   origin: '&imageMogr2/interlace/1/quality/100',
   thumbnail_blur: '&imageMogr2/thumbnail/10x/interlace/1/quality/1',
   thumbnail_blur_webp: '&imageMogr2/thumbnail/10x/format/webp/interlace/1/quality/1',
 };
 
-export const getCosObjectThumbnailUrl = (objectUrl?: string) =>
-  objectUrl && `${objectUrl}${(isSupportWebp() && styles.thumbnail_webp) || styles.thumbnail}`;
+export const defaultThumbnailWidth = 300;
 
-export const getCosObjectUrl = (objectUrl?: string) =>
-  objectUrl && `${objectUrl}${(isSupportWebp() && styles.webp) || styles.origin}`;
+export const getCosObjectThumbnailUrl = (
+  objectUrl: string,
+  width: number = defaultThumbnailWidth,
+) => `${objectUrl}${(isSupportWebp() && styles.thumbnail_webp(width)) || styles.thumbnail(width)}`;
 
-export const getCosObjectThumbnailBlurUrl = (objectUrl?: string) =>
-  objectUrl &&
+export const getCosObjectUrl = (objectUrl: string) =>
+  `${objectUrl}${(isSupportWebp() && styles.webp) || styles.origin}`;
+
+export const getCosObjectThumbnailBlurUrl = (objectUrl: string) =>
   `${objectUrl}${(isSupportWebp() && styles.thumbnail_blur_webp) || styles.thumbnail_blur}`;
 
 export const CosUtils = {

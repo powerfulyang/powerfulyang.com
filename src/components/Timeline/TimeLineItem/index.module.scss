@@ -8,17 +8,17 @@
     width: 600px;
   }
 
-  @apply mx-auto mb-4 rounded p-4 sm:p-6;
+  @apply mx-auto mb-4 rounded-lg p-6 pt-7;
 
   .author {
     @apply mb-4 flex;
 
     .avatar {
-      @apply mr-2 w-14;
+      @apply mr-2 w-16;
     }
 
     .nickname {
-      @apply cursor-text text-blue-600;
+      @apply cursor-text text-xl;
     }
   }
 
@@ -26,7 +26,6 @@
     @apply text-lg;
 
     .text {
-      font-family: 'Zpix', serif;
       white-space: pre-line;
       @apply cursor-text break-all font-normal text-gray-600;
     }

@@ -85,8 +85,8 @@ const PostPreview: FC<Props> = ({ selectedPost, containerRef, hiddenPost }) => {
                 <LazyAssetImage
                   draggable={false}
                   onClick={hiddenPost}
-                  thumbnail={false}
                   asset={selectedPost.poster}
+                  thumbnail={700}
                 />
               </motion.div>
               <motion.div
@@ -248,7 +248,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                   className={classNames(styles.container)}
                 >
                   <motion.div className={styles.image} layoutId={`post-poster-${post.id}`}>
-                    <LazyAssetImage draggable={false} thumbnail={false} asset={post.poster} />
+                    <LazyAssetImage thumbnail={700} draggable={false} asset={post.poster} />
                   </motion.div>
                   <motion.div className={styles.content} layoutId={`post-content-${post.id}`}>
                     <Skeleton rows={8} />
