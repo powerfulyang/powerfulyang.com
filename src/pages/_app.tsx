@@ -60,7 +60,6 @@ const App = ({ Component, pageProps }: AppProps & Props) => {
           />
           <Script
             strategy="afterInteractive"
-            async
             dangerouslySetInnerHTML={{
               __html: `
                       window.dataLayer = window.dataLayer || [];

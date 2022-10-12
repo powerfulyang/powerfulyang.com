@@ -15,6 +15,7 @@ import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { requestAtClient } from '@/utils/client';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { copyToClipboardAndNotify } from '@/utils/copy';
+import { toString } from 'hast-util-to-string';
 import styles from './index.module.scss';
 
 export const MDContainerContext = createContext({
@@ -77,7 +78,7 @@ export const Table: NormalComponents['table'] = ({ children }) => (
   </div>
 );
 
-export const Code: CodeComponent = ({ inline, className, children }) => {
+export const Code: CodeComponent = ({ inline, className, children, node }) => {
   const match = /language-(\w+)/.exec(className || '');
   const renderText = useMemo(() => children.toString().replace(/\s*\n$/, ''), [children]);
   if (inline) {
@@ -86,6 +87,11 @@ export const Code: CodeComponent = ({ inline, className, children }) => {
     );
   }
   const language = match?.[1] || 'unknown';
+
+  if (language === 'codepen' || language === 'codesandbox') {
+    // eslint-disable-next-line react/no-danger
+    return <span dangerouslySetInnerHTML={{ __html: toString(node) }} />;
+  }
 
   return (
     <>
