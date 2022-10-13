@@ -6,7 +6,6 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import Head from 'next/head';
 import { ProjectName } from '@/constant/Constant';
-import { twitter_username } from '@/pages/_document';
 import { useRouter } from 'next/router';
 
 dayjs.extend(LocalizedFormat);
@@ -35,8 +34,8 @@ export const Header: FC<HeaderProps> = memo(({ title, description, keywords }) =
       <meta name="keywords" content={keywords} />
 
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content={`@${twitter_username}`} />
-      <meta name="twitter:creator" content={`@${twitter_username}`} />
+      <meta name="twitter:site" content="@hutyxxx" />
+      <meta name="twitter:creator" content="@hutyxxx" />
       <meta name="twitter:url" content={currentUrl} />
       <meta name="twitter:title" content={t} />
       <meta name="twitter:description" content={description} />

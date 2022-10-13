@@ -1,7 +1,6 @@
 import { Icon } from '@powerfulyang/components';
 import React, { memo } from 'react';
 import classNames from 'classnames';
-import { twitter_username } from '@/pages/_document';
 import styles from './index.module.scss';
 
 type FooterProps = {
@@ -38,22 +37,9 @@ export const Footer = memo<FooterProps>(({ pathViewCount = 0 }) => (
       </div>
       <div className="flex items-center text-sm">
         <div className="hidden text-pink-400 sm:block">{pathViewCount}人临幸</div>
-        <div className="contents space-x-1 text-lg text-gray-400">
-          <a
-            className="ml-4"
-            href={`https://twitter.com/${twitter_username}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Icon type="icon-twitter" />
-          </a>
-          <a href="https://github.com/powerfulyang" target="_blank" rel="noreferrer">
-            <Icon type="icon-github" />
-          </a>
-          <a href="https://instagram.com/powerfulyang" target="_blank" rel="noreferrer">
-            <Icon type="icon-instagram" />
-          </a>
-        </div>
+        <a href="https://github.com/powerfulyang" target="_blank" rel="noreferrer">
+          <Icon className="ml-2 align-text-top text-lg text-gray-500" type="icon-github" />
+        </a>
       </div>
     </footer>
   </>

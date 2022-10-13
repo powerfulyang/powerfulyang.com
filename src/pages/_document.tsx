@@ -2,8 +2,6 @@ import { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 import { CDN_ORIGIN, generateCdnStaticUrl, ProjectName } from '@/constant/Constant';
 
-export const twitter_username = 'hutyxxx';
-
 const Document = () => {
   return (
     <Html lang="zh">
