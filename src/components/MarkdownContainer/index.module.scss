@@ -70,7 +70,7 @@ $main-color: #ffb356;
 
   h2 {
     color: $heading-color;
-    @apply relative mb-6 inline-block text-xl font-semibold;
+    @apply relative mb-4 inline-block text-xl font-semibold;
 
     &::before {
       content: '##';
@@ -81,7 +81,6 @@ $main-color: #ffb356;
 
   h3 {
     @extend h2;
-    @apply text-lg;
 
     &::before {
       content: '###';
@@ -92,7 +91,6 @@ $main-color: #ffb356;
 
   h4 {
     @extend h2;
-    @apply text-base;
 
     &::before {
       content: '####';
@@ -103,7 +101,7 @@ $main-color: #ffb356;
 
   & > p {
     line-height: 2rem;
-    @apply mb-5 cursor-text;
+    @apply mb-4 cursor-text;
 
     // 后面紧跟 ul, ol 等时，不要太大的 margin-bottom
     &:has(+ ul, + ol) {
@@ -111,18 +109,18 @@ $main-color: #ffb356;
     }
   }
 
-  pre {
-    @apply isolate mb-6 overflow-hidden rounded-lg;
+  pre:has(pre) {
+    @apply isolate mb-4 overflow-hidden rounded-lg;
 
     div {
       &:nth-child(2)::-webkit-scrollbar-thumb {
         background: #777;
       }
     }
+  }
 
-    &:has(iframe) {
-      @apply mb-0;
-    }
+  pre:has(> span) {
+    white-space: normal;
   }
 
   :not(pre) code {
@@ -142,7 +140,6 @@ $main-color: #ffb356;
   }
 
   .inline-code {
-    white-space: pre-wrap;
     background-color: #e6e8ef;
     @apply rounded px-1 py-0.5;
   }
@@ -188,7 +185,7 @@ $main-color: #ffb356;
 
   // blockquote
   .blockquote {
-    @apply mb-5 border-l-4 border-purple-400 bg-gray-100 p-4;
+    @apply mb-4 border-l-4 border-purple-400 bg-gray-100 p-4;
 
     p {
       @apply my-0;
@@ -200,7 +197,6 @@ $main-color: #ffb356;
     border: darkgrey 1px dashed;
     cursor: text;
     width: max-content;
-    white-space: pre;
 
     thead {
       border-bottom: darkgrey 1px dashed;

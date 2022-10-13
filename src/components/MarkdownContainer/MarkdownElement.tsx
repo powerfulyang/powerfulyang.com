@@ -57,7 +57,7 @@ export const H4: HeadingComponent = ({ children, id }) => {
   return (
     <div className="relative">
       <div id={id} className={styles.anchor} />
-      <h4 className="max-w-full cursor-text truncate">{children}</h4>
+      <h4>{children}</h4>
     </div>
   );
 };
@@ -88,7 +88,7 @@ export const Code: CodeComponent = ({ inline, className, children, node }) => {
   }
   const language = match?.[1] || 'unknown';
 
-  if (language === 'codepen' || language === 'codesandbox') {
+  if (language === 'codepen' || language === 'codesandbox' || language === 'innerHtml') {
     // eslint-disable-next-line react/no-danger
     return <span dangerouslySetInnerHTML={{ __html: toString(node) }} />;
   }
