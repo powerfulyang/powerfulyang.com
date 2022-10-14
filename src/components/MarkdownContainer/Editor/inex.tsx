@@ -11,6 +11,7 @@ import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/type/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
+import { Skeleton } from '@/components/Skeleton';
 import styles from './index.module.scss';
 
 type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
@@ -121,7 +122,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
             }}
           />
         </section>
-        <Suspense fallback="loading">
+        <Suspense fallback={<Skeleton rows={8} />}>
           <MarkdownContainer
             onGenerateMetadata={onGenerateMetadata}
             className={styles.preview}

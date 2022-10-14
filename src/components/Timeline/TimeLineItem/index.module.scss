@@ -24,11 +24,6 @@
 
   .content {
     @apply text-lg;
-
-    .text {
-      white-space: pre-line;
-      @apply cursor-text break-all font-normal text-gray-600;
-    }
   }
 
   .assets {
