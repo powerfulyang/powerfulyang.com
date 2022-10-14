@@ -1,7 +1,5 @@
-import type { KeyboardEvent } from 'react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import type { GetServerSideProps } from 'next';
-import { fromEvent } from 'rxjs';
 import type { Post } from '@/type/Post';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
@@ -10,24 +8,23 @@ import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { generateTOC } from '@/utils/toc';
+import { useHotkeys } from 'react-hotkeys-hook';
 import styles from './index.module.scss';
 
 type PostProps = {
   data: Post;
 };
 
-const PostDetail: LayoutFC<PostProps> = ({ data: { id, content, toc } }) => {
+const PostDetail: LayoutFC<PostProps> = ({ data: { content, toc, urlTitle } }) => {
   const history = useHistory();
-  useEffect(() => {
-    const keydown$ = fromEvent<KeyboardEvent>(document, 'keydown').subscribe((e) => {
-      if (e.key === '.') {
-        history.pushState(`/post/publish/${id}`);
-      }
-    });
-    return () => {
-      keydown$.unsubscribe();
-    };
-  }, [history, id]);
+
+  useHotkeys(
+    '., 。',
+    () => {
+      history.pushState(`/post/publish/${urlTitle}`);
+    },
+    [history, urlTitle],
+  );
 
   return (
     <main className={styles.postWrap}>
@@ -44,9 +41,9 @@ PostDetail.getLayout = (page) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const {
-    query: { id },
+    query: { urlTitle },
   } = ctx;
-  const res = await requestAtServer(`/public/post/${id as string}`, { ctx });
+  const res = await requestAtServer(`/public/post/${String(urlTitle)}`, { ctx });
   const { data, pathViewCount } = await res.json();
 
   const toc = await generateTOC(data.content);

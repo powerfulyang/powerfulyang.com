@@ -122,7 +122,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
 
   useFormDiscardWarning(() => {
     return watchContent !== '' || watchAssets?.length > 0;
-  });
+  }, [watchContent, watchAssets]);
 
   const onSubmit = useCallback(
     async (v: FeedCreate) => {

@@ -1,10 +1,12 @@
 import { atom, useAtom } from 'jotai';
+import type { DependencyList } from 'react';
 import { useEffect, useMemo } from 'react';
 import { useBeforeUnload } from '@powerfulyang/hooks';
+import { useIsomorphicLayoutEffect } from 'framer-motion';
 
 export const FormDiscardWarningAtom = atom(false);
 
-export const useFormDiscardWarning = (isModify: () => boolean) => {
+export const useFormDiscardWarning = (isModify: () => boolean, deps: DependencyList) => {
   const [formWarning, setFormWarning] = useAtom(FormDiscardWarningAtom);
   useEffect(() => {
     return () => {
@@ -12,8 +14,10 @@ export const useFormDiscardWarning = (isModify: () => boolean) => {
     };
   }, [setFormWarning]);
 
-  const isModified = useMemo(isModify, [isModify]);
-  useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const isModified = useMemo(() => isModify(), deps);
+
+  useIsomorphicLayoutEffect(() => {
     if (isModified) {
       setFormWarning(true);
     } else {

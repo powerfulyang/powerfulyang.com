@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import type { GetServerSideProps } from 'next';
-import { useBeforeUnload } from '@powerfulyang/hooks';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/Editor/inex';
 import { MarkdownEditor } from '@/components/MarkdownContainer/Editor/inex';
 import { requestAtClient } from '@/utils/client';
@@ -9,7 +8,9 @@ import { Footer } from '@/components/Footer';
 import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
 import type { LayoutFC } from '@/type/GlobalContext';
-import { isNumeric, isString } from '@powerfulyang/utils';
+import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
+import { useMutation } from '@tanstack/react-query';
+import { isString } from '@powerfulyang/utils';
 
 type PublishProps = {
   post: Post;
@@ -19,17 +20,24 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
   const { pushState } = useHistory();
   const [content, setContent] = useState(post.content);
 
-  const handlePost = async (metadata: MarkdownMetadata) => {
-    const res = await requestAtClient<Post>('/post', {
-      method: 'POST',
-      body: {
-        ...metadata,
-        content,
-        id: post.id,
+  const publishPostMutation = useMutation(
+    async (metadata: MarkdownMetadata) => {
+      const res = await requestAtClient<Post>('/post', {
+        method: 'POST',
+        body: {
+          ...metadata,
+          content,
+          id: post.id,
+        },
+      });
+      return res.data;
+    },
+    {
+      onSuccess(data) {
+        return pushState(`/post/${data.urlTitle}`);
       },
-    });
-    return pushState(`/post/${res.data.id}`);
-  };
+    },
+  );
 
   const saveDraft = useCallback(
     (draft?: string) => {
@@ -47,14 +55,16 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
     }
   }, [post.id]);
 
-  useBeforeUnload(Boolean(post.id));
+  useFormDiscardWarning(() => {
+    return content !== post.content && Boolean(post.id) && !publishPostMutation.isLoading;
+  }, [content, post.content, post.id, publishPostMutation.isLoading]);
 
   return (
     <MarkdownEditor
       value={content}
       onChange={saveDraft}
       defaultValue={post.content}
-      onPost={handlePost}
+      onPost={publishPostMutation.mutate}
     />
   );
 };
@@ -75,12 +85,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     query,
     req: { url },
   } = ctx;
-  const { id } = query;
+  const { urlTitle } = query;
 
   let post;
   let pathViewCount = 0;
-  if (isString(id) && isNumeric(id) && id !== '0') {
-    const res = await requestAtServer(`/public/post/${id}`, {
+  if (isString(urlTitle) && urlTitle !== '0') {
+    const res = await requestAtServer(`/public/post/${urlTitle}`, {
       ctx,
     });
     const result = await res.json();

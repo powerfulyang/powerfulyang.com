@@ -183,14 +183,14 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   );
 
   useHotkeys(
-    '.',
+    '., 。',
     () => {
-      if (selectedPostId) {
-        return history.pushState(`/post/publish/${selectedPostId}`);
+      if (selectedPost) {
+        history.pushState(`/post/publish/${selectedPost.urlTitle}`);
       }
-      return history.pushState('/post/publish');
+      history.pushState('/post/publish');
     },
-    [selectedPostId, history],
+    [selectedPost, history],
   );
 
   return (
