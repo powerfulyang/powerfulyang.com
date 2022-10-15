@@ -74,7 +74,7 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
     "@types/node": "18.7.23",
-    "@types/ramda": "0.28.15",
+    "@types/ramda": "0.28.16",
     "@types/react-syntax-highlighter": "15.5.5",
     "@types/sharp": "0.31.0",
     "jest-canvas-mock": "latest",
