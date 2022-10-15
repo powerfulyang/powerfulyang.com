@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { ChangeEvent, ClipboardEvent } from 'react';
-import React, { memo, useCallback, useMemo, useRef } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { interval } from 'rxjs';
@@ -13,6 +13,7 @@ import {
   fileListToFormData,
   handlePasteImageAndReturnFileList,
   removeFromFileList,
+  sourceUrlToFile,
 } from '@/utils/copy';
 import { requestAtClient } from '@/utils/client';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
@@ -20,14 +21,16 @@ import type { ImagePreviewItem } from '@/components/ImagePreview';
 import { ImagePreview } from '@/components/ImagePreview';
 import { Icon } from '@powerfulyang/components';
 import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
+import { useEditTimeLineItem } from '@/components/Timeline/TimeLineItem';
 import styles from './index.module.scss';
 
 type Props = {
-  onSubmitSuccess: () => void;
+  onSubmitSuccess: (type: 'create' | 'modify', feed: Feed) => void;
 };
 
 export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
+  const [editItem, setEditItem] = useEditTimeLineItem();
 
   const {
     register,
@@ -43,19 +46,46 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
     },
   });
 
+  useEffect(() => {
+    if (editItem) {
+      setValue('content', editItem.content);
+      setValue('public', editItem.public);
+      (async () => {
+        const tmp = new DataTransfer();
+        for (let i = 0; i < editItem.assets?.length; i++) {
+          const asset = editItem.assets[i];
+          // eslint-disable-next-line no-await-in-loop
+          const file = await sourceUrlToFile(asset.objectUrl);
+          tmp.items.add(file);
+        }
+        setValue('assets', tmp.files);
+      })();
+    }
+  }, [editItem, setValue]);
+
   const mutation = useMutation({
     mutationFn: (variables: FeedCreate) => {
+      let method = 'POST';
       const formData = fileListToFormData(variables.assets, 'assets');
       formData.append('content', variables.content);
       formData.append('public', String(variables.public));
+      if (editItem) {
+        method = 'PUT';
+        formData.append('id', String(editItem.id));
+      }
       return requestAtClient<Feed>('/feed', {
         body: formData,
-        method: 'POST',
+        method,
       });
     },
-    onSuccess() {
+    onSuccess({ data }) {
       reset();
-      onSubmitSuccess();
+      if (editItem) {
+        onSubmitSuccess('modify', data);
+        setEditItem(undefined);
+      } else {
+        onSubmitSuccess('create', data);
+      }
     },
   });
 
@@ -186,7 +216,9 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
             ))}
           </ImagePreview>
         </div>
-        <span className="my-1 mr-4 block text-right text-red-400">{errors.content?.message}</span>
+        <span className="my-1 mr-4 block text-right text-red-400 empty:hidden">
+          {errors.content?.message}
+        </span>
         <div className="mb-4 flex items-center justify-end pr-4 text-right">
           <Switch {...register('public')} checkedDescription="公开" uncheckedDescription="私密" />
           <label htmlFor="assets" className="pointer inline-block px-4 text-lg text-pink-400">
@@ -214,7 +246,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
             ref={submitButtonRef}
             className={classNames(styles.timelineSubmit)}
           >
-            发送
+            {editItem ? '修改' : '发布'}
           </button>
         </div>
       </form>

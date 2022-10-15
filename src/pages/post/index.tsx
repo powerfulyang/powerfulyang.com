@@ -22,6 +22,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { BackToTop } from '@/components/BackToTop';
 import Lottie from 'lottie-react';
 import CuteUnicorn from '@/lottie/CuteUnicorn.json';
+import { useFixMinHeight } from '@/hooks/useFixMinHeight';
 import styles from './index.module.scss';
 
 export type Props = {
@@ -192,6 +193,8 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
     },
     [selectedPost, history],
   );
+
+  useFixMinHeight();
 
   return (
     <>

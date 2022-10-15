@@ -4,6 +4,9 @@
   width: 100%;
   background-color: #f5f5f6;
   font-family: 'Zpix', sans-serif;
+  margin-bottom: -100vh !important;
+  padding-bottom: calc(100vh + 1.5rem) !important;
+
   @apply pb-6;
 
   .timeline-show {
@@ -11,13 +14,13 @@
     margin: auto;
 
     .feeds {
-      &:first-child {
-        @apply pt-4;
+      & > div:nth-last-child(2) {
+        @apply border-none;
       }
     }
 
     .footer {
-      @apply mt-8 mb-6 text-center text-xs text-pink-400;
+      @apply my-4 text-center text-xs text-pink-400;
     }
   }
 

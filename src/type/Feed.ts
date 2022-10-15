@@ -6,6 +6,8 @@ export class Feed {
 
   content: string;
 
+  public: boolean;
+
   assets: Asset[];
 
   createBy: User;

@@ -11,6 +11,8 @@ import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
 import { requestAtServer } from '@/utils/server';
 import Masonry from '@/components/Masonry';
+import { useFixMinHeight } from '@/hooks/useFixMinHeight';
+import { firstItem, lastItem } from '@powerfulyang/utils';
 import styles from './index.module.scss';
 
 type GalleryProps = {
@@ -24,7 +26,10 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
     ['assets', assets, nextCursor, prevCursor],
     async ({ pageParam }) => {
       const res = await requestAtClient<InfiniteQueryResponse<Asset>>('/public/asset', {
-        query: pageParam,
+        query: {
+          ...pageParam,
+          take: 10,
+        },
       });
       return res.data;
     },
@@ -54,7 +59,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
             prevCursor,
           },
         ],
-        pageParams: [{ nextCursor, prevCursor }],
+        pageParams: [{ nextCursor: lastItem(assets)?.id, prevCursor: firstItem(assets)?.id }],
       },
     },
   );
@@ -67,6 +72,8 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
   const images = useMemo(() => {
     return castAssetsToImagePreviewItem(resources);
   }, [resources]);
+
+  useFixMinHeight();
 
   return (
     <main className={styles.gallery}>

@@ -285,5 +285,7 @@ $main-color: #ffb356;
   .anchor {
     position: absolute;
     top: calc(-0.5rem - var(--nav-height));
+    visibility: hidden;
+    z-index: -1;
   }
 }

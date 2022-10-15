@@ -4,6 +4,7 @@ import { requestAtClient } from '@/utils/client';
 import type { Asset } from '@/type/Asset';
 import type { Bucket } from '@/type/Bucket';
 import { AssetBucket } from '@/type/Bucket';
+import { uniqueId } from 'lodash-es';
 
 export const appendToFileList = (source: FileList, append: FileList) => {
   const tmp = new DataTransfer();
@@ -137,5 +138,14 @@ export const copyToClipboardAndNotify = (text: string | Blob) => {
         message: '复制失败',
         description: e.message,
       });
+    });
+};
+
+export const sourceUrlToFile = (url: string) => {
+  return fetch(url)
+    .then((res) => res.blob())
+    .then((blob) => {
+      const name = uniqueId('timeline-image');
+      return new File([blob], name, { type: blob.type });
     });
 };

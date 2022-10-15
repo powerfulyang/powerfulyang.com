@@ -33,7 +33,7 @@ type ParentControlProps = {
   children: ReactElement<{ onClick: VoidFunction }>[];
 };
 
-type SelfControlProps = PropsWithChildren<unknown>;
+type SelfControlProps = PropsWithChildren;
 
 export type ImagePreviewItem = {
   thumbnail: string;

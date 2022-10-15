@@ -6,7 +6,7 @@ import { useHistory } from '@/hooks/useHistory';
 const _404 = () => {
   const history = useHistory();
   const backHome = () => {
-    history.pushState('/');
+    return history.pushState('/');
   };
   return (
     <div className="text-center">

@@ -49,7 +49,7 @@ const Menus: FC = () => {
                 menuKey="gallery"
                 className="pointer"
                 onClick={() => {
-                  pushState('/gallery');
+                  return pushState('/gallery');
                 }}
               >
                 Gallery
@@ -58,7 +58,7 @@ const Menus: FC = () => {
                 className="pointer"
                 menuKey="airdrop"
                 onClick={() => {
-                  pushState('/airdrop');
+                  return pushState('/airdrop');
                 }}
               >
                 Airdrop
@@ -84,7 +84,7 @@ Menus.displayName = 'Menus';
 export const NavBar = memo<NavBarProps>(() => {
   return (
     <div className={styles.navPlaceholder}>
-      <nav className={styles.nav}>
+      <nav id="nav" className={styles.nav}>
         <div className={styles.left}>
           <div className="mx-4 hidden w-[15ch] px-3 py-1 text-xl sm:block">
             <Link href="/" className={classNames(styles.title)}>

@@ -1,49 +1,11 @@
+/* stylelint-disable */
+#__next {
+  min-height: inherit;
+}
+
 @keyframes flow {
   to {
     background-position: -200% 0;
-  }
-}
-
-@keyframes border-transform {
-  0%,
-  100% {
-    border-radius: 116% 133% 115% 114%;
-  }
-
-  14% {
-    border-radius: 134% 126% 151% 414%;
-  }
-
-  28% {
-    border-radius: 165% 134% 123% 146%;
-  }
-
-  42% {
-    border-radius: 161% 123% 415% 184%;
-  }
-
-  56% {
-    border-radius: 116% 123% 136% 143%;
-  }
-
-  70% {
-    border-radius: 175% 125% 113% 136%;
-  }
-
-  84% {
-    border-radius: 141% 512% 514% 561%;
-  }
-}
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-}
-
-@keyframes blink-caret {
-  50% {
-    border-color: transparent;
   }
 }
 

@@ -1,4 +1,14 @@
-@import '../../styles/styles';
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink-caret {
+  50% {
+    border-color: transparent;
+  }
+}
 
 .nav-placeholder {
   height: var(--nav-height);

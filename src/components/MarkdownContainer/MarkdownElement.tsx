@@ -24,7 +24,9 @@ export const MDContainerContext = createContext({
 
 export const H1: HeadingComponent = ({ children, id }) => (
   <div className="relative">
-    <div id={id} className={styles.anchor} />
+    <div id={id} className={styles.anchor}>
+      Anchor
+    </div>
     <h1 className="flex w-full justify-center pb-2">
       <span className={styles.heading1}>
         <span className={styles.prefix} />
@@ -38,7 +40,9 @@ export const H1: HeadingComponent = ({ children, id }) => (
 export const H2: HeadingComponent = ({ children, id }) => {
   return (
     <div className="relative">
-      <div id={id} className={styles.anchor} />
+      <div id={id} className={styles.anchor}>
+        Anchor
+      </div>
       <h2 className="cursor-text">{children}</h2>
     </div>
   );
@@ -47,7 +51,9 @@ export const H2: HeadingComponent = ({ children, id }) => {
 export const H3: HeadingComponent = ({ children, id }) => {
   return (
     <div className="relative">
-      <div id={id} className={styles.anchor} />
+      <div id={id} className={styles.anchor}>
+        Anchor
+      </div>
       <h3>{children}</h3>
     </div>
   );
@@ -56,7 +62,9 @@ export const H3: HeadingComponent = ({ children, id }) => {
 export const H4: HeadingComponent = ({ children, id }) => {
   return (
     <div className="relative">
-      <div id={id} className={styles.anchor} />
+      <div id={id} className={styles.anchor}>
+        Anchor
+      </div>
       <h4>{children}</h4>
     </div>
   );

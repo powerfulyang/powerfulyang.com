@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  width: 90%;
+  width: 100%;
   margin: auto;
   background-color: white;
 
@@ -8,7 +8,14 @@
     width: 600px;
   }
 
-  @apply mx-auto mb-4 rounded-lg p-6 pt-7;
+  @apply mx-auto border-b border-gray-100 p-6 pt-7 sm:mb-4 sm:rounded-lg sm:border-none;
+
+  .anchor {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    visibility: hidden;
+  }
 
   .author {
     @apply mb-4 flex;
@@ -23,7 +30,12 @@
   }
 
   .content {
-    @apply text-lg;
+    background: unset;
+    @apply p-0 text-lg;
+
+    p:last-child {
+      @apply mb-0;
+    }
   }
 
   .assets {

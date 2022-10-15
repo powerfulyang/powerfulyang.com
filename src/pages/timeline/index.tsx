@@ -1,6 +1,7 @@
 import React, { Fragment, useMemo } from 'react';
 import type { GetServerSideProps } from 'next';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import type { InfiniteData } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { flatten } from 'ramda';
 import { InView } from 'react-intersection-observer';
 import { UserLayout } from '@/layout/UserLayout';
@@ -10,14 +11,15 @@ import type { LayoutFC } from '@/type/GlobalContext';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { requestAtServer } from '@/utils/server';
-import { TimeLineItem } from '@/components/Timeline/TimeLineItem';
+import { getTimelineItemElement, TimeLineItem } from '@/components/Timeline/TimeLineItem';
 import { TimeLineForm } from '@/components/Timeline/TimeLineForm';
 import { LazyImage } from '@/components/LazyImage';
-import { isEmpty, lastItem } from '@powerfulyang/utils';
+import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
 import { useUser } from '@/hooks/useUser';
 import Image from 'next/image';
 import bg from '@/assets/timeline-banner.webp';
 import { BackToTop } from '@/components/BackToTop';
+import { useFixMinHeight } from '@/hooks/useFixMinHeight';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -31,7 +33,10 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
     ['feeds', feeds, nextCursor, prevCursor],
     async ({ pageParam }) => {
       const res = await requestAtClient<InfiniteQueryResponse<Feed>>('/public/feed', {
-        query: pageParam,
+        query: {
+          ...pageParam,
+          take: 10,
+        },
       });
       return res.data;
     },
@@ -61,7 +66,7 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
             prevCursor,
           },
         ],
-        pageParams: [{ nextCursor, prevCursor }],
+        pageParams: [{ nextCursor: lastItem(feeds)?.id, prevCursor: firstItem(feeds)?.id }],
       },
     },
   );
@@ -104,6 +109,10 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
     );
   }, [data?.pages, fetchPreviousPage, hasPreviousPage]);
 
+  useFixMinHeight();
+
+  const queryClient = useQueryClient();
+
   return (
     <div className={styles.wrap}>
       <div className={styles.timelineShow}>
@@ -134,7 +143,43 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
             </div>
           </div>
         </div>
-        <TimeLineForm onSubmitSuccess={fetchNextPage} />
+        <TimeLineForm
+          onSubmitSuccess={(type, feed) => {
+            if (type === 'create') {
+              return fetchNextPage();
+            }
+            if (type === 'modify') {
+              queryClient.setQueryData<InfiniteData<InfiniteQueryResponse<Feed>>>(
+                ['feeds', feeds, nextCursor, prevCursor],
+                (previous) => {
+                  return {
+                    pages:
+                      previous?.pages.map((page) => {
+                        return {
+                          ...page,
+                          resources: page.resources.map((f) => {
+                            if (f.id === feed.id) {
+                              return feed;
+                            }
+                            return f;
+                          }),
+                        };
+                      }) || [],
+                    pageParams: previous?.pageParams || [],
+                  };
+                },
+              );
+              const targetElement = getTimelineItemElement(feed.id);
+              const top = targetElement?.parentElement?.offsetTop || 0;
+              const navHeight = document.getElementById('nav')?.offsetHeight || 0;
+              window.scrollTo({
+                top: top - navHeight,
+                behavior: 'smooth',
+              });
+            }
+            return null;
+          }}
+        />
         {resources}
       </div>
       <BackToTop />
@@ -151,7 +196,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const res = await requestAtServer('/public/feed', {
     ctx,
     query: {
-      size: 10,
+      take: 10,
     },
   });
   const { data, pathViewCount } = await res.json();

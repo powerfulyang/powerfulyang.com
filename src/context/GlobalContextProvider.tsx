@@ -11,6 +11,6 @@ const queryClient = new QueryClient({
   },
 });
 
-export const GlobalContextProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
+export const GlobalContextProvider: FC<PropsWithChildren> = ({ children }) => {
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };

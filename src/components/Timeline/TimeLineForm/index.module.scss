@@ -2,18 +2,14 @@
   flex: 1;
   width: min(100%, 600px);
   height: auto;
-  padding: 0 5%;
   font-family: 'Zpix', sans-serif;
-  @screen sm {
-    @apply px-0;
-  }
   @apply mx-auto;
 
   .timeline-textarea {
     font-size: 30px;
     inline-size: 100%;
     block-size: max(20vh, 150px);
-    @apply overflow-hidden rounded;
+    @apply overflow-hidden sm:rounded;
 
     textarea {
       padding: 1rem;
