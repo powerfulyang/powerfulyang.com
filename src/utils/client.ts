@@ -1,6 +1,7 @@
 import { isNil, reject } from 'ramda';
 import type { GetServerSideProps } from 'next';
 import { notification } from '@powerfulyang/components';
+import { getReasonPhrase } from 'http-status-codes';
 
 export type RequestOptions = {
   method?: string;
@@ -66,15 +67,28 @@ export const requestAtClient = async <T = any>(
     body: requestBody,
   });
 
-  const json = await res.json();
   if (res.status >= 300) {
-    if (notificationOnError) {
+    let message;
+
+    try {
+      const json = await res.json();
+      message = json.message;
+      if (notificationOnError) {
+        notification.error({
+          message: `请求错误: ${res.status}`,
+          description: message,
+        });
+      }
+    } catch (e) {
+      message = getReasonPhrase(res.status);
       notification.error({
         message: `请求错误: ${res.status}`,
-        description: json.message,
+        description: message,
       });
     }
-    throw new Error(json.message); // 请求异常走 onError 回调
+
+    throw new Error(message); // 请求异常走 onError 回调
   }
-  return json;
+
+  return res.json();
 };

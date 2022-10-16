@@ -219,6 +219,20 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
         <span className="my-1 mr-4 block text-right text-red-400 empty:hidden">
           {errors.content?.message}
         </span>
+        {editItem && (
+          <div className="text-right">
+            <button
+              onClick={() => {
+                reset();
+                setEditItem(undefined);
+              }}
+              type="button"
+              className="pointer pr-4 text-gray-500"
+            >
+              discard
+            </button>
+          </div>
+        )}
         <div className="mb-4 flex items-center justify-end pr-4 text-right">
           <Switch {...register('public')} checkedDescription="公开" uncheckedDescription="私密" />
           <label htmlFor="assets" className="pointer inline-block px-4 text-lg text-pink-400">
