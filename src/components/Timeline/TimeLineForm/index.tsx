@@ -131,20 +131,21 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
 
   useIsomorphicLayoutEffect(() => {
     setImages([]);
-    assets.forEach((item) => {
+    assets.forEach((item, index) => {
       const image = new Image();
       image.src = item.src;
       image.onload = () => {
+        const preview = {
+          original: item.src,
+          thumbnail: item.src,
+          size: {
+            width: image.naturalWidth,
+            height: image.naturalHeight,
+          },
+          id: item.src,
+        };
         setImages((draft) => {
-          draft.push({
-            original: item.src,
-            thumbnail: item.src,
-            size: {
-              width: image.naturalWidth,
-              height: image.naturalHeight,
-            },
-            id: item.src,
-          });
+          draft[index] = preview;
         });
       };
     });
@@ -197,9 +198,9 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
         <div className={classNames(styles.assets)}>
           <ImagePreview parentControl images={images}>
             {assets.map((item, index) => (
-              <div key={item.key} className="relative">
+              <div key={item.key} className="pointer relative">
                 <Icon
-                  className="pointer absolute -top-5 -right-6 z-[1] h-10 w-10"
+                  className="absolute right-0 z-[1] translate-x-1/2 -translate-y-1/2 text-2xl"
                   type="icon-close"
                   onClick={(e) => {
                     e.stopPropagation();
