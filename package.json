@@ -43,7 +43,7 @@
     "jotai": "1.8.5",
     "lodash-es": "4.17.21",
     "lottie-react": "2.3.1",
-    "monaco-editor": "0.34.0",
+    "monaco-editor": "0.34.1",
     "next": "12.3.2-canary.29",
     "next-sitemap": "3.1.25",
     "peerjs": "1.4.7",
