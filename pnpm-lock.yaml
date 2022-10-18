@@ -26,7 +26,7 @@ specifiers:
   http-status-codes: 2.2.0
   immer: 9.0.15
   jest-canvas-mock: latest
-  jotai: 1.8.5
+  jotai: 1.8.6
   lodash-es: 4.17.21
   lottie-react: 2.3.1
   monaco-editor: 0.34.1
@@ -75,7 +75,7 @@ dependencies:
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
   immer: 9.0.15
-  jotai: 1.8.5_ewi5oun62w6mndv4mt4wun2dfe
+  jotai: 1.8.6_ewi5oun62w6mndv4mt4wun2dfe
   lodash-es: 4.17.21
   lottie-react: 2.3.1_biqbaboplfbrettd7655fr4n2y
   monaco-editor: 0.34.1
@@ -2292,7 +2292,7 @@ packages:
       prettier: 2.7.1
       prettier-plugin-tailwindcss: 0.1.13_prettier@2.7.1
       rimraf: 3.0.2
-      rollup: 3.2.2
+      rollup: 3.2.3
       sass: 1.55.0
       stylelint: 14.11.0
       stylelint-config-css-modules: 4.1.0_stylelint@14.11.0
@@ -6656,8 +6656,8 @@ packages:
       - ts-node
     dev: true
 
-  /jotai/1.8.5_ewi5oun62w6mndv4mt4wun2dfe:
-    resolution: {integrity: sha512-c6MGQ3S0X8VctRUEmRLEL3FMib3F7Ppsx3x86c5XL+Gm6JjH6qIt0lb0F4yE2V5/9Tg+KhGiagfsdA5lg0D7cQ==}
+  /jotai/1.8.6_ewi5oun62w6mndv4mt4wun2dfe:
+    resolution: {integrity: sha512-6JXNd2ewR6Ur0hGY0kRJebQ++p7lN/8kNdGNXv7XT11FDPxAtPN2XLM+m0w4bV22f1knQlG8ZpVLfY6BEGF+UQ==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@babel/core': '*'
@@ -8934,8 +8934,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rollup/3.2.2:
-    resolution: {integrity: sha512-tw8NITEB/A8aa8F+mmIJ7fQ7Abej0R9ugR1ZzsCqb7P8HWVIVdneN69BMTDjhk0qbUsewDSJSDTcVuCTogs8JA==}
+  /rollup/3.2.3:
+    resolution: {integrity: sha512-qfadtkY5kl0F5e4dXVdj2D+GtOdifasXHFMiL1SMf9ADQDv5Eti6xReef9FKj+iQPR2pvtqWna57s/PjARY4fg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
