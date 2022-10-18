@@ -5,7 +5,6 @@ import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePr
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import type { Feed } from '@/type/Feed';
 import { DateTimeFormat } from '@/utils/lib';
-import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
 import { Skeleton } from '@/components/Skeleton';
 import { atom, useAtom } from 'jotai';
 import type { Undefinable } from '@powerfulyang/utils';
@@ -15,6 +14,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { requestAtClient } from '@/utils/client';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { useUser } from '@/hooks/useUser';
+import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
+import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
 import styles from './index.module.scss';
 
 export const EditTimeLineItemAtom = atom<Undefinable<Feed>>(undefined);
@@ -68,19 +69,25 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
     },
   });
 
+  const contextValue = useMemo(() => {
+    return { id_prefix: getTimelineItemId(feed.id) };
+  }, [feed.id]);
+
   const content = useMemo(() => {
     return (
       <Suspense fallback={<Skeleton rows={2} />}>
-        <LazyMarkdownContainer source={feed.content} className={styles.content} />
+        <article>
+          <h2 id={getTimelineItemId(feed.id)}>{getTimelineItemId(feed.id)}</h2>
+          <TimelineItemContext.Provider value={contextValue}>
+            <LazyMarkdownContainer source={feed.content} className={styles.content} />
+          </TimelineItemContext.Provider>
+        </article>
       </Suspense>
     );
-  }, [feed.content]);
+  }, [contextValue, feed.content, feed.id]);
 
   return (
     <div key={feed.id} className={styles.container}>
-      <span className={styles.anchor} id={getTimelineItemId(feed.id)}>
-        Anchor
-      </span>
       <div className={styles.author}>
         <div className={styles.avatar}>
           <LazyImage

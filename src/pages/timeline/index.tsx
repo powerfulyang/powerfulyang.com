@@ -11,8 +11,8 @@ import type { LayoutFC } from '@/type/GlobalContext';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { requestAtServer } from '@/utils/server';
-import { getTimelineItemElement, TimeLineItem } from '@/components/Timeline/TimeLineItem';
-import { TimeLineForm } from '@/components/Timeline/TimeLineForm';
+import { getTimelineItemElement, TimeLineItem } from '@/components/Timeline/TimelineItem';
+import { TimeLineForm } from '@/components/Timeline/TimelineForm';
 import { LazyImage } from '@/components/LazyImage';
 import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
 import { useUser } from '@/hooks/useUser';
@@ -28,7 +28,7 @@ type TimelineProps = {
   prevCursor: number;
 };
 
-const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) => {
+export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) => {
   const { data, fetchNextPage, fetchPreviousPage, hasPreviousPage } = useInfiniteQuery(
     ['feeds', feeds, nextCursor, prevCursor],
     async ({ pageParam }) => {
@@ -126,7 +126,13 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
             />
           ) : (
             <div className={styles.bannerBg}>
-              <Image objectFit="cover" layout="fill" placeholder="blur" src={bg} />
+              <Image
+                className="object-cover"
+                fill
+                placeholder="blur"
+                src={bg}
+                alt="banner-background"
+              />
             </div>
           )}
           <div className={styles.authorInfo}>
@@ -169,12 +175,9 @@ const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) =>
                   };
                 },
               );
-              const targetElement = getTimelineItemElement(feed.id);
-              const top = targetElement?.parentElement?.offsetTop || 0;
-              const navHeight = document.getElementById('nav')?.offsetHeight || 0;
-              window.scrollTo({
-                top: top - navHeight,
-                behavior: 'smooth',
+              requestAnimationFrame(() => {
+                const targetElement = getTimelineItemElement(feed.id);
+                targetElement?.scrollIntoView({ behavior: 'smooth' });
               });
             }
             return null;

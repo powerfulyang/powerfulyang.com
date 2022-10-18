@@ -10,13 +10,6 @@
 
   @apply mx-auto border-b border-gray-100 p-6 pt-7 sm:mb-4 sm:rounded-lg sm:border-none;
 
-  .anchor {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    visibility: hidden;
-  }
-
   .author {
     @apply mb-4 flex;
 
@@ -26,6 +19,14 @@
 
     .nickname {
       @apply cursor-text text-xl;
+    }
+  }
+
+  article {
+    & > h2:first-child {
+      visibility: hidden;
+      height: 0;
+      scroll-margin-top: calc(var(--nav-height) + 1rem + 7rem);
     }
   }
 

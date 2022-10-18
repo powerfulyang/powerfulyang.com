@@ -21,7 +21,7 @@ import type { ImagePreviewItem } from '@/components/ImagePreview';
 import { ImagePreview } from '@/components/ImagePreview';
 import { Icon } from '@powerfulyang/components';
 import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
-import { useEditTimeLineItem } from '@/components/Timeline/TimeLineItem';
+import { useEditTimeLineItem } from '@/components/Timeline/TimelineItem';
 import styles from './index.module.scss';
 
 type Props = {
@@ -187,7 +187,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
             )}
             onPaste={paste}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && e.ctrlKey) {
+              if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
                 e.preventDefault();
                 submitButtonRef.current && submitButtonRef.current.click();
               }

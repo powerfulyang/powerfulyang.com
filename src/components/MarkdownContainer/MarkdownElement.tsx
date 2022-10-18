@@ -16,55 +16,58 @@ import { requestAtClient } from '@/utils/client';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { copyToClipboardAndNotify } from '@/utils/copy';
 import { toString } from 'hast-util-to-string';
+import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
 import styles from './index.module.scss';
 
 export const MDContainerContext = createContext({
   blur: true,
 });
 
-export const H1: HeadingComponent = ({ children, id }) => (
-  <div className="relative">
-    <div id={id} className={styles.anchor}>
-      Anchor
-    </div>
-    <h1 className="flex w-full justify-center pb-2">
-      <span className={styles.heading1}>
-        <span className={styles.prefix} />
-        <span className={styles.content}>{children}</span>
-        <span className={styles.suffix} />
-      </span>
-    </h1>
-  </div>
-);
-
-export const H2: HeadingComponent = ({ children, id }) => {
+export const H1: HeadingComponent = ({ children, id }) => {
+  const { id_prefix } = useContext(TimelineItemContext);
+  const v = id && `${id_prefix}${id}`;
   return (
     <div className="relative">
-      <div id={id} className={styles.anchor}>
-        Anchor
-      </div>
+      <div title="anchor" id={v} className={styles.anchor} />
+      <h1 className="flex w-full justify-center pb-2">
+        <span className={styles.heading1}>
+          <span className={styles.prefix} />
+          <span className={styles.content}>{children}</span>
+          <span className={styles.suffix} />
+        </span>
+      </h1>
+    </div>
+  );
+};
+
+export const H2: HeadingComponent = ({ children, id }) => {
+  const { id_prefix } = useContext(TimelineItemContext);
+  const v = id && `${id_prefix}${id}`;
+  return (
+    <div className="relative">
+      <div title="anchor" id={v} className={styles.anchor} />
       <h2 className="cursor-text">{children}</h2>
     </div>
   );
 };
 
 export const H3: HeadingComponent = ({ children, id }) => {
+  const { id_prefix } = useContext(TimelineItemContext);
+  const v = id && `${id_prefix}${id}`;
   return (
     <div className="relative">
-      <div id={id} className={styles.anchor}>
-        Anchor
-      </div>
+      <div title="anchor" id={v} className={styles.anchor} />
       <h3>{children}</h3>
     </div>
   );
 };
 
 export const H4: HeadingComponent = ({ children, id }) => {
+  const { id_prefix } = useContext(TimelineItemContext);
+  const v = id && `${id_prefix}${id}`;
   return (
     <div className="relative">
-      <div id={id} className={styles.anchor}>
-        Anchor
-      </div>
+      <div title="anchor" id={v} className={styles.anchor} />
       <h4>{children}</h4>
     </div>
   );
