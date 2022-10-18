@@ -4,7 +4,10 @@ export const useFixMinHeight = () => {
   useIsomorphicLayoutEffect(() => {
     const fixRootElement = document.getElementById('__next');
     if (fixRootElement) {
-      fixRootElement.style.overflow = 'clip';
+      fixRootElement.style.cssText = `
+      overflow: hidden;
+      overflow: clip;
+      `;
       return () => {
         fixRootElement.removeAttribute('style');
       };
