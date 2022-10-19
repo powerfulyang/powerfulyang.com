@@ -54,7 +54,7 @@ specifiers:
   remark-stringify: 10.0.2
   rxjs: 7.5.7
   sharp: 0.31.1
-  tailwindcss: 3.1.8
+  tailwindcss: 3.2.0
   typescript: latest
   unist-util-visit: 4.1.1
   xterm: 5.0.0
@@ -119,7 +119,7 @@ devDependencies:
   next-compose-plugins: 2.2.1
   next-pwa: 5.6.0_2yjcov65w3ttttnqnnylqlzah4
   prettier-plugin-tailwindcss: 0.1.13_prettier@2.7.1
-  tailwindcss: 3.1.8_neo3lunb2qpadwxplzw7r2isgm
+  tailwindcss: 3.2.0_neo3lunb2qpadwxplzw7r2isgm
   typescript: 4.8.4
 
 packages:
@@ -8200,8 +8200,8 @@ packages:
     resolution: {integrity: sha512-3sOlxmbKcSHMjlUXQZKQ06jOswE7oVkXPxmZdoB1r5l0q6gTFTQSHxNxOrCccElbW7dxNytifNEo8qidX2Vsig==}
     dev: true
 
-  /postcss-nested/5.0.6_postcss@8.4.18:
-    resolution: {integrity: sha512-rKqm2Fk0KbA8Vt3AdGN0FB9OBOMDVajMG6ZCf/GoHgdxUJ4sBFp0A/uMIRm+MJUdo33YXEtjqIz8u7DAp8B7DA==}
+  /postcss-nested/6.0.0_postcss@8.4.18:
+    resolution: {integrity: sha512-0DkamqrPcmkBDsLn+vQDIrtkSbNkv5AD/M322ySo9kqFkCIYklym2xEmWkwo+Y3/qZo34tzEPNUw4y7yMCdv5w==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
@@ -9615,8 +9615,8 @@ packages:
       strip-ansi: 6.0.1
     dev: true
 
-  /tailwindcss/3.1.8_neo3lunb2qpadwxplzw7r2isgm:
-    resolution: {integrity: sha512-YSneUCZSFDYMwk+TGq8qYFdCA3yfBRdBlS7txSq0LUmzyeqRe3a8fBQzbz9M3WS/iFT4BNf/nmw9mEzrnSaC0g==}
+  /tailwindcss/3.2.0_neo3lunb2qpadwxplzw7r2isgm:
+    resolution: {integrity: sha512-ARh/W0uH5UlWIC2nn02V0+5fyF0k6qZliyt4QYic2upOhPUE/Spu1EURNc9txJ3+4j8OEmdigqfDpw4d2tA4vA==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
@@ -9639,7 +9639,7 @@ packages:
       postcss-import: 14.1.0_postcss@8.4.18
       postcss-js: 4.0.0_postcss@8.4.18
       postcss-load-config: 3.1.4_neo3lunb2qpadwxplzw7r2isgm
-      postcss-nested: 5.0.6_postcss@8.4.18
+      postcss-nested: 6.0.0_postcss@8.4.18
       postcss-selector-parser: 6.0.10
       postcss-value-parser: 4.2.0
       quick-lru: 5.1.1
