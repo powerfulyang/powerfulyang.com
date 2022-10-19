@@ -16,7 +16,7 @@ specifiers:
   '@testing-library/react': 13.4.0
   '@types/lodash-es': 4.17.6
   '@types/node': 18.7.23
-  '@types/ramda': 0.28.16
+  '@types/ramda': 0.28.17
   '@types/react-syntax-highlighter': 15.5.5
   '@types/sharp': 0.31.0
   classnames: 2.3.2
@@ -112,7 +112,7 @@ devDependencies:
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@types/lodash-es': 4.17.6
   '@types/node': 18.7.23
-  '@types/ramda': 0.28.16
+  '@types/ramda': 0.28.17
   '@types/react-syntax-highlighter': 15.5.5
   '@types/sharp': 0.31.0
   jest-canvas-mock: 2.4.0
@@ -2992,10 +2992,10 @@ packages:
 
   /@types/node/18.11.2:
     resolution: {integrity: sha512-BWN3M23gLO2jVG8g/XHIRFWiiV4/GckeFIqbU/C4V3xpoBBWSMk4OZomouN0wCkfQFPqgZikyLr7DOYDysIkkw==}
-    dev: true
 
   /@types/node/18.7.23:
     resolution: {integrity: sha512-DWNcCHolDq0ZKGizjx2DZjR/PqsYwAcYUJmfMWqtVU2MBMG5Mo+xFZrhGId5r/O5HOuMPyQEcM6KUBp5lBZZBg==}
+    dev: true
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -3012,8 +3012,8 @@ packages:
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
 
-  /@types/ramda/0.28.16:
-    resolution: {integrity: sha512-dxx0V3/thotNhkHjBL5ifkXm9Cj3aANnAcEjMuGq2i5OaznWaiyGAQR9CicO7fJrFXg6KSoeuKmc+akItd0Fww==}
+  /@types/ramda/0.28.17:
+    resolution: {integrity: sha512-c+4IXFiPl3mCJqM2RkN7ZK+tqzBmSCQobX+aPzDcfu3a0V3LOHUHZXWszm9+R1qBTe26C4x7dE2SQzW1lKLOng==}
     dependencies:
       ts-toolbelt: 6.15.5
     dev: true
@@ -6561,7 +6561,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.11.2
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
