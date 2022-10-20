@@ -44,7 +44,6 @@ const variants: Variants = {
     isNext: n,
     x: ox,
     loaded: l,
-    animated: a,
     y: oy,
     realIndex: r,
     selectIndex: s,
@@ -60,7 +59,13 @@ const variants: Variants = {
           type: false,
         },
       };
-    } else if (!a) {
+    } else if (l) {
+      t = {
+        transitionEnd: {
+          willChange: 'auto',
+        },
+      };
+    } else {
       t = {
         willChange: 'filter',
         transition: {
@@ -69,17 +74,12 @@ const variants: Variants = {
           damping: 30,
         },
       };
-    } else if (a && l) {
-      t = {
-        transitionEnd: {
-          willChange: 'auto',
-        },
-      };
     }
+
     return {
       x: viewportWidth * (r - s) + Number(ox) + offset,
       opacity: 1,
-      filter: l && a ? 'blur(0px)' : 'blur(5px)',
+      filter: l ? 'blur(0px)' : 'blur(5px)',
       scale: oy ? 1 - oy / viewportHeight : 1,
       y: oy,
       ...t,
@@ -100,11 +100,10 @@ export const ImageModal = memo<ImageModalProps>(
       return rest.thumbnail || rest.original;
     });
     const [loaded, setLoaded] = useState(false);
-    const [animated, setAnimated] = useState(false);
 
     useEffect(() => {
       const originUrl = rest.original;
-      if (originUrl && animated) {
+      if (originUrl) {
         const img = new Image();
         img.decoding = 'async';
         img.onload = () => {
@@ -117,7 +116,7 @@ export const ImageModal = memo<ImageModalProps>(
         };
         img.src = originUrl;
       }
-    }, [rest.original, animated]);
+    }, [rest.original]);
 
     const realIndex = selectIndex === 0 ? selectIndex + index : selectIndex - 1 + index;
     const isPrev = selectIndex > realIndex;
@@ -146,9 +145,6 @@ export const ImageModal = memo<ImageModalProps>(
         if (isMain && label === 'exit') {
           destroy(selectIndex);
         }
-        if (label === 'animate') {
-          setAnimated(true);
-        }
       },
       [destroy, isMain, selectIndex],
     );
@@ -161,7 +157,6 @@ export const ImageModal = memo<ImageModalProps>(
           x,
           y,
           loaded,
-          animated,
           realIndex,
           selectIndex,
           viewportWidth,
