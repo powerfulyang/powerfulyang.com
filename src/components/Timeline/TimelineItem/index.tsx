@@ -46,9 +46,8 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
   const mutation = useMutation({
     mutationKey: ['deleteFeed'],
     mutationFn: (id: number) => {
-      return requestAtClient('/feed', {
+      return requestAtClient(`/feed/${id}`, {
         method: 'DELETE',
-        body: { id },
       });
     },
     onSuccess() {

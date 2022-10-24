@@ -22,12 +22,21 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
 
   const publishPostMutation = useMutation(
     async (metadata: MarkdownMetadata) => {
+      if (post.id) {
+        const res = await requestAtClient<Post>(`/post/${post.id}`, {
+          method: 'PATCH',
+          body: {
+            ...metadata,
+            content,
+          },
+        });
+        return res.data;
+      }
       const res = await requestAtClient<Post>('/post', {
         method: 'POST',
         body: {
           ...metadata,
           content,
-          id: post.id,
         },
       });
       return res.data;

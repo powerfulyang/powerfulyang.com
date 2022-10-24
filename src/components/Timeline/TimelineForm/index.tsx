@@ -65,17 +65,19 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
 
   const mutation = useMutation({
     mutationFn: (variables: FeedCreate) => {
-      let method = 'POST';
       const formData = fileListToFormData(variables.assets, 'assets');
       formData.append('content', variables.content);
       formData.append('public', String(variables.public));
       if (editItem) {
-        method = 'PUT';
         formData.append('id', String(editItem.id));
+        return requestAtClient<Feed>('/feed', {
+          method: 'PUT',
+          body: formData,
+        });
       }
       return requestAtClient<Feed>('/feed', {
+        method: 'POST',
         body: formData,
-        method,
       });
     },
     onSuccess({ data }) {
