@@ -72,7 +72,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "12.3.1",
     "@powerfulyang/lint": "3.1.0",
-    "@sentry/cli": "2.7.0",
+    "@sentry/cli": "2.8.0",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
     "@types/lodash-es": "4.17.6",
