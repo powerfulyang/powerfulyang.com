@@ -57,15 +57,8 @@
     position: relative;
     width: 100vw;
     min-height: 100vh;
+    min-height: 100dvh; // fix 100vh on Safari
     //overflow: overlay; // 终归还是要设置overflow: overlay，否则 mac 上还是抖动
-  }
-
-  /* Avoid Chrome to see Safari hack */
-  @supports (-webkit-touch-callout: none) {
-    body {
-      /* The hack for Safari */
-      min-height: stretch;
-    }
   }
 
   .link {
