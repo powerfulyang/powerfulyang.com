@@ -15,7 +15,7 @@ specifiers:
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0
   '@types/lodash-es': 4.17.6
-  '@types/node': 18.7.23
+  '@types/node': 18.11.5
   '@types/ramda': 0.28.18
   '@types/react-syntax-highlighter': 15.5.5
   '@types/sharp': 0.31.0
@@ -111,7 +111,7 @@ devDependencies:
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@types/lodash-es': 4.17.6
-  '@types/node': 18.7.23
+  '@types/node': 18.11.5
   '@types/ramda': 0.28.18
   '@types/react-syntax-highlighter': 15.5.5
   '@types/sharp': 0.31.0
@@ -1514,7 +1514,7 @@ packages:
       cosmiconfig-typescript-loader: 4.1.1_vfayau7oz5qy4giwqlppd3j3ti
       lodash: 4.17.21
       resolve-from: 5.0.0
-      ts-node: 10.9.1_qxzi5daplfhukfabe7doogbqzy
+      ts-node: 10.9.1_djorpioalmcx4ghbwfbmhjf65i
       typescript: 4.8.4
     transitivePeerDependencies:
       - '@swc/core'
@@ -2990,16 +2990,8 @@ packages:
     resolution: {integrity: sha512-Y6S38pFr04yb13qqHf8uk1nHE3lXgQ30WZbv1mLliV9pt0NjvqdWttLcrOYLnXbOafknVYRHZGoMSpR9UwfYow==}
     dev: true
 
-  /@types/node/18.11.4:
-    resolution: {integrity: sha512-BxcJpBu8D3kv/GZkx/gSMz6VnTJREBj/4lbzYOQueUOELkt8WrO6zAcSPmp9uRPEW/d+lUO8QK0W2xnS1hEU0A==}
-
   /@types/node/18.11.5:
     resolution: {integrity: sha512-3JRwhbjI+cHLAkUorhf8RnqUbFXajvzX4q6fMn5JwkgtuwfYtRQYI3u4V92vI6NJuTsbBQWWh3RZjFsuevyMGQ==}
-    dev: true
-
-  /@types/node/18.7.23:
-    resolution: {integrity: sha512-DWNcCHolDq0ZKGizjx2DZjR/PqsYwAcYUJmfMWqtVU2MBMG5Mo+xFZrhGId5r/O5HOuMPyQEcM6KUBp5lBZZBg==}
-    dev: true
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -3065,7 +3057,7 @@ packages:
   /@types/sharp/0.31.0:
     resolution: {integrity: sha512-nwivOU101fYInCwdDcH/0/Ru6yIRXOpORx25ynEOc6/IakuCmjOAGpaO5VfUl4QkDtUC6hj+Z2eCQvgXOioknw==}
     dependencies:
-      '@types/node': 18.7.23
+      '@types/node': 18.11.5
     dev: true
 
   /@types/stack-utils/2.0.1:
@@ -4300,7 +4292,7 @@ packages:
     dependencies:
       '@types/node': 14.18.32
       cosmiconfig: 7.0.1
-      ts-node: 10.9.1_qxzi5daplfhukfabe7doogbqzy
+      ts-node: 10.9.1_djorpioalmcx4ghbwfbmhjf65i
       typescript: 4.8.4
     dev: true
 
@@ -6316,7 +6308,7 @@ packages:
       pretty-format: 29.2.1
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1_qxzi5daplfhukfabe7doogbqzy
+      ts-node: 10.9.1_djorpioalmcx4ghbwfbmhjf65i
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6630,7 +6622,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.11.4
+      '@types/node': 18.11.5
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -8258,7 +8250,7 @@ packages:
     dependencies:
       lilconfig: 2.0.6
       postcss: 8.4.18
-      ts-node: 10.9.1_qxzi5daplfhukfabe7doogbqzy
+      ts-node: 10.9.1_djorpioalmcx4ghbwfbmhjf65i
       yaml: 1.10.2
     dev: true
 
@@ -9899,7 +9891,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: false
 
-  /ts-node/10.9.1_qxzi5daplfhukfabe7doogbqzy:
+  /ts-node/10.9.1_djorpioalmcx4ghbwfbmhjf65i:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -9919,7 +9911,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.7.23
+      '@types/node': 18.11.5
       acorn: 8.8.0
       acorn-walk: 8.2.0
       arg: 4.1.3
