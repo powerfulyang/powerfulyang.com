@@ -14,6 +14,7 @@ import { BackToTop } from '@/components/BackToTop';
 import Lottie from 'lottie-react';
 import CuteUnicorn from '@/lottie/CuteUnicorn.json';
 import { useFixMinHeight } from '@/hooks/useFixMinHeight';
+import { DateTimeFormat } from '@/utils/lib';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -51,7 +52,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             </Link>
           ))}
         </div>
-        <section className="flex w-[100%] max-w-[1000px] flex-col">
+        <section className="m-auto flex w-[100%] max-w-[1000px] flex-col">
           {posts.map((post) => (
             <motion.a
               key={post.id}
@@ -66,9 +67,20 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 return history.pushState(`/post/${post.urlTitle}`);
               }}
             >
-              <motion.div className={styles.image}>
-                <LazyAssetImage thumbnail={700} draggable={false} asset={post.poster} />
-              </motion.div>
+              <LazyAssetImage
+                containerClassName="h-[200px] w-[320px] object-cover rounded-lg"
+                thumbnail={700}
+                draggable={false}
+                asset={post.poster}
+              />
+              <div className="ml-6 flex w-[480px] flex-col justify-around">
+                <h2>{post.title}</h2>
+                <summary>{post.content}</summary>
+                <section className="divide-x divide-gray-200 text-gray-600">
+                  <span className="px-4">{post.createBy.nickname}</span>
+                  <span className="px-4">{DateTimeFormat(post.createAt)}</span>
+                </section>
+              </div>
             </motion.a>
           ))}
         </section>
