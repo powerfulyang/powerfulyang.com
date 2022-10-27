@@ -26,7 +26,7 @@ specifiers:
   http-status-codes: 2.2.0
   immer: 9.0.16
   jest-canvas-mock: latest
-  jotai: 1.8.6
+  jotai: 1.9.0
   lodash-es: 4.17.21
   lottie-react: 2.3.1
   monaco-editor: 0.34.1
@@ -75,7 +75,7 @@ dependencies:
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
   immer: 9.0.16
-  jotai: 1.8.6_v4uoygddr2j4eyamjnngw5f5yi
+  jotai: 1.9.0_v4uoygddr2j4eyamjnngw5f5yi
   lodash-es: 4.17.21
   lottie-react: 2.3.1_biqbaboplfbrettd7655fr4n2y
   monaco-editor: 0.34.1
@@ -6652,36 +6652,33 @@ packages:
       - ts-node
     dev: true
 
-  /jotai/1.8.6_v4uoygddr2j4eyamjnngw5f5yi:
-    resolution: {integrity: sha512-6JXNd2ewR6Ur0hGY0kRJebQ++p7lN/8kNdGNXv7XT11FDPxAtPN2XLM+m0w4bV22f1knQlG8ZpVLfY6BEGF+UQ==}
+  /jotai/1.9.0_v4uoygddr2j4eyamjnngw5f5yi:
+    resolution: {integrity: sha512-XYpSlxbxujUCTA8PNkzfj3+zF6XVyzo6XMZIEic3gXQCpTDPfmqhUj2FR8kwUACK5weosFrSBhesrjwfILUCoQ==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@babel/core': '*'
       '@babel/template': '*'
-      '@tanstack/query-core': '*'
-      '@urql/core': '*'
       immer: '*'
+      jotai-tanstack-query: '*'
+      jotai-urql: '*'
       optics-ts: '*'
       react: '>=16.8'
       valtio: '*'
-      wonka: '*'
       xstate: '*'
     peerDependenciesMeta:
       '@babel/core':
         optional: true
       '@babel/template':
         optional: true
-      '@tanstack/query-core':
-        optional: true
-      '@urql/core':
-        optional: true
       immer:
+        optional: true
+      jotai-tanstack-query:
+        optional: true
+      jotai-urql:
         optional: true
       optics-ts:
         optional: true
       valtio:
-        optional: true
-      wonka:
         optional: true
       xstate:
         optional: true
