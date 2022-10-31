@@ -45,7 +45,7 @@ specifiers:
   react-markdown: 8.0.3
   react-syntax-highlighter: 15.5.0
   reflect-metadata: 0.1.13
-  rehype-slug: 5.0.1
+  rehype-slug: 5.1.0
   remark: 14.0.2
   remark-frontmatter: 4.0.1
   remark-gfm: 3.0.1
@@ -91,7 +91,7 @@ dependencies:
   react-markdown: 8.0.3_iapumuv4e6jcjznwuxpf4tt22e
   react-syntax-highlighter: 15.5.0_react@18.2.0
   reflect-metadata: 0.1.13
-  rehype-slug: 5.0.1
+  rehype-slug: 5.1.0
   remark: 14.0.2
   remark-frontmatter: 4.0.1
   remark-gfm: 3.0.1
@@ -5512,8 +5512,8 @@ packages:
     resolution: {integrity: sha512-SyHy3T1v2NUXn29OsWdxmK6RwHD+vkj3v8en8AOBZ1wBQ/hCAQ5bAQTD02kW4W9tUp/3Qh6J8r9EvntiyCmOOw==}
     dev: false
 
-  /github-slugger/1.4.0:
-    resolution: {integrity: sha512-w0dzqw/nt51xMVmlaV1+JRzN+oCa1KfcgGEWhxUG16wbdA+Xnt/yoFO8Z8x/V82ZcZ0wy6ln9QDup5avbhiDhQ==}
+  /github-slugger/2.0.0:
+    resolution: {integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==}
     dev: false
 
   /glob-parent/5.1.2:
@@ -8753,11 +8753,11 @@ packages:
       jsesc: 0.5.0
     dev: true
 
-  /rehype-slug/5.0.1:
-    resolution: {integrity: sha512-X5v3wV/meuOX9NFcGhJvUpEjIvQl2gDvjg3z40RVprYFt7q3th4qMmYLULiu3gXvbNX1ppx+oaa6JyY1W67pTA==}
+  /rehype-slug/5.1.0:
+    resolution: {integrity: sha512-Gf91dJoXneiorNEnn+Phx97CO7oRMrpi+6r155tTxzGuLtm+QrI4cTwCa9e1rtePdL4i9tSO58PeSS6HWfgsiw==}
     dependencies:
       '@types/hast': 2.3.4
-      github-slugger: 1.4.0
+      github-slugger: 2.0.0
       hast-util-has-property: 2.0.0
       hast-util-heading-rank: 2.1.0
       hast-util-to-string: 2.0.0
