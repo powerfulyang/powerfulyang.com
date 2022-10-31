@@ -11,7 +11,7 @@ specifiers:
   '@powerfulyang/utils': 1.5.0
   '@sentry/cli': 2.8.0
   '@sentry/nextjs': 7.17.2
-  '@tanstack/react-query': 4.13.4
+  '@tanstack/react-query': 4.13.5
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0
   '@types/lodash-es': 4.17.6
@@ -68,7 +68,7 @@ dependencies:
   '@powerfulyang/hooks': 1.3.0_aeznhs47zvoscd2awicjqmam7e
   '@powerfulyang/utils': 1.5.0_yzt46al3aifnexifjjdb4dxxja
   '@sentry/nextjs': 7.17.2_gr5kjcsdkugruyap6irannimnm
-  '@tanstack/react-query': 4.13.4_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query': 4.13.5_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
   dayjs: 1.11.6
   framer-motion: 7.6.2_biqbaboplfbrettd7655fr4n2y
@@ -2763,8 +2763,8 @@ packages:
     resolution: {integrity: sha512-DMIy6tgGehYoRUFyoR186+pQspOicyZNSGvBWxPc2CinHjWOQ7DPnGr9zmn/kE9xK4Zd3GXd25Nj3X20+TF6Lw==}
     dev: false
 
-  /@tanstack/react-query/4.13.4_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-OHkUulPorHDiWNcUrcSUNxedeZ28z9kCKRG3JY+aJ8dFH/o4fixtac4ys0lwCP/n/VL1XMPnu+/CXEhbXHyJZA==}
+  /@tanstack/react-query/4.13.5_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-p2HcWGuqfvG7Pz04un4phWZeXzlITD7Ue0gMXjD56g8y3rP1r5qEYC/BckffrZLf4dZtQeVPCWOa8RYAqx036g==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
