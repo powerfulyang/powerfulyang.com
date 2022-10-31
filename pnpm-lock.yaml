@@ -33,7 +33,7 @@ specifiers:
   next: 13.0.0
   next-compose-plugins: 2.2.1
   next-pwa: 5.6.0
-  next-sitemap: 3.1.29
+  next-sitemap: 3.1.30
   peerjs: 1.4.7
   prettier-plugin-tailwindcss: 0.1.13
   ramda: 0.28.0
@@ -80,7 +80,7 @@ dependencies:
   lottie-react: 2.3.1_biqbaboplfbrettd7655fr4n2y
   monaco-editor: 0.34.1
   next: 13.0.0_6tziyx3dehkoeijunclpkpolha
-  next-sitemap: 3.1.29_qcnuwogvzn5dnsttittida2hji
+  next-sitemap: 3.1.30_qcnuwogvzn5dnsttittida2hji
   peerjs: 1.4.7
   ramda: 0.28.0
   react: 18.2.0
@@ -7704,8 +7704,8 @@ packages:
       - webpack
     dev: true
 
-  /next-sitemap/3.1.29_qcnuwogvzn5dnsttittida2hji:
-    resolution: {integrity: sha512-7UQyfpI7obOdB11aCswWYfqRn5CR0YSmWHo1r/uarrFfZD5PyyAWtQlgP6jNqDW0eX1ZJWERBwmJ2dLjl4nT8Q==}
+  /next-sitemap/3.1.30_qcnuwogvzn5dnsttittida2hji:
+    resolution: {integrity: sha512-mZqq9xWrTp/tgUM7+Oz/qxT6x2vnJhwQ3AGke2GjypRbUo44QaTb+4Cp1uX9GwXBaiuuuXDoWyS5VxJP3pJljw==}
     engines: {node: '>=14.18'}
     hasBin: true
     peerDependencies:
