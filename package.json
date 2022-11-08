@@ -32,7 +32,7 @@
     "@powerfulyang/components": "1.6.0",
     "@powerfulyang/hooks": "1.4.0",
     "@powerfulyang/utils": "1.5.0",
-    "@sentry/nextjs": "7.17.4",
+    "@sentry/nextjs": "7.18.0",
     "@tanstack/react-query": "4.14.5",
     "classnames": "2.3.2",
     "dayjs": "1.11.6",
