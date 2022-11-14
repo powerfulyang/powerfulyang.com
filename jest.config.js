@@ -45,6 +45,7 @@ const esModules = [
   'remark',
   'trim-lines',
   'lodash-es',
+  'github-slugger',
 ].join('|');
 
 module.exports = async () => {

@@ -28,7 +28,6 @@ specifiers:
   jest-canvas-mock: latest
   jotai: 1.9.2
   lodash-es: 4.17.21
-  lottie-react: 2.3.1
   monaco-editor: 0.34.1
   next: 13.0.3
   next-compose-plugins: 2.2.1
@@ -77,7 +76,6 @@ dependencies:
   immer: 9.0.16
   jotai: 1.9.2_v4uoygddr2j4eyamjnngw5f5yi
   lodash-es: 4.17.21
-  lottie-react: 2.3.1_biqbaboplfbrettd7655fr4n2y
   monaco-editor: 0.34.1
   next: 13.0.3_6tziyx3dehkoeijunclpkpolha
   next-sitemap: 3.1.31_oh7tnma7hljgucaq4r2oan52oi
@@ -7019,21 +7017,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-
-  /lottie-react/2.3.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-8cxd6XZZtECT6LoAhCftRdYrEpHxiouvB5EPiYA+TtCG5LHNYAdMS9IVIHcxKtWnpo7x16QfCLj1XLXZpaN81A==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      lottie-web: 5.9.6
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    dev: false
-
-  /lottie-web/5.9.6:
-    resolution: {integrity: sha512-JFs7KsHwflugH5qIXBpB4905yC1Sub2MZWtl/elvO/QC6qj1ApqbUZJyjzJseJUtVpgiDaXQLjBlIJGS7UUUXA==}
-    dev: false
 
   /lowlight/1.20.0:
     resolution: {integrity: sha512-8Ktj+prEb1RoCPkEOrPMYUN/nCggB7qAWe3a7OpMjWQkh3l2RD5wKRQ+o8Q8YuI9RG/xs95waaI/E6ym/7NsTw==}

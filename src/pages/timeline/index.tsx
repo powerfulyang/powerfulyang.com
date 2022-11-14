@@ -18,7 +18,6 @@ import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
 import { useUser } from '@/hooks/useUser';
 import Image from 'next/image';
 import bg from '@/assets/timeline-banner.webp';
-import { BackToTop } from '@/components/BackToTop';
 import { useFixMinHeight } from '@/hooks/useFixMinHeight';
 import styles from './index.module.scss';
 
@@ -185,7 +184,6 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
         />
         {resources}
       </div>
-      <BackToTop />
     </div>
   );
 };

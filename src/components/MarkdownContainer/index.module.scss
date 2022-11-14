@@ -244,10 +244,7 @@ $main-color: #ffb356;
       display: list-item;
 
       &::marker {
-        font-family: -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC,
-          Hiragino Sans GB, Source Han Sans SC, Noto Sans CJK SC, Microsoft YaHei,
-          WenQuanYi Micro Hei, WenQuanYi Zen Hei, Helvetica Neue, Arial, sans-serif;
-        @apply font-bold text-blue-400;
+        color: $main-color;
       }
     }
   }
