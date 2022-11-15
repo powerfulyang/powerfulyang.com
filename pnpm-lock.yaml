@@ -40,7 +40,7 @@ specifiers:
   react-dom: 18.2.0
   react-hook-form: 7.39.4
   react-hotkeys-hook: 3.4.7
-  react-intersection-observer: 9.4.0
+  react-intersection-observer: 9.4.1
   react-markdown: 8.0.3
   react-syntax-highlighter: 15.5.0
   reflect-metadata: 0.1.13
@@ -85,7 +85,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.39.4_react@18.2.0
   react-hotkeys-hook: 3.4.7_biqbaboplfbrettd7655fr4n2y
-  react-intersection-observer: 9.4.0_react@18.2.0
+  react-intersection-observer: 9.4.1_react@18.2.0
   react-markdown: 8.0.3_bbvjflvjoibwhtpmedigb26h6y
   react-syntax-highlighter: 15.5.0_react@18.2.0
   reflect-metadata: 0.1.13
@@ -8479,10 +8479,10 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /react-intersection-observer/9.4.0_react@18.2.0:
-    resolution: {integrity: sha512-v0403CmomOVlzhqFXlzOxg0ziLcVq8mfbP0AwAcEQWgZmR2OulOT79Ikznw4UlB3N+jlUYqLMe4SDHUOyp0t2A==}
+  /react-intersection-observer/9.4.1_react@18.2.0:
+    resolution: {integrity: sha512-IXpIsPe6BleFOEHKzKh5UjwRUaz/JYS0lT/HPsupWEQou2hDqjhLMStc5zyE3eQVT4Fk3FufM8Fw33qW1uyeiw==}
     peerDependencies:
-      react: ^15.0.0 || ^16.0.0 || ^17.0.0|| ^18.0.0
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
     dev: false
