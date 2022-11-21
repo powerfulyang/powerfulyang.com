@@ -38,7 +38,7 @@ specifiers:
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0
-  react-hook-form: 7.39.4
+  react-hook-form: 7.39.5
   react-hotkeys-hook: 4.0.4
   react-intersection-observer: 9.4.1
   react-markdown: 8.0.3
@@ -83,7 +83,7 @@ dependencies:
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-hook-form: 7.39.4_react@18.2.0
+  react-hook-form: 7.39.5_react@18.2.0
   react-hotkeys-hook: 4.0.4_biqbaboplfbrettd7655fr4n2y
   react-intersection-observer: 9.4.1_react@18.2.0
   react-markdown: 8.0.3_fan5qbzahqtxlm5dzefqlqx5ia
@@ -2011,7 +2011,7 @@ packages:
       '@motionone/easing': 10.14.0
       '@motionone/types': 10.14.0
       '@motionone/utils': 10.14.0
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@motionone/dom/10.13.1:
@@ -2029,7 +2029,7 @@ packages:
     resolution: {integrity: sha512-2vUBdH9uWTlRbuErhcsMmt1jvMTTqvGmn9fHq8FleFDXBlHFs5jZzHJT9iw+4kR1h6a4SZQuCf72b9ji92qNYA==}
     dependencies:
       '@motionone/utils': 10.14.0
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@motionone/generators/10.14.0:
@@ -2037,7 +2037,7 @@ packages:
     dependencies:
       '@motionone/types': 10.14.0
       '@motionone/utils': 10.14.0
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@motionone/types/10.14.0:
@@ -2049,7 +2049,7 @@ packages:
     dependencies:
       '@motionone/types': 10.14.0
       hey-listen: 1.0.8
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@next/bundle-analyzer/13.0.4:
@@ -3402,7 +3402,6 @@ packages:
   /ansi-regex/5.0.1:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
     engines: {node: '>=8'}
-    dev: true
 
   /ansi-regex/6.0.1:
     resolution: {integrity: sha512-n5M855fKb2SsfMIiFFoVrABHJC8QtHwVx+mHWP3QcEqBHYienj5dHSgjbxtC0WEZXYt4wcD6zrQElDPhFuZgfA==}
@@ -4536,7 +4535,6 @@ packages:
 
   /emoji-regex/8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
-    dev: true
 
   /emoji-regex/9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
@@ -5900,7 +5898,6 @@ packages:
   /is-fullwidth-code-point/3.0.0:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==}
     engines: {node: '>=8'}
-    dev: true
 
   /is-fullwidth-code-point/4.0.0:
     resolution: {integrity: sha512-O4L094N2/dZ7xqVdrXhh9r1KODPJpFms8B5sGdJLPy664AgvXsreZUyCQQNItZRDlYug4xStLjNp/sz3HvBowQ==}
@@ -8469,8 +8466,8 @@ packages:
       react: 18.2.0
       scheduler: 0.23.0
 
-  /react-hook-form/7.39.4_react@18.2.0:
-    resolution: {integrity: sha512-B0e78r9kR9L2M4A4AXGbHoA/vyv34sB/n8QWJAw33TFz8f5t9helBbYAeqnbvcQf1EYzJxKX/bGQQh9K+evCyQ==}
+  /react-hook-form/7.39.5_react@18.2.0:
+    resolution: {integrity: sha512-OE0HKyz5IPc6svN2wd+e+evidZrw4O4WZWAWYzQVZuHi+hYnHFSLnxOq0ddjbdmaLIsLHut/ab7j72y2QT3+KA==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
@@ -9262,7 +9259,6 @@ packages:
       emoji-regex: 8.0.0
       is-fullwidth-code-point: 3.0.0
       strip-ansi: 6.0.1
-    dev: true
 
   /string-width/5.1.2:
     resolution: {integrity: sha512-HnLOCR3vjcY8beoNLtcjZ5/nxn2afmME6lhrDrebokqMap+XbeW8n9TXpPDOqdGK5qcI3oT0GKTW6wC7EMiVqA==}
@@ -9343,7 +9339,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       ansi-regex: 5.0.1
-    dev: true
 
   /strip-ansi/7.0.1:
     resolution: {integrity: sha512-cXNxvT8dFNRVfhVME3JAe98mkXDYN2O1l7jmcwMnOslDeESg1rF/OZMtK0nRAhiari1unG5cD4jG3rapUAkLbw==}
@@ -10364,7 +10359,7 @@ packages:
   /wide-align/1.1.5:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
     dependencies:
-      string-width: 1.0.2
+      string-width: 4.2.3
     dev: false
 
   /word-wrap/1.2.3:
