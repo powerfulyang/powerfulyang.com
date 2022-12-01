@@ -9,7 +9,7 @@ specifiers:
   '@powerfulyang/hooks': 1.4.0
   '@powerfulyang/lint': 3.1.3
   '@powerfulyang/utils': 1.5.0
-  '@sentry/cli': 2.9.0
+  '@sentry/cli': 2.10.0
   '@sentry/nextjs': 7.22.0
   '@tanstack/react-query': 4.18.0
   '@testing-library/jest-dom': 5.16.5
@@ -105,7 +105,7 @@ dependencies:
 devDependencies:
   '@next/bundle-analyzer': 13.0.5
   '@powerfulyang/lint': 3.1.3_2dtigtkb225m7ii7q45utxqwgi
-  '@sentry/cli': 2.9.0
+  '@sentry/cli': 2.10.0
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@types/lodash-es': 4.17.6
@@ -2438,8 +2438,8 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/cli/2.9.0:
-    resolution: {integrity: sha512-0qq3aP5shbm/V5GQSyeGEXlDNPQlWKngwNu+h5zaaaDrCfG2gJeoRHybOq4of+raKFZTvx4kjVmwwWAUvHfTYg==}
+  /@sentry/cli/2.10.0:
+    resolution: {integrity: sha512-VQnGXPQCqJyxirmUWkNznq3YYklDwDfbogok3lPHaL3r0bhgcNwt/bZxeycpaqk5I7myKNUYW8RG+F1YERODSw==}
     engines: {node: '>= 10'}
     hasBin: true
     requiresBuild: true
