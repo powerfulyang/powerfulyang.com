@@ -41,7 +41,7 @@ specifiers:
   react-hook-form: 7.40.0
   react-hotkeys-hook: 4.0.4
   react-intersection-observer: 9.4.1
-  react-markdown: 8.0.3
+  react-markdown: 8.0.4
   react-syntax-highlighter: 15.5.0
   reflect-metadata: 0.1.13
   rehype-slug: 5.1.0
@@ -86,7 +86,7 @@ dependencies:
   react-hook-form: 7.40.0_react@18.2.0
   react-hotkeys-hook: 4.0.4_biqbaboplfbrettd7655fr4n2y
   react-intersection-observer: 9.4.1_react@18.2.0
-  react-markdown: 8.0.3_fan5qbzahqtxlm5dzefqlqx5ia
+  react-markdown: 8.0.4_fan5qbzahqtxlm5dzefqlqx5ia
   react-syntax-highlighter: 15.5.0_react@18.2.0
   reflect-metadata: 0.1.13
   rehype-slug: 5.1.0
@@ -2290,7 +2290,7 @@ packages:
       prettier: 2.8.0
       prettier-plugin-tailwindcss: 0.2.0_prettier@2.8.0
       rimraf: 3.0.2
-      rollup: 3.5.0
+      rollup: 3.5.1
       sass: 1.56.1
       stylelint: 14.15.0
       stylelint-config-css-modules: 4.1.0_stylelint@14.15.0
@@ -8610,8 +8610,8 @@ packages:
   /react-is/18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
 
-  /react-markdown/8.0.3_fan5qbzahqtxlm5dzefqlqx5ia:
-    resolution: {integrity: sha512-We36SfqaKoVNpN1QqsZwWSv/OZt5J15LNgTLWynwAN5b265hrQrsjMtlRNwUvS+YyR3yDM8HpTNc4pK9H/Gc0A==}
+  /react-markdown/8.0.4_fan5qbzahqtxlm5dzefqlqx5ia:
+    resolution: {integrity: sha512-2oxHa6oDxc1apg/Gnc1Goh06t3B617xeywqI/92wmDV9FELI6ayRkwge7w7DoEqM0gRpZGTNU6xQG+YpJISnVg==}
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
@@ -8989,8 +8989,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rollup/3.5.0:
-    resolution: {integrity: sha512-TYu2L+TGhmNsXCtByont89u+ATQLcDy6A+++PwLXYunRtOm7XnaD+65s1pvewaOxMYR0eOkMXn9/i0saBxxpnQ==}
+  /rollup/3.5.1:
+    resolution: {integrity: sha512-hdQWTvPeiAbM6SUkxV70HdGUVxsgsc+CLy5fuh4KdgUBJ0SowXiix8gANgXoG3wEuLwfoJhCT2V+WwxfWq9Ikw==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
