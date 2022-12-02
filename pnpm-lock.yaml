@@ -34,7 +34,7 @@ specifiers:
   next-pwa: 5.6.0
   next-sitemap: 3.1.32
   peerjs: 1.4.7
-  prettier-plugin-tailwindcss: 0.1.13
+  prettier-plugin-tailwindcss: 0.2.0
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0
@@ -116,7 +116,7 @@ devDependencies:
   jest-canvas-mock: 2.4.0
   next-compose-plugins: 2.2.1
   next-pwa: 5.6.0_rq7vk2ojnees25wwjdccqcfhju
-  prettier-plugin-tailwindcss: 0.1.13_prettier@2.8.0
+  prettier-plugin-tailwindcss: 0.2.0_prettier@2.8.0
   tailwindcss: 3.2.4_v776zzvn44o7tpgzieipaairwm
   typescript: 4.9.3
 
@@ -8408,15 +8408,6 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       fast-diff: 1.2.0
-    dev: true
-
-  /prettier-plugin-tailwindcss/0.1.13_prettier@2.8.0:
-    resolution: {integrity: sha512-/EKQURUrxLu66CMUg4+1LwGdxnz8of7IDvrSLqEtDqhLH61SAlNNUSr90UTvZaemujgl3OH/VHg+fyGltrNixw==}
-    engines: {node: '>=12.17.0'}
-    peerDependencies:
-      prettier: '>=2.2.0'
-    dependencies:
-      prettier: 2.8.0
     dev: true
 
   /prettier-plugin-tailwindcss/0.2.0_prettier@2.8.0:
