@@ -26,7 +26,7 @@ specifiers:
   http-status-codes: 2.2.0
   immer: 9.0.16
   jest-canvas-mock: latest
-  jotai: 1.11.0
+  jotai: 1.11.1
   lodash-es: 4.17.21
   monaco-editor: 0.34.1
   next: 13.0.6
@@ -74,7 +74,7 @@ dependencies:
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
   immer: 9.0.16
-  jotai: 1.11.0_3lzqd2prgnu7gkxqqdmtvzna5u
+  jotai: 1.11.1_3lzqd2prgnu7gkxqqdmtvzna5u
   lodash-es: 4.17.21
   monaco-editor: 0.34.1
   next: 13.0.6_mqvh5p7ejg4taogoj6tpk3gd5a
@@ -6679,8 +6679,8 @@ packages:
       - ts-node
     dev: true
 
-  /jotai/1.11.0_3lzqd2prgnu7gkxqqdmtvzna5u:
-    resolution: {integrity: sha512-8OzJmRxcTZoAOJSz6uTnmofmjAOgNOdAOy26rvyw3OBxt6XIoklNnfUTCm8wgp84SSLJbPZA01VS5O/SUz+QYg==}
+  /jotai/1.11.1_3lzqd2prgnu7gkxqqdmtvzna5u:
+    resolution: {integrity: sha512-pHpaZUdvIpcS12ryMCrwtvmT/IovZAbicfrlll/Rb9394rwhqKoDFsDs0kv4oWtBy/XHHNv7iSZnQFmntiQj+w==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@babel/core': '*'
