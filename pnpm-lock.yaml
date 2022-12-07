@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@docsearch/react': 3.3.0
+  '@hookform/resolvers': 2.9.10
   '@mojs/core': 1.3.0
   '@monaco-editor/react': 4.4.6
   '@next/bundle-analyzer': 13.0.6
@@ -58,9 +59,11 @@ specifiers:
   unist-util-visit: 4.1.1
   xterm: 5.0.0
   yaml: 2.1.3
+  zod: 3.19.1
 
 dependencies:
   '@docsearch/react': 3.3.0_bbqmvyebg44zjqjhzodbnnxkxa
+  '@hookform/resolvers': 2.9.10_react-hook-form@7.40.0
   '@mojs/core': 1.3.0
   '@monaco-editor/react': 4.4.6_6vrjaj6ridxbohi43n7zt4gn7q
   '@powerfulyang/components': 1.6.0_tyx7h2gpx2d77iaths4u2zfp2y
@@ -101,6 +104,7 @@ dependencies:
   unist-util-visit: 4.1.1
   xterm: 5.0.0
   yaml: 2.1.3
+  zod: 3.19.1
 
 devDependencies:
   '@next/bundle-analyzer': 13.0.6
@@ -1669,6 +1673,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@hookform/resolvers/2.9.10_react-hook-form@7.40.0:
+    resolution: {integrity: sha512-JIL1DgJIlH9yuxcNGtyhsWX/PgNltz+5Gr6+8SX9fhXc/hPbEIk6wPI82nhgvp3uUb6ZfAM5mqg/x7KR7NAb+A==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.40.0_react@18.2.0
+    dev: false
 
   /@humanwhocodes/config-array/0.11.7:
     resolution: {integrity: sha512-kBbPWzN8oVMLb0hOUYXhmxggL/1cJE6ydvjDIGi9EnAGUyA7cLVKQg+d/Dsm+KZwx2czGHrCmMVLiyg8s5JPKw==}
@@ -10740,6 +10752,10 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod/3.19.1:
+    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
+    dev: false
 
   /zwitch/2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}

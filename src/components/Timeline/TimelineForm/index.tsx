@@ -22,6 +22,8 @@ import { ImagePreview } from '@/components/ImagePreview';
 import { Icon } from '@powerfulyang/components';
 import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
 import { useEditTimeLineItem } from '@/components/Timeline/TimelineItem';
+import { zodResolver } from '@hookform/resolvers/zod';
+import z from 'zod';
 import styles from './index.module.scss';
 
 type Props = {
@@ -44,6 +46,11 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
       content: '',
       public: true,
     },
+    resolver: zodResolver(
+      z.object({
+        content: z.string().min(1, '请写点什么~~~').max(1000, '内容不能超过1000个字符'),
+      }),
+    ),
   });
 
   useEffect(() => {
@@ -178,9 +185,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.timelineTextarea}>
           <textarea
-            {...register('content', {
-              required: '请写点什么~~~',
-            })}
+            {...register('content')}
             className={classNames(
               {
                 'cursor-progress': mutation.isLoading,
