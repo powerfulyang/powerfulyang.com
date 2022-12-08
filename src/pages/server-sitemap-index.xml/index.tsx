@@ -8,8 +8,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     ctx,
   });
 
-  const json = await res.json();
-  const { data } = json;
+  const data = await res.json();
 
   return getServerSideSitemap(
     ctx,

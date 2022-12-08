@@ -30,14 +30,13 @@ type TimelineProps = {
 export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) => {
   const { data, fetchNextPage, fetchPreviousPage, hasPreviousPage } = useInfiniteQuery(
     ['feeds', feeds, nextCursor, prevCursor],
-    async ({ pageParam }) => {
-      const res = await requestAtClient<InfiniteQueryResponse<Feed>>('/public/feed', {
+    ({ pageParam }) => {
+      return requestAtClient<InfiniteQueryResponse<Feed>>('/public/feed', {
         query: {
           ...pageParam,
           take: 10,
         },
       });
-      return res.data;
     },
     {
       enabled: false,
@@ -200,7 +199,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       take: 10,
     },
   });
-  const { data, pathViewCount } = await res.json();
+  const pathViewCount = res.headers.get('x-path-view-count');
+  const data = await res.json();
   return {
     props: {
       feeds: data.resources,

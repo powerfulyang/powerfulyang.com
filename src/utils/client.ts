@@ -14,16 +14,10 @@ export type RequestOptions = {
 export const stringify = (query: RequestOptions['query']) =>
   new URLSearchParams(query && reject(isNil, query)).toString();
 
-export type ApiResponse<T = any> = {
-  data: T;
-  pathViewCount: number;
-  message: string;
-};
-
 export const requestAtClient = async <T = any>(
   url: string,
   options: Omit<RequestOptions, 'ctx'> = {},
-): Promise<ApiResponse<T>> => {
+): Promise<T> => {
   const host = process.env.CLIENT_BASE_HOST;
 
   let baseUrl = '';
@@ -68,19 +62,9 @@ export const requestAtClient = async <T = any>(
   });
 
   if (res.status >= 300) {
-    let message;
+    const message = res.headers.get('x-error') || getReasonPhrase(res.status);
 
-    try {
-      const json = await res.json();
-      message = json.message;
-      if (notificationOnError) {
-        notification.error({
-          message: `请求错误: ${res.status}`,
-          description: message,
-        });
-      }
-    } catch (e) {
-      message = getReasonPhrase(res.status);
+    if (notificationOnError) {
       notification.error({
         message: `请求错误: ${res.status}`,
         description: message,

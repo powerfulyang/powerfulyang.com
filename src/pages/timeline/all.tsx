@@ -6,7 +6,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const res = await requestAtServer('/public/feed', {
     ctx,
   });
-  const { data, pathViewCount } = await res.json();
+  const pathViewCount = res.headers.get('x-path-view-count');
+  const data = await res.json();
   return {
     props: {
       feeds: data.resources,

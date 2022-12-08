@@ -21,25 +21,23 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
   const [content, setContent] = useState(post.content);
 
   const publishPostMutation = useMutation(
-    async (metadata: MarkdownMetadata) => {
+    (metadata: MarkdownMetadata) => {
       if (post.id) {
-        const res = await requestAtClient<Post>(`/post/${post.id}`, {
+        return requestAtClient<Post>(`/post/${post.id}`, {
           method: 'PATCH',
           body: {
             ...metadata,
             content,
           },
         });
-        return res.data;
       }
-      const res = await requestAtClient<Post>('/post', {
+      return requestAtClient<Post>('/post', {
         method: 'POST',
         body: {
           ...metadata,
           content,
         },
       });
-      return res.data;
     },
     {
       onSuccess(data) {
@@ -97,16 +95,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { urlTitle } = query;
 
   let post;
-  let pathViewCount = 0;
+  let pathViewCount;
   if (isString(urlTitle) && urlTitle !== '0') {
     const res = await requestAtServer(`/public/post/${urlTitle}`, {
       ctx,
     });
-    const result = await res.json();
-    post = result.data;
-    pathViewCount = result.pathViewCount;
+    pathViewCount = res.headers.get('x-path-view-count');
+    post = await res.json();
   } else {
     post = {};
+    pathViewCount = 0;
   }
 
   return {

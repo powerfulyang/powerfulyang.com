@@ -26,7 +26,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
   useHotkeys(
     '., 。',
     () => {
-      history.pushState('/post/publish');
+      return history.pushState('/post/publish');
     },
     [history],
   );
@@ -94,13 +94,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const tmp = await requestAtServer('/public/post/years', {
     ctx,
   });
-  const { data: years = [] } = await tmp.json();
+  const years = await tmp.json();
   const year = Number(query.year) || years[0] || new Date().getFullYear();
   const res = await requestAtServer('/public/post', {
     ctx,
     query: { publishYear: year },
   });
-  const { data, pathViewCount } = await res.json();
+  const pathViewCount = res.headers.get('x-path-view-count');
+  const data = await res.json();
   return {
     props: {
       pathViewCount,

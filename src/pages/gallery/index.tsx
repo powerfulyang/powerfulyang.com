@@ -24,14 +24,13 @@ type GalleryProps = {
 export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor }) => {
   const { data, fetchPreviousPage, hasPreviousPage } = useInfiniteQuery(
     ['assets', assets, nextCursor, prevCursor],
-    async ({ pageParam }) => {
-      const res = await requestAtClient<InfiniteQueryResponse<Asset>>('/public/asset', {
+    ({ pageParam }) => {
+      return requestAtClient<InfiniteQueryResponse<Asset>>('/public/asset', {
         query: {
           ...pageParam,
           take: 10,
         },
       });
-      return res.data;
     },
     {
       enabled: false,
@@ -111,7 +110,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       take: 20,
     },
   });
-  const { data, pathViewCount } = await res.json();
+  const pathViewCount = res.headers.get('x-path-view-count');
+  const data = await res.json();
   return {
     props: {
       assets: data.resources,

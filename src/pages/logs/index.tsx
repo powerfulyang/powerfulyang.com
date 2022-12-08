@@ -10,11 +10,8 @@ const Logs = () => {
   const currentCommand = useRef('');
 
   const showLogsContainers = useMutation({
-    mutationFn: async () => {
-      const res = await requestAtClient<string[]>(
-        'https://qa.powerfulyang.com/api/logs-viewer/containers',
-      );
-      return res.data;
+    mutationFn: () => {
+      return requestAtClient<string[]>('https://qa.powerfulyang.com/api/logs-viewer/containers');
     },
     onSuccess: (data) => {
       data.forEach((containerName) => {
@@ -25,11 +22,10 @@ const Logs = () => {
   });
 
   const viewContainerLogs = useMutation({
-    mutationFn: async (containerName: string) => {
-      const res = await requestAtClient<string[]>(
+    mutationFn: (containerName: string) => {
+      return requestAtClient<string[]>(
         `https://qa.powerfulyang.com/api/logs-viewer/${containerName}`,
       );
-      return res.data;
     },
     onSuccess: (data) => {
       currentCommand.current = '';

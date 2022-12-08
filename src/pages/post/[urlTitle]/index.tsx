@@ -21,7 +21,7 @@ const PostDetail: LayoutFC<PostProps> = ({ data: { content, toc, urlTitle } }) =
   useHotkeys(
     '., 。',
     () => {
-      history.pushState(`/post/publish/${urlTitle}`);
+      return history.pushState(`/post/publish/${urlTitle}`);
     },
     [history, urlTitle],
   );
@@ -44,7 +44,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     query: { urlTitle },
   } = ctx;
   const res = await requestAtServer(`/public/post/${String(urlTitle)}`, { ctx });
-  const { data, pathViewCount } = await res.json();
+  const pathViewCount = res.headers.get('x-path-view-count');
+  const data = await res.json();
 
   const toc = await generateTOC(data.content);
 

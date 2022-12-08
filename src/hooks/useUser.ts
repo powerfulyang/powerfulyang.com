@@ -11,8 +11,7 @@ export const useUser = (enabled: boolean = false) => {
     queryKey: ['fetch-user'],
     queryFn: async () => {
       try {
-        const result = await requestAtClient<User>('/user/current', { notificationOnError: false });
-        const u = result.data;
+        const u = await requestAtClient<User>('/user/current', { notificationOnError: false });
         if (u.id) {
           return u;
         }

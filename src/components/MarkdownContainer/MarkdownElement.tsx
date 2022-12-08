@@ -156,9 +156,8 @@ const AssetImage: FC<{ id: string }> = ({ id }) => {
   const { blur } = useContext(MDContainerContext);
   const { data: asset } = useQuery({
     queryKey: ['md-asset-img', id],
-    queryFn: async () => {
-      const res = await requestAtClient(`/public/asset/${id}`);
-      return res.data;
+    queryFn: () => {
+      return requestAtClient(`/public/asset/${id}`);
     },
   });
   return (

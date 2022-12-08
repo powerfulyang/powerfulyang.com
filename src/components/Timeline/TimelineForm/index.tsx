@@ -87,7 +87,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
         body: formData,
       });
     },
-    onSuccess({ data }) {
+    onSuccess(data) {
       reset();
       if (editItem) {
         onSubmitSuccess('modify', data);
