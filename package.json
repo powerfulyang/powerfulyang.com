@@ -84,7 +84,7 @@
     "jest-canvas-mock": "latest",
     "next-compose-plugins": "2.2.1",
     "next-pwa": "5.6.0",
-    "prettier-plugin-tailwindcss": "0.2.0",
+    "prettier-plugin-tailwindcss": "0.2.1",
     "tailwindcss": "3.2.4",
     "typescript": "latest"
   }
