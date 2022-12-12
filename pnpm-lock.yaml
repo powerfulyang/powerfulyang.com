@@ -58,7 +58,7 @@ specifiers:
   unist-util-visit: 4.1.1
   xterm: 5.0.0
   yaml: 2.1.3
-  zod: 3.20.0
+  zod: 3.20.1
 
 dependencies:
   '@docsearch/react': 3.3.0_bbqmvyebg44zjqjhzodbnnxkxa
@@ -103,7 +103,7 @@ dependencies:
   unist-util-visit: 4.1.1
   xterm: 5.0.0
   yaml: 2.1.3
-  zod: 3.20.0
+  zod: 3.20.1
 
 devDependencies:
   '@next/bundle-analyzer': 13.0.6
@@ -10740,8 +10740,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zod/3.20.0:
-    resolution: {integrity: sha512-ZWxs7oM5ixoo1BMoxTNeDMYSih/F/FUnExsnRtHT04rG6q0Bd74TKS45RGXw07TOalOZyyzdKaYH38k8yTEv9A==}
+  /zod/3.20.1:
+    resolution: {integrity: sha512-At2YngeqktnHk6L9vf6Sdt7IGcRFziasf7JyQfKwxMd2rOWIUvURP6oLUTW6N0WKQ5bcIdI+IZ3+uGZCCcQcQg==}
     dev: false
 
   /zwitch/2.0.4:
