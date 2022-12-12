@@ -27,15 +27,11 @@
 
   .card {
     display: flex;
-    height: 200px;
     box-shadow: 0 0 10px rgb(0 0 0 / 10%);
     @apply isolate mx-auto my-6 w-[90%] overflow-hidden rounded-xl sm:w-[800px];
 
     h2 {
-      margin-bottom: 12px;
-      font-size: 22px;
-      line-height: 32px;
-      font-weight: 600;
+      margin-bottom: 5px;
     }
 
     summary {

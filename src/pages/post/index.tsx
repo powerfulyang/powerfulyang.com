@@ -64,14 +64,14 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             }}
           >
             <LazyAssetImage
-              containerClassName="h-[200px] w-[320px] object-cover"
+              containerClassName="h-[250px] w-[320px] object-cover p-6 rounded-lg"
               thumbnail={700}
               draggable={false}
               asset={post.poster}
             />
-            <div className="ml-6 flex w-[480px] flex-col justify-around">
+            <div className="ml-2 flex w-[480px] flex-col justify-around">
               <h2>{post.title}</h2>
-              <summary>{post.content}</summary>
+              <summary>{post.summary}</summary>
               <section className="divide-x divide-gray-200 text-gray-600">
                 <span className="px-4">{post.createBy.nickname}</span>
                 <span className="px-4">{DateTimeFormat(post.createAt)}</span>
