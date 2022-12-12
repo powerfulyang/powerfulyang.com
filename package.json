@@ -41,7 +41,7 @@
     "hast-util-to-string": "2.0.0",
     "http-status-codes": "2.2.0",
     "immer": "9.0.16",
-    "jotai": "1.11.1",
+    "jotai": "1.11.2",
     "lodash-es": "4.17.21",
     "monaco-editor": "0.34.1",
     "next": "13.0.6",
