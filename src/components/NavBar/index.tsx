@@ -9,7 +9,7 @@ import { Dropdown, Menu } from '@powerfulyang/components';
 import styles from './index.module.scss';
 import { Link } from '../Link';
 
-export const menus = ['post', 'timeline'];
+export const menus = ['post', 'timeline', 'gallery', 'airdrop'];
 
 type NavBarProps = {};
 
@@ -17,21 +17,18 @@ const Menus: FC = () => {
   const { pathname, pushState } = useHistory();
 
   const currentMenu = useMemo(() => {
-    const menu = menus.find((m) => pathname.includes(m));
-    if (pathname === '/gallery' || pathname === '/airdrop') {
-      return 'more';
-    }
-    return menu || 'post';
+    return menus.find((m) => pathname.includes(m)) || 'post';
   }, [pathname]);
 
   return (
     <div className={styles.menus}>
-      {menus.map((x) => (
+      {menus.map((x, index) => (
         <Link
           key={x}
           className={classNames(
             {
               [styles.active]: currentMenu === x,
+              'hidden sm:inline-block': index >= 2,
             },
             styles.menu,
           )}
@@ -55,8 +52,8 @@ const Menus: FC = () => {
                 Gallery
               </Menu.Item>
               <Menu.Item
-                className="pointer"
                 menuKey="airdrop"
+                className="pointer"
                 onClick={() => {
                   return pushState('/airdrop');
                 }}
@@ -68,8 +65,8 @@ const Menus: FC = () => {
         }
       >
         <div
-          className={classNames(styles.menu, 'pointer', {
-            [styles.active]: currentMenu === 'more',
+          className={classNames(styles.menu, 'pointer sm:hidden', {
+            [styles.active]: menus.slice(2).includes(currentMenu),
           })}
         >
           More

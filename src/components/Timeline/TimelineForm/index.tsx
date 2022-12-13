@@ -73,23 +73,21 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
   }, [editItem, setValue]);
 
   const mutation = useMutation({
-    mutationFn: async (variables: FeedCreate) => {
+    mutationFn: (variables: FeedCreate) => {
       const formData = fileListToFormData(variables.assets, 'assets');
       formData.append('content', variables.content);
       formData.append('public', String(variables.public));
       if (editItem) {
         formData.append('id', String(editItem.id));
-        const res = await requestAtClient('/feed', {
+        return requestAtClient<Feed>('/feed', {
           method: 'PUT',
           body: formData,
         });
-        return (await res.json()) as Feed;
       }
-      const res = await requestAtClient('/feed', {
+      return requestAtClient<Feed>('/feed', {
         method: 'POST',
         body: formData,
       });
-      return (await res.json()) as Feed;
     },
     onSuccess(data) {
       reset();

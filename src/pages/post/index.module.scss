@@ -26,7 +26,7 @@
   }
 
   .card {
-    @apply relative isolate mx-auto my-6 h-[200px] w-[90%] overflow-hidden rounded-xl p-6 sm:w-[600px];
+    @apply relative isolate mx-auto my-4 h-[200px] w-[90%] overflow-hidden rounded-xl p-6 sm:my-6 sm:w-[600px];
 
     .bg {
       @apply absolute inset-0 -z-10;
