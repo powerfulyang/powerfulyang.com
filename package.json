@@ -68,7 +68,7 @@
     "unist-util-visit": "4.1.1",
     "xterm": "5.0.0",
     "yaml": "2.1.3",
-    "zod": "3.20.1"
+    "zod": "3.20.2"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "13.0.6",
