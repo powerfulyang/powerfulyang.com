@@ -1,7 +1,7 @@
 import { isNil, reject } from 'ramda';
 import type { GetServerSideProps } from 'next';
 import { notification } from '@powerfulyang/components';
-import { getReasonPhrase } from 'http-status-codes';
+import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 
 export type RequestOptions = {
   method?: string;
@@ -72,6 +72,10 @@ export const requestAtClient = async <T = any>(
     }
 
     throw new Error(message); // 请求异常走 onError 回调
+  }
+
+  if (res.status === StatusCodes.NO_CONTENT) {
+    return null as T;
   }
 
   return res.json();

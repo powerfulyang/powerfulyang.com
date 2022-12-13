@@ -26,21 +26,29 @@
   }
 
   .card {
-    display: flex;
-    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
-    @apply isolate mx-auto my-6 w-[90%] overflow-hidden rounded-xl sm:w-[800px];
+    @apply relative isolate mx-auto my-6 h-[200px] w-[90%] overflow-hidden rounded-xl p-6 sm:w-[600px];
+
+    .bg {
+      @apply absolute inset-0 -z-10;
+
+      &::after {
+        position: absolute;
+        z-index: 1;
+        content: '';
+        inset: 0;
+        background-image: linear-gradient(to right, #000, transparent);
+      }
+    }
 
     h2 {
-      margin-bottom: 5px;
+      @apply my-2 w-full text-2xl font-medium text-gray-200;
     }
 
     summary {
-      color: #777;
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
       word-break: break-all;
-      // ellipsis 4 lines
-      @include line-clamp(4);
+      // ellipsis 3 lines
+      @include line-clamp(3);
+      @apply my-3 max-w-[70%] text-amber-200 sm:max-w-[60%];
     }
   }
 }

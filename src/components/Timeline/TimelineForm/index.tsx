@@ -49,6 +49,8 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
     resolver: zodResolver(
       z.object({
         content: z.string().min(1, '请写点什么~~~').max(1000, '内容不能超过1000个字符'),
+        public: z.boolean(),
+        assets: z.any(),
       }),
     ),
   });
@@ -71,21 +73,23 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
   }, [editItem, setValue]);
 
   const mutation = useMutation({
-    mutationFn: (variables: FeedCreate) => {
+    mutationFn: async (variables: FeedCreate) => {
       const formData = fileListToFormData(variables.assets, 'assets');
       formData.append('content', variables.content);
       formData.append('public', String(variables.public));
       if (editItem) {
         formData.append('id', String(editItem.id));
-        return requestAtClient<Feed>('/feed', {
+        const res = await requestAtClient('/feed', {
           method: 'PUT',
           body: formData,
         });
+        return (await res.json()) as Feed;
       }
-      return requestAtClient<Feed>('/feed', {
+      const res = await requestAtClient('/feed', {
         method: 'POST',
         body: formData,
       });
+      return (await res.json()) as Feed;
     },
     onSuccess(data) {
       reset();
@@ -200,6 +204,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
               }
             }}
             placeholder="写点什么..."
+            aria-invalid={errors.content ? 'true' : 'false'}
           />
         </div>
         <div className={classNames(styles.assets)}>
@@ -224,9 +229,11 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
             ))}
           </ImagePreview>
         </div>
-        <span className="my-1 mr-4 block text-right text-red-400 empty:hidden">
-          {errors.content?.message}
-        </span>
+        {errors.content && (
+          <span role="alert" className="my-1 mr-4 block text-right text-red-400">
+            {errors.content?.message}
+          </span>
+        )}
         {editItem && (
           <div className="text-right">
             <button
