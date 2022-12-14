@@ -12,7 +12,7 @@ specifiers:
   '@powerfulyang/utils': 1.5.0
   '@sentry/cli': 2.10.0
   '@sentry/nextjs': 7.26.0
-  '@tanstack/react-query': 4.20.3
+  '@tanstack/react-query': 4.20.4
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0
   '@types/lodash-es': 4.17.6
@@ -69,7 +69,7 @@ dependencies:
   '@powerfulyang/hooks': 1.4.0_6fii3lyxz5p4sfxvpi32ofquqy
   '@powerfulyang/utils': 1.5.0_whg6pvy6vwu66ypq7idiq2suxq
   '@sentry/nextjs': 7.26.0_ivfizlltnf5oincobffrvntlsq
-  '@tanstack/react-query': 4.20.3_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
   dayjs: 1.11.7
   framer-motion: 7.9.1_biqbaboplfbrettd7655fr4n2y
@@ -2722,12 +2722,12 @@ packages:
       jsonc-parser: 3.2.0
     dev: true
 
-  /@tanstack/query-core/4.20.2:
-    resolution: {integrity: sha512-50tydwMY+fZuSPHiW+mdMQHSgjR9+3xXDoLBPt1tJWyF0mZDjMetlBxLWNaFb/Aid/ml0ZE5nRUW7CZCtwzpHQ==}
+  /@tanstack/query-core/4.20.4:
+    resolution: {integrity: sha512-lhLtGVNJDsJ/DyZXrLzekDEywQqRVykgBqTmkv0La32a/RleILXy6JMLBb7UmS3QCatg/F/0N9/5b0i5j6IKcA==}
     dev: false
 
-  /@tanstack/react-query/4.20.3_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-vx1cDiod0q80fVG+ZVCmZDE8hTiiosuwJPEKA6o8k1zG+siQXnSE0BTsyXasNhvpXnsbCbWzp8XkCszNw2DHNQ==}
+  /@tanstack/react-query/4.20.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-SJRxx13k/csb9lXAJfycgVA1N/yU/h3bvRNWP0+aHMfMjmbyX82FdoAcckDBbOdEyAupvb0byelNHNeypCFSyA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -2738,7 +2738,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.20.2
+      '@tanstack/query-core': 4.20.4
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
