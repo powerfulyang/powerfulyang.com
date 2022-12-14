@@ -92,7 +92,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
           <LazyImage
             lazy={false}
             draggable={false}
-            className="select-none rounded-lg"
+            className="aspect-square select-none rounded-lg"
             src={feed.createBy.avatar}
             alt="用户头像"
           />

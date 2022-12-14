@@ -66,7 +66,12 @@ export const NavBarUser = () => {
       >
         <div className={styles.user}>
           <span className={styles.nickname}>{user.nickname}</span>
-          <LazyImage src={user.avatar} containerClassName={styles.avatar} alt="avatar" />
+          <LazyImage
+            className="aspect-square"
+            src={user.avatar}
+            containerClassName={styles.avatar}
+            alt="avatar"
+          />
         </div>
       </Dropdown>
     ) : (

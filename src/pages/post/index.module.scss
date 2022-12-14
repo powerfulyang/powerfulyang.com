@@ -26,28 +26,35 @@
   }
 
   .card {
-    @apply relative isolate mx-auto my-4 h-[200px] w-[90%] overflow-hidden rounded-xl p-6 sm:my-6 sm:w-[600px];
+    @apply relative isolate mx-auto my-4 h-[calc(170px+5vw)] w-[90%] max-w-[90%] overflow-hidden rounded-xl p-6 sm:my-6 sm:w-[calc(600px+5vw)] sm:p-10;
 
     .bg {
-      @apply absolute inset-0 -z-10;
+      @apply absolute inset-0 -z-[1];
 
       &::after {
         position: absolute;
         z-index: 1;
         content: '';
         inset: 0;
-        background-image: linear-gradient(to right, #000, transparent);
+        background-image: linear-gradient(
+          to right,
+          hsl(0deg 0% 0% / 82%) 0%,
+          hsl(0deg 0% 0% / 80.5%) 8.2%,
+          hsl(0deg 0% 0% / 78.1%) 16%,
+          hsl(0deg 0% 0% / 75.8%) 23.4%,
+          hsl(0deg 0% 0% / 43.3%) 62.6%,
+          hsl(0deg 0% 0% / 5%) 100%
+        );
       }
     }
 
     h2 {
-      @apply my-2 w-full text-2xl font-medium text-gray-200;
+      @apply mb-2 w-full truncate text-2xl font-medium text-gray-200;
     }
 
     summary {
       word-break: break-all;
-      // ellipsis 3 lines
-      @include line-clamp(3);
+      @include line-clamp(4);
       @apply my-3 max-w-[70%] text-amber-200 sm:max-w-[60%];
     }
   }

@@ -35,10 +35,10 @@ export const LazyImage = memo<LazyImageProps>(
     ...props
   }) => {
     const [loading, setLoading] = useState(() => {
-      const isLocalData = src?.startsWith('data:') || src?.startsWith('blob:');
+      const isLocalDataOrEmpty = src?.startsWith('data:') || src?.startsWith('blob:') || !src;
       if (lazy) {
         // local data 不需要加载动画
-        if (isLocalData) {
+        if (isLocalDataOrEmpty) {
           return false;
         }
         // 加载过的图片不需要加载动画
