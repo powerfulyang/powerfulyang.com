@@ -1,10 +1,8 @@
-import withPWA from 'next-pwa';
-import withPlugins from 'next-compose-plugins';
+import withPWAConfig from 'next-pwa';
 import { isDevProcess, isProdProcess } from '@powerfulyang/utils';
 import runtimeCaching from 'next-pwa/cache.js';
 import { withSentryConfig } from '@sentry/nextjs';
-import withBundleAnalyzer from '@next/bundle-analyzer';
-import withCamelCaseCSSModules from './plugins/next-css-modules.js';
+import BundleAnalyzer from '@next/bundle-analyzer';
 
 /**
  * @type {string}
@@ -59,45 +57,6 @@ const config = {
       },
     ]);
   },
-  pwa: {
-    dest: 'public',
-    disable: isDevProcess,
-    sourcemap: false,
-    buildExcludes: [/\.map$/],
-    runtimeCaching: [
-      ...defaultCacheRule,
-      {
-        urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
-        handler: 'NetworkFirst',
-        options: {
-          cacheName: 'next-data',
-          expiration: {
-            maxEntries: 32,
-            maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          },
-          networkTimeoutSeconds: 1, // fall back to cache if api does not response within 1 seconds
-        },
-      },
-      {
-        urlPattern: ({ url }) => {
-          // eslint-disable-next-line no-restricted-globals
-          const isSameOrigin = self.origin === url.origin;
-          const { pathname } = url;
-          return isSameOrigin && pathname.startsWith('/api/');
-        },
-        handler: 'NetworkFirst',
-        method: 'GET',
-        options: {
-          cacheName: 'apis',
-          expiration: {
-            maxEntries: 16,
-            maxAgeSeconds: 24 * 60 * 60, // 24 hours
-          },
-          networkTimeoutSeconds: 1, // fall back to cache if api does not response within 1 seconds
-        },
-      },
-    ],
-  },
   experimental: {
     esmExternals: true,
     scrollRestoration: true,
@@ -105,7 +64,7 @@ const config = {
   env: {
     CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST,
     NEXT_PUBLIC_SENTRY_DSN:
-      'https://f4e15b44f3674255b6eed1cb673c0dcb@o417744.ingest.sentry.io/6340260',
+      'https://15cbb27739a345dab5ab27ceb9491de0@o4504332393578496.ingest.sentry.io/4504332396134400',
     NEXT_PUBLIC_GA_ID: 'G-T622M0KSVS',
   },
   eslint: {
@@ -115,25 +74,82 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  sentry: {
-    disableServerWebpackPlugin: isDisableSentry,
-    disableClientWebpackPlugin: isDisableSentry,
-    hideSourceMaps: true,
-    widenClientFileUpload: true,
-  },
   productionBrowserSourceMaps: isProdProcess,
   optimizeFonts: true,
   swcMinify: true,
 };
 
-export default withPlugins(
-  [
-    withCamelCaseCSSModules,
-    withPWA,
-    withBundleAnalyzer({
-      enabled: process.env.ANALYZE === 'true',
-    }),
-    [withSentryConfig, sentryWebpackPluginOptions],
+// config
+
+const withBundleAnalyzer = BundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+const withPWA = withPWAConfig({
+  dest: 'public',
+  disable: isDevProcess,
+  sourcemap: false,
+  buildExcludes: [/\.map$/],
+  runtimeCaching: [
+    ...defaultCacheRule,
+    {
+      urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'next-data',
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+        networkTimeoutSeconds: 1, // fall back to cache if api does not response within 1 seconds
+      },
+    },
+    {
+      urlPattern: ({ url }) => {
+        // eslint-disable-next-line no-restricted-globals
+        const isSameOrigin = self.origin === url.origin;
+        const { pathname } = url;
+        return isSameOrigin && pathname.startsWith('/api/');
+      },
+      handler: 'NetworkFirst',
+      method: 'GET',
+      options: {
+        cacheName: 'apis',
+        expiration: {
+          maxEntries: 16,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+        networkTimeoutSeconds: 1, // fall back to cache if api does not response within 1 seconds
+      },
+    },
   ],
-  config,
+});
+const nextConfig = withSentryConfig(
+  {
+    sentry: {
+      disableServerWebpackPlugin: isDisableSentry,
+      disableClientWebpackPlugin: isDisableSentry,
+      hideSourceMaps: true,
+      widenClientFileUpload: true,
+    },
+    ...config,
+    ...withBundleAnalyzer(
+      withPWA({
+        webpack: (c) => {
+          // camel-case style names from css modules
+          c.module.rules
+            .find(({ oneOf }) => !!oneOf)
+            .oneOf.filter(({ use }) => JSON.stringify(use)?.includes('css-loader'))
+            .reduce((acc, { use }) => acc.concat(use), [])
+            .forEach(({ options: draft }) => {
+              if (draft.modules) {
+                draft.modules.exportLocalsConvention = 'camelCase';
+              }
+            });
+          return c;
+        },
+      }),
+    ),
+  },
+  sentryWebpackPluginOptions,
 );
+export default nextConfig;
