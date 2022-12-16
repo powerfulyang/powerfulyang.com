@@ -51,7 +51,7 @@ specifiers:
   remark-parse: 10.0.1
   remark-rehype: 10.1.0
   remark-stringify: 10.0.2
-  rxjs: 7.6.0
+  rxjs: 7.8.0
   sharp: 0.31.2
   tailwindcss: 3.2.4
   typescript: latest
@@ -65,9 +65,9 @@ dependencies:
   '@hookform/resolvers': 2.9.10_react-hook-form@7.40.0
   '@mojs/core': 1.3.0
   '@monaco-editor/react': 4.4.6_6vrjaj6ridxbohi43n7zt4gn7q
-  '@powerfulyang/components': 1.6.0_c6diybzr6g5x7opwnaoq4fhcgu
-  '@powerfulyang/hooks': 1.4.0_6fii3lyxz5p4sfxvpi32ofquqy
-  '@powerfulyang/utils': 1.5.0_whg6pvy6vwu66ypq7idiq2suxq
+  '@powerfulyang/components': 1.6.0_7225ojnc6q5qr6wgnec64towza
+  '@powerfulyang/hooks': 1.4.0_33fybjvsivxgyubhgyrngkc7o4
+  '@powerfulyang/utils': 1.5.0_mnr6j2del53muneqly5h4y27ai
   '@sentry/nextjs': 7.26.0_l4pcxombhpcmna6jl32ft7ydl4
   '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
@@ -98,7 +98,7 @@ dependencies:
   remark-parse: 10.0.1
   remark-rehype: 10.1.0
   remark-stringify: 10.0.2
-  rxjs: 7.6.0
+  rxjs: 7.8.0
   sharp: 0.31.2
   unist-util-visit: 4.1.1
   xterm: 5.0.0
@@ -2221,7 +2221,7 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@powerfulyang/components/1.6.0_c6diybzr6g5x7opwnaoq4fhcgu:
+  /@powerfulyang/components/1.6.0_7225ojnc6q5qr6wgnec64towza:
     resolution: {integrity: sha512-cv1K7H3k5sAmAVpP9jwlrCXG0xR4EIjUl6/7DVDSXd1enbWNxQybykT3+33Ks8OPZSfBr3FUW6fFboP4eyr4bQ==}
     peerDependencies:
       '@powerfulyang/hooks': '*'
@@ -2234,18 +2234,18 @@ packages:
       reflect-metadata: '*'
       rxjs: '*'
     dependencies:
-      '@powerfulyang/hooks': 1.4.0_6fii3lyxz5p4sfxvpi32ofquqy
-      '@powerfulyang/utils': 1.5.0_whg6pvy6vwu66ypq7idiq2suxq
+      '@powerfulyang/hooks': 1.4.0_33fybjvsivxgyubhgyrngkc7o4
+      '@powerfulyang/utils': 1.5.0_mnr6j2del53muneqly5h4y27ai
       classnames: 2.3.2
       framer-motion: 7.10.0_biqbaboplfbrettd7655fr4n2y
       lodash-es: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       reflect-metadata: 0.1.13
-      rxjs: 7.6.0
+      rxjs: 7.8.0
     dev: false
 
-  /@powerfulyang/hooks/1.4.0_6fii3lyxz5p4sfxvpi32ofquqy:
+  /@powerfulyang/hooks/1.4.0_33fybjvsivxgyubhgyrngkc7o4:
     resolution: {integrity: sha512-akbQegjppwT568DF3zsXeZEBiMQdhyt7N2JwUJVDXIYgNwC/FgakQJoH1dbnwIQA9JtXAZoupW2tJAd78pbMyw==}
     peerDependencies:
       '@powerfulyang/utils': '*'
@@ -2255,12 +2255,12 @@ packages:
       react-dom: '*'
       rxjs: '*'
     dependencies:
-      '@powerfulyang/utils': 1.5.0_whg6pvy6vwu66ypq7idiq2suxq
+      '@powerfulyang/utils': 1.5.0_mnr6j2del53muneqly5h4y27ai
       immer: 9.0.16
       lodash-es: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      rxjs: 7.6.0
+      rxjs: 7.8.0
     dev: false
 
   /@powerfulyang/lint/3.1.3_z6wznmtyb6ovnulj6iujpct7um:
@@ -2325,14 +2325,14 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@powerfulyang/utils/1.5.0_whg6pvy6vwu66ypq7idiq2suxq:
+  /@powerfulyang/utils/1.5.0_mnr6j2del53muneqly5h4y27ai:
     resolution: {integrity: sha512-Uiof0VaAKpQxzOPOWPde/wTApPyFQG9KNchRWYHqA9MOgKDp3568wPW89YxY+pvE9o69YVjRvrMjfg7JJ0NhMA==}
     peerDependencies:
       reflect-metadata: '*'
       rxjs: '*'
     dependencies:
       reflect-metadata: 0.1.13
-      rxjs: 7.6.0
+      rxjs: 7.8.0
     dev: false
 
   /@rollup/plugin-babel/5.3.1_opjstonlpkhafnz76jsxdwq25a:
@@ -6918,7 +6918,7 @@ packages:
       log-update: 4.0.0
       p-map: 4.0.0
       rfdc: 1.3.0
-      rxjs: 7.6.0
+      rxjs: 7.8.0
       through: 2.3.8
       wrap-ansi: 7.0.0
     dev: true
@@ -8952,8 +8952,8 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /rxjs/7.6.0:
-    resolution: {integrity: sha512-DDa7d8TFNUalGC9VqXvQ1euWNN7sc63TrUCuM9J998+ViviahMIjKSOU7rfcgFOF+FCD71BhDRv4hrFz+ImDLQ==}
+  /rxjs/7.8.0:
+    resolution: {integrity: sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==}
     dependencies:
       tslib: 2.4.1
 
