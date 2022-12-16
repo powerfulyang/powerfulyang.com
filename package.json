@@ -63,7 +63,7 @@
     "remark-parse": "10.0.1",
     "remark-rehype": "10.1.0",
     "remark-stringify": "10.0.2",
-    "rxjs": "7.6.0",
+    "rxjs": "7.8.0",
     "sharp": "0.31.2",
     "unist-util-visit": "4.1.1",
     "xterm": "5.0.0",
