@@ -3,8 +3,8 @@ import * as THREE from 'three';
 import * as d3 from 'd3';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { mergeBufferGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils';
-import data from './data';
-import mapPoints from './mapPoints';
+import data from '../../data/data';
+import mapPoints from '../../data/mapPoints';
 
 const Index = () => {
   useEffect(() => {
