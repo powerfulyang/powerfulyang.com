@@ -60,7 +60,7 @@ specifiers:
   three: 0.147.0
   typescript: latest
   unist-util-visit: 4.1.1
-  xterm: 5.0.0
+  xterm: 5.1.0
   yaml: 2.1.3
   zod: 3.20.2
 
@@ -107,7 +107,7 @@ dependencies:
   sharp: 0.31.2
   three: 0.147.0
   unist-util-visit: 4.1.1
-  xterm: 5.0.0
+  xterm: 5.1.0
   yaml: 2.1.3
   zod: 3.20.2
 
@@ -11187,8 +11187,8 @@ packages:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
     engines: {node: '>=0.4'}
 
-  /xterm/5.0.0:
-    resolution: {integrity: sha512-tmVsKzZovAYNDIaUinfz+VDclraQpPUnAME+JawosgWRMphInDded/PuY0xmU5dOhyeYZsI0nz5yd8dPYsdLTA==}
+  /xterm/5.1.0:
+    resolution: {integrity: sha512-LovENH4WDzpwynj+OTkLyZgJPeDom9Gra4DMlGAgz6pZhIDCQ+YuO7yfwanY+gVbn/mmZIStNOnVRU/ikQuAEQ==}
     dev: false
 
   /y18n/5.0.8:
