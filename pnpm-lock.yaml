@@ -6,10 +6,10 @@ specifiers:
   '@mojs/core': 1.4.0
   '@monaco-editor/react': 4.4.6
   '@next/bundle-analyzer': 13.0.7
-  '@powerfulyang/components': 1.6.0
+  '@powerfulyang/components': 1.6.1
   '@powerfulyang/hooks': 1.4.0
   '@powerfulyang/lint': 3.1.3
-  '@powerfulyang/utils': 1.5.0
+  '@powerfulyang/utils': 1.6.0
   '@sentry/cli': 2.10.0
   '@sentry/nextjs': 7.27.0
   '@tanstack/react-query': 4.20.4
@@ -69,9 +69,9 @@ dependencies:
   '@hookform/resolvers': 2.9.10_react-hook-form@7.41.0
   '@mojs/core': 1.4.0
   '@monaco-editor/react': 4.4.6_6vrjaj6ridxbohi43n7zt4gn7q
-  '@powerfulyang/components': 1.6.0_gh3qrv6pq4hdflkeuc7kuws6py
-  '@powerfulyang/hooks': 1.4.0_33fybjvsivxgyubhgyrngkc7o4
-  '@powerfulyang/utils': 1.5.0_mnr6j2del53muneqly5h4y27ai
+  '@powerfulyang/components': 1.6.1_pzczsrmxfnzbyndf5hxz4qrvda
+  '@powerfulyang/hooks': 1.4.0_n46od2lxvaaqwjlpvte76cgd7y
+  '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
   '@sentry/nextjs': 7.27.0_l4pcxombhpcmna6jl32ft7ydl4
   '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
@@ -2230,8 +2230,8 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@powerfulyang/components/1.6.0_gh3qrv6pq4hdflkeuc7kuws6py:
-    resolution: {integrity: sha512-cv1K7H3k5sAmAVpP9jwlrCXG0xR4EIjUl6/7DVDSXd1enbWNxQybykT3+33Ks8OPZSfBr3FUW6fFboP4eyr4bQ==}
+  /@powerfulyang/components/1.6.1_pzczsrmxfnzbyndf5hxz4qrvda:
+    resolution: {integrity: sha512-yMdfjDVglNSY1ep3fQvmlGzdPvTB1Y8T73EIQQCIpf4LhKYyVQ2dyRJbmIHA48XG6wB/PZ08tm+IORVKbGmFNg==}
     peerDependencies:
       '@powerfulyang/hooks': '*'
       '@powerfulyang/utils': '*'
@@ -2243,8 +2243,8 @@ packages:
       reflect-metadata: '*'
       rxjs: '*'
     dependencies:
-      '@powerfulyang/hooks': 1.4.0_33fybjvsivxgyubhgyrngkc7o4
-      '@powerfulyang/utils': 1.5.0_mnr6j2del53muneqly5h4y27ai
+      '@powerfulyang/hooks': 1.4.0_n46od2lxvaaqwjlpvte76cgd7y
+      '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
       classnames: 2.3.2
       framer-motion: 7.10.2_biqbaboplfbrettd7655fr4n2y
       lodash-es: 4.17.21
@@ -2254,7 +2254,7 @@ packages:
       rxjs: 7.8.0
     dev: false
 
-  /@powerfulyang/hooks/1.4.0_33fybjvsivxgyubhgyrngkc7o4:
+  /@powerfulyang/hooks/1.4.0_n46od2lxvaaqwjlpvte76cgd7y:
     resolution: {integrity: sha512-akbQegjppwT568DF3zsXeZEBiMQdhyt7N2JwUJVDXIYgNwC/FgakQJoH1dbnwIQA9JtXAZoupW2tJAd78pbMyw==}
     peerDependencies:
       '@powerfulyang/utils': '*'
@@ -2264,7 +2264,7 @@ packages:
       react-dom: '*'
       rxjs: '*'
     dependencies:
-      '@powerfulyang/utils': 1.5.0_mnr6j2del53muneqly5h4y27ai
+      '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
       immer: 9.0.16
       lodash-es: 4.17.21
       react: 18.2.0
@@ -2310,7 +2310,7 @@ packages:
       prettier-plugin-tailwindcss: 0.2.1_prettier@2.8.1
       rimraf: 3.0.2
       rollup: 3.7.5
-      sass: 1.57.0
+      sass: 1.57.1
       stylelint: 14.15.0
       stylelint-config-css-modules: 4.1.0_stylelint@14.15.0
       stylelint-config-prettier: 9.0.4_stylelint@14.15.0
@@ -2334,12 +2334,14 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@powerfulyang/utils/1.5.0_mnr6j2del53muneqly5h4y27ai:
-    resolution: {integrity: sha512-Uiof0VaAKpQxzOPOWPde/wTApPyFQG9KNchRWYHqA9MOgKDp3568wPW89YxY+pvE9o69YVjRvrMjfg7JJ0NhMA==}
+  /@powerfulyang/utils/1.6.0_po6reqho5g3vevlomuclg2bnvy:
+    resolution: {integrity: sha512-47fe03MuoXZjPYcGUVsYh3gKgbLkhdvUBDJ1lw4XsXfPeVMYMtUm/idONzfrNdw6CyfxZ0ww/Q4drBiYjNjLbw==}
     peerDependencies:
+      qrcode-generator: '*'
       reflect-metadata: '*'
       rxjs: '*'
     dependencies:
+      qrcode-generator: 1.4.4
       reflect-metadata: 0.1.13
       rxjs: 7.8.0
     dev: false
@@ -8998,6 +9000,10 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     dev: true
 
+  /qrcode-generator/1.4.4:
+    resolution: {integrity: sha512-HM7yY8O2ilqhmULxGMpcHSF1EhJJ9yBj8gvDEuZ6M+KGJ0YY2hKpnXvRD+hZPLrDVck3ExIGhmPtSdcjC+guuw==}
+    dev: false
+
   /querystringify/2.2.0:
     resolution: {integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==}
     dev: true
@@ -9530,8 +9536,8 @@ packages:
   /safer-buffer/2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /sass/1.57.0:
-    resolution: {integrity: sha512-IZNEJDTK1cF5B1cGA593TPAV/1S0ysUDxq9XHjX/+SMy0QfUny+nfUsq5ZP7wWSl4eEf7wDJcEZ8ABYFmh3m/w==}
+  /sass/1.57.1:
+    resolution: {integrity: sha512-O2+LwLS79op7GI0xZ8fqzF7X2m/m8WFfI02dHOdsK5R2ECeS5F62zrwg/relM1rjSLy7Vd/DiMNIvPrQGsA0jw==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
