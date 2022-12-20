@@ -4,7 +4,7 @@ import { requestAtClient } from '@/utils/client';
 import type { Asset } from '@/type/Asset';
 import type { Bucket } from '@/type/Bucket';
 import { AssetBucket } from '@/type/Bucket';
-import { uniqueId } from 'lodash-es';
+import { uniqueId } from '@powerfulyang/utils';
 
 export const appendToFileList = (source: FileList, append: FileList) => {
   const tmp = new DataTransfer();
