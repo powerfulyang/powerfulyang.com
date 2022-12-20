@@ -102,13 +102,11 @@ export const Code: CodeComponent = ({ inline, className, children, node }) => {
   if (language === 'codepen' || language === 'codesandbox' || language === 'iframe') {
     // if `toString(node)` doesn't match iframe, return null
     const str = toString(node);
-    const reg = /<iframe.*?src="(.+?)".*?<\/iframe>/;
-    const passed = reg.test(str);
-    if (!passed) {
-      return null;
-    }
+    const reg = /^<iframe[\s\S]+?<\/iframe>$/m;
+    const result = str.match(reg);
+    if (!result) return null;
     // eslint-disable-next-line react/no-danger
-    return <span dangerouslySetInnerHTML={{ __html: str }} />;
+    return <span dangerouslySetInnerHTML={{ __html: result[0] }} />;
   }
 
   return (
