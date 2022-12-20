@@ -120,6 +120,8 @@ $main-color: #ffb356;
   }
 
   pre:has(> span) {
+    @apply mb-4;
+
     white-space: normal;
   }
 

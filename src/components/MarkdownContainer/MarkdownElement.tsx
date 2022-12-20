@@ -99,9 +99,16 @@ export const Code: CodeComponent = ({ inline, className, children, node }) => {
   }
   const language = match?.[1] || 'unknown';
 
-  if (language === 'codepen' || language === 'codesandbox' || language === 'innerHtml') {
+  if (language === 'codepen' || language === 'codesandbox' || language === 'iframe') {
+    // if `toString(node)` doesn't match iframe, return null
+    const str = toString(node);
+    const reg = /<iframe.*?src="(.+?)".*?<\/iframe>/;
+    const passed = reg.test(str);
+    if (!passed) {
+      return null;
+    }
     // eslint-disable-next-line react/no-danger
-    return <span dangerouslySetInnerHTML={{ __html: toString(node) }} />;
+    return <span dangerouslySetInnerHTML={{ __html: str }} />;
   }
 
   return (
