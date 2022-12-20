@@ -29,7 +29,7 @@ specifiers:
   http-status-codes: 2.2.0
   immer: 9.0.16
   jest-canvas-mock: latest
-  jotai: 1.11.2
+  jotai: 1.12.0
   lodash-es: 4.17.21
   monaco-editor: 0.34.1
   next: 13.0.7
@@ -81,7 +81,7 @@ dependencies:
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
   immer: 9.0.16
-  jotai: 1.11.2_zavbqmrropwrojvx6ojaa4s7im
+  jotai: 1.12.0_zavbqmrropwrojvx6ojaa4s7im
   lodash-es: 4.17.21
   monaco-editor: 0.34.1
   next: 13.0.7_672uxklweod7ene3nqtsh262ca
@@ -2310,7 +2310,7 @@ packages:
       prettier-plugin-tailwindcss: 0.2.1_prettier@2.8.1
       rimraf: 3.0.2
       rollup: 3.7.5
-      sass: 1.57.0
+      sass: 1.57.1
       stylelint: 14.15.0
       stylelint-config-css-modules: 4.1.0_stylelint@14.15.0
       stylelint-config-prettier: 9.0.4_stylelint@14.15.0
@@ -7173,8 +7173,8 @@ packages:
       - ts-node
     dev: true
 
-  /jotai/1.11.2_zavbqmrropwrojvx6ojaa4s7im:
-    resolution: {integrity: sha512-hVLn1aS1QprDy+NrvyWIOcaA/LEG5AY0Z7kWtx26EJ8eH8DY8pW1wUM0PrlqQzthqd6HdEVtXLY1rB//0n8LvA==}
+  /jotai/1.12.0_zavbqmrropwrojvx6ojaa4s7im:
+    resolution: {integrity: sha512-IhyBmjxU1sE2Ni/MUK7gQAb8QvCM6yd1/K5jtQzgQBmmjCjgfXZkkk1rYlQAIRp2KoQk0Y+yzhm1f5cZ7kegnw==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@babel/core': '*'
@@ -9530,8 +9530,8 @@ packages:
   /safer-buffer/2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /sass/1.57.0:
-    resolution: {integrity: sha512-IZNEJDTK1cF5B1cGA593TPAV/1S0ysUDxq9XHjX/+SMy0QfUny+nfUsq5ZP7wWSl4eEf7wDJcEZ8ABYFmh3m/w==}
+  /sass/1.57.1:
+    resolution: {integrity: sha512-O2+LwLS79op7GI0xZ8fqzF7X2m/m8WFfI02dHOdsK5R2ECeS5F62zrwg/relM1rjSLy7Vd/DiMNIvPrQGsA0jw==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
