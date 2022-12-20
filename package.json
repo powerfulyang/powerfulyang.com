@@ -39,7 +39,7 @@
     "classnames": "2.3.2",
     "d3": "7.7.0",
     "dayjs": "1.11.7",
-    "framer-motion": "7.10.2",
+    "framer-motion": "7.10.3",
     "hast-util-to-string": "2.0.0",
     "http-status-codes": "2.2.0",
     "immer": "9.0.16",
