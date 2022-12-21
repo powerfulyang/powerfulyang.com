@@ -11,18 +11,20 @@ import { MessageSendType } from '@/components/Chat/Message';
 import { LazyImage } from '@/components/LazyImage';
 import { useDocumentVisible } from '@/hooks/useDocumentVisible';
 import { randomAvatar } from '@/utils/lib';
+import { requestAtClient } from '@/utils/client';
 import styles from './index.module.scss';
 
-const group = 'LAN';
+const LAN = 'LAN';
+const ChatGPT = 'ChatGPT';
 
 const Airdrop: LayoutFC = () => {
   const [currentPeerId, setCurrentPeerId] = useState('');
   const [connections, setConnections] = useImmer(() => new Map<string, DataConnection>());
   const messageIdRef = useRef(0);
   const [messages, setMessages] = useImmer<Map<string, ChatMessageEntity[]>>(
-    () => new Map([[group, []]]),
+    () => new Map([[LAN, []]]),
   );
-  const [selectPeerId, setSelectPeerId] = useState<string>(() => group);
+  const [selectPeerId, setSelectPeerId] = useState<string>(() => LAN);
   const peerRef = useRef<Peer>();
 
   const handleMessage = useCallback(
@@ -61,7 +63,7 @@ const Airdrop: LayoutFC = () => {
       });
       handleMessage({
         from,
-        chatFriendId: group,
+        chatFriendId: LAN,
         content: d,
         messageContentType,
         sendType: MessageSendType.receive,
@@ -78,11 +80,11 @@ const Airdrop: LayoutFC = () => {
         chatFriendId: selectPeerId,
         sendType: MessageSendType.send,
       });
-      if (selectPeerId !== group) {
+      if (![LAN, ChatGPT].includes(selectPeerId)) {
         connections.get(selectPeerId)?.send({
           ...message,
         });
-      } else {
+      } else if (selectPeerId === LAN) {
         connections.forEach((connection) => {
           connection.send({
             ...message,
@@ -94,6 +96,31 @@ const Airdrop: LayoutFC = () => {
             sendType: MessageSendType.send,
           });
         });
+      } else if (selectPeerId === ChatGPT) {
+        requestAtClient('/public/chat', {
+          method: 'POST',
+          body: {
+            message: message.content,
+          },
+        })
+          .then((res) => {
+            handleMessage({
+              from: ChatGPT,
+              chatFriendId: ChatGPT,
+              content: res.content,
+              messageContentType: 'text',
+              sendType: MessageSendType.receive,
+            });
+          })
+          .catch((e) => {
+            handleMessage({
+              from: ChatGPT,
+              chatFriendId: ChatGPT,
+              content: e.message,
+              messageContentType: 'text',
+              sendType: MessageSendType.receive,
+            });
+          });
       }
     },
     [handleMessage, selectPeerId, connections, currentPeerId],
@@ -153,7 +180,7 @@ const Airdrop: LayoutFC = () => {
     <main className={styles.main}>
       <div className={classNames(styles.desktopChats, 'common-shadow')}>
         <div className={styles.friends}>
-          {[group, ...connections.keys()]
+          {[LAN, ChatGPT, ...connections.keys()]
             .filter((x) => x !== currentPeerId)
             .map((peerId) => (
               <button
@@ -184,7 +211,7 @@ const Airdrop: LayoutFC = () => {
         )}
       </div>
       <div className={classNames('m-8 grid w-full grid-cols-3 grid-rows-[33vw] gap-4 sm:hidden')}>
-        {[group, ...connections.keys()].map((peerId) => {
+        {[LAN, ...connections.keys()].map((peerId) => {
           return (
             <div key={peerId} className="text-center">
               <label htmlFor={peerId}>

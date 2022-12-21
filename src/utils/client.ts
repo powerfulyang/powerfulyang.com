@@ -71,6 +71,11 @@ export const requestAtClient = async <T = any>(
       });
     }
 
+    if (res.status === StatusCodes.INTERNAL_SERVER_ERROR) {
+      const json = await res.json();
+      throw new Error(json.message);
+    }
+
     throw new Error(message); // 请求异常走 onError 回调
   }
 
