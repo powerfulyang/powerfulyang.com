@@ -22,7 +22,7 @@ specifiers:
   '@types/sharp': 0.31.0
   '@types/three': 0.146.0
   classnames: 2.3.2
-  d3: 7.7.0
+  d3: 7.8.0
   dayjs: 1.11.7
   framer-motion: 7.10.3
   hast-util-to-string: 2.0.0
@@ -75,7 +75,7 @@ dependencies:
   '@sentry/nextjs': 7.28.0_l4pcxombhpcmna6jl32ft7ydl4
   '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
-  d3: 7.7.0
+  d3: 7.8.0
   dayjs: 1.11.7
   framer-motion: 7.10.3_biqbaboplfbrettd7655fr4n2y
   hast-util-to-string: 2.0.0
@@ -4785,8 +4785,8 @@ packages:
       d3-transition: 3.0.1_d3-selection@3.0.0
     dev: false
 
-  /d3/7.7.0:
-    resolution: {integrity: sha512-VEwHCMgMjD2WBsxeRGUE18RmzxT9Bn7ghDpzvTEvkLSBAKgTMydJjouZTjspgQfRHpPt/PB3EHWBa6SSyFQq4g==}
+  /d3/7.8.0:
+    resolution: {integrity: sha512-a5rNemRadWkEfqnY5NsD4RdCP9vn8EIJ4I5Rl14U0uKH1SXqcNmk/h9aGaAF1O98lz6L9M0IeUcuPa9GUYbI5A==}
     engines: {node: '>=12'}
     dependencies:
       d3-array: 3.2.1
