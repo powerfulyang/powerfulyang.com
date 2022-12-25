@@ -42,7 +42,7 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   react-hook-form: 7.41.1
-  react-hotkeys-hook: 4.0.8
+  react-hotkeys-hook: 4.3.0
   react-intersection-observer: 9.4.1
   react-markdown: 8.0.4
   react-syntax-highlighter: 15.5.0
@@ -91,7 +91,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.41.1_react@18.2.0
-  react-hotkeys-hook: 4.0.8_biqbaboplfbrettd7655fr4n2y
+  react-hotkeys-hook: 4.3.0_biqbaboplfbrettd7655fr4n2y
   react-intersection-observer: 9.4.1_react@18.2.0
   react-markdown: 8.0.4_kzbn2opkn2327fwg5yzwzya5o4
   react-syntax-highlighter: 15.5.0_react@18.2.0
@@ -9063,8 +9063,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-hotkeys-hook/4.0.8_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-AefWPMIIEPPnJ7nMy+ewdCxTJaf+ljdHRIjv4Q6rXn0FuDi43YePVgmDmTFcpliDFiBhTRkxaMvAaenNQ+e+/A==}
+  /react-hotkeys-hook/4.3.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-U7wOxar+7SnocOv9Ha4Rzf5nTd2qg4SNGGqv7e4HfYKefr/a3J4Hw8Wwok0k2F+JNfsHN9wVgKgLJXbf0yVJXQ==}
     peerDependencies:
       react: '>=16.8.1'
       react-dom: '>=16.8.1'
