@@ -7,6 +7,7 @@ import { isProdProcess } from '@powerfulyang/utils';
 
 const SENTRY_DSN = process.env.NEXT_PUBLIC_SENTRY_DSN;
 
+// which will slow down your app
 if (isProdProcess) {
   Sentry.init({
     dsn: SENTRY_DSN,

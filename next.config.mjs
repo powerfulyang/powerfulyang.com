@@ -1,5 +1,5 @@
 import withPWAConfig from 'next-pwa';
-import { isDevProcess, isProdProcess } from '@powerfulyang/utils';
+import { isDevProcess } from '@powerfulyang/utils';
 import runtimeCaching from 'next-pwa/cache.js';
 import { withSentryConfig } from '@sentry/nextjs';
 import BundleAnalyzer from '@next/bundle-analyzer';
@@ -74,7 +74,7 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  productionBrowserSourceMaps: isProdProcess,
+  productionBrowserSourceMaps: !isDisableSentry,
   optimizeFonts: true,
   swcMinify: true,
 };
