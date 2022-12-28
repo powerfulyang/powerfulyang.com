@@ -41,7 +41,7 @@ specifiers:
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0
-  react-hook-form: 7.41.1
+  react-hook-form: 7.41.2
   react-hotkeys-hook: 4.3.0
   react-intersection-observer: 9.4.1
   react-markdown: 8.0.4
@@ -66,7 +66,7 @@ specifiers:
 
 dependencies:
   '@docsearch/react': 3.3.1_5hc3kenz2rcl74lgbiauumrhqq
-  '@hookform/resolvers': 2.9.10_react-hook-form@7.41.1
+  '@hookform/resolvers': 2.9.10_react-hook-form@7.41.2
   '@mojs/core': 1.4.0
   '@monaco-editor/react': 4.4.6_6vrjaj6ridxbohi43n7zt4gn7q
   '@powerfulyang/components': 1.6.1_ptmpn2uc25g22yfbqrpv4zo3ty
@@ -90,7 +90,7 @@ dependencies:
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-hook-form: 7.41.1_react@18.2.0
+  react-hook-form: 7.41.2_react@18.2.0
   react-hotkeys-hook: 4.3.0_biqbaboplfbrettd7655fr4n2y
   react-intersection-observer: 9.4.1_react@18.2.0
   react-markdown: 8.0.4_kzbn2opkn2327fwg5yzwzya5o4
@@ -1680,12 +1680,12 @@ packages:
       - supports-color
     dev: true
 
-  /@hookform/resolvers/2.9.10_react-hook-form@7.41.1:
+  /@hookform/resolvers/2.9.10_react-hook-form@7.41.2:
     resolution: {integrity: sha512-JIL1DgJIlH9yuxcNGtyhsWX/PgNltz+5Gr6+8SX9fhXc/hPbEIk6wPI82nhgvp3uUb6ZfAM5mqg/x7KR7NAb+A==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
-      react-hook-form: 7.41.1_react@18.2.0
+      react-hook-form: 7.41.2_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.7:
@@ -2309,7 +2309,7 @@ packages:
       prettier: 2.8.1
       prettier-plugin-tailwindcss: 0.2.1_prettier@2.8.1
       rimraf: 3.0.2
-      rollup: 3.8.1
+      rollup: 3.9.0
       sass: 1.57.1
       stylelint: 14.15.0
       stylelint-config-css-modules: 4.1.0_stylelint@14.15.0
@@ -9054,8 +9054,8 @@ packages:
       react: 18.2.0
       scheduler: 0.23.0
 
-  /react-hook-form/7.41.1_react@18.2.0:
-    resolution: {integrity: sha512-IHUozfwuqE+P201KIJwotMd+UCKqzIprseR8UUjz1jRupkZeubg0xyeMLIaT192zHv7vBBu9bibpNV5cIB4E9g==}
+  /react-hook-form/7.41.2_react@18.2.0:
+    resolution: {integrity: sha512-Uz5kNlfkEZve0sr5y2LsxPDGN3eNDjjKb1XJgand1E5Ay0S3zWo8YcJQNGu88/Zs6JaFnrJqTXbSr6B2q7wllA==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
@@ -9475,8 +9475,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rollup/3.8.1:
-    resolution: {integrity: sha512-4yh9eMW7byOroYcN8DlF9P/2jCpu6txVIHjEqquQVSx7DI0RgyCCN3tjrcy4ra6yVtV336aLBB3v2AarYAxePQ==}
+  /rollup/3.9.0:
+    resolution: {integrity: sha512-nGGylpmblyjTpF4lEUPgmOw6OVxRvnI6Iuuh6Lz4O/X66cVOX1XJSsqP1YamxQ+mPuFE7qJxLFDSCk8rNv5dDw==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
