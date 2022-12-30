@@ -61,7 +61,7 @@ specifiers:
   typescript: latest
   unist-util-visit: 4.1.1
   xterm: 5.1.0
-  yaml: 2.2.0
+  yaml: 2.2.1
   zod: 3.20.2
 
 dependencies:
@@ -108,7 +108,7 @@ dependencies:
   three: 0.148.0
   unist-util-visit: 4.1.1
   xterm: 5.1.0
-  yaml: 2.2.0
+  yaml: 2.2.1
   zod: 3.20.2
 
 devDependencies:
@@ -7434,7 +7434,7 @@ packages:
       object-inspect: 1.12.2
       pidtree: 0.6.0
       string-argv: 0.3.1
-      yaml: 2.2.0
+      yaml: 2.2.1
     transitivePeerDependencies:
       - enquirer
       - supports-color
@@ -11210,8 +11210,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /yaml/2.2.0:
-    resolution: {integrity: sha512-auf7Gi6QwO7HW//GA9seGvTXVGWl1CM/ADWh1+RxtXr6XOxnT65ovDl9fTi4e0monEyJxCHqDpF6QnFDXmJE4g==}
+  /yaml/2.2.1:
+    resolution: {integrity: sha512-e0WHiYql7+9wr4cWMx3TVQrNwejKaEe7/rHNmQmqRjazfOP5W8PB6Jpebb5o6fIapbz9o9+2ipcaTM2ZwDI6lw==}
     engines: {node: '>= 14'}
 
   /yargs-parser/20.2.9:
