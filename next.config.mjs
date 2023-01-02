@@ -77,6 +77,28 @@ const config = {
   productionBrowserSourceMaps: !isDisableSentry,
   optimizeFonts: true,
   swcMinify: true,
+  sassOptions: {
+    includePaths: ['./src/styles'],
+  },
+  transpilePackages: ['yaml'], // next.js didn't compile dependencies in node_modules
+  // below option will reduce the size of the bundle... only 2kb
+  modularizeImports: {
+    lodash: {
+      transform: 'lodash-es/{{member}}',
+    },
+    'lodash\\.([_\\w]+)': {
+      transform: 'lodash-es/{{ matches.[1] }}',
+    },
+    'lodash/((([_\\w])?/?)*)': {
+      transform: 'lodash-es/{{ matches.[1] }}/{{member}}',
+    },
+    'lodash-es': {
+      transform: 'lodash-es/{{member}}',
+    },
+    ramda: {
+      transform: 'ramda/es/{{member}}',
+    },
+  },
 };
 
 // config
