@@ -1,9 +1,14 @@
 .post-wrap {
   display: flex;
-  @apply justify-center py-8 px-6;
+  @apply justify-center sm:py-16 sm:px-6;
 
   .post {
     width: min(900px, 100%);
-    @apply rounded-lg shadow-lg sm:px-12 sm:pt-20;
+
+    @screen sm {
+      box-shadow: rgb(149 157 165 / 20%) 0 8px 24px;
+    }
+
+    @apply sm:rounded-lg sm:px-12 sm:pt-20;
   }
 }

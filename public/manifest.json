@@ -2,7 +2,7 @@
   "name": "Styx's Home Page",
   "short_name": "styx's home",
   "theme_color": "#ffffff",
-  "background_color": "#004740",
+  "background_color": "#ffffff",
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",
