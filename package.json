@@ -52,7 +52,7 @@
     "ramda": "0.28.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "7.41.3",
+    "react-hook-form": "7.41.4",
     "react-hotkeys-hook": "4.3.2",
     "react-intersection-observer": "9.4.1",
     "react-markdown": "8.0.4",

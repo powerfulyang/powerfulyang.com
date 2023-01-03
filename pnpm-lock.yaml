@@ -41,7 +41,7 @@ specifiers:
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0
-  react-hook-form: 7.41.3
+  react-hook-form: 7.41.4
   react-hotkeys-hook: 4.3.2
   react-intersection-observer: 9.4.1
   react-markdown: 8.0.4
@@ -66,7 +66,7 @@ specifiers:
 
 dependencies:
   '@docsearch/react': 3.3.1_4mvbrmqotwuhfzwlcr6w5cftiu
-  '@hookform/resolvers': 2.9.10_react-hook-form@7.41.3
+  '@hookform/resolvers': 2.9.10_react-hook-form@7.41.4
   '@mojs/core': 1.4.0
   '@monaco-editor/react': 4.4.6_6vrjaj6ridxbohi43n7zt4gn7q
   '@powerfulyang/components': 1.6.1_2nir3csl5epijxp66it24m4bey
@@ -90,7 +90,7 @@ dependencies:
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-hook-form: 7.41.3_react@18.2.0
+  react-hook-form: 7.41.4_react@18.2.0
   react-hotkeys-hook: 4.3.2_biqbaboplfbrettd7655fr4n2y
   react-intersection-observer: 9.4.1_react@18.2.0
   react-markdown: 8.0.4_kzbn2opkn2327fwg5yzwzya5o4
@@ -1683,12 +1683,12 @@ packages:
       - supports-color
     dev: true
 
-  /@hookform/resolvers/2.9.10_react-hook-form@7.41.3:
+  /@hookform/resolvers/2.9.10_react-hook-form@7.41.4:
     resolution: {integrity: sha512-JIL1DgJIlH9yuxcNGtyhsWX/PgNltz+5Gr6+8SX9fhXc/hPbEIk6wPI82nhgvp3uUb6ZfAM5mqg/x7KR7NAb+A==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
-      react-hook-form: 7.41.3_react@18.2.0
+      react-hook-form: 7.41.4_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.8:
@@ -9002,8 +9002,8 @@ packages:
       react: 18.2.0
       scheduler: 0.23.0
 
-  /react-hook-form/7.41.3_react@18.2.0:
-    resolution: {integrity: sha512-5QNTmqJtDb88WV5n41b6+AmcDMVyaJ3tccPgHAgS215w3jZ3bmJhDO27kNTr8u4YHNYXmS7p1/4/KachBAlUtw==}
+  /react-hook-form/7.41.4_react@18.2.0:
+    resolution: {integrity: sha512-75TOP2OJNj+wmeDvzD4FxDNBitJzqqwobf5q0FegvkNpXDnoAsjFD9O1c7PQOvmIVenUDGcAat5QQARWboDnnQ==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
