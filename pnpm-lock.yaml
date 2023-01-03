@@ -24,7 +24,7 @@ specifiers:
   classnames: 2.3.2
   d3: 7.8.0
   dayjs: 1.11.7
-  framer-motion: 8.1.3
+  framer-motion: 8.1.4
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
   immer: 9.0.17
@@ -69,7 +69,7 @@ dependencies:
   '@hookform/resolvers': 2.9.10_react-hook-form@7.41.3
   '@mojs/core': 1.4.0
   '@monaco-editor/react': 4.4.6_6vrjaj6ridxbohi43n7zt4gn7q
-  '@powerfulyang/components': 1.6.1_53tl664uew5lwkn6n6nyyqcei4
+  '@powerfulyang/components': 1.6.1_4mf7gn6tqhkjs2gdghbxintkmm
   '@powerfulyang/hooks': 1.4.0_myzk663jpz2ovjepunguok4h6a
   '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
   '@sentry/nextjs': 7.28.1_2cq33iptvuz7xxvba6r2epidty
@@ -77,7 +77,7 @@ dependencies:
   classnames: 2.3.2
   d3: 7.8.0
   dayjs: 1.11.7
-  framer-motion: 8.1.3_biqbaboplfbrettd7655fr4n2y
+  framer-motion: 8.1.4_biqbaboplfbrettd7655fr4n2y
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
   immer: 9.0.17
@@ -2230,7 +2230,7 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@powerfulyang/components/1.6.1_53tl664uew5lwkn6n6nyyqcei4:
+  /@powerfulyang/components/1.6.1_4mf7gn6tqhkjs2gdghbxintkmm:
     resolution: {integrity: sha512-yMdfjDVglNSY1ep3fQvmlGzdPvTB1Y8T73EIQQCIpf4LhKYyVQ2dyRJbmIHA48XG6wB/PZ08tm+IORVKbGmFNg==}
     peerDependencies:
       '@powerfulyang/hooks': '*'
@@ -2246,7 +2246,7 @@ packages:
       '@powerfulyang/hooks': 1.4.0_myzk663jpz2ovjepunguok4h6a
       '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
       classnames: 2.3.2
-      framer-motion: 8.1.3_biqbaboplfbrettd7655fr4n2y
+      framer-motion: 8.1.4_biqbaboplfbrettd7655fr4n2y
       lodash-es: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -2299,7 +2299,7 @@ packages:
       eslint-plugin-react: 7.31.11_eslint@8.28.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.28.0
       eslint-plugin-unicorn: 44.0.2_eslint@8.28.0
-      husky: 8.0.2
+      husky: 8.0.3
       jest: 29.3.1_zfha7dvnw4nti6zkbsmhmn6xo4
       jest-environment-jsdom: 29.3.1
       lint-staged: 13.1.0
@@ -5823,8 +5823,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion/8.1.3_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-pvlAEwjl4W6EMRp0rvWABCk+YyrlnPMXYzgyhkLSnBq9TdACFNeJBql7E40pMS0ttaWMKfwmH1A/raFCtcMf/A==}
+  /framer-motion/8.1.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-dyibKIom+lX0BsSG1fHwxbDkEIMAGMUlWL4fFdOfMzd0t/kNKqQB4QTFf2sG9vovjUeTNXSVbmBW07g2S8HV2Q==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -6259,8 +6259,8 @@ packages:
     engines: {node: '>=12.20.0'}
     dev: true
 
-  /husky/8.0.2:
-    resolution: {integrity: sha512-Tkv80jtvbnkK3mYWxPZePGFpQ/tT3HNSs/sasF9P2YfkMezDl3ON37YN6jUUI4eTg5LcyVynlb6r4eyvOmspvg==}
+  /husky/8.0.3:
+    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
