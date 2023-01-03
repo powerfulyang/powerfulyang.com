@@ -80,7 +80,8 @@ const config = {
   sassOptions: {
     includePaths: ['./src/styles'],
   },
-  transpilePackages: ['yaml'], // next.js didn't compile dependencies in node_modules
+  // next.js didn't compile dependencies in node_modules, use transpileModules to fix it
+  transpilePackages: ['yaml', 'react-syntax-highlighter'],
   // below option will reduce the size of the bundle... only 2kb
   modularizeImports: {
     lodash: {
@@ -97,6 +98,10 @@ const config = {
     },
     ramda: {
       transform: 'ramda/es/{{member}}',
+    },
+    'react-syntax-highlighter': {
+      // 这个更牛啤，减少了 0.5kb
+      transform: 'react-syntax-highlighter/dist/esm/{{kebabCase member}}',
     },
   },
 };

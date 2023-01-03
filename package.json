@@ -85,11 +85,11 @@
     "@types/react-syntax-highlighter": "15.5.5",
     "@types/sharp": "0.31.0",
     "@types/three": "0.146.0",
-    "jest-canvas-mock": "latest",
+    "jest-canvas-mock": "2.4.0",
     "next-compose-plugins": "2.2.1",
     "next-pwa": "5.6.0",
     "prettier-plugin-tailwindcss": "0.2.1",
     "tailwindcss": "3.2.4",
-    "typescript": "latest"
+    "typescript": "4.9.4"
   }
 }

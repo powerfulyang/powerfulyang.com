@@ -46,6 +46,7 @@ const esModules = [
   'trim-lines',
   'lodash-es',
   'github-slugger',
+  'react-syntax-highlighter',
 ].join('|');
 
 module.exports = async () => {

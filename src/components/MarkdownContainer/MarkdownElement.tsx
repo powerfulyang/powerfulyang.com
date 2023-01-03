@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import React, { createContext, useContext, useMemo } from 'react';
 import { PrismAsyncLight } from 'react-syntax-highlighter';
-import atomDark from '@/prism/atom-dark.mjs';
+import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import type {
   CodeComponent,
   HeadingComponent,
@@ -18,6 +18,9 @@ import { copyToClipboardAndNotify } from '@/utils/copy';
 import { toString } from 'hast-util-to-string';
 import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
 import styles from './index.module.scss';
+
+// 不要 class name 的下划线，俺不喜欢
+delete atomDark['class-name'].textDecoration;
 
 export const MDContainerContext = createContext({
   blur: true,
@@ -127,7 +130,7 @@ export const Code: CodeComponent = ({ inline, className, children, node }) => {
       </div>
       <PrismAsyncLight
         showLineNumbers
-        style={atomDark as any}
+        style={atomDark}
         language={language}
         PreTag="pre"
         codeTagProps={{
