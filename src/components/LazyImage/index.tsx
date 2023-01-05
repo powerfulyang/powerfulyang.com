@@ -54,7 +54,6 @@ export const LazyImage = memo<LazyImageProps>(
     });
 
     const { ref, inView } = useInView({
-      rootMargin: '400px',
       initialInView,
       triggerOnce,
     });

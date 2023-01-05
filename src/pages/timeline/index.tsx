@@ -84,7 +84,6 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
               (hasPreviousPage ? (
                 <InView
                   triggerOnce
-                  rootMargin="500px"
                   onChange={(inView) => {
                     inView && fetchPreviousPage();
                   }}

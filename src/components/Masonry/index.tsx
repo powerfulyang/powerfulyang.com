@@ -155,7 +155,6 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
                       onChange={(inView) => {
                         inView && onLoadMore();
                       }}
-                      rootMargin="400px"
                     />
                   )}
                 </Fragment>
