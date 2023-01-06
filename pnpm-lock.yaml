@@ -19,7 +19,7 @@ specifiers:
   '@types/lodash-es': 4.17.6
   '@types/ramda': 0.28.20
   '@types/react-syntax-highlighter': 15.5.6
-  '@types/sharp': 0.31.0
+  '@types/sharp': 0.31.1
   '@types/three': 0.146.0
   classnames: 2.3.2
   d3: 7.8.0
@@ -121,7 +121,7 @@ devDependencies:
   '@types/lodash-es': 4.17.6
   '@types/ramda': 0.28.20
   '@types/react-syntax-highlighter': 15.5.6
-  '@types/sharp': 0.31.0
+  '@types/sharp': 0.31.1
   '@types/three': 0.146.0
   jest-canvas-mock: 2.4.0
   next-compose-plugins: 2.2.1
@@ -3238,8 +3238,8 @@ packages:
     resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
     dev: true
 
-  /@types/sharp/0.31.0:
-    resolution: {integrity: sha512-nwivOU101fYInCwdDcH/0/Ru6yIRXOpORx25ynEOc6/IakuCmjOAGpaO5VfUl4QkDtUC6hj+Z2eCQvgXOioknw==}
+  /@types/sharp/0.31.1:
+    resolution: {integrity: sha512-5nWwamN9ZFHXaYEincMSuza8nNfOof8nmO+mcI+Agx1uMUk4/pQnNIcix+9rLPXzKrm1pS34+6WRDbDV0Jn7ag==}
     dependencies:
       '@types/node': 18.11.18
     dev: true
