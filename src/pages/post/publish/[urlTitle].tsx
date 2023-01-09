@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import type { GetServerSideProps } from 'next';
-import type { MarkdownMetadata } from '@/components/MarkdownContainer/Editor/inex';
-import { MarkdownEditor } from '@/components/MarkdownContainer/Editor/inex';
+import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
+import { LiveMarkdownEditor } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { requestAtClient } from '@/utils/client';
 import type { Post } from '@/type/Post';
 import { Footer } from '@/components/Footer';
@@ -67,7 +67,7 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
   }, [content, post.content, post.id, publishPostMutation.isLoading]);
 
   return (
-    <MarkdownEditor
+    <LiveMarkdownEditor
       value={content}
       onChange={saveDraft}
       defaultValue={post.content}

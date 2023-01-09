@@ -13,7 +13,7 @@ import { copyToClipboardAndNotify } from '@/utils/copy';
 import { Icon } from '@powerfulyang/components';
 import type { Plugin } from 'unified';
 import type { Root } from 'mdast';
-import type { MarkdownMetadata } from '@/components/MarkdownContainer/Editor/inex';
+import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import styles from './index.module.scss';
 import {
   A,

@@ -1,20 +1,18 @@
 import type { ClipboardEvent, FC } from 'react';
-import React, { Suspense, useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
-import type { Monaco } from '@monaco-editor/react';
-import MonacoEditor from '@monaco-editor/react';
 import type { VoidFunction } from '@powerfulyang/utils';
-import type { editor } from 'monaco-editor';
 import { fromEvent } from 'rxjs';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import { AssetBucket } from '@/type/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
-import { Skeleton } from '@/components/Skeleton';
+import dynamic from 'next/dynamic';
+import { editor } from 'monaco-editor';
+import type { Monaco } from '@monaco-editor/react';
 import styles from './index.module.scss';
-
-type IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
+import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
 export type MarkdownMetadata = {
   author?: string;
@@ -31,7 +29,13 @@ type MarkdownEditorProps = {
   value: string;
 };
 
-export const MarkdownEditor: FC<MarkdownEditorProps> = ({
+const DynamicMonacoEditor = dynamic({
+  ssr: false,
+  loader: () => import('./editor'),
+  loading: () => <div className="flex h-full w-full items-center justify-center">Loading....</div>,
+});
+
+export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
   defaultValue = '',
   onPost,
   onChange,
@@ -105,7 +109,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
       </section>
       <main className={styles.main}>
         <section className={styles.inputContent}>
-          <MonacoEditor
+          <DynamicMonacoEditor
             value={value}
             defaultLanguage="markdown"
             defaultValue={defaultValue}
@@ -122,13 +126,11 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
             }}
           />
         </section>
-        <Suspense fallback={<Skeleton rows={8} />}>
-          <MarkdownContainer
-            onGenerateMetadata={onGenerateMetadata}
-            className={styles.preview}
-            source={value}
-          />
-        </Suspense>
+        <MarkdownContainer
+          onGenerateMetadata={onGenerateMetadata}
+          className={styles.preview}
+          source={value}
+        />
       </main>
     </div>
   );
