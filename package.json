@@ -27,7 +27,7 @@
     "url": "https://github.com/powerfulyang/powerfulyang.com"
   },
   "dependencies": {
-    "@docsearch/react": "3.3.1",
+    "@docsearch/react": "3.3.2",
     "@hookform/resolvers": "2.9.10",
     "@mojs/core": "1.4.0",
     "@monaco-editor/react": "4.4.6",
