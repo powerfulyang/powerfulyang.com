@@ -34,7 +34,7 @@
     "@powerfulyang/components": "1.6.1",
     "@powerfulyang/hooks": "1.4.0",
     "@powerfulyang/utils": "1.6.0",
-    "@sentry/nextjs": "7.29.0",
+    "@sentry/nextjs": "7.30.0",
     "@tanstack/react-query": "4.22.0",
     "classnames": "2.3.2",
     "d3": "7.8.0",
