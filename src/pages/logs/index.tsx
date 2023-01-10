@@ -36,6 +36,7 @@ const Logs = () => {
   useEffect(() => {
     import('xterm').then(({ Terminal }) => {
       if (container.current) {
+        termRef.current?.dispose();
         termRef.current = new Terminal();
         termRef.current.open(container.current);
         termRef.current.onData((data) => {

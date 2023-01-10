@@ -143,6 +143,7 @@ const Airdrop: LayoutFC = () => {
       });
     };
     import('peerjs').then(({ default: Peer }) => {
+      peerRef.current?.destroy();
       const peer = new Peer({
         host: process.env.CLIENT_BASE_HOST || window.location.host,
         path: 'peer',
