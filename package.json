@@ -34,6 +34,8 @@
     "@powerfulyang/components": "1.6.1",
     "@powerfulyang/hooks": "1.4.0",
     "@powerfulyang/utils": "1.6.0",
+    "@react-three/drei": "9.51.24",
+    "@react-three/fiber": "8.10.0",
     "@sentry/nextjs": "7.30.0",
     "@tanstack/react-query": "4.22.0",
     "classnames": "2.3.2",
@@ -69,7 +71,6 @@
     "sharp": "0.31.3",
     "three": "0.148.0",
     "unist-util-visit": "4.1.1",
-    "xterm": "5.1.0",
     "yaml": "2.2.1",
     "zod": "3.20.2"
   },
