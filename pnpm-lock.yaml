@@ -10,7 +10,7 @@ specifiers:
   '@powerfulyang/hooks': 1.4.0
   '@powerfulyang/lint': 3.1.3
   '@powerfulyang/utils': 1.6.0
-  '@react-three/drei': 9.52.2
+  '@react-three/drei': 9.52.3
   '@react-three/fiber': 8.10.0
   '@sentry/cli': 2.11.0
   '@sentry/nextjs': 7.30.0
@@ -73,7 +73,7 @@ dependencies:
   '@powerfulyang/components': 1.6.1_gnignrnm6ilwtntbfw4x4prm74
   '@powerfulyang/hooks': 1.4.0_myzk663jpz2ovjepunguok4h6a
   '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
-  '@react-three/drei': 9.52.2_ujgrnjqg6qzyiwznfocw5cghpm
+  '@react-three/drei': 9.52.3_ujgrnjqg6qzyiwznfocw5cghpm
   '@react-three/fiber': 8.10.0_4tzez3c2xpzuefjrvhpyy55bva
   '@sentry/nextjs': 7.30.0_gmqaa3eppyr2mqabkmcn4svrne
   '@tanstack/react-query': 4.22.0_biqbaboplfbrettd7655fr4n2y
@@ -2430,8 +2430,8 @@ packages:
     resolution: {integrity: sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==}
     dev: false
 
-  /@react-three/drei/9.52.2_ujgrnjqg6qzyiwznfocw5cghpm:
-    resolution: {integrity: sha512-g/RgQwhTas5sHWDkxHvBB0VLk1+JH1Bjy1UqEY6EpFUk3539JAJk5fKGh463b20ZMj/Y9mQ9yW4u9H6xHMMXhg==}
+  /@react-three/drei/9.52.3_ujgrnjqg6qzyiwznfocw5cghpm:
+    resolution: {integrity: sha512-L0r3l8e/zA1n2j4RIaeV5Dh9RB0lgSVnplRfum37YJncHdE+Xd2gXvhfHl/M1GKNReucIS3VCqXU/eBn0GTMfA==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
       react: '>=18.0'
