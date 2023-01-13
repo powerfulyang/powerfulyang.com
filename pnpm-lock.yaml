@@ -43,7 +43,7 @@ specifiers:
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0
-  react-hook-form: 7.41.5
+  react-hook-form: 7.42.0
   react-hotkeys-hook: 4.3.2
   react-intersection-observer: 9.4.1
   react-markdown: 8.0.4
@@ -67,7 +67,7 @@ specifiers:
 
 dependencies:
   '@docsearch/react': 3.3.2_4mvbrmqotwuhfzwlcr6w5cftiu
-  '@hookform/resolvers': 2.9.10_react-hook-form@7.41.5
+  '@hookform/resolvers': 2.9.10_react-hook-form@7.42.0
   '@mojs/core': 1.4.0
   '@monaco-editor/react': 4.4.6_6vrjaj6ridxbohi43n7zt4gn7q
   '@powerfulyang/components': 1.6.1_gnignrnm6ilwtntbfw4x4prm74
@@ -93,7 +93,7 @@ dependencies:
   ramda: 0.28.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  react-hook-form: 7.41.5_react@18.2.0
+  react-hook-form: 7.42.0_react@18.2.0
   react-hotkeys-hook: 4.3.2_biqbaboplfbrettd7655fr4n2y
   react-intersection-observer: 9.4.1_react@18.2.0
   react-markdown: 8.0.4_kzbn2opkn2327fwg5yzwzya5o4
@@ -1708,12 +1708,12 @@ packages:
       - supports-color
     dev: true
 
-  /@hookform/resolvers/2.9.10_react-hook-form@7.41.5:
+  /@hookform/resolvers/2.9.10_react-hook-form@7.42.0:
     resolution: {integrity: sha512-JIL1DgJIlH9yuxcNGtyhsWX/PgNltz+5Gr6+8SX9fhXc/hPbEIk6wPI82nhgvp3uUb6ZfAM5mqg/x7KR7NAb+A==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
-      react-hook-form: 7.41.5_react@18.2.0
+      react-hook-form: 7.42.0_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.8:
@@ -2336,7 +2336,7 @@ packages:
       postcss-scss: 4.0.6_postcss@8.4.21
       prettier: 2.8.2
       prettier-plugin-tailwindcss: 0.2.1_prettier@2.8.2
-      rimraf: 4.0.0
+      rimraf: 4.0.4
       rollup: 3.10.0
       sass: 1.57.1
       stylelint: 14.15.0
@@ -9364,8 +9364,8 @@ packages:
       react: 18.2.0
       scheduler: 0.23.0
 
-  /react-hook-form/7.41.5_react@18.2.0:
-    resolution: {integrity: sha512-DAKjSJ7X9f16oQrP3TW2/eD9N6HOgrmIahP4LOdFphEWVfGZ2LulFd6f6AQ/YS/0cx/5oc4j8a1PXxuaurWp/Q==}
+  /react-hook-form/7.42.0_react@18.2.0:
+    resolution: {integrity: sha512-XDEjSUZmT68FOSv2FaD3XlN1sa2HB9vIQ9SVKsogGrHUY43o2aANQDC9LgHa4zusqCMKLG3qitpTcEhpYWHBFw==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
@@ -9781,8 +9781,8 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rimraf/4.0.0:
-    resolution: {integrity: sha512-1jUYEffrxKEAYJLJvqYLvKQW5oExH8QhBVYKUO1YXPrKTpobYuZ89KbgmpGbeTj+6kUXqGrIT1w+3BI4T6hR1w==}
+  /rimraf/4.0.4:
+    resolution: {integrity: sha512-R0hoVr9xTwemarQjoWlNt/nb5dEGVTBhVdkRmEX2zEkT8T6onH0XKiGjuaC7rNNj/gYzY2p4NVRJ3sjO1ascHQ==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
