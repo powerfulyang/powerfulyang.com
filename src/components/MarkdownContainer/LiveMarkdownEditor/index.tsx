@@ -1,5 +1,5 @@
 import type { ClipboardEvent, FC } from 'react';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useDeferredValue, useEffect, useRef } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
 import type { VoidFunction } from '@powerfulyang/utils';
@@ -47,9 +47,6 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
   }>();
 
   const metadataRef = useRef<MarkdownMetadata>({});
-  const onGenerateMetadata = useCallback((metadata: MarkdownMetadata) => {
-    metadataRef.current = metadata;
-  }, []);
 
   useEffect(() => {
     const s = fromEvent<ClipboardEvent>(window, 'paste').subscribe(async (e) => {
@@ -83,6 +80,8 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
       s.unsubscribe();
     };
   }, []);
+
+  const deferValue = useDeferredValue(value);
 
   return (
     <div className={classNames(styles.editor)}>
@@ -127,9 +126,9 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
           />
         </section>
         <MarkdownContainer
-          onGenerateMetadata={onGenerateMetadata}
+          metadataRef={metadataRef}
           className={styles.preview}
-          source={value}
+          source={deferValue}
         />
       </main>
     </div>

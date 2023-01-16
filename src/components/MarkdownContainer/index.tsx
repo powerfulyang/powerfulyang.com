@@ -35,11 +35,11 @@ export type MarkdownContainerProps = {
   source: string;
   className?: string;
   blur?: boolean;
-  onGenerateMetadata?: (metadata: MarkdownMetadata) => void;
+  metadataRef?: React.MutableRefObject<MarkdownMetadata>;
 };
 
 export const remarkMetadata: Plugin<any, Root, string> = (
-  onGenerateMetadata?: MarkdownContainerProps['onGenerateMetadata'],
+  metadataRef?: React.MutableRefObject<MarkdownMetadata>,
 ) => {
   return (draft: any) => {
     const { children } = draft;
@@ -49,7 +49,8 @@ export const remarkMetadata: Plugin<any, Root, string> = (
       try {
         const metadata: MarkdownMetadata = parse(yamlPart?.value || '') || {};
         process.nextTick(() => {
-          onGenerateMetadata?.(metadata);
+          // eslint-disable-next-line no-param-reassign
+          metadataRef && (metadataRef.current = metadata);
         });
         const {
           date = new Date(),
@@ -68,24 +69,22 @@ export const remarkMetadata: Plugin<any, Root, string> = (
             },
           ],
         });
-        if (onGenerateMetadata) {
-          formatted.push({
-            type: 'info',
-            children: [
-              {
-                type: 'text',
-                value: `Published by ${author} on ${DateFormat(date)}`,
-              },
-            ],
-          });
-          formatted.push({
-            type: 'tags',
-            children: tags.map((tag) => ({
+        formatted.push({
+          type: 'info',
+          children: [
+            {
               type: 'text',
-              value: tag,
-            })),
-          });
-        }
+              value: `Published by ${author} on ${DateFormat(date)}`,
+            },
+          ],
+        });
+        formatted.push({
+          type: 'tags',
+          children: tags.map((tag) => ({
+            type: 'text',
+            value: tag,
+          })),
+        });
         draft.children = [...formatted, ...children];
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -99,7 +98,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
   source,
   className,
   blur = true,
-  onGenerateMetadata = () => {},
+  metadataRef,
 }) => {
   const initialContext = useMemo(() => ({ blur }), [blur]);
   return useMemo(() => {
@@ -112,7 +111,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
             remarkParse,
             remarkStringify,
             remarkFrontmatter,
-            [remarkMetadata, onGenerateMetadata],
+            [remarkMetadata, metadataRef],
           ]}
           remarkRehypeOptions={{
             passThrough: ['info', 'tags'],
@@ -170,7 +169,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
         </ReactMarkdown>
       </MDContainerContext.Provider>
     );
-  }, [initialContext, className, onGenerateMetadata, source]);
+  }, [initialContext, className, metadataRef, source]);
 };
 
 export default MarkdownContainer;
