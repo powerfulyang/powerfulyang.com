@@ -89,10 +89,6 @@
   }
 }
 
-:where(div[data-name='mojs-shape']) {
-  pointer-events: none;
-}
-
 a {
   @apply pointer;
 }

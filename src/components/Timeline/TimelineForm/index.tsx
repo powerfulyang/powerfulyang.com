@@ -3,7 +3,6 @@ import type { ChangeEvent, ClipboardEvent } from 'react';
 import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { interval, startWith } from 'rxjs';
 import { LazyImage } from '@/components/LazyImage';
 import { Switch } from '@/components/Switch';
 import type { Feed, FeedCreate } from '@/type/Feed';
@@ -166,18 +165,8 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
   }, [watchContent, watchAssets]);
 
   const onSubmit = useCallback(
-    async (v: FeedCreate) => {
-      const { poofClickPlay } = await import('@/components/mo.js/Material');
-      const source$ = interval(500)
-        .pipe(startWith(0))
-        .subscribe(() => {
-          submitButtonRef.current && poofClickPlay(submitButtonRef.current);
-        });
-      mutation.mutate(v, {
-        onSettled() {
-          source$.unsubscribe();
-        },
-      });
+    (v: FeedCreate) => {
+      mutation.mutate(v);
     },
     [mutation],
   );

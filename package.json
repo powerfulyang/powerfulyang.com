@@ -29,7 +29,6 @@
   "dependencies": {
     "@docsearch/react": "3.3.2",
     "@hookform/resolvers": "2.9.10",
-    "@mojs/core": "1.4.0",
     "@monaco-editor/react": "4.4.6",
     "@powerfulyang/components": "1.6.1",
     "@powerfulyang/hooks": "1.4.0",
