@@ -17,5 +17,4 @@ export interface Post extends PathViewCount {
   updateAt: string;
   poster: Asset;
   toc: TOCItem[];
-  urlTitle: string;
 }

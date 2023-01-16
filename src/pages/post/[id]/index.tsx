@@ -15,15 +15,15 @@ type PostProps = {
   data: Post;
 };
 
-const PostDetail: LayoutFC<PostProps> = ({ data: { content, toc, urlTitle } }) => {
+const PostDetail: LayoutFC<PostProps> = ({ data: { content, toc, id } }) => {
   const history = useHistory();
 
   useHotkeys(
     '., 。',
     () => {
-      return history.pushState(`/post/publish/${urlTitle}`);
+      return history.pushState(`/post/publish/${id}`);
     },
-    [history, urlTitle],
+    [history, id],
   );
 
   return (
@@ -41,9 +41,10 @@ PostDetail.getLayout = (page) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const {
-    query: { urlTitle },
+    query: { id },
   } = ctx;
-  const res = await requestAtServer(`/public/post/${String(urlTitle)}`, { ctx });
+  const postId = id as string;
+  const res = await requestAtServer(`/public/post/${postId}`, { ctx });
   const pathViewCount = res.headers.get('x-path-view-count');
   const data = await res.json();
 

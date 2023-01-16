@@ -54,13 +54,13 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             key={post.id}
             title={`${post.id}`}
             className={classNames('pointer', styles.card)}
-            href={`/post/${post.urlTitle}`}
+            href={`/post/${post.id}`}
             onClick={(e) => {
               if (e.ctrlKey || e.metaKey) {
                 return null;
               }
               e.preventDefault();
-              return history.pushState(`/post/${post.urlTitle}`);
+              return history.pushState(`/post/${post.id}`);
             }}
           >
             <LazyAssetImage

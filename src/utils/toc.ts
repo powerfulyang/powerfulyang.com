@@ -5,9 +5,6 @@ import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
 import remarkFrontmatter from 'remark-frontmatter';
 import { remarkMetadata } from '@/components/MarkdownContainer';
-import remarkGfm from 'remark-gfm';
-import remarkParse from 'remark-parse';
-import remarkStringify from 'remark-stringify';
 import type { TOCItem } from '@/components/MarkdownContainer/TOC';
 
 const rehypeTocExec = (callback: (v: TOCItem[]) => void) => {
@@ -36,9 +33,9 @@ const rehypeTocExec = (callback: (v: TOCItem[]) => void) => {
 export const generateTOC = async (content: string) => {
   let toc: TOCItem[] = [];
   await remark()
-    .use(remarkGfm)
-    .use(remarkParse)
-    .use(remarkStringify)
+    // .use(remarkGfm)
+    // .use(remarkParse)
+    // .use(remarkStringify)
     .use(remarkFrontmatter)
     .use(remarkMetadata)
     .use(remarkRehype)

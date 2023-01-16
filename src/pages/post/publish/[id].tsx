@@ -41,7 +41,7 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
     },
     {
       onSuccess(data) {
-        return pushState(`/post/${data.urlTitle}`);
+        return pushState(`/post/${data.id}`);
       },
     },
   );
@@ -92,12 +92,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     query,
     req: { url },
   } = ctx;
-  const { urlTitle } = query;
+  const { id } = query;
 
   let post;
   let pathViewCount;
-  if (isString(urlTitle) && urlTitle !== '0') {
-    const res = await requestAtServer(`/public/post/${urlTitle}`, {
+  if (isString(id) && id !== '0') {
+    const res = await requestAtServer(`/public/post/${id}`, {
       ctx,
     });
     pathViewCount = res.headers.get('x-path-view-count');
