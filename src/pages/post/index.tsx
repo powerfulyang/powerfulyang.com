@@ -37,7 +37,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
     <main className={styles.main}>
       <div className={classNames(styles.years)} role="tablist">
         {years.map((x) => (
-          <Link role="tab" key={x} href={`?year=${x}`}>
+          <Link role="tab" key={x} href={`/post/year/${x}`}>
             <span
               className={classNames(styles.year, 'pr-1', {
                 [styles.active]: x === year,
@@ -94,7 +94,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     ctx,
   });
   const years = await tmp.json();
-  const year = Number(query.year) || years[0] || new Date().getFullYear();
+  const year: number = Number(query.year) || years[0] || new Date().getFullYear();
   const res = await requestAtServer('/public/post', {
     ctx,
     query: { publishYear: year },
@@ -107,7 +107,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       years,
       posts: data,
       year,
-      title: '日志',
+      title: `日志 - ${year}`,
+      canonicalPath: `/post/year/${year}`,
     },
   };
 };

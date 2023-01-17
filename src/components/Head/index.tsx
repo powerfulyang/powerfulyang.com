@@ -16,19 +16,26 @@ export interface HeaderProps {
   title?: string;
   description?: string;
   keywords?: string;
+  canonicalPath?: string;
 }
 
-export const Header: FC<HeaderProps> = memo(({ title, description, keywords }) => {
-  const t = `${title ? `${title} - ` : ''}${ProjectName}`;
+export const Header: FC<HeaderProps> = memo(({ title, description, keywords, canonicalPath }) => {
+  const t = `${title || 'Home'} - ${ProjectName}`;
   const { asPath } = useRouter();
   const origin = 'https://powerfulyang.com';
   const currentUrl = `${origin}${asPath}`;
+  let canonical = currentUrl;
+  if (canonicalPath) {
+    canonical = `${origin}${canonicalPath}`;
+  }
   return (
     <Head>
       <meta
         name="viewport"
         content="initial-scale=1.0, width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
       />
+
+      <link rel="canonical" href={canonical} />
 
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />

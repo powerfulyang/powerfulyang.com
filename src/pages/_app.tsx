@@ -43,6 +43,7 @@ const App = ({ Component, pageProps }: AppProps & Props) => {
         title={pageProps.title}
         description={pageProps.description}
         keywords={pageProps.keywords}
+        canonicalPath={pageProps.canonicalPath}
       />
       <Redirecting />
       {getLayout(<Component {...pageProps} />)}
