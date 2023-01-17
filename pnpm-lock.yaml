@@ -45,7 +45,7 @@ specifiers:
   react-hook-form: 7.42.1
   react-hotkeys-hook: 4.3.2
   react-intersection-observer: 9.4.1
-  react-markdown: 8.0.4
+  react-markdown: 8.0.5
   react-syntax-highlighter: 15.5.0
   reflect-metadata: 0.1.13
   rehype-slug: 5.1.0
@@ -94,7 +94,7 @@ dependencies:
   react-hook-form: 7.42.1_react@18.2.0
   react-hotkeys-hook: 4.3.2_biqbaboplfbrettd7655fr4n2y
   react-intersection-observer: 9.4.1_react@18.2.0
-  react-markdown: 8.0.4_kzbn2opkn2327fwg5yzwzya5o4
+  react-markdown: 8.0.5_kzbn2opkn2327fwg5yzwzya5o4
   react-syntax-highlighter: 15.5.0_react@18.2.0
   reflect-metadata: 0.1.13
   rehype-slug: 5.1.0
@@ -9392,8 +9392,8 @@ packages:
   /react-is/18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
 
-  /react-markdown/8.0.4_kzbn2opkn2327fwg5yzwzya5o4:
-    resolution: {integrity: sha512-2oxHa6oDxc1apg/Gnc1Goh06t3B617xeywqI/92wmDV9FELI6ayRkwge7w7DoEqM0gRpZGTNU6xQG+YpJISnVg==}
+  /react-markdown/8.0.5_kzbn2opkn2327fwg5yzwzya5o4:
+    resolution: {integrity: sha512-jGJolWWmOWAvzf+xMdB9zwStViODyyFQhNB/bwCerbBKmrTmgmA599CGiOlP58OId1IMoIRsA8UdI1Lod4zb5A==}
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
@@ -9411,7 +9411,7 @@ packages:
       remark-parse: 10.0.1
       remark-rehype: 10.1.0
       space-separated-tokens: 2.0.2
-      style-to-object: 0.3.0
+      style-to-object: 0.4.1
       unified: 10.1.2
       unist-util-visit: 4.1.1
       vfile: 5.3.6
@@ -10332,8 +10332,8 @@ packages:
     resolution: {integrity: sha512-Dj1Okke1C3uKKwQcetra4jSuk0DqbzbYtXipzFlFMZtowbF1x7BKJwB9AayVMyFARvU8EDrZdcax4At/452cAg==}
     dev: true
 
-  /style-to-object/0.3.0:
-    resolution: {integrity: sha512-CzFnRRXhzWIdItT3OmF8SQfWyahHhjq3HwcMNCNLn+N7klOOqPjMeG/4JSu77D7ypZdGvSzvkrbyeTMizz2VrA==}
+  /style-to-object/0.4.1:
+    resolution: {integrity: sha512-HFpbb5gr2ypci7Qw+IOhnP2zOU7e77b+rzM+wTzXzfi1PrtBCX0E7Pk4wL4iTLnhzZ+JgEGAhX81ebTg/aYjQw==}
     dependencies:
       inline-style-parser: 0.1.1
     dev: false
