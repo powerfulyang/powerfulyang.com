@@ -7,8 +7,8 @@ const _404 = () => {
     return history.pushState('/');
   };
   return (
-    <div className="p-10 text-center">
-      <div>404</div>
+    <div className="p-20 text-center">
+      <div className="mb-10">Sorry, the page you visited does not exist.</div>
       <Button onClick={backHome} className="pointer bg-purple-500" appearance="primary">
         Back to Home
       </Button>

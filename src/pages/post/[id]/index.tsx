@@ -9,6 +9,7 @@ import { requestAtServer } from '@/utils/server';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { generateTOC } from '@/utils/toc';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { StatusCodes } from 'http-status-codes';
 import styles from './index.module.scss';
 
 type PostProps = {
@@ -45,6 +46,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   } = ctx;
   const postId = id as string;
   const res = await requestAtServer(`/public/post/${postId}`, { ctx });
+  if (res.status !== StatusCodes.OK) {
+    return {
+      notFound: true,
+    };
+  }
   const pathViewCount = res.headers.get('x-path-view-count');
   const data = await res.json();
 
