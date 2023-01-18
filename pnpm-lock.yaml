@@ -23,7 +23,7 @@ specifiers:
   '@types/sharp': 0.31.1
   '@types/three': 0.148.0
   classnames: 2.3.2
-  d3: 7.8.1
+  d3: 7.8.2
   dayjs: 1.11.7
   framer-motion: 8.4.6
   hast-util-to-string: 2.0.0
@@ -76,7 +76,7 @@ dependencies:
   '@sentry/nextjs': 7.31.1_gmqaa3eppyr2mqabkmcn4svrne
   '@tanstack/react-query': 4.22.0_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
-  d3: 7.8.1
+  d3: 7.8.2
   dayjs: 1.11.7
   framer-motion: 8.4.6_biqbaboplfbrettd7655fr4n2y
   hast-util-to-string: 2.0.0
@@ -2327,7 +2327,7 @@ packages:
       postcss-scss: 4.0.6_postcss@8.4.21
       prettier: 2.8.3
       prettier-plugin-tailwindcss: 0.2.1_prettier@2.8.3
-      rimraf: 4.1.0
+      rimraf: 4.1.1
       rollup: 3.10.0
       sass: 1.57.1
       stylelint: 14.15.0
@@ -4980,8 +4980,8 @@ packages:
       d3-transition: 3.0.1_d3-selection@3.0.0
     dev: false
 
-  /d3/7.8.1:
-    resolution: {integrity: sha512-fdipulGWUYTZTxxU9gDJ2P4mpZL2u7Oqe6n2FI95Q8UY0AjbKNYjPHvhLOsvR+HcSao4vo3YYy4Bk9CWOrt1Vw==}
+  /d3/7.8.2:
+    resolution: {integrity: sha512-WXty7qOGSHb7HR7CfOzwN1Gw04MUOzN8qh9ZUsvwycIMb4DYMpY9xczZ6jUorGtO6bR9BPMPaueIKwiDxu9uiQ==}
     engines: {node: '>=12'}
     dependencies:
       d3-array: 3.2.1
@@ -9772,8 +9772,8 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rimraf/4.1.0:
-    resolution: {integrity: sha512-ZJdkUR5/dRrRJHdcSKJLrpRn6tVjl9ALxd4yrTCxFsMpjQNzwHF6GLqMsuEzEYIXxHlFPDSk21Vr8VPuFBEz0g==}
+  /rimraf/4.1.1:
+    resolution: {integrity: sha512-Z4Y81w8atcvaJuJuBB88VpADRH66okZAuEm+Jtaufa+s7rZmIz+Hik2G53kGaNytE7lsfXyWktTmfVz0H9xuDg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
