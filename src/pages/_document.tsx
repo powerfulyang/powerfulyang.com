@@ -9,13 +9,13 @@ const Document = () => {
         <link rel="preconnect" href={CDN_ORIGIN} crossOrigin="anonymous" />
         <link
           rel="preload"
-          href={generateCdnStaticUrl('/fonts/zpix.woff')}
+          href="/fonts/uU9eCBsR6Z2vfE9aq3bL0fxyUs4tcw4W_D1sJVD7Ng.woff2"
           as="font"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href={generateCdnStaticUrl('/fonts/uU9eCBsR6Z2vfE9aq3bL0fxyUs4tcw4W_D1sJVD7Ng.woff2')}
+          href={generateCdnStaticUrl('/fonts/zpix.woff')}
           as="font"
           crossOrigin="anonymous"
         />

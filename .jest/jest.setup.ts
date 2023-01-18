@@ -22,3 +22,9 @@ jest.mock('next/router', () => ({
 jest.mock('@tanstack/react-query', () => ({
   useQuery: () => ({ isLoading: false, error: {}, data: [] }),
 }));
+
+jest.mock('@/styles/variables.module.scss', () => {
+  return {
+    CDN_ORIGIN: JSON.stringify('https://cdn.example.com'),
+  };
+});
