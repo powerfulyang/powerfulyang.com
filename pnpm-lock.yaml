@@ -13,7 +13,7 @@ specifiers:
   '@react-three/fiber': 8.10.0
   '@sentry/cli': 2.11.0
   '@sentry/nextjs': 7.31.1
-  '@tanstack/react-query': 4.22.0
+  '@tanstack/react-query': 4.22.3
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0
   '@types/d3': 7.4.0
@@ -74,7 +74,7 @@ dependencies:
   '@react-three/drei': 9.53.3_ujgrnjqg6qzyiwznfocw5cghpm
   '@react-three/fiber': 8.10.0_4tzez3c2xpzuefjrvhpyy55bva
   '@sentry/nextjs': 7.31.1_i7yjn6taeku5oqtycup6wmhwga
-  '@tanstack/react-query': 4.22.0_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query': 4.22.3_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
   d3: 7.8.2
   dayjs: 1.11.7
@@ -2895,8 +2895,8 @@ packages:
     resolution: {integrity: sha512-OeLyBKBQoT265f5G9biReijeP8mBxNFwY7ZUu1dKL+YzqpG5q5z7J/N1eT8aWyKuhyDTiUHuKm5l+oIVzbtrjw==}
     dev: false
 
-  /@tanstack/react-query/4.22.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-P9o+HjG42uB/xHR6dMsJaPhtZydSe4v0xdG5G/cEj1oHZAXelMlm67/rYJNQGKgBamKElKogj+HYGF+NY2yHYg==}
+  /@tanstack/react-query/4.22.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-5yBsXn+ddlPvfxCHrklATOnz/y72uOinect69DyUcGkYcvjh2wfkUPWAO+s/e7wDW2At8QEeRmkuwjKLH4vO6g==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
