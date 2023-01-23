@@ -48,14 +48,10 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
     const clientColNum = getColumnNum();
     rowHeight.current.clear();
     handled.current.clear();
-    setMasonry((draft) => {
-      draft.clear();
-      for (let i = 0; i < clientColNum; i++) {
-        draft.set(i, []);
-        rowHeight.current.set(i, 0);
-      }
-    });
-  }, [setMasonry]);
+    for (let i = 0; i < clientColNum; i++) {
+      rowHeight.current.set(i, 0);
+    }
+  }, []);
 
   useIsomorphicLayoutEffect(() => {
     recalculate();
@@ -83,14 +79,18 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
       const has = handled.current.has(child.props.asset.id);
       if (!has) {
         handled.current.add(child.props.asset.id);
-        const { size } = draft;
+        const size = getColumnNum();
         const width = (masonryWidth - padding * (size + 1)) / size;
         const minHeightKey = getMapValueMinKey(rowHeight.current);
         const prev = rowHeight.current.get(minHeightKey) || 0;
         const height =
           (child.props.asset.size.height / child.props.asset.size.width) * width + padding;
         rowHeight.current.set(minHeightKey, prev + height);
-        draft.get(minHeightKey)?.push(child);
+        if (draft.get(minHeightKey)) {
+          draft.get(minHeightKey)?.push(child);
+        } else {
+          draft.set(minHeightKey, [child]);
+        }
       }
     },
     [],
@@ -98,7 +98,7 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
 
   useEffect(() => {
     const container = document.getElementById(id);
-    if (masonry.size && container) {
+    if (container) {
       const computedStyle = window.getComputedStyle(container);
       const padding = parseFloat(computedStyle.getPropertyValue('grid-gap'));
       const masonryWidth = parseFloat(computedStyle.getPropertyValue('width'));
