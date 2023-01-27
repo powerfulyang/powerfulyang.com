@@ -43,7 +43,7 @@
     "framer-motion": "8.5.4",
     "hast-util-to-string": "2.0.0",
     "http-status-codes": "2.2.0",
-    "immer": "9.0.18",
+    "immer": "9.0.19",
     "jotai": "1.13.1",
     "lodash-es": "4.17.21",
     "monaco-editor": "0.34.1",
