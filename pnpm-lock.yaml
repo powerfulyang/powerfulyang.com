@@ -18,7 +18,7 @@ specifiers:
   '@testing-library/react': 13.4.0
   '@types/d3': 7.4.0
   '@types/lodash-es': 4.17.6
-  '@types/ramda': 0.28.20
+  '@types/ramda': 0.28.22
   '@types/react-syntax-highlighter': 15.5.6
   '@types/sharp': 0.31.1
   '@types/three': 0.148.0
@@ -119,7 +119,7 @@ devDependencies:
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@types/d3': 7.4.0
   '@types/lodash-es': 4.17.6
-  '@types/ramda': 0.28.20
+  '@types/ramda': 0.28.22
   '@types/react-syntax-highlighter': 15.5.6
   '@types/sharp': 0.31.1
   '@types/three': 0.148.0
@@ -3350,8 +3350,8 @@ packages:
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
 
-  /@types/ramda/0.28.20:
-    resolution: {integrity: sha512-MeUhzGSXQTRsY19JGn5LIBTLxVEnyF6HDNr08KSJqybsm4DlfLIgK1jBHjhpiSyk252tXYmp+UOe0UFg0UiFsA==}
+  /@types/ramda/0.28.22:
+    resolution: {integrity: sha512-DoIfh0sBxrL/aqADk+SGrfjJT9cB8modg+4NRlF7/Tfg4N2+KBEkAgpYYzrjiZxxR5YzWizjfVrTEdVDwYK7xQ==}
     dependencies:
       ts-toolbelt: 6.15.5
     dev: true
