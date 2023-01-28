@@ -9,7 +9,7 @@ specifiers:
   '@powerfulyang/hooks': 1.4.0
   '@powerfulyang/lint': 3.1.3
   '@powerfulyang/utils': 1.6.0
-  '@react-three/drei': 9.56.4
+  '@react-three/drei': 9.56.5
   '@react-three/fiber': 8.10.1
   '@sentry/cli': 2.11.0
   '@sentry/nextjs': 7.34.0
@@ -71,7 +71,7 @@ dependencies:
   '@powerfulyang/components': 1.6.1_xkb6inebf6ojyanxprohcmxa2u
   '@powerfulyang/hooks': 1.4.0_w7c26772askiudqmj4bj66icee
   '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
-  '@react-three/drei': 9.56.4_x2hxvfhxegsms6izcxmvhtdkgy
+  '@react-three/drei': 9.56.5_x2hxvfhxegsms6izcxmvhtdkgy
   '@react-three/fiber': 8.10.1_4tzez3c2xpzuefjrvhpyy55bva
   '@sentry/nextjs': 7.34.0_3hasew56yhfsk6ei4nos45iqie
   '@tanstack/react-query': 4.23.0_biqbaboplfbrettd7655fr4n2y
@@ -2435,8 +2435,8 @@ packages:
     resolution: {integrity: sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==}
     dev: false
 
-  /@react-three/drei/9.56.4_x2hxvfhxegsms6izcxmvhtdkgy:
-    resolution: {integrity: sha512-ZrIepyMjAqIeHf4JqcD5KiyOzUZChCbXfDF3msvVOQhT1D9twq0356eQGVR/XND14Pri+K3kLOSMYFxHhpmtXg==}
+  /@react-three/drei/9.56.5_x2hxvfhxegsms6izcxmvhtdkgy:
+    resolution: {integrity: sha512-eEw5I0Ap6Y40QP+rCAQHS9q042XDxlEhKw4Q0NLbhQjfplYNP/RypKEQjq9PMTmu3HyR+JjJjhVEhzdTQt1Dsg==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
       react: '>=18.0'
@@ -2450,7 +2450,7 @@ packages:
       '@react-spring/three': 9.6.1_dk5e3p3tgrhdw3cz2rstpfvyhq
       '@react-three/fiber': 8.10.1_4tzez3c2xpzuefjrvhpyy55bva
       '@use-gesture/react': 10.2.23_react@18.2.0
-      camera-controls: 1.38.0_three@0.148.0
+      camera-controls: 2.0.0_three@0.148.0
       detect-gpu: 5.0.8
       glsl-noise: 0.0.0
       lodash.clamp: 4.0.3
@@ -4353,8 +4353,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /camera-controls/1.38.0_three@0.148.0:
-    resolution: {integrity: sha512-gOLZdfP0NvDKlm6qHqjH13rzrtnL2Vs/Q4BU2tnoGlxg9zqtsQKIkZjIixO8IaSfy6v84NROje5LO+BWEFTcrw==}
+  /camera-controls/2.0.0_three@0.148.0:
+    resolution: {integrity: sha512-GPZ5Gf5Dnsuyj5Ao0Zx20xchBFEegnW/Lej+sBpWj+8p8pdq8i0ICQv9K4acVPFlvcu5zIKA1Kv2xWnTYmMomA==}
     peerDependencies:
       three: '>=0.126.1'
     dependencies:
