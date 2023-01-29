@@ -9,7 +9,7 @@ specifiers:
   '@powerfulyang/hooks': 1.4.0
   '@powerfulyang/lint': 3.1.3
   '@powerfulyang/utils': 1.6.0
-  '@react-three/drei': 9.56.5
+  '@react-three/drei': 9.56.7
   '@react-three/fiber': 8.10.1
   '@sentry/cli': 2.11.0
   '@sentry/nextjs': 7.34.0
@@ -71,7 +71,7 @@ dependencies:
   '@powerfulyang/components': 1.6.1_xkb6inebf6ojyanxprohcmxa2u
   '@powerfulyang/hooks': 1.4.0_w7c26772askiudqmj4bj66icee
   '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
-  '@react-three/drei': 9.56.5_x2hxvfhxegsms6izcxmvhtdkgy
+  '@react-three/drei': 9.56.7_x2hxvfhxegsms6izcxmvhtdkgy
   '@react-three/fiber': 8.10.1_4tzez3c2xpzuefjrvhpyy55bva
   '@sentry/nextjs': 7.34.0_3hasew56yhfsk6ei4nos45iqie
   '@tanstack/react-query': 4.23.0_biqbaboplfbrettd7655fr4n2y
@@ -2435,8 +2435,8 @@ packages:
     resolution: {integrity: sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==}
     dev: false
 
-  /@react-three/drei/9.56.5_x2hxvfhxegsms6izcxmvhtdkgy:
-    resolution: {integrity: sha512-eEw5I0Ap6Y40QP+rCAQHS9q042XDxlEhKw4Q0NLbhQjfplYNP/RypKEQjq9PMTmu3HyR+JjJjhVEhzdTQt1Dsg==}
+  /@react-three/drei/9.56.7_x2hxvfhxegsms6izcxmvhtdkgy:
+    resolution: {integrity: sha512-DF/evtBv5Oo7Gaenssb6IK4h0SGoA4eOebq4wFdHwrIYJWkDoptonO8MAr6fUEKhAtZkiojr1vIZdXfj3KNwzw==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
       react: '>=18.0'
@@ -2449,7 +2449,7 @@ packages:
       '@babel/runtime': 7.20.7
       '@react-spring/three': 9.6.1_dk5e3p3tgrhdw3cz2rstpfvyhq
       '@react-three/fiber': 8.10.1_4tzez3c2xpzuefjrvhpyy55bva
-      '@use-gesture/react': 10.2.23_react@18.2.0
+      '@use-gesture/react': 10.2.24_react@18.2.0
       camera-controls: 2.0.0_three@0.148.0
       detect-gpu: 5.0.8
       glsl-noise: 0.0.0
@@ -3657,16 +3657,16 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@use-gesture/core/10.2.23:
-    resolution: {integrity: sha512-Ynap/Uh6RX1Vgn3zNmFTyKapapdf7Av+GzAe6h+RsBZaxMF1z3cK6aohHPJP6T1hLrPyH/yehxa7RBqyESG9RA==}
+  /@use-gesture/core/10.2.24:
+    resolution: {integrity: sha512-ZL7F9mgOn3Qlnp6QLI9jaOfcvqrx6JPE/BkdVSd8imveaFTm/a3udoO6f5Us/1XtqnL4347PsIiK6AtCvMHk2Q==}
     dev: false
 
-  /@use-gesture/react/10.2.23_react@18.2.0:
-    resolution: {integrity: sha512-anj9j3Lm4l+/s60Jv1FD2m13r+T+aYstSHUT62hTugojM64LPe9XatfEVHRyWOrGjRU2buQhlm03xN8oxkg/OQ==}
+  /@use-gesture/react/10.2.24_react@18.2.0:
+    resolution: {integrity: sha512-rAZ8Nnpu1g4eFzqCPlaq+TppJpMy0dTpYOQx5KpfoBF4P3aWnCqwj7eKxcmdIb1NJKpIJj50DPugUH4mq5cpBg==}
     peerDependencies:
       react: '>= 16.8.0'
     dependencies:
-      '@use-gesture/core': 10.2.23
+      '@use-gesture/core': 10.2.24
       react: 18.2.0
     dev: false
 
