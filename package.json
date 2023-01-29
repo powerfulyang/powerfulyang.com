@@ -33,7 +33,7 @@
     "@powerfulyang/components": "1.6.1",
     "@powerfulyang/hooks": "1.4.0",
     "@powerfulyang/utils": "1.6.0",
-    "@react-three/drei": "9.56.5",
+    "@react-three/drei": "9.56.7",
     "@react-three/fiber": "8.10.1",
     "@sentry/nextjs": "7.34.0",
     "@tanstack/react-query": "4.23.0",
