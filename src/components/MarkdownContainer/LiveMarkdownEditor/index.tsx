@@ -31,7 +31,7 @@ type MarkdownEditorProps = {
 
 const DynamicMonacoEditor = dynamic(() => import('./editor'), {
   ssr: false,
-  loading: () => <div className="flex h-full w-full items-center justify-center">Loading....</div>,
+  loading: () => <div className="flex h-full w-full items-center justify-center">Loading...</div>,
 });
 
 export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
