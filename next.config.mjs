@@ -3,6 +3,7 @@ import { isDevProcess } from '@powerfulyang/utils';
 import runtimeCaching from 'next-pwa/cache.js';
 import { withSentryConfig } from '@sentry/nextjs';
 import BundleAnalyzer from '@next/bundle-analyzer';
+import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 
 /**
  * @type {string}
@@ -165,7 +166,7 @@ const nextConfig = withSentryConfig(
     ...config,
     ...withBundleAnalyzer(
       withPWA({
-        webpack: (c) => {
+        webpack: (c, options) => {
           // camel-case style names from css modules
           c.module.rules
             .find(({ oneOf }) => !!oneOf)
@@ -176,6 +177,15 @@ const nextConfig = withSentryConfig(
                 draft.modules.exportLocalsConvention = 'camelCase';
               }
             });
+          if (!options.isServer) {
+            c.plugins.push(
+              new MonacoWebpackPlugin({
+                // Add languages as needed...
+                languages: ['markdown'],
+                filename: 'static/[name].worker.js',
+              }),
+            );
+          }
           return c;
         },
       }),

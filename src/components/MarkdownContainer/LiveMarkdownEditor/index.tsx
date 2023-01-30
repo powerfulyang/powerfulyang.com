@@ -29,9 +29,8 @@ type MarkdownEditorProps = {
   value: string;
 };
 
-const DynamicMonacoEditor = dynamic({
+const DynamicMonacoEditor = dynamic(() => import('./editor'), {
   ssr: false,
-  loader: () => import('./editor'),
   loading: () => <div className="flex h-full w-full items-center justify-center">Loading....</div>,
 });
 
@@ -55,20 +54,20 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
         return;
       }
       const r = await handlePasteImageAndReturnAsset(e, AssetBucket.post);
-      if (r?.length) {
+      if (r?.length && ref.current) {
         const text = r
           .map((asset) => `![${MarkdownImageFromAssetManageAltConstant}](${asset.id})`)
           .join('\r\n');
-        const pos = ref.current?.editor.getPosition();
-        const selection = ref.current?.editor.getSelection();
+        const pos = ref.current.editor.getPosition();
+        const selection = ref.current.editor.getSelection();
 
-        const range = new ref.current!.monaco.Range(
+        const range = new ref.current.monaco.Range(
           selection?.startLineNumber || pos?.lineNumber || 0,
           selection?.startColumn || pos?.column || 0,
           selection?.endLineNumber || pos?.lineNumber || 0,
           selection?.endColumn || pos?.column || 0,
         );
-        ref.current?.editor.executeEdits('', [
+        ref.current.editor.executeEdits('', [
           {
             range,
             text: `\r\n${text}\r\n`,
