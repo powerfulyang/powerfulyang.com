@@ -21,7 +21,7 @@ specifiers:
   '@types/ramda': 0.28.22
   '@types/react-syntax-highlighter': 15.5.6
   '@types/sharp': 0.31.1
-  '@types/three': 0.148.1
+  '@types/three': 0.149.0
   classnames: 2.3.2
   d3: 7.8.2
   dayjs: 1.11.7
@@ -72,7 +72,7 @@ dependencies:
   '@powerfulyang/components': 1.6.1_nlhyi4jyqneopahjf33kzjgtk4
   '@powerfulyang/hooks': 1.4.0_w7c26772askiudqmj4bj66icee
   '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
-  '@react-three/drei': 9.56.12_fjgbgofkv4o7rmf4xusfm3jxim
+  '@react-three/drei': 9.56.12_nrny4mqmhpgxe24luyn4ejfmom
   '@react-three/fiber': 8.10.1_xor7byvqlg4baqj6ymfbcmaax4
   '@sentry/nextjs': 7.34.0_3hasew56yhfsk6ei4nos45iqie
   '@tanstack/react-query': 4.24.4_biqbaboplfbrettd7655fr4n2y
@@ -123,7 +123,7 @@ devDependencies:
   '@types/ramda': 0.28.22
   '@types/react-syntax-highlighter': 15.5.6
   '@types/sharp': 0.31.1
-  '@types/three': 0.148.1
+  '@types/three': 0.149.0
   jest-canvas-mock: 2.4.0
   monaco-editor-webpack-plugin: 7.0.1_feckyf2jam7vk36gev3ykueqty
   next-compose-plugins: 2.2.1
@@ -2437,7 +2437,7 @@ packages:
     resolution: {integrity: sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==}
     dev: false
 
-  /@react-three/drei/9.56.12_fjgbgofkv4o7rmf4xusfm3jxim:
+  /@react-three/drei/9.56.12_nrny4mqmhpgxe24luyn4ejfmom:
     resolution: {integrity: sha512-MkFBQnrBwZPIx3OmBSvdbhmLTJIbyyGQW2o6k5f+mBbSa/Nhtqlx7P8j+iucvlUgE98j4k8LcB1l+GUAz+9/vg==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
@@ -2458,7 +2458,7 @@ packages:
       lodash.clamp: 4.0.3
       lodash.omit: 4.5.0
       lodash.pick: 4.4.0
-      maath: 0.5.2_gacsji565bkyumrn43bzmt5q3u
+      maath: 0.5.2_arp7zvamcwb6gpsp77lqxsjc74
       meshline: 3.1.6_three@0.149.0
       react: 18.2.0
       react-composer: 5.0.3_react@18.2.0
@@ -3432,8 +3432,8 @@ packages:
       '@types/jest': 29.2.5
     dev: true
 
-  /@types/three/0.148.1:
-    resolution: {integrity: sha512-gZwIyTBMxKXqJHXmZ0dzvDieuQ4hz8MPNHtkRrAwER/xPlAh9eP2WIfaolvQY+wJAzlNV5a9ceS4JT+i/jybsw==}
+  /@types/three/0.149.0:
+    resolution: {integrity: sha512-fgNBm9LWc65ER/W0cvoXdC0iMy7Ke9e2CONmEr6Jt8sDSY3sw4DgOubZfmdZ747dkPhbQrgRQAWwDEr2S/7IEg==}
     dependencies:
       '@types/webxr': 0.5.0
 
@@ -7886,13 +7886,13 @@ packages:
     hasBin: true
     dev: true
 
-  /maath/0.5.2_gacsji565bkyumrn43bzmt5q3u:
+  /maath/0.5.2_arp7zvamcwb6gpsp77lqxsjc74:
     resolution: {integrity: sha512-MFjfnXF5CzZaVnBuKc9y1FJh/BiPGqf19NH8Jm4o/jKTxuQ3RyPkcSIpuwdDhXrWROVKAxi3KjmHFUNMuIndbg==}
     peerDependencies:
       '@types/three': '>=0.144.0'
       three: '>=0.144.0'
     dependencies:
-      '@types/three': 0.148.1
+      '@types/three': 0.149.0
       three: 0.149.0
     dev: false
 
