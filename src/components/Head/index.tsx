@@ -20,7 +20,7 @@ export interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = memo(({ title, description, keywords, canonicalPath }) => {
-  const t = `${title || 'Home'} - ${ProjectName}`;
+  const t = `${title || '404'} - ${ProjectName}`;
   const { asPath } = useRouter();
   const origin = 'https://powerfulyang.com';
   const currentUrl = `${origin}${asPath}`;
