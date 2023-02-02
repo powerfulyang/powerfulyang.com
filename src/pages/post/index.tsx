@@ -12,6 +12,7 @@ import { requestAtServer } from '@/utils/server';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useFixMinHeight } from '@/hooks/useFixMinHeight';
 import { DateTimeFormat } from '@/utils/lib';
+import { defaultAuthor, origin } from '@/components/Head';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -84,7 +85,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
 };
 
 Index.getLayout = (page) => {
-  const { pathViewCount } = page.props;
+  const { pathViewCount } = page.props.layout;
   return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
 };
 
@@ -103,12 +104,21 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const data = await res.json();
   return {
     props: {
-      pathViewCount,
       years,
       posts: data,
       year,
-      title: `日志 - ${year}`,
-      canonicalPath: `/post/year/${year}`,
+      layout: {
+        pathViewCount,
+      },
+      meta: {
+        title: `日志 - ${year}`,
+        description: `发布于 ${year} 年的日志`,
+        author: defaultAuthor,
+        keywords: `日志, 记录, ${year}`,
+      },
+      link: {
+        canonical: `${origin}/post/year/${year}`,
+      },
     },
   };
 };

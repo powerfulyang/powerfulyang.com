@@ -13,6 +13,7 @@ import { requestAtServer } from '@/utils/server';
 import Masonry from '@/components/Masonry';
 import { useFixMinHeight } from '@/hooks/useFixMinHeight';
 import { firstItem, lastItem } from '@powerfulyang/utils';
+import { defaultAuthor, origin } from '@/components/Head';
 import styles from './index.module.scss';
 
 type GalleryProps = {
@@ -116,14 +117,24 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       assets: data.resources,
       nextCursor: data.nextCursor,
       prevCursor: data.prevCursor,
-      pathViewCount,
-      title: '图片墙',
+      layout: {
+        pathViewCount,
+      },
+      meta: {
+        title: '图片墙',
+        description: '专门用来放我的二次元老婆',
+        keywords: '图片墙, 二次元, 老婆',
+        author: defaultAuthor,
+      },
+      link: {
+        canonical: `${origin}/gallery`,
+      },
     },
   };
 };
 
 Gallery.getLayout = (page) => {
-  const { pathViewCount } = page.props;
+  const { pathViewCount } = page.props.layout;
   return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
 };
 

@@ -10,6 +10,7 @@ import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { generateTOC } from '@/utils/toc';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { StatusCodes } from 'http-status-codes';
+import { defaultAuthor, origin } from '@/components/Head';
 import styles from './index.module.scss';
 
 type PostProps = {
@@ -36,7 +37,7 @@ const PostDetail: LayoutFC<PostProps> = ({ data: { content, toc, id } }) => {
 };
 
 PostDetail.getLayout = (page) => {
-  const { pathViewCount } = page.props;
+  const { pathViewCount } = page.props.layout;
   return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
 };
 
@@ -52,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
   const pathViewCount = res.headers.get('x-path-view-count');
-  const data = await res.json();
+  const data = (await res.json()) as Post;
 
   const toc = await generateTOC(data.content);
 
@@ -62,10 +63,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         ...data,
         toc,
       },
-      pathViewCount,
-      title: data.title,
-      description: data.title,
-      keywords: data.tags.join(', '),
+      layout: {
+        pathViewCount,
+      },
+      meta: {
+        title: data.title,
+        description: data.summary,
+        keywords: data.tags.join(', '),
+        author: data.createBy?.nickname || defaultAuthor,
+      },
+      link: {
+        canonical: `${origin}/post/${data.id}`,
+      },
     },
   };
 };

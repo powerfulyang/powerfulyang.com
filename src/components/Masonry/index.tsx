@@ -34,6 +34,10 @@ export type MasonryProps = {
   onLoadMore: () => void;
 };
 
+const getColumnNum = () => {
+  return Math.ceil(window.innerWidth / 420 + 2);
+};
+
 const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
   const id = useId();
   const rowHeight = useRef(new Map<number, number>());
@@ -41,7 +45,7 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
   const [masonry, setMasonry] = useImmer(() => new Map<number, Array<MasonryItem>>());
 
   const recalculate = useCallback(() => {
-    const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
+    const clientColNum = getColumnNum();
     rowHeight.current.clear();
     handled.current.clear();
     setMasonry((draft) => {
@@ -59,7 +63,7 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
 
   useEffect(() => {
     const subscribe = fromEvent<UIEvent>(window, 'resize').subscribe(() => {
-      const clientColNum = Math.ceil(window.innerWidth / 420 + 2);
+      const clientColNum = getColumnNum();
       if (clientColNum !== rowHeight.current.size) {
         recalculate();
       }
@@ -98,6 +102,7 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
       const computedStyle = window.getComputedStyle(container);
       const padding = parseFloat(computedStyle.getPropertyValue('grid-gap'));
       const masonryWidth = parseFloat(computedStyle.getPropertyValue('width'));
+      // 优化加载, 一次性加载20个, 剩下的缓慢加载
       if (children.length - handled.current.size > 20) {
         const head = children.slice(0, 20);
         const tail = children.slice(20);

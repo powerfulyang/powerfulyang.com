@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import type { AppProps } from 'next/app';
 import './app.scss';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
+import type { HeaderProps } from '@/components/Head';
 import { Header } from '@/components/Head';
 import { useRouter } from 'next/router';
 import { isProdProcess } from '@powerfulyang/utils';
@@ -12,7 +13,7 @@ type Props = {
   Component: AppProps['Component'] & { getLayout: any };
   pageProps: {
     [key: string]: any;
-  };
+  } & HeaderProps;
 };
 
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -25,7 +26,13 @@ export const pageView = (url: string): void => {
 };
 
 const App = ({ Component, pageProps }: AppProps & Props) => {
-  const getLayout = Component.getLayout || ((page: typeof Component) => page);
+  const { getLayout } = Component;
+  const component = useMemo(() => {
+    if (getLayout) {
+      return getLayout(<Component {...pageProps} />);
+    }
+    return <Component {...pageProps} />;
+  }, [Component, getLayout, pageProps]);
   const router = useRouter();
   useEffect(() => {
     if (isProdProcess) {
@@ -39,14 +46,9 @@ const App = ({ Component, pageProps }: AppProps & Props) => {
 
   return (
     <GlobalContextProvider>
-      <Header
-        title={pageProps.title}
-        description={pageProps.description}
-        keywords={pageProps.keywords}
-        canonicalPath={pageProps.canonicalPath}
-      />
+      <Header meta={pageProps.meta} link={pageProps.link} />
       <Redirecting />
-      {getLayout(<Component {...pageProps} />)}
+      {component}
       <Script
         strategy="afterInteractive"
         async

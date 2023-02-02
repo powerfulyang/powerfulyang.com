@@ -6,28 +6,31 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import Head from 'next/head';
 import { ProjectName } from '@/constant/Constant';
-import { useRouter } from 'next/router';
 
 dayjs.extend(LocalizedFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 export interface HeaderProps {
-  title?: string;
-  description?: string;
-  keywords?: string;
-  canonicalPath?: string;
+  meta: {
+    title: string;
+    description: string;
+    author: string;
+    keywords: string;
+  };
+  link: {
+    canonical: string;
+  };
 }
 
-export const Header: FC<HeaderProps> = memo(({ title, description, keywords, canonicalPath }) => {
-  const t = `${title || '404'} - ${ProjectName}`;
-  const { asPath } = useRouter();
-  const origin = 'https://powerfulyang.com';
-  const currentUrl = `${origin}${asPath}`;
-  let canonical = currentUrl;
-  if (canonicalPath) {
-    canonical = `${origin}${canonicalPath}`;
-  }
+export const defaultOrigin = 'https://powerfulyang.com';
+export const defaultAuthor = 'powerfulyang';
+export const origin: string = process.env.NEXT_PUBLIC_ORIGIN || defaultOrigin;
+
+export const Header: FC<HeaderProps> = memo(({ meta, link }) => {
+  const { title = '404', description, author, keywords } = meta || {};
+  const { canonical } = link || {};
+  const t = `${title} - ${ProjectName}`;
   return (
     <Head>
       <meta
@@ -35,15 +38,15 @@ export const Header: FC<HeaderProps> = memo(({ title, description, keywords, can
         content="initial-scale=1.0, width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
       />
 
-      <link rel="canonical" href={canonical} />
-
-      <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
+      {canonical && <link rel="canonical" href={canonical} />}
+      {keywords && <meta name="keywords" content={keywords} />}
+      {description && <meta name="description" content={description} />}
+      {author && <meta name="author" content={author} />}
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@hutyxxx" />
       <meta name="twitter:creator" content="@hutyxxx" />
-      <meta name="twitter:url" content={currentUrl} />
+      <meta name="twitter:url" content={canonical} />
       <meta name="twitter:title" content={t} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={`${origin}/icons/android-chrome-192x192.png`} />
@@ -51,7 +54,7 @@ export const Header: FC<HeaderProps> = memo(({ title, description, keywords, can
       <meta property="og:title" content={t} />
       <meta property="og:type" content="website" />
       <meta property="og:description" content={description} />
-      <meta property="og:url" content={currentUrl} />
+      <meta property="og:url" content={canonical} />
       <meta property="og:image" content={`${origin}/icons/android-chrome-192x192.png`} />
 
       <title>{t}</title>

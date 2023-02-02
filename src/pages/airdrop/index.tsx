@@ -247,7 +247,9 @@ Airdrop.getLayout = (page) => {
 export const getServerSideProps = () => {
   return {
     props: {
-      title: 'Airdrop',
+      meta: {
+        title: 'Airdrop',
+      },
     },
   };
 };

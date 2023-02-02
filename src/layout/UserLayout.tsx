@@ -4,7 +4,7 @@ import { NavBar } from '@/components/NavBar';
 import { Footer } from '@/components/Footer';
 
 type UserLayoutProps = {
-  pathViewCount?: number;
+  pathViewCount?: string;
 };
 
 export const UserLayout: FC<PropsWithChildren<UserLayoutProps>> = ({ children, pathViewCount }) => {

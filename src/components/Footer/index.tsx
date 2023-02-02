@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import styles from './index.module.scss';
 
 type FooterProps = {
-  pathViewCount?: number;
+  pathViewCount?: string;
 };
 
 export const Footer = memo<FooterProps>(({ pathViewCount = 0 }) => (

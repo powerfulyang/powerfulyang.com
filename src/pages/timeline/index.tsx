@@ -19,6 +19,7 @@ import { useUser } from '@/hooks/useUser';
 import Image from 'next/image';
 import bg from '@/assets/timeline-banner.webp';
 import { useFixMinHeight } from '@/hooks/useFixMinHeight';
+import { defaultAuthor, origin } from '@/components/Head';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -187,7 +188,7 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
 };
 
 Timeline.getLayout = (page) => {
-  const { pathViewCount } = page.props;
+  const { pathViewCount } = page.props.layout;
   return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
 };
 
@@ -205,8 +206,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       feeds: data.resources,
       nextCursor: data.nextCursor,
       prevCursor: data.prevCursor,
-      pathViewCount,
-      title: '说说',
+      meta: {
+        title: '说说',
+        description: '关于我日常的胡言乱语',
+        keywords: '说说, 胡言乱语, 日常',
+        author: defaultAuthor,
+      },
+      layout: {
+        pathViewCount,
+      },
+      link: {
+        canonical: `${origin}/timeline`,
+      },
     },
   };
 };

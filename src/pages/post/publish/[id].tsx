@@ -11,6 +11,7 @@ import type { LayoutFC } from '@/type/GlobalContext';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 import { useMutation } from '@tanstack/react-query';
 import { isString } from '@powerfulyang/utils';
+import { defaultAuthor } from '@/components/Head';
 
 type PublishProps = {
   post: Post;
@@ -78,7 +79,7 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
 
 Publish.displayName = 'Publish';
 Publish.getLayout = (page) => {
-  const { pathViewCount } = page.props;
+  const { pathViewCount } = page.props.layout;
   return (
     <>
       {page}
@@ -88,10 +89,7 @@ Publish.getLayout = (page) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const {
-    query,
-    req: { url },
-  } = ctx;
+  const { query } = ctx;
   const { id } = query;
 
   let post;
@@ -109,10 +107,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      currentUrl: url,
       post,
-      title: '发布日志',
-      pathViewCount,
+      meta: {
+        title: '发布日志',
+        description: `发布日志的页面`,
+        author: defaultAuthor,
+        keywords: `日志发布页面`,
+      },
+      layout: {
+        pathViewCount,
+      },
     },
   };
 };

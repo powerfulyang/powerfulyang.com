@@ -20,4 +20,14 @@ const App = () => {
   );
 };
 
+export const getServerSideProps = () => {
+  return {
+    props: {
+      meta: {
+        title: '有趣的玩意',
+      },
+    },
+  };
+};
+
 export default App;
