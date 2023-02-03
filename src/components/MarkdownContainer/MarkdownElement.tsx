@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React, { createContext, useContext, useMemo } from 'react';
-import { PrismAsyncLight } from 'react-syntax-highlighter';
+import { PrismAsync } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import type {
   CodeComponent,
@@ -128,7 +128,7 @@ export const Code: CodeComponent = ({ inline, className, children, node }) => {
           </button>
         </div>
       </div>
-      <PrismAsyncLight
+      <PrismAsync
         showLineNumbers
         style={atomDark}
         language={language}
@@ -143,7 +143,7 @@ export const Code: CodeComponent = ({ inline, className, children, node }) => {
         }}
       >
         {renderText}
-      </PrismAsyncLight>
+      </PrismAsync>
     </>
   );
 };

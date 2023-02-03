@@ -17,23 +17,6 @@ export const styles = {
 };
 
 export const defaultThumbnailWidth = 300;
-
-export const getExtname = (url: string) => {
-  const u = new URL(url);
-
-  const extname = u.pathname.split('.').pop();
-  if (extname) {
-    return extname;
-  }
-
-  return '';
-};
-
-export const isGif = (url: string) => {
-  const extname = getExtname(url);
-  return extname === 'gif';
-};
-
 export const getCosObjectThumbnailUrl = (
   objectUrl: string,
   width: number = defaultThumbnailWidth,
