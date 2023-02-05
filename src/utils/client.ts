@@ -1,7 +1,8 @@
-import { isNil, reject } from 'ramda';
+import { isNil } from 'ramda';
 import type { GetServerSideProps } from 'next';
 import { notification } from '@powerfulyang/components';
 import { getReasonPhrase, StatusCodes } from 'http-status-codes';
+import { stringify } from 'querystring';
 
 export type RequestOptions = {
   method?: string;
@@ -10,9 +11,6 @@ export type RequestOptions = {
   query?: Record<string, any>;
   notificationOnError?: boolean;
 };
-
-export const stringify = (query: RequestOptions['query']) =>
-  new URLSearchParams(query && reject(isNil, query)).toString();
 
 export const requestAtClient = async <T = any>(
   url: string,

@@ -17,7 +17,7 @@ type PostProps = {
   data: Post;
 };
 
-const PostDetail: LayoutFC<PostProps> = ({ data: { content, toc, id } }) => {
+const PostDetail: LayoutFC<PostProps> = ({ data: { content, toc, id, logs = [] } }) => {
   const history = useHistory();
 
   useHotkeys(
@@ -31,7 +31,7 @@ const PostDetail: LayoutFC<PostProps> = ({ data: { content, toc, id } }) => {
   return (
     <main className={styles.postWrap}>
       <MarkdownContainer source={content} className={styles.post} />
-      <MarkdownTOC toc={toc} />
+      <MarkdownTOC toc={toc} logs={logs} id={id} />
     </main>
   );
 };

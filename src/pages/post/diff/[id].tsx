@@ -7,6 +7,7 @@ import React from 'react';
 import { DateTimeFormat } from '@/utils/lib';
 import { PrismAsync } from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { StatusCodes } from 'http-status-codes';
 
 type Props = {
   left: Post;
@@ -21,7 +22,7 @@ const Diff: FC<Props> = ({ left, right }) => {
       leftTitle={leftTitle}
       rightTitle={rightTitle}
       oldValue={left.content}
-      newValue={`123${right.content}34`}
+      newValue={right.content}
       renderContent={(value) => {
         return (
           <PrismAsync
@@ -46,19 +47,24 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { query } = ctx;
   const id = query.id as string;
   const versions = query.versions as string[];
-  const res = await requestAtServer('/public/post/diff', {
+  const res = await requestAtServer(`/public/post/${id}`, {
     ctx,
     query: {
-      id,
       versions,
     },
   });
-  const json = (await res.json()) as [Post, Post];
+  if (res.status !== StatusCodes.OK) {
+    return {
+      notFound: true,
+    };
+  }
+  const post = await res.json();
+  const {logs} = post;
 
   return {
     props: {
-      left: json,
-      right: json,
+      left: logs[0],
+      right: logs[1],
       meta: {
         title: 'Post Diff',
         description: '对比两个版本的文章',

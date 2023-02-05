@@ -39,7 +39,7 @@ if (API_ENV === 'qa') {
   process.env.SERVER_BASE_URL = 'https://qa.powerfulyang.com/api';
 }
 if (API_ENV === 'local') {
-  process.env.SERVER_BASE_URL = 'http://localhost:3001/api';
+  process.env.SERVER_BASE_URL = 'https://local.powerfulyang.com/api';
 }
 
 /**

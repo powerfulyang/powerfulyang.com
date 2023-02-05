@@ -1,6 +1,6 @@
 import { pick } from 'ramda';
 import type { RequestOptions } from '@/utils/client';
-import { stringify } from '@/utils/client';
+import { stringify } from 'querystring';
 
 export const requestAtServer = async (url: string, options: RequestOptions) => {
   const { method = 'GET', ctx, body, query } = options;
