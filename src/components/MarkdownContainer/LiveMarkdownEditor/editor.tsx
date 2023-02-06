@@ -8,6 +8,11 @@ self.MonacoEnvironment = {
   },
 };
 
+monaco.languages.register({
+  id: 'vs.editor.nullLanguage',
+});
+monaco.languages.setLanguageConfiguration('vs.editor.nullLanguage', {});
+
 loader.config({
   monaco,
 });

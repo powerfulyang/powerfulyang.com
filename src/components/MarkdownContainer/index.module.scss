@@ -272,10 +272,11 @@ $main-color: #ffb356;
 
       & > li {
         display: flex;
-        align-items: center;
+        align-items: start;
 
         input {
           margin-right: 0.5em;
+          margin-top: 0.5rem;
         }
       }
     }
