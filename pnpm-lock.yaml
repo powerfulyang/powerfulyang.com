@@ -45,7 +45,7 @@ specifiers:
   react-diff-viewer: 3.1.1
   react-dom: 18.2.0
   react-hook-form: 7.43.0
-  react-hotkeys-hook: 4.3.4
+  react-hotkeys-hook: 4.3.5
   react-intersection-observer: 9.4.1
   react-markdown: 8.0.5
   react-syntax-highlighter: 15.5.0
@@ -95,7 +95,7 @@ dependencies:
   react-diff-viewer: 3.1.1_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.43.0_react@18.2.0
-  react-hotkeys-hook: 4.3.4_biqbaboplfbrettd7655fr4n2y
+  react-hotkeys-hook: 4.3.5_biqbaboplfbrettd7655fr4n2y
   react-intersection-observer: 9.4.1_react@18.2.0
   react-markdown: 8.0.5_kzbn2opkn2327fwg5yzwzya5o4
   react-syntax-highlighter: 15.5.0_react@18.2.0
@@ -9528,8 +9528,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-hotkeys-hook/4.3.4_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-XV/tMK8n0joWa4tSklfddLUDirbu8T/H1hRPPm+UnfdT2ajp/jZPDh0q3L24nYjsCSwNIA6XFewYPguqrTIXkg==}
+  /react-hotkeys-hook/4.3.5_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-tfwTwKP3ga7n4naNS/JOByaEwEkTCoXYCepDuhXpj8mBx+sFszV5JecRWM2dv+PbOowmmBpHAFtTXTnG/p8UkQ==}
     peerDependencies:
       react: '>=16.8.1'
       react-dom: '>=16.8.1'
