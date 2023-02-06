@@ -59,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
   const post = await res.json();
-  const {logs} = post;
+  const { logs } = post;
 
   return {
     props: {

@@ -18,7 +18,7 @@ export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: Post[]; id: number }> = ({
   id: postId,
 }) => {
   const hashRef = useRef('');
-  const reversedLogs = useMemo(() => logs.reverse(), [logs]);
+  const reversedLogs = useMemo(() => [...logs].reverse(), [logs]);
 
   return (
     <div className={classNames('hidden sm:block', styles.toc)}>
@@ -54,7 +54,7 @@ export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: Post[]; id: number }> = ({
           </div>
         );
       })}
-      {reversedLogs.length > 0 && (
+      {reversedLogs.length > 1 && (
         <>
           <span className="mt-4 mb-2 inline-block text-lg text-gray-400">历史记录:</span>
           {reversedLogs.slice(1).map((log) => (
