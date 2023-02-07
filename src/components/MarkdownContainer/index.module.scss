@@ -271,12 +271,8 @@ $main-color: #ffb356;
       padding-inline-start: 1em;
 
       & > li {
-        display: flex;
-        align-items: start;
-
         input {
-          margin-right: 0.5em;
-          margin-top: 0.5rem;
+          vertical-align: -0.15em;
         }
       }
     }
