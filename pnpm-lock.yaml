@@ -32,7 +32,7 @@ specifiers:
   jest-canvas-mock: 2.4.0
   jotai: 2.0.0
   lodash-es: 4.17.21
-  monaco-editor: 0.34.1
+  monaco-editor: 0.35.0
   monaco-editor-webpack-plugin: 7.0.1
   next: 13.1.6
   next-compose-plugins: 2.2.1
@@ -69,7 +69,7 @@ specifiers:
 dependencies:
   '@docsearch/react': 3.3.3_4mvbrmqotwuhfzwlcr6w5cftiu
   '@hookform/resolvers': 2.9.10_react-hook-form@7.43.1
-  '@monaco-editor/react': 4.4.6_6vrjaj6ridxbohi43n7zt4gn7q
+  '@monaco-editor/react': 4.4.6_3vguicescx7w3divwtpzvtv5wy
   '@powerfulyang/components': 1.6.1_x7zjnd5y6infreszwkuvxqxpqm
   '@powerfulyang/hooks': 1.4.0_w7c26772askiudqmj4bj66icee
   '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
@@ -86,7 +86,7 @@ dependencies:
   immer: 9.0.19
   jotai: 2.0.0_react@18.2.0
   lodash-es: 4.17.21
-  monaco-editor: 0.34.1
+  monaco-editor: 0.35.0
   next: 13.1.6_7xlrwlvvs7cv2obrs6a5y6oxxq
   next-sitemap: 3.1.50_dlcnecpznf2wc36zwuq5m2ie5q
   peerjs: 1.4.7
@@ -127,7 +127,7 @@ devDependencies:
   '@types/sharp': 0.31.1
   '@types/three': 0.149.0
   jest-canvas-mock: 2.4.0
-  monaco-editor-webpack-plugin: 7.0.1_feckyf2jam7vk36gev3ykueqty
+  monaco-editor-webpack-plugin: 7.0.1_bbegtevx43l6vpk7djmbrepg3a
   next-compose-plugins: 2.2.1
   next-pwa: 5.6.0_5pihwnm3cusgnzmmrhzt7ur45u
   prettier-plugin-tailwindcss: 0.2.2_prettier@2.8.3
@@ -2072,24 +2072,24 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@monaco-editor/loader/1.3.2_monaco-editor@0.34.1:
+  /@monaco-editor/loader/1.3.2_monaco-editor@0.35.0:
     resolution: {integrity: sha512-BTDbpHl3e47r3AAtpfVFTlAi7WXv4UQ/xZmz8atKl4q7epQV5e7+JbigFDViWF71VBi4IIBdcWP57Hj+OWuc9g==}
     peerDependencies:
       monaco-editor: '>= 0.21.0 < 1'
     dependencies:
-      monaco-editor: 0.34.1
+      monaco-editor: 0.35.0
       state-local: 1.0.7
     dev: false
 
-  /@monaco-editor/react/4.4.6_6vrjaj6ridxbohi43n7zt4gn7q:
+  /@monaco-editor/react/4.4.6_3vguicescx7w3divwtpzvtv5wy:
     resolution: {integrity: sha512-Gr3uz3LYf33wlFE3eRnta4RxP5FSNxiIV9ENn2D2/rN8KgGAD8ecvcITRtsbbyuOuNkwbuHYxfeaz2Vr+CtyFA==}
     peerDependencies:
       monaco-editor: '>= 0.25.0 < 1'
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@monaco-editor/loader': 1.3.2_monaco-editor@0.34.1
-      monaco-editor: 0.34.1
+      '@monaco-editor/loader': 1.3.2_monaco-editor@0.35.0
+      monaco-editor: 0.35.0
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -8537,19 +8537,19 @@ packages:
     resolution: {integrity: sha512-Qi0VCU46t2IwfGv5KF0+D/t9cizcDug7qnNoy9Ggk7aucp0tssV8IwTMkBlDbm+VqAf3cdQHTCARKSsuS2MYFg==}
     dev: false
 
-  /monaco-editor-webpack-plugin/7.0.1_feckyf2jam7vk36gev3ykueqty:
+  /monaco-editor-webpack-plugin/7.0.1_bbegtevx43l6vpk7djmbrepg3a:
     resolution: {integrity: sha512-M8qIqizltrPlIbrb73cZdTWfU9sIsUVFvAZkL3KGjAHmVWEJ0hZKa/uad14JuOckc0GwnCaoGHvMoYtJjVyCzw==}
     peerDependencies:
       monaco-editor: '>= 0.31.0'
       webpack: ^4.5.0 || 5.x
     dependencies:
       loader-utils: 2.0.4
-      monaco-editor: 0.34.1
+      monaco-editor: 0.35.0
       webpack: 5.75.0_@swc+core@1.3.32
     dev: true
 
-  /monaco-editor/0.34.1:
-    resolution: {integrity: sha512-FKc80TyiMaruhJKKPz5SpJPIjL+dflGvz4CpuThaPMc94AyN7SeC9HQ8hrvaxX7EyHdJcUY5i4D0gNyJj1vSZQ==}
+  /monaco-editor/0.35.0:
+    resolution: {integrity: sha512-BJfkAZ0EJ7JgrgWzqjfBNP9hPSS8NlfECEDMEIIiozV2UaPq22yeuOjgbd3TwMh3anH0krWZirXZfn8KUSxiOA==}
 
   /moo-color/1.0.3:
     resolution: {integrity: sha512-i/+ZKXMDf6aqYtBhuOcej71YSlbjT3wCO/4H1j8rPvxDJEifdwgg5MaFyu6iYAT8GBZJg2z0dkgK4YMzvURALQ==}
