@@ -23,6 +23,17 @@ const Diff: FC<Props> = ({ left, right }) => {
       rightTitle={rightTitle}
       oldValue={left.content}
       newValue={right.content}
+      styles={{
+        wordDiff: {
+          display: 'contents',
+        },
+        wordRemoved: {
+          display: 'inline',
+        },
+        wordAdded: {
+          display: 'inline',
+        },
+      }}
       renderContent={(value) => {
         return (
           <PrismAsync
@@ -33,6 +44,12 @@ const Diff: FC<Props> = ({ left, right }) => {
             PreTag="span"
             customStyle={{
               display: 'contents',
+              wordBreak: 'break-all',
+            }}
+            codeTagProps={{
+              style: {
+                display: 'contents',
+              },
             }}
           >
             {value}
