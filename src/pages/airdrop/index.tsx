@@ -26,6 +26,7 @@ const Airdrop: LayoutFC = () => {
   );
   const [selectPeerId, setSelectPeerId] = useState<string>(() => LAN);
   const peerRef = useRef<Peer>();
+  const conversionRef = useRef<{ parentMessageId: string; conversationId: string }>();
 
   const handleMessage = useCallback(
     (params: Omit<ChatMessageEntity, 'messageId'>) => {
@@ -101,9 +102,14 @@ const Airdrop: LayoutFC = () => {
           method: 'POST',
           body: {
             message: message.content,
+            ...conversionRef.current,
           },
         })
           .then((res) => {
+            conversionRef.current = {
+              parentMessageId: res.messageId,
+              conversationId: res.conversationId,
+            };
             handleMessage({
               from: ChatGPT,
               chatFriendId: ChatGPT,
