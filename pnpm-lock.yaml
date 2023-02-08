@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@docsearch/react': 3.3.3
-  '@hookform/resolvers': 2.9.10
+  '@hookform/resolvers': 2.9.11
   '@monaco-editor/react': 4.4.6
   '@next/bundle-analyzer': 13.1.6
   '@powerfulyang/components': 1.6.1
@@ -68,7 +68,7 @@ specifiers:
 
 dependencies:
   '@docsearch/react': 3.3.3_4mvbrmqotwuhfzwlcr6w5cftiu
-  '@hookform/resolvers': 2.9.10_react-hook-form@7.43.1
+  '@hookform/resolvers': 2.9.11_react-hook-form@7.43.1
   '@monaco-editor/react': 4.4.6_3vguicescx7w3divwtpzvtv5wy
   '@powerfulyang/components': 1.6.1_x7zjnd5y6infreszwkuvxqxpqm
   '@powerfulyang/hooks': 1.4.0_w7c26772askiudqmj4bj66icee
@@ -1752,8 +1752,8 @@ packages:
       - supports-color
     dev: true
 
-  /@hookform/resolvers/2.9.10_react-hook-form@7.43.1:
-    resolution: {integrity: sha512-JIL1DgJIlH9yuxcNGtyhsWX/PgNltz+5Gr6+8SX9fhXc/hPbEIk6wPI82nhgvp3uUb6ZfAM5mqg/x7KR7NAb+A==}
+  /@hookform/resolvers/2.9.11_react-hook-form@7.43.1:
+    resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
