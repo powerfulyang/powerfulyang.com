@@ -30,7 +30,7 @@ specifiers:
   http-status-codes: 2.2.0
   immer: 9.0.19
   jest-canvas-mock: 2.4.0
-  jotai: 2.0.0
+  jotai: 2.0.1
   lodash-es: 4.17.21
   monaco-editor: 0.35.0
   monaco-editor-webpack-plugin: 7.0.1
@@ -84,7 +84,7 @@ dependencies:
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
   immer: 9.0.19
-  jotai: 2.0.0_react@18.2.0
+  jotai: 2.0.1_react@18.2.0
   lodash-es: 4.17.21
   monaco-editor: 0.35.0
   next: 13.1.6_7xlrwlvvs7cv2obrs6a5y6oxxq
@@ -7534,8 +7534,8 @@ packages:
       - ts-node
     dev: true
 
-  /jotai/2.0.0_react@18.2.0:
-    resolution: {integrity: sha512-04G0CRZQgp3xrFAezd6X14psZ2TRGekHeYMBcbDJ/BR8ZJQPS+j0YkMTxUxyG58HJnN2+adfj5sWQWoqgtp1XQ==}
+  /jotai/2.0.1_react@18.2.0:
+    resolution: {integrity: sha512-b/BpBFkv3nq8HgT6YX5h5/y9VfKIn9OL1dO6gd9bWTgKt6LLe24VIMURTDwSYS888XfubuRQlbepb5IQGAtmcQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       react: '>=17.0.0'
