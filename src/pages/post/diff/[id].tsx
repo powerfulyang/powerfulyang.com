@@ -80,8 +80,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      left: logs[0],
-      right: logs[1],
+      left: logs[1],
+      right: logs[0],
       meta: {
         title: 'Post Diff',
         description: '对比两个版本的文章',

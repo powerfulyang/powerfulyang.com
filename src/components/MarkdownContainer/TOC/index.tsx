@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import classNames from 'classnames';
 import { scrollIntoView } from '@powerfulyang/utils';
 import type { Post } from '@/type/Post';
@@ -18,7 +18,6 @@ export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: Post[]; id: number }> = ({
   id: postId,
 }) => {
   const hashRef = useRef('');
-  const reversedLogs = useMemo(() => [...logs].reverse(), [logs]);
 
   return (
     <div className={classNames('hidden sm:block', styles.toc)}>
@@ -54,13 +53,13 @@ export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: Post[]; id: number }> = ({
           </div>
         );
       })}
-      {reversedLogs.length > 1 && (
+      {logs.length > 1 && (
         <>
           <span className="mt-4 mb-2 inline-block text-lg text-gray-400">历史记录:</span>
-          {reversedLogs.slice(1).map((log) => (
+          {logs.slice(1).map((log) => (
             <div key={log.id} className="truncate">
               <a
-                href={`/post/diff/${postId}?versions=${reversedLogs[0].id}&versions=${log.id}`}
+                href={`/post/diff/${postId}?versions=${logs[0].id}&versions=${log.id}`}
                 target="_blank"
                 rel="noreferrer"
                 title={`${log.id}`}
