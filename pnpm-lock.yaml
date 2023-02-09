@@ -59,7 +59,7 @@ specifiers:
   remark-stringify: 10.0.2
   rxjs: 7.8.0
   sharp: 0.31.3
-  tailwindcss: 3.2.4
+  tailwindcss: 3.2.6
   three: 0.149.0
   typescript: 4.9.5
   unist-util-visit: 4.1.2
@@ -131,7 +131,7 @@ devDependencies:
   next-compose-plugins: 2.2.1
   next-pwa: 5.6.0_b2355xoyds5zxfrbc7byixqkbi
   prettier-plugin-tailwindcss: 0.2.2_prettier@2.8.4
-  tailwindcss: 3.2.4_aesdjsunmf4wiehhujt67my7tu
+  tailwindcss: 3.2.6_aesdjsunmf4wiehhujt67my7tu
   typescript: 4.9.5
 
 packages:
@@ -3286,7 +3286,7 @@ packages:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 18.11.19
+      '@types/node': 18.13.0
     dev: true
 
   /@types/graceful-fs/4.1.5:
@@ -3378,12 +3378,8 @@ packages:
     resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
     dev: true
 
-  /@types/node/18.11.19:
-    resolution: {integrity: sha512-YUgMWAQBWLObABqrvx8qKO1enAvBUdjZOAWQ5grBAkp5LQv45jBvYKZ3oFS9iKRCQyFjqw6iuEa1vmFqtxYLZw==}
-
   /@types/node/18.13.0:
     resolution: {integrity: sha512-gC3TazRzGoOnoKAhUx+Q0t8S9Tzs74z7m0ipwGpSqQrleP14hKxP4/JUeEQcD3W1/aIpnWl8pHowI7WokuZpXg==}
-    dev: true
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -7504,7 +7500,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.11.19
+      '@types/node': 18.13.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -10719,8 +10715,8 @@ packages:
       strip-ansi: 6.0.1
     dev: true
 
-  /tailwindcss/3.2.4_aesdjsunmf4wiehhujt67my7tu:
-    resolution: {integrity: sha512-AhwtHCKMtR71JgeYDaswmZXhPcW9iuI9Sp2LvZPo9upDZ7231ZJ7eA9RaURbhpXGVlrjX4cFNlB4ieTetEb7hQ==}
+  /tailwindcss/3.2.6_aesdjsunmf4wiehhujt67my7tu:
+    resolution: {integrity: sha512-BfgQWZrtqowOQMC2bwaSNe7xcIjdDEgixWGYOd6AL0CbKHJlvhfdbINeAW76l1sO+1ov/MJ93ODJ9yluRituIw==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
