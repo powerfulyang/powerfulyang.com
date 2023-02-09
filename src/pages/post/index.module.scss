@@ -53,7 +53,7 @@
     }
 
     summary {
-      word-break: break-all;
+      word-break: break-word;
       @include line-clamp(4);
       @apply my-3 max-w-[70%] text-amber-200 sm:max-w-[60%];
     }

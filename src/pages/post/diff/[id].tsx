@@ -44,7 +44,7 @@ const Diff: FC<Props> = ({ left, right }) => {
             PreTag="span"
             customStyle={{
               display: 'contents',
-              wordBreak: 'break-all',
+              wordBreak: 'break-word',
             }}
             codeTagProps={{
               style: {
