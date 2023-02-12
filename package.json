@@ -36,7 +36,7 @@
     "@react-three/drei": "9.56.24",
     "@react-three/fiber": "8.11.0",
     "@sentry/nextjs": "7.37.1",
-    "@tanstack/react-query": "4.24.4",
+    "@tanstack/react-query": "4.24.6",
     "classnames": "2.3.2",
     "d3": "7.8.2",
     "dayjs": "1.11.7",
