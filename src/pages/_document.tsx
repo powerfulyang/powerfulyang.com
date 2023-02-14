@@ -36,6 +36,8 @@ const Document = () => {
         <link rel="manifest" href="/manifest.json" />
         <link rel="mask-icon" href="/icons/favicon-32x32.png" color="#5bbad5" />
         <link rel="shortcut icon" href="/favicon.ico" />
+
+        <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/rss.xml" />
       </Head>
       <body>
         <Main />

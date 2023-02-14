@@ -39,7 +39,7 @@ open http://localhost:3000 in your browser, and you will see the website.
 - [x] [Timeline](https://powerfulyang.com/timeline)
 - [x] [Airdrop](https://powerfulyang.com/airdrop)
 - [ ] Dark Mode
-- [ ] Feed RSS
+- [x] RSS
 
 ## License
 
