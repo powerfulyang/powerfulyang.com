@@ -27,7 +27,7 @@ export const LazyImage = memo<LazyImageProps>(
     src,
     className = 'object-cover w-full h-full',
     blurSrc,
-    containerClassName,
+    containerClassName = 'w-full',
     lazy = true,
     aspectRatio,
     initialInView = true,
@@ -75,10 +75,7 @@ export const LazyImage = memo<LazyImageProps>(
 
     return (
       <span
-        className={classNames(
-          containerClassName,
-          'isolate block w-full select-none overflow-hidden',
-        )}
+        className={classNames(containerClassName, 'isolate block select-none overflow-hidden')}
         style={{ aspectRatio }}
         ref={ref}
       >

@@ -14,6 +14,8 @@ import { Icon } from '@powerfulyang/components';
 import type { Plugin } from 'unified';
 import type { Root } from 'mdast';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import styles from './index.module.scss';
 import {
   A,
@@ -30,6 +32,8 @@ import {
   Table,
   Ul,
 } from './MarkdownElement';
+
+import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 
 export type MarkdownContainerProps = {
   source: string;
@@ -112,6 +116,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
             remarkStringify,
             remarkFrontmatter,
             [remarkMetadata, metadataRef],
+            remarkMath,
           ]}
           remarkRehypeOptions={{
             passThrough: ['info', 'tags'],
@@ -131,7 +136,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
               },
             },
           }}
-          rehypePlugins={[rehypeSlug]}
+          rehypePlugins={[rehypeSlug, rehypeKatex]}
           components={{
             h1: H1,
             h2: H2,

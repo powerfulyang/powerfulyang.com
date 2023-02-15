@@ -11,6 +11,7 @@ import { MarkdownContainer } from '@/components/MarkdownContainer';
 import dynamic from 'next/dynamic';
 import { editor } from 'monaco-editor';
 import type { Monaco } from '@monaco-editor/react';
+import { useIsomorphicLayoutEffect } from 'framer-motion';
 import styles from './index.module.scss';
 import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
@@ -44,6 +45,20 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
     editor: IStandaloneCodeEditor;
     monaco: Monaco;
   }>();
+
+  useIsomorphicLayoutEffect(() => {
+    const fixRootElement = document.body;
+    if (fixRootElement) {
+      fixRootElement.style.cssText = `
+      overflow: hidden;
+      overflow: clip;
+      `;
+      return () => {
+        fixRootElement.removeAttribute('style');
+      };
+    }
+    return () => null;
+  }, []);
 
   const metadataRef = useRef<MarkdownMetadata>({});
 

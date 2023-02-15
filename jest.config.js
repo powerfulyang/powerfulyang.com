@@ -47,6 +47,8 @@ const esModules = [
   'lodash-es',
   'github-slugger',
   'react-syntax-highlighter',
+  'hastscript',
+  'web-namespaces',
 ].join('|');
 
 module.exports = async () => {

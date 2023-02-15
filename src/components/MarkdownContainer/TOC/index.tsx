@@ -56,10 +56,10 @@ export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: Post[]; id: number }> = ({
       {logs.length > 1 && (
         <>
           <span className="mt-4 mb-2 inline-block text-lg text-gray-400">历史记录:</span>
-          {logs.slice(1).map((log) => (
+          {logs.slice(0, -1).map((log, _index) => (
             <div key={log.id} className="truncate">
               <a
-                href={`/post/diff/${postId}?versions=${logs[0].id}&versions=${log.id}`}
+                href={`/post/diff/${postId}?versions=${log.id}&versions=${logs[_index + 1].id}`}
                 target="_blank"
                 rel="noreferrer"
                 title={`${log.id}`}
