@@ -64,7 +64,11 @@ export const ChatMessage = memo<ChatMessageEntity>(({ from, content, sendType })
             [styles.sent]: sendType === MessageSendType.send,
           })}
         >
-          {content}
+          {content === '_chat_gpt_thinking_' ? (
+            <span className={styles.loading}>ChatGPT 正在思考中</span>
+          ) : (
+            content
+          )}
         </button>
       )}
       {isBlob(content) && content.type.startsWith('image') && (

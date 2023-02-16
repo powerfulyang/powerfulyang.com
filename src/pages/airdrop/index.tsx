@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { DataConnection, Peer } from 'peerjs';
 import { useImmer } from '@powerfulyang/hooks';
 import type { LayoutFC } from '@/type/GlobalContext';
@@ -12,12 +12,15 @@ import { LazyImage } from '@/components/LazyImage';
 import { useDocumentVisible } from '@/hooks/useDocumentVisible';
 import { randomAvatar } from '@/utils/lib';
 import { requestAtClient } from '@/utils/client';
+import { useUser } from '@/hooks/useUser';
+import { useMutation } from '@tanstack/react-query';
 import styles from './index.module.scss';
 
 const LAN = 'LAN';
 const ChatGPT = 'ChatGPT';
 
 const Airdrop: LayoutFC = () => {
+  const { user } = useUser();
   const [currentPeerId, setCurrentPeerId] = useState('');
   const [connections, setConnections] = useImmer(() => new Map<string, DataConnection>());
   const messageIdRef = useRef(0);
@@ -73,6 +76,67 @@ const Airdrop: LayoutFC = () => {
     [handleMessage],
   );
 
+  const chatGPTUtil = useMemo(() => {
+    const think = () => {
+      handleMessage({
+        from: ChatGPT,
+        chatFriendId: ChatGPT,
+        content: '_chat_gpt_thinking_',
+        messageContentType: 'text',
+        sendType: MessageSendType.receive,
+      });
+    };
+    const stopThink = () => {
+      setMessages((draft) => {
+        const messageChannel = draft.get(ChatGPT);
+        if (messageChannel) {
+          messageChannel.pop();
+        }
+      });
+    };
+    return {
+      think,
+      stopThink,
+    };
+  }, [handleMessage, setMessages]);
+
+  const sendToChatGPT = useMutation({
+    mutationFn: (message: SentMessage) => {
+      chatGPTUtil.think();
+      return requestAtClient('/public/chat', {
+        method: 'POST',
+        body: {
+          message: message.content,
+          ...conversionRef.current,
+        },
+      });
+    },
+    onSuccess(res) {
+      chatGPTUtil.stopThink();
+      conversionRef.current = {
+        parentMessageId: res.messageId,
+        conversationId: res.conversationId,
+      };
+      handleMessage({
+        from: ChatGPT,
+        chatFriendId: ChatGPT,
+        content: res.content,
+        messageContentType: 'text',
+        sendType: MessageSendType.receive,
+      });
+    },
+    onError(e: Error) {
+      chatGPTUtil.stopThink();
+      handleMessage({
+        from: ChatGPT,
+        chatFriendId: ChatGPT,
+        content: e.message,
+        messageContentType: 'text',
+        sendType: MessageSendType.receive,
+      });
+    },
+  });
+
   const sendMessage = useCallback(
     (message: SentMessage) => {
       handleMessage({
@@ -98,38 +162,10 @@ const Airdrop: LayoutFC = () => {
           });
         });
       } else if (selectPeerId === ChatGPT) {
-        requestAtClient('/public/chat', {
-          method: 'POST',
-          body: {
-            message: message.content,
-            ...conversionRef.current,
-          },
-        })
-          .then((res) => {
-            conversionRef.current = {
-              parentMessageId: res.messageId,
-              conversationId: res.conversationId,
-            };
-            handleMessage({
-              from: ChatGPT,
-              chatFriendId: ChatGPT,
-              content: res.content,
-              messageContentType: 'text',
-              sendType: MessageSendType.receive,
-            });
-          })
-          .catch((e) => {
-            handleMessage({
-              from: ChatGPT,
-              chatFriendId: ChatGPT,
-              content: e.message,
-              messageContentType: 'text',
-              sendType: MessageSendType.receive,
-            });
-          });
+        sendToChatGPT.mutate(message);
       }
     },
-    [handleMessage, selectPeerId, connections, currentPeerId],
+    [handleMessage, currentPeerId, selectPeerId, connections, sendToChatGPT],
   );
 
   useEffect(() => {
@@ -191,6 +227,7 @@ const Airdrop: LayoutFC = () => {
             .filter((x) => x !== currentPeerId)
             .map((peerId) => (
               <button
+                hidden={peerId === ChatGPT && !user}
                 type="button"
                 className={classNames(styles.friend, {
                   [styles.selected]: peerId === selectPeerId,
