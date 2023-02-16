@@ -62,7 +62,7 @@ specifiers:
   remark-stringify: 10.0.2
   rxjs: 7.8.0
   sharp: 0.31.3
-  tailwindcss: 3.2.6
+  tailwindcss: 3.2.7
   three: 0.149.0
   typescript: 4.9.5
   unist-util-visit: 4.1.2
@@ -137,7 +137,7 @@ devDependencies:
   next-compose-plugins: 2.2.1
   next-pwa: 5.6.0_lrjdyjibvovicz6zkbymb7n57e
   prettier-plugin-tailwindcss: 0.2.3_prettier@2.8.4
-  tailwindcss: 3.2.6_aesdjsunmf4wiehhujt67my7tu
+  tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
   typescript: 4.9.5
 
 packages:
@@ -10858,8 +10858,8 @@ packages:
       strip-ansi: 6.0.1
     dev: true
 
-  /tailwindcss/3.2.6_aesdjsunmf4wiehhujt67my7tu:
-    resolution: {integrity: sha512-BfgQWZrtqowOQMC2bwaSNe7xcIjdDEgixWGYOd6AL0CbKHJlvhfdbINeAW76l1sO+1ov/MJ93ODJ9yluRituIw==}
+  /tailwindcss/3.2.7_aesdjsunmf4wiehhujt67my7tu:
+    resolution: {integrity: sha512-B6DLqJzc21x7wntlH/GsZwEXTBttVSl1FtCzC8WP4oBc/NKef7kaax5jeihkkCEWc831/5NDJ9gRNDK6NEioQQ==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     peerDependencies:
