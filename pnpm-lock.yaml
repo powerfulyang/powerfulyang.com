@@ -10,7 +10,7 @@ specifiers:
   '@powerfulyang/lint': 3.1.3
   '@powerfulyang/utils': 1.6.0
   '@react-three/drei': 9.56.25
-  '@react-three/fiber': 8.11.1
+  '@react-three/fiber': 8.11.2
   '@sentry/cli': 2.12.0
   '@sentry/nextjs': 7.37.2
   '@tanstack/react-query': 4.24.6
@@ -76,8 +76,8 @@ dependencies:
   '@powerfulyang/components': 1.6.1_4v775abbdbchjhpb7ijadd2iri
   '@powerfulyang/hooks': 1.4.0_w7c26772askiudqmj4bj66icee
   '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
-  '@react-three/drei': 9.56.25_dnzsvkb3dcowwlgign6zktihi4
-  '@react-three/fiber': 8.11.1_xor7byvqlg4baqj6ymfbcmaax4
+  '@react-three/drei': 9.56.25_ceh54bdkswdljeyl3jd54pj65e
+  '@react-three/fiber': 8.11.2_xor7byvqlg4baqj6ymfbcmaax4
   '@sentry/nextjs': 7.37.2_3hasew56yhfsk6ei4nos45iqie
   '@tanstack/react-query': 4.24.6_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
@@ -2468,7 +2468,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@react-spring/three/9.6.1_nas3qhvnzdenypk4ocnxxeiwki:
+  /@react-spring/three/9.6.1_mwnnnbckvcqi26tj6me4jgcpge:
     resolution: {integrity: sha512-Tyw2YhZPKJAX3t2FcqvpLRb71CyTe1GvT3V+i+xJzfALgpk10uPGdGaQQ5Xrzmok1340DAeg2pR/MCfaW7b8AA==}
     peerDependencies:
       '@react-three/fiber': '>=6.0'
@@ -2479,7 +2479,7 @@ packages:
       '@react-spring/core': 9.6.1_react@18.2.0
       '@react-spring/shared': 9.6.1_react@18.2.0
       '@react-spring/types': 9.6.1
-      '@react-three/fiber': 8.11.1_xor7byvqlg4baqj6ymfbcmaax4
+      '@react-three/fiber': 8.11.2_xor7byvqlg4baqj6ymfbcmaax4
       react: 18.2.0
       three: 0.149.0
     dev: false
@@ -2488,7 +2488,7 @@ packages:
     resolution: {integrity: sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==}
     dev: false
 
-  /@react-three/drei/9.56.25_dnzsvkb3dcowwlgign6zktihi4:
+  /@react-three/drei/9.56.25_ceh54bdkswdljeyl3jd54pj65e:
     resolution: {integrity: sha512-Wlsmp8q1yqpsHgbUbnt+R83esU4rAE21k4xmcGXaJwNx4PJHR8VZY2kpnEt6TE2uo3L2blUFU0yBMi5/mCyhyw==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
@@ -2500,8 +2500,8 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.20.7
-      '@react-spring/three': 9.6.1_nas3qhvnzdenypk4ocnxxeiwki
-      '@react-three/fiber': 8.11.1_xor7byvqlg4baqj6ymfbcmaax4
+      '@react-spring/three': 9.6.1_mwnnnbckvcqi26tj6me4jgcpge
+      '@react-three/fiber': 8.11.2_xor7byvqlg4baqj6ymfbcmaax4
       '@use-gesture/react': 10.2.24_react@18.2.0
       camera-controls: 2.1.0_three@0.149.0
       detect-gpu: 5.0.10
@@ -2527,8 +2527,8 @@ packages:
       - '@types/three'
     dev: false
 
-  /@react-three/fiber/8.11.1_xor7byvqlg4baqj6ymfbcmaax4:
-    resolution: {integrity: sha512-88ZXSRm+MxTO6g+4Yp3O7wWZr9PWAYxUsny+o+xjaNuxpFoo3RPYJxaSRDdKIKPms3gwvPvy7bCBoUQDUf1JZw==}
+  /@react-three/fiber/8.11.2_xor7byvqlg4baqj6ymfbcmaax4:
+    resolution: {integrity: sha512-cJibYk8LtDS3QlDbmN2GzrB3YSuRaUxkOmy69jAs70sqjK/dClWbNaVJu6T/YcWhPopl+hMf+M24Uh+HEtVj2A==}
     peerDependencies:
       expo: '>=43.0'
       expo-asset: '>=8.4'
