@@ -11,7 +11,7 @@ specifiers:
   '@powerfulyang/utils': 1.6.0
   '@react-three/drei': 9.56.25
   '@react-three/fiber': 8.11.2
-  '@sentry/cli': 2.12.0
+  '@sentry/cli': 2.13.0
   '@sentry/nextjs': 7.37.2
   '@tanstack/react-query': 4.24.6
   '@testing-library/jest-dom': 5.16.5
@@ -123,7 +123,7 @@ dependencies:
 devDependencies:
   '@next/bundle-analyzer': 13.1.6
   '@powerfulyang/lint': 3.1.3_6qtx7vkbdhwvdm4crzlegk4mvi
-  '@sentry/cli': 2.12.0
+  '@sentry/cli': 2.13.0
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@types/d3': 7.4.0
@@ -2678,8 +2678,8 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/cli/2.12.0:
-    resolution: {integrity: sha512-EHDZVaje1Vkm0sygVyKuUtQgTw7OFzgysBXjwEad6BgZVPTtF46v0eizCrBK9jwA1P30logf76D1u+eULaSDDw==}
+  /@sentry/cli/2.13.0:
+    resolution: {integrity: sha512-F0WmiMmVjn6zZyD89MF8B1zGgcrJTi5yxPmd+sqpRKOfGCtucdRdM/BL1aU27BApaseCCfI1bgwtJSB2fUQqlw==}
     engines: {node: '>= 10'}
     hasBin: true
     requiresBuild: true
