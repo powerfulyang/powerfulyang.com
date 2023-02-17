@@ -31,7 +31,7 @@ specifiers:
   http-status-codes: 2.2.0
   immer: 9.0.19
   jest-canvas-mock: 2.4.0
-  jotai: 2.0.1
+  jotai: 2.0.2
   lodash-es: 4.17.21
   monaco-editor: 0.35.0
   monaco-editor-webpack-plugin: 7.0.1
@@ -88,7 +88,7 @@ dependencies:
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
   immer: 9.0.19
-  jotai: 2.0.1_react@18.2.0
+  jotai: 2.0.2_react@18.2.0
   lodash-es: 4.17.21
   monaco-editor: 0.35.0
   next: 13.1.6_7xlrwlvvs7cv2obrs6a5y6oxxq
@@ -2381,7 +2381,7 @@ packages:
       prettier-plugin-tailwindcss: 0.2.3_prettier@2.8.4
       rimraf: 4.1.2
       rollup: 3.15.0
-      sass: 1.58.1
+      sass: 1.58.2
       stylelint: 14.15.0
       stylelint-config-css-modules: 4.1.0_stylelint@14.15.0
       stylelint-config-prettier: 9.0.4_stylelint@14.15.0
@@ -7601,8 +7601,8 @@ packages:
       - ts-node
     dev: true
 
-  /jotai/2.0.1_react@18.2.0:
-    resolution: {integrity: sha512-b/BpBFkv3nq8HgT6YX5h5/y9VfKIn9OL1dO6gd9bWTgKt6LLe24VIMURTDwSYS888XfubuRQlbepb5IQGAtmcQ==}
+  /jotai/2.0.2_react@18.2.0:
+    resolution: {integrity: sha512-0yOked08Swa84LUbBjtj7ZLZrE05n3u50rHeZ+bsT86thUjcy0kFgQz9GmEWhYbQDFoT1G8Ww6edSj/MBJHO4A==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       react: '>=17.0.0'
@@ -10173,8 +10173,8 @@ packages:
   /safer-buffer/2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /sass/1.58.1:
-    resolution: {integrity: sha512-bnINi6nPXbP1XNRaranMFEBZWUfdW/AF16Ql5+ypRxfTvCRTTKrLsMIakyDcayUt2t/RZotmL4kgJwNH5xO+bg==}
+  /sass/1.58.2:
+    resolution: {integrity: sha512-2mbyOWOv/lhEXD6nVrQZQ4KT2DlwcODbTskM42EyqBAFUWOhiiYtAXZqjZz1ygzapYf+N+2GwfIH9M5FM4GUMg==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
