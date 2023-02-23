@@ -8,7 +8,6 @@ on:
 jobs:
   deployment:
     runs-on: ubuntu-latest
-    environment: SENTRY
     strategy:
       matrix:
         docker-repository: [powerfulyang/qa.powerfulyang.com]
@@ -32,11 +31,11 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: .
+          file: qa.Dockerfile
           push: true
           tags: ${{ matrix.docker-repository }}:latest
-          secrets: |
-            "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       -
         name: Deploy
         uses: appleboy/ssh-action@v0.1.7
