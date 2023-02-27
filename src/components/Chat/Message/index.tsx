@@ -49,7 +49,6 @@ export const ChatMessage = memo<ChatMessageEntity>(({ from, content, sendType })
       })}
     >
       <LazyImage
-        lazy={false}
         containerClassName="rounded-lg w-[55px] aspect-square"
         src={randomAvatar(from)}
         alt=""
@@ -64,8 +63,8 @@ export const ChatMessage = memo<ChatMessageEntity>(({ from, content, sendType })
             [styles.sent]: sendType === MessageSendType.send,
           })}
         >
-          {content === '_chat_gpt_thinking_' ? (
-            <span className={styles.loading}>ChatGPT 正在思考中</span>
+          {content === '_ai_thinking_' ? (
+            <span className={styles.loading}>AI 正在思考中</span>
           ) : (
             content
           )}

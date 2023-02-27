@@ -1,8 +1,9 @@
 import type { ChatMessageEntity, Message } from '@/components/Chat/Message';
 import { ChatMessage } from '@/components/Chat/Message';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { handlePasteImageAndReturnFileList } from '@/utils/copy';
+import { useQueryClient } from '@tanstack/react-query';
 import styles from './index.module.scss';
 
 export type SentMessage = Message & { fileType?: string };
@@ -36,6 +37,18 @@ export const sendFileMessage = (
 
 export const Chat: FC<Props> = ({ messages, onSendMessage }) => {
   const [message, setMessage] = useState('');
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  const queryClient = useQueryClient();
+  const isMutating =
+    queryClient.isMutating({
+      mutationKey: ['sendToAI'],
+    }) > 0;
+
+  useEffect(() => {
+    !isMutating && ref.current?.focus();
+  }, [isMutating]);
+
   return (
     <div className={styles.chat}>
       <div className={styles.messages}>
@@ -44,11 +57,13 @@ export const Chat: FC<Props> = ({ messages, onSendMessage }) => {
         ))}
       </div>
       <textarea
+        ref={ref}
+        disabled={isMutating}
         onChange={(e) => {
           setMessage(e.target.value);
         }}
         value={message}
-        placeholder="请输入消息..."
+        placeholder={isMutating ? 'AI is thinking...' : '请输入消息...'}
         className={styles.chatInput}
         onKeyDown={(e) => {
           if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {

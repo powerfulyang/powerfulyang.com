@@ -14,10 +14,12 @@ import { randomAvatar } from '@/utils/lib';
 import { requestAtClient } from '@/utils/client';
 import { useUser } from '@/hooks/useUser';
 import { useMutation } from '@tanstack/react-query';
+import { omit } from 'ramda';
 import styles from './index.module.scss';
 
 const LAN = 'LAN';
 const ChatGPT = 'ChatGPT';
+const BingAI = 'BingAI';
 
 const Airdrop: LayoutFC = () => {
   const { user } = useUser();
@@ -29,7 +31,7 @@ const Airdrop: LayoutFC = () => {
   );
   const [selectPeerId, setSelectPeerId] = useState<string>(() => LAN);
   const peerRef = useRef<Peer>();
-  const conversionRef = useRef<{ parentMessageId: string; conversationId: string }>();
+  const conversionRef = useRef<Map<string, any>>(new Map());
 
   const handleMessage = useCallback(
     (params: Omit<ChatMessageEntity, 'messageId'>) => {
@@ -76,19 +78,19 @@ const Airdrop: LayoutFC = () => {
     [handleMessage],
   );
 
-  const chatGPTUtil = useMemo(() => {
-    const think = () => {
+  const AIUtil = useMemo(() => {
+    const think = (c: string) => {
       handleMessage({
-        from: ChatGPT,
-        chatFriendId: ChatGPT,
-        content: '_chat_gpt_thinking_',
+        from: c,
+        chatFriendId: c,
+        content: '_ai_thinking_',
         messageContentType: 'text',
         sendType: MessageSendType.receive,
       });
     };
-    const stopThink = () => {
+    const stopThink = (c: string) => {
       setMessages((draft) => {
-        const messageChannel = draft.get(ChatGPT);
+        const messageChannel = draft.get(c);
         if (messageChannel) {
           messageChannel.pop();
         }
@@ -100,36 +102,41 @@ const Airdrop: LayoutFC = () => {
     };
   }, [handleMessage, setMessages]);
 
-  const sendToChatGPT = useMutation({
+  const sendToAI = useMutation({
+    mutationKey: ['sendToAI', selectPeerId],
     mutationFn: (message: SentMessage) => {
-      chatGPTUtil.think();
-      return requestAtClient('/public/chat', {
+      AIUtil.think(selectPeerId);
+      let url = '';
+      if (selectPeerId === ChatGPT) {
+        url = '/public/chat-gpt/chat';
+      }
+      if (selectPeerId === BingAI) {
+        url = '/public/bing-ai/chat';
+      }
+      return requestAtClient(url, {
         method: 'POST',
         body: {
           message: message.content,
-          ...conversionRef.current,
+          ...conversionRef.current.get(selectPeerId),
         },
       });
     },
     onSuccess(res) {
-      chatGPTUtil.stopThink();
-      conversionRef.current = {
-        parentMessageId: res.messageId,
-        conversationId: res.conversationId,
-      };
+      AIUtil.stopThink(selectPeerId);
+      conversionRef.current.set(selectPeerId, omit(['content'], res));
       handleMessage({
-        from: ChatGPT,
-        chatFriendId: ChatGPT,
+        from: selectPeerId,
+        chatFriendId: selectPeerId,
         content: res.content,
         messageContentType: 'text',
         sendType: MessageSendType.receive,
       });
     },
     onError(e: Error) {
-      chatGPTUtil.stopThink();
+      AIUtil.stopThink(selectPeerId);
       handleMessage({
-        from: ChatGPT,
-        chatFriendId: ChatGPT,
+        from: selectPeerId,
+        chatFriendId: selectPeerId,
         content: e.message,
         messageContentType: 'text',
         sendType: MessageSendType.receive,
@@ -145,7 +152,7 @@ const Airdrop: LayoutFC = () => {
         chatFriendId: selectPeerId,
         sendType: MessageSendType.send,
       });
-      if (![LAN, ChatGPT].includes(selectPeerId)) {
+      if (![LAN, ChatGPT, BingAI].includes(selectPeerId)) {
         connections.get(selectPeerId)?.send({
           ...message,
         });
@@ -161,11 +168,11 @@ const Airdrop: LayoutFC = () => {
             sendType: MessageSendType.send,
           });
         });
-      } else if (selectPeerId === ChatGPT) {
-        sendToChatGPT.mutate(message);
+      } else if (selectPeerId === ChatGPT || selectPeerId === BingAI) {
+        sendToAI.mutate(message);
       }
     },
-    [handleMessage, currentPeerId, selectPeerId, connections, sendToChatGPT],
+    [handleMessage, currentPeerId, selectPeerId, connections, sendToAI],
   );
 
   useEffect(() => {
@@ -223,7 +230,7 @@ const Airdrop: LayoutFC = () => {
     <main className={styles.main}>
       <div className={classNames(styles.desktopChats, 'common-shadow')}>
         <div className={styles.friends}>
-          {[LAN, ChatGPT, ...connections.keys()]
+          {[LAN, ChatGPT, BingAI, ...connections.keys()]
             .filter((x) => x !== currentPeerId)
             .map((peerId) => (
               <button
