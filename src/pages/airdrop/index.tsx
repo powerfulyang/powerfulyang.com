@@ -234,7 +234,7 @@ const Airdrop: LayoutFC = () => {
             .filter((x) => x !== currentPeerId)
             .map((peerId) => (
               <button
-                hidden={peerId === ChatGPT && !user}
+                hidden={[ChatGPT, BingAI].includes(peerId) && !user}
                 type="button"
                 className={classNames(styles.friend, {
                   [styles.selected]: peerId === selectPeerId,
