@@ -45,7 +45,7 @@ specifiers:
   react: 18.2.0
   react-diff-viewer: 3.1.1
   react-dom: 18.2.0
-  react-hook-form: 7.43.2
+  react-hook-form: 7.43.3
   react-hotkeys-hook: 4.3.7
   react-intersection-observer: 9.4.3
   react-markdown: 8.0.5
@@ -71,7 +71,7 @@ specifiers:
 
 dependencies:
   '@docsearch/react': 3.3.3_4mvbrmqotwuhfzwlcr6w5cftiu
-  '@hookform/resolvers': 2.9.11_react-hook-form@7.43.2
+  '@hookform/resolvers': 2.9.11_react-hook-form@7.43.3
   '@monaco-editor/react': 4.4.6_waewrrayshn643ztij6zbniufy
   '@powerfulyang/components': 1.6.1_dyzejvw4rjq7gvnnx25uy4glui
   '@powerfulyang/hooks': 1.4.0_w7c26772askiudqmj4bj66icee
@@ -98,7 +98,7 @@ dependencies:
   react: 18.2.0
   react-diff-viewer: 3.1.1_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
-  react-hook-form: 7.43.2_react@18.2.0
+  react-hook-form: 7.43.3_react@18.2.0
   react-hotkeys-hook: 4.3.7_biqbaboplfbrettd7655fr4n2y
   react-intersection-observer: 9.4.3_react@18.2.0
   react-markdown: 8.0.5_kzbn2opkn2327fwg5yzwzya5o4
@@ -1758,12 +1758,12 @@ packages:
       - supports-color
     dev: true
 
-  /@hookform/resolvers/2.9.11_react-hook-form@7.43.2:
+  /@hookform/resolvers/2.9.11_react-hook-form@7.43.3:
     resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
-      react-hook-form: 7.43.2_react@18.2.0
+      react-hook-form: 7.43.3_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.11.8:
@@ -9581,8 +9581,8 @@ packages:
       react: 18.2.0
       scheduler: 0.23.0
 
-  /react-hook-form/7.43.2_react@18.2.0:
-    resolution: {integrity: sha512-NvD3Oe2Y9hhqo2R4I4iJigDzSLpdMnzUpNMxlnzTbdiT7NT3BW0GxWCzEtwPudZMUPbZhNcSy1EcGAygyhDORg==}
+  /react-hook-form/7.43.3_react@18.2.0:
+    resolution: {integrity: sha512-LV6Fixh+hirrl6dXbM78aB6n//82aKbsNbcofF3wc6nx1UJLu3Jj/gsg1E5C9iISnLX+du8VTUyBUz2aCy+H7w==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
