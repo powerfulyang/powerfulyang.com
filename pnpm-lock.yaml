@@ -38,7 +38,7 @@ specifiers:
   next: 13.2.3
   next-compose-plugins: 2.2.1
   next-pwa: 5.6.0
-  next-sitemap: 3.1.55
+  next-sitemap: 4.0.1
   peerjs: 1.4.7
   prettier-plugin-tailwindcss: 0.2.3
   ramda: 0.28.0
@@ -92,7 +92,7 @@ dependencies:
   lodash-es: 4.17.21
   monaco-editor: 0.36.1
   next: 13.2.3_7xlrwlvvs7cv2obrs6a5y6oxxq
-  next-sitemap: 3.1.55_xeg3tdra7hobsncwzvo3da7vxi
+  next-sitemap: 4.0.1_xeg3tdra7hobsncwzvo3da7vxi
   peerjs: 1.4.7
   ramda: 0.28.0
   react: 18.2.0
@@ -1590,7 +1590,7 @@ packages:
       '@commitlint/types': 17.4.4
       fs-extra: 11.1.0
       git-raw-commits: 2.0.11
-      minimist: 1.2.7
+      minimist: 1.2.8
     dev: true
 
   /@commitlint/resolve-extends/17.4.4:
@@ -1635,8 +1635,8 @@ packages:
       chalk: 4.1.2
     dev: true
 
-  /@corex/deepmerge/4.0.29:
-    resolution: {integrity: sha512-q/yVUnqckA8Do+EvAfpy7RLdumnBy9ZsducMUtZTvpdbJC7azEf1hGtnYYxm0QfphYxjwggv6XtH64prvS1W+A==}
+  /@corex/deepmerge/4.0.37:
+    resolution: {integrity: sha512-PX90bEnrLdxd5e6rSFWsghExMuSw0Uov3fWJuuaoFuUQIS/446diu/4seExK5b+43L+SOBbd2uBGwYUkG1JfCw==}
     dev: false
 
   /@cspotcode/source-map-support/0.8.1:
@@ -5309,7 +5309,7 @@ packages:
     dependencies:
       acorn-node: 1.8.2
       defined: 1.0.1
-      minimist: 1.2.7
+      minimist: 1.2.8
     dev: true
 
   /didyoumean/1.2.2:
@@ -7670,7 +7670,7 @@ packages:
     resolution: {integrity: sha512-g1MWMLBiz8FKi1e4w0UyVL3w+iJceWAFBAaBnnGKOpNa5f8TLktkbre1+s6oICydWAm+HRUGTmI+//xv2hvXYA==}
     hasBin: true
     dependencies:
-      minimist: 1.2.7
+      minimist: 1.2.8
     dev: true
 
   /json5/2.2.3:
@@ -8586,8 +8586,8 @@ packages:
       kind-of: 6.0.3
     dev: true
 
-  /minimist/1.2.7:
-    resolution: {integrity: sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==}
+  /minimist/1.2.8:
+    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
   /minipass/4.2.4:
     resolution: {integrity: sha512-lwycX3cBMTvcejsHITUgYj6Gy6A7Nh4Q6h9NP4sTHY1ccJlC7yKzDmiShEHsJ16Jf1nKGDEaiHxiltsJEvk0nQ==}
@@ -8602,7 +8602,7 @@ packages:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
     dependencies:
-      minimist: 1.2.7
+      minimist: 1.2.8
     dev: false
 
   /mmd-parser/1.0.4:
@@ -8701,17 +8701,17 @@ packages:
       - webpack
     dev: true
 
-  /next-sitemap/3.1.55_xeg3tdra7hobsncwzvo3da7vxi:
-    resolution: {integrity: sha512-ZjkRfkqoSLbU+e8W9TWWe0zfOGNA47lpvm35kNcUCmj73gpLX2PIn51gwHT/B6bgGVAFYY0OXixJDrxIIwcEHw==}
+  /next-sitemap/4.0.1_xeg3tdra7hobsncwzvo3da7vxi:
+    resolution: {integrity: sha512-dY6vKE/uayNYSfhXA64U9NZYSJtFzK01oBouY+XqgQieksKBG9BWNmq8yGSJUermyux4wCnNa9gLHwSk38emhA==}
     engines: {node: '>=14.18'}
     hasBin: true
     peerDependencies:
       '@next/env': '*'
       next: '*'
     dependencies:
-      '@corex/deepmerge': 4.0.29
+      '@corex/deepmerge': 4.0.37
       '@next/env': 13.2.3
-      minimist: 1.2.7
+      minimist: 1.2.8
       next: 13.2.3_7xlrwlvvs7cv2obrs6a5y6oxxq
     dev: false
 
@@ -9355,7 +9355,7 @@ packages:
       detect-libc: 2.0.1
       expand-template: 2.0.3
       github-from-package: 0.0.0
-      minimist: 1.2.7
+      minimist: 1.2.8
       mkdirp-classic: 0.5.3
       napi-build-utils: 1.0.2
       node-abi: 3.30.0
@@ -9629,7 +9629,7 @@ packages:
     dependencies:
       deep-extend: 0.6.0
       ini: 1.3.8
-      minimist: 1.2.7
+      minimist: 1.2.8
       strip-json-comments: 2.0.1
     dev: false
 
@@ -11221,7 +11221,7 @@ packages:
     dependencies:
       '@types/json5': 0.0.29
       json5: 1.0.2
-      minimist: 1.2.7
+      minimist: 1.2.8
       strip-bom: 3.0.0
     dev: true
 
