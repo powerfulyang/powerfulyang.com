@@ -8,7 +8,6 @@ on:
       - master
     paths:
       - base.Dockerfile
-      - package.json
       - pnpm-lock.yaml
       - .npmrc
       - .github/workflows/base-image.yml

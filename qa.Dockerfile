@@ -5,4 +5,4 @@ COPY . .
 RUN pnpm run bootstrap \
     && DISABLE_SENTRY_CLI=true pnpm run build
 
-CMD npm run start
+CMD pnpm run start

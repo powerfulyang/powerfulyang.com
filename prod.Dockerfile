@@ -10,4 +10,4 @@ RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN pnpm run bootstrap \
 #    && npm cache clean --force \
     && SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) pnpm run build
 
-CMD npm run start
+CMD pnpm run start

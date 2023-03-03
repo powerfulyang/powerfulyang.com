@@ -1,9 +1,9 @@
 import withPWAConfig from 'next-pwa';
 import { isDevProcess } from '@powerfulyang/utils';
-import runtimeCaching from 'next-pwa/cache.js';
 import { withSentryConfig } from '@sentry/nextjs';
 import BundleAnalyzer from '@next/bundle-analyzer';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
+import { runtimeCaching } from './runtimeCaching.mjs';
 
 /**
  * @type {string}
@@ -23,12 +23,6 @@ const sentryWebpackPluginOptions = {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 };
-
-const excludeCacheNames = ['next-data', 'apis'];
-
-const defaultCacheRule = runtimeCaching.filter((x) => {
-  return !excludeCacheNames.includes(x.options.cacheName);
-});
 
 if (API_ENV === 'prod') {
   process.env.CLIENT_BASE_HOST = 'powerfulyang.com';
@@ -121,40 +115,20 @@ const withPWA = withPWAConfig({
   dest: 'public',
   disable: isDevProcess,
   sourcemap: false,
-  buildExcludes: [/\.map$/],
-  runtimeCaching: [
-    ...defaultCacheRule,
-    {
-      urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
-      handler: 'NetworkFirst',
-      options: {
-        cacheName: 'next-data',
-        expiration: {
-          maxEntries: 32,
-          maxAgeSeconds: 24 * 60 * 60, // 24 hours
-        },
-        networkTimeoutSeconds: 1, // fall back to cache if api does not response within 1 seconds
-      },
-    },
-    {
-      urlPattern: ({ url }) => {
-        // eslint-disable-next-line no-restricted-globals
-        const isSameOrigin = self.origin === url.origin;
-        const { pathname } = url;
-        return isSameOrigin && pathname.startsWith('/api/');
-      },
-      handler: 'NetworkFirst',
-      method: 'GET',
-      options: {
-        cacheName: 'apis',
-        expiration: {
-          maxEntries: 16,
-          maxAgeSeconds: 24 * 60 * 60, // 24 hours
-        },
-        networkTimeoutSeconds: 1, // fall back to cache if api does not response within 1 seconds
-      },
+  exclude: [
+    /\.map$/,
+    // add buildExcludes here
+    ({ asset }) => {
+      if (
+        asset.name.startsWith('server/') ||
+        asset.name.match(/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/)
+      ) {
+        return true;
+      }
+      return isDevProcess && !asset.name.startsWith('static/runtime/');
     },
   ],
+  runtimeCaching,
 });
 const nextConfig = withSentryConfig(
   {
