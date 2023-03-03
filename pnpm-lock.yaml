@@ -11,7 +11,7 @@ specifiers:
   '@powerfulyang/utils': 1.6.0
   '@react-three/drei': 9.57.0
   '@react-three/fiber': 8.11.5
-  '@sentry/cli': 2.14.2
+  '@sentry/cli': 2.14.3
   '@sentry/nextjs': 7.40.0
   '@tanstack/react-query': 4.24.10
   '@testing-library/jest-dom': 5.16.5
@@ -123,7 +123,7 @@ dependencies:
 devDependencies:
   '@next/bundle-analyzer': 13.2.3
   '@powerfulyang/lint': 3.1.3_6qtx7vkbdhwvdm4crzlegk4mvi
-  '@sentry/cli': 2.14.2
+  '@sentry/cli': 2.14.3
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
   '@types/d3': 7.4.0
@@ -2332,7 +2332,7 @@ packages:
       postcss-scss: 4.0.6_postcss@8.4.21
       prettier: 2.8.4
       prettier-plugin-tailwindcss: 0.2.4_prettier@2.8.4
-      rimraf: 4.1.3
+      rimraf: 4.2.0
       rollup: 3.18.0
       sass: 1.58.3
       stylelint: 14.15.0
@@ -2631,8 +2631,8 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/cli/2.14.2:
-    resolution: {integrity: sha512-6l/XTGR2lU+gW7mbpZ+VgolsT8k+hkdUmTPrZdM/toEURGmXq1Su3kZZfZr/aRKkd1I0tQVhpKbkmtuLewlZ+w==}
+  /@sentry/cli/2.14.3:
+    resolution: {integrity: sha512-/u8SKYohSDbg/Tf180qAJY+wgxIwwpZwH0uV/xn9t7/Rdb6x/YyD4AbFcPlBORnEZq4goVazWBLjJEkepO95YA==}
     engines: {node: '>= 10'}
     hasBin: true
     requiresBuild: true
@@ -6323,6 +6323,16 @@ packages:
       once: 1.4.0
     dev: false
 
+  /glob/9.2.0:
+    resolution: {integrity: sha512-VbqdQB87R58tWoOMO8dBmPEw0gpAn+FNIT7PAEoPMKx/BTiFM847t3uvGER+oIIKKmUyPEHiG3gGz7rwPVzzXQ==}
+    engines: {node: '>=16 || 14 >=14.17'}
+    dependencies:
+      fs.realpath: 1.0.0
+      minimatch: 7.4.2
+      minipass: 4.2.4
+      path-scurry: 1.6.1
+    dev: true
+
   /global-dirs/0.1.1:
     resolution: {integrity: sha512-NknMLn7F2J7aflwFOlGdNIuCDpN3VGoSoB+aap3KABFWbHVn1TCgFC+np23J8W2BiZbjfEw3BFBycSMv1AFblg==}
     engines: {node: '>=4'}
@@ -7974,6 +7984,11 @@ packages:
     dependencies:
       yallist: 4.0.0
 
+  /lru-cache/7.18.1:
+    resolution: {integrity: sha512-8/HcIENyQnfUTCDizRu9rrDyG6XG/21M4X7/YEGZeD76ZJilFPAUVb/2zysFf7VVO1LEjCDFyHp8pMMvozIrvg==}
+    engines: {node: '>=12'}
+    dev: true
+
   /lru_map/0.3.3:
     resolution: {integrity: sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==}
     dev: false
@@ -8555,6 +8570,13 @@ packages:
     dependencies:
       brace-expansion: 2.0.1
 
+  /minimatch/7.4.2:
+    resolution: {integrity: sha512-xy4q7wou3vUoC9k1xGTXc+awNdGaGVHtFUaey8tiX4H1QRc04DZ/rmDFwNm2EBsuYEhAZ6SgMmYf3InGY6OauA==}
+    engines: {node: '>=10'}
+    dependencies:
+      brace-expansion: 2.0.1
+    dev: true
+
   /minimist-options/4.1.0:
     resolution: {integrity: sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==}
     engines: {node: '>= 6'}
@@ -8566,6 +8588,11 @@ packages:
 
   /minimist/1.2.7:
     resolution: {integrity: sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==}
+
+  /minipass/4.2.4:
+    resolution: {integrity: sha512-lwycX3cBMTvcejsHITUgYj6Gy6A7Nh4Q6h9NP4sTHY1ccJlC7yKzDmiShEHsJ16Jf1nKGDEaiHxiltsJEvk0nQ==}
+    engines: {node: '>=8'}
+    dev: true
 
   /mkdirp-classic/0.5.3:
     resolution: {integrity: sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==}
@@ -9100,6 +9127,14 @@ packages:
 
   /path-parse/1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
+
+  /path-scurry/1.6.1:
+    resolution: {integrity: sha512-OW+5s+7cw6253Q4E+8qQ/u1fVvcJQCJo/VFD8pje+dbJCF1n5ZRMV2AEHbGp+5Q7jxQIYJxkHopnj6nzdGeZLA==}
+    engines: {node: '>=14'}
+    dependencies:
+      lru-cache: 7.18.1
+      minipass: 4.2.4
+    dev: true
 
   /path-type/3.0.0:
     resolution: {integrity: sha512-T2ZUsdZFHgA3u4e5PfPbjd7HDDpxPnQb5jN0SrDsjNSuVXHJqtwTnWqG0B1jZrgmJ/7lj1EmVIByWt1gxGkWvg==}
@@ -10079,10 +10114,12 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rimraf/4.1.3:
-    resolution: {integrity: sha512-iyzalDLo3l5FZxxaIGUY7xI4Bf90Xt7pCipc1Mr7RsdU7H3538z+M0tlsUDrz0aHeGS9uNqiKHUJyTewwRP91Q==}
+  /rimraf/4.2.0:
+    resolution: {integrity: sha512-tPt+gLORNVqRCk0NwuJ5SlMEcOGvt4CCU8sUPqgCFtCbnoNCTd9Q6vq7JlBbxQlACiH14OR28y7piA2Bak9Sxw==}
     engines: {node: '>=14'}
     hasBin: true
+    dependencies:
+      glob: 9.2.0
     dev: true
 
   /robust-predicates/3.0.1:
