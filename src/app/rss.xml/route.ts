@@ -1,8 +1,8 @@
-import type { GetServerSideProps } from 'next';
-import { requestAtServer } from '@/utils/server';
-import { Feed } from 'feed';
-import { ProjectName } from '@/constant/Constant';
 import type { Post } from '@/type/Post';
+import { ProjectName } from '@/constant/Constant';
+import { Feed } from 'feed';
+import { requestAtServer } from '@/utils/server';
+import type { NextRequest } from 'next/server';
 
 const generateRssFeed = (posts: Post[]) => {
   const site_url = 'https://powerfulyang.com';
@@ -30,22 +30,18 @@ const generateRssFeed = (posts: Post[]) => {
   return feed.rss2();
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export async function GET(request: NextRequest) {
   const res = await requestAtServer('/public/post', {
-    ctx,
+    headers: request.headers,
   });
 
   const data = (await res.json()) as Post[];
 
   const rssFeed = generateRssFeed(data);
 
-  ctx.res.setHeader('Content-Type', 'text/xml');
-  ctx.res.write(rssFeed);
-  ctx.res.end();
-  return {
-    props: {},
-  };
-};
-
-// Default export to prevent next.js errors
-export default function FeedXml() {}
+  return new Response(rssFeed, {
+    headers: {
+      'Content-Type': 'text/xml; charset=utf-8',
+    },
+  });
+}

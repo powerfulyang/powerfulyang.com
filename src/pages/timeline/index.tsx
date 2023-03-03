@@ -19,7 +19,7 @@ import { useUser } from '@/hooks/useUser';
 import Image from 'next/image';
 import bg from '@/assets/timeline-banner.webp';
 import { useFixMinHeight } from '@/hooks/useFixMinHeight';
-import { defaultAuthor, origin } from '@/components/Head';
+import { origin } from '@/components/Head';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -209,8 +209,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       meta: {
         title: '说说',
         description: '关于我日常的胡言乱语',
-        keywords: '说说, 胡言乱语, 日常',
-        author: defaultAuthor,
       },
       layout: {
         pathViewCount,

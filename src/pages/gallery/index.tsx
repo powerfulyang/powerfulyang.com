@@ -13,7 +13,7 @@ import { requestAtServer } from '@/utils/server';
 import Masonry from '@/components/Masonry';
 import { useFixMinHeight } from '@/hooks/useFixMinHeight';
 import { firstItem, lastItem } from '@powerfulyang/utils';
-import { defaultAuthor, origin } from '@/components/Head';
+import { origin } from '@/components/Head';
 import styles from './index.module.scss';
 
 type GalleryProps = {
@@ -123,8 +123,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       meta: {
         title: '图片墙',
         description: '专门用来放我的二次元老婆',
-        keywords: '图片墙, 二次元, 老婆',
-        author: defaultAuthor,
       },
       link: {
         canonical: `${origin}/gallery`,

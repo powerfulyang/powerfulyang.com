@@ -2,12 +2,23 @@ import React, { useEffect, useMemo } from 'react';
 import type { AppProps } from 'next/app';
 import './app.scss';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
-import type { HeaderProps } from '@/components/Head';
-import { Header } from '@/components/Head';
+import { Header, origin } from '@/components/Head';
 import { useRouter } from 'next/router';
 import { isProdProcess } from '@powerfulyang/utils';
 import { Redirecting } from '@/components/Redirecting';
 import Script from 'next/script';
+import { NextSeo } from 'next-seo';
+import { ProjectName } from '@/constant/Constant';
+
+interface HeaderProps {
+  meta?: {
+    title: string;
+    description: string;
+  };
+  link?: {
+    canonical: string;
+  };
+}
 
 type Props = {
   Component: AppProps['Component'] & { getLayout: any };
@@ -44,9 +55,39 @@ const App = ({ Component, pageProps }: AppProps & Props) => {
     return () => {};
   }, [router.events]);
 
+  const { title = '404', description } = (pageProps.meta as HeaderProps['meta']) || {};
+  const { canonical } = (pageProps.link as HeaderProps['link']) || {};
+  const _title = `${title} - ${ProjectName}`;
+
   return (
     <GlobalContextProvider>
-      <Header meta={pageProps.meta} link={pageProps.link} />
+      <NextSeo
+        title={_title}
+        description={description}
+        canonical={canonical}
+        openGraph={{
+          url: canonical,
+          title: _title,
+          description,
+          images: [
+            {
+              url: `${origin}/icons/android-chrome-192x192.png`,
+              width: 192,
+              height: 192,
+              alt: 'Og Image Alt',
+              type: 'image/png',
+            },
+          ],
+          siteName: ProjectName,
+        }}
+        twitter={{
+          handle: '@hutyxxx',
+          site: '@hutyxxx',
+          cardType: 'summary_large_image',
+        }}
+        themeColor="#ffffff"
+      />
+      <Header />
       <Redirecting />
       {component}
       <Script

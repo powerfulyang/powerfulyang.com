@@ -1,7 +1,7 @@
 import { Timeline } from '@/pages/timeline';
 import type { GetServerSideProps } from 'next';
 import { requestAtServer } from '@/utils/server';
-import { defaultAuthor, origin } from '@/components/Head';
+import { origin } from '@/components/Head';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const res = await requestAtServer('/public/feed', {
@@ -17,8 +17,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       meta: {
         title: '全部说说',
         description: '关于我日常的胡言乱语，一页可见',
-        keywords: '说说, 胡言乱语, 日常',
-        author: defaultAuthor,
       },
       layout: {
         pathViewCount,

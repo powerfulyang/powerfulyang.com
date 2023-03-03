@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { GetServerSideProps } from 'next';
 import type { Post } from '@/type/Post';
 import type { LayoutFC } from '@/type/GlobalContext';
@@ -6,11 +6,11 @@ import { UserLayout } from '@/layout/UserLayout';
 import { MarkdownTOC } from '@/components/MarkdownContainer/TOC';
 import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
-import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { generateTOC } from '@/utils/toc';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { StatusCodes } from 'http-status-codes';
-import { defaultAuthor, origin } from '@/components/Head';
+import { origin } from '@/components/Head';
+import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
 import styles from './index.module.scss';
 
 type PostProps = {
@@ -30,7 +30,9 @@ const PostDetail: LayoutFC<PostProps> = ({ data: { content, toc, id, logs = [] }
 
   return (
     <main className={styles.postWrap}>
-      <MarkdownContainer source={content} className={styles.post} />
+      <Suspense>
+        <LazyMarkdownContainer source={content} className={styles.post} />
+      </Suspense>
       <MarkdownTOC toc={toc} logs={logs} id={id} />
     </main>
   );
@@ -69,8 +71,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       meta: {
         title: data.title,
         description: data.summary,
-        keywords: data.tags.join(', '),
-        author: data.createBy?.nickname || defaultAuthor,
       },
       link: {
         canonical: `${origin}/post/${data.id}`,

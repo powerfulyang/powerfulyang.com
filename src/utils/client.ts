@@ -6,10 +6,11 @@ import { stringify } from 'querystring';
 
 export type RequestOptions = {
   method?: string;
-  ctx: Parameters<GetServerSideProps>[0];
+  ctx?: Parameters<GetServerSideProps>[0];
   body?: Record<string, any> | FormData;
   query?: Record<string, any>;
   notificationOnError?: boolean;
+  headers?: HeadersInit;
 };
 
 export const requestAtClient = async <T = any>(

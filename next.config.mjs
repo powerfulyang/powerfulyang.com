@@ -65,6 +65,7 @@ const config = {
   experimental: {
     esmExternals: true,
     scrollRestoration: true,
+    appDir: true,
   },
   env: {
     CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST,
@@ -173,7 +174,7 @@ const nextConfig = withSentryConfig(
             .oneOf.filter(({ use }) => JSON.stringify(use)?.includes('css-loader'))
             .reduce((acc, { use }) => acc.concat(use), [])
             .forEach(({ options: draft }) => {
-              if (draft.modules) {
+              if (draft?.modules?.exportLocalsConvention) {
                 draft.modules.exportLocalsConvention = 'camelCase';
               }
             });

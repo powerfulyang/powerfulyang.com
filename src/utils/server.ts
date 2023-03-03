@@ -1,18 +1,15 @@
-import { pick } from 'ramda';
 import type { RequestOptions } from '@/utils/client';
 import { stringify } from 'querystring';
+import { pick } from 'ramda';
 
-export const requestAtServer = async (url: string, options: RequestOptions) => {
-  const { method = 'GET', ctx, body, query } = options;
+export const requestAtServer = async (url: string, options: RequestOptions = {}) => {
+  const { method = 'GET', ctx, body, query, headers = {} } = options;
   const baseUrl = process.env.SERVER_BASE_URL;
-  const headers = pick(['x-real-ip', 'cookie'], ctx.req.headers || { 'x-real-ip': '127.0.0.1' });
+  const _headers = pick(['authorization', 'x-real-ip', 'cookie'], ctx?.req.headers || headers);
   const requestUrl = `${baseUrl}${url}${query ? `?${stringify(query)}` : ''}`;
   return fetch(requestUrl, {
     method,
-    headers: {
-      ...headers,
-      'content-type': 'application/json',
-    },
+    headers: _headers,
     body: JSON.stringify(body),
   });
 };

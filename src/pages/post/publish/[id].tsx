@@ -11,7 +11,6 @@ import type { LayoutFC } from '@/type/GlobalContext';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 import { useMutation } from '@tanstack/react-query';
 import { isString } from '@powerfulyang/utils';
-import { defaultAuthor } from '@/components/Head';
 
 type PublishProps = {
   post: Post;
@@ -111,8 +110,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       meta: {
         title: '发布日志',
         description: `发布日志的页面`,
-        author: defaultAuthor,
-        keywords: `日志发布页面`,
       },
       layout: {
         pathViewCount,

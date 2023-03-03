@@ -12,7 +12,7 @@ import { requestAtServer } from '@/utils/server';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useFixMinHeight } from '@/hooks/useFixMinHeight';
 import { DateTimeFormat } from '@/utils/lib';
-import { defaultAuthor, origin } from '@/components/Head';
+import { origin } from '@/components/Head';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -113,8 +113,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       meta: {
         title: `日志 - ${year}`,
         description: `发布于 ${year} 年的日志`,
-        author: defaultAuthor,
-        keywords: `日志, 记录, ${year}`,
       },
       link: {
         canonical: `${origin}/post/year/${year}`,
