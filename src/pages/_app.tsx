@@ -93,6 +93,7 @@ const App = ({ Component, pageProps }: AppProps & Props) => {
       <Script
         strategy="afterInteractive"
         async
+        crossOrigin="anonymous"
         src="//at.alicdn.com/t/font_178634_7m8rip6osz4.js"
       />
       {isProdProcess && (
@@ -100,6 +101,7 @@ const App = ({ Component, pageProps }: AppProps & Props) => {
           <Script
             strategy="afterInteractive"
             async
+            crossOrigin="anonymous"
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           />
           <Script

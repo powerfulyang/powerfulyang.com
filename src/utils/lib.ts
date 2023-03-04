@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import { isSupportWebp } from '@powerfulyang/utils';
 
 export const DateFormat = (date?: Date | string) => dayjs(date).tz('Asia/Shanghai').format('ll');
 
@@ -7,41 +6,31 @@ export const DateTimeFormat = (date?: Date | string) =>
   dayjs(date).tz('Asia/Shanghai').format('llll');
 
 export const styles = {
-  thumbnail: (w: number) => `&imageMogr2/thumbnail/${w}x/interlace/1/quality/100/ignore-error/1`,
-  thumbnail_webp: (w: number = 300) =>
-    `&imageMogr2/thumbnail/${w}x/format/webp/interlace/1/quality/100/ignore-error/1`,
-  webp: '&imageMogr2/format/webp/interlace/1/quality/100/ignore-error/1',
-  origin: '&imageMogr2/interlace/1/quality/100/ignore-error/1',
-  thumbnail_blur: '&imageMogr2/thumbnail/10x/interlace/1/quality/1/ignore-error/1',
-  thumbnail_blur_webp: '&imageMogr2/thumbnail/10x/format/webp/interlace/1/quality/1/ignore-error/1',
+  thumbnail_700_: `-thumbnail(700)`,
+  thumbnail_300_: `-thumbnail(300)`,
+  webp: '-webp',
+  thumbnail_blur_: '-thumbnail(blur)',
 };
 
-export const defaultThumbnailWidth = 300;
 export const getCosObjectThumbnailUrl = (
   objectUrl: string,
-  width: number = defaultThumbnailWidth,
+  thumbnail: 'poster' | 'thumbnail' = 'thumbnail',
 ) => {
-  if (isSupportWebp()) {
-    return `${objectUrl}${styles.thumbnail_webp(width)}`;
+  const [url, params] = objectUrl.split('?');
+  if (thumbnail === 'poster') {
+    return `${url}${styles.thumbnail_700_}?${params}`;
   }
-
-  return `${objectUrl}${styles.thumbnail(width)}`;
+  return `${url}${styles.thumbnail_300_}?${params}`;
 };
 
 export const getCosObjectUrl = (objectUrl: string) => {
-  if (isSupportWebp()) {
-    return `${objectUrl}${styles.webp}`;
-  }
-
-  return `${objectUrl}${styles.origin}`;
+  const [url, params] = objectUrl.split('?');
+  return `${url}${styles.webp}?${params}`;
 };
 
 export const getCosObjectThumbnailBlurUrl = (objectUrl: string) => {
-  if (isSupportWebp()) {
-    return `${objectUrl}${styles.thumbnail_blur_webp}`;
-  }
-
-  return `${objectUrl}${styles.thumbnail_blur}`;
+  const [url, params] = objectUrl.split('?');
+  return `${url}${styles.thumbnail_blur_}?${params}`;
 };
 
 export const CosUtils = {

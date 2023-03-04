@@ -53,7 +53,7 @@ export const runtimeCaching = [
   },
   {
     urlPattern: /\/_next\/image\?url=.+$/i,
-    handler: 'StaleWhileRevalidate',
+    handler: 'CacheFirst',
     options: {
       cacheName: 'next-image',
       expiration: {
@@ -119,11 +119,12 @@ export const runtimeCaching = [
     options: {
       cacheName: 'cross-origin-assets',
       expiration: {
-        maxEntries: 300,
-        maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
-        matchOptions: {
-          ignoreVary: true,
-        },
+        maxEntries: 1000,
+        maxAgeSeconds: 60 * 60 * 24 * 365, // 365 days
+      },
+      matchOptions: {
+        ignoreVary: true,
+        ignoreSearch: true,
       },
     },
   },

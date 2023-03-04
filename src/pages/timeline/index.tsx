@@ -120,7 +120,6 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
               asset={bannerUser.timelineBackground}
               containerClassName={styles.bannerBg}
               alt="banner"
-              thumbnail={false}
             />
           ) : (
             <div className={styles.bannerBg}>

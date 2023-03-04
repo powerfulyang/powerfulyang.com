@@ -66,7 +66,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
           >
             <LazyAssetImage
               containerClassName={styles.bg}
-              thumbnail={700}
+              thumbnail="poster"
               draggable={false}
               asset={post.poster}
             />

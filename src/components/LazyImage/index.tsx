@@ -30,7 +30,7 @@ export const LazyImage = memo<LazyImageProps>(
     containerClassName = 'w-full',
     lazy = true,
     aspectRatio,
-    initialInView = true,
+    initialInView = false,
     triggerOnce = true,
     ...props
   }) => {
@@ -87,6 +87,9 @@ export const LazyImage = memo<LazyImageProps>(
               if (viewed && src) {
                 const img = new Image();
                 img.decoding = 'async';
+                if (props.crossOrigin) {
+                  img.crossOrigin = props.crossOrigin;
+                }
                 img.onload = () => {
                   LOADED_IMAGE_URLS.add(src);
                   setImgSrc(src);
