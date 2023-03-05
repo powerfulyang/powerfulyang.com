@@ -11,6 +11,6 @@
     position: absolute;
     outline: none;
     bottom: 0;
-    @apply h-40 w-full resize-none bg-pink-200 p-4;
+    @apply h-40 w-full resize-none border-l p-4;
   }
 }

@@ -27,7 +27,7 @@
   }
 
   .timeline-submit {
-    @apply pointer relative h-10 w-24 rounded bg-blue-400 text-2xl text-gray-200 hover:text-white;
+    @apply relative h-10 w-24 rounded bg-blue-400 text-2xl text-gray-200 hover:text-white;
 
     &:disabled {
       @apply cursor-not-allowed bg-gray-300;

@@ -5,10 +5,7 @@ import BundleAnalyzer from '@next/bundle-analyzer';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 import { runtimeCaching } from './runtimeCaching.mjs';
 
-/**
- * @type {string}
- */
-const { API_ENV, DISABLE_SENTRY_CLI } = process.env;
+const { DISABLE_SENTRY_CLI } = process.env;
 
 const isDisableSentry = DISABLE_SENTRY_CLI === 'true';
 
@@ -23,13 +20,6 @@ const sentryWebpackPluginOptions = {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 };
-
-if (API_ENV === 'prod') {
-  process.env.CLIENT_BASE_HOST = 'powerfulyang.com';
-}
-if (API_ENV === 'qa') {
-  process.env.CLIENT_BASE_HOST = 'qa.powerfulyang.com';
-}
 
 /**
  * @type {import('next').NextConfig}
@@ -61,6 +51,7 @@ const config = {
     NEXT_PUBLIC_SENTRY_DSN:
       'https://15cbb27739a345dab5ab27ceb9491de0@o4504332393578496.ingest.sentry.io/4504332396134400',
     NEXT_PUBLIC_GA_ID: 'G-T622M0KSVS',
+    SERVER_BASE_URL: process.env.SERVER_BASE_URL,
   },
   eslint: {
     ignoreDuringBuilds: true, // 不用自带的

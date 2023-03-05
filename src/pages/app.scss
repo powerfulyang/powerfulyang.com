@@ -50,8 +50,7 @@
   -webkit-font-smoothing: antialiased;
   font-feature-settings: 'rlig' 1, 'calt' 0;
   touch-action: manipulation;
-
-  @apply default;
+  cursor: url('/cursor/default.ico'), pointer;
 
   body {
     position: relative;
@@ -89,8 +88,11 @@
   }
 }
 
-a {
-  @apply pointer;
+a,
+button,
+label,
+.pointer {
+  cursor: url('/cursor/pointer.ico'), pointer;
 }
 
 .common-shadow {

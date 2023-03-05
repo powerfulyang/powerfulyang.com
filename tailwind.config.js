@@ -5,12 +5,6 @@ module.exports = {
   plugins: [
     plugin(({ addComponents }) => {
       addComponents({
-        '.pointer': {
-          cursor: `url('/cursor/pointer.ico'), pointer`,
-        },
-        '.default': {
-          cursor: `url('/cursor/default.ico'), default`,
-        },
         /* 表示这个元素的尺寸计算不依赖于它的子孙元素的尺寸 */
         '.contain-size': {
           contain: 'size',

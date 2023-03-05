@@ -4,6 +4,7 @@ import { useUser } from '@/hooks/useUser';
 import { useMutation } from '@tanstack/react-query';
 import { requestAtClient } from '@/utils/client';
 import { Dropdown, Menu, notification } from '@powerfulyang/components';
+import classNames from 'classnames';
 import styles from './index.module.scss';
 
 export const login = () => {
@@ -64,7 +65,7 @@ export const NavBarUser = () => {
         }
         className="mr-4"
       >
-        <div className={styles.user}>
+        <div className={classNames(styles.user, 'pointer')}>
           <span className={styles.nickname}>{user.nickname}</span>
           <LazyImage
             className="aspect-square"
