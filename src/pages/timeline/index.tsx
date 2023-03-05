@@ -119,6 +119,7 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
             <LazyAssetImage
               asset={bannerUser.timelineBackground}
               containerClassName={styles.bannerBg}
+              thumbnail="poster"
               alt="banner"
             />
           ) : (

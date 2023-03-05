@@ -133,6 +133,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
           <ImagePreview parentControl images={castAssetsToImagePreviewItem(feed.assets)}>
             {feed.assets?.map((asset) => (
               <LazyAssetImage
+                thumbnail="thumbnail"
                 containerClassName="rounded pointer"
                 key={asset.id}
                 className={styles.img}

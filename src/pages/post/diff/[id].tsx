@@ -33,6 +33,23 @@ const Diff: FC<Props> = ({ left, right }) => {
         wordAdded: {
           display: 'inline',
         },
+        diffContainer: {
+          width: 'calc(100vw - 6px)',
+          pre: {
+            fontFamily: 'inherit',
+          },
+        },
+        content: {
+          width: 'calc(50vw - 6px - 50px - 25px)',
+        },
+        contentText: {
+          span: {
+            fontFamily: 'inherit !important',
+          },
+          code: {
+            fontFamily: 'inherit !important',
+          },
+        },
       }}
       renderContent={(value) => {
         return (
@@ -75,7 +92,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       notFound: true,
     };
   }
-  const post = await res.json();
+  const post = (await res.json()) as Post;
   const { logs } = post;
 
   return {
@@ -83,7 +100,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       left: logs[1],
       right: logs[0],
       meta: {
-        title: 'Post Diff',
+        title: `Post [${post.id}] Diff`,
         description: '对比两个版本的文章',
       },
     },

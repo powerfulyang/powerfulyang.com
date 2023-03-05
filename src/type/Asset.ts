@@ -7,9 +7,13 @@ export class Asset {
 
   bucket: Bucket;
 
-  cosUrl: string;
-
-  objectUrl: string;
+  objectUrl: {
+    webp: string;
+    original: string;
+    thumbnail_300_: string;
+    thumbnail_700_: string;
+    thumbnail_blur_: string;
+  };
 
   originUrl: string;
 

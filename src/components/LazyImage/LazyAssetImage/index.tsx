@@ -1,8 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import type { LazyImageProps } from '@/components/LazyImage';
 import { LazyImage } from '@/components/LazyImage';
 import type { Asset } from '@/type/Asset';
-import { CosUtils } from '@/utils/lib';
 
 export const LazyAssetImage = memo<
   LazyImageProps & {
@@ -15,6 +14,20 @@ export const LazyAssetImage = memo<
     previewIndex?: number;
   }
 >(({ asset, keepAspectRatio = false, thumbnail, previewIndex, ...props }) => {
+  const image = useMemo(() => {
+    if (thumbnail === 'poster') {
+      return asset.objectUrl.thumbnail_700_;
+    }
+    if (thumbnail === 'thumbnail') {
+      return asset.objectUrl.thumbnail_300_;
+    }
+    return asset.objectUrl.webp;
+  }, [
+    asset.objectUrl.thumbnail_300_,
+    asset.objectUrl.thumbnail_700_,
+    asset.objectUrl.webp,
+    thumbnail,
+  ]);
   return (
     <LazyImage
       {...props}
@@ -22,12 +35,10 @@ export const LazyAssetImage = memo<
       height={asset.size.height}
       crossOrigin="anonymous"
       aspectRatio={keepAspectRatio ? `${asset.size.width} / ${asset.size.height}` : undefined}
-      src={
-        thumbnail
-          ? CosUtils.getCosObjectThumbnailUrl(asset.objectUrl, thumbnail)
-          : CosUtils.getCosObjectUrl(asset.objectUrl)
-      }
-      blurSrc={CosUtils.getCosObjectThumbnailBlurUrl(asset.objectUrl)}
+      src={image}
+      data-src={image}
+      blurSrc={asset.objectUrl.thumbnail_blur_}
+      data-blur-src={asset.objectUrl.thumbnail_blur_}
     />
   );
 });

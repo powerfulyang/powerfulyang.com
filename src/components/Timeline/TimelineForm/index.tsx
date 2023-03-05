@@ -62,7 +62,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
         for (let i = 0; i < editItem.assets?.length; i++) {
           const asset = editItem.assets[i];
           // eslint-disable-next-line no-await-in-loop
-          const file = await sourceUrlToFile(asset.objectUrl);
+          const file = await sourceUrlToFile(asset.objectUrl.original);
           tmp.items.add(file);
         }
         setValue('assets', tmp.files);

@@ -90,6 +90,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
               previewIndex={index}
               title={`${asset.id}`}
               asset={asset}
+              thumbnail="thumbnail"
               containerClassName="contain-strict pointer rounded-lg"
               className={styles.image}
               keepAspectRatio

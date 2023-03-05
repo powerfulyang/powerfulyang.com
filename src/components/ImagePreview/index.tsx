@@ -8,7 +8,6 @@ import type {
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import ImagePreviewModal from '@/components/ImagePreview/ImagePreviewModal';
 import type { Asset } from '@/type/Asset';
-import { CosUtils } from '@/utils/lib';
 import type { VoidFunction } from '@powerfulyang/utils';
 
 const reducer = (draft: ImagePreviewContextState, action: ImageModalContextAction) => {
@@ -54,8 +53,8 @@ export const castAssetsToImagePreviewItem = (assets: Asset[]): ImagePreviewItem[
     } = asset;
     return {
       id: String(id),
-      original: CosUtils.getCosObjectUrl(objectUrl),
-      thumbnail: CosUtils.getCosObjectThumbnailUrl(objectUrl),
+      original: objectUrl.webp,
+      thumbnail: objectUrl.thumbnail_300_,
       size: { width, height },
     };
   });

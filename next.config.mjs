@@ -26,14 +26,9 @@ const sentryWebpackPluginOptions = {
 
 if (API_ENV === 'prod') {
   process.env.CLIENT_BASE_HOST = 'powerfulyang.com';
-  process.env.SERVER_BASE_URL = 'https://api.powerfulyang.com/api';
 }
 if (API_ENV === 'qa') {
   process.env.CLIENT_BASE_HOST = 'qa.powerfulyang.com';
-  process.env.SERVER_BASE_URL = 'https://qa.powerfulyang.com/api';
-}
-if (API_ENV === 'local') {
-  process.env.SERVER_BASE_URL = 'https://local.powerfulyang.com/api';
 }
 
 /**

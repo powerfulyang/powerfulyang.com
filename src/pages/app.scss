@@ -55,6 +55,7 @@
 
   body {
     position: relative;
+    width: 100vw; // 100vw 会导致滚动条出现，但是不会导致抖动。所以还是用 100vw，虽然会有一些奇怪的事情发生
     min-height: 100vh;
     min-height: 100dvh; // fix 100vh on Safari
     //overflow: overlay; // 终归还是要设置overflow: overlay，否则 mac 上还是抖动
