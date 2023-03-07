@@ -67,7 +67,7 @@ specifiers:
   typescript: 4.9.5
   unist-util-visit: 4.1.2
   yaml: 2.2.1
-  zod: 3.21.2
+  zod: 3.21.4
 
 dependencies:
   '@docsearch/react': 3.3.3_4mvbrmqotwuhfzwlcr6w5cftiu
@@ -119,7 +119,7 @@ dependencies:
   three: 0.150.1
   unist-util-visit: 4.1.2
   yaml: 2.2.1
-  zod: 3.21.2
+  zod: 3.21.4
 
 devDependencies:
   '@next/bundle-analyzer': 13.2.3
@@ -11981,8 +11981,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zod/3.21.2:
-    resolution: {integrity: sha512-0Ygy2/IZNIxHterZdHjE5Vb8hp1fUHJD/BGvSHj8QJx+UipEVNvo9WLchoyBpz5JIaN6KmdGDGYdloGzpFK98g==}
+  /zod/3.21.4:
+    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
 
   /zstddec/0.0.2:
