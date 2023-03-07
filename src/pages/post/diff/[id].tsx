@@ -100,7 +100,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       left: logs[1],
       right: logs[0],
       meta: {
-        title: `Post [${post.id}] Diff`,
+        title: `Post [${post.id}-${logs[0].id}-${logs[1].id}] Diff`,
         description: '对比两个版本的文章',
       },
     },
