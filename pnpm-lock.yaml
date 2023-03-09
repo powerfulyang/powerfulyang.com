@@ -10,7 +10,7 @@ specifiers:
   '@powerfulyang/lint': 3.1.3
   '@powerfulyang/utils': 1.6.0
   '@react-three/drei': 9.57.1
-  '@react-three/fiber': 8.11.10
+  '@react-three/fiber': 8.12.0
   '@sentry/cli': 2.14.4
   '@sentry/nextjs': 7.41.0
   '@tanstack/react-query': 4.26.1
@@ -76,8 +76,8 @@ dependencies:
   '@powerfulyang/components': 1.6.1_t63dcc4mwpf52rnlaehxtdlerm
   '@powerfulyang/hooks': 1.4.0_w7c26772askiudqmj4bj66icee
   '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
-  '@react-three/drei': 9.57.1_hcvssd3cvm56lplb4cayzkvmny
-  '@react-three/fiber': 8.11.10_73epb4osyabtjyiaeamriercbi
+  '@react-three/drei': 9.57.1_u3iila23zl7kxrjj2wxuc6ojr4
+  '@react-three/fiber': 8.12.0_73epb4osyabtjyiaeamriercbi
   '@sentry/nextjs': 7.41.0_gaoojij23wl376no5w3b3m6kqe
   '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
@@ -2332,7 +2332,7 @@ packages:
       postcss-scss: 4.0.6_postcss@8.4.21
       prettier: 2.8.4
       prettier-plugin-tailwindcss: 0.2.4_prettier@2.8.4
-      rimraf: 4.3.1
+      rimraf: 4.4.0
       rollup: 3.18.0
       sass: 1.58.3
       stylelint: 14.15.0
@@ -2421,7 +2421,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@react-spring/three/9.6.1_p7jutrtsxi4rngjmdur2xrxkza:
+  /@react-spring/three/9.6.1_lfvpzd3m5escehi2gx2mx2fjgy:
     resolution: {integrity: sha512-Tyw2YhZPKJAX3t2FcqvpLRb71CyTe1GvT3V+i+xJzfALgpk10uPGdGaQQ5Xrzmok1340DAeg2pR/MCfaW7b8AA==}
     peerDependencies:
       '@react-three/fiber': '>=6.0'
@@ -2432,7 +2432,7 @@ packages:
       '@react-spring/core': 9.6.1_react@18.2.0
       '@react-spring/shared': 9.6.1_react@18.2.0
       '@react-spring/types': 9.6.1
-      '@react-three/fiber': 8.11.10_73epb4osyabtjyiaeamriercbi
+      '@react-three/fiber': 8.12.0_73epb4osyabtjyiaeamriercbi
       react: 18.2.0
       three: 0.150.1
     dev: false
@@ -2441,7 +2441,7 @@ packages:
     resolution: {integrity: sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==}
     dev: false
 
-  /@react-three/drei/9.57.1_hcvssd3cvm56lplb4cayzkvmny:
+  /@react-three/drei/9.57.1_u3iila23zl7kxrjj2wxuc6ojr4:
     resolution: {integrity: sha512-6Vy8PkEKpUXtlS8FvOj3rOZ5k4QurpQulLehgh3HEtUE7SKfhBBTfnSA0dxPZ9eQP5g6gNcgJvZj5oLIuw8GiQ==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
@@ -2453,8 +2453,8 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.20.7
-      '@react-spring/three': 9.6.1_p7jutrtsxi4rngjmdur2xrxkza
-      '@react-three/fiber': 8.11.10_73epb4osyabtjyiaeamriercbi
+      '@react-spring/three': 9.6.1_lfvpzd3m5escehi2gx2mx2fjgy
+      '@react-three/fiber': 8.12.0_73epb4osyabtjyiaeamriercbi
       '@use-gesture/react': 10.2.24_react@18.2.0
       camera-controls: 2.1.0_three@0.150.1
       detect-gpu: 5.0.10
@@ -2480,8 +2480,8 @@ packages:
       - '@types/three'
     dev: false
 
-  /@react-three/fiber/8.11.10_73epb4osyabtjyiaeamriercbi:
-    resolution: {integrity: sha512-VMFbzBRDcy05xBTd46BNVf2W2mXyxjRk0qIQlqmMk29ZSdlT2taap5JRlO0b83s9AtVbuHVOPeBWqP9cpF4/nw==}
+  /@react-three/fiber/8.12.0_73epb4osyabtjyiaeamriercbi:
+    resolution: {integrity: sha512-o6DkNtNHqcOFRbxaiY5xayelE/9+Z0z9wWu5awqjVbc0c/1QM6AttJH6rKW0U/O6LWxSfxDTARXVzknZqpDJ7A==}
     peerDependencies:
       expo: '>=43.0'
       expo-asset: '>=8.4'
@@ -10072,8 +10072,8 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rimraf/4.3.1:
-    resolution: {integrity: sha512-GfHJHBzFQra23IxDzIdBqhOWfbtdgS1/dCHrDy+yvhpoJY5TdwdT28oWaHWfRpKFDLd3GZnGTx6Mlt4+anbsxQ==}
+  /rimraf/4.4.0:
+    resolution: {integrity: sha512-X36S+qpCUR0HjXlkDe4NAOhS//aHH0Z+h8Ckf2auGJk3PTnx5rLmrHkwNdbVQuCSUhOyFrlRvFEllZOYE+yZGQ==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
