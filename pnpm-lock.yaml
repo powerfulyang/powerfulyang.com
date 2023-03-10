@@ -9,7 +9,7 @@ specifiers:
   '@powerfulyang/hooks': 1.4.0
   '@powerfulyang/lint': 3.1.3
   '@powerfulyang/utils': 1.6.0
-  '@react-three/drei': 9.57.1
+  '@react-three/drei': 9.57.2
   '@react-three/fiber': 8.12.0
   '@sentry/cli': 2.14.4
   '@sentry/nextjs': 7.42.0
@@ -76,7 +76,7 @@ dependencies:
   '@powerfulyang/components': 1.6.1_zkowq6dxf2pofj4wn363umimsa
   '@powerfulyang/hooks': 1.4.0_w7c26772askiudqmj4bj66icee
   '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
-  '@react-three/drei': 9.57.1_u3iila23zl7kxrjj2wxuc6ojr4
+  '@react-three/drei': 9.57.2_u3iila23zl7kxrjj2wxuc6ojr4
   '@react-three/fiber': 8.12.0_73epb4osyabtjyiaeamriercbi
   '@sentry/nextjs': 7.42.0_oi4yo7lpuxjcam3fz4gr3cbiju
   '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
@@ -2333,7 +2333,7 @@ packages:
       prettier: 2.8.4
       prettier-plugin-tailwindcss: 0.2.4_prettier@2.8.4
       rimraf: 4.4.0
-      rollup: 3.19.0
+      rollup: 3.19.1
       sass: 1.58.3
       stylelint: 14.15.0
       stylelint-config-css-modules: 4.1.0_stylelint@14.15.0
@@ -2441,8 +2441,8 @@ packages:
     resolution: {integrity: sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==}
     dev: false
 
-  /@react-three/drei/9.57.1_u3iila23zl7kxrjj2wxuc6ojr4:
-    resolution: {integrity: sha512-6Vy8PkEKpUXtlS8FvOj3rOZ5k4QurpQulLehgh3HEtUE7SKfhBBTfnSA0dxPZ9eQP5g6gNcgJvZj5oLIuw8GiQ==}
+  /@react-three/drei/9.57.2_u3iila23zl7kxrjj2wxuc6ojr4:
+    resolution: {integrity: sha512-wkbpMruvjGj5dA0QEA7cuIm3O1NvcfZHkYtZTAicKnZ83OF4w97inE+epp5/j7juVlUFU7AQBHEYmNGiHKCKOQ==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
       react: '>=18.0'
@@ -2456,8 +2456,8 @@ packages:
       '@react-spring/three': 9.6.1_lfvpzd3m5escehi2gx2mx2fjgy
       '@react-three/fiber': 8.12.0_73epb4osyabtjyiaeamriercbi
       '@use-gesture/react': 10.2.24_react@18.2.0
-      camera-controls: 2.1.0_three@0.150.1
-      detect-gpu: 5.0.10
+      camera-controls: 2.3.1_three@0.150.1
+      detect-gpu: 5.0.14
       glsl-noise: 0.0.0
       lodash.clamp: 4.0.3
       lodash.omit: 4.5.0
@@ -4394,8 +4394,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /camera-controls/2.1.0_three@0.150.1:
-    resolution: {integrity: sha512-9b2dpUZp+3Rfkh/E8dU9O9/rBbPDzyB5DBINktedRAF4I5ldZUgBiSYtFac7wF3yXNf4UH2pjP3uRcoAtXTh4A==}
+  /camera-controls/2.3.1_three@0.150.1:
+    resolution: {integrity: sha512-mGPDOqCTSUqaeX3yR3bWQ/p1M5CR8C+cnqndBxQugfGKysn1dhRtw8Q6sG1hq4GL8RPsGwRanwQk5zwQjyrxyQ==}
     peerDependencies:
       three: '>=0.126.1'
     dependencies:
@@ -5299,8 +5299,8 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /detect-gpu/5.0.10:
-    resolution: {integrity: sha512-V0g0RhtlItrhgBM4/T/lTpjephr9b/xDAOtJZztGTvQxaPSMQ4EAiV9tdHL+4GcT1ATvYmMCm4QbrhyjdEH6Fw==}
+  /detect-gpu/5.0.14:
+    resolution: {integrity: sha512-CZwpdrG3hX4oYBcRATw8YaRV2I3AFIN2X6PA0rf9IQ0uYzi7w4gGQkmzazO9UtApHAYRraUICupnIQ+G3o0JDQ==}
     dependencies:
       webgl-constants: 1.1.1
     dev: false
@@ -10131,8 +10131,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rollup/3.19.0:
-    resolution: {integrity: sha512-xZzJZlH9Ca6cosfdNGPwl2z7Pby8dTi9TrYLPeg6/j7aUoDOhBd706tCUFvbiBj45h/cS7z/a4gS8xd5Yg0jBw==}
+  /rollup/3.19.1:
+    resolution: {integrity: sha512-lAbrdN7neYCg/8WaoWn/ckzCtz+jr70GFfYdlf50OF7387HTg+wiuiqJRFYawwSPpqfqDNYqK7smY/ks2iAudg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
