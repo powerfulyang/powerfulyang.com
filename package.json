@@ -48,7 +48,7 @@
     "jotai": "2.0.3",
     "lodash-es": "4.17.21",
     "monaco-editor": "0.36.1",
-    "next": "13.2.4",
+    "next": "13.2.3",
     "next-seo": "5.15.0",
     "next-sitemap": "4.0.5",
     "peerjs": "1.4.7",
@@ -79,7 +79,7 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "13.2.4",
+    "@next/bundle-analyzer": "13.2.3",
     "@powerfulyang/lint": "3.1.3",
     "@sentry/cli": "2.14.4",
     "@testing-library/jest-dom": "5.16.5",
