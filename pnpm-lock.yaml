@@ -8,7 +8,7 @@ specifiers:
   '@powerfulyang/components': 1.6.1
   '@powerfulyang/hooks': 1.4.0
   '@powerfulyang/lint': 3.1.3
-  '@powerfulyang/utils': 1.6.0
+  '@powerfulyang/utils': 1.7.2
   '@react-three/drei': 9.57.2
   '@react-three/fiber': 8.12.0
   '@sentry/cli': 2.14.4
@@ -73,9 +73,9 @@ dependencies:
   '@docsearch/react': 3.3.3_4mvbrmqotwuhfzwlcr6w5cftiu
   '@hookform/resolvers': 2.9.11_react-hook-form@7.43.5
   '@monaco-editor/react': 4.4.6_waewrrayshn643ztij6zbniufy
-  '@powerfulyang/components': 1.6.1_tlftqvkxx25anambemmubnr3ha
-  '@powerfulyang/hooks': 1.4.0_w7c26772askiudqmj4bj66icee
-  '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
+  '@powerfulyang/components': 1.6.1_z5h4dym64uwzt3ygfmqy4rzspu
+  '@powerfulyang/hooks': 1.4.0_uuzqkd7st3vlzxjitfwmozbnia
+  '@powerfulyang/utils': 1.7.2_sqmvnolao3uhrmyx2yle75dire
   '@react-three/drei': 9.57.2_u3iila23zl7kxrjj2wxuc6ojr4
   '@react-three/fiber': 8.12.0_73epb4osyabtjyiaeamriercbi
   '@sentry/nextjs': 7.42.0_gaoojij23wl376no5w3b3m6kqe
@@ -2273,7 +2273,7 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@powerfulyang/components/1.6.1_tlftqvkxx25anambemmubnr3ha:
+  /@powerfulyang/components/1.6.1_z5h4dym64uwzt3ygfmqy4rzspu:
     resolution: {integrity: sha512-yMdfjDVglNSY1ep3fQvmlGzdPvTB1Y8T73EIQQCIpf4LhKYyVQ2dyRJbmIHA48XG6wB/PZ08tm+IORVKbGmFNg==}
     peerDependencies:
       '@powerfulyang/hooks': '*'
@@ -2286,8 +2286,8 @@ packages:
       reflect-metadata: '*'
       rxjs: '*'
     dependencies:
-      '@powerfulyang/hooks': 1.4.0_w7c26772askiudqmj4bj66icee
-      '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
+      '@powerfulyang/hooks': 1.4.0_uuzqkd7st3vlzxjitfwmozbnia
+      '@powerfulyang/utils': 1.7.2_sqmvnolao3uhrmyx2yle75dire
       classnames: 2.3.2
       framer-motion: 10.2.5_biqbaboplfbrettd7655fr4n2y
       lodash-es: 4.17.21
@@ -2297,7 +2297,7 @@ packages:
       rxjs: 7.8.0
     dev: false
 
-  /@powerfulyang/hooks/1.4.0_w7c26772askiudqmj4bj66icee:
+  /@powerfulyang/hooks/1.4.0_uuzqkd7st3vlzxjitfwmozbnia:
     resolution: {integrity: sha512-akbQegjppwT568DF3zsXeZEBiMQdhyt7N2JwUJVDXIYgNwC/FgakQJoH1dbnwIQA9JtXAZoupW2tJAd78pbMyw==}
     peerDependencies:
       '@powerfulyang/utils': '*'
@@ -2307,7 +2307,7 @@ packages:
       react-dom: '*'
       rxjs: '*'
     dependencies:
-      '@powerfulyang/utils': 1.6.0_po6reqho5g3vevlomuclg2bnvy
+      '@powerfulyang/utils': 1.7.2_sqmvnolao3uhrmyx2yle75dire
       immer: 9.0.19
       lodash-es: 4.17.21
       react: 18.2.0
@@ -2392,15 +2392,39 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@powerfulyang/utils/1.6.0_po6reqho5g3vevlomuclg2bnvy:
-    resolution: {integrity: sha512-47fe03MuoXZjPYcGUVsYh3gKgbLkhdvUBDJ1lw4XsXfPeVMYMtUm/idONzfrNdw6CyfxZ0ww/Q4drBiYjNjLbw==}
+  /@powerfulyang/utils/1.7.2_sqmvnolao3uhrmyx2yle75dire:
+    resolution: {integrity: sha512-2ZqDeYiax97VPmvNWyEz4Ak6n5/pzyhCIW319HLC+4Uav17cdXVjAzc7CtROR8j1qynym+4Bxv5Z/axmUAjUww==}
     peerDependencies:
       qrcode-generator: '*'
+      refect-metadata: '*'
       reflect-metadata: '*'
+      rehype-parse: '*'
+      rehype-remark: '*'
+      remark-gfm: '*'
+      remark-stringify: '*'
       rxjs: '*'
+      unified: '*'
+    peerDependenciesMeta:
+      qrcode-generator:
+        optional: true
+      refect-metadata:
+        optional: true
+      rehype-parse:
+        optional: true
+      rehype-remark:
+        optional: true
+      remark-gfm:
+        optional: true
+      remark-stringify:
+        optional: true
+      rxjs:
+        optional: true
+      unified:
+        optional: true
     dependencies:
-      qrcode-generator: 1.4.4
       reflect-metadata: 0.1.13
+      remark-gfm: 3.0.1
+      remark-stringify: 10.0.2
       rxjs: 7.8.0
     dev: false
 
@@ -7517,7 +7541,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.3.1
-      '@types/node': 18.15.1
+      '@types/node': 18.15.2
       chalk: 4.1.2
       ci-info: 3.7.1
       graceful-fs: 4.2.10
@@ -9583,10 +9607,6 @@ packages:
     resolution: {integrity: sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==}
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     dev: true
-
-  /qrcode-generator/1.4.4:
-    resolution: {integrity: sha512-HM7yY8O2ilqhmULxGMpcHSF1EhJJ9yBj8gvDEuZ6M+KGJ0YY2hKpnXvRD+hZPLrDVck3ExIGhmPtSdcjC+guuw==}
-    dev: false
 
   /querystringify/2.2.0:
     resolution: {integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==}
