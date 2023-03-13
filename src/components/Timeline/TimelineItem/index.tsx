@@ -1,11 +1,10 @@
 import classNames from 'classnames';
-import React, { memo, Suspense, useEffect, useMemo } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import { LazyImage } from '@/components/LazyImage';
 import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import type { Feed } from '@/type/Feed';
 import { DateTimeFormat } from '@/utils/lib';
-import { Skeleton } from '@/components/Skeleton';
 import { atom, useAtom } from 'jotai';
 import type { Undefinable } from '@powerfulyang/utils';
 import { Button } from '@powerfulyang/components';
@@ -74,14 +73,12 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
 
   const content = useMemo(() => {
     return (
-      <Suspense fallback={<Skeleton rows={2} />}>
-        <article>
-          <h2 id={getTimelineItemId(feed.id)}>{getTimelineItemId(feed.id)}</h2>
-          <TimelineItemContext.Provider value={contextValue}>
-            <LazyMarkdownContainer source={feed.content} className={styles.content} />
-          </TimelineItemContext.Provider>
-        </article>
-      </Suspense>
+      <article>
+        <h2 id={getTimelineItemId(feed.id)}>{getTimelineItemId(feed.id)}</h2>
+        <TimelineItemContext.Provider value={contextValue}>
+          <LazyMarkdownContainer source={feed.content} className={styles.content} />
+        </TimelineItemContext.Provider>
+      </article>
     );
   }, [contextValue, feed.content, feed.id]);
 

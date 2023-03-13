@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React, { createContext, useContext, useMemo } from 'react';
-import { PrismAsync } from 'react-syntax-highlighter';
+import { Prism } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import type {
   CodeComponent,
@@ -9,14 +9,14 @@ import type {
   UnorderedListComponent,
 } from 'react-markdown/lib/ast-to-react';
 import classNames from 'classnames';
-import { useQuery } from '@tanstack/react-query';
 import type { NormalComponents } from 'react-markdown/lib/complex-types';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
-import { requestAtClient } from '@/utils/client';
-import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { copyToClipboardAndNotify } from '@/utils/copy';
 import { toString } from 'hast-util-to-string';
 import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
+import { requestAtClient } from '@/utils/client';
+import { useQuery } from '@tanstack/react-query';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import styles from './index.module.scss';
 
 // 不要 class name 的下划线，俺不喜欢
@@ -128,7 +128,7 @@ export const Code: CodeComponent = ({ inline, className, children, node }) => {
           </button>
         </div>
       </div>
-      <PrismAsync
+      <Prism
         showLineNumbers
         style={atomDark}
         language={language}
@@ -143,7 +143,7 @@ export const Code: CodeComponent = ({ inline, className, children, node }) => {
         }}
       >
         {renderText}
-      </PrismAsync>
+      </Prism>
     </>
   );
 };
@@ -160,7 +160,7 @@ export const Ul: UnorderedListComponent = ({ children, ...props }) => {
 
 export const Li: LiComponent = ({ children }) => <li>{children}</li>;
 
-const AssetImage: FC<{ id: string }> = ({ id }) => {
+const MDAssetImage: FC<{ id: string }> = ({ id }) => {
   const { blur } = useContext(MDContainerContext);
   const { data: asset } = useQuery({
     queryKey: ['md-asset-img', id],
@@ -183,7 +183,7 @@ const AssetImage: FC<{ id: string }> = ({ id }) => {
 };
 export const Img: NormalComponents['img'] = ({ src, alt }) => {
   if (alt === MarkdownImageFromAssetManageAltConstant && src) {
-    return <AssetImage id={src} />;
+    return <MDAssetImage id={src} />;
   }
   // 因为开发的时候 图片没有被缓存 会出现高度突然变化的问题 导致页面闪烁
   return (

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import type { GetServerSideProps } from 'next';
 import type { Post } from '@/type/Post';
 import type { LayoutFC } from '@/type/GlobalContext';
@@ -30,9 +30,7 @@ const PostDetail: LayoutFC<PostProps> = ({ data: { content, toc, id, logs = [] }
 
   return (
     <main className={styles.postWrap}>
-      <Suspense>
-        <LazyMarkdownContainer source={content} className={styles.post} />
-      </Suspense>
+      <LazyMarkdownContainer source={content} className={styles.post} />
       <MarkdownTOC toc={toc} logs={logs} id={id} />
     </main>
   );

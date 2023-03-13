@@ -1,7 +1,7 @@
 import { generateTOC } from '@/utils/toc';
 
-describe('toc', () => {
-  it('should generate toc', async () => {
+describe('TOC', () => {
+  it('should generate TOC', async () => {
     const content = `# 1`;
     const result = await generateTOC(content);
     expect(result).toStrictEqual([

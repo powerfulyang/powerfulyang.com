@@ -5,7 +5,7 @@ import type { Post } from '@/type/Post';
 import type { FC } from 'react';
 import React from 'react';
 import { DateTimeFormat } from '@/utils/lib';
-import { PrismAsync } from 'react-syntax-highlighter';
+import { Prism } from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { StatusCodes } from 'http-status-codes';
 
@@ -53,7 +53,7 @@ const Diff: FC<Props> = ({ left, right }) => {
       }}
       renderContent={(value) => {
         return (
-          <PrismAsync
+          <Prism
             style={coy}
             language="markdown"
             wrapLongLines
@@ -70,7 +70,7 @@ const Diff: FC<Props> = ({ left, right }) => {
             }}
           >
             {value}
-          </PrismAsync>
+          </Prism>
         );
       }}
     />

@@ -1,5 +1,5 @@
 import type { ClipboardEvent, FC } from 'react';
-import React, { Suspense, useDeferredValue, useEffect, useRef } from 'react';
+import React, { useDeferredValue, useEffect, useRef } from 'react';
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
 import type { VoidFunction } from '@powerfulyang/utils';
@@ -139,13 +139,11 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
             }}
           />
         </section>
-        <Suspense>
-          <LazyMarkdownContainer
-            metadataRef={metadataRef}
-            className={styles.preview}
-            source={deferValue}
-          />
-        </Suspense>
+        <LazyMarkdownContainer
+          metadataRef={metadataRef}
+          className={styles.preview}
+          source={deferValue}
+        />
       </main>
     </div>
   );
