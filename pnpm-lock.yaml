@@ -17,7 +17,7 @@ specifiers:
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 14.0.0
   '@types/d3': 7.4.0
-  '@types/lodash-es': 4.17.6
+  '@types/lodash-es': 4.17.7
   '@types/ramda': 0.28.23
   '@types/react-syntax-highlighter': 15.5.6
   '@types/sharp': 0.31.1
@@ -130,7 +130,7 @@ devDependencies:
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
   '@types/d3': 7.4.0
-  '@types/lodash-es': 4.17.6
+  '@types/lodash-es': 4.17.7
   '@types/ramda': 0.28.23
   '@types/react-syntax-highlighter': 15.5.6
   '@types/sharp': 0.31.1
@@ -2045,7 +2045,7 @@ packages:
       '@jest/schemas': 29.0.0
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 18.15.2
+      '@types/node': 18.15.3
       '@types/yargs': 17.0.18
       chalk: 4.1.2
     dev: true
@@ -3344,8 +3344,8 @@ packages:
     resolution: {integrity: sha512-DUlIj2nk0YnJdlWgsFuVKcX27MLW0KbKmGVoUHmFr+74FYYNUDAaj9ZqTADvsbE8rfxuVmSFc7KczYn5Y09ozg==}
     dev: false
 
-  /@types/lodash-es/4.17.6:
-    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
+  /@types/lodash-es/4.17.7:
+    resolution: {integrity: sha512-z0ptr6UI10VlU6l5MYhGwS4mC8DZyYer2mCoyysZtSF7p26zOX8UpbrV0YpNYLGS8K4PUFIyEr62IMFFjveSiQ==}
     dependencies:
       '@types/lodash': 4.14.191
     dev: true
@@ -3459,7 +3459,7 @@ packages:
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
-      '@types/node': 18.15.2
+      '@types/node': 18.15.3
     dev: true
 
   /@types/scheduler/0.16.2:
@@ -7654,7 +7654,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.3.1
-      '@types/node': 18.15.2
+      '@types/node': 18.15.3
       chalk: 4.1.2
       ci-info: 3.7.1
       graceful-fs: 4.2.10
@@ -7691,7 +7691,7 @@ packages:
     resolution: {integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.15.2
+      '@types/node': 18.15.3
       merge-stream: 2.0.0
       supports-color: 7.2.0
     dev: true
@@ -9545,7 +9545,7 @@ packages:
       ts-node:
         optional: true
     dependencies:
-      lilconfig: 2.0.6
+      lilconfig: 2.1.0
       postcss: 8.4.21
       ts-node: 10.9.1_lxsr7vkqxpvg3jnjvosormbske
       yaml: 1.10.2
