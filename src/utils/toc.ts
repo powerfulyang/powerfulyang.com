@@ -4,6 +4,8 @@ import rehypeSlug from 'rehype-slug';
 import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
 import type { TOCItem } from '@/components/MarkdownContainer/TOC';
+import remarkFrontmatter from 'remark-frontmatter';
+import { remarkMetadata } from '@/components/MarkdownContainer';
 
 const rehypeTOC = (callback: (v: TOCItem[]) => void) => {
   return (tree: any) => {
@@ -34,8 +36,8 @@ export const generateTOC = async (content: string) => {
     // .use(remarkGfm)
     // .use(remarkParse)
     // .use(remarkStringify)
-    // .use(remarkFrontmatter)
-    // .use(remarkMetadata)
+    .use(remarkFrontmatter)
+    .use(remarkMetadata)
     .use(remarkRehype)
     .use(rehypeSlug)
     .use(rehypeTOC, (v) => {

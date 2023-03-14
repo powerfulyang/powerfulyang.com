@@ -49,6 +49,11 @@ const esModules = [
   'react-syntax-highlighter',
   'hastscript',
   'web-namespaces',
+  'character.+',
+  'is.+',
+  'stringify.+',
+  'emo.+',
+  'html.+',
 ].join('|');
 
 module.exports = async () => {

@@ -4,9 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import classNames from 'classnames';
 import rehypeSlug from 'rehype-slug';
-import remarkParse from 'remark-parse';
 import remarkFrontmatter from 'remark-frontmatter';
-import remarkStringify from 'remark-stringify';
 import { parse } from 'yaml';
 import { DateFormat } from '@/utils/lib';
 import { copyToClipboardAndNotify } from '@/utils/copy';
@@ -16,7 +14,10 @@ import type { Root } from 'mdast';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import styles from './index.module.scss';
+import remarkDirective from 'remark-directive';
+import remarkEmoji from 'remark-emoji';
+import rehypeRaw from 'rehype-raw';
+import { myRemarkPlugin } from '@/components/MarkdownContainer/plugins/remarkPlugin';
 import {
   A,
   BlockQuote,
@@ -32,7 +33,7 @@ import {
   Table,
   Ul,
 } from './MarkdownElement';
-
+import styles from './index.module.scss';
 import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 
 export type MarkdownContainerProps = {
@@ -112,11 +113,12 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
           className={classNames(styles.markdownBody, className)}
           remarkPlugins={[
             remarkGfm,
-            remarkParse,
-            remarkStringify,
             remarkFrontmatter,
             [remarkMetadata, metadataRef],
             remarkMath,
+            remarkDirective,
+            remarkEmoji,
+            myRemarkPlugin,
           ]}
           remarkRehypeOptions={{
             passThrough: ['info', 'tags'],
@@ -136,7 +138,7 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = ({
               },
             },
           }}
-          rehypePlugins={[rehypeSlug, rehypeKatex]}
+          rehypePlugins={[rehypeSlug, rehypeKatex, rehypeRaw]}
           components={{
             h1: H1,
             h2: H2,

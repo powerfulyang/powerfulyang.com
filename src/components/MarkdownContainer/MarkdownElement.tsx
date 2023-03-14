@@ -12,7 +12,6 @@ import classNames from 'classnames';
 import type { NormalComponents } from 'react-markdown/lib/complex-types';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { copyToClipboardAndNotify } from '@/utils/copy';
-import { toString } from 'hast-util-to-string';
 import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
 import { requestAtClient } from '@/utils/client';
 import { useQuery } from '@tanstack/react-query';
@@ -76,11 +75,13 @@ export const H4: HeadingComponent = ({ children, id }) => {
   );
 };
 
-export const A: NormalComponents['a'] = ({ href, children }) => (
-  <a rel="noreferrer" className="link" target="_blank" href={href}>
-    {children}
-  </a>
-);
+export const A: NormalComponents['a'] = ({ href, children }) => {
+  return (
+    <a rel="noreferrer" className="link" target="_blank" href={href}>
+      {children}
+    </a>
+  );
+};
 
 export const BlockQuote: NormalComponents['blockquote'] = ({ children }) => (
   <blockquote className={styles.blockquote}>{children}</blockquote>
@@ -92,7 +93,7 @@ export const Table: NormalComponents['table'] = ({ children }) => (
   </div>
 );
 
-export const Code: CodeComponent = ({ inline, className, children, node }) => {
+export const Code: CodeComponent = ({ inline, className, children }) => {
   const match = /language-(\w+)/.exec(className || '');
   const renderText = useMemo(() => children.toString().replace(/\s*\n$/, ''), [children]);
   if (inline) {
@@ -100,21 +101,12 @@ export const Code: CodeComponent = ({ inline, className, children, node }) => {
       <code className={classNames(className, styles.inlineCode, 'cursor-text')}>{renderText}</code>
     );
   }
-  const language = match?.[1] || 'unknown';
-
-  if (language === 'codepen' || language === 'codesandbox' || language === 'iframe') {
-    // if `toString(node)` doesn't match iframe, return null
-    const str = toString(node);
-    const reg = /^<iframe[\s\S]+?<\/iframe>$/m;
-    const result = str.match(reg);
-    if (!result) return null;
-    // eslint-disable-next-line react/no-danger
-    return <span dangerouslySetInnerHTML={{ __html: result[0] }} />;
-  }
+  // default language is js
+  const language = match?.[1] || 'js';
 
   return (
     <>
-      <div className={styles.toolbar}>
+      <div data-mdast="ignore" className={styles.toolbar}>
         <div className={styles.toolbarLanguage}>{language}</div>
         <div className={styles.toolbarAction}>
           <button
@@ -134,7 +126,7 @@ export const Code: CodeComponent = ({ inline, className, children, node }) => {
         language={language}
         PreTag="pre"
         codeTagProps={{
-          style: { fontFamily: `Fira Code, sans-serif`, cursor: 'text', whiteSpace: 'pre' },
+          style: { fontFamily: `Fira Code, sans-serif` },
         }}
         customStyle={{
           borderRadius: 0,
@@ -148,7 +140,9 @@ export const Code: CodeComponent = ({ inline, className, children, node }) => {
   );
 };
 
-export const Pre: NormalComponents['pre'] = ({ children }) => <pre>{children}</pre>;
+export const Pre: NormalComponents['pre'] = ({ children }) => {
+  return <div className={styles.pre}>{children}</div>;
+};
 
 export const Ul: UnorderedListComponent = ({ children, ...props }) => {
   const { className } = props;

@@ -109,7 +109,7 @@ $main-color: #ffb356;
     }
   }
 
-  pre:has(pre) {
+  .pre {
     @apply isolate mb-4 overflow-hidden rounded-lg;
 
     div {
