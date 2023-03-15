@@ -5,7 +5,8 @@ import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
 import type { TOCItem } from '@/components/MarkdownContainer/TOC';
 import remarkFrontmatter from 'remark-frontmatter';
-import { remarkMetadata } from '@/components/MarkdownContainer';
+
+import { remarkMetadata } from '@/components/MarkdownContainer/plugins/remarkMetadata';
 
 const rehypeTOC = (callback: (v: TOCItem[]) => void) => {
   return (tree: any) => {

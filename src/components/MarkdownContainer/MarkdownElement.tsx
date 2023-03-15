@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { createContext, useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Prism } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import type {
@@ -20,10 +20,6 @@ import styles from './index.module.scss';
 
 // 不要 class name 的下划线，俺不喜欢
 delete atomDark['class-name'].textDecoration;
-
-export const MDContainerContext = createContext({
-  blur: true,
-});
 
 export const H1: HeadingComponent = ({ children, id }) => {
   const { id_prefix } = useContext(TimelineItemContext);
@@ -155,7 +151,6 @@ export const Ul: UnorderedListComponent = ({ children, ...props }) => {
 export const Li: LiComponent = ({ children }) => <li>{children}</li>;
 
 const MDAssetImage: FC<{ id: string }> = ({ id }) => {
-  const { blur } = useContext(MDContainerContext);
   const { data: asset } = useQuery({
     queryKey: ['md-asset-img', id],
     queryFn: () => {
@@ -168,7 +163,7 @@ const MDAssetImage: FC<{ id: string }> = ({ id }) => {
         thumbnail="poster"
         keepAspectRatio
         containerClassName="mt-2"
-        lazy={blur}
+        lazy
         asset={asset}
       />
     )) ||

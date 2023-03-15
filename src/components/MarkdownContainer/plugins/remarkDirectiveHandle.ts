@@ -1,8 +1,8 @@
 import { visit } from 'unist-util-visit';
+import type { Root } from 'mdast';
 
-/** @type {import('unified').Plugin<[], import('mdast').Root>} */
-export function myRemarkPlugin() {
-  return (tree: any) => {
+export function remarkDirectiveHandle() {
+  return (tree: Root) => {
     visit(tree, (node) => {
       if (
         node.type === 'textDirective' ||
@@ -14,9 +14,6 @@ export function myRemarkPlugin() {
         const attributes = node.attributes || {};
         const { id } = attributes;
 
-        if (!id) {
-          return;
-        }
         if (node.name === 'youtube') {
           data.hName = 'iframe';
           data.hProperties = {

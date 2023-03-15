@@ -42,6 +42,7 @@
     "dayjs": "1.11.7",
     "feed": "4.2.2",
     "framer-motion": "10.3.1",
+    "hast-util-raw": "8.0.0",
     "hast-util-to-string": "2.0.0",
     "http-status-codes": "2.2.0",
     "immer": "9.0.19",
@@ -63,11 +64,9 @@
     "react-syntax-highlighter": "15.5.0",
     "reflect-metadata": "0.1.13",
     "rehype-katex": "6.0.2",
-    "rehype-raw": "6.1.1",
     "rehype-slug": "5.1.0",
     "remark": "14.0.2",
     "remark-directive": "2.0.1",
-    "remark-emoji": "3.1.1",
     "remark-frontmatter": "4.0.1",
     "remark-gfm": "3.0.1",
     "remark-math": "5.1.1",
@@ -100,5 +99,13 @@
   },
   "bundledDependencies": [
     "katex"
-  ]
+  ],
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "18",
+        "react-dom": "18"
+      }
+    }
+  }
 }
