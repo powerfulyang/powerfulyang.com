@@ -26,7 +26,7 @@ specifiers:
   d3: 7.8.2
   dayjs: 1.11.7
   feed: 4.2.2
-  framer-motion: 10.3.1
+  framer-motion: 10.3.2
   hast-util-raw: 8.0.0
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
@@ -73,7 +73,7 @@ dependencies:
   '@docsearch/react': 3.3.3_4mvbrmqotwuhfzwlcr6w5cftiu
   '@hookform/resolvers': 2.9.11_react-hook-form@7.43.5
   '@monaco-editor/react': 4.4.6_waewrrayshn643ztij6zbniufy
-  '@powerfulyang/components': 1.6.1_k5taqv4ors6jvuq4xrdpxzil44
+  '@powerfulyang/components': 1.6.1_zoabnk3jsjhkxbvdw3fadhckqi
   '@powerfulyang/hooks': 1.4.0_7tb2vh2wwsddlezrsa4ftcz7ni
   '@powerfulyang/utils': 1.9.1
   '@react-three/drei': 9.57.3_u3iila23zl7kxrjj2wxuc6ojr4
@@ -84,7 +84,7 @@ dependencies:
   d3: 7.8.2
   dayjs: 1.11.7
   feed: 4.2.2
-  framer-motion: 10.3.1_biqbaboplfbrettd7655fr4n2y
+  framer-motion: 10.3.2_biqbaboplfbrettd7655fr4n2y
   hast-util-raw: 8.0.0
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
@@ -2273,7 +2273,7 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@powerfulyang/components/1.6.1_k5taqv4ors6jvuq4xrdpxzil44:
+  /@powerfulyang/components/1.6.1_zoabnk3jsjhkxbvdw3fadhckqi:
     resolution: {integrity: sha512-yMdfjDVglNSY1ep3fQvmlGzdPvTB1Y8T73EIQQCIpf4LhKYyVQ2dyRJbmIHA48XG6wB/PZ08tm+IORVKbGmFNg==}
     peerDependencies:
       '@powerfulyang/hooks': '*'
@@ -2289,7 +2289,7 @@ packages:
       '@powerfulyang/hooks': 1.4.0_7tb2vh2wwsddlezrsa4ftcz7ni
       '@powerfulyang/utils': 1.9.1
       classnames: 2.3.2
-      framer-motion: 10.3.1_biqbaboplfbrettd7655fr4n2y
+      framer-motion: 10.3.2_biqbaboplfbrettd7655fr4n2y
       lodash-es: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -3278,7 +3278,7 @@ packages:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 18.15.2
+      '@types/node': 18.15.3
     dev: true
 
   /@types/graceful-fs/4.1.5:
@@ -3374,12 +3374,8 @@ packages:
     resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
     dev: true
 
-  /@types/node/18.15.2:
-    resolution: {integrity: sha512-sDPHm2wfx2QhrMDK0pOt2J4KLJMAcerqWNvnED0itPRJWvI+bK+uNHzcH1dFsBlf7G3u8tqXmRF3wkvL9yUwMw==}
-
   /@types/node/18.15.3:
     resolution: {integrity: sha512-p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==}
-    dev: true
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -6198,8 +6194,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion/10.3.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-z90Dwg2adrltIdYiibynBN+EbSRrakFKGgOnE5TN24E1bmb2TdpfzFqvwxLTvvMimh+/yN43njMFKFKe2CkY/g==}
+  /framer-motion/10.3.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-8GrK3X2vXG/9LJCNJuU5gKxDwSN0VTf7tD6MFP3S9F7rgsUavx+8ZNwhfZfak6maCBBHZ1m86K7TIXpbdfML2w==}
     peerDependencies:
       react: ^18.0.0 || 18
       react-dom: ^18.0.0 || 18
@@ -7690,7 +7686,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.15.2
+      '@types/node': 18.15.3
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
