@@ -21,12 +21,12 @@ import styles from './index.module.scss';
 // 不要 class name 的下划线，俺不喜欢
 delete atomDark['class-name'].textDecoration;
 
-export const H1: HeadingComponent = ({ children, id }) => {
+export const H1: HeadingComponent = ({ children, id = '' }) => {
   const { id_prefix } = useContext(TimelineItemContext);
-  const v = id && `${id_prefix}${id}`;
+  const v = `${id_prefix}${id}`;
   return (
     <div className="relative">
-      <div title="anchor" id={v} className={styles.anchor} />
+      <div title="anchor" id={encodeURIComponent(v)} className={styles.anchor} />
       <h1 className="flex w-full justify-center pb-2">
         <span className={styles.heading1}>
           <span className={styles.prefix} />
@@ -38,34 +38,34 @@ export const H1: HeadingComponent = ({ children, id }) => {
   );
 };
 
-export const H2: HeadingComponent = ({ children, id }) => {
+export const H2: HeadingComponent = ({ children, id = '' }) => {
   const { id_prefix } = useContext(TimelineItemContext);
   const v = id && `${id_prefix}${id}`;
   return (
     <div className="relative">
-      <div title="anchor" id={v} className={styles.anchor} />
+      <div title="anchor" id={encodeURIComponent(v)} className={styles.anchor} />
       <h2 className="cursor-text">{children}</h2>
     </div>
   );
 };
 
-export const H3: HeadingComponent = ({ children, id }) => {
+export const H3: HeadingComponent = ({ children, id = '' }) => {
   const { id_prefix } = useContext(TimelineItemContext);
   const v = id && `${id_prefix}${id}`;
   return (
     <div className="relative">
-      <div title="anchor" id={v} className={styles.anchor} />
+      <div title="anchor" id={encodeURIComponent(v)} className={styles.anchor} />
       <h3>{children}</h3>
     </div>
   );
 };
 
-export const H4: HeadingComponent = ({ children, id }) => {
+export const H4: HeadingComponent = ({ children, id = '' }) => {
   const { id_prefix } = useContext(TimelineItemContext);
   const v = id && `${id_prefix}${id}`;
   return (
     <div className="relative">
-      <div title="anchor" id={v} className={styles.anchor} />
+      <div title="anchor" id={encodeURIComponent(v)} className={styles.anchor} />
       <h4>{children}</h4>
     </div>
   );
