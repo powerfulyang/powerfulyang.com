@@ -15,8 +15,8 @@ type Props = {
 };
 
 const Diff: FC<Props> = ({ left, right }) => {
-  const leftTitle = `${left.title} @ ${DateTimeFormat(left.createAt)}`;
-  const rightTitle = `${right.title} @ ${DateTimeFormat(right.createAt)}`;
+  const leftTitle = `${left.title} @ ${DateTimeFormat(left.createdAt)}`;
+  const rightTitle = `${right.title} @ ${DateTimeFormat(right.createdAt)}`;
   return (
     <ReactDiffViewer
       leftTitle={leftTitle}

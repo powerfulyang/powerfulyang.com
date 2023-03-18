@@ -37,7 +37,7 @@ export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: Post[]; id: number }> = ({
                 e.preventDefault();
                 hashRef.current = id;
                 scrollIntoView(
-                  document.getElementById(id),
+                  document.getElementById(encodeURIComponent(id)),
                   {
                     behavior: 'smooth',
                   },
@@ -64,7 +64,7 @@ export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: Post[]; id: number }> = ({
                 rel="noreferrer"
                 title={`${log.id}`}
               >
-                {DateTimeFormat(log.createAt)}
+                {DateTimeFormat(log.createdAt)}
               </a>
             </div>
           ))}

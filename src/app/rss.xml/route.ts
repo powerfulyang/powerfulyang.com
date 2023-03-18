@@ -23,7 +23,8 @@ const generateRssFeed = (posts: Post[]) => {
       description: post.summary,
       id: `${site_url}/post/${post.id}`,
       link: `${site_url}/post/${post.id}`,
-      date: new Date(post.createAt),
+      date: new Date(post.updatedAt),
+      published: new Date(post.createdAt),
     });
   });
 

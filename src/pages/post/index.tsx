@@ -73,7 +73,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             <h2>{post.title}</h2>
             <summary>{post.summary}</summary>
             <section className="leading-6 text-gray-400">
-              <span>Date: {DateTimeFormat(post.createAt)}</span>
+              <span>Date: {DateTimeFormat(post.createdAt)}</span>
               <br />
               <span>Author: {post.createBy.nickname}</span>
             </section>

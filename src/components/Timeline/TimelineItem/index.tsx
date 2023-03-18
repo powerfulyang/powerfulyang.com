@@ -96,7 +96,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
         </div>
         <div className="flex flex-col justify-evenly">
           <div className={classNames('text-lg', styles.nickname)}>{feed.createBy.nickname}</div>
-          <div className="cursor-text text-xs text-gray-600">{DateTimeFormat(feed.createAt)}</div>
+          <div className="cursor-text text-xs text-gray-600">{DateTimeFormat(feed.createdAt)}</div>
         </div>
         {user?.id === feed.createBy.id && (
           <div className="ml-auto flex flex-col justify-evenly">

@@ -20,9 +20,9 @@ export class Bucket {
 
   Region: string;
 
-  createAt: Date;
+  createdAt: Date;
 
-  updateAt: Date;
+  updatedAt: Date;
 
   name: AssetBucket;
 }

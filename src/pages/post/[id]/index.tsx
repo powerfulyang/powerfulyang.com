@@ -10,8 +10,15 @@ import { generateTOC } from '@/utils/toc';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { StatusCodes } from 'http-status-codes';
 import { origin } from '@/components/Head';
-import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
+import dynamic from 'next/dynamic';
+import { Skeleton } from '@/components/Skeleton';
 import styles from './index.module.scss';
+
+const LazyMarkdownContainer = dynamic(() => import('@/components/MarkdownContainer'), {
+  loading: () => {
+    return <Skeleton rows={8} className={styles.post} />;
+  },
+});
 
 type PostProps = {
   data: Post;

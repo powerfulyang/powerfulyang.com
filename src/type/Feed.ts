@@ -12,9 +12,9 @@ export class Feed {
 
   createBy: User;
 
-  createAt: string;
+  createdAt: string;
 
-  updateAt: string;
+  updatedAt: string;
 }
 
 export interface FeedCreate {

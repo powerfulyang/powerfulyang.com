@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     data.map((post: Post) => {
       return {
         loc: `https://powerfulyang.com/post/${post.id}`,
-        lastmod: post.updateAt,
+        lastmod: post.updatedAt,
         changefreq: 'daily',
         priority: 0.8,
       };

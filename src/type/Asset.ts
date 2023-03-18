@@ -33,9 +33,9 @@ export class Asset {
 
   metadata: Metadata;
 
-  createAt: Date;
+  createdAt: Date;
 
-  updateAt: Date;
+  updatedAt: Date;
 
   size: { width: number; height: number };
 }
