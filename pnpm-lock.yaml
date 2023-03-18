@@ -41,7 +41,7 @@ specifiers:
   next-seo: 5.15.0
   next-sitemap: 4.0.5
   peerjs: 1.4.7
-  prettier-plugin-tailwindcss: 0.2.4
+  prettier-plugin-tailwindcss: 0.2.5
   ramda: 0.28.0
   react: 18.2.0
   react-diff-viewer: 3.1.1
@@ -136,7 +136,7 @@ devDependencies:
   jest-canvas-mock: 2.4.0
   monaco-editor-webpack-plugin: 7.0.1_yuuxqubmlwm7s5vqmasqf2oquq
   next-pwa: 5.6.0_l7dbz3nooxr6uiyk24wn6zk4zy
-  prettier-plugin-tailwindcss: 0.2.4_prettier@2.8.4
+  prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.4
   tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
   typescript: 4.9.5
 
@@ -9634,8 +9634,8 @@ packages:
       fast-diff: 1.2.0
     dev: true
 
-  /prettier-plugin-tailwindcss/0.2.4_prettier@2.8.4:
-    resolution: {integrity: sha512-wMyugRI2yD8gqmMpZSS8kTA0gGeKozX/R+w8iWE+yiCZL09zY0SvfiHfHabNhjGhzxlQ2S2VuTxPE3T72vppCQ==}
+  /prettier-plugin-tailwindcss/0.2.5_prettier@2.8.4:
+    resolution: {integrity: sha512-vZ/iKieyCx0WTxHbkf5E1rBlv/ybFk8WTT4hL5W2jlVxum2Zbe0jMUpuQdDrpa4z2vnPiJ5KIWCqL/kd16fKYg==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
