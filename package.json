@@ -32,7 +32,7 @@
     "@monaco-editor/react": "4.4.6",
     "@powerfulyang/components": "1.6.1",
     "@powerfulyang/hooks": "1.4.0",
-    "@powerfulyang/utils": "1.9.1",
+    "@powerfulyang/utils": "1.9.2",
     "@react-three/drei": "9.57.3",
     "@react-three/fiber": "8.12.0",
     "@sentry/nextjs": "7.43.0",
