@@ -67,9 +67,6 @@ export const Chat: FC<Props> = ({ messages, onSendMessage }) => {
         className={styles.chatInput}
         onKeyDown={(e) => {
           if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-            setMessage(`${message}\n`);
-          }
-          if (e.key === 'Enter' && !(e.ctrlKey || e.metaKey)) {
             e.preventDefault();
             onSendMessage({ messageContentType: 'text', content: message });
             setMessage('');

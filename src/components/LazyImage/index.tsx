@@ -56,6 +56,7 @@ export const LazyImage = memo<LazyImageProps>(
     const { ref, inView } = useInView({
       initialInView,
       triggerOnce,
+      skip: triggerOnce && initialInView,
     });
 
     const variants = useMemo<Variants>(() => {

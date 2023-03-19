@@ -10,7 +10,6 @@ import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { useFixMinHeight } from '@/hooks/useFixMinHeight';
 import { DateTimeFormat } from '@/utils/lib';
 import { origin } from '@/components/Head';
 import styles from './index.module.scss';
@@ -31,8 +30,6 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
     },
     [history],
   );
-
-  useFixMinHeight();
 
   return (
     <main className={styles.main}>

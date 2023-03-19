@@ -11,7 +11,6 @@ import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
 import { requestAtServer } from '@/utils/server';
 import Masonry from '@/components/Masonry';
-import { useFixMinHeight } from '@/hooks/useFixMinHeight';
 import { firstItem, lastItem } from '@powerfulyang/utils';
 import { origin } from '@/components/Head';
 import styles from './index.module.scss';
@@ -73,8 +72,6 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
     return castAssetsToImagePreviewItem(resources);
   }, [resources]);
 
-  useFixMinHeight();
-
   return (
     <main className={styles.gallery}>
       <ImagePreview images={images}>
@@ -96,6 +93,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
               keepAspectRatio
               triggerOnce={false}
               draggable={false}
+              initialInView={false}
             />
           ))}
         </Masonry>

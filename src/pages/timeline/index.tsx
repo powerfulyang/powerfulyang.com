@@ -18,7 +18,6 @@ import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
 import { useUser } from '@/hooks/useUser';
 import Image from 'next/image';
 import bg from '@/assets/timeline-banner.webp';
-import { useFixMinHeight } from '@/hooks/useFixMinHeight';
 import { origin } from '@/components/Head';
 import styles from './index.module.scss';
 
@@ -106,8 +105,6 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
       </div>
     );
   }, [data?.pages, fetchPreviousPage, hasPreviousPage]);
-
-  useFixMinHeight();
 
   const queryClient = useQueryClient();
 

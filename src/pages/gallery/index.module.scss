@@ -1,7 +1,6 @@
 .gallery {
   background-color: #f5f5f6;
-  margin-bottom: -100vh !important;
-  padding-bottom: calc(100vh + 2rem) !important;
+  min-height: calc(100dvh - var(--footer-height) - var(--nav-height));
 
   @apply w-full sm:px-8 sm:py-6;
 }

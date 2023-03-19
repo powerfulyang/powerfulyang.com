@@ -94,6 +94,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
   const post = (await res.json()) as Post;
   const { logs } = post;
+  if (logs.length !== 2) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {

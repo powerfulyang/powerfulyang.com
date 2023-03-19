@@ -30,6 +30,7 @@ export const LazyAssetImage = memo<
   ]);
   return (
     <LazyImage
+      initialInView
       {...props}
       width={asset.size.width}
       height={asset.size.height}
