@@ -8,7 +8,7 @@ specifiers:
   '@powerfulyang/components': 1.6.1
   '@powerfulyang/hooks': 1.4.0
   '@powerfulyang/lint': 3.1.3
-  '@powerfulyang/utils': 1.9.1
+  '@powerfulyang/utils': 1.9.2
   '@react-three/drei': 9.57.3
   '@react-three/fiber': 8.12.0
   '@sentry/cli': 2.15.2
@@ -73,9 +73,9 @@ dependencies:
   '@docsearch/react': 3.3.3_4jk4sx5gsa4z6dpons6mwt4w6q
   '@hookform/resolvers': 2.9.11_react-hook-form@7.43.7
   '@monaco-editor/react': 4.4.6_waewrrayshn643ztij6zbniufy
-  '@powerfulyang/components': 1.6.1_5vgagx2zppw3ow6dwezmld2emi
-  '@powerfulyang/hooks': 1.4.0_7tb2vh2wwsddlezrsa4ftcz7ni
-  '@powerfulyang/utils': 1.9.1
+  '@powerfulyang/components': 1.6.1_j766tt3rokpijvosjtxuqddl7y
+  '@powerfulyang/hooks': 1.4.0_ze5fde7jgt4dsdz55tkulocxuy
+  '@powerfulyang/utils': 1.9.2
   '@react-three/drei': 9.57.3_u3iila23zl7kxrjj2wxuc6ojr4
   '@react-three/fiber': 8.12.0_73epb4osyabtjyiaeamriercbi
   '@sentry/nextjs': 7.43.0_qng64egxxuteuedgyizhkowu74
@@ -2279,7 +2279,7 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@powerfulyang/components/1.6.1_5vgagx2zppw3ow6dwezmld2emi:
+  /@powerfulyang/components/1.6.1_j766tt3rokpijvosjtxuqddl7y:
     resolution: {integrity: sha512-yMdfjDVglNSY1ep3fQvmlGzdPvTB1Y8T73EIQQCIpf4LhKYyVQ2dyRJbmIHA48XG6wB/PZ08tm+IORVKbGmFNg==}
     peerDependencies:
       '@powerfulyang/hooks': '*'
@@ -2292,8 +2292,8 @@ packages:
       reflect-metadata: '*'
       rxjs: '*'
     dependencies:
-      '@powerfulyang/hooks': 1.4.0_7tb2vh2wwsddlezrsa4ftcz7ni
-      '@powerfulyang/utils': 1.9.1
+      '@powerfulyang/hooks': 1.4.0_ze5fde7jgt4dsdz55tkulocxuy
+      '@powerfulyang/utils': 1.9.2
       classnames: 2.3.2
       framer-motion: 10.6.0_biqbaboplfbrettd7655fr4n2y
       lodash-es: 4.17.21
@@ -2303,7 +2303,7 @@ packages:
       rxjs: 7.8.0
     dev: false
 
-  /@powerfulyang/hooks/1.4.0_7tb2vh2wwsddlezrsa4ftcz7ni:
+  /@powerfulyang/hooks/1.4.0_ze5fde7jgt4dsdz55tkulocxuy:
     resolution: {integrity: sha512-akbQegjppwT568DF3zsXeZEBiMQdhyt7N2JwUJVDXIYgNwC/FgakQJoH1dbnwIQA9JtXAZoupW2tJAd78pbMyw==}
     peerDependencies:
       '@powerfulyang/utils': '*'
@@ -2313,7 +2313,7 @@ packages:
       react-dom: '*'
       rxjs: '*'
     dependencies:
-      '@powerfulyang/utils': 1.9.1
+      '@powerfulyang/utils': 1.9.2
       immer: 9.0.19
       lodash-es: 4.17.21
       react: 18.2.0
@@ -2398,8 +2398,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@powerfulyang/utils/1.9.1:
-    resolution: {integrity: sha512-c7610AUe8bbl3qg3s/Gw0KRsvVOafVVyen5x1YwtNGz/GAxVBKvkNOAUfH0Gp5eEdeH6GyH51jNv2rN8/HpNNg==}
+  /@powerfulyang/utils/1.9.2:
+    resolution: {integrity: sha512-mkMTat6mZRyWWZhmfu8Z4ekQpLud5JErtAI2gJ5I5CW3kX8+7aNIlQtpiEsQZrKN1NqeGvzuhuufHrLepxjEFA==}
     dependencies:
       mdast-util-to-markdown: 1.5.0
       qrcode-generator: 1.4.4
@@ -2407,13 +2407,11 @@ packages:
       rehype-parse: 8.0.4
       rehype-remark: 9.1.2
       rehype-remove-comments: 5.0.0
-      rehype-sanitize: 5.0.1
       remark-gfm: 3.0.1
       remark-stringify: 10.0.2
       rxjs: 7.8.0
       string-width: 5.1.2
       unified: 10.1.2
-      unist-util-visit: 4.1.2
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -6554,12 +6552,6 @@ packages:
       zwitch: 2.0.4
     dev: false
 
-  /hast-util-sanitize/4.1.0:
-    resolution: {integrity: sha512-Hd9tU0ltknMGRDv+d6Ro/4XKzBqQnP/EZrpiTbpFYfXv/uOhWeKc+2uajcbEvAEH98VZd7eII2PiXm13RihnLw==}
-    dependencies:
-      '@types/hast': 2.3.4
-    dev: false
-
   /hast-util-to-mdast/8.4.1:
     resolution: {integrity: sha512-tfmBLASuCgyhCzpkTXM5kU8xeuS5jkMZ17BYm2YftGT5wvgc7uHXTZ/X8WfNd6F5NV/IGmrLsuahZ+jXQir4zQ==}
     dependencies:
@@ -10038,14 +10030,6 @@ packages:
       hast-util-is-conditional-comment: 2.0.0
       unified: 10.1.2
       unist-util-filter: 4.0.1
-    dev: false
-
-  /rehype-sanitize/5.0.1:
-    resolution: {integrity: sha512-da/jIOjq8eYt/1r9GN6GwxIR3gde7OZ+WV8pheu1tL8K0D9KxM2AyMh+UEfke+FfdM3PvGHeYJU0Td5OWa7L5A==}
-    dependencies:
-      '@types/hast': 2.3.4
-      hast-util-sanitize: 4.1.0
-      unified: 10.1.2
     dev: false
 
   /rehype-slug/5.1.0:
