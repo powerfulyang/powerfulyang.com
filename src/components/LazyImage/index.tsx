@@ -63,7 +63,7 @@ export const LazyImage = memo<LazyImageProps>(
     return (
       <span
         className={classNames(containerClassName, 'isolate block select-none overflow-hidden')}
-        style={{ aspectRatio, contentVisibility: 'auto' }}
+        style={{ aspectRatio }}
       >
         <InView
           triggerOnce
