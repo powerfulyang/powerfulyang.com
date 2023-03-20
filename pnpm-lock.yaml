@@ -13,7 +13,7 @@ specifiers:
   '@react-three/fiber': 8.12.0
   '@sentry/cli': 2.15.2
   '@sentry/nextjs': 7.43.0
-  '@tanstack/react-query': 4.27.0
+  '@tanstack/react-query': 4.28.0
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 14.0.0
   '@types/d3': 7.4.0
@@ -79,7 +79,7 @@ dependencies:
   '@react-three/drei': 9.57.3_u3iila23zl7kxrjj2wxuc6ojr4
   '@react-three/fiber': 8.12.0_73epb4osyabtjyiaeamriercbi
   '@sentry/nextjs': 7.43.0_qng64egxxuteuedgyizhkowu74
-  '@tanstack/react-query': 4.27.0_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query': 4.28.0_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
   d3: 7.8.2
   dayjs: 1.11.7
@@ -136,7 +136,7 @@ devDependencies:
   jest-canvas-mock: 2.4.0
   monaco-editor-webpack-plugin: 7.0.1_jlcholbkjtct7dtrbaaecgrrn4
   next-pwa: 5.6.0_h5fam4j4u2pbvhcp44td64rln4
-  prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.4
+  prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.5
   tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
   typescript: 4.9.5
 
@@ -2355,10 +2355,10 @@ packages:
       npm-run-all: 4.1.5
       postcss: 8.4.21
       postcss-scss: 4.0.6_postcss@8.4.21
-      prettier: 2.8.4
-      prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.4
+      prettier: 2.8.5
+      prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.5
       rimraf: 4.4.0
-      rollup: 3.19.1
+      rollup: 3.20.0
       sass: 1.59.3
       stylelint: 14.15.0
       stylelint-config-css-modules: 4.1.0_stylelint@14.15.0
@@ -2366,7 +2366,7 @@ packages:
       stylelint-config-standard: 29.0.0_stylelint@14.15.0
       stylelint-declaration-block-no-ignored-properties: 2.6.0_stylelint@14.15.0
       stylelint-order: 5.0.0_stylelint@14.15.0
-      stylelint-prettier: 2.0.0_5he4bcuz3f2rhy33gve4jrgnyu
+      stylelint-prettier: 2.0.0_s2klzext6praobw4n37rjpxrim
       stylelint-scss: 4.3.0_stylelint@14.15.0
       tsc-alias: 1.8.3
       tslib: 2.5.0
@@ -2947,8 +2947,8 @@ packages:
     resolution: {integrity: sha512-sm+QncWaPmM73IPwFlmWSKPqjdTXZeFf/7aEmWh00z7yl2FjqophPt0dE1EHW9P1giMC5rMviv7OUbSDmWzXXA==}
     dev: false
 
-  /@tanstack/react-query/4.27.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-9S49LTFenWbxVHx0iR6qUXP+MKL5kwz/mV9pzfNXvdIM1R0vT+hiecCCL+ox/tD2glAQ51JHHMffQaRuH7wYRA==}
+  /@tanstack/react-query/4.28.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-8cGBV5300RHlvYdS4ea+G1JcZIt5CIuprXYFnsWggkmGoC0b5JaqG0fIX3qwDL9PTNkKvG76NGThIWbpXivMrQ==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || 18
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || 18
@@ -9511,7 +9511,7 @@ packages:
       fast-diff: 1.2.0
     dev: true
 
-  /prettier-plugin-tailwindcss/0.2.5_prettier@2.8.4:
+  /prettier-plugin-tailwindcss/0.2.5_prettier@2.8.5:
     resolution: {integrity: sha512-vZ/iKieyCx0WTxHbkf5E1rBlv/ybFk8WTT4hL5W2jlVxum2Zbe0jMUpuQdDrpa4z2vnPiJ5KIWCqL/kd16fKYg==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
@@ -9563,11 +9563,11 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      prettier: 2.8.4
+      prettier: 2.8.5
     dev: true
 
-  /prettier/2.8.4:
-    resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
+  /prettier/2.8.5:
+    resolution: {integrity: sha512-3gzuxrHbKUePRBB4ZeU08VNkUcqEHaUaouNt0m7LGP4Hti/NuB07C7PPTM/LkWqXoJYJn2McEo5+kxPNrtQkLQ==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
@@ -10252,8 +10252,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rollup/3.19.1:
-    resolution: {integrity: sha512-lAbrdN7neYCg/8WaoWn/ckzCtz+jr70GFfYdlf50OF7387HTg+wiuiqJRFYawwSPpqfqDNYqK7smY/ks2iAudg==}
+  /rollup/3.20.0:
+    resolution: {integrity: sha512-YsIfrk80NqUDrxrjWPXUa7PWvAfegZEXHuPsEZg58fGCdjL1I9C1i/NaG+L+27kxxwkrG/QEDEQc8s/ynXWWGQ==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -10862,14 +10862,14 @@ packages:
       stylelint: 14.15.0
     dev: true
 
-  /stylelint-prettier/2.0.0_5he4bcuz3f2rhy33gve4jrgnyu:
+  /stylelint-prettier/2.0.0_s2klzext6praobw4n37rjpxrim:
     resolution: {integrity: sha512-jvT3G+9lopkeB0ARmDPszyfaOnvnIF+30QCjZxyt7E6fynI1T9mOKgYDNb9bXX17M7PXMZaX3j/26wqakjp1tw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       prettier: '>=2.0.0'
       stylelint: '>=14.0.0'
     dependencies:
-      prettier: 2.8.4
+      prettier: 2.8.5
       prettier-linter-helpers: 1.0.0
       stylelint: 14.15.0
     dev: true
