@@ -26,7 +26,7 @@ specifiers:
   d3: 7.8.2
   dayjs: 1.11.7
   feed: 4.2.2
-  framer-motion: 10.6.0
+  framer-motion: 10.6.1
   hast-util-raw: 8.0.0
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
@@ -73,7 +73,7 @@ dependencies:
   '@docsearch/react': 3.3.3_4jk4sx5gsa4z6dpons6mwt4w6q
   '@hookform/resolvers': 2.9.11_react-hook-form@7.43.7
   '@monaco-editor/react': 4.4.6_waewrrayshn643ztij6zbniufy
-  '@powerfulyang/components': 1.6.1_j766tt3rokpijvosjtxuqddl7y
+  '@powerfulyang/components': 1.6.1_xutg354g3aevzbl5ccky6twnu4
   '@powerfulyang/hooks': 1.4.0_ze5fde7jgt4dsdz55tkulocxuy
   '@powerfulyang/utils': 1.9.2
   '@react-three/drei': 9.57.3_u3iila23zl7kxrjj2wxuc6ojr4
@@ -84,7 +84,7 @@ dependencies:
   d3: 7.8.2
   dayjs: 1.11.7
   feed: 4.2.2
-  framer-motion: 10.6.0_biqbaboplfbrettd7655fr4n2y
+  framer-motion: 10.6.1_biqbaboplfbrettd7655fr4n2y
   hast-util-raw: 8.0.0
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
@@ -2279,7 +2279,7 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@powerfulyang/components/1.6.1_j766tt3rokpijvosjtxuqddl7y:
+  /@powerfulyang/components/1.6.1_xutg354g3aevzbl5ccky6twnu4:
     resolution: {integrity: sha512-yMdfjDVglNSY1ep3fQvmlGzdPvTB1Y8T73EIQQCIpf4LhKYyVQ2dyRJbmIHA48XG6wB/PZ08tm+IORVKbGmFNg==}
     peerDependencies:
       '@powerfulyang/hooks': '*'
@@ -2295,7 +2295,7 @@ packages:
       '@powerfulyang/hooks': 1.4.0_ze5fde7jgt4dsdz55tkulocxuy
       '@powerfulyang/utils': 1.9.2
       classnames: 2.3.2
-      framer-motion: 10.6.0_biqbaboplfbrettd7655fr4n2y
+      framer-motion: 10.6.1_biqbaboplfbrettd7655fr4n2y
       lodash-es: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -6129,8 +6129,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion/10.6.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-RkZe8iBhdWNs1y2HfYh4WlM9Co11/Vu+JCSQzmLaP5alM3QbBiue6OkeXygfxsRDp4yCar95ExoHE0CZQNyuVQ==}
+  /framer-motion/10.6.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-e1o4JKJ98/pfUkYkze+23A+r5SW6JujDSAEzIKWq6jsrVIE+QSwpu4U7L8+maOXcTnfAZlI930MfpvA/+zaa5g==}
     peerDependencies:
       react: ^18.0.0 || 18
       react-dom: ^18.0.0 || 18
