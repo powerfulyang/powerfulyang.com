@@ -4,7 +4,7 @@ import { useLockScroll, usePortal } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
 import { ImageViewContent } from '@/components/ImagePreview/ImagePreviewModal/ImageViewContent';
 import { ImagePreviewContext } from '@/context/ImagePreviewContext';
-import { useHiddenHtmlOverflow } from '@/hooks/useHiddenHtmlOverflow';
+import { useHiddenOverflow } from '@/hooks/useHiddenOverflow';
 
 type ImagePreviewModalProps = {};
 
@@ -15,15 +15,17 @@ const ImagePreviewModal: FC<ImagePreviewModalProps> = () => {
   } = useContext(ImagePreviewContext);
   const showModal = useMemo(() => isDefined(selectIndex), [selectIndex]);
   useLockScroll(showModal);
-  useHiddenHtmlOverflow(showModal);
+  useHiddenOverflow(showModal);
 
   useEffect(() => {
     if (isDefined(images) && isDefined(selectIndex)) {
       const { id } = images[selectIndex];
       if (id) {
-        scrollIntoView(document.getElementById(id), {
-          behavior: 'smooth',
-          block: 'nearest',
+        requestIdleCallback(() => {
+          scrollIntoView(document.getElementById(id), {
+            behavior: 'smooth',
+            block: 'nearest',
+          });
         });
       }
     }

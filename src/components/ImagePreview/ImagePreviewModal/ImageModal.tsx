@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import type { Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Assets } from '@powerfulyang/components';
 import styles from '@/components/ImagePreview/ImagePreviewModal/content.module.scss';
 import type { ImagePreviewItem } from '@/components/ImagePreview';
@@ -52,26 +52,15 @@ const variants: Variants = {
     viewportHeight,
   }: Custom) => {
     const offset: number = (p && -20) || (n && 20) || 0;
-    let t = {};
+    let t: any = {
+      transition: {
+        scale: { type: 'spring', stiffness: 500, damping: 30 },
+      },
+    };
     if (actionRef.current !== 0) {
       t = {
         transition: {
           type: false,
-        },
-      };
-    } else if (l) {
-      t = {
-        transitionEnd: {
-          willChange: 'auto',
-        },
-      };
-    } else {
-      t = {
-        willChange: 'filter',
-        transition: {
-          type: 'spring',
-          stiffness: 500,
-          damping: 30,
         },
       };
     }
@@ -100,6 +89,7 @@ export const ImageModal = memo<ImageModalProps>(
       return rest.thumbnail || rest.original;
     });
     const [loaded, setLoaded] = useState(false);
+    const isBrokenRef = useRef<boolean>();
 
     useEffect(() => {
       const originUrl = rest.original;
@@ -107,12 +97,12 @@ export const ImageModal = memo<ImageModalProps>(
         const img = new Image();
         img.decoding = 'async';
         img.onload = () => {
-          setUrl(originUrl);
           setLoaded(true);
+          isBrokenRef.current = false;
         };
         img.onerror = () => {
-          setUrl(Assets.brokenImg);
           setLoaded(true);
+          isBrokenRef.current = true;
         };
         img.src = originUrl;
       }
@@ -145,8 +135,16 @@ export const ImageModal = memo<ImageModalProps>(
         if (isMain && label === 'exit') {
           destroy(selectIndex);
         }
+        if (label === 'animate' && loaded) {
+          if (isBrokenRef.current === true) {
+            setUrl(Assets.brokenImg);
+          }
+          if (isBrokenRef.current === false) {
+            setUrl(rest.original);
+          }
+        }
       },
-      [destroy, isMain, selectIndex],
+      [destroy, isMain, loaded, rest.original, selectIndex],
     );
 
     return (
@@ -177,6 +175,7 @@ export const ImageModal = memo<ImageModalProps>(
         alt=""
         draggable={false}
         onClick={(e) => e.stopPropagation()}
+        loading="lazy"
       />
     );
   },

@@ -2,7 +2,7 @@ import React, { memo, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import type { HTMLMotionProps, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
-import { InView, useInView } from 'react-intersection-observer';
+import { InView } from 'react-intersection-observer';
 import { Assets } from '@powerfulyang/components';
 import styles from './index.module.scss';
 
@@ -14,8 +14,6 @@ export type LazyImageExtendProps = {
    */
   lazy?: boolean;
   aspectRatio?: `${number} / ${number}`;
-  initialInView?: boolean;
-  triggerOnce?: boolean;
 };
 
 export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
@@ -30,8 +28,6 @@ export const LazyImage = memo<LazyImageProps>(
     containerClassName = 'w-full',
     lazy = true,
     aspectRatio,
-    initialInView = false,
-    triggerOnce = true,
     ...props
   }) => {
     const [loading, setLoading] = useState(() => {
@@ -53,23 +49,13 @@ export const LazyImage = memo<LazyImageProps>(
       return src || blurSrc || Assets.brokenImg;
     });
 
-    const { ref, inView } = useInView({
-      initialInView,
-      triggerOnce,
-      skip: triggerOnce && initialInView,
-    });
-
     const variants = useMemo<Variants>(() => {
       return {
         loading: {
           filter: 'blur(32px)',
-          willChange: 'filter',
         },
         loaded: {
           filter: 'blur(0px)',
-          transitionEnd: {
-            willChange: 'auto',
-          },
         },
       };
     }, []);
@@ -77,49 +63,46 @@ export const LazyImage = memo<LazyImageProps>(
     return (
       <span
         className={classNames(containerClassName, 'isolate block select-none overflow-hidden')}
-        style={{ aspectRatio }}
-        ref={ref}
+        style={{ aspectRatio, contentVisibility: 'auto' }}
       >
-        {inView && (
-          <InView
-            triggerOnce
-            skip={!loading}
-            onChange={(viewed: boolean) => {
-              if (viewed && src) {
-                const img = new Image();
-                img.decoding = 'async';
-                if (props.crossOrigin) {
-                  img.crossOrigin = props.crossOrigin;
-                }
-                img.onload = () => {
-                  LOADED_IMAGE_URLS.add(src);
-                  setImgSrc(src);
-                  setLoading(false);
-                };
-                img.onerror = () => {
-                  setImgSrc(Assets.brokenImg);
-                  setLoading(false);
-                };
-                img.src = src;
+        <InView
+          triggerOnce
+          skip={!loading}
+          onChange={(viewed: boolean) => {
+            if (viewed && src) {
+              const img = new Image();
+              img.decoding = 'async';
+              if (props.crossOrigin) {
+                img.crossOrigin = props.crossOrigin;
               }
-            }}
-          >
-            {({ ref: imgRef }) => (
-              <motion.img
-                {...props}
-                ref={imgRef}
-                style={props.style}
-                variants={variants}
-                initial={loading ? 'loading' : 'loaded'}
-                animate={!loading && 'loaded'}
-                className={classNames(className, {
-                  [styles.loading]: loading,
-                })}
-                src={imgSrc}
-              />
-            )}
-          </InView>
-        )}
+              img.onload = () => {
+                LOADED_IMAGE_URLS.add(src);
+                setImgSrc(src);
+                setLoading(false);
+              };
+              img.onerror = () => {
+                setImgSrc(Assets.brokenImg);
+                setLoading(false);
+              };
+              img.src = src;
+            }
+          }}
+        >
+          {({ ref: imgRef }) => (
+            <motion.img
+              {...props}
+              loading="lazy"
+              ref={imgRef}
+              variants={variants}
+              initial={loading ? 'loading' : 'loaded'}
+              animate={!loading && 'loaded'}
+              className={classNames(className, {
+                [styles.loading]: loading,
+              })}
+              src={imgSrc}
+            />
+          )}
+        </InView>
       </span>
     );
   },

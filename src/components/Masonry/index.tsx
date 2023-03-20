@@ -17,7 +17,6 @@ import type { Asset } from '@/type/Asset';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import { InView } from 'react-intersection-observer';
 import { fromEvent } from 'rxjs';
-import { flushSync } from 'react-dom';
 
 type MasonryItem = ReactElement<{ asset: Asset; previewIndex: number; onClick: () => void }>;
 
@@ -93,9 +92,12 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
   }, []);
 
   const paint = useCallback(
-    (items: MasonryItem[]) => {
+    (items: MasonryItem[], force?: boolean) => {
       startTransition(() => {
         setMasonry((draft) => {
+          if (force) {
+            draft.clear();
+          }
           items.forEach((child) => handle(draft, child));
         });
       });
@@ -115,17 +117,14 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
     const subscribe = fromEvent<UIEvent>(window, 'resize').subscribe(() => {
       const clientColNum = getColumnNum();
       if (clientColNum !== rowHeight.current.size) {
-        flushSync(() => {
-          setMasonry(new Map());
-        });
         recalculate();
-        paint(children);
+        paint(children, true);
       }
     });
     return () => {
       subscribe.unsubscribe();
     };
-  }, [children, paint, queryPaintState, recalculate, setMasonry]);
+  }, [children, masonry, paint, recalculate, setMasonry]);
 
   const { dispatch } = useContext(ImagePreviewContext);
   const renderedCount = useMemo(() => {

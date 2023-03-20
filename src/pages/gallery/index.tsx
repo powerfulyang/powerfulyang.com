@@ -91,9 +91,7 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
               containerClassName="contain-strict pointer rounded-lg"
               className={styles.image}
               keepAspectRatio
-              triggerOnce={false}
               draggable={false}
-              initialInView={false}
             />
           ))}
         </Masonry>

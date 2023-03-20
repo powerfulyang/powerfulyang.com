@@ -4,7 +4,7 @@
   position: sticky;
   top: calc(var(--nav-height) + 2rem);
   max-height: calc(100vh - var(--nav-height) - 2rem - var(--footer-height));
-  min-width: var(--markdown-toc-width);
+  max-width: 30vw;
   align-self: start;
   overflow: scroll;
 

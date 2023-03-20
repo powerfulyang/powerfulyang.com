@@ -7,7 +7,7 @@
 
     @screen sm {
       box-shadow: rgb(149 157 165 / 20%) 0 8px 24px;
-      width: min(900px, calc(100% - 20rem));
+      width: min(900px, calc(100% - 20vw));
     }
 
     @apply sm:rounded-lg sm:px-12 sm:pt-20;
