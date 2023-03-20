@@ -53,9 +53,13 @@ export const LazyImage = memo<LazyImageProps>(
       return {
         loading: {
           filter: 'blur(32px)',
+          willChange: 'filter',
         },
         loaded: {
           filter: 'blur(0px)',
+          transitionEnd: {
+            willChange: 'auto',
+          },
         },
       };
     }, []);
@@ -91,7 +95,6 @@ export const LazyImage = memo<LazyImageProps>(
           {({ ref: imgRef }) => (
             <motion.img
               {...props}
-              loading="lazy"
               ref={imgRef}
               variants={variants}
               initial={loading ? 'loading' : 'loaded'}

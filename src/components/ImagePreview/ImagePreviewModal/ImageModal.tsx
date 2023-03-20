@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { Variants } from 'framer-motion';
+import type { TargetAndTransition, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Assets } from '@powerfulyang/components';
@@ -52,15 +52,28 @@ const variants: Variants = {
     viewportHeight,
   }: Custom) => {
     const offset: number = (p && -20) || (n && 20) || 0;
-    let t: any = {
-      transition: {
-        scale: { type: 'spring', stiffness: 500, damping: 30 },
-      },
-    };
+    let t: TargetAndTransition;
     if (actionRef.current !== 0) {
       t = {
         transition: {
           type: false,
+        },
+      };
+    } else if (l) {
+      t = {
+        transitionEnd: {
+          willChange: 'auto',
+        },
+      };
+    } else {
+      t = {
+        willChange: 'filter',
+        transition: {
+          scale: {
+            type: 'spring',
+            stiffness: 500,
+            damping: 30,
+          },
         },
       };
     }
@@ -175,7 +188,6 @@ export const ImageModal = memo<ImageModalProps>(
         alt=""
         draggable={false}
         onClick={(e) => e.stopPropagation()}
-        loading="lazy"
       />
     );
   },

@@ -21,7 +21,7 @@ const ImagePreviewModal: FC<ImagePreviewModalProps> = () => {
     if (isDefined(images) && isDefined(selectIndex)) {
       const { id } = images[selectIndex];
       if (id) {
-        requestIdleCallback(() => {
+        requestAnimationFrame(() => {
           scrollIntoView(document.getElementById(id), {
             behavior: 'smooth',
             block: 'nearest',
