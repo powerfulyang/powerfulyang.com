@@ -6,7 +6,6 @@ import { flatten } from 'ramda';
 import { InView } from 'react-intersection-observer';
 import { UserLayout } from '@/layout/UserLayout';
 import { requestAtClient } from '@/utils/client';
-import type { Feed } from '@/type/Feed';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
@@ -19,6 +18,7 @@ import { useUser } from '@/hooks/useUser';
 import Image from 'next/image';
 import bg from '@/assets/timeline-banner.webp';
 import { origin } from '@/components/Head';
+import type { Feed } from '@/__generated__/api';
 import styles from './index.module.scss';
 
 type TimelineProps = {

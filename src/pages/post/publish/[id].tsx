@@ -3,7 +3,6 @@ import type { GetServerSideProps } from 'next';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { LiveMarkdownEditor } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { requestAtClient } from '@/utils/client';
-import type { Post } from '@/type/Post';
 import { Footer } from '@/components/Footer';
 import { useHistory } from '@/hooks/useHistory';
 import { requestAtServer } from '@/utils/server';
@@ -11,6 +10,7 @@ import type { LayoutFC } from '@/type/GlobalContext';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 import { useMutation } from '@tanstack/react-query';
 import { isString } from '@powerfulyang/utils';
+import type { Post } from '@/__generated__/api';
 
 type PublishProps = {
   post: Post;

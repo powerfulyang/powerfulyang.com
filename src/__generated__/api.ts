@@ -82,7 +82,7 @@ export interface Family {
 
 export interface OauthApplication {
   id: number;
-  platformName: 'google' | 'github' | 'test';
+  platformName: OauthApplicationPlatformName;
   clientId: string;
   clientSecret: string;
   callbackUrl: string;
@@ -152,7 +152,10 @@ export interface Asset {
   pHash: string;
   exif: object;
   metadata: object;
-  size: object;
+  size: {
+    width: number;
+    height: number;
+  };
   uploadBy: User;
   /** @format date-time */
   createdAt: string;
@@ -319,6 +322,12 @@ export interface Feed {
   createdAt: string;
   /** @format date-time */
   updatedAt: string;
+}
+
+export enum OauthApplicationPlatformName {
+  Google = 'google',
+  Github = 'github',
+  Test = 'test',
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -579,7 +588,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getCurrentUser: (params: RequestParams = {}) =>
-      this.request<object, User>({
+      this.request<User, any>({
         path: `/api/user/current`,
         method: 'GET',
         secure: true,
@@ -1242,7 +1251,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         pHash: string;
         exif: object;
         metadata: object;
-        size: object;
+        size: {
+          width: number;
+          height: number;
+        };
         uploadBy: User;
         /**
          * User email

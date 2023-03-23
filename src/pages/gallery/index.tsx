@@ -5,7 +5,6 @@ import { flatten } from 'ramda';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { requestAtClient } from '@/utils/client';
-import type { Asset } from '@/type/Asset';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
@@ -13,6 +12,7 @@ import { requestAtServer } from '@/utils/server';
 import Masonry from '@/components/Masonry';
 import { firstItem, lastItem } from '@powerfulyang/utils';
 import { origin } from '@/components/Head';
+import type { Asset } from '@/__generated__/api';
 import styles from './index.module.scss';
 
 type GalleryProps = {

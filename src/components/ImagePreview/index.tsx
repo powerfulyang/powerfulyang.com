@@ -7,8 +7,8 @@ import type {
 } from '@/context/ImagePreviewContext';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import ImagePreviewModal from '@/components/ImagePreview/ImagePreviewModal';
-import type { Asset } from '@/type/Asset';
 import type { VoidFunction } from '@powerfulyang/utils';
+import type { Asset } from '@/__generated__/api';
 
 const reducer = (draft: ImagePreviewContextState, action: ImageModalContextAction) => {
   switch (action.type) {

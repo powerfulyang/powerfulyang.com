@@ -1,7 +1,7 @@
 import React, { memo, useMemo } from 'react';
 import type { LazyImageProps } from '@/components/LazyImage';
 import { LazyImage } from '@/components/LazyImage';
-import type { Asset } from '@/type/Asset';
+import type { Asset } from '@/__generated__/api';
 
 export const LazyAssetImage = memo<
   LazyImageProps & {

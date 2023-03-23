@@ -1,7 +1,7 @@
-import type { Post } from '@/type/Post';
 import type { NextRequest } from 'next/server';
 import { requestAtServer } from '@/utils/server';
 import { getServerSideSitemap } from 'next-sitemap';
+import type { Post } from '@/__generated__/api';
 
 export async function GET(request: NextRequest) {
   const res = await requestAtServer('/public/post', {

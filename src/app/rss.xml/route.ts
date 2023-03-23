@@ -1,8 +1,8 @@
-import type { Post } from '@/type/Post';
 import { ProjectName } from '@/constant/Constant';
 import { Feed } from 'feed';
 import { requestAtServer } from '@/utils/server';
 import type { NextRequest } from 'next/server';
+import type { Post } from '@/__generated__/api';
 
 const generateRssFeed = (posts: Post[]) => {
   const site_url = 'https://powerfulyang.com';

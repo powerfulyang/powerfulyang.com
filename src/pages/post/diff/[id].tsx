@@ -1,13 +1,13 @@
 import ReactDiffViewer from 'react-diff-viewer';
 import type { GetServerSideProps } from 'next';
 import { requestAtServer } from '@/utils/server';
-import type { Post } from '@/type/Post';
 import type { FC } from 'react';
 import React from 'react';
 import { DateTimeFormat } from '@/utils/lib';
 import { Prism } from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { StatusCodes } from 'http-status-codes';
+import type { Post } from '@/__generated__/api';
 
 type Props = {
   left: Post;

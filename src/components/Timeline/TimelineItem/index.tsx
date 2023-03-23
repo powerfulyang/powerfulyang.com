@@ -3,7 +3,6 @@ import React, { memo, useEffect, useMemo } from 'react';
 import { LazyImage } from '@/components/LazyImage';
 import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import type { Feed } from '@/type/Feed';
 import { DateTimeFormat } from '@/utils/lib';
 import { atom, useAtom } from 'jotai';
 import type { Undefinable } from '@powerfulyang/utils';
@@ -15,6 +14,7 @@ import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { useUser } from '@/hooks/useUser';
 import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
 import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
+import type { Feed } from '@/__generated__/api';
 import styles from './index.module.scss';
 
 export const EditTimeLineItemAtom = atom<Undefinable<Feed>>(undefined);

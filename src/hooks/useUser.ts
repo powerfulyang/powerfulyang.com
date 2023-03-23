@@ -1,6 +1,5 @@
-import type { User } from '@/type/User';
 import { useQuery } from '@tanstack/react-query';
-import { requestAtClient } from '@/utils/client';
+import { clientApi } from '@/request/requestTool';
 
 export const useUser = (enabled: boolean = false) => {
   const {
@@ -10,15 +9,8 @@ export const useUser = (enabled: boolean = false) => {
   } = useQuery({
     queryKey: ['fetch-user'],
     queryFn: async () => {
-      try {
-        const u = await requestAtClient<User>('/user/current', { notificationOnError: false });
-        if (u.id) {
-          return u;
-        }
-        return null;
-      } catch {
-        return null;
-      }
+      const u = await clientApi.getCurrentUser();
+      return u.data;
     },
     retry: false,
     refetchOnWindowFocus: true,

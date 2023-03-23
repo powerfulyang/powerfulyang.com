@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import type { VoidFunction } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
-import { AssetBucket } from '@/type/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import dynamic from 'next/dynamic';
 import { editor } from 'monaco-editor';
@@ -68,7 +67,7 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
       if (!isFocus) {
         return;
       }
-      const r = await handlePasteImageAndReturnAsset(e, AssetBucket.post);
+      const r = await handlePasteImageAndReturnAsset(e, 'post');
       if (r?.length && ref.current) {
         const text = r
           .map((asset) => `![${MarkdownImageFromAssetManageAltConstant}](${asset.id})`)
