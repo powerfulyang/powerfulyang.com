@@ -82,7 +82,7 @@ export interface Family {
 
 export interface OauthApplication {
   id: number;
-  platformName: 'google' | 'github' | 'test';
+  platformName: OauthApplicationPlatformName;
   clientId: string;
   clientSecret: string;
   callbackUrl: string;
@@ -152,7 +152,10 @@ export interface Asset {
   pHash: string;
   exif: object;
   metadata: object;
-  size: object;
+  size: {
+    width: number;
+    height: number;
+  };
   uploadBy: User;
   /** @format date-time */
   createdAt: string;
@@ -248,11 +251,11 @@ export interface CreatePostDto {
   title: string;
   content: string;
   posterId?: number;
-  createBy: User;
   summary?: string;
   tags?: string[];
   public?: boolean;
   publishYear?: number;
+  createBy?: User;
   updateBy?: User;
   poster?: Asset;
   logs?: PostLog[];
@@ -263,23 +266,56 @@ export interface CreatePostDto {
 }
 
 export interface PatchPostDto {
-  /** post id */
-  id?: number;
   title: string;
   content: string;
   posterId?: number;
-  updateBy: User;
   summary?: string;
   tags?: string[];
   public?: boolean;
   publishYear?: number;
   createBy?: User;
+  updateBy?: User;
   poster?: Asset;
   logs?: PostLog[];
   /** @format date-time */
   createdAt?: string;
   /** @format date-time */
   updatedAt?: string;
+}
+
+export interface Feed {
+  /** timeline item id */
+  id: number;
+  /** timeline item content */
+  content: string;
+  /** timeline item assets */
+  assets: Asset[];
+  public: boolean;
+  createBy: User;
+  updateBy: User;
+  /** @format date-time */
+  createdAt: string;
+  /** @format date-time */
+  updatedAt: string;
+}
+
+export interface InfiniteQueryResponse {
+  prevCursor?: number;
+  nextCursor?: number;
+}
+
+export interface ChatGPTPayload {
+  message: string;
+  parentMessageId?: string;
+  conversationId?: string;
+}
+
+export interface BingAIPayload {
+  message: string;
+  conversationSignature?: string;
+  conversationId?: string;
+  clientId?: string;
+  invocationId?: string;
 }
 
 export interface ViewCountDto {
@@ -305,20 +341,10 @@ export interface UpdateFeedDto {
   updateBy: User;
 }
 
-export interface Feed {
-  /** timeline item id */
-  id: number;
-  /** timeline item content */
-  content: string;
-  /** timeline item assets */
-  assets: Asset[];
-  public: boolean;
-  createBy: User;
-  updateBy: User;
-  /** @format date-time */
-  createdAt: string;
-  /** @format date-time */
-  updatedAt: string;
+export enum OauthApplicationPlatformName {
+  Google = 'google',
+  Github = 'github',
+  Test = 'test',
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -573,13 +599,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags user
-     * @name GetCurrentUser
+     * @name QueryCurrentUser
      * @summary 获取当前登录用户信息
      * @request GET:/api/user/current
      * @secure
      */
-    getCurrentUser: (params: RequestParams = {}) =>
-      this.request<object, User>({
+    queryCurrentUser: (params: RequestParams = {}) =>
+      this.request<User, any>({
         path: `/api/user/current`,
         method: 'GET',
         secure: true,
@@ -1028,15 +1054,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags asset
-     * @name AssetControllerSaveAssetToBucket
+     * @name SaveAssetToBucket
+     * @summary 上传资源
      * @request POST:/api/asset/{bucketName}
      * @secure
      */
-    assetControllerSaveAssetToBucket: (
-      bucketName: string,
-      data: UploadAssetsDto,
-      params: RequestParams = {},
-    ) =>
+    saveAssetToBucket: (bucketName: string, data: UploadAssetsDto, params: RequestParams = {}) =>
       this.request<Asset[], any>({
         path: `/api/asset/${bucketName}`,
         method: 'POST',
@@ -1145,11 +1168,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags post
-     * @name PostControllerCreatePost
+     * @name CreatePost
+     * @summary 创建文章
      * @request POST:/api/post
      * @secure
      */
-    postControllerCreatePost: (data: CreatePostDto, params: RequestParams = {}) =>
+    createPost: (data: CreatePostDto, params: RequestParams = {}) =>
       this.request<Post, any>({
         path: `/api/post`,
         method: 'POST',
@@ -1164,11 +1188,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags post
-     * @name PostControllerUpdatePost
+     * @name UpdatePost
+     * @summary 更新文章
      * @request PATCH:/api/post/{id}
      * @secure
      */
-    postControllerUpdatePost: (id: number, data: PatchPostDto, params: RequestParams = {}) =>
+    updatePost: (id: number, data: PatchPostDto, params: RequestParams = {}) =>
       this.request<Post, any>({
         path: `/api/post/${id}`,
         method: 'PATCH',
@@ -1242,7 +1267,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         pHash: string;
         exif: object;
         metadata: object;
-        size: object;
+        size: {
+          width: number;
+          height: number;
+        };
         uploadBy: User;
         /**
          * User email
@@ -1353,12 +1381,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags public-api
-     * @name GetPublicPostById
+     * @name QueryPublicPostById
      * @summary 获取单个文章详细信息
      * @request GET:/api/public/post/{id}
      * @secure
      */
-    getPublicPostById: (
+    queryPublicPostById: (
       id: number,
       query: {
         versions: string[];
@@ -1378,24 +1406,30 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags public-api
-     * @name QueryPublicTimeline
+     * @name InfiniteQueryPublicTimeline
      * @summary 获取所有的公开时间线
      * @request GET:/api/public/feed
      * @secure
      */
-    queryPublicTimeline: (
-      query: {
-        prevCursor: string;
-        nextCursor: string;
-        take: string;
+    infiniteQueryPublicTimeline: (
+      query?: {
+        prevCursor?: string;
+        nextCursor?: string;
+        take?: number;
       },
       params: RequestParams = {},
     ) =>
-      this.request<void, any>({
+      this.request<
+        InfiniteQueryResponse & {
+          resources: Feed[];
+        },
+        any
+      >({
         path: `/api/public/feed`,
         method: 'GET',
         query: query,
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -1409,18 +1443,24 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     infiniteQueryPublicAsset: (
-      query: {
-        prevCursor: string;
-        nextCursor: string;
-        take: string;
+      query?: {
+        prevCursor?: string;
+        nextCursor?: string;
+        take?: number;
       },
       params: RequestParams = {},
     ) =>
-      this.request<void, any>({
+      this.request<
+        InfiniteQueryResponse & {
+          resources: Asset[];
+        },
+        any
+      >({
         path: `/api/public/asset`,
         method: 'GET',
         query: query,
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -1428,12 +1468,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags public-api
-     * @name GetPublicAssetById
+     * @name QueryPublicAssetById
      * @summary 获取单个公开的图片资源
      * @request GET:/api/public/asset/{id}
      * @secure
      */
-    getPublicAssetById: (id: string, params: RequestParams = {}) =>
+    queryPublicAssetById: (id: string, params: RequestParams = {}) =>
       this.request<Asset, any>({
         path: `/api/public/asset/${id}`,
         method: 'GET',
@@ -1446,15 +1486,19 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags public-api
-     * @name PublicControllerChatWithChatGpt
+     * @name ChatWithChatGpt
+     * @summary 与chat gpt聊天
      * @request POST:/api/public/chat-gpt/chat
      * @secure
      */
-    publicControllerChatWithChatGpt: (params: RequestParams = {}) =>
-      this.request<void, any>({
+    chatWithChatGpt: (data: ChatGPTPayload, params: RequestParams = {}) =>
+      this.request<ChatGPTPayload, any>({
         path: `/api/public/chat-gpt/chat`,
         method: 'POST',
+        body: data,
         secure: true,
+        type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
 
@@ -1462,15 +1506,18 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags public-api
-     * @name PublicControllerChatWithBingAi
+     * @name ChatWithBingAi
+     * @summary 与bing ai聊天
      * @request POST:/api/public/bing-ai/chat
      * @secure
      */
-    publicControllerChatWithBingAi: (params: RequestParams = {}) =>
-      this.request<object, any>({
+    chatWithBingAi: (data: BingAIPayload, params: RequestParams = {}) =>
+      this.request<BingAIPayload, any>({
         path: `/api/public/bing-ai/chat`,
         method: 'POST',
+        body: data,
         secure: true,
+        type: ContentType.Json,
         format: 'json',
         ...params,
       }),
@@ -1523,7 +1570,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     createFeed: (data: CreateFeedDto, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<Feed, any>({
         path: `/api/feed`,
         method: 'POST',
         body: data,

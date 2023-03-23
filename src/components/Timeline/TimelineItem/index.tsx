@@ -3,18 +3,18 @@ import React, { memo, useEffect, useMemo } from 'react';
 import { LazyImage } from '@/components/LazyImage';
 import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import type { Feed } from '@/type/Feed';
 import { DateTimeFormat } from '@/utils/lib';
 import { atom, useAtom } from 'jotai';
 import type { Undefinable } from '@powerfulyang/utils';
 import { Button } from '@powerfulyang/components';
 import type { InfiniteData } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { requestAtClient } from '@/utils/client';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { useUser } from '@/hooks/useUser';
 import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
 import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
+import type { Feed } from '@/__generated__/api';
+import { clientApi } from '@/request/requestTool';
 import styles from './index.module.scss';
 
 export const EditTimeLineItemAtom = atom<Undefinable<Feed>>(undefined);
@@ -45,9 +45,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
   const mutation = useMutation({
     mutationKey: ['deleteFeed'],
     mutationFn: (id: number) => {
-      return requestAtClient(`/feed/${id}`, {
-        method: 'DELETE',
-      });
+      return clientApi.deleteFeedById(id);
     },
     onSuccess() {
       const [queries] = queryClient.getQueriesData(['feeds']);

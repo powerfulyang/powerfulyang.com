@@ -2,8 +2,8 @@ import type { FC } from 'react';
 import React, { useRef } from 'react';
 import classNames from 'classnames';
 import { scrollIntoView } from '@powerfulyang/utils';
-import type { Post } from '@/type/Post';
 import { DateTimeFormat } from '@/utils/lib';
+import type { PostLog } from '@/__generated__/api';
 import styles from './index.module.scss';
 
 export type TOCItem = {
@@ -12,7 +12,7 @@ export type TOCItem = {
   id: string;
 };
 
-export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: Post[]; id: number }> = ({
+export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: PostLog[]; id: number }> = ({
   toc,
   logs,
   id: postId,

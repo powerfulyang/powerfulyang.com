@@ -2,9 +2,9 @@ import { LazyImage } from '@/components/LazyImage';
 import React, { useMemo } from 'react';
 import { useUser } from '@/hooks/useUser';
 import { useMutation } from '@tanstack/react-query';
-import { requestAtClient } from '@/utils/client';
 import { Dropdown, Menu, notification } from '@powerfulyang/components';
 import classNames from 'classnames';
+import { clientApi } from '@/request/requestTool';
 import styles from './index.module.scss';
 
 export const login = () => {
@@ -18,9 +18,7 @@ export const NavBarUser = () => {
 
   const logout = useMutation(
     () => {
-      return requestAtClient('/user/logout', {
-        method: 'POST',
-      });
+      return clientApi.logout();
     },
     {
       onSuccess: () => {
