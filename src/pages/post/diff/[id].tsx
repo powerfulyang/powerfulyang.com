@@ -1,13 +1,14 @@
 import ReactDiffViewer from 'react-diff-viewer';
 import type { GetServerSideProps } from 'next';
-import { requestAtServer } from '@/utils/server';
-import type { Post } from '@/type/Post';
 import type { FC } from 'react';
 import React from 'react';
 import { DateTimeFormat } from '@/utils/lib';
 import { Prism } from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { StatusCodes } from 'http-status-codes';
+import type { Post } from '@/__generated__/api';
+import { serverApi } from '@/request/requestTool';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 
 type Props = {
   left: Post;
@@ -81,18 +82,21 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { query } = ctx;
   const id = query.id as string;
   const versions = query.versions as string[];
-  const res = await requestAtServer(`/public/post/${id}`, {
-    ctx,
-    query: {
+  const res = await serverApi.queryPublicPostById(
+    Number(id),
+    {
       versions,
     },
-  });
+    {
+      headers: extractRequestHeaders(ctx.req.headers),
+    },
+  );
   if (res.status !== StatusCodes.OK) {
     return {
       notFound: true,
     };
   }
-  const post = (await res.json()) as Post;
+  const post = res.data;
   const { logs } = post;
   if (logs.length !== 2) {
     return {

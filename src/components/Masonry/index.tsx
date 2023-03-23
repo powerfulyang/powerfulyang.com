@@ -13,10 +13,10 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
-import type { Asset } from '@/type/Asset';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import { InView } from 'react-intersection-observer';
 import { fromEvent } from 'rxjs';
+import type { Asset } from '@/__generated__/api';
 
 type MasonryItem = ReactElement<{ asset: Asset; previewIndex: number; onClick: () => void }>;
 
