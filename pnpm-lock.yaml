@@ -31,7 +31,7 @@ specifiers:
   hast-util-to-string: 2.0.0
   http-status-codes: 2.2.0
   immer: 9.0.21
-  jest-canvas-mock: 2.4.0
+  jest-canvas-mock: 2.5.0
   jotai: 2.0.3
   lodash-es: 4.17.21
   monaco-editor: 0.36.1
@@ -134,7 +134,7 @@ devDependencies:
   '@types/react-syntax-highlighter': 15.5.6
   '@types/sharp': 0.31.1
   '@types/three': 0.149.0
-  jest-canvas-mock: 2.4.0
+  jest-canvas-mock: 2.5.0
   monaco-editor-webpack-plugin: 7.0.1_jlcholbkjtct7dtrbaaecgrrn4
   next-pwa: 5.6.0_6o27esdjbmke3obn2zh7s4htwe
   prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.6
@@ -7325,8 +7325,8 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /jest-canvas-mock/2.4.0:
-    resolution: {integrity: sha512-mmMpZzpmLzn5vepIaHk5HoH3Ka4WykbSoLuG/EKoJd0x0ID/t+INo1l8ByfcUJuDM+RIsL4QDg/gDnBbrj2/IQ==}
+  /jest-canvas-mock/2.5.0:
+    resolution: {integrity: sha512-s2bmY2f22WPMzhB2YA93kiyf7CAfWAnV/sFfY9s48IVOrGmwui1eSFluDPesq1M+7tSC1hJAit6mzO0ZNXvVBA==}
     dependencies:
       cssfontparser: 1.2.1
       moo-color: 1.0.3
