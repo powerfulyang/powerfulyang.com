@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { LazyImage } from '@/components/LazyImage';
 import { Switch } from '@/components/Switch';
-import type { Feed, FeedCreate } from '@/type/Feed';
 import {
   appendToFileList,
   fileListToFormData,
@@ -13,7 +12,6 @@ import {
   removeFromFileList,
   sourceUrlToFile,
 } from '@/utils/copy';
-import { requestAtClient } from '@/utils/client';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 import type { ImagePreviewItem } from '@/components/ImagePreview';
 import { ImagePreview } from '@/components/ImagePreview';
@@ -22,6 +20,8 @@ import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
 import { useEditTimeLineItem } from '@/components/Timeline/TimelineItem';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
+import type { CreateFeedDto, Feed } from '@/__generated__/api';
+import { clientApi } from '@/request/requestTool';
 import styles from './index.module.scss';
 
 type Props = {
@@ -39,7 +39,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
     formState: { errors },
     watch,
     reset,
-  } = useForm<FeedCreate>({
+  } = useForm<CreateFeedDto>({
     defaultValues: {
       content: '',
       public: true,
@@ -58,34 +58,28 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
       setValue('content', editItem.content);
       setValue('public', editItem.public);
       (async () => {
-        const tmp = new DataTransfer();
+        const files = [];
         for (let i = 0; i < editItem.assets?.length; i++) {
           const asset = editItem.assets[i];
           // eslint-disable-next-line no-await-in-loop
           const file = await sourceUrlToFile(asset.objectUrl.original);
-          tmp.items.add(file);
+          files.push(file);
         }
-        setValue('assets', tmp.files);
+        setValue('assets', files);
       })();
     }
   }, [editItem, setValue]);
 
   const mutation = useMutation({
-    mutationFn: (variables: FeedCreate) => {
+    mutationFn: (variables: CreateFeedDto) => {
       const formData = fileListToFormData(variables.assets, 'assets');
       formData.append('content', variables.content);
       formData.append('public', String(variables.public));
       if (editItem) {
         formData.append('id', String(editItem.id));
-        return requestAtClient<Feed>('/feed', {
-          method: 'PUT',
-          body: formData,
-        });
+        return clientApi.updateFeed(formData).then((res) => res.data);
       }
-      return requestAtClient<Feed>('/feed', {
-        method: 'POST',
-        body: formData,
-      });
+      return clientApi.createFeed(formData).then((res) => res.data);
     },
     onSuccess(data) {
       reset();
@@ -165,7 +159,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
   }, [watchContent, watchAssets]);
 
   const onSubmit = useCallback(
-    (v: FeedCreate) => {
+    (v: CreateFeedDto) => {
       mutation.mutate(v);
     },
     [mutation],

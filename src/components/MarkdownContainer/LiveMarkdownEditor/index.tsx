@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import type { VoidFunction } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
-import { AssetBucket } from '@/type/Bucket';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import dynamic from 'next/dynamic';
 import { editor } from 'monaco-editor';
@@ -18,9 +17,9 @@ import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 export type MarkdownMetadata = {
   author?: string;
   tags?: string[];
-  posterId?: string;
+  posterId?: number;
   date?: string;
-  title?: string;
+  title: string;
 };
 
 type MarkdownEditorProps = {
@@ -60,7 +59,9 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
     return () => null;
   }, []);
 
-  const metadataRef = useRef<MarkdownMetadata>({});
+  const metadataRef = useRef<MarkdownMetadata>({
+    title: '',
+  });
 
   useEffect(() => {
     const s = fromEvent<ClipboardEvent>(window, 'paste').subscribe(async (e) => {
@@ -68,7 +69,7 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
       if (!isFocus) {
         return;
       }
-      const r = await handlePasteImageAndReturnAsset(e, AssetBucket.post);
+      const r = await handlePasteImageAndReturnAsset(e, 'post');
       if (r?.length && ref.current) {
         const text = r
           .map((asset) => `![${MarkdownImageFromAssetManageAltConstant}](${asset.id})`)

@@ -2,15 +2,15 @@ import React, { useCallback, useEffect, useState } from 'react';
 import type { GetServerSideProps } from 'next';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { LiveMarkdownEditor } from '@/components/MarkdownContainer/LiveMarkdownEditor';
-import { requestAtClient } from '@/utils/client';
-import type { Post } from '@/type/Post';
 import { Footer } from '@/components/Footer';
 import { useHistory } from '@/hooks/useHistory';
-import { requestAtServer } from '@/utils/server';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 import { useMutation } from '@tanstack/react-query';
 import { isString } from '@powerfulyang/utils';
+import type { Post } from '@/__generated__/api';
+import { clientApi, serverApi } from '@/request/requestTool';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 
 type PublishProps = {
   post: Post;
@@ -23,25 +23,19 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
   const publishPostMutation = useMutation(
     (metadata: MarkdownMetadata) => {
       if (post.id) {
-        return requestAtClient<Post>(`/post/${post.id}`, {
-          method: 'PATCH',
-          body: {
-            ...metadata,
-            content,
-          },
-        });
-      }
-      return requestAtClient<Post>('/post', {
-        method: 'POST',
-        body: {
+        return clientApi.updatePost(post.id, {
           ...metadata,
           content,
-        },
+        });
+      }
+      return clientApi.createPost({
+        ...metadata,
+        content,
       });
     },
     {
-      onSuccess(data) {
-        return pushState(`/post/${data.id}`);
+      onSuccess(res) {
+        return pushState(`/post/${res.data.id}`);
       },
     },
   );
@@ -94,11 +88,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   let post;
   let pathViewCount;
   if (isString(id) && id !== '0') {
-    const res = await requestAtServer(`/public/post/${id}`, {
-      ctx,
-    });
+    const res = await serverApi.queryPublicPostById(
+      Number(id),
+      {
+        versions: [],
+      },
+      {
+        headers: extractRequestHeaders(ctx.req.headers),
+      },
+    );
     pathViewCount = res.headers.get('x-path-view-count');
-    post = await res.json();
+    post = res.data;
   } else {
     post = {};
     pathViewCount = 0;

@@ -13,9 +13,9 @@ import type { NormalComponents } from 'react-markdown/lib/complex-types';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { copyToClipboardAndNotify } from '@/utils/copy';
 import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
-import { requestAtClient } from '@/utils/client';
 import { useQuery } from '@tanstack/react-query';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
+import { clientApi } from '@/request/requestTool';
 import styles from './index.module.scss';
 
 // 不要 class name 的下划线，俺不喜欢
@@ -154,7 +154,7 @@ const MDAssetImage: FC<{ id: string }> = ({ id }) => {
   const { data: asset } = useQuery({
     queryKey: ['md-asset-img', id],
     queryFn: () => {
-      return requestAtClient(`/public/asset/${id}`);
+      return clientApi.getPublicAssetById(id).then((res) => res.data);
     },
   });
   return (

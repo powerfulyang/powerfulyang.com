@@ -11,10 +11,10 @@ import { MessageSendType } from '@/components/Chat/Message';
 import { LazyImage } from '@/components/LazyImage';
 import { useDocumentVisible } from '@/hooks/useDocumentVisible';
 import { randomAvatar } from '@/utils/lib';
-import { requestAtClient } from '@/utils/client';
 import { useUser } from '@/hooks/useUser';
 import { useMutation } from '@tanstack/react-query';
 import { omit } from 'ramda';
+import { clientApi } from '@/request/requestTool';
 import styles from './index.module.scss';
 
 const LAN = 'LAN';
@@ -106,20 +106,22 @@ const Airdrop: LayoutFC = () => {
     mutationKey: ['sendToAI', selectPeerId],
     mutationFn: (message: SentMessage) => {
       AIUtil.think(selectPeerId);
-      let url = '';
       if (selectPeerId === ChatGPT) {
-        url = '/public/chat-gpt/chat';
+        return clientApi
+          .chatWithChatGpt({
+            message: message.content,
+            ...conversionRef.current.get(selectPeerId),
+          })
+          .then((res) => res.data);
       }
       if (selectPeerId === BingAI) {
-        url = '/public/bing-ai/chat';
+        return clientApi
+          .chatWithBingAi({
+            message: message.content,
+            ...conversionRef.current.get(selectPeerId),
+          })
+          .then((res) => res.data);
       }
-      return requestAtClient(url, {
-        method: 'POST',
-        body: {
-          message: message.content,
-          ...conversionRef.current.get(selectPeerId),
-        },
-      });
     },
     onSuccess(res) {
       AIUtil.stopThink(selectPeerId);
