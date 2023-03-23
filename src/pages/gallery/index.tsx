@@ -4,15 +4,14 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { flatten } from 'ramda';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
-import { requestAtClient } from '@/utils/client';
-import type { Asset } from '@/type/Asset';
-import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
-import { requestAtServer } from '@/utils/server';
 import Masonry from '@/components/Masonry';
 import { firstItem, lastItem } from '@powerfulyang/utils';
 import { origin } from '@/components/Head';
+import type { Asset } from '@/__generated__/api';
+import { clientApi, serverApi } from '@/request/requestTool';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import styles from './index.module.scss';
 
 type GalleryProps = {
@@ -25,12 +24,12 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
   const { data, fetchPreviousPage, hasPreviousPage } = useInfiniteQuery(
     ['assets', assets, nextCursor, prevCursor],
     ({ pageParam }) => {
-      return requestAtClient<InfiniteQueryResponse<Asset>>('/public/asset', {
-        query: {
+      return clientApi
+        .infiniteQueryPublicAsset({
           ...pageParam,
           take: 10,
-        },
-      });
+        })
+        .then((x) => x.data);
     },
     {
       enabled: false,
@@ -101,14 +100,16 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const res = await requestAtServer('/public/asset', {
-    ctx,
-    query: {
+  const res = await serverApi.infiniteQueryPublicAsset(
+    {
       take: 20,
     },
-  });
+    {
+      headers: extractRequestHeaders(ctx.req.headers),
+    },
+  );
   const pathViewCount = res.headers.get('x-path-view-count');
-  const data = await res.json();
+  const { data } = res;
   return {
     props: {
       assets: data.resources,

@@ -5,12 +5,9 @@ import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { flatten } from 'ramda';
 import { InView } from 'react-intersection-observer';
 import { UserLayout } from '@/layout/UserLayout';
-import { requestAtClient } from '@/utils/client';
-import type { Feed } from '@/type/Feed';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
-import { requestAtServer } from '@/utils/server';
 import { getTimelineItemElement, TimeLineItem } from '@/components/Timeline/TimelineItem';
 import { TimeLineForm } from '@/components/Timeline/TimelineForm';
 import { LazyImage } from '@/components/LazyImage';
@@ -19,6 +16,9 @@ import { useUser } from '@/hooks/useUser';
 import Image from 'next/image';
 import bg from '@/assets/timeline-banner.webp';
 import { origin } from '@/components/Head';
+import type { Feed } from '@/__generated__/api';
+import { clientApi, serverApi } from '@/request/requestTool';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -31,12 +31,12 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
   const { data, fetchNextPage, fetchPreviousPage, hasPreviousPage } = useInfiniteQuery(
     ['feeds', feeds, nextCursor, prevCursor],
     ({ pageParam }) => {
-      return requestAtClient<InfiniteQueryResponse<Feed>>('/public/feed', {
-        query: {
+      return clientApi
+        .infiniteQueryPublicTimeline({
           ...pageParam,
           take: 10,
-        },
-      });
+        })
+        .then((x) => x.data);
     },
     {
       enabled: false,
@@ -190,14 +190,16 @@ Timeline.getLayout = (page) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const res = await requestAtServer('/public/feed', {
-    ctx,
-    query: {
+  const res = await serverApi.infiniteQueryPublicTimeline(
+    {
       take: 10,
     },
-  });
+    {
+      headers: extractRequestHeaders(ctx.req.headers),
+    },
+  );
   const pathViewCount = res.headers.get('x-path-view-count');
-  const data = await res.json();
+  const { data } = res;
   return {
     props: {
       feeds: data.resources,

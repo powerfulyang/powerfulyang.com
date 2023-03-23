@@ -1,8 +1,8 @@
-import type { Post } from '@/type/Post';
 import { ProjectName } from '@/constant/Constant';
 import { Feed } from 'feed';
-import { requestAtServer } from '@/utils/server';
 import type { NextRequest } from 'next/server';
+import type { Post } from '@/__generated__/api';
+import { serverApi } from '@/request/requestTool';
 
 const generateRssFeed = (posts: Post[]) => {
   const site_url = 'https://powerfulyang.com';
@@ -32,13 +32,14 @@ const generateRssFeed = (posts: Post[]) => {
 };
 
 export async function GET(request: NextRequest) {
-  const res = await requestAtServer('/public/post', {
-    headers: request.headers,
-  });
+  const res = await serverApi.queryPublicPosts(
+    {},
+    {
+      headers: request.headers,
+    },
+  );
 
-  const data = (await res.json()) as Post[];
-
-  const rssFeed = generateRssFeed(data);
+  const rssFeed = generateRssFeed(res.data);
 
   return new Response(rssFeed, {
     headers: {

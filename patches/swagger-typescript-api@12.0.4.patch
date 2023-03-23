@@ -1,0 +1,13 @@
+diff --git a/templates/base/http-clients/fetch-http-client.ejs b/templates/base/http-clients/fetch-http-client.ejs
+index 3acd03c2ce037c8b6a55bf13ae7751649406c356..5867ea50803a5b0ce2abea381273d1d6877064b8 100644
+--- a/templates/base/http-clients/fetch-http-client.ejs
++++ b/templates/base/http-clients/fetch-http-client.ejs
+@@ -101,7 +101,7 @@ export class HttpClient<SecurityDataType = unknown> {
+         return queryString ? `?${queryString}` : "";
+     }
+ 
+-    private contentFormatters: Record<ContentType, (input: any) => any> = {
++    protected contentFormatters: Record<ContentType, (input: any) => any> = {
+         [ContentType.Json]: (input:any) => input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
+         [ContentType.Text]: (input:any) => input !== null && typeof input !== "string" ? JSON.stringify(input) : input,
+         [ContentType.FormData]: (input: any) =>

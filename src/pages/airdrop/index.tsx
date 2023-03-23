@@ -11,10 +11,11 @@ import { MessageSendType } from '@/components/Chat/Message';
 import { LazyImage } from '@/components/LazyImage';
 import { useDocumentVisible } from '@/hooks/useDocumentVisible';
 import { randomAvatar } from '@/utils/lib';
-import { requestAtClient } from '@/utils/client';
 import { useUser } from '@/hooks/useUser';
 import { useMutation } from '@tanstack/react-query';
 import { omit } from 'ramda';
+import { clientApi } from '@/request/requestTool';
+import type { BingAIPayload, ChatGPTPayload } from '@/__generated__/api';
 import styles from './index.module.scss';
 
 const LAN = 'LAN';
@@ -104,30 +105,33 @@ const Airdrop: LayoutFC = () => {
 
   const sendToAI = useMutation({
     mutationKey: ['sendToAI', selectPeerId],
-    mutationFn: (message: SentMessage) => {
+    mutationFn: (message: SentMessage): Promise<ChatGPTPayload | BingAIPayload> => {
       AIUtil.think(selectPeerId);
-      let url = '';
-      if (selectPeerId === ChatGPT) {
-        url = '/public/chat-gpt/chat';
-      }
       if (selectPeerId === BingAI) {
-        url = '/public/bing-ai/chat';
+        return clientApi
+          .chatWithBingAi({
+            message: message.content,
+            ...conversionRef.current.get(selectPeerId),
+          })
+          .then((res) => res.data);
       }
-      return requestAtClient(url, {
-        method: 'POST',
-        body: {
-          message: message.content,
-          ...conversionRef.current.get(selectPeerId),
-        },
-      });
+      if (selectPeerId === ChatGPT) {
+        return clientApi
+          .chatWithChatGpt({
+            message: message.content,
+            ...conversionRef.current.get(selectPeerId),
+          })
+          .then((res) => res.data);
+      }
+      return Promise.reject(new Error('AI not found'));
     },
     onSuccess(res) {
       AIUtil.stopThink(selectPeerId);
-      conversionRef.current.set(selectPeerId, omit(['content'], res));
+      conversionRef.current.set(selectPeerId, omit(['message'], res));
       handleMessage({
         from: selectPeerId,
         chatFriendId: selectPeerId,
-        content: res.content,
+        content: res.message,
         messageContentType: 'text',
         sendType: MessageSendType.receive,
       });

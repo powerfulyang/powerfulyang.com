@@ -2,16 +2,17 @@ import React from 'react';
 import type { GetServerSideProps } from 'next';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
-import type { Post } from '@/type/Post';
 import { Link } from '@/components/Link';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { useHistory } from '@/hooks/useHistory';
-import { requestAtServer } from '@/utils/server';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { DateTimeFormat } from '@/utils/lib';
 import { origin } from '@/components/Head';
+import { serverApi } from '@/request/requestTool';
+import type { Post } from '@/__generated__/api';
+import { pick } from 'ramda';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -88,17 +89,18 @@ Index.getLayout = (page) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { query } = ctx;
-  const tmp = await requestAtServer('/public/post/years', {
-    ctx,
+
+  const requestHeaders = pick(['authorization', 'x-real-ip', 'cookie'], ctx?.req.headers);
+
+  const { data: years } = await serverApi.queryPublicPostYears({
+    headers: requestHeaders,
   });
-  const years = await tmp.json();
   const year: number = Number(query.year) || years[0] || new Date().getFullYear();
-  const res = await requestAtServer('/public/post', {
-    ctx,
-    query: { publishYear: year },
+  const res = await serverApi.queryPublicPosts({
+    publishYear: year,
   });
   const pathViewCount = res.headers.get('x-path-view-count');
-  const data = await res.json();
+  const { data } = res;
   return {
     props: {
       years,

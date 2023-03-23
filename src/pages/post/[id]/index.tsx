@@ -1,17 +1,19 @@
 import React from 'react';
 import type { GetServerSideProps } from 'next';
-import type { Post } from '@/type/Post';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
+import type { TOCItem } from '@/components/MarkdownContainer/TOC';
 import { MarkdownTOC } from '@/components/MarkdownContainer/TOC';
 import { useHistory } from '@/hooks/useHistory';
-import { requestAtServer } from '@/utils/server';
 import { generateTOC } from '@/utils/toc';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { StatusCodes } from 'http-status-codes';
 import { origin } from '@/components/Head';
 import dynamic from 'next/dynamic';
 import { Skeleton } from '@/components/Skeleton';
+import type { Post } from '@/__generated__/api';
+import { serverApi } from '@/request/requestTool';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import styles from './index.module.scss';
 
 const LazyMarkdownContainer = dynamic(() => import('@/components/MarkdownContainer'), {
@@ -21,10 +23,11 @@ const LazyMarkdownContainer = dynamic(() => import('@/components/MarkdownContain
 });
 
 type PostProps = {
-  data: Post;
+  post: Post;
+  toc: TOCItem[];
 };
 
-const PostDetail: LayoutFC<PostProps> = ({ data: { content, toc, id, logs = [] } }) => {
+const PostDetail: LayoutFC<PostProps> = ({ post: { content, id, logs = [] }, toc }) => {
   const history = useHistory();
 
   useHotkeys(
@@ -53,23 +56,29 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     query: { id },
   } = ctx;
   const postId = id as string;
-  const res = await requestAtServer(`/public/post/${postId}`, { ctx });
+  const res = await serverApi.queryPublicPostById(
+    Number(postId),
+    {
+      versions: [],
+    },
+    {
+      headers: extractRequestHeaders(ctx.req.headers),
+    },
+  );
   if (res.status !== StatusCodes.OK) {
     return {
       notFound: true,
     };
   }
   const pathViewCount = res.headers.get('x-path-view-count');
-  const data = (await res.json()) as Post;
+  const { data } = res;
 
   const toc = await generateTOC(data.content);
 
   return {
     props: {
-      data: {
-        ...data,
-        toc,
-      },
+      post: data,
+      toc,
       layout: {
         pathViewCount,
       },

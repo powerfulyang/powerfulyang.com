@@ -1,13 +1,16 @@
-import type { Post } from '@/type/Post';
 import type { NextRequest } from 'next/server';
-import { requestAtServer } from '@/utils/server';
 import { getServerSideSitemap } from 'next-sitemap';
+import type { Post } from '@/__generated__/api';
+import { serverApi } from '@/request/requestTool';
 
 export async function GET(request: NextRequest) {
-  const res = await requestAtServer('/public/post', {
-    headers: request.headers,
-  });
-  const data = await res.json();
+  const res = await serverApi.queryPublicPosts(
+    {},
+    {
+      headers: request.headers,
+    },
+  );
+  const { data } = res;
   return getServerSideSitemap(
     data.map((post: Post) => {
       return {

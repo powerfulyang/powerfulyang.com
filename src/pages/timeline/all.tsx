@@ -1,14 +1,18 @@
 import { Timeline } from '@/pages/timeline';
 import type { GetServerSideProps } from 'next';
-import { requestAtServer } from '@/utils/server';
 import { origin } from '@/components/Head';
+import { serverApi } from '@/request/requestTool';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const res = await requestAtServer('/public/feed', {
-    ctx,
-  });
+  const res = await serverApi.infiniteQueryPublicTimeline(
+    {},
+    {
+      headers: extractRequestHeaders(ctx.req.headers),
+    },
+  );
   const pathViewCount = res.headers.get('x-path-view-count');
-  const data = await res.json();
+  const { data } = res;
   return {
     props: {
       feeds: data.resources,

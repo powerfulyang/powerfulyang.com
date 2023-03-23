@@ -1,30 +1,15 @@
 import type { ClipboardEvent } from 'react';
 import { notification } from '@powerfulyang/components';
-import { requestAtClient } from '@/utils/client';
-import type { Asset } from '@/type/Asset';
-import type { Bucket } from '@/type/Bucket';
-import { AssetBucket } from '@/type/Bucket';
 import { uniqueId } from '@powerfulyang/utils';
+import type { Asset, CosBucket } from '@/__generated__/api';
+import { clientApi } from '@/request/requestTool';
 
-export const appendToFileList = (source: FileList, append: FileList) => {
-  const tmp = new DataTransfer();
-  for (let i = 0; i < source?.length; i++) {
-    tmp.items.add(source[i]);
-  }
-  for (let i = 0; i < append.length; i++) {
-    tmp.items.add(append[i]);
-  }
-  return tmp.files;
+export const appendToFileList = (source: File[], append: FileList) => {
+  return [...source, ...append];
 };
 
-export const removeFromFileList = (source: FileList, index: number) => {
-  const tmp = new DataTransfer();
-  for (let i = 0; i < source?.length; i++) {
-    if (i !== index) {
-      tmp.items.add(source[i]);
-    }
-  }
-  return tmp.files;
+export const removeFromFileList = (source: File[], index: number) => {
+  return source.filter((_, i) => i !== index);
 };
 
 export const handlePasteImageAndReturnFileList = (e: ClipboardEvent) => {
@@ -40,43 +25,26 @@ export const handlePasteImageAndReturnFileList = (e: ClipboardEvent) => {
   }
   return null;
 };
-
-export const fileListToFormData = (
-  fileList?: FileList,
-  filedName: string = 'files',
-  formData?: FormData,
-) => {
-  const v = formData || new FormData();
-  if (fileList) {
-    for (let i = 0; i < fileList.length; i++) {
-      v.append(filedName, fileList[i]);
-    }
-  }
-  return v;
-};
-
 export const uploadFileListAndReturnAsset = async (
   files: FileList,
-  bucketName: AssetBucket = AssetBucket.upload,
+  bucketName: CosBucket['name'] = 'upload',
 ) => {
   const count = files.length;
   if (count) {
-    const formData = fileListToFormData(files);
-    return requestAtClient<Asset[]>(`/asset/${bucketName}`, {
-      method: 'POST',
-      body: formData,
-    });
+    const assets = Array.from(files);
+    return clientApi.saveAssetToBucket(bucketName, { assets });
   }
   return null;
 };
 
 export const handlePasteImageAndReturnAsset = async (
   e: ClipboardEvent,
-  name: Bucket['name'] = AssetBucket.upload,
+  name: CosBucket['name'] = 'upload',
 ): Promise<Asset[] | null> => {
   const files = handlePasteImageAndReturnFileList(e);
   if (files) {
-    return uploadFileListAndReturnAsset(files, name);
+    const res = await uploadFileListAndReturnAsset(files, name);
+    return res?.data || null;
   }
   return null;
 };
