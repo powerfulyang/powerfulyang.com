@@ -11,7 +11,7 @@ specifiers:
   '@powerfulyang/utils': 1.9.2
   '@react-three/drei': 9.58.4
   '@react-three/fiber': 8.12.0
-  '@sentry/cli': 2.15.2
+  '@sentry/cli': 2.16.0
   '@sentry/nextjs': 7.45.0
   '@tanstack/react-query': 4.28.0
   '@testing-library/jest-dom': 5.16.5
@@ -125,7 +125,7 @@ dependencies:
 devDependencies:
   '@next/bundle-analyzer': 13.2.3
   '@powerfulyang/lint': 3.1.3_6qtx7vkbdhwvdm4crzlegk4mvi
-  '@sentry/cli': 2.15.2
+  '@sentry/cli': 2.16.0
   '@testing-library/jest-dom': 5.16.5
   '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
   '@types/d3': 7.4.0
@@ -2055,7 +2055,7 @@ packages:
       '@jest/schemas': 29.4.3
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 18.15.5
+      '@types/node': 18.15.7
       '@types/yargs': 17.0.22
       chalk: 4.1.2
     dev: true
@@ -2678,8 +2678,8 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/cli/2.15.2:
-    resolution: {integrity: sha512-jt8RvbHX09eLj2GY2ufytU/n1sWbUh7/EzBE4Ut92kPCLyo+D56VwR641HBrthZluWpGO/w2ujFMNpkk99UPfA==}
+  /@sentry/cli/2.16.0:
+    resolution: {integrity: sha512-HY1WtooCGJnQwLooqtzRoTQxnLB+2ybFMNvMA2iPkU76J/4RayFcdMjj1wKVByKq4de6VRWNls1P6/ML9chTxw==}
     engines: {node: '>= 10'}
     hasBin: true
     requiresBuild: true
@@ -3384,12 +3384,8 @@ packages:
     resolution: {integrity: sha512-p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==}
     dev: true
 
-  /@types/node/18.15.5:
-    resolution: {integrity: sha512-Ark2WDjjZO7GmvsyFFf81MXuGTA/d6oP38anyxWOL6EREyBKAxKoFHwBhaZxCfLRLpO8JgVXwqOwSwa7jRcjew==}
-
   /@types/node/18.15.7:
     resolution: {integrity: sha512-LFmUbFunqmBn26wJZgZPYZPrDR1RwGOu2v79Mgcka1ndO6V0/cwjivPTc4yoK6n9kmw4/ls1r8cLrvh2iMibFA==}
-    dev: true
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -7695,7 +7691,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.5.0
-      '@types/node': 18.15.5
+      '@types/node': 18.15.7
       chalk: 4.1.2
       ci-info: 3.8.0
       graceful-fs: 4.2.11
@@ -7741,7 +7737,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.15.5
+      '@types/node': 18.15.7
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
