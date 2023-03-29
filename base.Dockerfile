@@ -3,6 +3,7 @@ FROM node:lts-alpine
 WORKDIR /usr/app
 
 COPY package.json pnpm-lock.yaml .npmrc ./
+COPY patches ./patches
 
 RUN apk add --no-cache tzdata \
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
