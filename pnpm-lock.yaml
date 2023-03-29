@@ -10,8 +10,8 @@ dependencies:
     specifier: 3.3.3
     version: 3.3.3(@algolia/client-search@4.15.0)(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
   '@hookform/resolvers':
-    specifier: 2.9.11
-    version: 2.9.11(react-hook-form@7.43.8)
+    specifier: 3.0.0
+    version: 3.0.0(react-hook-form@7.43.8)
   '@monaco-editor/react':
     specifier: 4.4.6
     version: 4.4.6(monaco-editor@0.36.1)(react-dom@18.2.0)(react@18.2.0)
@@ -1856,8 +1856,8 @@ packages:
     resolution: {integrity: sha512-2cyupPIZI69HQxEAPllLXBjQp4njDKkOjYRCYxvMZe3/LY9pp9fBM3Tb1wiFAdP6Emo4v3OEbCLGj6u73Q5KLw==}
     dev: true
 
-  /@hookform/resolvers@2.9.11(react-hook-form@7.43.8):
-    resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
+  /@hookform/resolvers@3.0.0(react-hook-form@7.43.8):
+    resolution: {integrity: sha512-SQPefakODpyq25b/phHXDKCdRrEfPcCXV7B4nAa139wE1DxufYbbNAjeo0T04ZXBokRxZ+wD8iA1kkVMa3QwjQ==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
@@ -2419,7 +2419,7 @@ packages:
       eslint-config-prettier: 8.5.0(eslint@8.28.0)
       eslint-import-resolver-typescript: 3.5.2(eslint-plugin-import@2.26.0)(eslint@8.28.0)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.28.0)
-      eslint-plugin-import: 2.26.0(@typescript-eslint/parser@5.57.0)(eslint@8.28.0)
+      eslint-plugin-import: 2.26.0(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-typescript@3.5.2)(eslint@8.28.0)
       eslint-plugin-jest: 27.1.5(@typescript-eslint/eslint-plugin@5.57.0)(eslint@8.28.0)(jest@29.3.1)(typescript@4.9.5)
       eslint-plugin-jsx-a11y: 6.6.1(eslint@8.28.0)
       eslint-plugin-react: 7.31.11(eslint@8.28.0)
@@ -5681,7 +5681,7 @@ packages:
     dependencies:
       confusing-browser-globals: 1.0.11
       eslint: 8.28.0
-      eslint-plugin-import: 2.26.0(@typescript-eslint/parser@5.57.0)(eslint@8.28.0)
+      eslint-plugin-import: 2.26.0(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-typescript@3.5.2)(eslint@8.28.0)
       object.assign: 4.1.4
       object.entries: 1.1.6
       semver: 6.3.0
@@ -5699,7 +5699,7 @@ packages:
       '@typescript-eslint/parser': 5.57.0(eslint@8.28.0)(typescript@4.9.5)
       eslint: 8.28.0
       eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.26.0)(eslint@8.28.0)
-      eslint-plugin-import: 2.26.0(@typescript-eslint/parser@5.57.0)(eslint@8.28.0)
+      eslint-plugin-import: 2.26.0(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-typescript@3.5.2)(eslint@8.28.0)
     dev: true
 
   /eslint-config-airbnb@19.0.4(eslint-plugin-import@2.26.0)(eslint-plugin-jsx-a11y@6.6.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.31.11)(eslint@8.28.0):
@@ -5714,7 +5714,7 @@ packages:
     dependencies:
       eslint: 8.28.0
       eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.26.0)(eslint@8.28.0)
-      eslint-plugin-import: 2.26.0(@typescript-eslint/parser@5.57.0)(eslint@8.28.0)
+      eslint-plugin-import: 2.26.0(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-typescript@3.5.2)(eslint@8.28.0)
       eslint-plugin-jsx-a11y: 6.6.1(eslint@8.28.0)
       eslint-plugin-react: 7.31.11(eslint@8.28.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.28.0)
@@ -5751,7 +5751,7 @@ packages:
       debug: 4.3.4
       enhanced-resolve: 5.12.0
       eslint: 8.28.0
-      eslint-plugin-import: 2.26.0(@typescript-eslint/parser@5.57.0)(eslint@8.28.0)
+      eslint-plugin-import: 2.26.0(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-typescript@3.5.2)(eslint@8.28.0)
       get-tsconfig: 4.4.0
       globby: 13.1.3
       is-core-module: 2.11.0
@@ -5761,7 +5761,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-module-utils@2.7.4(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-node@0.3.7)(eslint@8.28.0):
+  /eslint-module-utils@2.7.4(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.2)(eslint@8.28.0):
     resolution: {integrity: sha512-j4GT+rqzCoRKHwURX7pddtIPGySnX9Si/cgMI5ztrcqOPtk5dDEeZ34CQVPphnqkJytlc97Vuk05Um2mJ3gEQA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -5786,6 +5786,7 @@ packages:
       debug: 3.2.7
       eslint: 8.28.0
       eslint-import-resolver-node: 0.3.7
+      eslint-import-resolver-typescript: 3.5.2(eslint-plugin-import@2.26.0)(eslint@8.28.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5801,7 +5802,7 @@ packages:
       ignore: 5.2.4
     dev: true
 
-  /eslint-plugin-import@2.26.0(@typescript-eslint/parser@5.57.0)(eslint@8.28.0):
+  /eslint-plugin-import@2.26.0(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-typescript@3.5.2)(eslint@8.28.0):
     resolution: {integrity: sha512-hYfi3FXaM8WPLf4S1cikh/r4IxnO6zrhZbEGz2b660EJRbuxgpDS5gkCuYgGWg2xxh2rBuIr4Pvhve/7c31koA==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -5818,7 +5819,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.28.0
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-node@0.3.7)(eslint@8.28.0)
+      eslint-module-utils: 2.7.4(@typescript-eslint/parser@5.57.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.2)(eslint@8.28.0)
       has: 1.0.3
       is-core-module: 2.11.0
       is-glob: 4.0.3
