@@ -36,6 +36,9 @@ dependencies:
   '@tanstack/react-query':
     specifier: 4.28.0
     version: 4.28.0(react-dom@18.2.0)(react@18.2.0)
+  canvas-confetti:
+    specifier: 1.6.0
+    version: 1.6.0
   classnames:
     specifier: 2.3.2
     version: 2.3.2
@@ -170,6 +173,9 @@ devDependencies:
   '@testing-library/react':
     specifier: 14.0.0
     version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+  '@types/canvas-confetti':
+    specifier: 1.6.0
+    version: 1.6.0
   '@types/d3':
     specifier: 7.4.0
     version: 7.4.0
@@ -3134,6 +3140,10 @@ packages:
       '@babel/types': 7.21.3
     dev: true
 
+  /@types/canvas-confetti@1.6.0:
+    resolution: {integrity: sha512-Yq6rIccwcco0TLD5SMUrIM7Fk7Fe/C0jmNRxJJCLtAF6gebDkPuUjK5EHedxecm69Pi/aA+It39Ux4OHmFhjRw==}
+    dev: true
+
   /@types/d3-array@3.0.4:
     resolution: {integrity: sha512-nwvEkG9vYOc0Ic7G7kwgviY4AQlTfYGIZ0fqB7CQHXGyYM6nO7kJh5EguSNA3jfh4rq7Sb7eMVq8isuvg2/miQ==}
     dev: true
@@ -4471,6 +4481,10 @@ packages:
 
   /caniuse-lite@1.0.30001467:
     resolution: {integrity: sha512-cEdN/5e+RPikvl9AHm4uuLXxeCNq8rFsQ+lPHTfe/OtypP3WwnVVbjn+6uBV7PaFL6xUFzTh+sSCOz1rKhcO+Q==}
+
+  /canvas-confetti@1.6.0:
+    resolution: {integrity: sha512-ej+w/m8Jzpv9Z7W7uJZer14Ke8P2ogsjg4ZMGIuq4iqUOqY2Jq8BNW42iGmNfRwREaaEfFIczLuZZiEVSYNHAA==}
+    dev: false
 
   /ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}

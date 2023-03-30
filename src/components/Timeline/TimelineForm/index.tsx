@@ -21,6 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import type { CreateFeedDto, Feed, UpdateFeedDto } from '@/__generated__/api';
 import { clientApi } from '@/request/requestTool';
+import confetti from 'canvas-confetti';
 import styles from './index.module.scss';
 
 type Props = {
@@ -72,6 +73,9 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
   }, [editItem, setValue]);
 
   const mutation = useMutation({
+    onMutate() {
+      confetti();
+    },
     mutationFn: (variables: CreateFeedDto | UpdateFeedDto) => {
       if ('id' in variables) {
         return clientApi.updateFeed(variables).then((res) => res.data);
@@ -190,7 +194,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
             {assets.map((item, index) => (
               <div key={item.key} className="pointer relative">
                 <Icon
-                  className="absolute right-0 z-[1] translate-x-1/2 -translate-y-1/2 text-2xl"
+                  className="absolute right-0 z-[1] -translate-y-1/2 translate-x-1/2 text-2xl"
                   type="icon-close"
                   onClick={(e) => {
                     e.stopPropagation();
