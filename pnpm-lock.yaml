@@ -10,8 +10,8 @@ dependencies:
     specifier: 3.3.3
     version: 3.3.3(@algolia/client-search@4.15.0)(@types/react@18.0.28)(react-dom@18.2.0)(react@18.2.0)
   '@hookform/resolvers':
-    specifier: 2.9.11
-    version: 2.9.11(react-hook-form@7.43.8)
+    specifier: 3.0.0
+    version: 3.0.0(react-hook-form@7.43.8)
   '@monaco-editor/react':
     specifier: 4.4.6
     version: 4.4.6(monaco-editor@0.36.1)(react-dom@18.2.0)(react@18.2.0)
@@ -1856,8 +1856,8 @@ packages:
     resolution: {integrity: sha512-2cyupPIZI69HQxEAPllLXBjQp4njDKkOjYRCYxvMZe3/LY9pp9fBM3Tb1wiFAdP6Emo4v3OEbCLGj6u73Q5KLw==}
     dev: true
 
-  /@hookform/resolvers@2.9.11(react-hook-form@7.43.8):
-    resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
+  /@hookform/resolvers@3.0.0(react-hook-form@7.43.8):
+    resolution: {integrity: sha512-SQPefakODpyq25b/phHXDKCdRrEfPcCXV7B4nAa139wE1DxufYbbNAjeo0T04ZXBokRxZ+wD8iA1kkVMa3QwjQ==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
