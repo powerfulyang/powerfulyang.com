@@ -73,7 +73,7 @@
     "remark-math": "5.1.1",
     "remark-rehype": "10.1.0",
     "rxjs": "7.8.0",
-    "three": "0.150.1",
+    "three": "0.151.1",
     "unist-util-visit": "4.1.2",
     "yaml": "2.2.1",
     "zod": "3.21.4"
