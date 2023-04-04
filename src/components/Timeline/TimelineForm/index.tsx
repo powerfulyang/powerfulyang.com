@@ -169,7 +169,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
     <div className={styles.timelineInput}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.timelineTextarea}>
-          <input hidden {...register('id')} />
+          {editItem && <input hidden {...register('id')} />}
           <textarea
             {...register('content')}
             className={classNames(

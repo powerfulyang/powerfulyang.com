@@ -7,7 +7,6 @@ export const customFetch: typeof fetch = async (url, options) => {
   if (!res.ok) {
     notification.error({
       message: 'Error',
-      // @ts-ignore
       description: res.headers.get('x-error') || res.statusText,
     });
   }
