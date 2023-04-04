@@ -5,8 +5,7 @@ import React from 'react';
 import { DateTimeFormat } from '@/utils/lib';
 import { Prism } from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { StatusCodes } from 'http-status-codes';
-import type { Post } from '@/__generated__/api';
+import type { HttpResponse, Post } from '@/__generated__/api';
 import { serverApi } from '@/request/requestTool';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 
@@ -82,16 +81,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { query } = ctx;
   const id = query.id as string;
   const versions = query.versions as string[];
-  const res = await serverApi.queryPublicPostById(
-    Number(id),
-    {
-      versions,
-    },
-    {
-      headers: extractRequestHeaders(ctx.req.headers),
-    },
-  );
-  if (res.status !== StatusCodes.OK) {
+  const res = await serverApi
+    .queryPublicPostById(
+      Number(id),
+      {
+        versions,
+      },
+      {
+        headers: extractRequestHeaders(ctx.req.headers),
+      },
+    )
+    .catch((r: HttpResponse<Post>) => r);
+  if (!res.ok) {
     return {
       notFound: true,
     };

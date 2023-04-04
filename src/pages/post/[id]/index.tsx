@@ -7,11 +7,10 @@ import { MarkdownTOC } from '@/components/MarkdownContainer/TOC';
 import { useHistory } from '@/hooks/useHistory';
 import { generateTOC } from '@/utils/toc';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { StatusCodes } from 'http-status-codes';
 import { origin } from '@/components/Head';
 import dynamic from 'next/dynamic';
 import { Skeleton } from '@/components/Skeleton';
-import type { Post } from '@/__generated__/api';
+import type { HttpResponse, Post } from '@/__generated__/api';
 import { serverApi } from '@/request/requestTool';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import styles from './index.module.scss';
@@ -56,16 +55,20 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     query: { id },
   } = ctx;
   const postId = id as string;
-  const res = await serverApi.queryPublicPostById(
-    Number(postId),
-    {
-      versions: [],
-    },
-    {
-      headers: extractRequestHeaders(ctx.req.headers),
-    },
-  );
-  if (res.status !== StatusCodes.OK) {
+  const res = await serverApi
+    .queryPublicPostById(
+      Number(postId),
+      {
+        versions: [],
+      },
+      {
+        headers: extractRequestHeaders(ctx.req.headers),
+      },
+    )
+    .catch((r: HttpResponse<Post>) => {
+      return r;
+    });
+  if (!res.ok) {
     return {
       notFound: true,
     };
