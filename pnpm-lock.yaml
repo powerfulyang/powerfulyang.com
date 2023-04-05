@@ -25,8 +25,8 @@ dependencies:
     specifier: 1.9.2
     version: 1.9.2
   '@react-three/drei':
-    specifier: 9.62.2
-    version: 9.62.2(@react-three/fiber@8.12.0)(@types/three@0.150.0)(react-dom@18.2.0)(react@18.2.0)(three@0.151.1)
+    specifier: 9.62.4
+    version: 9.62.4(@react-three/fiber@8.12.0)(@types/three@0.150.0)(react-dom@18.2.0)(react@18.2.0)(three@0.151.1)
   '@react-three/fiber':
     specifier: 8.12.0
     version: 8.12.0(react-dom@18.2.0)(react@18.2.0)(three@0.151.1)
@@ -2433,7 +2433,7 @@ packages:
       postcss: 8.4.21
       postcss-scss: 4.0.6(postcss@8.4.21)
       prettier: 2.8.7
-      prettier-plugin-tailwindcss: 0.2.6(prettier@2.8.7)
+      prettier-plugin-tailwindcss: 0.2.7(prettier@2.8.7)
       rimraf: 4.4.1
       rollup: 3.20.2
       sass: 1.60.0
@@ -2550,8 +2550,8 @@ packages:
     resolution: {integrity: sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==}
     dev: false
 
-  /@react-three/drei@9.62.2(@react-three/fiber@8.12.0)(@types/three@0.150.0)(react-dom@18.2.0)(react@18.2.0)(three@0.151.1):
-    resolution: {integrity: sha512-qGbR56CqG1Gg8gv8eWNc2aJYcXOrFQ4p+iIpUvq4iqA1iezn2BekwZsWoGZt+qUltd0zCgXX16FKd9NWhL60sQ==}
+  /@react-three/drei@9.62.4(@react-three/fiber@8.12.0)(@types/three@0.150.0)(react-dom@18.2.0)(react@18.2.0)(three@0.151.1):
+    resolution: {integrity: sha512-cproUfuwmdAJafKhKtxWlSVhKQ/B0vz3W/77kosrhq+ZL/fV26PFo4N5lVnoPFZt4pcl8zZGcOcNh7b/zgQ3Mw==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
       react: '>=18.0 || 18'
@@ -9682,6 +9682,61 @@ packages:
 
   /prettier-plugin-tailwindcss@0.2.6(prettier@2.8.7):
     resolution: {integrity: sha512-F+7XCl9RLF/LPrGdUMHWpsT6TM31JraonAUyE6eBmpqymFvDwyl0ETHsKFHP1NG+sEfv8bmKqnTxEbWQbHPlBA==}
+    engines: {node: '>=12.17.0'}
+    peerDependencies:
+      '@ianvs/prettier-plugin-sort-imports': '*'
+      '@prettier/plugin-php': '*'
+      '@prettier/plugin-pug': '*'
+      '@shopify/prettier-plugin-liquid': '*'
+      '@shufo/prettier-plugin-blade': '*'
+      '@trivago/prettier-plugin-sort-imports': '*'
+      prettier: '>=2.2.0'
+      prettier-plugin-astro: '*'
+      prettier-plugin-css-order: '*'
+      prettier-plugin-import-sort: '*'
+      prettier-plugin-jsdoc: '*'
+      prettier-plugin-organize-attributes: '*'
+      prettier-plugin-organize-imports: '*'
+      prettier-plugin-style-order: '*'
+      prettier-plugin-svelte: '*'
+      prettier-plugin-twig-melody: '*'
+    peerDependenciesMeta:
+      '@ianvs/prettier-plugin-sort-imports':
+        optional: true
+      '@prettier/plugin-php':
+        optional: true
+      '@prettier/plugin-pug':
+        optional: true
+      '@shopify/prettier-plugin-liquid':
+        optional: true
+      '@shufo/prettier-plugin-blade':
+        optional: true
+      '@trivago/prettier-plugin-sort-imports':
+        optional: true
+      prettier-plugin-astro:
+        optional: true
+      prettier-plugin-css-order:
+        optional: true
+      prettier-plugin-import-sort:
+        optional: true
+      prettier-plugin-jsdoc:
+        optional: true
+      prettier-plugin-organize-attributes:
+        optional: true
+      prettier-plugin-organize-imports:
+        optional: true
+      prettier-plugin-style-order:
+        optional: true
+      prettier-plugin-svelte:
+        optional: true
+      prettier-plugin-twig-melody:
+        optional: true
+    dependencies:
+      prettier: 2.8.7
+    dev: true
+
+  /prettier-plugin-tailwindcss@0.2.7(prettier@2.8.7):
+    resolution: {integrity: sha512-jQopIOgjLpX+y8HeD56XZw7onupRTC0cw7eKKUimI7vhjkPF5/1ltW5LyqaPtSyc8HvEpvNZsvvsGFa2qpa59w==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
