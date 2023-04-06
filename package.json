@@ -20,7 +20,8 @@
     "precommit": "pnpm run tsc-check && lint-staged && pnpm run test",
     "prettier": "prettier \"src/**/*.{tsx,ts,scss}\" --write",
     "lint:js": "eslint ./src --ext .ts,.tsx --fix",
-    "lint:style": "stylelint --fix \"src/**/*.scss\""
+    "lint:style": "stylelint --fix \"src/**/*.scss\"",
+    "codegen-swagger": "node ./dev/swagger-typescript-codegen.config.mjs"
   },
   "license": "MIT",
   "repository": {
@@ -96,7 +97,7 @@
     "prettier-plugin-tailwindcss": "0.2.7",
     "swagger-typescript-api": "12.0.4",
     "tailwindcss": "3.3.1",
-    "typescript": "4.9.5"
+    "typescript": "5.0.3"
   },
   "bundledDependencies": [
     "katex"
