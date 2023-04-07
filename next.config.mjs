@@ -42,9 +42,9 @@ const config = {
     ]);
   },
   experimental: {
-    esmExternals: true,
     scrollRestoration: true,
     appDir: true,
+    clientRouterFilter: false,
   },
   env: {
     CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST,
@@ -92,11 +92,10 @@ const config = {
   },
 };
 
-// config
-
 const withBundleAnalyzer = BundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
+
 const withPWA = withPWAConfig({
   dest: 'public',
   disable: isDevProcess,
@@ -116,6 +115,7 @@ const withPWA = withPWAConfig({
   ],
   runtimeCaching,
 });
+
 const nextConfig = withSentryConfig(
   {
     sentry: {
@@ -154,4 +154,5 @@ const nextConfig = withSentryConfig(
   },
   sentryWebpackPluginOptions,
 );
+
 export default nextConfig;
