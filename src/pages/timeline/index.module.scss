@@ -43,7 +43,7 @@
       .author-avatar {
         width: 80px;
         margin-top: -40px;
-        @apply mr-4 ml-8 select-none rounded-lg;
+        @apply ml-8 mr-4 select-none rounded-lg;
       }
 
       .author-nickname {
@@ -54,7 +54,7 @@
 
       .author-bio {
         font-family: 'Zpix', sans-serif;
-        @apply mt-4 ml-8 w-full cursor-text text-xl font-medium;
+        @apply ml-8 mt-4 w-full cursor-text text-xl font-medium;
 
         span {
           @include rainbowText;

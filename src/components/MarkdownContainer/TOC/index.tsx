@@ -55,7 +55,7 @@ export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: PostLog[]; id: number }> = 
       })}
       {logs.length > 1 && (
         <>
-          <span className="mt-4 mb-2 inline-block text-lg text-gray-400">历史记录:</span>
+          <span className="mb-2 mt-4 inline-block text-lg text-gray-400">历史记录:</span>
           {logs.slice(0, -1).map((log, _index) => (
             <div key={log.id} className="truncate">
               <a

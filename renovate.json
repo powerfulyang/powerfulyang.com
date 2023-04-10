@@ -10,12 +10,12 @@
     {
       "groupName": "powerfulyang",
       "matchPackagePrefixes": ["@powerfulyang/"],
-      "automerge": true
+      "automerge": false
     },
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "matchCurrentVersion": "!/^0/",
-      "automerge": true
+      "automerge": false
     }
   ]
 }

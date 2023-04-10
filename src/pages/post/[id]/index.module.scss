@@ -1,6 +1,6 @@
 .post-wrap {
   display: flex;
-  @apply justify-center sm:py-16 sm:px-6;
+  @apply justify-center sm:px-6 sm:py-16;
 
   .post {
     width: min(900px, 100%);
