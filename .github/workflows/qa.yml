@@ -38,7 +38,7 @@ jobs:
           cache-to: type=gha,mode=max
       -
         name: Deploy
-        uses: appleboy/ssh-action@v0.1.9
+        uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
