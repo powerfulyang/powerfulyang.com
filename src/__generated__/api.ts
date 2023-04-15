@@ -283,6 +283,25 @@ export interface PatchPostDto {
   updatedAt?: string;
 }
 
+export interface QueryPostsDto {
+  /** 每页条数 */
+  pageSize: number;
+  /** 当前页码 */
+  current: number;
+  /** post id */
+  id: number;
+  /** 创建时间 */
+  createdAt: string[];
+  /** 更新时间 */
+  updatedAt: string[];
+  title: string;
+  content: string;
+  public: boolean;
+  summary: string;
+  poster: Asset;
+  createBy: User;
+}
+
 export interface Feed {
   /** timeline item id */
   id: number;
@@ -1227,76 +1246,16 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags post-manage
      * @name QueryPosts
      * @summary 分页查询日志
-     * @request GET:/api/post-manage/query-posts
+     * @request POST:/api/post-manage/query-posts
      * @secure
      */
-    queryPosts: (
-      query: {
-        /** 每页条数 */
-        pageSize: number;
-        /** 当前页码 */
-        current: number;
-        /**
-         * User id
-         * @example 1
-         */
-        id: number;
-        /** @format date-time */
-        createdAt: string;
-        /** @format date-time */
-        updatedAt: string;
-        title: string;
-        content: string;
-        public: boolean;
-        summary: string;
-        bucket: CosBucket;
-        objectUrl: {
-          webp: string;
-          original: string;
-          thumbnail_300_: string;
-          thumbnail_700_: string;
-          thumbnail_blur_: string;
-        };
-        originUrl: string;
-        sn: string;
-        tags: string[];
-        comment: string;
-        /** 需要注意，这里的值是不带 `.` 的 */
-        fileSuffix: string;
-        sha1: string;
-        pHash: string;
-        exif: object;
-        metadata: object;
-        size: {
-          width: number;
-          height: number;
-        };
-        uploadBy: User;
-        /**
-         * User email
-         * @example "i@powerfulyang.com"
-         */
-        email: string;
-        nickname: string;
-        bio: string;
-        avatar?: string;
-        lastIp: string;
-        lastAddress: string;
-        timelineBackground: Asset;
-        /** User roles */
-        roles: Role[];
-        families: Family[];
-        oauthOpenidArr: OauthOpenid[];
-        saltedPassword: string;
-        salt: string;
-      },
-      params: RequestParams = {},
-    ) =>
+    queryPosts: (data: QueryPostsDto, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/api/post-manage/query-posts`,
-        method: 'GET',
-        query: query,
+        method: 'POST',
+        body: data,
         secure: true,
+        type: ContentType.Json,
         ...params,
       }),
 

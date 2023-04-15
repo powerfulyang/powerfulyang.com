@@ -5,9 +5,9 @@ import BundleAnalyzer from '@next/bundle-analyzer';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 import { runtimeCaching } from './runtimeCaching.mjs';
 
-const { DISABLE_SENTRY_CLI } = process.env;
+const { ENABLE_SENTRY_CLI } = process.env;
 
-const isDisableSentry = DISABLE_SENTRY_CLI === 'true';
+const enableSentry = ENABLE_SENTRY_CLI === 'true';
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -60,7 +60,7 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  productionBrowserSourceMaps: !isDisableSentry,
+  productionBrowserSourceMaps: enableSentry,
   optimizeFonts: true,
   swcMinify: true,
   sassOptions: {
@@ -119,8 +119,8 @@ const withPWA = withPWAConfig({
 const nextConfig = withSentryConfig(
   {
     sentry: {
-      disableServerWebpackPlugin: isDisableSentry,
-      disableClientWebpackPlugin: isDisableSentry,
+      disableServerWebpackPlugin: !enableSentry,
+      disableClientWebpackPlugin: !enableSentry,
       hideSourceMaps: true,
       widenClientFileUpload: true,
     },

@@ -8,6 +8,6 @@ RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN pnpm run bootstrap \
 #    && rm -rf next.config.mjs \
 #    && npm prune --omit=dev \
 #    && npm cache clean --force \
-    && SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) pnpm run build
+    && SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) ENABLE_SENTRY_CLI=true pnpm run build
 
 CMD pnpm run start

@@ -12,7 +12,7 @@ import { DateTimeFormat } from '@/utils/lib';
 import { origin } from '@/components/Head';
 import { serverApi } from '@/request/requestTool';
 import type { Post } from '@/__generated__/api';
-import { pick } from 'ramda';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -90,15 +90,20 @@ Index.getLayout = (page) => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { query } = ctx;
 
-  const requestHeaders = pick(['authorization', 'x-real-ip', 'cookie'], ctx?.req.headers);
+  const requestHeaders = extractRequestHeaders(ctx.req.headers);
 
   const { data: years } = await serverApi.queryPublicPostYears({
     headers: requestHeaders,
   });
   const year: number = Number(query.year) || years[0] || new Date().getFullYear();
-  const res = await serverApi.queryPublicPosts({
-    publishYear: year,
-  });
+  const res = await serverApi.queryPublicPosts(
+    {
+      publishYear: year,
+    },
+    {
+      headers: requestHeaders,
+    },
+  );
   const pathViewCount = res.headers.get('x-path-view-count');
   const { data } = res;
   return {

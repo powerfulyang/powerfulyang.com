@@ -1,10 +1,12 @@
 import { generateApi } from 'swagger-typescript-api';
-import * as path from 'node:path';
+import { join } from 'node:path';
+
+const swaggerOrigin = process.env.SWAGGER_ORIGIN;
 
 await generateApi({
   name: 'api',
-  output: path.join(process.cwd(), 'src', '__generated__'),
-  url: 'https://local.powerfulyang.com/api/swagger-json',
+  output: join(process.cwd(), 'src', '__generated__'),
+  url: `${swaggerOrigin}/api/swagger-json`,
   cleanOutput: true,
   httpClientType: 'fetch',
   extractEnums: true,
