@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@docsearch/react": "3.3.3",
-    "@hookform/resolvers": "3.0.1",
+    "@hookform/resolvers": "3.1.0",
     "@monaco-editor/react": "4.5.0",
     "@powerfulyang/components": "1.6.1",
     "@powerfulyang/hooks": "1.4.0",
