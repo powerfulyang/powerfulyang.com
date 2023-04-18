@@ -17,7 +17,7 @@ dependencies:
     version: 4.5.0(monaco-editor@0.37.1)(react-dom@18.2.0)(react@18.2.0)
   '@powerfulyang/components':
     specifier: 1.6.1
-    version: 1.6.1(@powerfulyang/hooks@1.4.0)(@powerfulyang/utils@1.9.2)(classnames@2.3.2)(framer-motion@10.12.2)(lodash-es@4.17.21)(react-dom@18.2.0)(react@18.2.0)(reflect-metadata@0.1.13)(rxjs@7.8.0)
+    version: 1.6.1(@powerfulyang/hooks@1.4.0)(@powerfulyang/utils@1.9.2)(classnames@2.3.2)(framer-motion@10.12.4)(lodash-es@4.17.21)(react-dom@18.2.0)(react@18.2.0)(reflect-metadata@0.1.13)(rxjs@7.8.0)
   '@powerfulyang/hooks':
     specifier: 1.4.0
     version: 1.4.0(@powerfulyang/utils@1.9.2)(immer@9.0.21)(lodash-es@4.17.21)(react-dom@18.2.0)(react@18.2.0)(rxjs@7.8.0)
@@ -52,8 +52,8 @@ dependencies:
     specifier: 4.2.2
     version: 4.2.2
   framer-motion:
-    specifier: 10.12.2
-    version: 10.12.2(react-dom@18.2.0)(react@18.2.0)
+    specifier: 10.12.4
+    version: 10.12.4(react-dom@18.2.0)(react@18.2.0)
   hast-util-raw:
     specifier: 8.0.0
     version: 8.0.0
@@ -2321,7 +2321,7 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@powerfulyang/components@1.6.1(@powerfulyang/hooks@1.4.0)(@powerfulyang/utils@1.9.2)(classnames@2.3.2)(framer-motion@10.12.2)(lodash-es@4.17.21)(react-dom@18.2.0)(react@18.2.0)(reflect-metadata@0.1.13)(rxjs@7.8.0):
+  /@powerfulyang/components@1.6.1(@powerfulyang/hooks@1.4.0)(@powerfulyang/utils@1.9.2)(classnames@2.3.2)(framer-motion@10.12.4)(lodash-es@4.17.21)(react-dom@18.2.0)(react@18.2.0)(reflect-metadata@0.1.13)(rxjs@7.8.0):
     resolution: {integrity: sha512-yMdfjDVglNSY1ep3fQvmlGzdPvTB1Y8T73EIQQCIpf4LhKYyVQ2dyRJbmIHA48XG6wB/PZ08tm+IORVKbGmFNg==}
     peerDependencies:
       '@powerfulyang/hooks': '*'
@@ -2337,7 +2337,7 @@ packages:
       '@powerfulyang/hooks': 1.4.0(@powerfulyang/utils@1.9.2)(immer@9.0.21)(lodash-es@4.17.21)(react-dom@18.2.0)(react@18.2.0)(rxjs@7.8.0)
       '@powerfulyang/utils': 1.9.2
       classnames: 2.3.2
-      framer-motion: 10.12.2(react-dom@18.2.0)(react@18.2.0)
+      framer-motion: 10.12.4(react-dom@18.2.0)(react@18.2.0)
       lodash-es: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -2400,7 +2400,7 @@ packages:
       prettier: 2.8.7
       prettier-plugin-tailwindcss: 0.2.7(prettier@2.8.7)
       rimraf: 5.0.0
-      rollup: 3.20.5
+      rollup: 3.20.6
       sass: 1.62.0
       stylelint: 14.15.0
       stylelint-config-css-modules: 4.1.0(stylelint@14.15.0)
@@ -6286,8 +6286,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion@10.12.2(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-DD3Ieqy4pjmL0qBtfNMqnU/IONchUqnhHtgFtu0Nq5jw7bhkksD/Cs4cNhLYd1vs7iB8Q+WInxuBeMmzIoA5Xg==}
+  /framer-motion@10.12.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-9gLtv8T6dui0tujHROR+VM3kdJyKiFCFiD94IQE+0OuX6LaIyXtdVpviokVdrHSb1giWhmmX4yzoucALMx6mtw==}
     peerDependencies:
       react: ^18.0.0 || 18
       react-dom: ^18.0.0 || 18
@@ -10528,8 +10528,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rollup@3.20.5:
-    resolution: {integrity: sha512-Mx6NE3nLPIP6a9ReV4dTPOYYmDiyarJNtSbc37Jx0jvh8SHySoFPgyZAp9aDP3LnYvaJOrz+fclcwq3oZDzlnA==}
+  /rollup@3.20.6:
+    resolution: {integrity: sha512-2yEB3nQXp/tBQDN0hJScJQheXdvU2wFhh6ld7K/aiZ1vYcak6N/BKjY1QrU6BvO2JWYS8bEs14FRaxXosxy2zw==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
