@@ -26,7 +26,7 @@ dependencies:
     version: 1.9.2
   '@react-three/drei':
     specifier: 9.65.3
-    version: 9.65.3(@react-three/fiber@8.12.1)(@types/three@0.150.1)(react-dom@18.2.0)(react@18.2.0)(three@0.151.3)
+    version: 9.65.3(@react-three/fiber@8.12.1)(@types/three@0.150.2)(react-dom@18.2.0)(react@18.2.0)(three@0.151.3)
   '@react-three/fiber':
     specifier: 8.12.1
     version: 8.12.1(react-dom@18.2.0)(react@18.2.0)(three@0.151.3)
@@ -195,8 +195,8 @@ devDependencies:
     specifier: 15.5.6
     version: 15.5.6
   '@types/three':
-    specifier: 0.150.1
-    version: 0.150.1
+    specifier: 0.150.2
+    version: 0.150.2
   jest-canvas-mock:
     specifier: 2.5.0
     version: 2.5.0
@@ -2400,7 +2400,7 @@ packages:
       prettier: 2.8.7
       prettier-plugin-tailwindcss: 0.2.7(prettier@2.8.7)
       rimraf: 5.0.0
-      rollup: 3.20.5
+      rollup: 3.20.6
       sass: 1.62.0
       stylelint: 14.15.0
       stylelint-config-css-modules: 4.1.0(stylelint@14.15.0)
@@ -2515,7 +2515,7 @@ packages:
     resolution: {integrity: sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==}
     dev: false
 
-  /@react-three/drei@9.65.3(@react-three/fiber@8.12.1)(@types/three@0.150.1)(react-dom@18.2.0)(react@18.2.0)(three@0.151.3):
+  /@react-three/drei@9.65.3(@react-three/fiber@8.12.1)(@types/three@0.150.2)(react-dom@18.2.0)(react@18.2.0)(three@0.151.3):
     resolution: {integrity: sha512-kVyrCtyCE3gN8On0ndf9798jCVcYHxNF22rWBsIi82SgskHnYIKBde5S6Udvwb4RWL34Y+vz4103MLmjcgMwxg==}
     peerDependencies:
       '@react-three/fiber': '>=8.0'
@@ -2536,7 +2536,7 @@ packages:
       lodash.clamp: 4.0.3
       lodash.omit: 4.5.0
       lodash.pick: 4.4.0
-      maath: 0.5.3(@types/three@0.150.1)(three@0.151.3)
+      maath: 0.5.3(@types/three@0.150.2)(three@0.151.3)
       meshline: 3.1.6(three@0.151.3)
       react: 18.2.0
       react-composer: 5.0.3(react@18.2.0)
@@ -3532,8 +3532,8 @@ packages:
       '@types/jest': 29.5.0
     dev: true
 
-  /@types/three@0.150.1:
-    resolution: {integrity: sha512-ZXS1M3brsfAAbTeeUEt0defPi98yWQuEyPBnvjEYY1dCEYfJnFaww0mYgRpJ9JVfmtwRxqISpVcv/g/0lMl1DQ==}
+  /@types/three@0.150.2:
+    resolution: {integrity: sha512-cvcz/81Mmj4oiAA+uxzwaRK3t8lYw8WxejXKqIBfu6PqvwSAEEiCi3VfCiVY18UflBqL0LDX/za85+sfqjMoIw==}
     dependencies:
       '@types/stats.js': 0.17.0
       '@types/webxr': 0.5.1
@@ -8261,13 +8261,13 @@ packages:
     hasBin: true
     dev: true
 
-  /maath@0.5.3(@types/three@0.150.1)(three@0.151.3):
+  /maath@0.5.3(@types/three@0.150.2)(three@0.151.3):
     resolution: {integrity: sha512-ut63A4zTd9abtpi+sOHW1fPWPtAFrjK0E17eAthx1k93W/T2cWLKV5oaswyotJVDvvW1EXSdokAqhK5KOu0Qdw==}
     peerDependencies:
       '@types/three': '>=0.144.0'
       three: '>=0.144.0'
     dependencies:
-      '@types/three': 0.150.1
+      '@types/three': 0.150.2
       three: 0.151.3
     dev: false
 
@@ -10528,8 +10528,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rollup@3.20.5:
-    resolution: {integrity: sha512-Mx6NE3nLPIP6a9ReV4dTPOYYmDiyarJNtSbc37Jx0jvh8SHySoFPgyZAp9aDP3LnYvaJOrz+fclcwq3oZDzlnA==}
+  /rollup@3.20.6:
+    resolution: {integrity: sha512-2yEB3nQXp/tBQDN0hJScJQheXdvU2wFhh6ld7K/aiZ1vYcak6N/BKjY1QrU6BvO2JWYS8bEs14FRaxXosxy2zw==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
