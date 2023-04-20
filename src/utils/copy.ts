@@ -1,5 +1,5 @@
 import type { ClipboardEvent } from 'react';
-import { notification } from '@powerfulyang/components';
+import { toast } from '@powerfulyang/components';
 import { uniqueId } from '@powerfulyang/utils';
 import type { Asset, CosBucket } from '@/__generated__/api';
 import { clientApi } from '@/request/requestTool';
@@ -95,15 +95,10 @@ export const copyToClipBoard = async (content: string | Blob) => {
 export const copyToClipboardAndNotify = (text: string | Blob) => {
   copyToClipBoard(text)
     .then(() => {
-      notification.success({
-        message: '复制成功',
-      });
+      toast.success('复制成功');
     })
     .catch((e) => {
-      notification.error({
-        message: '复制失败',
-        description: e.message,
-      });
+      toast.success(e.message);
     });
 };
 

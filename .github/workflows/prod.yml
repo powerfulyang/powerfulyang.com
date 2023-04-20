@@ -7,10 +7,13 @@ on:
 
 jobs:
   deployment:
-    runs-on: ubuntu-latest
+    name: prod
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         docker-repository: [powerfulyang/powerfulyang.com]
+        os: [ubuntu-latest]
+
     steps:
       -
         name: Checkout

@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo } from 'react';
-import type { AppProps } from 'next/app';
-import './app.scss';
-import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { Header, origin } from '@/components/Head';
-import { useRouter } from 'next/router';
-import { isProdProcess } from '@powerfulyang/utils';
 import { Redirecting } from '@/components/Redirecting';
-import Script from 'next/script';
-import { NextSeo } from 'next-seo';
 import { ProjectName } from '@/constant/Constant';
+import { GlobalContextProvider } from '@/context/GlobalContextProvider';
+import { isProdProcess } from '@powerfulyang/utils';
+import { NextSeo } from 'next-seo';
+import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
+import Script from 'next/script';
+import React, { useEffect, useMemo } from 'react';
+import './app.scss';
 
 interface HeaderProps {
   meta?: {

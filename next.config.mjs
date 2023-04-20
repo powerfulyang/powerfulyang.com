@@ -3,6 +3,7 @@ import { isDevProcess } from '@powerfulyang/utils';
 import { withSentryConfig } from '@sentry/nextjs';
 import BundleAnalyzer from '@next/bundle-analyzer';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
+import process from 'node:process';
 import { runtimeCaching } from './runtimeCaching.mjs';
 
 const { ENABLE_SENTRY_CLI } = process.env;
@@ -89,6 +90,9 @@ const config = {
       // 这个更牛啤，减少了 0.5kb
       transform: 'react-syntax-highlighter/dist/esm/{{kebabCase member}}',
     },
+  },
+  compiler: {
+    emotion: true,
   },
 };
 

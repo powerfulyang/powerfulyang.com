@@ -1,9 +1,9 @@
-import React, { memo, useMemo, useState } from 'react';
+import { Assets } from '@powerfulyang/components';
 import classNames from 'classnames';
 import type { HTMLMotionProps, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
+import React, { memo, useMemo, useState } from 'react';
 import { InView } from 'react-intersection-observer';
-import { Assets } from '@powerfulyang/components';
 import styles from './index.module.scss';
 
 export type LazyImageExtendProps = {
@@ -19,6 +19,8 @@ export type LazyImageExtendProps = {
 export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
 
 export const LOADED_IMAGE_URLS = new Set<string | undefined>();
+
+const { brokenImg } = Assets;
 
 export const LazyImage = memo<LazyImageProps>(
   ({
@@ -44,9 +46,9 @@ export const LazyImage = memo<LazyImageProps>(
     });
     const [imgSrc, setImgSrc] = useState(() => {
       if (lazy) {
-        return (LOADED_IMAGE_URLS.has(src) ? src : blurSrc) || src || Assets.brokenImg;
+        return (LOADED_IMAGE_URLS.has(src) ? src : blurSrc) || src || brokenImg;
       }
-      return src || blurSrc || Assets.brokenImg;
+      return src || blurSrc || brokenImg;
     });
 
     const variants = useMemo<Variants>(() => {
@@ -85,7 +87,7 @@ export const LazyImage = memo<LazyImageProps>(
                 setLoading(false);
               };
               img.onerror = () => {
-                setImgSrc(Assets.brokenImg);
+                setImgSrc(brokenImg);
                 setLoading(false);
               };
               img.src = src;

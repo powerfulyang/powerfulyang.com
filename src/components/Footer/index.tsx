@@ -1,6 +1,6 @@
 import { Icon } from '@powerfulyang/components';
-import React, { memo } from 'react';
 import classNames from 'classnames';
+import React, { memo } from 'react';
 import styles from './index.module.scss';
 
 type FooterProps = {

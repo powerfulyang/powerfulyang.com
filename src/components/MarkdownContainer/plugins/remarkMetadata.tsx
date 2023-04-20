@@ -1,5 +1,5 @@
 import type { Plugin } from 'unified';
-import type { Root } from 'mdast';
+import type { Root } from 'remark-gfm';
 import type React from 'react';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { parse } from 'yaml';

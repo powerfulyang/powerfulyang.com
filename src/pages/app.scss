@@ -1,7 +1,6 @@
 @import 'docsearch';
 @import 'font-face';
 @import 'styles';
-@import '~@powerfulyang/components/dist/es/index.css';
 
 @tailwind base;
 @tailwind components;
@@ -61,6 +60,7 @@
 
   .link {
     position: relative;
+
     @apply break-words text-purple-400;
 
     &::after {
@@ -73,6 +73,7 @@
       transform-origin: right bottom;
       transition: transform 0.25s ease-in;
       content: '';
+
       @apply bg-purple-500;
     }
 

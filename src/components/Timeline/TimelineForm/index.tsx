@@ -1,27 +1,27 @@
-import classNames from 'classnames';
-import type { ChangeEvent, ClipboardEvent } from 'react';
-import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import type { CreateFeedDto, Feed, UpdateFeedDto } from '@/__generated__/api';
+import type { ImagePreviewItem } from '@/components/ImagePreview';
+import { ImagePreview } from '@/components/ImagePreview';
 import { LazyImage } from '@/components/LazyImage';
 import { Switch } from '@/components/Switch';
+import { useEditTimeLineItem } from '@/components/Timeline/TimelineItem';
+import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
+import { clientApi } from '@/request/requestTool';
 import {
   appendToFileList,
   handlePasteImageAndReturnFileList,
   removeFromFileList,
   sourceUrlToFile,
 } from '@/utils/copy';
-import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
-import type { ImagePreviewItem } from '@/components/ImagePreview';
-import { ImagePreview } from '@/components/ImagePreview';
-import { Icon } from '@powerfulyang/components';
-import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
-import { useEditTimeLineItem } from '@/components/Timeline/TimelineItem';
 import { zodResolver } from '@hookform/resolvers/zod';
-import z from 'zod';
-import type { CreateFeedDto, Feed, UpdateFeedDto } from '@/__generated__/api';
-import { clientApi } from '@/request/requestTool';
+import { Button, Icon } from '@powerfulyang/components';
+import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
+import { useMutation } from '@tanstack/react-query';
 import confetti from 'canvas-confetti';
+import classNames from 'classnames';
+import type { ChangeEvent, ClipboardEvent } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import { useForm } from 'react-hook-form';
+import z from 'zod';
 import styles from './index.module.scss';
 
 type Props = {
@@ -251,14 +251,14 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
               multiple
             />
           </label>
-          <button
-            disabled={mutation.isLoading}
+          <Button
+            appearance="primary"
+            loading={mutation.isLoading}
             type="submit"
             ref={submitButtonRef}
-            className={classNames(styles.timelineSubmit)}
           >
             {editItem ? '修改' : '发布'}
-          </button>
+          </Button>
         </div>
       </form>
     </div>

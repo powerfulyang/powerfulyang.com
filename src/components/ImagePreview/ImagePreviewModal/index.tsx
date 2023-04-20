@@ -1,6 +1,7 @@
+import { Portal } from '@powerfulyang/components';
 import type { FC } from 'react';
 import React, { useContext, useEffect, useMemo } from 'react';
-import { useLockScroll, usePortal } from '@powerfulyang/hooks';
+import { useLockScroll } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
 import { ImageViewContent } from '@/components/ImagePreview/ImagePreviewModal/ImageViewContent';
 import { ImagePreviewContext } from '@/context/ImagePreviewContext';
@@ -9,7 +10,6 @@ import { useHiddenOverflow } from '@/hooks/useHiddenOverflow';
 type ImagePreviewModalProps = {};
 
 const ImagePreviewModal: FC<ImagePreviewModalProps> = () => {
-  const Portal = usePortal();
   const {
     state: { selectIndex, images },
   } = useContext(ImagePreviewContext);
