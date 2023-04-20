@@ -5,7 +5,6 @@ import { ProjectName } from '@/constant/Constant';
 import { useHistory } from '@/hooks/useHistory';
 import { NavBarUser } from '@/components/NavBar/User';
 import { DocSearch } from '@docsearch/react';
-import { Dropdown, Menu } from '@powerfulyang/components';
 import styles from './index.module.scss';
 import { Link } from '../Link';
 
@@ -14,7 +13,7 @@ export const menus = ['post', 'timeline', 'gallery', 'airdrop'];
 type NavBarProps = {};
 
 const Menus: FC = () => {
-  const { pathname, pushState } = useHistory();
+  const { pathname } = useHistory();
 
   const currentMenu = useMemo(() => {
     return menus.find((m) => pathname.includes(m)) || 'post';
@@ -37,41 +36,6 @@ const Menus: FC = () => {
           {x}
         </Link>
       ))}
-      <Dropdown
-        className="right-1/2 mt-5 w-40 origin-top translate-x-1/2 transform"
-        overlay={
-          <Menu itemClassName="hover:bg-pink-200 text-base">
-            <div className="p-1.5">
-              <Menu.Item
-                menuKey="gallery"
-                className="pointer"
-                onClick={() => {
-                  return pushState('/gallery');
-                }}
-              >
-                Gallery
-              </Menu.Item>
-              <Menu.Item
-                menuKey="airdrop"
-                className="pointer"
-                onClick={() => {
-                  return pushState('/airdrop');
-                }}
-              >
-                Airdrop
-              </Menu.Item>
-            </div>
-          </Menu>
-        }
-      >
-        <div
-          className={classNames(styles.menu, 'pointer sm:hidden', {
-            [styles.active]: menus.slice(2).includes(currentMenu),
-          })}
-        >
-          More
-        </div>
-      </Dropdown>
     </div>
   );
 };
