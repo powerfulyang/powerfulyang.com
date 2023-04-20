@@ -4,6 +4,7 @@
 
 import * as Sentry from '@sentry/nextjs';
 import { isProdProcess } from '@powerfulyang/utils';
+import process from 'node:process';
 
 const SENTRY_DSN = process.env.NEXT_PUBLIC_SENTRY_DSN;
 

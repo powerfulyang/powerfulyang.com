@@ -9,13 +9,13 @@ on:
       - master
 
 jobs:
-  test:
+  Test:
+    name: Test
+    runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
       matrix:
         node-version: ['lts/*']
-    name: Node v${{ matrix.node-version }}
-    runs-on: ubuntu-latest
+        os: [ubuntu-latest]
 
     steps:
       - uses: actions/checkout@v3
@@ -40,7 +40,11 @@ jobs:
 
   tsc-check:
     name: tsc check
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: ['lts/*']
+        os: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -51,7 +55,7 @@ jobs:
       - name: Use Node.js lts/*
         uses: actions/setup-node@v3
         with:
-          node-version: 'lts/*'
+          node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
       - name: install

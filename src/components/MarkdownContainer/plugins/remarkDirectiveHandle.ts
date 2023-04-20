@@ -1,5 +1,5 @@
 import { visit } from 'unist-util-visit';
-import type { Root } from 'mdast';
+import type { Root } from 'remark-gfm';
 
 export function remarkDirectiveHandle() {
   return (tree: Root) => {

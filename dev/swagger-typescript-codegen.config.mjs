@@ -1,5 +1,6 @@
 import { generateApi } from 'swagger-typescript-api';
 import { join } from 'node:path';
+import process from 'node:process';
 
 const swaggerOrigin = process.env.SWAGGER_ORIGIN;
 
