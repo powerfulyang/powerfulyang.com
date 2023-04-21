@@ -32,6 +32,8 @@
     "@emotion/cache": "11.10.7",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
+    "@ffmpeg/core": "0.11.0",
+    "@ffmpeg/ffmpeg": "0.11.6",
     "@hookform/resolvers": "3.1.0",
     "@monaco-editor/react": "4.5.0",
     "@powerfulyang/components": "1.7.3",

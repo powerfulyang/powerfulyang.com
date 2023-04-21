@@ -18,6 +18,12 @@ dependencies:
   '@emotion/styled':
     specifier: 11.10.6
     version: 11.10.6(@emotion/react@11.10.6)(@types/react@18.0.37)(react@18.2.0)
+  '@ffmpeg/core':
+    specifier: 0.11.0
+    version: 0.11.0
+  '@ffmpeg/ffmpeg':
+    specifier: 0.11.6
+    version: 0.11.6
   '@hookform/resolvers':
     specifier: 3.1.0
     version: 3.1.0(react-hook-form@7.43.9)
@@ -1989,6 +1995,22 @@ packages:
   /@exodus/schemasafe@1.0.0:
     resolution: {integrity: sha512-2cyupPIZI69HQxEAPllLXBjQp4njDKkOjYRCYxvMZe3/LY9pp9fBM3Tb1wiFAdP6Emo4v3OEbCLGj6u73Q5KLw==}
     dev: true
+
+  /@ffmpeg/core@0.11.0:
+    resolution: {integrity: sha512-9Tt/+2PMpkGPXUK8n6He9G8Y+qR6qmCPSCw9iEKZxHHOvJ9BE/r0Fccj+YgDZTlyu6rXxc9x6EqCaFBIt7qzjA==}
+    dev: false
+
+  /@ffmpeg/ffmpeg@0.11.6:
+    resolution: {integrity: sha512-uN8J8KDjADEavPhNva6tYO9Fj0lWs9z82swF3YXnTxWMBoFLGq3LZ6FLlIldRKEzhOBKnkVfA8UnFJuvGvNxcA==}
+    engines: {node: '>=12.16.1'}
+    dependencies:
+      is-url: 1.2.4
+      node-fetch: 2.6.9
+      regenerator-runtime: 0.13.11
+      resolve-url: 0.2.1
+    transitivePeerDependencies:
+      - encoding
+    dev: false
 
   /@hookform/resolvers@3.1.0(react-hook-form@7.43.9):
     resolution: {integrity: sha512-z0A8K+Nxq+f83Whm/ajlwE6VtQlp/yPHZnXw7XWVPIGm1Vx0QV8KThU3BpbBRfAZ7/dYqCKKBNnQh85BkmBKkA==}
@@ -7124,6 +7146,10 @@ packages:
       has-tostringtag: 1.0.0
     dev: true
 
+  /is-url@1.2.4:
+    resolution: {integrity: sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==}
+    dev: false
+
   /is-weakmap@2.0.1:
     resolution: {integrity: sha512-NSBR4kH5oVj1Uwvv970ruUkCV7O1mzgVFO4/rev2cLRda9Tm9HrL70ZPut4rOHgY0FNrUu9BCbXA2sdQ+x0chA==}
     dev: true
@@ -10245,6 +10271,11 @@ packages:
     dependencies:
       global-dirs: 0.1.1
     dev: true
+
+  /resolve-url@0.2.1:
+    resolution: {integrity: sha512-ZuF55hVUQaaczgOIwqWzkEcEidmlD/xl44x1UZnhOXcYuFN2S6+rcxpG+C1N3So0wvNI3DmJICUFfu2SxhBmvg==}
+    deprecated: https://github.com/lydell/resolve-url#deprecated
+    dev: false
 
   /resolve.exports@2.0.2:
     resolution: {integrity: sha512-X2UW6Nw3n/aMgDVy+0rSqgHlv39WZAlZrXCdnbyEiKm17DSqHX4MmQMaST3FbeWR5FTuRcUwYAziZajji0Y7mg==}
