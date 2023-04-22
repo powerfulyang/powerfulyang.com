@@ -8,16 +8,16 @@ patchedDependencies:
 dependencies:
   '@docsearch/react':
     specifier: 3.3.3
-    version: 3.3.3(@algolia/client-search@4.17.0)(@types/react@18.0.37)(react-dom@18.2.0)(react@18.2.0)
+    version: 3.3.3(@algolia/client-search@4.17.0)(@types/react@18.0.38)(react-dom@18.2.0)(react@18.2.0)
   '@emotion/cache':
     specifier: 11.10.7
     version: 11.10.7
   '@emotion/react':
     specifier: 11.10.6
-    version: 11.10.6(@types/react@18.0.37)(react@18.2.0)
+    version: 11.10.6(@types/react@18.0.38)(react@18.2.0)
   '@emotion/styled':
     specifier: 11.10.6
-    version: 11.10.6(@emotion/react@11.10.6)(@types/react@18.0.37)(react@18.2.0)
+    version: 11.10.6(@emotion/react@11.10.6)(@types/react@18.0.38)(react@18.2.0)
   '@ffmpeg/core':
     specifier: 0.11.0
     version: 0.11.0
@@ -119,7 +119,7 @@ dependencies:
     version: 9.4.3(react@18.2.0)
   react-markdown:
     specifier: 8.0.7
-    version: 8.0.7(@types/react@18.0.37)(react@18.2.0)
+    version: 8.0.7(@types/react@18.0.38)(react@18.2.0)
   react-syntax-highlighter:
     specifier: 15.5.0
     version: 15.5.0(react@18.2.0)
@@ -204,8 +204,8 @@ devDependencies:
     specifier: 0.29.0
     version: 0.29.0
   '@types/react':
-    specifier: 18.0.37
-    version: 18.0.37
+    specifier: 18.0.38
+    version: 18.0.38
   '@types/react-dom':
     specifier: 18.0.11
     version: 18.0.11
@@ -1759,7 +1759,7 @@ packages:
     resolution: {integrity: sha512-6SCwI7P8ao+se1TUsdZ7B4XzL+gqeQZnBc+2EONZlcVa0dVrk0NjETxozFKgMv0eEGH8QzP1fkN+A1rH61l4eg==}
     dev: false
 
-  /@docsearch/react@3.3.3(@algolia/client-search@4.17.0)(@types/react@18.0.37)(react-dom@18.2.0)(react@18.2.0):
+  /@docsearch/react@3.3.3(@algolia/client-search@4.17.0)(@types/react@18.0.38)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-pLa0cxnl+G0FuIDuYlW+EBK6Rw2jwLw9B1RHIeS4N4s2VhsfJ/wzeCi3CWcs5yVfxLd5ZK50t//TMA5e79YT7Q==}
     peerDependencies:
       '@types/react': '>= 16.8.0 < 19.0.0'
@@ -1776,7 +1776,7 @@ packages:
       '@algolia/autocomplete-core': 1.7.4
       '@algolia/autocomplete-preset-algolia': 1.7.4(@algolia/client-search@4.17.0)(algoliasearch@4.17.0)
       '@docsearch/css': 3.3.3
-      '@types/react': 18.0.37
+      '@types/react': 18.0.38
       algoliasearch: 4.17.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -1849,7 +1849,7 @@ packages:
     resolution: {integrity: sha512-G/YwXTkv7Den9mXDO7AhLWkE3q+I92B+VqAE+dYG4NGPaHZGvt3G8Q0p9vmE+sq7rTGphUbAvmQ9YpbfMQGGlA==}
     dev: false
 
-  /@emotion/react@11.10.6(@types/react@18.0.37)(react@18.2.0):
+  /@emotion/react@11.10.6(@types/react@18.0.38)(react@18.2.0):
     resolution: {integrity: sha512-6HT8jBmcSkfzO7mc+N1L9uwvOnlcGoix8Zn7srt+9ga0MjREo6lRpuVX0kzo6Jp6oTqDhREOFsygN6Ew4fEQbw==}
     peerDependencies:
       '@types/react': '*'
@@ -1865,7 +1865,7 @@ packages:
       '@emotion/use-insertion-effect-with-fallbacks': 1.0.0(react@18.2.0)
       '@emotion/utils': 1.2.0
       '@emotion/weak-memoize': 0.3.0
-      '@types/react': 18.0.37
+      '@types/react': 18.0.38
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
     dev: false
@@ -1898,7 +1898,7 @@ packages:
     resolution: {integrity: sha512-zxRBwl93sHMsOj4zs+OslQKg/uhF38MB+OMKoCrVuS0nyTkqnau+BM3WGEoOptg9Oz45T/aIGs1qbVAsEFo3nA==}
     dev: false
 
-  /@emotion/styled@11.10.6(@emotion/react@11.10.6)(@types/react@18.0.37)(react@18.2.0):
+  /@emotion/styled@11.10.6(@emotion/react@11.10.6)(@types/react@18.0.38)(react@18.2.0):
     resolution: {integrity: sha512-OXtBzOmDSJo5Q0AFemHCfl+bUueT8BIcPSxu0EGTpGk6DmI5dnhSzQANm1e1ze0YZL7TDyAyy6s/b/zmGOS3Og==}
     peerDependencies:
       '@emotion/react': ^11.0.0-rc.0
@@ -1911,11 +1911,11 @@ packages:
       '@babel/runtime': 7.21.0
       '@emotion/babel-plugin': 11.10.6
       '@emotion/is-prop-valid': 1.2.0
-      '@emotion/react': 11.10.6(@types/react@18.0.37)(react@18.2.0)
+      '@emotion/react': 11.10.6(@types/react@18.0.38)(react@18.2.0)
       '@emotion/serialize': 1.1.1
       '@emotion/use-insertion-effect-with-fallbacks': 1.0.0(react@18.2.0)
       '@emotion/utils': 1.2.0
-      '@types/react': 18.0.37
+      '@types/react': 18.0.38
       react: 18.2.0
     dev: false
 
@@ -2483,7 +2483,7 @@ packages:
       react: ^18.2.0 || 18
       react-dom: ^18.2.0 || 18
     dependencies:
-      '@emotion/react': 11.10.6(@types/react@18.0.37)(react@18.2.0)
+      '@emotion/react': 11.10.6(@types/react@18.0.38)(react@18.2.0)
       '@powerfulyang/hooks': 1.5.2(react@18.2.0)
       '@powerfulyang/utils': 1.10.0
       classnames: 2.3.2
@@ -3499,29 +3499,29 @@ packages:
   /@types/react-dom@18.0.11:
     resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
     dependencies:
-      '@types/react': 18.0.37
+      '@types/react': 18.0.38
     dev: true
 
   /@types/react-reconciler@0.26.7:
     resolution: {integrity: sha512-mBDYl8x+oyPX/VBb3E638N0B7xG+SPk/EAMcVPeexqus/5aTpTphQi0curhhshOqRrc9t6OPoJfEUkbymse/lQ==}
     dependencies:
-      '@types/react': 18.0.37
+      '@types/react': 18.0.38
     dev: false
 
   /@types/react-reconciler@0.28.2:
     resolution: {integrity: sha512-8tu6lHzEgYPlfDf/J6GOQdIc+gs+S2yAqlby3zTsB3SP2svlqTYe5fwZNtZyfactP74ShooP2vvi1BOp9ZemWw==}
     dependencies:
-      '@types/react': 18.0.37
+      '@types/react': 18.0.38
     dev: false
 
   /@types/react-syntax-highlighter@15.5.6:
     resolution: {integrity: sha512-i7wFuLbIAFlabTeD2I1cLjEOrG/xdMa/rpx2zwzAoGHuXJDhSqp9BSfDlMHSh9JSuNfxHk9eEmMX6D55GiyjGg==}
     dependencies:
-      '@types/react': 18.0.37
+      '@types/react': 18.0.38
     dev: true
 
-  /@types/react@18.0.37:
-    resolution: {integrity: sha512-4yaZZtkRN3ZIQD3KSEwkfcik8s0SWV+82dlJot1AbGYHCzJkWP3ENBY6wYeDRmKZ6HkrgoGAmR2HqdwYGp6OEw==}
+  /@types/react@18.0.38:
+    resolution: {integrity: sha512-ExsidLLSzYj4cvaQjGnQCk4HFfVT9+EZ9XZsQ8Hsrcn8QNgXtpZ3m9vSIC2MWtx7jHictK6wYhQgGh6ic58oOw==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -9900,7 +9900,7 @@ packages:
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
 
-  /react-markdown@8.0.7(@types/react@18.0.37)(react@18.2.0):
+  /react-markdown@8.0.7(@types/react@18.0.38)(react@18.2.0):
     resolution: {integrity: sha512-bvWbzG4MtOU62XqBx3Xx+zB2raaFFsq4mYiAzfjXJMEz2sixgeAfraA3tvzULF02ZdOMUOKTBFFaZJDDrq+BJQ==}
     peerDependencies:
       '@types/react': '>=16'
@@ -9908,7 +9908,7 @@ packages:
     dependencies:
       '@types/hast': 2.3.4
       '@types/prop-types': 15.7.5
-      '@types/react': 18.0.37
+      '@types/react': 18.0.38
       '@types/unist': 2.0.6
       comma-separated-tokens: 2.0.3
       hast-util-whitespace: 2.0.1
