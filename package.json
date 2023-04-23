@@ -67,7 +67,7 @@
     "react-intersection-observer": "9.4.3",
     "react-markdown": "8.0.7",
     "react-syntax-highlighter": "15.5.0",
-    "rehype-katex": "6.0.2",
+    "rehype-katex": "6.0.3",
     "rehype-slug": "5.1.0",
     "remark": "14.0.2",
     "remark-directive": "2.0.1",
