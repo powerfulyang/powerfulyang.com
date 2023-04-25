@@ -8,7 +8,7 @@ import { DocSearch } from '@docsearch/react';
 import styles from './index.module.scss';
 import { Link } from '../Link';
 
-export const menus = ['post', 'timeline', 'gallery', 'airdrop'];
+export const menus = ['post', 'timeline', 'gallery', 'airdrop', 'tools'];
 
 type NavBarProps = {};
 
@@ -21,13 +21,12 @@ const Menus: FC = () => {
 
   return (
     <div className={styles.menus}>
-      {menus.map((x, index) => (
+      {menus.map((x) => (
         <Link
           key={x}
           className={classNames(
             {
               [styles.active]: currentMenu === x,
-              'hidden sm:inline-block': index >= 2,
             },
             styles.menu,
           )}

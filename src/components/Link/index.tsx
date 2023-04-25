@@ -6,13 +6,11 @@ import { motion } from 'framer-motion';
 import { useHistory } from '@/hooks/useHistory';
 import styles from './index.module.scss';
 
-export const Link: FC<HTMLMotionProps<'a'>> = ({
-  children,
-  onClick,
-  href,
-  className,
-  ...props
-}) => {
+export const Link: FC<
+  HTMLMotionProps<'a'> & {
+    redirect?: boolean;
+  }
+> = ({ children, onClick, href, className, redirect = false, ...props }) => {
   const { pushState } = useHistory();
 
   return (
@@ -22,8 +20,12 @@ export const Link: FC<HTMLMotionProps<'a'>> = ({
       href={href}
       onClick={(e) => {
         onClick?.(e);
-        e.preventDefault();
-        return href && pushState(href);
+        if (redirect) {
+          // do nothing
+        } else {
+          e.preventDefault();
+          href && pushState(href);
+        }
       }}
     >
       {children}
