@@ -20,12 +20,12 @@ interface HeaderProps {
   };
 }
 
-type Props = {
+export type MyAppProps = {
   Component: AppProps['Component'] & { getLayout: any };
   pageProps: {
     [key: string]: any;
   } & HeaderProps;
-};
+} & AppProps;
 
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
@@ -36,15 +36,18 @@ export const pageView = (url: string): void => {
   });
 };
 
-const App = ({ Component, pageProps }: AppProps & Props) => {
+const App = ({ Component, pageProps }: MyAppProps) => {
   const { getLayout } = Component;
+
   const component = useMemo(() => {
     if (getLayout) {
       return getLayout(<Component {...pageProps} />);
     }
     return <Component {...pageProps} />;
   }, [Component, getLayout, pageProps]);
+
   const router = useRouter();
+
   useEffect(() => {
     if (isProdProcess) {
       router.events.on('routeChangeComplete', pageView);

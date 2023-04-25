@@ -1,8 +1,8 @@
-import withPWAConfig from 'next-pwa';
+import BundleAnalyzer from '@next/bundle-analyzer';
 import { isDevProcess } from '@powerfulyang/utils';
 import { withSentryConfig } from '@sentry/nextjs';
-import BundleAnalyzer from '@next/bundle-analyzer';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
+import withPWAConfig from 'next-pwa';
 import process from 'node:process';
 import { runtimeCaching } from './runtimeCaching.mjs';
 
@@ -68,7 +68,7 @@ const config = {
     includePaths: ['./src/styles'],
   },
   // next.js didn't compile dependencies in node_modules, use transpileModules to fix it
-  transpilePackages: ['yaml', 'react-syntax-highlighter', '@powerfulyang/utils'],
+  transpilePackages: ['yaml', 'react-syntax-highlighter', '@powerfulyang/utils', '@mui/material'],
   // below option will reduce the size of the bundle... only 2kb
   modularizeImports: {
     lodash: {
@@ -90,14 +90,17 @@ const config = {
       // 这个更牛啤，减少了 0.5kb
       transform: 'react-syntax-highlighter/dist/esm/{{kebabCase member}}',
     },
-  },
-  compiler: {
-    emotion: true,
+    '@mui/material/?(((\\w*)?/?)*)': {
+      transform: '@mui/material/{{ matches.[1] }}/{{member}}',
+    },
+    '@mui/icons-material/?(((\\w*)?/?)*)': {
+      transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}',
+    },
   },
   headers() {
     return [
       {
-        source: '/tools/video',
+        source: '/tools/video-converter',
         headers: [
           {
             key: 'Cross-Origin-Embedder-Policy',
