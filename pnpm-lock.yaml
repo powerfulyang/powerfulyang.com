@@ -46,8 +46,8 @@ dependencies:
     specifier: 7.49.0
     version: 7.49.0(next@13.3.1)(react@18.2.0)(webpack@5.78.0)
   '@tanstack/react-query':
-    specifier: 4.29.3
-    version: 4.29.3(react-dom@18.2.0)(react@18.2.0)
+    specifier: 4.29.5
+    version: 4.29.5(react-dom@18.2.0)(react@18.2.0)
   canvas-confetti:
     specifier: 1.6.0
     version: 1.6.0
@@ -3042,12 +3042,12 @@ packages:
       jsonc-parser: 3.2.0
     dev: true
 
-  /@tanstack/query-core@4.29.1:
-    resolution: {integrity: sha512-vkPewLEG8ua0efo3SsVT0BcBtkq5RZX8oPhDAyKL+k/rdOYSQTEocfGEXSaBwIwsXeOGBUpfKqI+UmHvNqdWXg==}
+  /@tanstack/query-core@4.29.5:
+    resolution: {integrity: sha512-xXIiyQ/4r9KfaJ3k6kejqcaqFXXBTzN2aOJ5H1J6aTJE9hl/nbgAdfF6oiIu0CD5xowejJEJ6bBg8TO7BN4NuQ==}
     dev: false
 
-  /@tanstack/react-query@4.29.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-FPQrMu7PbCgBcVzoRJm7WmQnAFv+LUgZM9KBZ7Vk/+yERH2BDLvQRuAgczQd5Tb1s3HbOktECRDaOkUxdyBAjw==}
+  /@tanstack/react-query@4.29.5(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-F87cibC3s3eG0Q90g2O+hqntpCrudKFnR8P24qkH9uccEhXErnJxBC/AAI4cJRV2bfMO8IeGZQYf3WyYgmSg0w==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || 18
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || 18
@@ -3058,7 +3058,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.29.1
+      '@tanstack/query-core': 4.29.5
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
