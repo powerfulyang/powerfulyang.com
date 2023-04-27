@@ -49,8 +49,8 @@ dependencies:
     specifier: 1.5.2
     version: 1.5.2(react@18.2.0)
   '@powerfulyang/utils':
-    specifier: 1.10.0
-    version: 1.10.0
+    specifier: 1.10.2
+    version: 1.10.2
   '@react-three/fiber':
     specifier: 8.12.2
     version: 8.12.2(react-dom@18.2.0)(react@18.2.0)(three@0.151.3)
@@ -2844,6 +2844,26 @@ packages:
       rxjs: 7.8.0
       string-width: 5.1.2
       unified: 10.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@powerfulyang/utils@1.10.2:
+    resolution: {integrity: sha512-hqjhAUk/4VCYQ6APu7Lixk6uKRmEtDW8gEr3TRHiBqcrpxmWsllIC0tWn+XJQ6fkyCMGhUxG9A6JKew6nlFhUw==}
+    dependencies:
+      hast-util-raw: 8.0.0
+      mdast-util-to-markdown: 1.5.0
+      qrcode-generator: 1.4.4
+      reflect-metadata: 0.1.13
+      rehype-parse: 8.0.4
+      rehype-remark: 9.1.2
+      rehype-remove-comments: 5.0.0
+      remark-gfm: 3.0.1
+      remark-stringify: 10.0.2
+      rxjs: 7.8.1
+      string-width: 5.1.2
+      unified: 10.1.2
+      unist-util-visit: 4.1.2
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -10771,6 +10791,12 @@ packages:
     resolution: {integrity: sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==}
     dependencies:
       tslib: 2.5.0
+
+  /rxjs@7.8.1:
+    resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
+    dependencies:
+      tslib: 2.5.0
+    dev: false
 
   /sade@1.8.1:
     resolution: {integrity: sha512-xal3CZX1Xlo/k4ApwCFrHVACi9fBqJ7V+mwhBsuf/1IOKbBy098Fex+Wa/5QMubw09pSZ/u8EY8PWgevJsXp1A==}
