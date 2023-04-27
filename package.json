@@ -28,7 +28,7 @@
     "update:lock": "pnpm i --lockfile-only"
   },
   "dependencies": {
-    "@docsearch/react": "3.3.3",
+    "@docsearch/react": "3.3.4",
     "@emotion/cache": "11.10.7",
     "@emotion/react": "11.10.6",
     "@emotion/server": "11.10.0",
