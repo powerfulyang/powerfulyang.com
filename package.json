@@ -80,7 +80,7 @@
     "remark-math": "5.1.1",
     "remark-rehype": "10.1.0",
     "rxjs": "7.8.1",
-    "sharp": "0.32.0",
+    "sharp": "0.32.1",
     "three": "0.152.0",
     "unified": "10.1.2",
     "unist-util-visit": "4.1.2",
