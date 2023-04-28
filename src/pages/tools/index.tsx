@@ -19,6 +19,8 @@ const tools = [
   },
   {
     name: 'AST(swagger to code)',
+    description: 'Convert swagger to code.',
+    icon: '',
     url: '/tools/ast-swagger-to-code',
   },
 ];
