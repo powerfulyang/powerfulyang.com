@@ -192,8 +192,8 @@ devDependencies:
     specifier: 3.2.1
     version: 3.2.1(@types/node@18.16.2)(ts-node@10.9.1)(typescript@5.0.4)
   '@sentry/cli':
-    specifier: 2.17.4
-    version: 2.17.4
+    specifier: 2.17.5
+    version: 2.17.5
   '@testing-library/jest-dom':
     specifier: 5.16.5
     version: 5.16.5
@@ -3033,8 +3033,8 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/cli@2.17.4:
-    resolution: {integrity: sha512-5tLu/2U+MuEksIhvzW5LJEwhoqbdgwxE3Q5UwIJtJt3do4PFv1UVg1aLBJ3u6sGxAJpxqJYWvqfc/tXswQCJBA==}
+  /@sentry/cli@2.17.5:
+    resolution: {integrity: sha512-0tXjLDpaKB46851EMJ6NbP0o9/gdEaDSLAyjEtXxlVO6+RyhUj6x6jDwn0vis8n/7q0AvbIjAcJrot+TbZP+WQ==}
     engines: {node: '>= 10'}
     hasBin: true
     requiresBuild: true
