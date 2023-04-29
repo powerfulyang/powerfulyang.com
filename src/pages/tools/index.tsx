@@ -21,7 +21,7 @@ const tools = [
     name: 'AST(swagger to code)',
     description: 'Convert swagger to code.',
     icon: '',
-    url: '/tools/ast-swagger-to-code',
+    url: '/tools/swagger2code',
   },
 ];
 
@@ -31,7 +31,7 @@ const Tools = () => {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <HomeRepairService sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <HomeRepairService sx={{ mr: 1 }} />
             <Typography
               variant="h6"
               noWrap
@@ -39,7 +39,6 @@ const Tools = () => {
               href="/tools"
               sx={{
                 mr: 2,
-                display: { xs: 'none', md: 'flex' },
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
@@ -58,13 +57,14 @@ const Tools = () => {
           py: 4,
         }}
       >
-        <Grid container spacing={4}>
+        <Grid container wrap="wrap" spacing={4}>
           {tools.map((tool) => {
             return (
               <Grid
                 key={tool.name}
                 item
-                xs={4}
+                xs={12}
+                sm={4}
                 className="pointer"
                 component={Link}
                 href={tool.url}
@@ -107,6 +107,7 @@ export const getServerSideProps = () => {
     props: {
       meta: {
         title: 'Tools',
+        description: 'Useful tools, such as video converter, swagger to code, etc.',
       },
     },
   };
