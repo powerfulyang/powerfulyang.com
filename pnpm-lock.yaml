@@ -216,8 +216,8 @@ devDependencies:
     specifier: 18.16.2
     version: 18.16.2
   '@types/ramda':
-    specifier: 0.29.0
-    version: 0.29.0
+    specifier: 0.29.1
+    version: 0.29.1
   '@types/react':
     specifier: 18.2.0
     version: 18.2.0
@@ -3797,10 +3797,10 @@ packages:
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
 
-  /@types/ramda@0.29.0:
-    resolution: {integrity: sha512-TY9eKsklU43CmAbFJPKDUyBjleZ4EFAkbJeQRF4e8byGkOw1CjDcwg5EGa0Bgf0Kgs9BE9OU4UzQWnQDHnvMtA==}
+  /@types/ramda@0.29.1:
+    resolution: {integrity: sha512-Ff5RRG9YRqMgWOqZVVavSjGEvYHUnXnGF0YPGbzIWhB3o8qiccSJZlFX2z8qm3G1H/IC5w0ozHmlezUeQCtGfQ==}
     dependencies:
-      types-ramda: 0.29.1
+      types-ramda: 0.29.2
     dev: true
 
   /@types/react-dom@18.2.1:
@@ -12051,8 +12051,8 @@ packages:
       is-typed-array: 1.1.10
     dev: true
 
-  /types-ramda@0.29.1:
-    resolution: {integrity: sha512-pdEF8VXcBTSu3fPupZahieG6Lh8eBWPtcaH/OB5QPCoN2hz4vBbspoMLB3X9kwzXRD3lwD4/j0hwj3Z/PAzzcA==}
+  /types-ramda@0.29.2:
+    resolution: {integrity: sha512-HpLcR0ly2EfXQwG8VSI5ov6ml7PvtT+u+cp+7lZLu7q4nhnPDVW+rUTC1uy/SNs4aAyTUXri5M/LyhgvjEXJDg==}
     dependencies:
       ts-toolbelt: 9.6.0
     dev: true
