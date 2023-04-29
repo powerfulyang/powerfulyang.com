@@ -15,7 +15,7 @@ const tools = [
     name: 'Bg Remover',
     description: 'Remove background from image.',
     icon: '',
-    url: '/tools/bg-remover',
+    url: 'https://logs.powerfulyang.com',
   },
   {
     name: 'AST(swagger to code)',

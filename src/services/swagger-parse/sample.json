@@ -1,0 +1,1639 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/user/login": {
+      "post": {
+        "operationId": "loginWithEmail",
+        "summary": "使用用户名密码登录",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/UserLoginDto" } }
+          }
+        },
+        "responses": {
+          "200": {
+            "headers": {
+              "set-cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "Authorization=auth-token; Path=/; HttpOnly; Max-Age=3600; SameSite=Lax; Secure; Domain=example.com; "
+                }
+              }
+            },
+            "description": ""
+          },
+          "201": { "description": "" }
+        },
+        "tags": ["user"]
+      }
+    },
+    "/api/user/current": {
+      "get": {
+        "operationId": "queryCurrentUser",
+        "summary": "获取当前登录用户信息",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "当前登录用户信息",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/User" } } }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/user/logout": {
+      "post": {
+        "operationId": "logout",
+        "summary": "登出",
+        "parameters": [],
+        "responses": { "201": { "description": "" } },
+        "tags": ["user"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/user/menus": {
+      "get": {
+        "operationId": "queryCurrentUserMenus",
+        "summary": "获取当前用户的菜单",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Menu" } }
+              }
+            }
+          }
+        },
+        "tags": ["user"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/menu-manage/query-menus": {
+      "get": {
+        "operationId": "queryMenus",
+        "summary": "分页获取菜单",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "required": true,
+            "in": "query",
+            "description": "每页条数",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "current",
+            "required": true,
+            "in": "query",
+            "description": "当前页码",
+            "schema": { "type": "number" }
+          },
+          { "name": "id", "required": true, "in": "query", "schema": { "type": "number" } },
+          { "name": "name", "required": true, "in": "query", "schema": { "type": "string" } },
+          { "name": "path", "required": true, "in": "query", "schema": { "type": "string" } },
+          {
+            "name": "createdAt",
+            "required": false,
+            "in": "query",
+            "schema": { "format": "date-time", "type": "array", "items": { "type": "string" } }
+          },
+          {
+            "name": "updatedAt",
+            "required": false,
+            "in": "query",
+            "schema": { "format": "date-time", "type": "array", "items": { "type": "string" } }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["menu-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/menu-manage/query-all-menus": {
+      "get": {
+        "operationId": "queryAllMenus",
+        "summary": "获取所有菜单",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Menu" } }
+              }
+            }
+          }
+        },
+        "tags": ["menu-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/menu-manage/{id}": {
+      "get": {
+        "operationId": "queryMenuById",
+        "summary": "根据id获取菜单",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        },
+        "tags": ["menu-manage"],
+        "security": [{ "cookie": [] }]
+      },
+      "delete": {
+        "operationId": "deleteMenuById",
+        "summary": "根据id删除菜单",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": { "204": { "description": "" } },
+        "tags": ["menu-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/menu-manage": {
+      "post": {
+        "operationId": "createMenu",
+        "summary": "创建菜单",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Menu" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        },
+        "tags": ["menu-manage"],
+        "security": [{ "cookie": [] }]
+      },
+      "patch": {
+        "operationId": "editMenu",
+        "summary": "编辑菜单",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Menu" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        },
+        "tags": ["menu-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/role-manage/query-roles": {
+      "get": {
+        "operationId": "queryRoles",
+        "summary": "分页查询角色",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "required": true,
+            "in": "query",
+            "description": "每页条数",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "current",
+            "required": true,
+            "in": "query",
+            "description": "当前页码",
+            "schema": { "type": "number" }
+          },
+          { "name": "id", "required": true, "in": "query", "schema": { "type": "number" } },
+          { "name": "name", "required": true, "in": "query", "schema": { "type": "string" } },
+          {
+            "name": "createdAt",
+            "required": false,
+            "in": "query",
+            "schema": { "format": "date-time", "type": "array", "items": { "type": "string" } }
+          },
+          {
+            "name": "updatedAt",
+            "required": false,
+            "in": "query",
+            "schema": { "format": "date-time", "type": "array", "items": { "type": "string" } }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["role-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/role-manage/{id}": {
+      "get": {
+        "operationId": "queryRoleById",
+        "summary": "查询角色详情",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Role" } } }
+          }
+        },
+        "tags": ["role-manage"],
+        "security": [{ "cookie": [] }]
+      },
+      "delete": {
+        "operationId": "deleteRoleById",
+        "summary": "删除角色",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }
+        ],
+        "responses": { "204": { "description": "" } },
+        "tags": ["role-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/role-manage": {
+      "post": {
+        "operationId": "createRole",
+        "summary": "创建角色",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateRoleDto" } }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        },
+        "tags": ["role-manage"],
+        "security": [{ "cookie": [] }]
+      },
+      "patch": {
+        "operationId": "updateRole",
+        "summary": "更新角色",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateRoleDto" } }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        },
+        "tags": ["role-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/role-manage/permissions": {
+      "get": {
+        "operationId": "listPermissions",
+        "summary": "获取用户权限",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "array", "items": { "type": "object" } } }
+            }
+          }
+        },
+        "tags": ["role-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/user-manage/query-users": {
+      "get": {
+        "operationId": "queryUsers",
+        "summary": "分页查询用户",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "required": true,
+            "in": "query",
+            "description": "每页条数",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "current",
+            "required": true,
+            "in": "query",
+            "description": "当前页码",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "description": "User id",
+            "example": 1,
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "email",
+            "required": true,
+            "in": "query",
+            "description": "User email",
+            "example": "i@powerfulyang.com",
+            "schema": { "type": "string" }
+          },
+          { "name": "nickname", "required": true, "in": "query", "schema": { "type": "string" } },
+          { "name": "bio", "required": true, "in": "query", "schema": { "type": "string" } },
+          {
+            "name": "createdAt",
+            "required": false,
+            "in": "query",
+            "description": "创建时间",
+            "schema": { "format": "date-time", "type": "array", "items": { "type": "string" } }
+          },
+          {
+            "name": "updatedAt",
+            "required": false,
+            "in": "query",
+            "description": "更新时间",
+            "schema": { "format": "date-time", "type": "array", "items": { "type": "string" } }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["user-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/user-manage/{id}": {
+      "get": {
+        "operationId": "queryUserById",
+        "summary": "根据用户id获取用户信息",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/User" } } }
+          }
+        },
+        "tags": ["user-manage"],
+        "security": [{ "cookie": [] }]
+      },
+      "post": {
+        "operationId": "editUserById",
+        "summary": "根据用户id编辑用户信息",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/EditUserDto" } }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["user-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/asset/query-assets": {
+      "get": {
+        "operationId": "queryAssets",
+        "summary": "分页查询资源",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "required": true,
+            "in": "query",
+            "description": "每页条数",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "current",
+            "required": true,
+            "in": "query",
+            "description": "当前页码",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "createdAt",
+            "required": false,
+            "in": "query",
+            "schema": { "format": "date-time", "type": "array", "items": { "type": "string" } }
+          },
+          {
+            "name": "updatedAt",
+            "required": false,
+            "in": "query",
+            "schema": { "format": "date-time", "type": "array", "items": { "type": "string" } }
+          },
+          { "name": "id", "required": true, "in": "query", "schema": { "type": "number" } },
+          { "name": "sha1", "required": true, "in": "query", "schema": { "type": "string" } },
+          { "name": "originUrl", "required": true, "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["asset"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/asset/sync": {
+      "get": {
+        "operationId": "AssetController_syncAllFromCos",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["asset"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/asset/pHash/distance": {
+      "get": {
+        "operationId": "AssetController_pHashMap",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        },
+        "tags": ["asset"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/asset/{bucketName}": {
+      "post": {
+        "operationId": "saveAssetToBucket",
+        "summary": "上传资源",
+        "parameters": [
+          { "name": "bucketName", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": { "schema": { "$ref": "#/components/schemas/UploadAssetsDto" } }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Asset" } }
+              }
+            }
+          }
+        },
+        "tags": ["asset"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/asset": {
+      "delete": {
+        "operationId": "deleteAsset",
+        "summary": "删除资源",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "number", "nullable": true },
+                  "ids": { "type": "array", "items": { "type": "number" }, "nullable": true }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "204": { "description": "" } },
+        "tags": ["asset"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/tencent-cloud-account": {
+      "post": {
+        "operationId": "addTencentCloudAccount",
+        "summary": "新增腾讯云账号",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateTencentCloudAccountDto" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["tencent-cloud-account"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/bucket": {
+      "get": {
+        "operationId": "BucketController_listAllBuckets",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/CosBucket" } }
+              }
+            }
+          }
+        },
+        "tags": ["bucket"],
+        "security": [{ "cookie": [] }]
+      },
+      "post": {
+        "operationId": "BucketController_createNewBucket",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateBucketDto" } }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        },
+        "tags": ["bucket"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/github/user_info/{login}": {
+      "get": {
+        "operationId": "GithubController_getUserInfo",
+        "parameters": [
+          { "name": "login", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["github"]
+      }
+    },
+    "/api/post": {
+      "post": {
+        "operationId": "createPost",
+        "summary": "创建文章",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreatePostDto" } }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Post" } } }
+          }
+        },
+        "tags": ["post"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/post/{id}": {
+      "patch": {
+        "operationId": "updatePost",
+        "summary": "更新文章",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "post id",
+            "schema": { "type": "number" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/PatchPostDto" } }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Post" } } }
+          }
+        },
+        "tags": ["post"],
+        "security": [{ "cookie": [] }]
+      },
+      "delete": {
+        "operationId": "deletePost",
+        "summary": "删除文章",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "post id",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "204": { "description": "" } },
+        "tags": ["post"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/post-manage/query-posts": {
+      "post": {
+        "operationId": "queryPosts",
+        "summary": "分页查询日志",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/QueryPostsDto" } }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["post-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/public/hello": {
+      "get": {
+        "operationId": "hello",
+        "summary": "hello ping",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "string" } } }
+          }
+        },
+        "tags": ["public-api"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/public/post": {
+      "get": {
+        "operationId": "queryPublicPosts",
+        "summary": "获取所有的公开文章列表",
+        "parameters": [
+          {
+            "name": "publishYear",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Post" } }
+              }
+            }
+          }
+        },
+        "tags": ["public-api"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/public/post/years": {
+      "get": {
+        "operationId": "queryPublicPostYears",
+        "summary": "获取所有的公开文章的年份列表",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "array", "items": { "type": "number" } } }
+            }
+          }
+        },
+        "tags": ["public-api"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/public/post/tags": {
+      "get": {
+        "operationId": "queryPublicPostTags",
+        "summary": "获取所有的公开文章的标签列表",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["public-api"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/public/post/{id}": {
+      "get": {
+        "operationId": "queryPublicPostById",
+        "summary": "获取单个文章详细信息",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "number" } },
+          {
+            "name": "versions",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "array", "items": { "type": "string" } }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Post" } } }
+          }
+        },
+        "tags": ["public-api"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/public/feed": {
+      "get": {
+        "operationId": "infiniteQueryPublicTimeline",
+        "summary": "获取所有的公开时间线",
+        "parameters": [
+          {
+            "name": "prevCursor",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "nextCursor",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          { "name": "take", "required": false, "in": "query", "schema": { "type": "number" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/InfiniteQueryResponse" },
+                    {
+                      "properties": {
+                        "resources": {
+                          "type": "array",
+                          "items": { "$ref": "#/components/schemas/Feed" }
+                        }
+                      },
+                      "required": ["resources"]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["public-api"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/public/asset": {
+      "get": {
+        "operationId": "infiniteQueryPublicAsset",
+        "summary": "获取公开的图片资源",
+        "parameters": [
+          {
+            "name": "prevCursor",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "nextCursor",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          { "name": "take", "required": false, "in": "query", "schema": { "type": "number" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/InfiniteQueryResponse" },
+                    {
+                      "properties": {
+                        "resources": {
+                          "type": "array",
+                          "items": { "$ref": "#/components/schemas/Asset" }
+                        }
+                      },
+                      "required": ["resources"]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["public-api"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/public/asset/{id}": {
+      "get": {
+        "operationId": "queryPublicAssetById",
+        "summary": "获取单个公开的图片资源",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Asset" } }
+            }
+          }
+        },
+        "tags": ["public-api"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/public/chat-gpt/chat": {
+      "post": {
+        "operationId": "chatWithChatGPT",
+        "summary": "与chat gpt聊天",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/ChatGPTPayload" } }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/ChatGPTPayload" } }
+            }
+          }
+        },
+        "tags": ["public-api"],
+        "security": [{ "cookie": [] }, { "cookie": [] }]
+      }
+    },
+    "/api/public/bing-ai/chat": {
+      "post": {
+        "operationId": "chatWithBingAI",
+        "summary": "与bing ai聊天",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/BingAIPayload" } }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/BingAIPayload" } }
+            }
+          }
+        },
+        "tags": ["public-api"],
+        "security": [{ "cookie": [] }, { "cookie": [] }]
+      }
+    },
+    "/api/public/view-count": {
+      "get": {
+        "operationId": "PublicController_viewCount",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ViewCountDto" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["public-api"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/random/avatar": {
+      "get": {
+        "operationId": "RandomController_getAvatar",
+        "parameters": [
+          { "name": "uuid", "required": true, "in": "query", "schema": { "type": "string" } },
+          { "name": "size", "required": true, "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["random"]
+      }
+    },
+    "/api/feed": {
+      "post": {
+        "operationId": "createFeed",
+        "summary": "Create a feed",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": { "schema": { "$ref": "#/components/schemas/CreateFeedDto" } }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Feed" } } }
+          }
+        },
+        "tags": ["feed"],
+        "security": [{ "cookie": [] }]
+      },
+      "put": {
+        "operationId": "updateFeed",
+        "summary": "Update a feed",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": { "schema": { "$ref": "#/components/schemas/UpdateFeedDto" } }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Feed" } } }
+          }
+        },
+        "tags": ["feed"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/feed/{id}": {
+      "delete": {
+        "operationId": "FeedController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "timeline item id",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "204": { "description": "" } },
+        "tags": ["feed"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/feed-manage/query-feeds": {
+      "get": {
+        "operationId": "queryFeeds",
+        "summary": "分页查询说说",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "required": true,
+            "in": "query",
+            "description": "每页条数",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "current",
+            "required": true,
+            "in": "query",
+            "description": "当前页码",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "description": "timeline item id",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["feed-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/feed-manage/{id}": {
+      "delete": {
+        "operationId": "deleteFeedById",
+        "summary": "删除说说",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "number" } }
+        ],
+        "responses": { "204": { "description": "" } },
+        "tags": ["feed-manage"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/schedule/{scheduleType}": {
+      "get": {
+        "operationId": "triggerSchedule",
+        "summary": "手动触发定时任务",
+        "parameters": [
+          { "name": "scheduleType", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "string" } } }
+          }
+        },
+        "tags": ["schedule"],
+        "security": [{ "cookie": [] }]
+      }
+    },
+    "/api/logs-viewer/containers": {
+      "get": {
+        "operationId": "LogsViewerController_listContainers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "array", "items": { "type": "string" } } }
+            }
+          }
+        },
+        "tags": ["logs-viewer"]
+      }
+    },
+    "/api/logs-viewer/{container}": {
+      "get": {
+        "operationId": "LogsViewerController_listLogs",
+        "parameters": [
+          { "name": "container", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "type": "array", "items": { "type": "string" } } }
+            }
+          }
+        },
+        "tags": ["logs-viewer"]
+      }
+    },
+    "/api/mini-program/login": {
+      "get": {
+        "operationId": "MiniProgramController_code2Session",
+        "parameters": [
+          { "name": "code", "required": true, "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        },
+        "tags": ["mini-program"]
+      }
+    },
+    "/api/mini-program/qrcode": {
+      "get": {
+        "operationId": "MiniProgramController_getUnlimitedQRCode",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["mini-program"]
+      }
+    }
+  },
+  "info": {
+    "title": "Backend API",
+    "description": "The API is used for powerfulyang.com",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": { "cookie": { "type": "apiKey", "in": "cookie", "name": "authorization" } },
+    "schemas": {
+      "UserLoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "example": "i@powerfulyang.com"
+          },
+          "password": { "type": "string", "description": "User password", "example": "123456" }
+        },
+        "required": ["email", "password"]
+      },
+      "CosBucket": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "default": "test", "description": "bucket 在系统中的名称" },
+          "id": { "type": "number" },
+          "Bucket": { "type": "string" },
+          "Region": { "type": "string" },
+          "ACL": { "type": "object" },
+          "CORSRules": { "type": "array", "items": { "type": "object" } },
+          "RefererConfiguration": { "type": "object" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" },
+          "tencentCloudAccount": { "type": "object" },
+          "assets": { "type": "array", "items": { "$ref": "#/components/schemas/Asset" } },
+          "public": { "type": "boolean" }
+        },
+        "required": [
+          "name",
+          "id",
+          "Bucket",
+          "Region",
+          "ACL",
+          "CORSRules",
+          "RefererConfiguration",
+          "createdAt",
+          "updatedAt",
+          "tencentCloudAccount",
+          "assets",
+          "public"
+        ]
+      },
+      "Menu": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "name": { "type": "string" },
+          "path": { "type": "string" },
+          "children": { "type": "array", "items": { "$ref": "#/components/schemas/Menu" } },
+          "parent": { "$ref": "#/components/schemas/Menu" },
+          "parentId": { "type": "number", "nullable": true },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        },
+        "required": [
+          "id",
+          "name",
+          "path",
+          "children",
+          "parent",
+          "parentId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "name": { "type": "string" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" },
+          "menus": {
+            "description": "菜单列表",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Menu" }
+          },
+          "permissions": {
+            "items": { "type": "string" },
+            "description": "权限列表",
+            "type": "array"
+          }
+        },
+        "required": ["id", "name", "createdAt", "updatedAt", "menus", "permissions"]
+      },
+      "Family": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" },
+          "members": { "type": "array", "items": { "$ref": "#/components/schemas/User" } }
+        },
+        "required": ["id", "name", "description", "createdAt", "updatedAt", "members"]
+      },
+      "OauthApplication": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "platformName": { "type": "string", "enum": ["google", "github", "test"] },
+          "clientId": { "type": "string" },
+          "clientSecret": { "type": "string" },
+          "callbackUrl": { "type": "string" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        },
+        "required": [
+          "id",
+          "platformName",
+          "clientId",
+          "clientSecret",
+          "callbackUrl",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "OauthOpenid": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "application": { "$ref": "#/components/schemas/OauthApplication" },
+          "openid": { "type": "string" },
+          "user": { "$ref": "#/components/schemas/User" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        },
+        "required": ["id", "application", "openid", "user", "createdAt", "updatedAt"]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "User id", "example": 1 },
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "example": "i@powerfulyang.com"
+          },
+          "nickname": { "type": "string" },
+          "bio": { "type": "string" },
+          "avatar": { "type": "string" },
+          "lastIp": { "type": "string" },
+          "lastAddress": { "type": "string" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" },
+          "timelineBackground": { "$ref": "#/components/schemas/Asset" },
+          "roles": {
+            "description": "User roles",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Role" }
+          },
+          "families": { "type": "array", "items": { "$ref": "#/components/schemas/Family" } },
+          "oauthOpenidArr": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/OauthOpenid" }
+          },
+          "saltedPassword": { "type": "string" },
+          "salt": { "type": "string" }
+        },
+        "required": [
+          "id",
+          "email",
+          "nickname",
+          "bio",
+          "lastIp",
+          "lastAddress",
+          "createdAt",
+          "updatedAt",
+          "timelineBackground",
+          "roles",
+          "families",
+          "oauthOpenidArr",
+          "saltedPassword",
+          "salt"
+        ]
+      },
+      "Asset": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "bucket": { "$ref": "#/components/schemas/CosBucket" },
+          "objectUrl": {
+            "type": "object",
+            "properties": {
+              "webp": { "required": true, "type": "string" },
+              "original": { "required": true, "type": "string" },
+              "thumbnail_300_": { "required": true, "type": "string" },
+              "thumbnail_700_": { "required": true, "type": "string" },
+              "thumbnail_blur_": { "required": true, "type": "string" }
+            }
+          },
+          "originUrl": { "type": "string" },
+          "sn": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "comment": { "type": "string" },
+          "fileSuffix": { "type": "string", "description": "需要注意，这里的值是不带 `.` 的" },
+          "sha1": { "type": "string" },
+          "pHash": { "type": "string" },
+          "exif": { "type": "object" },
+          "metadata": { "type": "object" },
+          "size": {
+            "type": "object",
+            "properties": {
+              "width": { "required": true, "type": "number" },
+              "height": { "required": true, "type": "number" }
+            }
+          },
+          "uploadBy": { "$ref": "#/components/schemas/User" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        },
+        "required": [
+          "id",
+          "bucket",
+          "objectUrl",
+          "originUrl",
+          "sn",
+          "tags",
+          "comment",
+          "fileSuffix",
+          "sha1",
+          "pHash",
+          "exif",
+          "metadata",
+          "size",
+          "uploadBy",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CreateRoleDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "角色名称" },
+          "permissions": {
+            "items": { "type": "string" },
+            "description": "权限列表",
+            "type": "array"
+          },
+          "menus": {
+            "description": "角色拥有的菜单",
+            "type": "array",
+            "items": { "type": "number" }
+          }
+        },
+        "required": ["name", "permissions"]
+      },
+      "EditUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "example": "i@powerfulyang.com"
+          },
+          "nickname": { "type": "string" },
+          "bio": { "type": "string" },
+          "avatar": { "type": "string" }
+        },
+        "required": ["email", "nickname", "bio"]
+      },
+      "UploadAssetsDto": {
+        "type": "object",
+        "properties": {
+          "assets": { "type": "array", "items": { "type": "file", "format": "binary" } }
+        },
+        "required": ["assets"]
+      },
+      "CreateTencentCloudAccountDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "SecretId": { "type": "string" },
+          "SecretKey": { "type": "string" },
+          "AppId": { "type": "string" },
+          "id": { "type": "number" },
+          "buckets": { "type": "array", "items": { "$ref": "#/components/schemas/CosBucket" } }
+        },
+        "required": ["name", "SecretId", "SecretKey", "AppId"]
+      },
+      "CreateBucketDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "default": "test", "description": "bucket 在系统中的名称" },
+          "Region": { "type": "string" },
+          "tencentCloudAccount": { "type": "object" },
+          "id": { "type": "number" },
+          "Bucket": { "type": "string" },
+          "ACL": { "type": "object" },
+          "CORSRules": { "type": "array", "items": { "type": "object" } },
+          "RefererConfiguration": { "type": "object" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" },
+          "assets": { "type": "array", "items": { "$ref": "#/components/schemas/Asset" } },
+          "public": { "type": "boolean" }
+        },
+        "required": ["Region", "tencentCloudAccount"]
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "post id" },
+          "title": { "type": "string" },
+          "content": { "type": "string" },
+          "summary": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "public": { "type": "boolean" },
+          "publishYear": { "type": "number" },
+          "createBy": { "$ref": "#/components/schemas/User" },
+          "updateBy": { "$ref": "#/components/schemas/User" },
+          "poster": { "$ref": "#/components/schemas/Asset" },
+          "logs": { "type": "array", "items": { "$ref": "#/components/schemas/PostLog" } },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        },
+        "required": [
+          "id",
+          "title",
+          "content",
+          "summary",
+          "tags",
+          "public",
+          "publishYear",
+          "createBy",
+          "updateBy",
+          "poster",
+          "logs",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "PostLog": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number" },
+          "post": { "$ref": "#/components/schemas/Post" },
+          "title": { "type": "string" },
+          "content": { "type": "string" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        },
+        "required": ["id", "post", "title", "content", "createdAt", "updatedAt"]
+      },
+      "CreatePostDto": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "content": { "type": "string" },
+          "posterId": { "type": "number" },
+          "summary": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "public": { "type": "boolean" },
+          "publishYear": { "type": "number" },
+          "createBy": { "$ref": "#/components/schemas/User" },
+          "updateBy": { "$ref": "#/components/schemas/User" },
+          "poster": { "$ref": "#/components/schemas/Asset" },
+          "logs": { "type": "array", "items": { "$ref": "#/components/schemas/PostLog" } },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        },
+        "required": ["title", "content"]
+      },
+      "PatchPostDto": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "content": { "type": "string" },
+          "posterId": { "type": "number" },
+          "summary": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "public": { "type": "boolean" },
+          "publishYear": { "type": "number" },
+          "createBy": { "$ref": "#/components/schemas/User" },
+          "updateBy": { "$ref": "#/components/schemas/User" },
+          "poster": { "$ref": "#/components/schemas/Asset" },
+          "logs": { "type": "array", "items": { "$ref": "#/components/schemas/PostLog" } },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        },
+        "required": ["title", "content"]
+      },
+      "QueryPostsDto": {
+        "type": "object",
+        "properties": {
+          "pageSize": { "type": "number", "description": "每页条数" },
+          "current": { "type": "number", "description": "当前页码" },
+          "id": { "type": "number", "description": "post id" },
+          "createdAt": {
+            "description": "创建时间",
+            "type": "array",
+            "items": { "format": "date-time", "type": "string" }
+          },
+          "updatedAt": {
+            "description": "更新时间",
+            "type": "array",
+            "items": { "format": "date-time", "type": "string" }
+          },
+          "title": { "type": "string" },
+          "content": { "type": "string" },
+          "public": { "type": "boolean" },
+          "summary": { "type": "string" },
+          "poster": { "$ref": "#/components/schemas/Asset" },
+          "createBy": { "$ref": "#/components/schemas/User" }
+        },
+        "required": [
+          "pageSize",
+          "current",
+          "id",
+          "createdAt",
+          "updatedAt",
+          "title",
+          "content",
+          "public",
+          "summary",
+          "poster",
+          "createBy"
+        ]
+      },
+      "Feed": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "description": "timeline item id" },
+          "content": { "type": "string", "description": "timeline item content" },
+          "assets": {
+            "description": "timeline item assets",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Asset" }
+          },
+          "public": { "type": "boolean" },
+          "createBy": { "$ref": "#/components/schemas/User" },
+          "updateBy": { "$ref": "#/components/schemas/User" },
+          "createdAt": { "format": "date-time", "type": "string" },
+          "updatedAt": { "format": "date-time", "type": "string" }
+        },
+        "required": [
+          "id",
+          "content",
+          "assets",
+          "public",
+          "createBy",
+          "updateBy",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "InfiniteQueryResponse": {
+        "type": "object",
+        "properties": { "prevCursor": { "type": "number" }, "nextCursor": { "type": "number" } }
+      },
+      "ChatGPTPayload": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" },
+          "parentMessageId": { "type": "string" },
+          "conversationId": { "type": "string" }
+        },
+        "required": ["message"]
+      },
+      "BingAIPayload": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" },
+          "conversationSignature": { "type": "string" },
+          "conversationId": { "type": "string" },
+          "clientId": { "type": "string" },
+          "invocationId": { "type": "string" }
+        },
+        "required": ["message"]
+      },
+      "ViewCountDto": {
+        "type": "object",
+        "properties": {
+          "createdAt": { "type": "string" },
+          "requestCount": { "type": "number" },
+          "distinctIpCount": { "type": "number" }
+        },
+        "required": ["createdAt", "requestCount", "distinctIpCount"]
+      },
+      "CreateFeedDto": {
+        "type": "object",
+        "properties": {
+          "content": { "type": "string", "description": "timeline item content" },
+          "assets": { "type": "array", "items": { "type": "file", "format": "binary" } },
+          "public": { "type": "boolean" },
+          "createBy": { "$ref": "#/components/schemas/User" }
+        },
+        "required": ["content", "assets", "createBy"]
+      },
+      "UpdateFeedDto": {
+        "type": "object",
+        "properties": {
+          "content": { "type": "string", "description": "timeline item content" },
+          "assets": { "type": "array", "items": { "type": "file", "format": "binary" } },
+          "id": { "type": "number" },
+          "public": { "type": "boolean" },
+          "updateBy": { "$ref": "#/components/schemas/User" }
+        },
+        "required": ["content", "assets", "id", "public", "updateBy"]
+      }
+    }
+  }
+}
