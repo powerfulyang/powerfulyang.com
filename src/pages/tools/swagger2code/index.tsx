@@ -1,6 +1,6 @@
 import { convertSchemaToCode } from '@/services/swagger-parse';
 import { LoadingButton } from '@mui/lab';
-import { TextField } from '@mui/material';
+import { Button, Stack, TextField } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -34,13 +34,16 @@ const Swagger2code = () => {
           control={control}
           render={({ field }) => {
             return (
-              <TextField
-                label="swagger url"
-                sx={{
-                  width: '400px',
-                }}
-                {...field}
-              />
+              <Stack direction="row" spacing={2} alignItems="center">
+                <TextField
+                  label="swagger url"
+                  sx={{
+                    width: '400px',
+                  }}
+                  {...field}
+                />
+                <Button variant="contained">Load Swagger</Button>
+              </Stack>
             );
           }}
           name="url"
