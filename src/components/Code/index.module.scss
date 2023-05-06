@@ -1,0 +1,52 @@
+.pre {
+  @apply isolate mb-4 overflow-hidden rounded-lg;
+
+  div {
+    &:nth-child(2)::-webkit-scrollbar-thumb {
+      background: #777;
+    }
+  }
+
+  pre > code {
+    @apply text-purple-300;
+  }
+
+  &:has(> span) {
+    @apply mb-4;
+
+    white-space: normal;
+  }
+}
+
+.toolbar {
+  position: relative;
+  background-color: rgb(34 31 31);
+
+  @apply flex align-middle text-blue-400;
+
+  .toolbar-language {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: text;
+  }
+
+  .toolbar-action {
+    margin-left: auto;
+
+    @apply mr-2;
+  }
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    width: 11px;
+    height: 11px;
+    background: #fc625d;
+    border-radius: 50%;
+    box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+    transform: translate(50%, -50%);
+    content: ' ';
+  }
+}
