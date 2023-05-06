@@ -13,6 +13,7 @@ $main-color: #ffb356;
   background-position: center center;
   background-size: 20px 20px;
   word-break: break-word;
+
   @apply box-border px-6 py-14 sm:py-10;
 
   hr {
@@ -23,6 +24,7 @@ $main-color: #ffb356;
     border-color: $primary-color;
     border-width: 1px;
     $h-box: -0.5rem;
+
     @apply relative block border-solid p-2 text-center;
 
     &::before {
@@ -30,6 +32,7 @@ $main-color: #ffb356;
       left: $h-box;
       border-bottom: 1px solid $primary-color;
       content: ' ';
+
       @apply absolute block h-px w-11/12;
     }
 
@@ -47,11 +50,13 @@ $main-color: #ffb356;
 
     .content {
       color: $heading-color;
+
       @apply block min-w-[20ch] cursor-text px-2 py-4 text-center text-xl font-semibold sm:px-[4ch] sm:py-2;
     }
 
     .suffix {
       margin: 0 0 0 calc(100% - 2.5rem);
+
       @extend .prefix;
     }
 
@@ -60,6 +65,7 @@ $main-color: #ffb356;
       bottom: $h-box;
       border-bottom: 1px solid $primary-color;
       content: ' ';
+
       @apply absolute block h-px w-11/12;
     }
   }
@@ -70,11 +76,13 @@ $main-color: #ffb356;
 
   h2 {
     color: $heading-color;
+
     @apply relative mb-4 inline-block text-xl font-semibold;
 
     &::before {
       content: '##';
       color: $main-color;
+
       @apply pr-2;
     }
   }
@@ -85,6 +93,7 @@ $main-color: #ffb356;
     &::before {
       content: '###';
       color: $main-color;
+
       @apply pr-2;
     }
   }
@@ -95,12 +104,14 @@ $main-color: #ffb356;
     &::before {
       content: '####';
       color: $main-color;
+
       @apply pr-2;
     }
   }
 
   & > p {
     line-height: 2rem;
+
     @apply mb-4 cursor-text;
 
     // 后面紧跟 ul, ol 等时，不要太大的 margin-bottom
@@ -109,28 +120,8 @@ $main-color: #ffb356;
     }
   }
 
-  .pre {
-    @apply isolate mb-4 overflow-hidden rounded-lg;
-
-    div {
-      &:nth-child(2)::-webkit-scrollbar-thumb {
-        background: #777;
-      }
-    }
-  }
-
-  pre:has(> span) {
-    @apply mb-4;
-
-    white-space: normal;
-  }
-
-  :not(pre) code {
+  code {
     color: #405363;
-  }
-
-  pre code {
-    @apply text-purple-300;
   }
 
   a {
@@ -143,38 +134,8 @@ $main-color: #ffb356;
 
   .inline-code {
     background-color: #e6e8ef;
+
     @apply rounded px-1 py-0.5;
-  }
-
-  .toolbar {
-    position: relative;
-    background-color: rgb(34 31 31);
-    @apply flex align-middle text-blue-400;
-
-    .toolbar-language {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      cursor: text;
-    }
-
-    .toolbar-action {
-      margin-left: auto;
-      @apply mr-2;
-    }
-
-    &::before {
-      position: absolute;
-      top: 50%;
-      width: 11px;
-      height: 11px;
-      background: #fc625d;
-      border-radius: 50%;
-      box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
-      transform: translate(50%, -50%);
-      content: ' ';
-    }
   }
 
   svg {
@@ -235,11 +196,13 @@ $main-color: #ffb356;
 
   .post-info {
     color: $heading-color;
+
     @apply mb-4 mt-8 text-center align-middle text-sm;
   }
 
   ol {
     padding-inline-start: 2.5em;
+
     @apply mb-4 block cursor-text list-decimal;
 
     & > li {
@@ -256,6 +219,7 @@ $main-color: #ffb356;
     padding-inline-start: 2em;
     list-style-type: disc;
     cursor: text;
+
     @apply mb-4;
 
     & > li {

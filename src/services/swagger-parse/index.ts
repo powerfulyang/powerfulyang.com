@@ -1,17 +1,15 @@
-import SwaggerParser from '@apidevtools/swagger-parser';
 import { get } from 'lodash-es';
 import type { OpenAPIV3 } from 'openapi-types';
 
-export const getSchemaDefinitions = async (swaggerUrl: string, schema: string) => {
-  const res = (await SwaggerParser.parse(swaggerUrl)) as OpenAPIV3.Document;
-  const schemas = res.components?.schemas;
+export const getSchemaDefinitions = (doc: OpenAPIV3.Document, schema: string) => {
+  const schemas = doc.components?.schemas;
   const entity = get(schemas, schema);
-  if (!entity) throw new Error(`Entity ${schema} not found in ${swaggerUrl}`);
+  if (!entity) throw new Error(`Entity ${schema} not found in ${doc.info.title}`);
   return entity;
 };
 
-export const convertSchemaToCode = async (
-  swaggerUrl: string,
+export const convertSchemaToCode = (
+  doc: OpenAPIV3.Document,
   schema: string,
   paths: string[] = [],
 ) => {
@@ -26,7 +24,7 @@ export const convertSchemaToCode = async (
     }
   }
 
-  const entity = await getSchemaDefinitions(swaggerUrl, _schema);
+  const entity = getSchemaDefinitions(doc, _schema);
   const data: {
     dataIndex: string | string[];
     valueType?: string;
@@ -34,7 +32,7 @@ export const convertSchemaToCode = async (
   }[] = [];
   if ('$ref' in entity) {
     // ReferenceObject
-    const v = await convertSchemaToCode(swaggerUrl, entity.$ref);
+    const v = convertSchemaToCode(doc, entity.$ref);
     data.push(...v);
   } else {
     // SchemaObject
@@ -62,7 +60,7 @@ export const convertSchemaToCode = async (
           });
         } else if ('$ref' in value) {
           // eslint-disable-next-line no-await-in-loop
-          const v = await convertSchemaToCode(swaggerUrl, value.$ref, paths.concat(key));
+          const v = convertSchemaToCode(doc, value.$ref, paths.concat(key));
           data.push(...v);
         }
       }
@@ -71,11 +69,35 @@ export const convertSchemaToCode = async (
   return data;
 };
 
-export const generateTableFromPath = async (
-  swaggerUrl: string,
+export const generateTableFromPath = (
+  doc: OpenAPIV3.Document,
   path: string,
   method: string = 'post',
 ) => {
-  const res = (await SwaggerParser.parse(swaggerUrl)) as OpenAPIV3.Document;
-  return get(res.paths, [path, method]);
+  const operation: OpenAPIV3.OperationObject = get(doc.paths, [path, method]);
+  if (!operation) throw new Error(`path ${path} not found`);
+  const { responses } = operation;
+  if (!responses) throw new Error(`path ${path} responses not found`);
+  const { '200': response } = responses;
+  if (!response) throw new Error(`path ${path} response 200 not found`);
+  const { content } = response as OpenAPIV3.ResponseObject;
+  if (!content) throw new Error(`path ${path} response 200 content not found`);
+  const { 'application/json': json } = content;
+  if (!json) throw new Error(`path ${path} response 200 content application/json not found`);
+  const schema = json.schema as OpenAPIV3.ReferenceObject;
+  if (!schema) {
+    throw new Error(`path ${path} response 200 content application/json schema not found`);
+  }
+  return convertSchemaToCode(doc, schema.$ref);
+};
+
+export const swaggerPaths = (doc?: OpenAPIV3.Document) => {
+  const res: string[] = [];
+  Object.keys(doc?.paths || {}).forEach((path) => {
+    const methods = Object.keys(doc?.paths[path] || {});
+    methods.forEach((method) => {
+      res.push(`${method.toUpperCase()} ${path}`);
+    });
+  });
+  return res;
 };

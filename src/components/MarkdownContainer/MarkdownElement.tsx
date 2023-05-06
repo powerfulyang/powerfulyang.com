@@ -1,25 +1,20 @@
+import { PrismCode } from '@/components/Code';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
+import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
+import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
+import { clientApi } from '@/request/requestTool';
+import { useQuery } from '@tanstack/react-query';
+import classNames from 'classnames';
 import type { FC } from 'react';
-import React, { useContext, useMemo } from 'react';
-import { Prism } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import React, { Fragment, useContext, useMemo } from 'react';
 import type {
   CodeComponent,
   HeadingComponent,
   LiComponent,
   UnorderedListComponent,
 } from 'react-markdown/lib/ast-to-react';
-import classNames from 'classnames';
 import type { NormalComponents } from 'react-markdown/lib/complex-types';
-import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
-import { copyToClipboardAndNotify } from '@/utils/copy';
-import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
-import { useQuery } from '@tanstack/react-query';
-import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import { clientApi } from '@/request/requestTool';
 import styles from './index.module.scss';
-
-// 不要 class name 的下划线，俺不喜欢
-delete atomDark['class-name'].textDecoration;
 
 export const H1: HeadingComponent = ({ children, id = '' }) => {
   const { id_prefix } = useContext(TimelineItemContext);
@@ -100,44 +95,11 @@ export const Code: CodeComponent = ({ inline, className, children }) => {
   // default language is js
   const language = match?.[1] || 'js';
 
-  return (
-    <>
-      <div data-mdast="ignore" className={styles.toolbar}>
-        <div className={styles.toolbarLanguage}>{language}</div>
-        <div className={styles.toolbarAction}>
-          <button
-            type="button"
-            className="pointer"
-            onClick={() => {
-              return copyToClipboardAndNotify(renderText);
-            }}
-          >
-            Copy Code
-          </button>
-        </div>
-      </div>
-      <Prism
-        showLineNumbers
-        style={atomDark}
-        language={language}
-        PreTag="pre"
-        codeTagProps={{
-          style: { fontFamily: `Fira Code, sans-serif` },
-        }}
-        customStyle={{
-          borderRadius: 0,
-          margin: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-        }}
-      >
-        {renderText}
-      </Prism>
-    </>
-  );
+  return <PrismCode language={language}>{renderText}</PrismCode>;
 };
 
 export const Pre: NormalComponents['pre'] = ({ children }) => {
-  return <div className={styles.pre}>{children}</div>;
+  return <Fragment key="pre">{children}</Fragment>;
 };
 
 export const Ul: UnorderedListComponent = ({ children, ...props }) => {
