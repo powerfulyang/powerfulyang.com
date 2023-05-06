@@ -3,24 +3,31 @@ import {
   generateTableFromPath,
   getSchemaDefinitions,
 } from '@/services/swagger-parse/index';
-import { describe, expect, it } from '@jest/globals';
+import SwaggerParser from '@apidevtools/swagger-parser';
+import { beforeAll, describe, expect, it } from '@jest/globals';
 import { join } from 'node:path';
+import type { OpenAPIV3 } from 'openapi-types';
 
 describe('swagger parse', () => {
-  const swagger = join(__dirname, 'sample.json');
+  let doc: OpenAPIV3.Document;
 
-  it('backend api', async () => {
-    const e = await getSchemaDefinitions(swagger, 'User');
+  beforeAll(async () => {
+    const swagger = join(__dirname, 'sample.json');
+    doc = (await SwaggerParser.parse(swagger)) as OpenAPIV3.Document;
+  });
+
+  it('backend api', () => {
+    const e = getSchemaDefinitions(doc, 'User');
     expect(e).toBeDefined();
   });
 
-  it('convert', async () => {
-    const res = await convertSchemaToCode(swagger, 'User');
+  it('convert', () => {
+    const res = convertSchemaToCode(doc, 'User');
     expect(res).toBeDefined();
   });
 
-  it('generateTableFromPath', async () => {
-    const res = await generateTableFromPath(swagger, '/api/feed', 'post');
+  it('generateTableFromPath', () => {
+    const res = generateTableFromPath(doc, '/api/user/current', 'get');
     expect(res).toBeDefined();
   });
 });

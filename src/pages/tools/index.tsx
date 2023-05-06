@@ -18,7 +18,7 @@ const tools = [
     url: 'https://logs.powerfulyang.com',
   },
   {
-    name: 'AST(swagger to code)',
+    name: 'swagger to code',
     description: 'Convert swagger to code.',
     icon: '',
     url: '/tools/swagger2code',
