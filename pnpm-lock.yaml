@@ -91,8 +91,8 @@ dependencies:
     specifier: 10.0.1
     version: 10.0.1
   jotai:
-    specifier: 2.0.4
-    version: 2.0.4(react@18.2.0)
+    specifier: 2.1.0
+    version: 2.1.0(react@18.2.0)
   lodash-es:
     specifier: 4.17.21
     version: 4.17.21
@@ -8192,6 +8192,18 @@ packages:
 
   /jotai@2.0.4(react@18.2.0):
     resolution: {integrity: sha512-XkR1Jtm4a2iKV/7fdB3rNHjJz8FkkDMVczqiAok7lt8W4F69l/ZQkPGWSEV+hJOJXRn27k6XYKOoKEQIwBuAMA==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      react: '>=17.0.0 || 18'
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /jotai@2.1.0(react@18.2.0):
+    resolution: {integrity: sha512-fR82PtHAmEQrc/daMEYGc4EteW96/b6wodtDSCzLvoJA/6y4YG70er4hh2f8CYwYjqwQ0eZUModGfG4DmwkTyQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       react: '>=17.0.0 || 18'
