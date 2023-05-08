@@ -1,8 +1,8 @@
 FROM powerfulyang/powerfulyang.com-base
 
-COPY . .
-
-RUN pnpm run bootstrap \
-    && pnpm run build
+COPY next.config.mjs .
+COPY package.json .
+COPY public ./public
+COPY .next ./.next
 
 CMD pnpm run start

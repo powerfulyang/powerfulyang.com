@@ -10,4 +10,4 @@ RUN apk add --no-cache tzdata \
     && echo "Asia/Shanghai" > /etc/timezone \
     && apk del tzdata \
     && npm i -g pnpm \
-    && pnpm run bootstrap
+    && pnpm install -P
