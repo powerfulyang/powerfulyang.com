@@ -1,5 +1,6 @@
 import { PrismCode } from '@/components/Code';
-import { generateTableFromPath, swaggerPaths } from '@/services/swagger-parse';
+import { generateTableFromPath } from '@/services/swagger-parse';
+import { getDocumentPaths } from '@/services/swagger-parse/getDocumentPaths';
 import { snippet } from '@/snippets/table';
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { LoadingButton } from '@mui/lab';
@@ -81,7 +82,7 @@ const Swagger2code = () => {
             render={({ field }) => {
               return (
                 <Autocomplete
-                  options={swaggerPaths(loadSwagger.data).map((path) => path)}
+                  options={getDocumentPaths(loadSwagger.data).map((path) => path)}
                   renderInput={(params) => <TextField {...params} label="Select Path" />}
                   getOptionLabel={(option) => option}
                   sx={{

@@ -90,6 +90,7 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
+    "@ant-design/pro-components": "2.4.14",
     "@jest/globals": "29.5.0",
     "@next/bundle-analyzer": "13.4.1",
     "@powerfulyang/lint": "3.2.1",

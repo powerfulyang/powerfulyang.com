@@ -8,6 +8,9 @@ const moduleNameMapper = pathsToModuleNameMapper(tsconfig.compilerOptions.paths,
 
 const createJestConfig = nextJest();
 
+/**
+ * @type {import('jest').Config}
+ */
 const customJestConfig = {
   moduleNameMapper,
   testEnvironment: 'jsdom',

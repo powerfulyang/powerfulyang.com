@@ -1,6 +1,9 @@
+// extend jest matchers
 import '@testing-library/jest-dom/extend-expect';
+// canvas mock
 import 'jest-canvas-mock';
 
+// mock next/router
 jest.mock('next/router', () => ({
   useRouter() {
     return {
@@ -19,10 +22,12 @@ jest.mock('next/router', () => ({
   },
 }));
 
+// mock @tanstack/react-query
 jest.mock('@tanstack/react-query', () => ({
   useQuery: () => ({ isLoading: false, error: {}, data: [] }),
 }));
 
+// mock @/styles/variables.module.scss
 jest.mock('@/styles/variables.module.scss', () => {
   return {
     CDN_ORIGIN: JSON.stringify('https://cdn.example.com'),
