@@ -1,0 +1,134 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  Test:
+    name: Test and TSC check
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: ['lts/*']
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
+      - name: Install
+        run: pnpm install
+      - name: Get number of CPU cores
+        id: cpu-cores
+        uses: SimenB/github-actions-cpu-cores@v1
+      - name: Test
+        run: pnpm run test --max-workers ${{ steps.cpu-cores.outputs.count }}
+      - name: TSC check
+        run: pnpm run tsc-check
+
+  Build:
+    name: Docker build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        docker-repository-qa: [ 'powerfulyang/powerfulyang.com:beta']
+        docker-repository-prod: [ 'powerfulyang/powerfulyang.com:latest']
+        os: [ubuntu-latest]
+    needs: Test
+    # 仅 master 分支 push 时触发
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Filter source files
+        id: filter-source
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            sources:
+              - src/**
+              - public/**
+              - pnpm-lock.yaml
+              - Dockerfile
+      - name: Build qa source
+        uses: docker/build-push-action@v4
+        with:
+          file: Dockerfile
+          push: true
+          tags: ${{ matrix.docker-repository-qa }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          target: runner
+          build-args: |
+            BUILD_ENV=qa
+        if: steps.filter-source.outputs.sources == 'true'
+      - name: Deploy qa
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script_stop: true
+          script: |
+            docker pull ${{ matrix.docker-repository-qa }}
+            cd ~/applications/qa
+            docker-compose up -d --force-recreate qa.powerfulyang.com
+            docker image prune -a -f
+        if: steps.filter-source.outputs.sources == 'true'
+      - name: Build prod source
+        uses: docker/build-push-action@v4
+        with:
+          file: Dockerfile
+          push: true
+          tags: ${{ matrix.docker-repository-prod }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          target: runner
+          build-args: |
+            BUILD_ENV=prod
+          secrets: |
+            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
+        if: startsWith(github.event.head_commit.message, 'build:')
+      - name: Deploy prod
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script_stop: true
+          script: |
+            docker pull ${{ matrix.docker-repository-prod }}
+            cd ~/applications
+            docker-compose up -d --force-recreate powerfulyang.com
+            docker image prune -a -f
+        if: startsWith(github.event.head_commit.message, 'build:')
+
+

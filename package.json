@@ -2,7 +2,7 @@
   "name": "powerfulyang.com",
   "version": "1.0.0",
   "private": true,
-  "description": "home page",
+  "description": "My personal website",
   "repository": {
     "url": "https://github.com/powerfulyang/powerfulyang.com"
   },
@@ -17,15 +17,14 @@
     "postinstall": "npx husky install",
     "lint:js": "eslint ./src --ext .ts,.tsx --fix",
     "lint:style": "stylelint --fix \"src/**/*.scss\"",
-    "local:dev": "cross-env SERVER_BASE_URL=https://local.powerfulyang.com next dev",
-    "precommit": "lint-staged",
     "prettier": "prettier \"src/**/*.{tsx,ts,scss}\" --write",
-    "prod:dev": "cross-env CLIENT_BASE_HOST=powerfulyang.com SERVER_BASE_URL=https://powerfulyang.com next dev",
+    "precommit": "lint-staged",
+    "local:dev": "cross-env SERVER_BASE_URL=https://local.powerfulyang.com next dev",
     "qa:dev": "cross-env CLIENT_BASE_HOST=qa.powerfulyang.com SERVER_BASE_URL=https://qa.powerfulyang.com next dev",
+    "prod:dev": "cross-env CLIENT_BASE_HOST=powerfulyang.com SERVER_BASE_URL=https://powerfulyang.com next dev",
     "start": "next start",
     "test": "jest",
-    "tsc-check": "tsc --noEmit",
-    "update:lock": "pnpm i --lockfile-only"
+    "tsc-check": "tsc --noEmit"
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "10.1.0",
@@ -46,7 +45,7 @@
     "@powerfulyang/hooks": "1.5.2",
     "@powerfulyang/utils": "1.10.2",
     "@react-three/fiber": "8.13.0",
-    "@sentry/nextjs": "7.51.0",
+    "@sentry/nextjs": "7.51.2",
     "@tanstack/react-query": "4.29.5",
     "canvas-confetti": "1.6.0",
     "classnames": "2.3.2",
@@ -101,7 +100,7 @@
     "@types/canvas-confetti": "1.6.0",
     "@types/d3": "7.4.0",
     "@types/lodash-es": "4.17.7",
-    "@types/node": "20.1.0",
+    "@types/node": "20.1.1",
     "@types/ramda": "0.29.1",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
