@@ -218,7 +218,6 @@ export interface CreateBucketDto {
 }
 
 export interface Post {
-  /** post id */
   id: number;
   title: string;
   content: string;
@@ -288,7 +287,6 @@ export interface QueryPostsDto {
   pageSize: number;
   /** 当前页码 */
   current: number;
-  /** post id */
   id: number;
   /** 创建时间 */
   createdAt: string[];
@@ -1700,6 +1698,29 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<void, any>({
         path: `/api/mini-program/qrcode`,
         method: 'GET',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags tools
+     * @name ToolsControllerDownload
+     * @request GET:/api/tools/download
+     * @secure
+     */
+    toolsControllerDownload: (
+      query: {
+        url: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<string, any>({
+        path: `/api/tools/download`,
+        method: 'GET',
+        query: query,
+        secure: true,
+        format: 'json',
         ...params,
       }),
   };

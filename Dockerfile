@@ -9,7 +9,7 @@ COPY patches ./patches
 RUN apk add --no-cache tzdata \
     && echo "Asia/Shanghai" > /etc/timezone \
     && npm i -g pnpm \
-    && pnpm run bootstrap
+    && pnpm install --frozen-lockfile
 
 # 第二阶段，拷贝依赖并 build
 FROM node:lts-alpine AS builder
@@ -36,6 +36,7 @@ RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN npm i -g pnpm  \
 FROM node:lts-alpine AS runner
 
 WORKDIR /usr/app
+RUN chown -R node:node /usr/app
 USER node
 
 COPY --from=dependencies /usr/share/zoneinfo/Asia/Shanghai /etc/localtime

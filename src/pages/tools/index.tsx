@@ -12,6 +12,12 @@ const tools = [
     redirect: true,
   },
   {
+    name: 'Video Downloader',
+    description: 'Download video from YouTube, Facebook, Instagram, Twitter, TikTok, and more.',
+    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    url: '/tools/video-downloader',
+  },
+  {
     name: 'Bg Remover',
     description: 'Remove background from image.',
     icon: '',

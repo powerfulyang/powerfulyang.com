@@ -1,5 +1,5 @@
 import type { ClipboardEvent } from 'react';
-import { toast } from '@powerfulyang/components';
+import { toast } from 'react-hot-toast';
 import { uniqueId } from '@powerfulyang/utils';
 import type { Asset, CosBucket } from '@/__generated__/api';
 import { clientApi } from '@/request/requestTool';
