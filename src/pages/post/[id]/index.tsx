@@ -1,18 +1,18 @@
-import React from 'react';
-import type { GetServerSideProps } from 'next';
-import type { LayoutFC } from '@/type/GlobalContext';
-import { UserLayout } from '@/layout/UserLayout';
+import type { HttpResponse, Post } from '@/__generated__/api';
+import { origin } from '@/components/Head';
 import type { TOCItem } from '@/components/MarkdownContainer/TOC';
 import { MarkdownTOC } from '@/components/MarkdownContainer/TOC';
-import { useHistory } from '@/hooks/useHistory';
-import { generateTOC } from '@/utils/toc';
-import { useHotkeys } from 'react-hotkeys-hook';
-import { origin } from '@/components/Head';
-import dynamic from 'next/dynamic';
 import { Skeleton } from '@/components/Skeleton';
-import type { HttpResponse, Post } from '@/__generated__/api';
+import { UserLayout } from '@/layout/UserLayout';
 import { serverApi } from '@/request/requestTool';
+import type { LayoutFC } from '@/type/GlobalContext';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { generateTOC } from '@/utils/toc';
+import type { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 import styles from './index.module.scss';
 
 const LazyMarkdownContainer = dynamic(() => import('@/components/MarkdownContainer'), {
@@ -27,14 +27,14 @@ type PostProps = {
 };
 
 const PostDetail: LayoutFC<PostProps> = ({ post: { content, id, logs = [] }, toc }) => {
-  const history = useHistory();
+  const router = useRouter();
 
   useHotkeys(
     '., 。',
     () => {
-      return history.pushState(`/post/publish/${id}`);
+      return router.push(`/post/publish/${id}`);
     },
-    [history, id],
+    [router, id],
   );
 
   return (

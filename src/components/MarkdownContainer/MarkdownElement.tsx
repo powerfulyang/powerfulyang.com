@@ -1,4 +1,4 @@
-import { PrismCode } from '@/components/Code';
+import { PrismCode } from '@/components/PrismCode';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';

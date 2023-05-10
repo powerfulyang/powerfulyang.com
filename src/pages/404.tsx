@@ -1,10 +1,10 @@
 import { Button } from '@powerfulyang/components';
-import { useHistory } from '@/hooks/useHistory';
+import { useRouter } from 'next/router';
 
 const _404 = () => {
-  const history = useHistory();
+  const router = useRouter();
   const backHome = () => {
-    return history.pushState('/');
+    return router.push('/');
   };
   return (
     <div className="p-20 text-center">

@@ -1,9 +1,9 @@
+import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import type { GetServerSideProps } from 'next';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { LiveMarkdownEditor } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { Footer } from '@/components/Footer';
-import { useHistory } from '@/hooks/useHistory';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 import { useMutation } from '@tanstack/react-query';
@@ -17,7 +17,7 @@ type PublishProps = {
 };
 
 const Publish: LayoutFC<PublishProps> = ({ post }) => {
-  const { pushState } = useHistory();
+  const { push } = useRouter();
   const [content, setContent] = useState(post.content);
 
   const publishPostMutation = useMutation(
@@ -35,7 +35,7 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
     },
     {
       onSuccess(res) {
-        return pushState(`/post/${res.data.id}`);
+        return push(`/post/${res.data.id}`);
       },
     },
   );

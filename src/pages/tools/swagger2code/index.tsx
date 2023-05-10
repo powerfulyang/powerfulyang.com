@@ -1,4 +1,4 @@
-import { PrismCode } from '@/components/Code';
+import { PrismCode } from '@/components/PrismCode';
 import { generateTableFromPath } from '@/services/swagger-parse';
 import { getDocumentPaths } from '@/services/swagger-parse/getDocumentPaths';
 import { snippet } from '@/snippets/table';

@@ -17,7 +17,9 @@ export const useFFmpeg = () => {
     await ffmpeg.load();
     ffmpeg.FS('writeFile', 'input', await fetchFile(file));
     await ffmpeg.run('-i', 'input', `output.${format}`);
-    return ffmpeg.FS('readFile', `output.${format}`);
+    const res = ffmpeg.FS('readFile', `output.${format}`);
+    ffmpeg.exit();
+    return res;
   };
 
   return { transcode, progress };

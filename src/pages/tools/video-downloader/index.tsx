@@ -25,24 +25,37 @@ const VideoDownloader = () => {
       <Typography
         sx={{
           textAlign: 'center',
+          pt: 4,
         }}
-        variant="h1"
+        variant="h3"
+      >
+        Video Downloader
+      </Typography>
+      <Typography
+        sx={{
+          textAlign: 'center',
+          mt: 2,
+        }}
+        className="text-[#1b233d]/70"
+        variant="body1"
       >
         Video Downloader
       </Typography>
       <TextField
+        sx={{
+          mt: 3,
+        }}
         fullWidth
         label="video url"
         value={videoUrl}
         onChange={(event) => {
           const url = event.target.value;
-          const encodedUrl = encodeURI(url);
-          setVideoUrl(encodedUrl);
+          setVideoUrl(url);
         }}
       />
       <LoadingButton
         sx={{
-          mt: 2,
+          mt: 4,
         }}
         fullWidth
         variant="contained"

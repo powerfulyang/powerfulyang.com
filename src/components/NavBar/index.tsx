@@ -1,19 +1,19 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import React, { memo, useMemo } from 'react';
 import classNames from 'classnames';
 import { ProjectName } from '@/constant/Constant';
-import { useHistory } from '@/hooks/useHistory';
 import { NavBarUser } from '@/components/NavBar/User';
 import { DocSearch } from '@docsearch/react';
 import styles from './index.module.scss';
-import { Link } from '../Link';
 
 export const menus = ['post', 'timeline', 'gallery', 'airdrop', 'tools'];
 
 type NavBarProps = {};
 
 const Menus: FC = () => {
-  const { pathname } = useHistory();
+  const { pathname } = useRouter();
 
   const currentMenu = useMemo(() => {
     return menus.find((m) => pathname.includes(m)) || 'post';

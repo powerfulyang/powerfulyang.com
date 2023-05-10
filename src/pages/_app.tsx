@@ -1,13 +1,13 @@
 import { Header, origin } from '@/components/Head';
-import { Redirecting } from '@/components/Redirecting';
+import { RouteChangeAnimation } from '@/components/RouteChangeAnimation';
 import { ProjectName } from '@/constant/Constant';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
-import { isProdProcess } from '@powerfulyang/utils';
+import { useFormRouteListener } from '@/hooks/useFormDiscardWarning';
+import { usePV } from '@/hooks/usePV';
 import { NextSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
 import Script from 'next/script';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import './app.scss';
 
 interface HeaderProps {
@@ -27,15 +27,6 @@ export type MyAppProps = {
   } & HeaderProps;
 } & AppProps;
 
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-
-export const pageView = (url: string): void => {
-  window.dataLayer.push({
-    event: 'pageview',
-    page: url,
-  });
-};
-
 const App = ({ Component, pageProps }: MyAppProps) => {
   const { getLayout } = Component;
 
@@ -46,17 +37,10 @@ const App = ({ Component, pageProps }: MyAppProps) => {
     return <Component {...pageProps} />;
   }, [Component, getLayout, pageProps]);
 
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isProdProcess) {
-      router.events.on('routeChangeComplete', pageView);
-      return () => {
-        router.events.off('routeChangeComplete', pageView);
-      };
-    }
-    return () => {};
-  }, [router.events]);
+  // 路由变化时，表单未提交的提示
+  useFormRouteListener();
+  // 路由变化时，PV统计
+  const element = usePV();
 
   const { title = '404', description } = (pageProps.meta as HeaderProps['meta']) || {};
   const { canonical } = (pageProps.link as HeaderProps['link']) || {};
@@ -91,7 +75,7 @@ const App = ({ Component, pageProps }: MyAppProps) => {
         themeColor="#ffffff"
       />
       <Header />
-      <Redirecting />
+      <RouteChangeAnimation />
       {component}
       <Script
         strategy="afterInteractive"
@@ -99,31 +83,7 @@ const App = ({ Component, pageProps }: MyAppProps) => {
         crossOrigin="anonymous"
         src="//at.alicdn.com/t/font_178634_7m8rip6osz4.js"
       />
-      {isProdProcess && (
-        <>
-          <Script
-            strategy="afterInteractive"
-            async
-            crossOrigin="anonymous"
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          />
-          <Script
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                      window.dataLayer = window.dataLayer || [];
-                      function gtag() {
-                        dataLayer.push(arguments);
-                      }
-                      gtag('js', new Date());
-                      gtag('config', '${GA_ID}', {
-                        page_path: window.location.pathname,
-                      });
-                      `,
-            }}
-          />
-        </>
-      )}
+      {element}
     </GlobalContextProvider>
   );
 };

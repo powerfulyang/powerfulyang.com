@@ -1,18 +1,18 @@
-import React from 'react';
-import type { GetServerSideProps } from 'next';
+import type { Post } from '@/__generated__/api';
+import { origin } from '@/components/Head';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
+import { UserLayout } from '@/layout/UserLayout';
+import { serverApi } from '@/request/requestTool';
+import type { LayoutFC } from '@/type/GlobalContext';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { DateTimeFormat } from '@/utils/lib';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
-import { Link } from '@/components/Link';
-import type { LayoutFC } from '@/type/GlobalContext';
-import { UserLayout } from '@/layout/UserLayout';
-import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import { useHistory } from '@/hooks/useHistory';
+import type { GetServerSideProps } from 'next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { DateTimeFormat } from '@/utils/lib';
-import { origin } from '@/components/Head';
-import { serverApi } from '@/request/requestTool';
-import type { Post } from '@/__generated__/api';
-import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -22,14 +22,14 @@ type IndexProps = {
 };
 
 const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
-  const history = useHistory();
+  const router = useRouter();
 
   useHotkeys(
     '., 。',
     () => {
-      return history.pushState('/post/publish');
+      return router.push('/post/publish');
     },
-    [history],
+    [router],
   );
 
   return (
@@ -59,7 +59,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
                 return null;
               }
               e.preventDefault();
-              return history.pushState(`/post/${post.id}`);
+              return router.push(`/post/${post.id}`);
             }}
           >
             <LazyAssetImage
