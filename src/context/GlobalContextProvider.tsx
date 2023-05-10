@@ -24,10 +24,10 @@ const queryClient = new QueryClient({
 export const GlobalContextProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Provider>
-      <Toaster />
       <CacheProvider value={cache}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <Toaster />
           <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
         </ThemeProvider>
       </CacheProvider>
