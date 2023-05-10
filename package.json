@@ -38,7 +38,7 @@
     "@monaco-editor/react": "4.5.1",
     "@mui/icons-material": "5.11.16",
     "@mui/lab": "5.0.0-alpha.129",
-    "@mui/material": "5.12.3",
+    "@mui/material": "5.13.0",
     "@next/bundle-analyzer": "13.4.1",
     "@powerfulyang/components": "1.7.4",
     "@powerfulyang/hooks": "1.5.2",
