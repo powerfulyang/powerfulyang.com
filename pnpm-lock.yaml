@@ -117,9 +117,6 @@ dependencies:
   peerjs:
     specifier: 1.4.7
     version: 1.4.7
-  ramda:
-    specifier: 0.29.0
-    version: 0.29.0
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -224,9 +221,6 @@ devDependencies:
   '@types/node':
     specifier: 20.1.2
     version: 20.1.2
-  '@types/ramda':
-    specifier: 0.29.1
-    version: 0.29.1
   '@types/react':
     specifier: 18.2.6
     version: 18.2.6
@@ -4258,12 +4252,6 @@ packages:
 
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
-
-  /@types/ramda@0.29.1:
-    resolution: {integrity: sha512-Ff5RRG9YRqMgWOqZVVavSjGEvYHUnXnGF0YPGbzIWhB3o8qiccSJZlFX2z8qm3G1H/IC5w0ozHmlezUeQCtGfQ==}
-    dependencies:
-      types-ramda: 0.29.2
-    dev: true
 
   /@types/react-dom@18.2.4:
     resolution: {integrity: sha512-G2mHoTMTL4yoydITgOGwWdWMVd8sNgyEP85xVmMKAPUBwQWm9wBPQUmvbeF4V3WBY1P7mmL4BkjQ0SqUpf1snw==}
@@ -10820,10 +10808,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /ramda@0.29.0:
-    resolution: {integrity: sha512-BBea6L67bYLtdbOqfp8f58fPMqEwx0doL+pAi8TZyp2YWz8R9G8z9x75CZI8W+ftqhFHCpEX2cRnUUXK130iKA==}
-    dev: false
-
   /randombytes@2.1.0:
     resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
     dependencies:
@@ -13172,10 +13156,6 @@ packages:
       yn: 3.1.1
     dev: true
 
-  /ts-toolbelt@9.6.0:
-    resolution: {integrity: sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==}
-    dev: true
-
   /tsc-alias@1.8.5:
     resolution: {integrity: sha512-Y3ka0olwSRdbHPyX5kXhYY2aoBKuT53DFdeY+PpQUR4hg5M/b8eIRmC8dL4FBdd0wT366iWc6iDUUGe6QwI7mg==}
     hasBin: true
@@ -13279,12 +13259,6 @@ packages:
       call-bind: 1.0.2
       for-each: 0.3.3
       is-typed-array: 1.1.10
-
-  /types-ramda@0.29.2:
-    resolution: {integrity: sha512-HpLcR0ly2EfXQwG8VSI5ov6ml7PvtT+u+cp+7lZLu7q4nhnPDVW+rUTC1uy/SNs4aAyTUXri5M/LyhgvjEXJDg==}
-    dependencies:
-      ts-toolbelt: 9.6.0
-    dev: true
 
   /typescript@4.8.4:
     resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}

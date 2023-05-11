@@ -41,11 +41,11 @@ const VideoDownloader: LayoutFC = () => {
         className="text-[#1b233d]/70"
         variant="body1"
       >
-        Video Downloader
+        Download videos from YouTube, Facebook, Instagram, Twitter, TikTok, and more.
       </Typography>
       <TextField
         sx={{
-          mt: 3,
+          mt: 2,
         }}
         fullWidth
         label="video url"
@@ -57,7 +57,7 @@ const VideoDownloader: LayoutFC = () => {
       />
       <LoadingButton
         sx={{
-          mt: 4,
+          mt: 2,
         }}
         fullWidth
         variant="contained"

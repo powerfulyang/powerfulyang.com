@@ -83,9 +83,6 @@ const config = {
     'lodash-es': {
       transform: 'lodash-es/{{member}}',
     },
-    ramda: {
-      transform: 'ramda/es/{{member}}',
-    },
     'react-syntax-highlighter': {
       // 这个更牛啤，减少了 0.5kb
       transform: 'react-syntax-highlighter/dist/esm/{{kebabCase member}}',

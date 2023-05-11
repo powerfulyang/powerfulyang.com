@@ -147,7 +147,7 @@ export const VideoProcessor = () => {
       <FormControl
         sx={{
           minWidth: 240,
-          my: 4,
+          my: 2,
         }}
       >
         <InputLabel id="target-format">Target Format</InputLabel>
@@ -173,7 +173,6 @@ export const VideoProcessor = () => {
         type="submit"
         sx={{
           minWidth: 240,
-          my: 1,
         }}
         loading={convertVideo.isLoading}
       >

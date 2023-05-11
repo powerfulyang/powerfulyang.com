@@ -13,7 +13,7 @@ import { useDocumentVisible } from '@/hooks/useDocumentVisible';
 import { randomAvatar } from '@/utils/lib';
 import { useUser } from '@/hooks/useUser';
 import { useMutation } from '@tanstack/react-query';
-import { omit } from 'ramda';
+import { omit } from 'lodash-es';
 import { clientApi } from '@/request/requestTool';
 import type { BingAIPayload, ChatGPTPayload } from '@/__generated__/api';
 import styles from './index.module.scss';
@@ -127,7 +127,7 @@ const Airdrop: LayoutFC = () => {
     },
     onSuccess(res) {
       AIUtil.stopThink(selectPeerId);
-      conversionRef.current.set(selectPeerId, omit(['message'], res));
+      conversionRef.current.set(selectPeerId, omit(res, ['message']));
       handleMessage({
         from: selectPeerId,
         chatFriendId: selectPeerId,

@@ -1,12 +1,12 @@
 import { convertV3SchemaToCode } from '@/services/swagger-parse/convertV3SchemaToCode';
-import { getSchemaName } from '@/services/swagger-parse/getSchemaName';
 import { generateTableFromPath } from '@/services/swagger-parse/index';
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { beforeAll, describe, expect, it } from '@jest/globals';
 import { join } from 'node:path';
 import type { OpenAPIV3 } from 'openapi-types';
+import { getSchema } from '@/services/swagger-parse/getSchema';
 
-describe('swagger parse', () => {
+describe('swagger parse v3', () => {
   let doc: OpenAPIV3.Document;
 
   beforeAll(async () => {
@@ -14,9 +14,9 @@ describe('swagger parse', () => {
     doc = (await SwaggerParser.parse(swagger)) as OpenAPIV3.Document;
   });
 
-  it('getSchemaName', () => {
-    const e = getSchemaName('#/components/schemas/User');
-    expect(e).toBe('User');
+  it('getSchema', () => {
+    const schema = getSchema(doc, 'User');
+    expect(schema).toHaveProperty(['properties', 'id', 'type'], 'number');
   });
 
   it('convert', () => {

@@ -7,10 +7,9 @@ export const convertV3SchemaToCode = (
   doc: OpenAPIV3.Document,
   schema: string,
   paths: string[] = [],
+  data: ProColumns[] = [],
+  entity = getSchema(doc, schema),
 ) => {
-  const entity = getSchema(doc, schema);
-  const data: ProColumns[] = [];
-
   // ReferenceObject
   if ('$ref' in entity && entity.$ref) {
     const v = convertV3SchemaToCode(doc, entity.$ref);
@@ -27,7 +26,7 @@ export const convertV3SchemaToCode = (
     // 不支持其他类型
     throw new Error(`${entity.type} is not support`);
   } else if ('type' in entity && entity.type === 'object') {
-    convertObjectToCode(entity, paths, schema, data, doc, convertV3SchemaToCode);
+    convertObjectToCode(doc, schema, paths, data, entity);
   }
   return data;
 };

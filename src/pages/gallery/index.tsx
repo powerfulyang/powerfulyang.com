@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import type { GetServerSideProps } from 'next';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { flatten } from 'ramda';
+import { flatten } from 'lodash-es';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';

@@ -1,13 +1,13 @@
 import type { ProColumns } from '@ant-design/pro-components';
 import type { OpenAPIV2, OpenAPIV3 } from 'openapi-types';
+import { getSchema } from '@/services/swagger-parse/getSchema';
 
 export function convertObjectToCode(
-  entity: OpenAPIV3.NonArraySchemaObject | OpenAPIV2.SchemaObject,
-  paths: string[],
-  _schema: string,
-  data: ProColumns[],
   doc: OpenAPIV3.Document | OpenAPIV2.Document,
-  handle: Function,
+  _schema: string,
+  paths: string[],
+  data: ProColumns[] = [],
+  entity: OpenAPIV3.SchemaObject | OpenAPIV2.SchemaObject = getSchema(doc, _schema),
 ) {
   for (const [key, value] of Object.entries(entity.properties || {})) {
     // circular reference
@@ -31,8 +31,9 @@ export function convertObjectToCode(
       });
     } else if ('$ref' in value) {
       // recursive
-      const v = handle(doc, value.$ref, paths.concat(key));
+      const v = convertObjectToCode(doc, value.$ref, paths.concat(key));
       data.push(...v);
     }
   }
+  return data;
 }

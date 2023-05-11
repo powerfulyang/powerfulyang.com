@@ -2,7 +2,7 @@ import React, { Fragment, useMemo } from 'react';
 import type { GetServerSideProps } from 'next';
 import type { InfiniteData } from '@tanstack/react-query';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import { flatten } from 'ramda';
+import { flatten } from 'lodash-es';
 import { InView } from 'react-intersection-observer';
 import { UserLayout } from '@/layout/UserLayout';
 import type { LayoutFC } from '@/type/GlobalContext';

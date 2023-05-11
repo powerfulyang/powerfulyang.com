@@ -1,4 +1,4 @@
-import { pick } from 'ramda';
+import { pick } from 'lodash-es';
 import type { IncomingHttpHeaders } from 'node:http';
 
 export const extractRequestHeaders = (headers: IncomingHttpHeaders) => {
@@ -11,5 +11,5 @@ export const extractRequestHeaders = (headers: IncomingHttpHeaders) => {
     'x-forwarded-for',
   ] as const;
 
-  return pick(headersToExtract, headers);
+  return pick(headers, headersToExtract) as HeadersInit;
 };

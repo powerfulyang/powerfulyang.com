@@ -4,7 +4,7 @@ import { getDocumentPaths } from '@/services/swagger-parse/getDocumentPaths';
 import { snippet } from '@/snippets/table';
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { LoadingButton } from '@mui/lab';
-import { Autocomplete, Stack, TextField } from '@mui/material';
+import { Autocomplete, Container, Stack, TextField } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import type { OpenAPIV3 } from 'openapi-types';
 import React from 'react';
@@ -28,6 +28,9 @@ const Swagger2code: LayoutFC = () => {
   const loadSwagger = useMutation({
     mutationFn: async (_url: string) => {
       return (await SwaggerParser.parse(_url)) as OpenAPIV3.Document;
+    },
+    onError(e: Error) {
+      toast.error(e.message);
     },
   });
 
@@ -54,18 +57,16 @@ const Swagger2code: LayoutFC = () => {
         generateCode.mutate(v);
       })}
     >
-      <div className="flex flex-col items-center space-y-4 p-12">
-        <Stack direction="row" spacing={2} alignItems="center">
+      <Container className="flex flex-col items-center space-y-4 p-10" maxWidth="sm">
+        <Stack direction="row" spacing={2} alignItems="center" className="w-full">
           <TextField
             disabled={loadSwagger.isSuccess}
             label="swagger url"
-            sx={{
-              width: '400px',
-            }}
             value={url}
             onChange={(e) => {
               setUrl(e.target.value);
             }}
+            className="flex-1"
           />
           <LoadingButton
             onClick={() => {
@@ -78,17 +79,25 @@ const Swagger2code: LayoutFC = () => {
             Load Swagger
           </LoadingButton>
         </Stack>
-        <Stack direction="row" spacing={2} alignItems="center">
+        <Stack direction="row" spacing={2} alignItems="center" className="w-full">
           <Controller
             control={control}
             render={({ field }) => {
               return (
                 <Autocomplete
-                  options={getDocumentPaths(loadSwagger.data).map((path) => path)}
-                  renderInput={(params) => <TextField {...params} label="Select Path" />}
-                  getOptionLabel={(option) => option}
-                  sx={{
-                    width: '400px',
+                  className="flex-1"
+                  options={getDocumentPaths(loadSwagger.data).map((path) => {
+                    return path;
+                  })}
+                  renderOption={(props, option) => {
+                    return (
+                      <li {...props} key={option}>
+                        {option}
+                      </li>
+                    );
+                  }}
+                  renderInput={(params) => {
+                    return <TextField {...params} label="path" />;
                   }}
                   disabled={!loadSwagger.isSuccess}
                   {...field}
@@ -107,16 +116,12 @@ const Swagger2code: LayoutFC = () => {
 
         <div>
           {generateCode.data && (
-            <PrismCode
-              language="typescript"
-              maxHeight={600}
-              className="mt-8 min-w-[700px] leading-8"
-            >
+            <PrismCode language="typescript" maxHeight={600} className="mt-8 leading-8">
               {generateCode.data}
             </PrismCode>
           )}
         </div>
-      </div>
+      </Container>
     </form>
   );
 };

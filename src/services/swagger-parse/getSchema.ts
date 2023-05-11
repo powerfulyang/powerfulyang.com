@@ -10,10 +10,12 @@ type _SchemaObject<T> = T extends OpenAPIV3.Document
 export function getSchema<T extends OpenAPIV3.Document | OpenAPIV2.Document>(
   doc: T,
   schema: string,
+  field?: string | string[],
 ): _SchemaObject<T>;
 export function getSchema<T extends OpenAPIV3.Document | OpenAPIV2.Document>(
   doc: T,
   schema: string,
+  // field?: string | string[],
 ) {
   let _schema = schema;
 
