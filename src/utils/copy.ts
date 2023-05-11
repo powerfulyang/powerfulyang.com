@@ -98,7 +98,7 @@ export const copyToClipboardAndNotify = (text: string | Blob) => {
       toast.success('复制成功');
     })
     .catch((e) => {
-      toast.success(e.message);
+      toast.error(e.message);
     });
 };
 

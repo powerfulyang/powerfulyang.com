@@ -10,12 +10,14 @@ import type { OpenAPIV3 } from 'openapi-types';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import type { LayoutFC } from '@/type/GlobalContext';
+import { UserLayout } from '@/layout/UserLayout';
 
 type FormHookData = {
   path: string | null;
 };
 
-const Swagger2code = () => {
+const Swagger2code: LayoutFC = () => {
   const [url, setUrl] = React.useState<string>('');
   const { control, handleSubmit } = useForm<FormHookData>({
     defaultValues: {
@@ -117,6 +119,10 @@ const Swagger2code = () => {
       </div>
     </form>
   );
+};
+
+Swagger2code.getLayout = (page) => {
+  return <UserLayout>{page}</UserLayout>;
 };
 
 export const getServerSideProps = () => {

@@ -1,6 +1,8 @@
 import { VideoProcessor } from '@/components/VideoProcessor';
+import type { LayoutFC } from '@/type/GlobalContext';
+import { UserLayout } from '@/layout/UserLayout';
 
-const Video = () => {
+const Video: LayoutFC = () => {
   return (
     <div className="w-full">
       <div className="flex flex-wrap justify-center">
@@ -16,6 +18,10 @@ const Video = () => {
       </div>
     </div>
   );
+};
+
+Video.getLayout = (page) => {
+  return <UserLayout>{page}</UserLayout>;
 };
 
 export const getServerSideProps = () => {

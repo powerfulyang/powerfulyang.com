@@ -1,6 +1,7 @@
-import { HomeRepairService } from '@mui/icons-material';
-import { AppBar, Card, Container, Grid, Toolbar, Typography } from '@mui/material';
+import { Card, Container, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
+import type { LayoutFC } from '@/type/GlobalContext';
+import { UserLayout } from '@/layout/UserLayout';
 
 const tools = [
   {
@@ -31,81 +32,60 @@ const tools = [
   },
 ];
 
-const Tools = () => {
+const Tools: LayoutFC = () => {
   return (
-    <>
-      <AppBar position="static">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <HomeRepairService sx={{ mr: 1 }} />
-            <Typography
-              variant="h6"
-              noWrap
+    <Container
+      maxWidth="xl"
+      sx={{
+        py: 4,
+      }}
+    >
+      <Grid container wrap="wrap" spacing={4}>
+        {tools.map((tool) => {
+          return (
+            <Grid
+              key={tool.name}
+              item
+              xs={12}
+              sm={4}
+              className="pointer"
               component={Link}
-              href="/tools"
-              sx={{
-                mr: 2,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
+              href={tool.url}
+              target={tool.target}
             >
-              Tools
-            </Typography>
-          </Toolbar>
-        </Container>
-      </AppBar>
-      <Container
-        maxWidth="xl"
-        sx={{
-          py: 4,
-        }}
-      >
-        <Grid container wrap="wrap" spacing={4}>
-          {tools.map((tool) => {
-            return (
-              <Grid
-                key={tool.name}
-                item
-                xs={12}
-                sm={4}
-                className="pointer"
-                component={Link}
-                href={tool.url}
-                target={tool.target}
+              <Card
+                variant="outlined"
+                sx={{
+                  aspectRatio: '16 / 9',
+                  position: 'relative',
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  },
+                }}
               >
-                <Card
-                  variant="outlined"
+                <img className="h-full w-full" src={tool.icon} alt={tool.description} />
+                <Typography
+                  variant="h5"
                   sx={{
-                    aspectRatio: '16 / 9',
-                    position: 'relative',
-                    '&:hover': {
-                      backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                    },
+                    position: 'absolute',
+                    bottom: 10,
+                    width: '100%',
+                    textAlign: 'center',
                   }}
                 >
-                  <img className="h-full w-full" src={tool.icon} alt={tool.description} />
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      position: 'absolute',
-                      bottom: 10,
-                      width: '100%',
-                      textAlign: 'center',
-                    }}
-                  >
-                    {tool.name}
-                  </Typography>
-                </Card>
-              </Grid>
-            );
-          })}
-        </Grid>
-      </Container>
-    </>
+                  {tool.name}
+                </Typography>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Container>
   );
+};
+
+Tools.getLayout = (page) => {
+  return <UserLayout>{page}</UserLayout>;
 };
 
 export const getServerSideProps = () => {

@@ -6,7 +6,7 @@ import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { DateTimeFormat } from '@/utils/lib';
 import { atom, useAtom } from 'jotai';
 import type { Undefinable } from '@powerfulyang/utils';
-import { Button } from '@powerfulyang/components';
+import { Button } from '@mui/material';
 import type { InfiniteData } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
@@ -99,6 +99,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
         {user?.id === feed.createBy.id && (
           <div className="ml-auto flex flex-col justify-evenly">
             <Button
+              size="small"
               onClick={() => {
                 setEditTimeLineItem(feed);
                 window.scrollTo({
@@ -111,6 +112,8 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
               Edit
             </Button>
             <Button
+              size="small"
+              color="error"
               onClick={() => {
                 // eslint-disable-next-line no-alert
                 window.confirm('确定删除吗？') && mutation.mutate(feed.id);

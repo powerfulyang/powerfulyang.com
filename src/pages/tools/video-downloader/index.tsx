@@ -5,8 +5,10 @@ import { LoadingButton } from '@mui/lab';
 import { Container, TextField, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
+import type { LayoutFC } from '@/type/GlobalContext';
+import { UserLayout } from '@/layout/UserLayout';
 
-const VideoDownloader = () => {
+const VideoDownloader: LayoutFC = () => {
   const [videoUrl, setVideoUrl] = useState('');
 
   const download = useMutation({
@@ -82,6 +84,10 @@ const VideoDownloader = () => {
       )}
     </Container>
   );
+};
+
+VideoDownloader.getLayout = (page) => {
+  return <UserLayout>{page}</UserLayout>;
 };
 
 export const getServerSideProps = () => {
