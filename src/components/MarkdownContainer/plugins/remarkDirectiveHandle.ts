@@ -1,6 +1,12 @@
 import { visit } from 'unist-util-visit';
 import type { Root } from 'remark-gfm';
 
+/**
+ * @example
+ * youtube: `:::youtube{#rg80JMm-E1I}`
+ * codepen: `:::codepen{#rNvWbQq}`
+ * codesandbox: `:::codesandbox{#codesandbox-embed}`
+ */
 export function remarkDirectiveHandle() {
   return (tree: Root) => {
     visit(tree, (node) => {

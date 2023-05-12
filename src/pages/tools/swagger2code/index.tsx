@@ -1,5 +1,6 @@
 import { PrismCode } from '@/components/PrismCode';
-import { generateTableFromPath } from '@/services/swagger-parse';
+import { generateTableCode } from '@/services/swagger-parse';
+import type { DocumentPath } from '@/services/swagger-parse/getDocumentPaths';
 import { getDocumentPaths } from '@/services/swagger-parse/getDocumentPaths';
 import { snippet } from '@/snippets/table';
 import SwaggerParser from '@apidevtools/swagger-parser';
@@ -14,7 +15,7 @@ import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 
 type FormHookData = {
-  path: string | null;
+  path: DocumentPath | null;
 };
 
 const Swagger2code: LayoutFC = () => {
@@ -39,8 +40,7 @@ const Swagger2code: LayoutFC = () => {
       if (!loadSwagger.data || !path) {
         throw new Error('no swagger data');
       }
-      const [_method, _path] = path.split(' ');
-      const columns = generateTableFromPath(loadSwagger.data, _path, _method.toLowerCase());
+      const columns = generateTableCode(loadSwagger.data, path);
       const _snippet = snippet({
         COLUMNS: JSON.stringify(columns, null, 2),
       });
@@ -86,21 +86,24 @@ const Swagger2code: LayoutFC = () => {
               return (
                 <Autocomplete
                   className="flex-1"
-                  options={getDocumentPaths(loadSwagger.data).map((path) => {
-                    return path;
-                  })}
+                  options={getDocumentPaths(loadSwagger.data)}
                   renderOption={(props, option) => {
                     return (
-                      <li {...props} key={option}>
-                        {option}
+                      <li {...props} key={`${option.url} ${option.method}`}>
+                        {option.method.toUpperCase()} {option.url}
                       </li>
                     );
                   }}
                   renderInput={(params) => {
                     return <TextField {...params} label="path" />;
                   }}
+                  getOptionLabel={(option) => {
+                    return `${option.method.toUpperCase()} ${option.url}`;
+                  }}
+                  isOptionEqualToValue={(option, value) => {
+                    return option.url === value.url && option.method === value.method;
+                  }}
                   disabled={!loadSwagger.isSuccess}
-                  {...field}
                   onChange={(_e, v) => {
                     field.onChange(v);
                   }}
@@ -113,15 +116,16 @@ const Swagger2code: LayoutFC = () => {
             Generate Code
           </LoadingButton>
         </Stack>
-
-        <div>
-          {generateCode.data && (
-            <PrismCode language="typescript" maxHeight={600} className="mt-8 leading-8">
-              {generateCode.data}
-            </PrismCode>
-          )}
-        </div>
       </Container>
+      {generateCode.data && (
+        <PrismCode
+          language="typescript"
+          maxHeight={400}
+          className="m-auto w-[90%] max-w-[800px] leading-8"
+        >
+          {generateCode.data}
+        </PrismCode>
+      )}
     </form>
   );
 };

@@ -8,7 +8,7 @@ export const getSchemaName = (schema: string) => {
     } else {
       throw new Error('schema is not valid');
     }
-  } else {
+  } else if (_schema.includes('/')) {
     throw new Error('remote schema is not support');
   }
 

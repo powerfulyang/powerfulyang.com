@@ -6,17 +6,13 @@ import type { OpenAPIV3 } from 'openapi-types';
 export const convertV3SchemaToCode = (
   doc: OpenAPIV3.Document,
   schema: string,
+  fieldPath?: string | string[],
   paths: string[] = [],
   data: ProColumns[] = [],
-  entity = getSchema(doc, schema),
+  entity = getSchema(doc, schema, fieldPath),
 ) => {
-  // ReferenceObject
-  if ('$ref' in entity && entity.$ref) {
-    const v = convertV3SchemaToCode(doc, entity.$ref);
-    data.push(...v);
-  }
   // SchemaObject
-  else if ('type' in entity && entity.type && entity.type !== 'object') {
+  if ('type' in entity && entity.type && entity.type !== 'object') {
     if (entity.type === 'array') {
       data.push({
         dataIndex: paths,
