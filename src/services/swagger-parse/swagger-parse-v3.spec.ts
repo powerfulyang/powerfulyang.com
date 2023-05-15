@@ -1,10 +1,10 @@
 import { convertV3SchemaToCode } from '@/services/swagger-parse/convertV3SchemaToCode';
-import { generateTableCode } from '@/services/swagger-parse/index';
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { beforeAll, describe, expect, it } from '@jest/globals';
 import { join } from 'node:path';
 import type { OpenAPIV3 } from 'openapi-types';
 import { getSchema } from '@/services/swagger-parse/getSchema';
+import { generateTableCode } from '@/services/swagger-parse/generateTableCode';
 
 describe('swagger parse v3', () => {
   let doc: OpenAPIV3.Document;
@@ -66,6 +66,8 @@ describe('swagger parse v3', () => {
       method: 'get',
       fieldPath: 'timelineBackground',
     });
+    const $ref = Reflect.getMetadata('$ref', res);
+    expect($ref).toBe('Asset');
     expect(res).toContainEqual({
       dataIndex: 'id',
     });

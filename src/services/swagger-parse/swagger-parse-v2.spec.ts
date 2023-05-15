@@ -1,10 +1,10 @@
 import { convertV2SchemaToCode } from '@/services/swagger-parse/convertV2SchemaToCode';
-import { generateTableCode } from '@/services/swagger-parse/index';
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { beforeAll, describe, expect, it } from '@jest/globals';
 import { join } from 'node:path';
 import type { OpenAPIV2 } from 'openapi-types';
 import { getSchema } from '@/services/swagger-parse/getSchema';
+import { generateTableCode } from '@/services/swagger-parse/generateTableCode';
 
 describe('swagger parse v2', () => {
   let doc: OpenAPIV2.Document;

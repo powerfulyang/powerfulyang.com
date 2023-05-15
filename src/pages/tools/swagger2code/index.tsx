@@ -1,5 +1,4 @@
 import { PrismCode } from '@/components/PrismCode';
-import { generateTableCode } from '@/services/swagger-parse';
 import type { DocumentPath } from '@/services/swagger-parse/getDocumentPaths';
 import { getDocumentPaths } from '@/services/swagger-parse/getDocumentPaths';
 import { snippet } from '@/snippets/table';
@@ -13,6 +12,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
+import { generateTableCode } from '@/services/swagger-parse/generateTableCode';
 
 type FormHookData = {
   path: DocumentPath | null;
@@ -41,8 +41,12 @@ const Swagger2code: LayoutFC = () => {
         throw new Error('no swagger data');
       }
       const columns = generateTableCode(loadSwagger.data, path);
+      const schema = Reflect.getMetadata('$ref', columns);
+      const operationId = Reflect.getMetadata('operationId', columns);
       const _snippet = snippet({
         COLUMNS: JSON.stringify(columns, null, 2),
+        SCHEMA: schema,
+        operationId,
       });
       return Promise.resolve(_snippet);
     },

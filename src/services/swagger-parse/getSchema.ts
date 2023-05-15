@@ -46,7 +46,8 @@ export function getSchema<T extends OpenAPIV3.Document | OpenAPIV2.Document>(
         }
         return getSchema(doc, _entity.$ref, _fieldPath);
       }
-      // fieldPath is undefined
+      // fieldPath is undefined, define metadata
+      Reflect.defineMetadata('$ref', _schema, entity);
       return entity;
     }
 

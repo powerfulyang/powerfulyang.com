@@ -24,5 +24,7 @@ export const convertV3SchemaToCode = (
   } else if ('type' in entity && entity.type === 'object') {
     convertObjectToCode(doc, schema, paths, data, entity);
   }
+  const $ref = Reflect.getMetadata('$ref', entity);
+  Reflect.defineMetadata('$ref', $ref, data);
   return data;
 };

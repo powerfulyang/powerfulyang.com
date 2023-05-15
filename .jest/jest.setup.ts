@@ -4,6 +4,8 @@ import '@testing-library/jest-dom/extend-expect';
 import '@powerfulyang/jest-extended/all';
 // canvas mock
 import 'jest-canvas-mock';
+// metadata
+import 'reflect-metadata';
 
 // mock next/router
 jest.mock('next/router', () => ({
