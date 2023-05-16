@@ -198,8 +198,8 @@ devDependencies:
     specifier: 29.5.0
     version: 29.5.0
   '@powerfulyang/jest-extended':
-    specifier: 3.2.6
-    version: 3.2.6
+    specifier: 3.3.0
+    version: 3.3.0
   '@powerfulyang/lint':
     specifier: 3.2.1
     version: 3.2.1(@types/node@20.1.5)(ts-node@10.9.1)(typescript@5.0.4)
@@ -3167,8 +3167,8 @@ packages:
       - supports-color
     dev: false
 
-  /@powerfulyang/jest-extended@3.2.6:
-    resolution: {integrity: sha512-Oeegv86FJMl350IW/Z1K0tH2MafWwcA4ZvCEtGXiLc7NUSLFNAMxp3OxU4/qyriyC1dth7KDdFM1OsvQYaNkHA==}
+  /@powerfulyang/jest-extended@3.3.0:
+    resolution: {integrity: sha512-A1VqdH+05UOhi7iK6536N1hubHTSnXa+vvVpULsDzBXK3D8c+y7ArD6pBmwphgHLys2YvuvPJJnNECaKFb2rxg==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
       jest: '>=27.2.5'
