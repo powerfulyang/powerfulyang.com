@@ -80,7 +80,8 @@ export function getSchema<T extends OpenAPIV3.Document | OpenAPIV2.Document>(
     return getV2ObjectInfo(doc, _entity, _fieldPath);
   }
 
-  return getV2ObjectInfo(doc, entity);
+  Reflect.defineMetadata('$ref', _schema, entity);
+  return entity;
 }
 
 function getV3ObjectInfo(

@@ -1,28 +1,26 @@
-import { camelCase, capitalize } from 'lodash-es';
-
 type Parameters = {
   COLUMNS: string;
   SCHEMA: string;
   operationId: string;
+  description: string;
+  tag: string;
 };
 
 export const snippet = (params: Parameters) => {
-  const { COLUMNS, SCHEMA, operationId } = params;
-  const schema = camelCase(SCHEMA);
-  const Schema = capitalize(SCHEMA);
+  const { COLUMNS, SCHEMA, operationId, description, tag } = params;
   const code = `
 import { PageContainer, ProTable } from '@ant-design/pro-components';
-import type { ProColumnDetectType } from '@/types/ProColumnDetectType';
+import type { ProStrictColumns } from '@/types/ProStrictColumns';
 import { paginateTableRequest } from '@/utils/paginateTableRequest';
-import { ${operationId} } from '@/services/swagger/${schema}';
+import { ${operationId} } from '@/services/swagger/${tag}';
 
 const Index = () => {
-  const columns: ProColumnDetectType<API.${Schema}>[] = ${COLUMNS};
+  const columns: ProStrictColumns<API.${SCHEMA}>[] = ${COLUMNS};
   return (
     <PageContainer title={false}>
       <ProTable
         rowKey="id"
-        headerTitle="Asset List"
+        headerTitle="${description}"
         columns={columns}
         scroll={{ x: 'max-content' }}
         request={paginateTableRequest(${operationId})}

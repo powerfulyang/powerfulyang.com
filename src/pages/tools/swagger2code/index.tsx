@@ -15,7 +15,11 @@ import { UserLayout } from '@/layout/UserLayout';
 import { generateTableCode } from '@/services/swagger-parse/generateTableCode';
 
 type FormHookData = {
-  path: DocumentPath | null;
+  path:
+    | (DocumentPath & {
+        fieldPath?: string | string[];
+      })
+    | null;
 };
 
 const Swagger2code: LayoutFC = () => {
@@ -43,10 +47,14 @@ const Swagger2code: LayoutFC = () => {
       const columns = generateTableCode(loadSwagger.data, path);
       const schema = Reflect.getMetadata('$ref', columns);
       const operationId = Reflect.getMetadata('operationId', columns);
+      const description = Reflect.getMetadata('description', columns);
+      const tag = Reflect.getMetadata('tag', columns);
       const _snippet = snippet({
         COLUMNS: JSON.stringify(columns, null, 2),
         SCHEMA: schema,
         operationId,
+        description,
+        tag,
       });
       return Promise.resolve(_snippet);
     },
@@ -61,7 +69,7 @@ const Swagger2code: LayoutFC = () => {
         generateCode.mutate(v);
       })}
     >
-      <Container className="flex flex-col items-center space-y-4 p-10" maxWidth="sm">
+      <Container className="flex flex-col items-center space-y-4 p-10" maxWidth="lg">
         <Stack direction="row" spacing={2} alignItems="center" className="w-full">
           <TextField
             disabled={loadSwagger.isSuccess}
@@ -89,7 +97,7 @@ const Swagger2code: LayoutFC = () => {
             render={({ field }) => {
               return (
                 <Autocomplete
-                  className="flex-1"
+                  className="flex-grow-[2]"
                   options={getDocumentPaths(loadSwagger.data)}
                   renderOption={(props, option) => {
                     return (
@@ -99,7 +107,7 @@ const Swagger2code: LayoutFC = () => {
                     );
                   }}
                   renderInput={(params) => {
-                    return <TextField {...params} label="path" />;
+                    return <TextField {...params} label="path" placeholder="Please select a url" />;
                   }}
                   getOptionLabel={(option) => {
                     return `${option.method.toUpperCase()} ${option.url}`;
@@ -115,6 +123,29 @@ const Swagger2code: LayoutFC = () => {
               );
             }}
             name="path"
+          />
+          <Controller
+            render={({ field }) => {
+              return (
+                <TextField
+                  className="flex-grow-[1]"
+                  disabled={!loadSwagger.isSuccess}
+                  label="fieldPath"
+                  placeholder="e.g. data,list, data,total"
+                  {...field}
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    if (value) {
+                      field.onChange(value.split(','));
+                    } else {
+                      field.onChange(undefined);
+                    }
+                  }}
+                />
+              );
+            }}
+            control={control}
+            name="path.fieldPath"
           />
           <LoadingButton type="submit" variant="contained" disabled={!loadSwagger.isSuccess}>
             Generate Code

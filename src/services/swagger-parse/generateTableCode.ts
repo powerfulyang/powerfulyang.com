@@ -17,7 +17,9 @@ export const generateTableCode = (
     url,
     method,
   ]);
-  const { operationId } = operation;
+  const { operationId, description, tags } = operation;
+  const tag = tags?.[0] || '';
+
   if (!operation) throw new Error(`path ${url} not found`);
   const { responses } = operation;
   if (!responses) throw new Error(`path ${url} responses not found`);
@@ -30,6 +32,8 @@ export const generateTableCode = (
     if ('$ref' in v3Response) {
       const res = convertV3SchemaToCode(doc, v3Response.$ref, fieldPath);
       Reflect.defineMetadata('operationId', operationId, res);
+      Reflect.defineMetadata('description', description, res);
+      Reflect.defineMetadata('tag', tag, res);
       return res;
     }
     // v3 ResponseObject
@@ -46,6 +50,8 @@ export const generateTableCode = (
     if ('$ref' in schema) {
       const res = convertV3SchemaToCode(doc, schema.$ref, fieldPath);
       Reflect.defineMetadata('operationId', operationId, res);
+      Reflect.defineMetadata('description', description, res);
+      Reflect.defineMetadata('tag', tag, res);
       return res;
     }
     throw new Error(`path ${url} response 200 content application/json schema not support`);
@@ -53,13 +59,21 @@ export const generateTableCode = (
   const v2Response = response as OpenAPIV2.Response;
   // v2 ReferenceObject
   if ('$ref' in v2Response) {
-    return convertV2SchemaToCode(doc, v2Response.$ref, fieldPath);
+    const res = convertV2SchemaToCode(doc, v2Response.$ref, fieldPath);
+    Reflect.defineMetadata('operationId', operationId, res);
+    Reflect.defineMetadata('description', description, res);
+    Reflect.defineMetadata('tag', tag, res);
+    return res;
   }
   if (!v2Response.schema) throw new Error(`path ${url} response 200 schema not found`);
   // v2 ResponseObject
   const { schema } = v2Response;
   if ('$ref' in schema && schema.$ref) {
-    return convertV2SchemaToCode(doc, schema.$ref, fieldPath);
+    const res = convertV2SchemaToCode(doc, schema.$ref, fieldPath);
+    Reflect.defineMetadata('operationId', operationId, res);
+    Reflect.defineMetadata('description', description, res);
+    Reflect.defineMetadata('tag', tag, res);
+    return res;
   }
   throw new Error(`path ${url} response 200 schema not support`);
 };

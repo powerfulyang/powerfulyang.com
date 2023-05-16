@@ -15,5 +15,8 @@ export const convertV2SchemaToCode = (
   if (entity.type === 'object') {
     convertObjectToCode(doc, schema, paths, data, entity);
   }
+  const $ref = Reflect.getMetadata('$ref', entity);
+  console.log($ref);
+  Reflect.defineMetadata('$ref', $ref, data);
   return data;
 };
