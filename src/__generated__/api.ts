@@ -1700,28 +1700,5 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: 'GET',
         ...params,
       }),
-
-    /**
-     * No description
-     *
-     * @tags tools
-     * @name ToolsControllerDownload
-     * @request GET:/api/tools/download
-     * @secure
-     */
-    toolsControllerDownload: (
-      query: {
-        url: string;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<string, any>({
-        path: `/api/tools/download`,
-        method: 'GET',
-        query: query,
-        secure: true,
-        format: 'json',
-        ...params,
-      }),
   };
 }

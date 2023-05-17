@@ -1,24 +1,39 @@
-import { clientApi } from '@/request/requestTool';
+import { PrismCode } from '@/components/PrismCode';
+import { UserLayout } from '@/layout/UserLayout';
+import type { LayoutFC } from '@/type/GlobalContext';
 import { copyToClipboardAndNotify } from '@/utils/copy';
 import { CopyAllOutlined } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Container, TextField, Typography } from '@mui/material';
+import { useImmer } from '@powerfulyang/hooks';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
-import type { LayoutFC } from '@/type/GlobalContext';
-import { UserLayout } from '@/layout/UserLayout';
 
 const VideoDownloader: LayoutFC = () => {
   const [videoUrl, setVideoUrl] = useState('');
+  const [messages, setMessages] = useImmer<string[]>([]);
 
   const download = useMutation({
+    onMutate: () => {
+      setMessages([]);
+    },
     mutationFn: (url: string) => {
-      return clientApi.toolsControllerDownload(
-        { url },
-        {
-          format: 'text',
-        },
-      );
+      const _str = `videoUrl=${encodeURIComponent(url)}`;
+      const eventSource = new EventSource(`/api/tools/video-downloader?${_str}`);
+      eventSource.onmessage = (event) => {
+        setMessages((draft) => {
+          draft.push(event.data);
+        });
+      };
+      return new Promise<{
+        downloadUrl: string;
+      }>((resolve) => {
+        eventSource.addEventListener('done', (event) => {
+          eventSource.close();
+          const data = JSON.parse(event.data);
+          resolve(data);
+        });
+      });
     },
   });
 
@@ -54,6 +69,7 @@ const VideoDownloader: LayoutFC = () => {
           const url = event.target.value;
           setVideoUrl(url);
         }}
+        name="videoUrl"
       />
       <LoadingButton
         sx={{
@@ -68,19 +84,24 @@ const VideoDownloader: LayoutFC = () => {
       >
         Download
       </LoadingButton>
-      {download?.data?.data && (
+      {download?.data?.downloadUrl && (
         <Typography sx={{ mt: 4, color: 'green', textAlign: 'center' }} variant="body1">
-          {download?.data?.data}
+          {download?.data?.downloadUrl}
           <CopyAllOutlined
             sx={{
               ml: 1,
               cursor: 'pointer',
             }}
             onClick={() => {
-              copyToClipboardAndNotify(download?.data?.data);
+              copyToClipboardAndNotify(download?.data?.downloadUrl);
             }}
           />
         </Typography>
+      )}
+      {messages?.length > 0 && (
+        <PrismCode className="mt-8" language="shell">
+          {messages.join('').trim()}
+        </PrismCode>
       )}
     </Container>
   );

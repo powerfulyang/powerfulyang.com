@@ -84,9 +84,8 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ matrix.docker-repository-qa }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          target: runner
+#          cache-from: type=gha  # cache is slow, so we disable it
+#          cache-to: type=gha,mode=max
           build-args: |
             BUILD_ENV=qa
         if: steps.filter-source.outputs.sources == 'true'
@@ -109,9 +108,8 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ matrix.docker-repository-prod }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          target: runner
+#          cache-from: type=gha
+#          cache-to: type=gha,mode=max
           build-args: |
             BUILD_ENV=prod
           secrets: |
