@@ -327,14 +327,6 @@ export interface ChatGPTPayload {
   conversationId?: string;
 }
 
-export interface BingAIPayload {
-  message: string;
-  conversationSignature?: string;
-  conversationId?: string;
-  clientId?: string;
-  invocationId?: string;
-}
-
 export interface ViewCountDto {
   createdAt: string;
   requestCount: number;
@@ -356,6 +348,23 @@ export interface UpdateFeedDto {
   id: number;
   public: boolean;
   updateBy: User;
+}
+
+export interface PushSubscriptionJSON {
+  endpoint?: string;
+  expirationTime?: number | null;
+  keys?: object;
+}
+
+export interface PushSubscriptionLog {
+  id: number;
+  pushSubscriptionJSON: object;
+  endpoint: string;
+  user: User;
+  /** @format date-time */
+  createdAt: string;
+  /** @format date-time */
+  updatedAt: string;
 }
 
 export enum OauthApplicationPlatformName {
@@ -1463,26 +1472,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags public-api
-     * @name ChatWithBingAi
-     * @summary 与bing ai聊天
-     * @request POST:/api/public/bing-ai/chat
-     * @secure
-     */
-    chatWithBingAi: (data: BingAIPayload, params: RequestParams = {}) =>
-      this.request<BingAIPayload, any>({
-        path: `/api/public/bing-ai/chat`,
-        method: 'POST',
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags public-api
      * @name PublicControllerViewCount
      * @request GET:/api/public/view-count
      * @secure
@@ -1698,6 +1687,39 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<void, any>({
         path: `/api/mini-program/qrcode`,
         method: 'GET',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @name FcmControllerSubscribe
+     * @request POST:/api/fcm/subscribe
+     */
+    fcmControllerSubscribe: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/api/fcm/subscribe`,
+        method: 'POST',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags web-push
+     * @name WebPushSubscribe
+     * @summary 订阅推送
+     * @request POST:/api/web-push/subscribe
+     * @secure
+     */
+    webPushSubscribe: (data: PushSubscriptionJSON, params: RequestParams = {}) =>
+      this.request<PushSubscriptionLog, any>({
+        path: `/api/web-push/subscribe`,
+        method: 'POST',
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
   };

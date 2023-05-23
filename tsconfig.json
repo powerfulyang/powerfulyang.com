@@ -17,20 +17,14 @@
     "resolveJsonModule": true,
     "strict": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
     "isolatedModules": true,
     "strictPropertyInitialization": false,
     "allowJs": true,
     "noEmit": true,
     "incremental": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
     "noImplicitAny": true,
     "plugins": [
       {
@@ -38,12 +32,6 @@
       }
     ]
   },
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

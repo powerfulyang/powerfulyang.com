@@ -15,12 +15,11 @@ import { useUser } from '@/hooks/useUser';
 import { useMutation } from '@tanstack/react-query';
 import { omit } from 'lodash-es';
 import { clientApi } from '@/request/requestTool';
-import type { BingAIPayload, ChatGPTPayload } from '@/__generated__/api';
+import type { ChatGPTPayload } from '@/__generated__/api';
 import styles from './index.module.scss';
 
 const LAN = 'LAN';
 const ChatGPT = 'ChatGPT';
-const BingAI = 'BingAI';
 
 const Airdrop: LayoutFC = () => {
   const { user } = useUser();
@@ -105,16 +104,8 @@ const Airdrop: LayoutFC = () => {
 
   const sendToAI = useMutation({
     mutationKey: ['sendToAI', selectPeerId],
-    mutationFn: (message: SentMessage): Promise<ChatGPTPayload | BingAIPayload> => {
+    mutationFn: (message: SentMessage): Promise<ChatGPTPayload> => {
       AIUtil.think(selectPeerId);
-      if (selectPeerId === BingAI) {
-        return clientApi
-          .chatWithBingAi({
-            message: message.content,
-            ...conversionRef.current.get(selectPeerId),
-          })
-          .then((res) => res.data);
-      }
       if (selectPeerId === ChatGPT) {
         return clientApi
           .chatWithChatGpt({
@@ -156,7 +147,7 @@ const Airdrop: LayoutFC = () => {
         chatFriendId: selectPeerId,
         sendType: MessageSendType.send,
       });
-      if (![LAN, ChatGPT, BingAI].includes(selectPeerId)) {
+      if (![LAN, ChatGPT].includes(selectPeerId)) {
         connections.get(selectPeerId)?.send({
           ...message,
         });
@@ -172,7 +163,7 @@ const Airdrop: LayoutFC = () => {
             sendType: MessageSendType.send,
           });
         });
-      } else if (selectPeerId === ChatGPT || selectPeerId === BingAI) {
+      } else if (selectPeerId === ChatGPT) {
         sendToAI.mutate(message);
       }
     },
@@ -234,11 +225,11 @@ const Airdrop: LayoutFC = () => {
     <main className={styles.main}>
       <div className={classNames(styles.desktopChats, 'common-shadow')}>
         <div className={styles.friends}>
-          {[LAN, ChatGPT, BingAI, ...connections.keys()]
+          {[LAN, ChatGPT, ...connections.keys()]
             .filter((x) => x !== currentPeerId)
             .map((peerId) => (
               <button
-                hidden={[ChatGPT, BingAI].includes(peerId) && !user}
+                hidden={[ChatGPT].includes(peerId) && !user}
                 type="button"
                 className={classNames(styles.friend, {
                   [styles.selected]: peerId === selectPeerId,

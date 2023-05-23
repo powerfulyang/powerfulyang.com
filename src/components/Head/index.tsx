@@ -1,3 +1,4 @@
+import { useNotification } from '@/hooks/useNotification';
 import type { FC } from 'react';
 import React, { memo } from 'react';
 import dayjs from 'dayjs';
@@ -14,6 +15,8 @@ export const defaultOrigin = 'https://powerfulyang.com';
 export const origin: string = process.env.NEXT_PUBLIC_ORIGIN || defaultOrigin;
 
 export const Header: FC = memo(() => {
+  // 获取通知权限
+  useNotification();
   return (
     <Head>
       <meta
