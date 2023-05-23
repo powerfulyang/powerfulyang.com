@@ -265,6 +265,7 @@ export interface CreatePostDto {
 }
 
 export interface PatchPostDto {
+  id: number;
   title: string;
   content: string;
   posterId?: number;
@@ -327,14 +328,6 @@ export interface ChatGPTPayload {
   conversationId?: string;
 }
 
-export interface BingAIPayload {
-  message: string;
-  conversationSignature?: string;
-  conversationId?: string;
-  clientId?: string;
-  invocationId?: string;
-}
-
 export interface ViewCountDto {
   createdAt: string;
   requestCount: number;
@@ -356,6 +349,38 @@ export interface UpdateFeedDto {
   id: number;
   public: boolean;
   updateBy: User;
+}
+
+export interface PushSubscriptionJSON {
+  endpoint?: string;
+  expirationTime?: number | null;
+  keys?: object;
+}
+
+export interface PushSubscriptionLog {
+  id: number;
+  pushSubscriptionJSON: PushSubscriptionJSON;
+  endpoint: string;
+  user?: User;
+  /** @format date-time */
+  createdAt: string;
+  /** @format date-time */
+  updatedAt: string;
+}
+
+export interface PaginatedBaseQuery {
+  /** 每页条数 */
+  pageSize: number;
+  /** 当前页码 */
+  current: number;
+}
+
+export interface NotificationDto {
+  title: string;
+  message: string;
+  icon?: string;
+  openUrl?: string;
+  subscribeId: number;
 }
 
 export enum OauthApplicationPlatformName {
@@ -726,7 +751,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryMenuById: (id: string, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<Menu, any>({
         path: `/api/menu-manage/${id}`,
         method: 'GET',
         secure: true,
@@ -832,7 +857,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/role-manage/{id}
      * @secure
      */
-    queryRoleById: (id: string, params: RequestParams = {}) =>
+    queryRoleById: (id: number, params: RequestParams = {}) =>
       this.request<Role, any>({
         path: `/api/role-manage/${id}`,
         method: 'GET',
@@ -1207,12 +1232,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags post
      * @name UpdatePost
      * @summary 更新文章
-     * @request PATCH:/api/post/{id}
+     * @request PATCH:/api/post
      * @secure
      */
-    updatePost: (id: number, data: PatchPostDto, params: RequestParams = {}) =>
+    updatePost: (data: PatchPostDto, params: RequestParams = {}) =>
       this.request<Post, any>({
-        path: `/api/post/${id}`,
+        path: `/api/post`,
         method: 'PATCH',
         body: data,
         secure: true,
@@ -1463,26 +1488,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags public-api
-     * @name ChatWithBingAi
-     * @summary 与bing ai聊天
-     * @request POST:/api/public/bing-ai/chat
-     * @secure
-     */
-    chatWithBingAi: (data: BingAIPayload, params: RequestParams = {}) =>
-      this.request<BingAIPayload, any>({
-        path: `/api/public/bing-ai/chat`,
-        method: 'POST',
-        body: data,
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags public-api
      * @name PublicControllerViewCount
      * @request GET:/api/public/view-count
      * @secure
@@ -1698,6 +1703,78 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<void, any>({
         path: `/api/mini-program/qrcode`,
         method: 'GET',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @name FcmControllerSubscribe
+     * @request POST:/api/fcm/subscribe
+     */
+    fcmControllerSubscribe: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/api/fcm/subscribe`,
+        method: 'POST',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags web-push
+     * @name WebPushSubscribe
+     * @summary 订阅推送
+     * @request POST:/api/web-push/subscribe
+     * @secure
+     */
+    webPushSubscribe: (data: PushSubscriptionJSON, params: RequestParams = {}) =>
+      this.request<PushSubscriptionLog, any>({
+        path: `/api/web-push/subscribe`,
+        method: 'POST',
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags web-push
+     * @name WebPushSubscribeList
+     * @summary 订阅推送列表
+     * @request POST:/api/web-push/subscribe/list
+     * @secure
+     */
+    webPushSubscribeList: (data: PaginatedBaseQuery, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/api/web-push/subscribe/list`,
+        method: 'POST',
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags web-push
+     * @name WebPushSendNotification
+     * @summary 发送推送
+     * @request POST:/api/web-push/send-notification
+     * @secure
+     */
+    webPushSendNotification: (data: NotificationDto, params: RequestParams = {}) =>
+      this.request<object, any>({
+        path: `/api/web-push/send-notification`,
+        method: 'POST',
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
   };

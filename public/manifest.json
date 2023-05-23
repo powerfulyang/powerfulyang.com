@@ -7,6 +7,7 @@
   "orientation": "portrait",
   "scope": "/",
   "start_url": "/",
+  "gcm_sender_id": "362147835641",
   "icons": [
     {
       "src": "icons/favicon-16x16.png",
