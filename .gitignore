@@ -44,6 +44,7 @@ package-lock.json
 public/robots.txt
 public/sitemap.xml
 public/sitemap-0.xml
+public/worker-development.js
 
 .vscode
 

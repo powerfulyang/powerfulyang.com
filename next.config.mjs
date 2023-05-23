@@ -119,7 +119,6 @@ const withBundleAnalyzer = BundleAnalyzer({
 
 const withPWA = withPWAConfig({
   dest: 'public',
-  disable: isDevProcess,
   sourcemap: false,
   exclude: [
     /\.map$/,
@@ -135,6 +134,7 @@ const withPWA = withPWAConfig({
     },
   ],
   runtimeCaching,
+  customWorkerDir: 'src/workers',
 });
 
 const nextConfig = withSentryConfig(

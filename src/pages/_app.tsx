@@ -10,6 +10,7 @@ import Script from 'next/script';
 import React, { useMemo } from 'react';
 import './app.scss';
 import 'reflect-metadata';
+import { useNotification } from '@/hooks/useNotification';
 
 interface HeaderProps {
   meta?: {
@@ -38,6 +39,8 @@ const App = ({ Component, pageProps }: MyAppProps) => {
     return <Component {...pageProps} />;
   }, [Component, getLayout, pageProps]);
 
+  // 获取通知权限
+  useNotification();
   // 路由变化时，表单未提交的提示
   useFormRouteListener();
   // 路由变化时，PV统计
