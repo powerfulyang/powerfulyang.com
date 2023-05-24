@@ -45,7 +45,7 @@
     "@powerfulyang/hooks": "1.5.2",
     "@powerfulyang/utils": "1.10.2",
     "@react-three/fiber": "8.13.0",
-    "@sentry/nextjs": "7.53.0",
+    "@sentry/nextjs": "7.53.1",
     "@tanstack/react-query": "4.29.7",
     "canvas-confetti": "1.6.0",
     "classnames": "2.3.2",
