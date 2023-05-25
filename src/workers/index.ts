@@ -10,20 +10,21 @@ self.addEventListener('push', (event) => {
   const data: {
     title: string;
     message: string;
+    icon: string;
   } = event.data.json();
   // 解析通知内容
-  const { title } = data;
-  const { message } = data;
-  const icon = 'https://powerfulyang.com/icons/apple-touch-icon.png';
+  const { title, message, icon = 'https://powerfulyang.com/icons/apple-touch-icon.png' } = data;
   return self.registration.showNotification(title, {
     body: message,
     icon,
+    data,
   });
 });
 
 // 处理通知消息的点击事件
 self.onnotificationclick = (event) => {
   event.notification.close();
-
-  event.waitUntil(self.clients.openWindow('https://powerfulyang.com'));
+  if (event.notification.data.openUrl) {
+    event.waitUntil(self.clients.openWindow(event.notification.data.openUrl));
+  }
 };

@@ -23,7 +23,8 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
   const publishPostMutation = useMutation(
     (metadata: MarkdownMetadata) => {
       if (post.id) {
-        return clientApi.updatePost(post.id, {
+        return clientApi.updatePost({
+          id: post.id,
           ...metadata,
           content,
         });

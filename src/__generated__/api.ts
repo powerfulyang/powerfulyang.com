@@ -265,6 +265,7 @@ export interface CreatePostDto {
 }
 
 export interface PatchPostDto {
+  id: number;
   title: string;
   content: string;
   posterId?: number;
@@ -358,13 +359,28 @@ export interface PushSubscriptionJSON {
 
 export interface PushSubscriptionLog {
   id: number;
-  pushSubscriptionJSON: object;
+  pushSubscriptionJSON: PushSubscriptionJSON;
   endpoint: string;
-  user: User;
+  user?: User;
   /** @format date-time */
   createdAt: string;
   /** @format date-time */
   updatedAt: string;
+}
+
+export interface PaginatedBaseQuery {
+  /** 每页条数 */
+  pageSize: number;
+  /** 当前页码 */
+  current: number;
+}
+
+export interface NotificationDto {
+  title: string;
+  message: string;
+  icon?: string;
+  openUrl?: string;
+  subscribeId: number;
 }
 
 export enum OauthApplicationPlatformName {
@@ -735,7 +751,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryMenuById: (id: string, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<Menu, any>({
         path: `/api/menu-manage/${id}`,
         method: 'GET',
         secure: true,
@@ -841,7 +857,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/role-manage/{id}
      * @secure
      */
-    queryRoleById: (id: string, params: RequestParams = {}) =>
+    queryRoleById: (id: number, params: RequestParams = {}) =>
       this.request<Role, any>({
         path: `/api/role-manage/${id}`,
         method: 'GET',
@@ -1216,12 +1232,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags post
      * @name UpdatePost
      * @summary 更新文章
-     * @request PATCH:/api/post/{id}
+     * @request PATCH:/api/post
      * @secure
      */
-    updatePost: (id: number, data: PatchPostDto, params: RequestParams = {}) =>
+    updatePost: (data: PatchPostDto, params: RequestParams = {}) =>
       this.request<Post, any>({
-        path: `/api/post/${id}`,
+        path: `/api/post`,
         method: 'PATCH',
         body: data,
         secure: true,
@@ -1715,6 +1731,45 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     webPushSubscribe: (data: PushSubscriptionJSON, params: RequestParams = {}) =>
       this.request<PushSubscriptionLog, any>({
         path: `/api/web-push/subscribe`,
+        method: 'POST',
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags web-push
+     * @name WebPushSubscribeList
+     * @summary 订阅推送列表
+     * @request POST:/api/web-push/subscribe/list
+     * @secure
+     */
+    webPushSubscribeList: (data: PaginatedBaseQuery, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/api/web-push/subscribe/list`,
+        method: 'POST',
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags web-push
+     * @name WebPushSendNotification
+     * @summary 发送推送
+     * @request POST:/api/web-push/send-notification
+     * @secure
+     */
+    webPushSendNotification: (data: NotificationDto, params: RequestParams = {}) =>
+      this.request<object, any>({
+        path: `/api/web-push/send-notification`,
         method: 'POST',
         body: data,
         secure: true,
