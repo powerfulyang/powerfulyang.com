@@ -54,6 +54,13 @@ export const generateTableCode = (
       Reflect.defineMetadata('tag', tag, res);
       return res;
     }
+    if ('items' in schema && '$ref' in schema.items) {
+      const res = convertV3SchemaToCode(doc, schema.items.$ref, fieldPath);
+      Reflect.defineMetadata('operationId', operationId, res);
+      Reflect.defineMetadata('description', description, res);
+      Reflect.defineMetadata('tag', tag, res);
+      return res;
+    }
     throw new Error(`path ${url} response 200 content application/json schema not support`);
   }
   const v2Response = response as OpenAPIV2.Response;
