@@ -20,6 +20,7 @@ export type MarkdownMetadata = {
   posterId?: number;
   date?: string;
   title: string;
+  summary?: string;
 };
 
 type MarkdownEditorProps = {

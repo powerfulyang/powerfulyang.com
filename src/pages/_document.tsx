@@ -11,7 +11,7 @@ interface MyDocumentProps extends DocumentProps {
 
 const MyDocument = ({ emotionStyleTags }: MyDocumentProps) => {
   return (
-    <Html lang="zh">
+    <Html>
       <Head>
         <link rel="preconnect" href={CDN_ORIGIN} crossOrigin="anonymous" />
         <link

@@ -24,6 +24,7 @@ export const remarkMetadata: Plugin<any, Root, string> = (
           author = 'powerfulyang',
           title = 'No title',
           tags = [],
+          summary = '',
         } = metadata;
         yamlPart.children = [];
         formatted.push({
@@ -52,6 +53,17 @@ export const remarkMetadata: Plugin<any, Root, string> = (
             value: tag,
           })),
         });
+        if (summary) {
+          formatted.push({
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                value: summary,
+              },
+            ],
+          });
+        }
         draft.children = [...formatted, ...children];
       } catch (e) {
         // eslint-disable-next-line no-console
