@@ -22,33 +22,12 @@ export interface UserLoginDto {
   password: string;
 }
 
-export interface CosBucket {
-  /**
-   * bucket 在系统中的名称
-   * @default "test"
-   */
-  name: string;
-  id: number;
-  Bucket: string;
-  Region: string;
-  ACL: object;
-  CORSRules: object[];
-  RefererConfiguration: object;
-  /** @format date-time */
-  createdAt: string;
-  /** @format date-time */
-  updatedAt: string;
-  tencentCloudAccount: object;
-  assets: Asset[];
-  public: boolean;
-}
-
 export interface Menu {
   id: number;
   name: string;
   path: string;
-  children: Menu[];
-  parent: Menu;
+  children: object;
+  parent: object;
   parentId: number | null;
   /** @format date-time */
   createdAt: string;
@@ -69,40 +48,6 @@ export interface Role {
   permissions: string[];
 }
 
-export interface Family {
-  id: number;
-  name: string;
-  description: string;
-  /** @format date-time */
-  createdAt: string;
-  /** @format date-time */
-  updatedAt: string;
-  members: User[];
-}
-
-export interface OauthApplication {
-  id: number;
-  platformName: OauthApplicationPlatformName;
-  clientId: string;
-  clientSecret: string;
-  callbackUrl: string;
-  /** @format date-time */
-  createdAt: string;
-  /** @format date-time */
-  updatedAt: string;
-}
-
-export interface OauthOpenid {
-  id: number;
-  application: OauthApplication;
-  openid: string;
-  user: User;
-  /** @format date-time */
-  createdAt: string;
-  /** @format date-time */
-  updatedAt: string;
-}
-
 export interface User {
   /**
    * User id
@@ -116,25 +61,57 @@ export interface User {
   email: string;
   nickname: string;
   bio: string;
-  avatar?: string;
+  avatar: string;
   lastIp: string;
   lastAddress: string;
   /** @format date-time */
   createdAt: string;
   /** @format date-time */
   updatedAt: string;
-  timelineBackground: Asset;
+  timelineBackground: object;
   /** User roles */
   roles: Role[];
-  families: Family[];
-  oauthOpenidArr: OauthOpenid[];
-  saltedPassword: string;
-  salt: string;
+  families: object;
+  oauthOpenidArr: object;
+}
+
+export interface CreateRoleDto {
+  /** 角色名称 */
+  name: string;
+  /** 权限列表 */
+  permissions: string[];
+  /** 角色拥有的菜单 */
+  menus: string[];
+}
+
+export interface EditUserDto {
+  /**
+   * User email
+   * @example "i@powerfulyang.com"
+   */
+  email: string;
+  nickname: string;
+  bio: string;
+  avatar: string;
+}
+
+export interface UploadAssetsDto {
+  assets: File[];
+}
+
+export type CreateTencentCloudAccountDto = object;
+
+export interface CreateBucketDto {
+  /**
+   * bucket 在系统中的名称
+   * @default "test"
+   */
+  name?: string;
 }
 
 export interface Asset {
   id: number;
-  bucket: CosBucket;
+  bucket: object;
   objectUrl: {
     webp: string;
     original: string;
@@ -146,7 +123,6 @@ export interface Asset {
   sn: string;
   tags: string[];
   comment: string;
-  /** 需要注意，这里的值是不带 `.` 的 */
   fileSuffix: string;
   sha1: string;
   pHash: string;
@@ -156,65 +132,74 @@ export interface Asset {
     width: number;
     height: number;
   };
-  uploadBy: User;
+  uploadBy: object;
   /** @format date-time */
   createdAt: string;
   /** @format date-time */
   updatedAt: string;
 }
 
-export interface CreateRoleDto {
-  /** 角色名称 */
-  name: string;
-  /** 权限列表 */
-  permissions: string[];
-  /** 角色拥有的菜单 */
-  menus?: number[];
+export interface PostLog {
+  id: number;
+  post: object;
+  title: string;
+  content: string;
+  /** @format date-time */
+  createdAt: string;
+  /** @format date-time */
+  updatedAt: string;
 }
 
-export interface EditUserDto {
-  /**
-   * User email
-   * @example "i@powerfulyang.com"
-   */
-  email: string;
-  nickname: string;
-  bio: string;
-  avatar?: string;
-}
-
-export interface UploadAssetsDto {
-  assets: File[];
-}
-
-export interface CreateTencentCloudAccountDto {
-  name: string;
-  SecretId: string;
-  SecretKey: string;
-  AppId: string;
-  id?: number;
-  buckets?: CosBucket[];
-}
-
-export interface CreateBucketDto {
-  /**
-   * bucket 在系统中的名称
-   * @default "test"
-   */
-  name?: string;
-  Region: string;
-  tencentCloudAccount: object;
-  id?: number;
-  Bucket?: string;
-  ACL?: object;
-  CORSRules?: object[];
-  RefererConfiguration?: object;
+export interface CreatePostDto {
+  title?: string;
+  content?: string;
+  summary?: string;
+  tags?: string[];
+  public?: boolean;
+  publishYear?: number;
+  createBy?: User;
+  updateBy?: User;
+  poster?: Asset;
+  logs?: PostLog;
   /** @format date-time */
   createdAt?: string;
   /** @format date-time */
   updatedAt?: string;
-  assets?: Asset[];
+}
+
+export interface PatchPostDto {
+  title?: string;
+  content?: string;
+  summary?: string;
+  tags?: string[];
   public?: boolean;
+  publishYear?: number;
+  createBy?: User;
+  updateBy?: User;
+  poster?: Asset;
+  logs?: PostLog;
+  /** @format date-time */
+  createdAt?: string;
+  /** @format date-time */
+  updatedAt?: string;
+}
+
+export interface QueryPostsDto {
+  /** 每页条数 */
+  pageSize: number;
+  /** 当前页码 */
+  current: number;
+  id: number;
+  title: string;
+  content: string;
+  summary: string;
+  public: boolean;
+  createBy: User;
+  poster: Asset;
+  /** 创建时间 */
+  createdAt: string[];
+  /** 更新时间 */
+  updatedAt: string[];
 }
 
 export interface Post {
@@ -228,86 +213,17 @@ export interface Post {
   createBy: User;
   updateBy: User;
   poster: Asset;
-  logs: PostLog[];
+  logs: PostLog;
   /** @format date-time */
   createdAt: string;
   /** @format date-time */
   updatedAt: string;
-}
-
-export interface PostLog {
-  id: number;
-  post: Post;
-  title: string;
-  content: string;
-  /** @format date-time */
-  createdAt: string;
-  /** @format date-time */
-  updatedAt: string;
-}
-
-export interface CreatePostDto {
-  title: string;
-  content: string;
-  posterId?: number;
-  summary?: string;
-  tags?: string[];
-  public?: boolean;
-  publishYear?: number;
-  createBy?: User;
-  updateBy?: User;
-  poster?: Asset;
-  logs?: PostLog[];
-  /** @format date-time */
-  createdAt?: string;
-  /** @format date-time */
-  updatedAt?: string;
-}
-
-export interface PatchPostDto {
-  id: number;
-  title: string;
-  content: string;
-  posterId?: number;
-  summary?: string;
-  tags?: string[];
-  public?: boolean;
-  publishYear?: number;
-  createBy?: User;
-  updateBy?: User;
-  poster?: Asset;
-  logs?: PostLog[];
-  /** @format date-time */
-  createdAt?: string;
-  /** @format date-time */
-  updatedAt?: string;
-}
-
-export interface QueryPostsDto {
-  /** 每页条数 */
-  pageSize: number;
-  /** 当前页码 */
-  current: number;
-  id: number;
-  /** 创建时间 */
-  createdAt: string[];
-  /** 更新时间 */
-  updatedAt: string[];
-  title: string;
-  content: string;
-  public: boolean;
-  summary: string;
-  poster: Asset;
-  createBy: User;
 }
 
 export interface Feed {
-  /** timeline item id */
   id: number;
-  /** timeline item content */
   content: string;
-  /** timeline item assets */
-  assets: Asset[];
+  assets: string[];
   public: boolean;
   createBy: User;
   updateBy: User;
@@ -328,26 +244,15 @@ export interface ChatGPTPayload {
   conversationId?: string;
 }
 
-export interface ViewCountDto {
-  createdAt: string;
-  requestCount: number;
-  distinctIpCount: number;
-}
-
 export interface CreateFeedDto {
-  /** timeline item content */
   content: string;
-  assets: File[];
-  public?: boolean;
   createBy: User;
+  assets: File[];
 }
 
 export interface UpdateFeedDto {
-  /** timeline item content */
   content: string;
   assets: File[];
-  id: number;
-  public: boolean;
   updateBy: User;
 }
 
@@ -357,17 +262,6 @@ export interface PushSubscriptionJSON {
   keys?: object;
 }
 
-export interface PushSubscriptionLog {
-  id: number;
-  pushSubscriptionJSON: PushSubscriptionJSON;
-  endpoint: string;
-  user?: User;
-  /** @format date-time */
-  createdAt: string;
-  /** @format date-time */
-  updatedAt: string;
-}
-
 export interface PaginatedBaseQuery {
   /** 每页条数 */
   pageSize: number;
@@ -375,19 +269,7 @@ export interface PaginatedBaseQuery {
   current: number;
 }
 
-export interface NotificationDto {
-  title: string;
-  message: string;
-  icon?: string;
-  openUrl?: string;
-  subscribeId: number;
-}
-
-export enum OauthApplicationPlatformName {
-  Google = 'google',
-  Github = 'github',
-  Test = 'test',
-}
+export type NotificationDto = object;
 
 export type QueryParamsType = Record<string | number, any>;
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>;
@@ -682,11 +564,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryCurrentUserMenus: (params: RequestParams = {}) =>
-      this.request<Menu[], any>({
+      this.request<void, any>({
         path: `/api/user/menus`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
@@ -709,9 +590,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         name: string;
         path: string;
         /** @format date-time */
-        createdAt?: string[];
+        createdAt: string[];
         /** @format date-time */
-        updatedAt?: string[];
+        updatedAt: string[];
       },
       params: RequestParams = {},
     ) =>
@@ -733,11 +614,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryAllMenus: (params: RequestParams = {}) =>
-      this.request<Menu[], any>({
+      this.request<void, any>({
         path: `/api/menu-manage/query-all-menus`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
@@ -751,11 +631,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryMenuById: (id: string, params: RequestParams = {}) =>
-      this.request<Menu, any>({
+      this.request<void, any>({
         path: `/api/menu-manage/${id}`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
@@ -786,13 +665,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     createMenu: (data: Menu, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<void, any>({
         path: `/api/menu-manage`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
         ...params,
       }),
 
@@ -806,13 +684,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     editMenu: (data: Menu, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<void, any>({
         path: `/api/menu-manage`,
         method: 'PATCH',
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
         ...params,
       }),
 
@@ -834,9 +711,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         id: number;
         name: string;
         /** @format date-time */
-        createdAt?: string[];
+        createdAt: string[];
         /** @format date-time */
-        updatedAt?: string[];
+        updatedAt: string[];
       },
       params: RequestParams = {},
     ) =>
@@ -858,11 +735,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryRoleById: (id: number, params: RequestParams = {}) =>
-      this.request<Role, any>({
+      this.request<void, any>({
         path: `/api/role-manage/${id}`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
@@ -893,13 +769,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     createRole: (data: CreateRoleDto, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<void, any>({
         path: `/api/role-manage`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
         ...params,
       }),
 
@@ -913,13 +788,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateRole: (data: CreateRoleDto, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<void, any>({
         path: `/api/role-manage`,
         method: 'PATCH',
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
         ...params,
       }),
 
@@ -933,11 +807,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     listPermissions: (params: RequestParams = {}) =>
-      this.request<object[], any>({
+      this.request<void, any>({
         path: `/api/role-manage/permissions`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
@@ -972,12 +845,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          * 创建时间
          * @format date-time
          */
-        createdAt?: string[];
+        createdAt: string[];
         /**
          * 更新时间
          * @format date-time
          */
-        updatedAt?: string[];
+        updatedAt: string[];
       },
       params: RequestParams = {},
     ) =>
@@ -999,11 +872,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryUserById: (id: string, params: RequestParams = {}) =>
-      this.request<User, any>({
+      this.request<void, any>({
         path: `/api/user-manage/${id}`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
@@ -1041,13 +913,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         pageSize: number;
         /** 当前页码 */
         current: number;
-        /** @format date-time */
-        createdAt?: string[];
-        /** @format date-time */
-        updatedAt?: string[];
         id: number;
-        sha1: string;
         originUrl: string;
+        sha1: string;
+        /** @format date-time */
+        createdAt: string[];
+        /** @format date-time */
+        updatedAt: string[];
       },
       params: RequestParams = {},
     ) =>
@@ -1084,11 +956,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     assetControllerPHashMap: (params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<void, any>({
         path: `/api/asset/pHash/distance`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
@@ -1102,13 +973,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     saveAssetToBucket: (bucketName: string, data: UploadAssetsDto, params: RequestParams = {}) =>
-      this.request<Asset[], any>({
+      this.request<void, any>({
         path: `/api/asset/${bucketName}`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.FormData,
-        format: 'json',
         ...params,
       }),
 
@@ -1165,11 +1035,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     bucketControllerListAllBuckets: (params: RequestParams = {}) =>
-      this.request<CosBucket[], any>({
+      this.request<void, any>({
         path: `/api/bucket`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
@@ -1182,13 +1051,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     bucketControllerCreateNewBucket: (data: CreateBucketDto, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<void, any>({
         path: `/api/bucket`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
         ...params,
       }),
 
@@ -1216,13 +1084,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     createPost: (data: CreatePostDto, params: RequestParams = {}) =>
-      this.request<Post, any>({
+      this.request<void, any>({
         path: `/api/post`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
         ...params,
       }),
 
@@ -1236,13 +1103,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updatePost: (data: PatchPostDto, params: RequestParams = {}) =>
-      this.request<Post, any>({
+      this.request<void, any>({
         path: `/api/post`,
         method: 'PATCH',
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
         ...params,
       }),
 
@@ -1285,28 +1151,27 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags public-api
+     * @tags open
      * @name Hello
      * @summary hello ping
-     * @request GET:/api/public/hello
+     * @request GET:/api/open/hello
      * @secure
      */
     hello: (params: RequestParams = {}) =>
-      this.request<string, any>({
-        path: `/api/public/hello`,
+      this.request<void, any>({
+        path: `/api/open/hello`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
     /**
      * No description
      *
-     * @tags public-api
+     * @tags open
      * @name QueryPublicPosts
      * @summary 获取所有的公开文章列表
-     * @request GET:/api/public/post
+     * @request GET:/api/open/post
      * @secure
      */
     queryPublicPosts: (
@@ -1315,27 +1180,33 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<Post[], any>({
-        path: `/api/public/post`,
+      this.request<any, Post[]>({
+        path: `/api/open/post`,
         method: 'GET',
         query: query,
         secure: true,
-        format: 'json',
         ...params,
       }),
 
     /**
      * No description
      *
-     * @tags public-api
+     * @tags open
      * @name QueryPublicPostYears
      * @summary 获取所有的公开文章的年份列表
-     * @request GET:/api/public/post/years
+     * @request GET:/api/open/post/years
      * @secure
      */
     queryPublicPostYears: (params: RequestParams = {}) =>
-      this.request<number[], any>({
-        path: `/api/public/post/years`,
+      this.request<
+        {
+          publishYear: number;
+          /** @format date-time */
+          updatedAt: string;
+        }[],
+        any
+      >({
+        path: `/api/open/post/years`,
         method: 'GET',
         secure: true,
         format: 'json',
@@ -1345,15 +1216,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags public-api
+     * @tags open
      * @name QueryPublicPostTags
      * @summary 获取所有的公开文章的标签列表
-     * @request GET:/api/public/post/tags
+     * @request GET:/api/open/post/tags
      * @secure
      */
     queryPublicPostTags: (params: RequestParams = {}) =>
       this.request<void, any>({
-        path: `/api/public/post/tags`,
+        path: `/api/open/post/tags`,
         method: 'GET',
         secure: true,
         ...params,
@@ -1362,10 +1233,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags public-api
+     * @tags open
      * @name QueryPublicPostById
      * @summary 获取单个文章详细信息
-     * @request GET:/api/public/post/{id}
+     * @request GET:/api/open/post/{id}
      * @secure
      */
     queryPublicPostById: (
@@ -1375,22 +1246,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<Post, any>({
-        path: `/api/public/post/${id}`,
+      this.request<void, any>({
+        path: `/api/open/post/${id}`,
         method: 'GET',
         query: query,
         secure: true,
-        format: 'json',
         ...params,
       }),
 
     /**
      * No description
      *
-     * @tags public-api
+     * @tags open
      * @name InfiniteQueryPublicTimeline
      * @summary 获取所有的公开时间线
-     * @request GET:/api/public/feed
+     * @request GET:/api/open/feed
      * @secure
      */
     infiniteQueryPublicTimeline: (
@@ -1407,7 +1277,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         },
         any
       >({
-        path: `/api/public/feed`,
+        path: `/api/open/feed`,
         method: 'GET',
         query: query,
         secure: true,
@@ -1418,10 +1288,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags public-api
+     * @tags open
      * @name InfiniteQueryPublicAsset
      * @summary 获取公开的图片资源
-     * @request GET:/api/public/asset
+     * @request GET:/api/open/asset
      * @secure
      */
     infiniteQueryPublicAsset: (
@@ -1438,7 +1308,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         },
         any
       >({
-        path: `/api/public/asset`,
+        path: `/api/open/asset`,
         method: 'GET',
         query: query,
         secure: true,
@@ -1449,55 +1319,52 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags public-api
+     * @tags open
      * @name QueryPublicAssetById
      * @summary 获取单个公开的图片资源
-     * @request GET:/api/public/asset/{id}
+     * @request GET:/api/open/asset/{id}
      * @secure
      */
     queryPublicAssetById: (id: string, params: RequestParams = {}) =>
-      this.request<Asset, any>({
-        path: `/api/public/asset/${id}`,
+      this.request<void, any>({
+        path: `/api/open/asset/${id}`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
     /**
      * No description
      *
-     * @tags public-api
+     * @tags open
      * @name ChatWithChatGpt
      * @summary 与chat gpt聊天
-     * @request POST:/api/public/chat-gpt/chat
+     * @request POST:/api/open/chat-gpt/chat
      * @secure
      */
     chatWithChatGpt: (data: ChatGPTPayload, params: RequestParams = {}) =>
-      this.request<ChatGPTPayload, any>({
-        path: `/api/public/chat-gpt/chat`,
+      this.request<void, any>({
+        path: `/api/open/chat-gpt/chat`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
         ...params,
       }),
 
     /**
      * No description
      *
-     * @tags public-api
+     * @tags open
      * @name PublicControllerViewCount
-     * @request GET:/api/public/view-count
+     * @request GET:/api/open/view-count
      * @secure
      */
     publicControllerViewCount: (params: RequestParams = {}) =>
-      this.request<ViewCountDto[], any>({
-        path: `/api/public/view-count`,
+      this.request<void, any>({
+        path: `/api/open/view-count`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
@@ -1532,13 +1399,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     createFeed: (data: CreateFeedDto, params: RequestParams = {}) =>
-      this.request<Feed, any>({
+      this.request<void, any>({
         path: `/api/feed`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.FormData,
-        format: 'json',
         ...params,
       }),
 
@@ -1552,13 +1418,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateFeed: (data: UpdateFeedDto, params: RequestParams = {}) =>
-      this.request<Feed, any>({
+      this.request<void, any>({
         path: `/api/feed`,
         method: 'PUT',
         body: data,
         secure: true,
         type: ContentType.FormData,
-        format: 'json',
         ...params,
       }),
 
@@ -1593,7 +1458,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         pageSize: number;
         /** 当前页码 */
         current: number;
-        /** timeline item id */
         id: number;
       },
       params: RequestParams = {},
@@ -1632,12 +1496,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/schedule/{scheduleType}
      * @secure
      */
-    triggerSchedule: (scheduleType: string, params: RequestParams = {}) =>
-      this.request<string, any>({
+    triggerSchedule: (scheduleType: any, params: RequestParams = {}) =>
+      this.request<void, any>({
         path: `/api/schedule/${scheduleType}`,
         method: 'GET',
         secure: true,
-        format: 'json',
         ...params,
       }),
 
@@ -1649,10 +1512,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/logs-viewer/containers
      */
     logsViewerControllerListContainers: (params: RequestParams = {}) =>
-      this.request<string[], any>({
+      this.request<void, any>({
         path: `/api/logs-viewer/containers`,
         method: 'GET',
-        format: 'json',
         ...params,
       }),
 
@@ -1664,10 +1526,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/logs-viewer/{container}
      */
     logsViewerControllerListLogs: (container: string, params: RequestParams = {}) =>
-      this.request<string[], any>({
+      this.request<void, any>({
         path: `/api/logs-viewer/${container}`,
         method: 'GET',
-        format: 'json',
         ...params,
       }),
 
@@ -1684,11 +1545,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<object, any>({
+      this.request<void, any>({
         path: `/api/mini-program/login`,
         method: 'GET',
         query: query,
-        format: 'json',
         ...params,
       }),
 
@@ -1729,13 +1589,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     webPushSubscribe: (data: PushSubscriptionJSON, params: RequestParams = {}) =>
-      this.request<PushSubscriptionLog, any>({
+      this.request<void, any>({
         path: `/api/web-push/subscribe`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
         ...params,
       }),
 
@@ -1768,13 +1627,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     webPushSendNotification: (data: NotificationDto, params: RequestParams = {}) =>
-      this.request<object, any>({
+      this.request<void, any>({
         path: `/api/web-push/send-notification`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.Json,
-        format: 'json',
         ...params,
       }),
   };

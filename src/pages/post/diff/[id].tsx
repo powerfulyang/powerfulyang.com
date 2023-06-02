@@ -2,7 +2,7 @@ import ReactDiffViewer from 'react-diff-viewer';
 import type { GetServerSideProps } from 'next';
 import type { FC } from 'react';
 import React from 'react';
-import { DateTimeFormat } from '@/utils/lib';
+import { formatDateTime } from '@/utils/lib';
 import { Prism } from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import type { HttpResponse, Post } from '@/__generated__/api';
@@ -15,8 +15,8 @@ type Props = {
 };
 
 const Diff: FC<Props> = ({ left, right }) => {
-  const leftTitle = `${left.title} @ ${DateTimeFormat(left.createdAt)}`;
-  const rightTitle = `${right.title} @ ${DateTimeFormat(right.createdAt)}`;
+  const leftTitle = `${left.title} @ ${formatDateTime(left.createdAt)}`;
+  const rightTitle = `${right.title} @ ${formatDateTime(right.createdAt)}`;
   return (
     <ReactDiffViewer
       leftTitle={leftTitle}

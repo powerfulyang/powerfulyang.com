@@ -3,7 +3,7 @@ import React, { memo, useEffect, useMemo } from 'react';
 import { LazyImage } from '@/components/LazyImage';
 import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import { DateTimeFormat } from '@/utils/lib';
+import { formatDateTime } from '@/utils/lib';
 import { atom, useAtom } from 'jotai';
 import type { Undefinable } from '@powerfulyang/utils';
 import { Button } from '@mui/material';
@@ -94,7 +94,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
         </div>
         <div className="flex flex-col justify-evenly">
           <div className={classNames('text-lg', styles.nickname)}>{feed.createBy.nickname}</div>
-          <div className="cursor-text text-xs text-gray-600">{DateTimeFormat(feed.createdAt)}</div>
+          <div className="cursor-text text-xs text-gray-600">{formatDateTime(feed.createdAt)}</div>
         </div>
         {user?.id === feed.createBy.id && (
           <div className="ml-auto flex flex-col justify-evenly">
