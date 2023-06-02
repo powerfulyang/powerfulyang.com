@@ -3,7 +3,7 @@ import type { Root } from 'remark-gfm';
 import type React from 'react';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { parse } from 'yaml';
-import { DateFormat } from '@/utils/lib';
+import { formatDate } from '@/utils/lib';
 
 export const remarkMetadata: Plugin<any, Root, string> = (
   metadataRef?: React.MutableRefObject<MarkdownMetadata>,
@@ -42,7 +42,7 @@ export const remarkMetadata: Plugin<any, Root, string> = (
           children: [
             {
               type: 'text',
-              value: `Published by ${author} on ${DateFormat(date)}`,
+              value: `Published by ${author} on ${formatDate(date)}`,
             },
           ],
         });

@@ -5,7 +5,7 @@ import { UserLayout } from '@/layout/UserLayout';
 import { serverApi } from '@/request/requestTool';
 import type { LayoutFC } from '@/type/GlobalContext';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
-import { DateTimeFormat } from '@/utils/lib';
+import { formatDateTime } from '@/utils/lib';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import type { GetServerSideProps } from 'next';
@@ -71,7 +71,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
             <h2>{post.title}</h2>
             <summary>{post.summary}</summary>
             <section className="leading-6 text-gray-400">
-              <span>Date: {DateTimeFormat(post.createdAt)}</span>
+              <span>Date: {formatDateTime(post.createdAt)}</span>
               <br />
               <span>Author: {post.createBy.nickname}</span>
             </section>
@@ -95,7 +95,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { data: years } = await serverApi.queryPublicPostYears({
     headers: requestHeaders,
   });
-  const year: number = Number(query.year) || years[0] || new Date().getFullYear();
+  const year: number = Number(query.year) || years[0].publishYear || new Date().getFullYear();
   const res = await serverApi.queryPublicPosts(
     {
       publishYear: year,
@@ -108,7 +108,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { data } = res;
   return {
     props: {
-      years,
+      years: years.map((x) => x.publishYear),
       posts: data,
       year,
       layout: {
