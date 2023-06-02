@@ -6,9 +6,9 @@ import withPWAConfig from 'next-pwa';
 import process from 'node:process';
 import { runtimeCaching } from './runtimeCaching.mjs';
 
-const { ENABLE_SENTRY_CLI } = process.env;
+const { SENTRY_AUTH_TOKEN } = process.env;
 
-const enableSentry = ENABLE_SENTRY_CLI === 'true';
+const enableSentryWebpackPlugin = !!SENTRY_AUTH_TOKEN;
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -61,7 +61,7 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  productionBrowserSourceMaps: enableSentry,
+  productionBrowserSourceMaps: enableSentryWebpackPlugin,
   optimizeFonts: true,
   swcMinify: true,
   sassOptions: {
@@ -140,8 +140,8 @@ const withPWA = withPWAConfig({
 const nextConfig = withSentryConfig(
   {
     sentry: {
-      disableServerWebpackPlugin: !enableSentry,
-      disableClientWebpackPlugin: !enableSentry,
+      disableServerWebpackPlugin: !enableSentryWebpackPlugin,
+      disableClientWebpackPlugin: !enableSentryWebpackPlugin,
       hideSourceMaps: true,
       widenClientFileUpload: true,
     },

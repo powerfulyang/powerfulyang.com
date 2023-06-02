@@ -25,7 +25,7 @@ COPY --from=dependencies /usr/app/node_modules ./node_modules
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN npm i -g pnpm  \
     && if [ "$BUILD_ENV" = "prod" ]; then \
         SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) \
-        ENABLE_SENTRY_CLI=true pnpm run build; \
+        pnpm run build; \
     else \
         pnpm run build; \
     fi \

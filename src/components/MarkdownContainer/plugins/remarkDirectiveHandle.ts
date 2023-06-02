@@ -21,13 +21,16 @@ import type { Root } from 'remark-gfm';
 export function remarkDirectiveHandle() {
   return (tree: Root) => {
     visit(tree, (node) => {
-      if (
-        node.type === 'textDirective' ||
-        node.type === 'leafDirective' ||
-        node.type === 'containerDirective'
-      ) {
-        // eslint-disable-next-line no-param-reassign
-        const data = node.data || (node.data = {});
+      const _node = node;
+      const data = _node.data || (_node.data = {});
+
+      if (node.type === 'textDirective') {
+        _node.type = 'text';
+        // @ts-ignore
+        _node.value = `:${node.name}`;
+      }
+
+      if (node.type === 'leafDirective' || node.type === 'containerDirective') {
         const attributes = node.attributes || {};
         const { id } = attributes;
 

@@ -84,10 +84,12 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ matrix.docker-repository-qa }}
-#          cache-from: type=gha  # cache is slow, so we disable it
-#          cache-to: type=gha,mode=max
+          cache-from: type=gha  # cache is slow
+          cache-to: type=gha,mode=max
           build-args: |
-            BUILD_ENV=qa
+            BUILD_ENV=prod
+          secrets: |
+            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
         if: steps.filter-source.outputs.sources == 'true'
       - name: Deploy qa
         uses: appleboy/ssh-action@master
@@ -108,8 +110,8 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ matrix.docker-repository-prod }}
-#          cache-from: type=gha
-#          cache-to: type=gha,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           build-args: |
             BUILD_ENV=prod
           secrets: |
