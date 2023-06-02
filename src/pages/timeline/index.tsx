@@ -1,24 +1,24 @@
-import React, { Fragment, useMemo } from 'react';
-import type { GetServerSideProps } from 'next';
+import type { Feed } from '@/__generated__/api';
+import bg from '@/assets/timeline-banner.webp';
+import { origin } from '@/components/Head';
+import { LazyImage } from '@/components/LazyImage';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
+import { TimeLineForm } from '@/components/Timeline/TimelineForm';
+import { getTimelineItemElement, TimeLineItem } from '@/components/Timeline/TimelineItem';
+import { useUser } from '@/hooks/useUser';
+import { UserLayout } from '@/layout/UserLayout';
+import { clientApi, serverApi } from '@/request/requestTool';
+import type { LayoutFC } from '@/type/GlobalContext';
+import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
 import type { InfiniteData } from '@tanstack/react-query';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { flatten } from 'lodash-es';
-import { InView } from 'react-intersection-observer';
-import { UserLayout } from '@/layout/UserLayout';
-import type { LayoutFC } from '@/type/GlobalContext';
-import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
-import { getTimelineItemElement, TimeLineItem } from '@/components/Timeline/TimelineItem';
-import { TimeLineForm } from '@/components/Timeline/TimelineForm';
-import { LazyImage } from '@/components/LazyImage';
-import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
-import { useUser } from '@/hooks/useUser';
+import type { GetServerSideProps } from 'next';
 import Image from 'next/image';
-import bg from '@/assets/timeline-banner.webp';
-import { origin } from '@/components/Head';
-import type { Feed } from '@/__generated__/api';
-import { clientApi, serverApi } from '@/request/requestTool';
-import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import React, { Fragment, useMemo } from 'react';
+import { InView } from 'react-intersection-observer';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -69,9 +69,7 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
     },
   );
   const { user } = useUser();
-  const bannerUser = useMemo(() => {
-    return user || feeds[0]?.createBy || {};
-  }, [user, feeds]);
+  const bannerUser = user || feeds[0]?.createBy || {};
 
   const resources = useMemo(() => {
     const res = flatten(data?.pages.map((x) => x.resources) || []);

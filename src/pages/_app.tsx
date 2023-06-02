@@ -4,6 +4,7 @@ import { ProjectName } from '@/constant/Constant';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { useFormRouteListener } from '@/hooks/useFormDiscardWarning';
 import { usePV } from '@/hooks/usePV';
+import _404 from '@/pages/404';
 import { NextSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
@@ -15,6 +16,8 @@ interface HeaderProps {
   meta?: {
     title: string;
     description: string;
+    noindex: boolean;
+    nofollow: boolean;
   };
   link?: {
     canonical: string;
@@ -30,6 +33,8 @@ export type MyAppProps = {
 
 const App = ({ Component, pageProps }: MyAppProps) => {
   const { getLayout } = Component;
+  // @ts-ignore
+  const notFound = Component === _404;
 
   const component = useMemo(() => {
     if (getLayout) {
@@ -43,7 +48,12 @@ const App = ({ Component, pageProps }: MyAppProps) => {
   // 路由变化时，PV统计
   const element = usePV();
 
-  const { title = '404', description } = (pageProps.meta as HeaderProps['meta']) || {};
+  const {
+    title = '404',
+    description,
+    noindex = notFound,
+    nofollow = notFound,
+  } = (pageProps.meta as HeaderProps['meta']) || {};
   const { canonical } = (pageProps.link as HeaderProps['link']) || {};
   const _title = `${title} - ${ProjectName}`;
 
@@ -53,6 +63,8 @@ const App = ({ Component, pageProps }: MyAppProps) => {
         title={_title}
         description={description}
         canonical={canonical}
+        noindex={noindex}
+        nofollow={nofollow}
         openGraph={{
           url: canonical,
           title: _title,

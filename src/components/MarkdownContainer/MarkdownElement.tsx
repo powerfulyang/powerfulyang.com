@@ -1,12 +1,12 @@
-import { PrismCode } from '@/components/PrismCode';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
+import { PrismCode } from '@/components/PrismCode';
 import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { clientApi } from '@/request/requestTool';
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
 import type { FC } from 'react';
-import React, { Fragment, useContext, useMemo } from 'react';
+import React, { Fragment, useContext } from 'react';
 import type {
   CodeComponent,
   HeadingComponent,
@@ -86,7 +86,7 @@ export const Table: NormalComponents['table'] = ({ children }) => (
 
 export const Code: CodeComponent = ({ inline, className, children }) => {
   const match = /language-(\w+)/.exec(className || '');
-  const renderText = useMemo(() => children.toString().replace(/\s*\n$/, ''), [children]);
+  const renderText = children.toString().replace(/\s*\n$/, '');
   if (inline) {
     return (
       <code className={classNames(className, styles.inlineCode, 'cursor-text')}>{renderText}</code>

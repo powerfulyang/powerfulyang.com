@@ -126,17 +126,11 @@ export const ImageModal = memo<ImageModalProps>(
     const isNext = selectIndex < realIndex;
     const isMain = selectIndex === realIndex;
 
-    const isSmallScreen = useMemo(() => {
-      return window.innerWidth < 768;
-    }, []);
+    const isSmallScreen = window.innerWidth < 768;
 
-    const viewportWidth = useMemo(() => {
-      return window.visualViewport?.width || window.innerWidth;
-    }, []);
+    const viewportWidth = window.visualViewport?.width || window.innerWidth;
 
-    const viewportHeight = useMemo(() => {
-      return window.visualViewport?.height || window.innerHeight;
-    }, []);
+    const viewportHeight = window.visualViewport?.height || window.innerHeight;
 
     const isWider = useMemo(() => {
       const width = isSmallScreen ? viewportWidth : viewportWidth - 70 * 2;

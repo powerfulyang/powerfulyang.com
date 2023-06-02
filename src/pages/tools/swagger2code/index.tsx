@@ -70,6 +70,9 @@ const Swagger2code: LayoutFC = () => {
       })}
     >
       <Container className="flex flex-col items-center space-y-4 p-10" maxWidth="lg">
+        <p className="mb-8 text-center text-sm text-[#1b233d]/70">
+          Generate code from swagger document, such as ProTable, ProForm(not implemented yet) etc.
+        </p>
         <Stack direction="row" spacing={2} alignItems="center" className="w-full">
           <TextField
             disabled={loadSwagger.isSuccess}
@@ -174,7 +177,8 @@ export const getServerSideProps = () => {
     props: {
       meta: {
         title: 'swagger2code',
-        description: 'convert swagger to typescript code, such as antd',
+        description:
+          'Generate code from swagger document, such as ProTable, ProForm(not implemented yet) etc.',
       },
     },
   };
