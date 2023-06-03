@@ -77,8 +77,8 @@ dependencies:
     specifier: 2.3.2
     version: 2.3.2
   d3:
-    specifier: 7.8.4
-    version: 7.8.4
+    specifier: 7.8.5
+    version: 7.8.5
   dayjs:
     specifier: 1.11.7
     version: 1.11.7
@@ -6068,8 +6068,8 @@ packages:
       d3-transition: 3.0.1(d3-selection@3.0.0)
     dev: false
 
-  /d3@7.8.4:
-    resolution: {integrity: sha512-q2WHStdhiBtD8DMmhDPyJmXUxr6VWRngKyiJ5EfXMxPw+tqT6BhNjhJZ4w3BHsNm3QoVfZLY8Orq/qPFczwKRA==}
+  /d3@7.8.5:
+    resolution: {integrity: sha512-JgoahDG51ncUfJu6wX/1vWQEqOflgXyl4MaHqlcSruTez7yhaRKR9i8VjjcQGeS2en/jnFivXuaIMnseMMt0XA==}
     engines: {node: '>=12'}
     dependencies:
       d3-array: 3.2.3
