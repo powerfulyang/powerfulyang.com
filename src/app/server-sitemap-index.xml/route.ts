@@ -4,19 +4,15 @@ import { getServerSideSitemap } from 'next-sitemap';
 import type { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
-  const _posts = await serverApi.queryPublicPosts(
+  const posts = await serverApi.queryPublicPosts(
     {},
     {
       headers: request.headers,
     },
   );
-  const years = await serverApi.queryPublicPostYears({
-    headers: request.headers,
-  });
-  const { data: postsData } = _posts;
-  const { data: yearsData } = years;
+  const { data: postsData } = posts;
 
-  const posts = postsData.map((post: Post) => {
+  const postsMaps = postsData.map((post: Post) => {
     return {
       loc: `https://powerfulyang.com/post/${post.id}`,
       lastmod: post.updatedAt,
@@ -25,21 +21,12 @@ export async function GET(request: NextRequest) {
     } as const;
   });
 
-  const postYears = yearsData.map((year) => {
-    return {
-      loc: `https://powerfulyang.com/post/year/${year.publishYear}`,
-      lastmod: year.updatedAt,
-      changefreq: 'daily',
-      priority: 0.8,
-    } as const;
-  });
-
   const homePage = {
-    loc: 'https://powerfulyang.com/',
+    loc: 'https://powerfulyang.com',
     lastmod: postsData[0]?.updatedAt,
     changefreq: 'daily',
     priority: 0.8,
   } as const;
 
-  return getServerSideSitemap([homePage, ...posts, ...postYears]);
+  return getServerSideSitemap([homePage, ...postsMaps]);
 }

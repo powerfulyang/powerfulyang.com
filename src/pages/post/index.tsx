@@ -1,5 +1,4 @@
 import type { Post } from '@/__generated__/api';
-import { origin } from '@/components/Head';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { UserLayout } from '@/layout/UserLayout';
 import { serverApi } from '@/request/requestTool';
@@ -88,7 +87,10 @@ Index.getLayout = (page) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { query } = ctx;
+  const { query, req } = ctx;
+  const reqUrl = req.url;
+  // 除了首页，列表页不需要被收录
+  const noindex = reqUrl !== '/';
 
   const requestHeaders = extractRequestHeaders(ctx.req.headers);
 
@@ -117,9 +119,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       meta: {
         title: `日志 - ${year}`,
         description: `发布于 ${year} 年的日志`,
-      },
-      link: {
-        canonical: `${origin}/post/year/${year}`,
+        noindex,
       },
     },
   };

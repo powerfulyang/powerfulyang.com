@@ -28,8 +28,9 @@ export const getServerSideProps = () => {
   return {
     props: {
       meta: {
-        title: 'Video Converter',
-        description: 'Free Video Converter, convert your videos to MP4, MOV, AVI, and more.',
+        title: 'Free Video Converter',
+        description:
+          'Convert video to mp4, webm, mkv, flv, 3gp, gif, avi, wmv, mov, mpeg, mpg, m4v, ogv, ogg, and more.',
       },
     },
   };

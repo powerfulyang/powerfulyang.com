@@ -119,6 +119,7 @@ const withBundleAnalyzer = BundleAnalyzer({
 
 const withPWA = withPWAConfig({
   dest: 'public',
+  disable: isDevProcess,
   sourcemap: false,
   exclude: [
     /\.map$/,
