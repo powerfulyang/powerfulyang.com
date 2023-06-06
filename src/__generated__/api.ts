@@ -1621,6 +1621,30 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags tools
+     * @name ToolsControllerImage2Ascii
+     * @request POST:/api/tools/image2ascii
+     * @secure
+     */
+    toolsControllerImage2Ascii: (
+      data: {
+        images?: File[];
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<string, any>({
+        path: `/api/tools/image2ascii`,
+        method: 'POST',
+        body: data,
+        secure: true,
+        type: ContentType.FormData,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @name FcmControllerSubscribe
      * @request POST:/api/fcm/subscribe
      */

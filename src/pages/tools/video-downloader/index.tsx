@@ -115,7 +115,7 @@ export const getServerSideProps = () => {
   return {
     props: {
       meta: {
-        title: 'Video Downloader',
+        title: 'Free Video Downloader',
         description:
           'Download videos from YouTube, Facebook, Instagram, Twitter, TikTok, and more.',
       },

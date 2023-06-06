@@ -5,7 +5,7 @@ import { UserLayout } from '@/layout/UserLayout';
 
 const tools = [
   {
-    name: 'Video Converter',
+    name: 'Free Video Converter',
     description:
       'Convert video to mp4, webm, mkv, flv, 3gp, gif, avi, wmv, mov, mpeg, mpg, m4v, ogv, ogg, and more.',
     icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
@@ -13,7 +13,7 @@ const tools = [
     target: '_blank',
   },
   {
-    name: 'Video Downloader',
+    name: 'Free Video Downloader',
     description: 'Download video from YouTube, Facebook, Instagram, Twitter, TikTok, and more.',
     icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
     url: '/tools/video-downloader',
@@ -25,10 +25,29 @@ const tools = [
     url: 'https://logs.powerfulyang.com',
   },
   {
-    name: 'swagger to code',
-    description: 'Convert swagger to code.',
+    name: 'Swagger to Code',
+    description:
+      'Generate code from swagger document, such as ProTable, ProForm(not implemented yet) etc.',
     icon: '',
     url: '/tools/swagger2code',
+  },
+  {
+    name: 'White Board',
+    description: 'A simple white board.',
+    icon: '',
+    url: '/tools/white-board',
+  },
+  {
+    name: 'Wi-Fi QR Code Generator',
+    description: 'Generate Wi-Fi QR Code.',
+    icon: '',
+    url: '/tools/wifi-share',
+  },
+  {
+    name: 'Image to ASCII',
+    description: 'Convert image to ASCII.',
+    icon: '',
+    url: '/tools/image2ascii',
   },
 ];
 
