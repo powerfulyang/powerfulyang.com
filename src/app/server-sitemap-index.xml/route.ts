@@ -1,6 +1,5 @@
 import type { Post } from '@/__generated__/api';
 import { serverApi } from '@/request/requestTool';
-import { formatDateTime } from '@/utils/lib';
 import { getServerSideSitemap } from 'next-sitemap';
 import type { NextRequest } from 'next/server';
 
@@ -20,7 +19,7 @@ export async function GET(request: NextRequest) {
   const posts = postsData.map((post: Post) => {
     return {
       loc: `https://powerfulyang.com/post/${post.id}`,
-      lastmod: formatDateTime(post.updatedAt),
+      lastmod: post.updatedAt,
       changefreq: 'daily',
       priority: 0.8,
     } as const;
@@ -29,7 +28,7 @@ export async function GET(request: NextRequest) {
   const postYears = yearsData.map((year) => {
     return {
       loc: `https://powerfulyang.com/post/year/${year.publishYear}`,
-      lastmod: formatDateTime(year.updatedAt),
+      lastmod: year.updatedAt,
       changefreq: 'daily',
       priority: 0.8,
     } as const;
@@ -37,7 +36,7 @@ export async function GET(request: NextRequest) {
 
   const homePage = {
     loc: 'https://powerfulyang.com/',
-    lastmod: formatDateTime(postsData[0]?.updatedAt),
+    lastmod: postsData[0]?.updatedAt,
     changefreq: 'daily',
     priority: 0.8,
   } as const;
