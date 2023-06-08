@@ -9,11 +9,12 @@
 ::-webkit-scrollbar {
   width: 6px;
   height: 9px;
-  border-radius: 10px;
+  border-radius: 0;
+  background-color: var(--scrollbar-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-bg);
+  background: var(--scrollbar-thumb-bg);
   border-radius: 10px;
 }
 
@@ -25,7 +26,8 @@
 :root {
   --nav-height: 4rem;
   --footer-height: 3rem;
-  --scrollbar-bg: rgb(1 2 3 / 40%);
+  --scrollbar-bg: transparent;
+  --scrollbar-thumb-bg: rgb(1 2 3 / 40%);
 
   /**
     z-index 相关变量

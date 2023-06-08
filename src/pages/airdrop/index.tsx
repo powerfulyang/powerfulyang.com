@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { DataConnection, Peer } from 'peerjs';
 import { useImmer } from '@powerfulyang/hooks';
-import type { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import type { SentMessage } from '@/components/Chat';
 import { Chat, sendFileMessage } from '@/components/Chat';

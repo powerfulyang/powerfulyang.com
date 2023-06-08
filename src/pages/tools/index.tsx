@@ -1,6 +1,6 @@
 import { Card, Container, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
-import type { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 
 const tools = [

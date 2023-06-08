@@ -1,7 +1,6 @@
 @import 'styles.scss';
 
 .main {
-  background-color: #f5f5f6;
   min-height: calc(100dvh - var(--footer-height) - var(--nav-height));
 
   @apply py-4 pb-10 sm:px-28;
@@ -25,6 +24,8 @@
   }
 
   .card {
+    opacity: 0.7;
+
     @apply relative isolate mx-auto my-4 h-[calc(170px+5vw)] w-[90%] max-w-[90%] overflow-hidden rounded-xl p-6 sm:my-6 sm:w-[calc(600px+5vw)] sm:p-10;
 
     .bg {

@@ -68,7 +68,13 @@ const config = {
     includePaths: ['./src/styles'],
   },
   // next.js didn't compile dependencies in node_modules, use transpileModules to fix it
-  transpilePackages: ['yaml', 'react-syntax-highlighter', '@powerfulyang/utils', '@mui/material'],
+  transpilePackages: [
+    'yaml',
+    'react-syntax-highlighter',
+    '@powerfulyang/utils',
+    '@mui/material',
+    '@react-three/drei',
+  ],
   // below option will reduce the size of the bundle... only 2kb
   modularizeImports: {
     lodash: {

@@ -1,16 +1,17 @@
 import type { Post } from '@/__generated__/api';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
+import Bananas from '@/components/three/Bananas';
 import { UserLayout } from '@/layout/UserLayout';
 import { serverApi } from '@/request/requestTool';
-import type { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/types/GlobalContext';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import { formatDateTime } from '@/utils/lib';
 import classNames from 'classnames';
-import { motion } from 'framer-motion';
+import { motion, useIsomorphicLayoutEffect } from 'framer-motion';
 import type { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import styles from './index.module.scss';
 
@@ -30,6 +31,16 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
     },
     [router],
   );
+
+  useIsomorphicLayoutEffect(() => {
+    // 修改 css variable --scrollbar-bg
+    const root = document.documentElement;
+    const scrollbarBg = getComputedStyle(root).getPropertyValue('--scrollbar-bg');
+    root.style.setProperty('--scrollbar-bg', '#ffbf40');
+    return () => {
+      root.style.setProperty('--scrollbar-bg', scrollbarBg);
+    };
+  }, []);
 
   return (
     <main className={styles.main}>
@@ -77,6 +88,16 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year }) => {
           </motion.a>
         ))}
       </section>
+      <Suspense fallback={null}>
+        <Bananas
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: -1,
+          }}
+          speed={1}
+        />
+      </Suspense>
     </main>
   );
 };

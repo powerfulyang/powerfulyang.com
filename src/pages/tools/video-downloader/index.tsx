@@ -1,6 +1,6 @@
 import { PrismCode } from '@/components/PrismCode';
 import { UserLayout } from '@/layout/UserLayout';
-import type { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/types/GlobalContext';
 import { copyToClipboardAndNotify } from '@/utils/copy';
 import { CopyAllOutlined } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
