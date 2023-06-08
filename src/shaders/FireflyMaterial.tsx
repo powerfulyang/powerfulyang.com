@@ -1,6 +1,4 @@
 import * as THREE from 'three';
-import type { Object3DNode } from '@react-three/fiber';
-import { extend } from '@react-three/fiber';
 
 export default class FireflyMaterial extends THREE.ShaderMaterial {
   constructor() {
@@ -41,14 +39,5 @@ export default class FireflyMaterial extends THREE.ShaderMaterial {
 
   set time(v) {
     this.uniforms.uTime.value = v;
-  }
-}
-
-extend({ FireflyMaterial });
-
-// Add types to ThreeElements elements so primitives pick up on it
-declare module '@react-three/fiber' {
-  interface ThreeElements {
-    fireflyMaterial: Object3DNode<FireflyMaterial, typeof FireflyMaterial>;
   }
 }

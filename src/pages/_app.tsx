@@ -1,8 +1,9 @@
+import { GlobalHooks } from '@/components/GlobalHooks';
 import { Header, origin } from '@/components/Head';
 import { RouteChangeAnimation } from '@/components/RouteChangeAnimation';
+import '@/components/three/extend';
 import { ProjectName } from '@/constant/Constant';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
-import { useFormRouteListener } from '@/hooks/useFormDiscardWarning';
 import { usePV } from '@/hooks/usePV';
 import _404 from '@/pages/404';
 import { NextSeo } from 'next-seo';
@@ -43,8 +44,6 @@ const App = ({ Component, pageProps }: MyAppProps) => {
     return <Component {...pageProps} />;
   }, [Component, getLayout, pageProps]);
 
-  // 路由变化时，表单未提交的提示
-  useFormRouteListener();
   // 路由变化时，PV统计
   const element = usePV();
 
@@ -89,6 +88,7 @@ const App = ({ Component, pageProps }: MyAppProps) => {
       />
       <Header />
       <RouteChangeAnimation />
+      <GlobalHooks />
       {component}
       <Script
         strategy="afterInteractive"

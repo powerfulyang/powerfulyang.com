@@ -155,7 +155,14 @@ export const VideoProcessor = () => {
           control={control}
           render={({ field }) => {
             return (
-              <Select labelId="target-format" label="Target Format" {...field}>
+              <Select
+                labelId="target-format"
+                label="Target Format"
+                {...field}
+                onChange={(e) => {
+                  field.onChange(e.target.value);
+                }}
+              >
                 {supportFormats.map((item) => (
                   <MenuItem key={item} value={item}>
                     {item}

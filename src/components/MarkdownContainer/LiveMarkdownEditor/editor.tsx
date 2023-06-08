@@ -6,6 +6,8 @@ self.MonacoEnvironment = {
   getWorkerUrl() {
     return '/_next/static/editor.worker.js';
   },
+  // eslint-disable-next-line no-restricted-globals
+  ...self.MonacoEnvironment!,
 };
 
 // monaco-editor has fixed this issue at v0.35.0

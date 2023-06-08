@@ -10,7 +10,7 @@ import type { OpenAPIV3 } from 'openapi-types';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import type { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { generateTableCode } from '@/services/swagger-parse/generateTableCode';
 
