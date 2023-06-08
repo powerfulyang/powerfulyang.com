@@ -1,9 +1,9 @@
-import { PrismCode } from '@/components/PrismCode';
-import { clientApi } from '@/request/requestTool';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
 import { Button, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
+import { ArtTypeEnum, ImageAscii } from 'image-ascii-art';
+import { useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import z from 'zod';
 
@@ -31,18 +31,24 @@ const Image2ASCII = () => {
 
   const convertImage = useMutation({
     mutationFn: (values: Required<FormProps>) => {
-      return clientApi
-        .toolsControllerImage2Ascii(
-          {
-            images: Array.from(values.images!),
-          },
-          {
-            format: 'text',
-          },
-        )
-        .then((res) => res.data);
+      const _image = values.images?.item(0);
+      if (!_image) {
+        throw new Error('请选择文件');
+      }
+      const image = new Image();
+      image.src = URL.createObjectURL(_image);
+      return new Promise<HTMLImageElement>((resolve, reject) => {
+        image.onload = () => {
+          resolve(image);
+        };
+        image.onerror = (e) => {
+          reject(e);
+        };
+      });
     },
   });
+
+  const ref = useRef<HTMLDivElement>(null);
 
   return (
     <div className="w-full">
@@ -115,16 +121,25 @@ const Image2ASCII = () => {
             Convert
           </LoadingButton>
           <br />
-          <br />
-          {convertImage.data && (
-            <PrismCode
-              maxHeight={400}
-              className="m-auto w-[90%] max-w-[1000px] leading-8"
-              language="text"
-            >
-              {convertImage.data}
-            </PrismCode>
-          )}
+          <div
+            ref={ref}
+            className="m-auto mt-8"
+            style={{
+              width: 'fit-content',
+            }}
+          >
+            {convertImage.data && (
+              <ImageAscii
+                parentRef={ref}
+                image={convertImage.data}
+                artType={ArtTypeEnum.ASCII_COLOR_BG_IMAGE}
+                fontColor="white"
+                backgroundColor="black"
+                charsPerLine={convertImage.data.width}
+                charsPerColumn={convertImage.data.height}
+              />
+            )}
+          </div>
         </form>
       </div>
     </div>

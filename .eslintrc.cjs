@@ -12,4 +12,14 @@ module.exports = {
       },
     ],
   },
+  overrides: eslint.overrides.map((override) => {
+    const rules = {
+      ...override.rules,
+      'react/no-unknown-property': 'off',
+    }
+    return {
+      ...override,
+      rules,
+    };
+  }),
 };

@@ -1,5 +1,5 @@
 import { VideoProcessor } from '@/components/VideoProcessor';
-import type { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 
 const Video: LayoutFC = () => {

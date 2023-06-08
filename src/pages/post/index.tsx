@@ -2,7 +2,7 @@ import type { Post } from '@/__generated__/api';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { UserLayout } from '@/layout/UserLayout';
 import { serverApi } from '@/request/requestTool';
-import type { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/types/GlobalContext';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import { formatDateTime } from '@/utils/lib';
 import classNames from 'classnames';

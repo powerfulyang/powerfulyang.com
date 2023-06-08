@@ -1,6 +1,6 @@
 import { Card, Container, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
-import type { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 
 const tools = [
@@ -48,6 +48,18 @@ const tools = [
     description: 'Convert image to ASCII.',
     icon: '',
     url: '/tools/image2ascii',
+  },
+  {
+    name: 'Funny',
+    description: 'Funny WebGL',
+    icon: '',
+    url: '/tools/funny',
+  },
+  {
+    name: 'Management',
+    description: 'Management',
+    icon: '',
+    url: '/admin',
   },
 ];
 

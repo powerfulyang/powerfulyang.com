@@ -5,7 +5,7 @@ import { MarkdownTOC } from '@/components/MarkdownContainer/TOC';
 import { Skeleton } from '@/components/Skeleton';
 import { UserLayout } from '@/layout/UserLayout';
 import { serverApi } from '@/request/requestTool';
-import type { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/types/GlobalContext';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import { generateTOC } from '@/utils/toc';
 import type { GetServerSideProps } from 'next';

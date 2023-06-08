@@ -7,6 +7,8 @@ import 'jest-canvas-mock';
 // metadata
 import 'reflect-metadata';
 
+global.ResizeObserver = require('resize-observer-polyfill');
+
 // mock next/router
 jest.mock('next/router', () => ({
   useRouter() {

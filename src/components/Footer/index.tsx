@@ -19,7 +19,7 @@ export const Footer = memo<FooterProps>(({ pathViewCount = 0 }) => (
           target="_blank"
           rel="noreferrer"
         >
-          粤ICP备19128686号
+          😁注销啦😁
         </a>
       </div>
       <div className="text-sm">

@@ -1,7 +1,6 @@
 @import 'styles.scss';
 
 .main {
-  background-color: #f5f5f6;
   min-height: calc(100dvh - var(--footer-height) - var(--nav-height));
 
   @apply py-4 pb-10 sm:px-28;
@@ -11,11 +10,13 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+
     @apply mb-4 mt-4;
 
     .year {
       display: flex;
       align-items: center;
+
       @apply mx-4 text-gray-400;
     }
 
@@ -53,7 +54,9 @@
 
     summary {
       word-break: break-word;
+
       @include line-clamp(4);
+
       @apply my-3 max-w-[70%] text-amber-200 sm:max-w-[60%];
     }
   }

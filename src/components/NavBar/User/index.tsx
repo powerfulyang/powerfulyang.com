@@ -7,7 +7,7 @@ import styles from './index.module.scss';
 export const login = () => {
   const { href } = window.location;
   // 前往中央登录中心
-  window.location.href = `https://admin.powerfulyang.com/user/login?redirect=${encodeURI(href)}`;
+  window.location.href = `https://powerfulyang.com/admin/user/login?redirect=${encodeURI(href)}`;
 };
 
 export const NavBarUser = () => {

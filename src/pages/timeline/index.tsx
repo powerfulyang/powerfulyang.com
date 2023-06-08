@@ -8,8 +8,8 @@ import { getTimelineItemElement, TimeLineItem } from '@/components/Timeline/Time
 import { useUser } from '@/hooks/useUser';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientApi, serverApi } from '@/request/requestTool';
-import type { LayoutFC } from '@/type/GlobalContext';
-import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
+import type { LayoutFC } from '@/types/GlobalContext';
+import type { InfiniteQueryResponse } from '@/types/InfiniteQuery';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
 import type { InfiniteData } from '@tanstack/react-query';

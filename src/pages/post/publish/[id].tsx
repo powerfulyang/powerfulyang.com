@@ -4,7 +4,7 @@ import type { GetServerSideProps } from 'next';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { LiveMarkdownEditor } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { Footer } from '@/components/Footer';
-import type { LayoutFC } from '@/type/GlobalContext';
+import type { LayoutFC } from '@/types/GlobalContext';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 import { useMutation } from '@tanstack/react-query';
 import { isString } from '@powerfulyang/utils';

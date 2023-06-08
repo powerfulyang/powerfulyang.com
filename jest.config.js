@@ -57,6 +57,8 @@ const esModules = [
   'stringify.+',
   'emo.+',
   'html.+',
+  '@react-three/drei',
+  '@mediapipe.+',
 ].join('|');
 
 module.exports = async () => {

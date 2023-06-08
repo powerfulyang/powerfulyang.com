@@ -1,9 +1,8 @@
-/* eslint-disable react/no-unknown-property */
-import { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
 import { Fireflies } from '@/components/three/Fireflies';
+import { Canvas } from '@react-three/fiber';
+import { Suspense } from 'react';
 
-const App = () => {
+const Index = () => {
   return (
     <Canvas
       style={{
@@ -20,14 +19,15 @@ const App = () => {
   );
 };
 
+export default Index;
+
 export const getServerSideProps = () => {
   return {
     props: {
       meta: {
-        title: '有趣的玩意',
+        title: '萤火虫',
+        description: '萤火虫',
       },
     },
   };
 };
-
-export default App;

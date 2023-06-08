@@ -9,7 +9,7 @@ import type { Undefinable } from '@powerfulyang/utils';
 import { Button } from '@mui/material';
 import type { InfiniteData } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import type { InfiniteQueryResponse } from '@/type/InfiniteQuery';
+import type { InfiniteQueryResponse } from '@/types/InfiniteQuery';
 import { useUser } from '@/hooks/useUser';
 import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
 import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
