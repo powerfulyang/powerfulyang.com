@@ -47,7 +47,7 @@
     "@powerfulyang/hooks": "1.5.2",
     "@powerfulyang/utils": "1.11.2",
     "@react-three/drei": "9.74.12",
-    "@react-three/fiber": "8.13.2",
+    "@react-three/fiber": "8.13.3",
     "@react-three/postprocessing": "2.14.9",
     "@sentry/nextjs": "7.54.0",
     "@tanstack/react-query": "4.29.12",
