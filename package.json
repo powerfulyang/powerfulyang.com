@@ -100,7 +100,7 @@
     "@powerfulyang/jest-extended": "3.3.0",
     "@powerfulyang/lint": "3.3.0",
     "@react-three/gltfjsx": "4.3.4",
-    "@sentry/cli": "2.18.1",
+    "@sentry/cli": "2.19.0",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "14.0.0",
     "@types/canvas-confetti": "1.6.0",
