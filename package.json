@@ -95,7 +95,7 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
-    "@ant-design/pro-components": "2.5.7",
+    "@ant-design/pro-components": "2.5.9",
     "@jest/globals": "29.5.0",
     "@powerfulyang/jest-extended": "3.3.0",
     "@powerfulyang/lint": "3.3.0",
