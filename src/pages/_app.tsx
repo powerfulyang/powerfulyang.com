@@ -1,7 +1,7 @@
 import { GlobalHooks } from '@/components/GlobalHooks';
 import { Header, origin } from '@/components/Head';
 import { RouteChangeAnimation } from '@/components/RouteChangeAnimation';
-import '@/components/three/extend';
+import '@/three/extend';
 import { ProjectName } from '@/constant/Constant';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { usePV } from '@/hooks/usePV';
@@ -94,7 +94,7 @@ const App = ({ Component, pageProps }: MyAppProps) => {
         strategy="afterInteractive"
         async
         crossOrigin="anonymous"
-        src="//at.alicdn.com/t/font_178634_7m8rip6osz4.js"
+        src="//at.alicdn.com/t/c/font_178634_m6cwt8bb21e.js"
       />
       {element}
     </GlobalContextProvider>

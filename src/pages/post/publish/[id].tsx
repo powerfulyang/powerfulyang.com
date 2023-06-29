@@ -1,8 +1,8 @@
+import { NoSSRLiveMarkdownEditor } from '@/components/MarkdownContainer/LiveMarkdownEditor/NoSSR';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
 import type { GetServerSideProps } from 'next';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
-import { LiveMarkdownEditor } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { Footer } from '@/components/Footer';
 import type { LayoutFC } from '@/types/GlobalContext';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
@@ -62,10 +62,11 @@ const Publish: LayoutFC<PublishProps> = ({ post }) => {
   }, [content, post.content, post.id, publishPostMutation.isLoading]);
 
   return (
-    <LiveMarkdownEditor
+    <NoSSRLiveMarkdownEditor
       value={content}
       onChange={saveDraft}
       defaultValue={post.content}
+      loading={publishPostMutation.isLoading}
       onPost={publishPostMutation.mutate}
     />
   );

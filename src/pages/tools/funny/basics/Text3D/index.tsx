@@ -1,12 +1,9 @@
 import { OrbitControls } from '@react-three/drei';
-import { Canvas, useLoader, extend } from '@react-three/fiber';
+import { Canvas, useLoader } from '@react-three/fiber';
 import { useControls } from 'leva';
 import React, { Suspense, useLayoutEffect, useMemo, useRef } from 'react';
 import type { Mesh } from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
-
-extend({ TextGeometry });
 
 const HelloText = () => {
   const ref = useRef<Mesh>(null!);

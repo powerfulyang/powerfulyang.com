@@ -1,4 +1,4 @@
-import Bananas from '@/components/three/Bananas';
+import { Bananas } from '@/three/Bananas';
 import React, { Suspense } from 'react';
 
 const Index = () => {

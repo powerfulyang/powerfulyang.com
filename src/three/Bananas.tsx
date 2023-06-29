@@ -92,7 +92,7 @@ type BananasProps = {
   style?: CSSProperties;
 };
 
-const Bananas: FC<BananasProps> = ({
+export const Bananas: FC<BananasProps> = ({
   speed = 1,
   count = 80,
   depth = 80,
@@ -119,5 +119,3 @@ const Bananas: FC<BananasProps> = ({
     </EffectComposer>
   </Canvas>
 );
-
-export default Bananas;

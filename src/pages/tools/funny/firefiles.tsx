@@ -1,4 +1,4 @@
-import { Fireflies } from '@/components/three/Fireflies';
+import { Fireflies } from '@/three/Fireflies';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 

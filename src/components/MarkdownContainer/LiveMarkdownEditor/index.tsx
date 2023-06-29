@@ -1,18 +1,22 @@
+import { MarkdownContainer } from '@/components/MarkdownContainer';
+import {
+  commands,
+  createMarkdownTagCommand,
+  MarkdownTags,
+  runTagCommand,
+} from '@/components/MarkdownContainer/LiveMarkdownEditor/utils';
+import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
+import { handlePasteImageAndReturnAsset } from '@/utils/copy';
+import type { Monaco } from '@monaco-editor/react';
+import MonacoEditor from '@monaco-editor/react';
+import { Icon } from '@powerfulyang/components';
+import type { VoidFunction } from '@powerfulyang/utils';
+import classNames from 'classnames';
+import type { editor } from 'monaco-editor';
 import type { ClipboardEvent, FC } from 'react';
 import React, { useDeferredValue, useEffect, useRef } from 'react';
-import { Icon } from '@powerfulyang/components';
-import classNames from 'classnames';
-import type { VoidFunction } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
-import { handlePasteImageAndReturnAsset } from '@/utils/copy';
-import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
-import dynamic from 'next/dynamic';
-import { editor } from 'monaco-editor';
-import type { Monaco } from '@monaco-editor/react';
-import { useIsomorphicLayoutEffect } from 'framer-motion';
-import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
 import styles from './index.module.scss';
-import IStandaloneCodeEditor = editor.IStandaloneCodeEditor;
 
 export type MarkdownMetadata = {
   author?: string;
@@ -28,37 +32,20 @@ type MarkdownEditorProps = {
   onPost?: VoidFunction<[MarkdownMetadata]>;
   onChange?: VoidFunction<[string | undefined]>;
   value: string;
+  loading?: boolean;
 };
-
-const DynamicMonacoEditor = dynamic(() => import('./editor'), {
-  ssr: false,
-  loading: () => <div className="flex h-full w-full items-center justify-center">Loading...</div>,
-});
 
 export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
   defaultValue = '',
   onPost,
   onChange,
   value,
+  loading,
 }) => {
   const ref = useRef<{
-    editor: IStandaloneCodeEditor;
+    editor: editor.IStandaloneCodeEditor;
     monaco: Monaco;
   }>();
-
-  useIsomorphicLayoutEffect(() => {
-    const fixRootElement = document.body;
-    if (fixRootElement) {
-      fixRootElement.style.cssText = `
-      overflow: hidden;
-      overflow: clip;
-      `;
-      return () => {
-        fixRootElement.removeAttribute('style');
-      };
-    }
-    return () => null;
-  }, []);
 
   const metadataRef = useRef<MarkdownMetadata>({
     title: '',
@@ -66,30 +53,16 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
 
   useEffect(() => {
     const s = fromEvent<ClipboardEvent>(window, 'paste').subscribe(async (e) => {
-      const isFocus = ref.current?.editor.hasTextFocus();
-      if (!isFocus) {
-        return;
-      }
       const r = await handlePasteImageAndReturnAsset(e, 'post');
       if (r?.length && ref.current) {
+        const editorInstance = ref.current.editor;
         const text = r
           .map((asset) => `![${MarkdownImageFromAssetManageAltConstant}](${asset.id})`)
           .join('\r\n');
-        const pos = ref.current.editor.getPosition();
-        const selection = ref.current.editor.getSelection();
-
-        const range = new ref.current.monaco.Range(
-          selection?.startLineNumber || pos?.lineNumber || 0,
-          selection?.startColumn || pos?.column || 0,
-          selection?.endLineNumber || pos?.lineNumber || 0,
-          selection?.endColumn || pos?.column || 0,
-        );
-        ref.current.editor.executeEdits('', [
-          {
-            range,
-            text: `\r\n${text}\r\n`,
-          },
-        ]);
+        const selection = editorInstance.getSelection();
+        const operation = { range: selection!, text };
+        editorInstance.executeEdits('', [operation]);
+        editorInstance.pushUndoStop();
       }
     });
     return () => {
@@ -102,29 +75,127 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
   return (
     <div className={classNames(styles.editor)}>
       <section className={styles.toolbar}>
-        <Icon className={styles.icon} type="icon-bold" />
-        <Icon className={styles.icon} type="icon-header" />
-        <Icon className={styles.icon} type="icon-italic" />
-        <Icon className={styles.icon} type="icon-quote" />
-        <Icon className={styles.icon} type="icon-strikethrough" />
-        <Icon className={styles.icon} type="icon-underline" />
-        <Icon className={styles.icon} type="icon-code" />
-        <Icon className={styles.icon} type="icon-pre" />
-        <Icon className={styles.icon} type="icon-table" />
-        <Icon className={styles.icon} type="icon-orderedlist" />
-        <Icon className={styles.icon} type="icon-unorderedlist" />
-        <Icon className={styles.icon} type="icon-wrap" />
-        <Icon
-          className={classNames(styles.icon, styles.post, 'pointer')}
-          type="icon-send"
-          onClick={() => {
-            onPost?.(metadataRef.current);
-          }}
-        />
+        <span title="加粗">
+          <Icon
+            className={styles.icon}
+            type="icon-bold"
+            onClick={() => {
+              runTagCommand(ref.current?.editor!, {
+                startTag: MarkdownTags.Bold,
+              });
+            }}
+          />
+        </span>
+        <span title="删除">
+          <Icon
+            className={styles.icon}
+            type="icon-strikethrough"
+            onClick={() => {
+              runTagCommand(ref.current?.editor!, {
+                startTag: MarkdownTags.StrikeThrough,
+              });
+            }}
+          />
+        </span>
+        <span title="斜体">
+          <Icon
+            className={styles.icon}
+            type="icon-italic"
+            onClick={() => {
+              runTagCommand(ref.current?.editor!, {
+                startTag: MarkdownTags.Italic,
+              });
+            }}
+          />
+        </span>
+        <span title="行内代码">
+          <Icon
+            className={styles.icon}
+            type="icon-code"
+            onClick={() => {
+              runTagCommand(ref.current?.editor!, {
+                startTag: MarkdownTags.InlineCode,
+              });
+            }}
+          />
+        </span>
+        <span title="代码块">
+          <Icon
+            className={styles.icon}
+            type="icon-pre"
+            onClick={() => {
+              runTagCommand(ref.current?.editor!, {
+                startTag: MarkdownTags.CodeBlock,
+              });
+            }}
+          />
+        </span>
+        <span title="引用">
+          <Icon
+            className={styles.icon}
+            type="icon-quote"
+            onClick={() => {
+              runTagCommand(ref.current?.editor!, {
+                startTag: MarkdownTags.Blockquote,
+                endTag: '',
+              });
+            }}
+          />
+        </span>
+        <span title="表格">
+          <Icon
+            className={styles.icon}
+            type="icon-table"
+            onClick={() => {
+              runTagCommand(ref.current?.editor!, {
+                startTag: MarkdownTags.Table,
+                endTag: '',
+              });
+            }}
+          />
+        </span>
+        <span title="有序列表">
+          <Icon
+            className={styles.icon}
+            type="icon-orderedlist"
+            onClick={() => {
+              runTagCommand(ref.current?.editor!, {
+                startTag: MarkdownTags.OrderedList,
+                endTag: '',
+              });
+            }}
+          />
+        </span>
+        <span title="无序列表">
+          <Icon
+            className={styles.icon}
+            type="icon-unorderedlist"
+            onClick={() => {
+              runTagCommand(ref.current?.editor!, {
+                startTag: MarkdownTags.UnorderedList,
+                endTag: '',
+              });
+            }}
+          />
+        </span>
+        {loading ? (
+          <Icon
+            className={classNames(styles.icon, styles.post, 'animate-spin')}
+            type="icon-loading"
+          />
+        ) : (
+          <Icon
+            className={classNames(styles.icon, styles.post, 'pointer')}
+            type="icon-send"
+            onClick={() => {
+              onPost?.(metadataRef.current);
+            }}
+          />
+        )}
       </section>
       <main className={styles.main}>
         <section className={styles.inputContent}>
-          <DynamicMonacoEditor
+          <MonacoEditor
             value={value}
             defaultLanguage="markdown"
             defaultValue={defaultValue}
@@ -138,10 +209,18 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
                 editor: e,
                 monaco: m,
               };
+              commands.forEach((command) => {
+                ref.current?.editor.addAction({
+                  id: command.id,
+                  label: command.label,
+                  run: createMarkdownTagCommand(command),
+                  keybindings: command.keybindings,
+                });
+              });
             }}
           />
         </section>
-        <LazyMarkdownContainer
+        <MarkdownContainer
           metadataRef={metadataRef}
           className={styles.preview}
           source={deferValue}

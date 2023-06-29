@@ -3,7 +3,12 @@
     height: 2rem;
     position: relative;
     z-index: 1;
+
     @apply flex w-full items-center justify-start bg-gray-200 align-middle text-gray-600;
+
+    span {
+      @apply cursor-pointer;
+    }
 
     .icon {
       @apply mx-2 rounded p-0.5 text-lg;
@@ -13,13 +18,14 @@
       }
 
       &.post {
-        @apply ml-auto mr-2 text-blue-400;
+        @apply ml-auto mr-2 p-0 text-blue-400;
       }
     }
   }
 
   .main {
     height: calc(100vh - 2rem - var(--footer-height));
+
     @apply flex w-full;
 
     .input-content {
@@ -28,6 +34,7 @@
 
     .preview {
       border-left: 1px solid black;
+
       @apply h-full w-1/2 overflow-y-auto;
     }
   }

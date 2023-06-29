@@ -1,6 +1,6 @@
 import type FireflyMaterial from '@/shaders/FireflyMaterial';
 import type { Object3DNode } from '@react-three/fiber';
-import type { CustomElement } from '@/components/three/extend';
+import type { CustomElement } from '@/three/extend';
 import type { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
 // Add types to ThreeElements elements so primitives pick up on it
