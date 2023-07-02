@@ -11,3 +11,23 @@ export type BananaGLTFResult = GLTF & {
     skin: THREE.MeshStandardMaterial;
   };
 };
+
+export type Level1GLTFResult = GLTF & {
+  nodes: {
+    Cactus: THREE.Mesh;
+    Camera: THREE.Mesh;
+    Camera_1: THREE.Mesh;
+    Level: THREE.Mesh;
+    Pyramid: THREE.Mesh;
+    Sudo: THREE.Mesh;
+    SudoHead: THREE.Mesh;
+    React: THREE.Mesh;
+  };
+  materials: {
+    Cactus: THREE.MeshBasicMaterial;
+    Level: THREE.MeshBasicMaterial;
+    Lens: THREE.MeshBasicMaterial;
+    Pyramid: THREE.MeshBasicMaterial;
+    Cube: THREE.MeshBasicMaterial;
+  };
+};

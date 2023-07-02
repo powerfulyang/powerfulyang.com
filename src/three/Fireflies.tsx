@@ -3,7 +3,6 @@ import * as THREE from 'three';
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import type FireflyMaterial from '@/shaders/FireflyMaterial';
-import '@/shaders/FireflyMaterial';
 
 export const Fireflies = ({ count = 40 }) => {
   const shader = useRef<FireflyMaterial>(null!);

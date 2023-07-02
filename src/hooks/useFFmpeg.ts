@@ -7,9 +7,9 @@ export const useFFmpeg = () => {
   const transcode = async (file: File, format: string) => {
     const { origin } = window.location;
     const ffmpeg = createFFmpeg({
-      corePath: `${origin}/ffmpeg/ffmpeg-core.js`,
-      workerPath: `${origin}/ffmpeg/ffmpeg-core.worker.js`,
-      wasmPath: `${origin}/ffmpeg/ffmpeg-core.wasm`,
+      corePath: `${origin}/_next/static/ffmpeg/ffmpeg-core.js`,
+      workerPath: `${origin}/_next/static/ffmpeg/ffmpeg-core.worker.js`,
+      wasmPath: `${origin}/_next/static/ffmpeg/ffmpeg-core.wasm`,
       progress: (e) => {
         setProgress(e.ratio * 100);
       },

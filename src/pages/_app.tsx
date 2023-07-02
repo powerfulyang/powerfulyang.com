@@ -1,7 +1,6 @@
 import { GlobalHooks } from '@/components/GlobalHooks';
 import { Header, origin } from '@/components/Head';
 import { RouteChangeAnimation } from '@/components/RouteChangeAnimation';
-import '@/three/extend';
 import { ProjectName } from '@/constant/Constant';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { usePV } from '@/hooks/usePV';
@@ -12,6 +11,8 @@ import Script from 'next/script';
 import React, { useMemo } from 'react';
 import 'reflect-metadata';
 import './app.scss';
+
+import('@/three/extend');
 
 interface HeaderProps {
   meta?: {
@@ -45,7 +46,7 @@ const App = ({ Component, pageProps }: MyAppProps) => {
   }, [Component, getLayout, pageProps]);
 
   // 路由变化时，PV统计
-  const element = usePV();
+  const pv = usePV();
 
   const {
     title = '404',
@@ -96,7 +97,7 @@ const App = ({ Component, pageProps }: MyAppProps) => {
         crossOrigin="anonymous"
         src="//at.alicdn.com/t/c/font_178634_m6cwt8bb21e.js"
       />
-      {element}
+      {pv}
     </GlobalContextProvider>
   );
 };

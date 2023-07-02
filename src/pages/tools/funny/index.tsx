@@ -17,6 +17,12 @@ const App: LayoutFC = () => {
       <Link className="link" href="/tools/funny/basics/Text3D">
         Text3D
       </Link>
+      <Link className="link" href="/tools/funny/classic-techniques/galaxy-generator">
+        galaxy-generator
+      </Link>
+      <Link className="link" href="/tools/funny/levels/level1">
+        level1
+      </Link>
     </div>
   );
 };

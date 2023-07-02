@@ -8,7 +8,6 @@ import {
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import type { Monaco } from '@monaco-editor/react';
-import MonacoEditor from '@monaco-editor/react';
 import { Icon } from '@powerfulyang/components';
 import type { VoidFunction } from '@powerfulyang/utils';
 import classNames from 'classnames';
@@ -16,6 +15,7 @@ import type { editor } from 'monaco-editor';
 import type { ClipboardEvent, FC } from 'react';
 import React, { useDeferredValue, useEffect, useRef } from 'react';
 import { fromEvent } from 'rxjs';
+import MonacoEditor from './editor';
 import styles from './index.module.scss';
 
 export type MarkdownMetadata = {

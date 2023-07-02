@@ -1,13 +1,11 @@
 import MonacoEditor, { loader } from '@monaco-editor/react';
 import * as monaco from 'monaco-editor';
 
-// eslint-disable-next-line no-restricted-globals
-self.MonacoEnvironment = {
+window.MonacoEnvironment = {
   getWorkerUrl() {
     return '/_next/static/editor.worker.js';
   },
-  // eslint-disable-next-line no-restricted-globals
-  ...self.MonacoEnvironment!,
+  ...window.MonacoEnvironment,
 };
 
 // monaco-editor has fixed this issue at v0.35.0
