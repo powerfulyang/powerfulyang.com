@@ -39,16 +39,32 @@
   // end of z-index variables
 
   font-size: calc(12px + 0.1vw);
-  font-family: 'Fira Code', -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto,
-    PingFang SC, Hiragino Sans GB, Source Han Sans SC, Noto Sans CJK SC, Microsoft YaHei,
-    WenQuanYi Micro Hei, WenQuanYi Zen Hei, Helvetica Neue, Arial, sans-serif;
+  font-family:
+    'Fira Code',
+    -apple-system,
+    system-ui,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    PingFang SC,
+    Hiragino Sans GB,
+    Source Han Sans SC,
+    Noto Sans CJK SC,
+    Microsoft YaHei,
+    WenQuanYi Micro Hei,
+    WenQuanYi Zen Hei,
+    Helvetica Neue,
+    Arial,
+    sans-serif;
   font-style: normal;
   font-weight: normal;
   //scrollbar-gutter: stable; 这个属性并不好用
   overflow-x: hidden;
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
-  font-feature-settings: 'rlig' 1, 'calt' 0;
+  font-feature-settings:
+    'rlig' 1,
+    'calt' 0;
   touch-action: manipulation;
   cursor: url('/cursor/default.ico'), pointer;
 

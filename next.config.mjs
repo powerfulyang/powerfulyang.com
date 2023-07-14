@@ -73,7 +73,6 @@ const config = {
     'react-syntax-highlighter',
     '@powerfulyang/utils',
     '@mui/material',
-    '@react-three/drei',
     'image-ascii-art',
   ],
   // below option will reduce the size of the bundle... only 2kb

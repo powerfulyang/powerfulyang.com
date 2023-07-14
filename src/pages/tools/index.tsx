@@ -61,6 +61,12 @@ const tools = [
     icon: '',
     url: '/admin/user/list',
   },
+  {
+    name: 'url params extractor',
+    description: 'url params extractor',
+    icon: '',
+    url: '/tools/url-params-extractor',
+  },
 ];
 
 const Tools: LayoutFC = () => {

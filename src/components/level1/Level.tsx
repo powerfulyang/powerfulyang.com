@@ -1,4 +1,4 @@
-import type { Level1GLTFResult } from '@/types/GLTFResult';
+import type { Level1GLTFResult } from '@/three/GLTFResult';
 import { useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { useSpring } from '@react-spring/three';

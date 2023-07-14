@@ -12,11 +12,13 @@
 
   .image {
     object-fit: contain;
+
     @apply absolute;
   }
 
   .w-full-image {
     width: 100%;
+
     @screen sm {
       width: calc(100% - 70px * 2);
     }
@@ -33,6 +35,7 @@
     font-size: 2rem;
     transform: translateY(-50%);
     z-index: calc(var(--image-preview-z-index) + 1);
+
     @apply hidden text-black opacity-60 sm:block;
 
     @media (hover: hover) {
@@ -44,6 +47,7 @@
 
   .prev {
     left: 1rem;
+
     @extend .next;
   }
 }

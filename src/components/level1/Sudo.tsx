@@ -1,4 +1,4 @@
-import type { Level1GLTFResult } from '@/types/GLTFResult';
+import type { Level1GLTFResult } from '@/three/GLTFResult';
 import * as THREE from 'three';
 import { useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';

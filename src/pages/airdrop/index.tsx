@@ -1,28 +1,21 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { DataConnection, Peer } from 'peerjs';
-import { useImmer } from '@powerfulyang/hooks';
-import type { LayoutFC } from '@/types/GlobalContext';
-import { UserLayout } from '@/layout/UserLayout';
 import type { SentMessage } from '@/components/Chat';
 import { Chat, sendFileMessage } from '@/components/Chat';
-import classNames from 'classnames';
 import type { ChatMessageEntity } from '@/components/Chat/Message';
 import { MessageSendType } from '@/components/Chat/Message';
 import { LazyImage } from '@/components/LazyImage';
 import { useDocumentVisible } from '@/hooks/useDocumentVisible';
+import { UserLayout } from '@/layout/UserLayout';
+import type { LayoutFC } from '@/types/GlobalContext';
 import { randomAvatar } from '@/utils/lib';
-import { useUser } from '@/hooks/useUser';
-import { useMutation } from '@tanstack/react-query';
-import { omit } from 'lodash-es';
-import { clientApi } from '@/request/requestTool';
-import type { ChatGPTPayload } from '@/__generated__/api';
+import { useImmer } from '@powerfulyang/hooks';
+import classNames from 'classnames';
+import type { DataConnection, Peer } from 'peerjs';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
 
 const LAN = 'LAN';
-const ChatGPT = 'ChatGPT';
 
 const Airdrop: LayoutFC = () => {
-  const { user } = useUser();
   const [currentPeerId, setCurrentPeerId] = useState('');
   const [connections, setConnections] = useImmer(() => new Map<string, DataConnection>());
   const messageIdRef = useRef(0);
@@ -31,7 +24,6 @@ const Airdrop: LayoutFC = () => {
   );
   const [selectPeerId, setSelectPeerId] = useState<string>(() => LAN);
   const peerRef = useRef<Peer>();
-  const conversionRef = useRef<Map<string, any>>(new Map());
 
   const handleMessage = useCallback(
     (params: Omit<ChatMessageEntity, 'messageId'>) => {
@@ -78,67 +70,6 @@ const Airdrop: LayoutFC = () => {
     [handleMessage],
   );
 
-  const AIUtil = useMemo(() => {
-    const think = (c: string) => {
-      handleMessage({
-        from: c,
-        chatFriendId: c,
-        content: '_ai_thinking_',
-        messageContentType: 'text',
-        sendType: MessageSendType.receive,
-      });
-    };
-    const stopThink = (c: string) => {
-      setMessages((draft) => {
-        const messageChannel = draft.get(c);
-        if (messageChannel) {
-          messageChannel.pop();
-        }
-      });
-    };
-    return {
-      think,
-      stopThink,
-    };
-  }, [handleMessage, setMessages]);
-
-  const sendToAI = useMutation({
-    mutationKey: ['sendToAI', selectPeerId],
-    mutationFn: (message: SentMessage): Promise<ChatGPTPayload> => {
-      AIUtil.think(selectPeerId);
-      if (selectPeerId === ChatGPT) {
-        return clientApi
-          .chatWithChatGpt({
-            message: message.content,
-            ...conversionRef.current.get(selectPeerId),
-          })
-          .then((res) => res.data);
-      }
-      return Promise.reject(new Error('AI not found'));
-    },
-    onSuccess(res) {
-      AIUtil.stopThink(selectPeerId);
-      conversionRef.current.set(selectPeerId, omit(res, ['message']));
-      handleMessage({
-        from: selectPeerId,
-        chatFriendId: selectPeerId,
-        content: res.message,
-        messageContentType: 'text',
-        sendType: MessageSendType.receive,
-      });
-    },
-    onError(e: Error) {
-      AIUtil.stopThink(selectPeerId);
-      handleMessage({
-        from: selectPeerId,
-        chatFriendId: selectPeerId,
-        content: e.message,
-        messageContentType: 'text',
-        sendType: MessageSendType.receive,
-      });
-    },
-  });
-
   const sendMessage = useCallback(
     (message: SentMessage) => {
       handleMessage({
@@ -147,7 +78,7 @@ const Airdrop: LayoutFC = () => {
         chatFriendId: selectPeerId,
         sendType: MessageSendType.send,
       });
-      if (![LAN, ChatGPT].includes(selectPeerId)) {
+      if (![LAN].includes(selectPeerId)) {
         connections.get(selectPeerId)?.send({
           ...message,
         });
@@ -163,11 +94,9 @@ const Airdrop: LayoutFC = () => {
             sendType: MessageSendType.send,
           });
         });
-      } else if (selectPeerId === ChatGPT) {
-        sendToAI.mutate(message);
       }
     },
-    [handleMessage, currentPeerId, selectPeerId, connections, sendToAI],
+    [handleMessage, currentPeerId, selectPeerId, connections],
   );
 
   useEffect(() => {
@@ -225,11 +154,10 @@ const Airdrop: LayoutFC = () => {
     <main className={styles.main}>
       <div className={classNames(styles.desktopChats, 'common-shadow')}>
         <div className={styles.friends}>
-          {[LAN, ChatGPT, ...connections.keys()]
+          {[LAN, ...connections.keys()]
             .filter((x) => x !== currentPeerId)
             .map((peerId) => (
               <button
-                hidden={[ChatGPT].includes(peerId) && !user}
                 type="button"
                 className={classNames(styles.friend, {
                   [styles.selected]: peerId === selectPeerId,

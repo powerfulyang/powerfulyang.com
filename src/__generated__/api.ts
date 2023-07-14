@@ -22,7 +22,14 @@ export interface UserLoginDto {
   password: string;
 }
 
-export type TencentCloudAccount = object;
+export interface TencentCloudAccount {
+  id: number;
+  name: string;
+  SecretId: string;
+  SecretKey: string;
+  AppId: string;
+  buckets: CosBucket[];
+}
 
 export interface CosBucket {
   id: number;
@@ -71,9 +78,39 @@ export interface Role {
   permissions: string[];
 }
 
-export type Family = object;
+export interface Family {
+  id: number;
+  name: string;
+  description: string;
+  /** @format date-time */
+  createdAt: string;
+  /** @format date-time */
+  updatedAt: string;
+  members: User[];
+}
 
-export type OauthOpenid = object;
+export interface OauthApplication {
+  id: number;
+  platformName: OauthApplicationPlatformNameEnum;
+  clientId: string;
+  clientSecret: string;
+  callbackUrl: string;
+  /** @format date-time */
+  createdAt: string;
+  /** @format date-time */
+  updatedAt: string;
+}
+
+export interface OauthOpenid {
+  id: number;
+  application: OauthApplication;
+  openid: string;
+  user: User;
+  /** @format date-time */
+  createdAt: string;
+  /** @format date-time */
+  updatedAt: string;
+}
 
 export interface User {
   /**
@@ -88,7 +125,7 @@ export interface User {
   email: string;
   nickname: string;
   bio: string;
-  avatar: string;
+  avatar?: string;
   lastIp: string;
   lastAddress: string;
   /** @format date-time */
@@ -100,6 +137,8 @@ export interface User {
   roles: Role[];
   families: Family[];
   oauthOpenidArr: OauthOpenid[];
+  saltedPassword: string;
+  salt: string;
 }
 
 export interface Asset {
@@ -138,7 +177,7 @@ export interface CreateRoleDto {
   /** 权限列表 */
   permissions: string[];
   /** 角色拥有的菜单 */
-  menus: string[];
+  menus?: string[];
 }
 
 export interface EditUserDto {
@@ -149,14 +188,19 @@ export interface EditUserDto {
   email: string;
   nickname: string;
   bio: string;
-  avatar: string;
+  avatar?: string;
 }
 
 export interface UploadAssetsDto {
   assets: File[];
 }
 
-export type CreateTencentCloudAccountDto = object;
+export interface CreateTencentCloudAccountDto {
+  name: string;
+  SecretId: string;
+  SecretKey: string;
+  AppId: string;
+}
 
 export interface CreateBucketDto {
   id?: number;
@@ -223,6 +267,7 @@ export interface CreatePostDto {
   createdAt?: string;
   /** @format date-time */
   updatedAt?: string;
+  posterId?: number;
 }
 
 export interface PatchPostDto {
@@ -280,17 +325,17 @@ export interface InfiniteQueryResponse {
   nextCursor?: number;
 }
 
-export interface ChatGPTPayload {
-  message: string;
-  parentMessageId?: string;
-  conversationId?: string;
+export interface ViewCountDto {
+  createdAt: string;
+  requestCount: number;
+  distinctIpCount: number;
 }
 
 export interface CreateFeedDto {
   content: string;
   createBy: User;
   assets: File[];
-  public: boolean;
+  public?: boolean;
 }
 
 export interface UpdateFeedDto {
@@ -301,10 +346,26 @@ export interface UpdateFeedDto {
   id: number;
 }
 
-export interface PushSubscriptionJSON {
+export interface OCRDto {
+  images: File[];
+  language?: string;
+}
+
+export interface PushSubscriptionJSONDto {
   endpoint?: string;
   expirationTime?: number | null;
   keys?: object;
+}
+
+export interface PushSubscriptionLog {
+  id: number;
+  pushSubscriptionJSON: PushSubscriptionJSONDto;
+  endpoint: string;
+  user?: User;
+  /** @format date-time */
+  createdAt: string;
+  /** @format date-time */
+  updatedAt: string;
 }
 
 export interface PaginatedBaseQuery {
@@ -314,7 +375,19 @@ export interface PaginatedBaseQuery {
   current: number;
 }
 
-export type NotificationDto = object;
+export interface NotificationDto {
+  title: string;
+  message: string;
+  icon?: string;
+  openUrl?: string;
+  subscribeId: number;
+}
+
+export enum OauthApplicationPlatformNameEnum {
+  Google = 'google',
+  Github = 'github',
+  Test = 'test',
+}
 
 export type QueryParamsType = Record<string | number, any>;
 export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>;
@@ -416,7 +489,7 @@ export class HttpClient<SecurityDataType = unknown> {
     return queryString ? `?${queryString}` : '';
   }
 
-  protected contentFormatters: Record<ContentType, (input: any) => any> = {
+  private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
       input !== null && (typeof input === 'object' || typeof input === 'string')
         ? JSON.stringify(input)
@@ -504,7 +577,7 @@ export class HttpClient<SecurityDataType = unknown> {
           ...(requestParams.headers || {}),
           ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
         },
-        signal: cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal,
+        signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) || null,
         body: typeof body === 'undefined' || body === null ? null : payloadFormatter(body),
       },
     ).then(async (response) => {
@@ -609,10 +682,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryCurrentUserMenus: (params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<Menu[], any>({
         path: `/api/user/menus`,
         method: 'GET',
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -635,9 +709,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         name: string;
         path: string;
         /** @format date-time */
-        createdAt: string[];
+        createdAt?: string[];
         /** @format date-time */
-        updatedAt: string[];
+        updatedAt?: string[];
       },
       params: RequestParams = {},
     ) =>
@@ -659,10 +733,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryAllMenus: (params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<Menu[], any>({
         path: `/api/menu-manage/query-all-menus`,
         method: 'GET',
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -676,10 +751,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryMenuById: (id: string, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<Menu, any>({
         path: `/api/menu-manage/${id}`,
         method: 'GET',
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -710,12 +786,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     createMenu: (data: Menu, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<object, any>({
         path: `/api/menu-manage`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
 
@@ -729,12 +806,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     editMenu: (data: Menu, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<object, any>({
         path: `/api/menu-manage`,
         method: 'PATCH',
         body: data,
         secure: true,
         type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
 
@@ -756,9 +834,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         id: number;
         name: string;
         /** @format date-time */
-        createdAt: string[];
+        createdAt?: string[];
         /** @format date-time */
-        updatedAt: string[];
+        updatedAt?: string[];
       },
       params: RequestParams = {},
     ) =>
@@ -780,10 +858,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryRoleById: (id: number, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<Role, any>({
         path: `/api/role-manage/${id}`,
         method: 'GET',
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -814,12 +893,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     createRole: (data: CreateRoleDto, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<object, any>({
         path: `/api/role-manage`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
 
@@ -833,12 +913,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     updateRole: (data: CreateRoleDto, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<object, any>({
         path: `/api/role-manage`,
         method: 'PATCH',
         body: data,
         secure: true,
         type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
 
@@ -852,10 +933,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     listPermissions: (params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<object[], any>({
         path: `/api/role-manage/permissions`,
         method: 'GET',
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -890,12 +972,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          * 创建时间
          * @format date-time
          */
-        createdAt: string[];
+        createdAt?: string[];
         /**
          * 更新时间
          * @format date-time
          */
-        updatedAt: string[];
+        updatedAt?: string[];
       },
       params: RequestParams = {},
     ) =>
@@ -917,10 +999,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryUserById: (id: string, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<User, any>({
         path: `/api/user-manage/${id}`,
         method: 'GET',
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -962,9 +1045,9 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         originUrl: string;
         sha1: string;
         /** @format date-time */
-        createdAt: string[];
+        createdAt?: string[];
         /** @format date-time */
-        updatedAt: string[];
+        updatedAt?: string[];
       },
       params: RequestParams = {},
     ) =>
@@ -1001,10 +1084,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     assetControllerPHashMap: (params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<object, any>({
         path: `/api/asset/pHash/distance`,
         method: 'GET',
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -1018,12 +1102,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     saveAssetToBucket: (bucketName: string, data: UploadAssetsDto, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<Asset[], any>({
         path: `/api/asset/${bucketName}`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.FormData,
+        format: 'json',
         ...params,
       }),
 
@@ -1080,10 +1165,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     bucketControllerListAllBuckets: (params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<CosBucket[], any>({
         path: `/api/bucket`,
         method: 'GET',
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -1096,12 +1182,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     bucketControllerCreateNewBucket: (data: CreateBucketDto, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<object, any>({
         path: `/api/bucket`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
 
@@ -1205,10 +1292,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     hello: (params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<string, any>({
         path: `/api/open/hello`,
         method: 'GET',
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -1375,29 +1463,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     queryPublicAssetById: (id: string, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<Asset, any>({
         path: `/api/open/asset/${id}`,
         method: 'GET',
         secure: true,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags open
-     * @name ChatWithChatGpt
-     * @summary 与chat gpt聊天
-     * @request POST:/api/open/chat-gpt/chat
-     * @secure
-     */
-    chatWithChatGpt: (data: ChatGPTPayload, params: RequestParams = {}) =>
-      this.request<ChatGPTPayload, any>({
-        path: `/api/open/chat-gpt/chat`,
-        method: 'POST',
-        body: data,
-        secure: true,
-        type: ContentType.Json,
         format: 'json',
         ...params,
       }),
@@ -1411,10 +1480,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     publicControllerViewCount: (params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<ViewCountDto[], any>({
         path: `/api/open/view-count`,
         method: 'GET',
         secure: true,
+        format: 'json',
         ...params,
       }),
 
@@ -1549,38 +1619,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     triggerSchedule: (scheduleType: any, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<string, any>({
         path: `/api/schedule/${scheduleType}`,
         method: 'GET',
         secure: true,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags logs-viewer
-     * @name LogsViewerControllerListContainers
-     * @request GET:/api/logs-viewer/containers
-     */
-    logsViewerControllerListContainers: (params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/logs-viewer/containers`,
-        method: 'GET',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags logs-viewer
-     * @name LogsViewerControllerListLogs
-     * @request GET:/api/logs-viewer/{container}
-     */
-    logsViewerControllerListLogs: (container: string, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/logs-viewer/${container}`,
-        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -1597,10 +1640,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<void, any>({
+      this.request<object, any>({
         path: `/api/mini-program/login`,
         method: 'GET',
         query: query,
+        format: 'json',
         ...params,
       }),
 
@@ -1622,22 +1666,15 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags tools
-     * @name ToolsControllerImage2Ascii
-     * @request POST:/api/tools/image2ascii
-     * @secure
+     * @name ToolsControllerOcr
+     * @request POST:/api/tools/ocr
      */
-    toolsControllerImage2Ascii: (
-      data: {
-        images?: File[];
-      },
-      params: RequestParams = {},
-    ) =>
+    toolsControllerOcr: (data: OCRDto, params: RequestParams = {}) =>
       this.request<string, any>({
-        path: `/api/tools/image2ascii`,
+        path: `/api/tools/ocr`,
         method: 'POST',
         body: data,
-        secure: true,
-        type: ContentType.FormData,
+        type: ContentType.Json,
         format: 'json',
         ...params,
       }),
@@ -1664,13 +1701,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/web-push/subscribe
      * @secure
      */
-    webPushSubscribe: (data: PushSubscriptionJSON, params: RequestParams = {}) =>
-      this.request<void, any>({
+    webPushSubscribe: (data: PushSubscriptionJSONDto, params: RequestParams = {}) =>
+      this.request<PushSubscriptionLog, any>({
         path: `/api/web-push/subscribe`,
         method: 'POST',
         body: data,
         secure: true,
         type: ContentType.Json,
+        format: 'json',
         ...params,
       }),
 

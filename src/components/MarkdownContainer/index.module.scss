@@ -44,7 +44,10 @@ $main-color: #ffb356;
       overflow: hidden;
       line-height: 3px;
       background-color: $primary-color;
-      box-shadow: 3px 0 $primary-color, 0 3px $primary-color, -3px 0 $primary-color,
+      box-shadow:
+        3px 0 $primary-color,
+        0 3px $primary-color,
+        -3px 0 $primary-color,
         0 -3px $primary-color;
     }
 

@@ -1,4 +1,4 @@
-import type { BananaGLTFResult } from '@/types/GLTFResult';
+import type { BananaGLTFResult } from '@/three/GLTFResult';
 import type { Mesh } from 'three';
 import * as THREE from 'three';
 import type { FC, CSSProperties } from 'react';

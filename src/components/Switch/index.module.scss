@@ -6,6 +6,7 @@
   border-radius: 50px;
   transform-origin: 20% center;
   transition: all 0.3s ease;
+
   @apply bg-gray-400;
 
   .desc {
@@ -16,6 +17,7 @@
     color: #18c8c9;
     text-align: center;
     transform: translateY(-50%);
+
     @apply text-lg;
 
     &::before {
@@ -39,7 +41,9 @@
     height: 8px;
     background: #222;
     border-radius: 50%;
-    box-shadow: 16px 0 0 #222, 22px -4px 0 12px #e4ac04;
+    box-shadow:
+      16px 0 0 #222,
+      22px -4px 0 12px #e4ac04;
     transform: translate(8px, 14px);
   }
 
@@ -52,7 +56,9 @@
     margin-bottom: -5px;
     background: #f9bb00;
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-    box-shadow: inset 4px 0 0 0 #fff, inset -4px 0 0 0 #fff;
+    box-shadow:
+      inset 4px 0 0 0 #fff,
+      inset -4px 0 0 0 #fff;
     transform: rotate(-40deg);
 
     &.right {

@@ -4,7 +4,6 @@ FROM node:lts-alpine AS dependencies
 WORKDIR /usr/app
 
 COPY package.json pnpm-lock.yaml .npmrc ./
-COPY patches ./patches
 
 RUN apk add --no-cache tzdata \
     && echo "Asia/Shanghai" > /etc/timezone \

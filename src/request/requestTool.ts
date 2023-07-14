@@ -2,6 +2,7 @@ import type { HttpClient } from '@/__generated__/api';
 import { Api, ContentType } from '@/__generated__/api';
 import { customFetch } from './customFetch';
 
+// @ts-ignore
 export class CustomApi extends Api<any> {
   protected contentFormatters: HttpClient['contentFormatters'] = {
     [ContentType.Json]: (input: any) =>

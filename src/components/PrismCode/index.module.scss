@@ -45,7 +45,9 @@
     height: 11px;
     background: #fc625d;
     border-radius: 50%;
-    box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+    box-shadow:
+      20px 0 #fdbc40,
+      40px 0 #35cd4b;
     transform: translate(50%, -50%);
     content: ' ';
   }

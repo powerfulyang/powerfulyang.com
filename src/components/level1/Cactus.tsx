@@ -1,4 +1,4 @@
-import type { Level1GLTFResult } from '@/types/GLTFResult';
+import type { Level1GLTFResult } from '@/three/GLTFResult';
 import { MeshWobbleMaterial, useGLTF } from '@react-three/drei';
 
 export const Cactus = () => {

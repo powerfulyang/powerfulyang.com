@@ -25,12 +25,15 @@
 
   .banner {
     background-color: white;
+
     @apply relative m-auto mb-4 flex flex-col justify-center overflow-hidden align-middle;
 
     .banner-bg {
       position: relative;
       height: 150px;
+
       @apply m-auto w-full;
+
       @screen sm {
         height: 300px;
       }
@@ -38,22 +41,26 @@
 
     .author-info {
       z-index: 1;
+
       @apply m-auto flex w-full flex-wrap pb-4;
 
       .author-avatar {
         width: 80px;
         margin-top: -40px;
+
         @apply ml-8 mr-4 select-none rounded-lg;
       }
 
       .author-nickname {
         align-self: flex-end;
         font-family: 'Zpix', sans-serif;
+
         @apply mb-2 cursor-text text-lg font-medium;
       }
 
       .author-bio {
         font-family: 'Zpix', sans-serif;
+
         @apply ml-8 mt-4 w-full cursor-text text-xl font-medium;
 
         span {

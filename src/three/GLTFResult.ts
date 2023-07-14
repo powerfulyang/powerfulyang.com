@@ -1,5 +1,5 @@
 import type * as THREE from 'three';
-import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import type { GLTF } from 'three-stdlib';
 
 export type BananaGLTFResult = GLTF & {
   nodes: {
