@@ -5,7 +5,7 @@ import Link from 'next/link';
 const App: LayoutFC = () => {
   return (
     <div className="flex gap-5 p-14">
-      <Link className="link" href="/tools/funny/firefiles">
+      <Link className="link" href="/tools/funny/fireflies">
         萤火虫
       </Link>
       <Link className="link" href="/tools/funny/bananas">
