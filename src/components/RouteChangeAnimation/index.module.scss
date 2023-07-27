@@ -9,7 +9,7 @@
   top: 0;
   z-index: var(--redirecting-z-index);
   width: 100%;
-  height: calc(1px + 0.01vw);
+  height: 2px;
   pointer-events: none;
   background-image: linear-gradient(
     90deg,
