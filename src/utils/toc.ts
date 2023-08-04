@@ -4,8 +4,8 @@ import { toString } from 'hast-util-to-string';
 import rehypeSlug from 'rehype-slug';
 import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
-import type { TOCItem } from '@/components/MarkdownContainer/TOC';
 import remarkFrontmatter from 'remark-frontmatter';
+import type { TOCItem } from '@/components/MarkdownContainer/TOC';
 import { remarkMetadata } from '@/components/MarkdownContainer/plugins/remarkMetadata';
 
 const rehypeTOC = (callback: (v: TOCItem[]) => void) => {

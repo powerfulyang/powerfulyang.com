@@ -1,7 +1,3 @@
-import { PrismCode } from '@/components/PrismCode';
-import type { DocumentPath } from '@/services/swagger-parse/getDocumentPaths';
-import { getDocumentPaths } from '@/services/swagger-parse/getDocumentPaths';
-import { snippet } from '@/snippets/table';
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { LoadingButton } from '@mui/lab';
 import { Autocomplete, Container, Stack, TextField } from '@mui/material';
@@ -10,6 +6,10 @@ import type { OpenAPIV3 } from 'openapi-types';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { snippet } from '@/snippets/table';
+import { getDocumentPaths } from '@/services/swagger-parse/getDocumentPaths';
+import type { DocumentPath } from '@/services/swagger-parse/getDocumentPaths';
+import { PrismCode } from '@/components/PrismCode';
 import type { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 import { generateTableCode } from '@/services/swagger-parse/generateTableCode';

@@ -1,9 +1,9 @@
-import { ChangingAtom } from '@/components/RouteChangeAnimation/changingAtom';
-import { useRouteChangeAnimation } from '@/components/RouteChangeAnimation/useRouteChangeAnimation';
 import classNames from 'classnames';
 import { useAtom } from 'jotai';
 import type { FC } from 'react';
 import React from 'react';
+import { useRouteChangeAnimation } from '@/components/RouteChangeAnimation/useRouteChangeAnimation';
+import { ChangingAtom } from '@/components/RouteChangeAnimation/changingAtom';
 import styles from './index.module.scss';
 
 export const RouteChangeAnimation: FC = () => {

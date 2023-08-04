@@ -1,7 +1,7 @@
-import { clientApi } from '@/request/requestTool';
 import { Button, Stack } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
+import { clientApi } from '@/request/requestTool';
 
 function sendSubscriptionToServer(subscription: PushSubscription) {
   // 将订阅对象发送到服务器

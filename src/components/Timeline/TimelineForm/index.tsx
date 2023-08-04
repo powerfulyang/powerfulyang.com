@@ -1,17 +1,3 @@
-import type { CreateFeedDto, Feed, UpdateFeedDto } from '@/__generated__/api';
-import type { ImagePreviewItem } from '@/components/ImagePreview';
-import { ImagePreview } from '@/components/ImagePreview';
-import { LazyImage } from '@/components/LazyImage';
-import { Switch } from '@/components/Switch';
-import { useEditTimeLineItem } from '@/components/Timeline/TimelineItem';
-import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
-import { clientApi } from '@/request/requestTool';
-import {
-  appendToFileList,
-  handlePasteImageAndReturnFileList,
-  removeFromFileList,
-  sourceUrlToFile,
-} from '@/utils/copy';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Icon } from '@powerfulyang/components';
 import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
@@ -22,6 +8,20 @@ import type { ChangeEvent, ClipboardEvent } from 'react';
 import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
+import {
+  appendToFileList,
+  handlePasteImageAndReturnFileList,
+  removeFromFileList,
+  sourceUrlToFile,
+} from '@/utils/copy';
+import { clientApi } from '@/request/requestTool';
+import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
+import { useEditTimeLineItem } from '@/components/Timeline/TimelineItem';
+import { Switch } from '@/components/Switch';
+import { LazyImage } from '@/components/LazyImage';
+import { ImagePreview } from '@/components/ImagePreview';
+import type { ImagePreviewItem } from '@/components/ImagePreview';
+import type { CreateFeedDto, Feed, UpdateFeedDto } from '@/__generated__/api';
 import styles from './index.module.scss';
 
 type Props = {

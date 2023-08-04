@@ -1,7 +1,7 @@
-import type { Level1GLTFResult } from '@/three/GLTFResult';
 import { useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { useSpring } from '@react-spring/three';
+import type { Level1GLTFResult } from '@/three/GLTFResult';
 
 export const Level = () => {
   const { nodes } = useGLTF('/level1/level-react-draco.glb', '/draco/1.5.6/') as Level1GLTFResult;

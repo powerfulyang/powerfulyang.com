@@ -1,5 +1,5 @@
-import { Timeline } from '@/pages/timeline';
 import type { GetServerSideProps } from 'next';
+import { Timeline } from '@/pages/timeline';
 import { origin } from '@/components/Head';
 import { serverApi } from '@/request/requestTool';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';

@@ -1,7 +1,7 @@
-import { ChangingAtom } from '@/components/RouteChangeAnimation/changingAtom';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { ChangingAtom } from '@/components/RouteChangeAnimation/changingAtom';
 
 /**
  * @description 路由变化时，出现顶部动画

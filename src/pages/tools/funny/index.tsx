@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import { UserLayout } from '@/layout/UserLayout';
 import type { LayoutFC } from '@/types/GlobalContext';
-import Link from 'next/link';
 
 const App: LayoutFC = () => {
   return (

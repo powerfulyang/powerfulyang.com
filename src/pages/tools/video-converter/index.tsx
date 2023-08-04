@@ -1,6 +1,8 @@
-import { VideoProcessor } from '@/components/VideoProcessor';
+import dynamic from 'next/dynamic';
 import type { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
+
+const VideoProcessor = dynamic(() => import('@/components/VideoProcessor'), { ssr: false });
 
 const Video: LayoutFC = () => {
   return (

@@ -1,4 +1,3 @@
-import { useFFmpeg } from '@/hooks/useFFmpeg';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Download } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
@@ -17,11 +16,11 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import z from 'zod';
+import { useFFmpeg } from '@/hooks/useFFmpeg';
 
-const CircularProgressWithLabel = ({
-  value,
-  ...props
-}: CircularProgressProps & { value: number }) => {
+const CircularProgressWithLabel = (
+  { value, ...props }: CircularProgressProps & { value: number },
+) => {
   return (
     <Box component="div" sx={{ position: 'relative', display: 'inline-flex' }}>
       <CircularProgress variant="determinate" value={value} {...props} />
@@ -66,7 +65,7 @@ type FormProps = {
   file?: File;
 };
 
-export const VideoProcessor = () => {
+const VideoProcessor = () => {
   const { transcode, progress } = useFFmpeg();
   const [start, setStart] = useState(0);
 
@@ -213,3 +212,5 @@ export const VideoProcessor = () => {
     </form>
   );
 };
+
+export default VideoProcessor;

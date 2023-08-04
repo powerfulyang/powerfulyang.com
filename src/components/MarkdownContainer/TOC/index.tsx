@@ -12,11 +12,9 @@ export type TOCItem = {
   id: string;
 };
 
-export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: PostLog[]; id: number }> = ({
-  toc,
-  logs,
-  id: postId,
-}) => {
+export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: PostLog[]; id: number }> = (
+  { toc, logs, id: postId },
+) => {
   const hashRef = useRef('');
 
   return (

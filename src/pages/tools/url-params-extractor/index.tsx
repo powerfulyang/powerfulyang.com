@@ -1,9 +1,9 @@
-import { UserLayout } from '@/layout/UserLayout';
-import type { LayoutFC } from '@/types/GlobalContext';
-import { copyToClipboardAndNotify } from '@/utils/copy';
 import { CopyAllOutlined } from '@mui/icons-material';
 import { Container, TextField } from '@mui/material';
 import React, { useMemo, useState } from 'react';
+import { UserLayout } from '@/layout/UserLayout';
+import type { LayoutFC } from '@/types/GlobalContext';
+import { copyToClipboardAndNotify } from '@/utils/copy';
 
 const UrlParamsExtractor: LayoutFC = () => {
   const [url, setUrl] = useState<string>('');

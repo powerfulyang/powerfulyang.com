@@ -1,12 +1,3 @@
-import { MarkdownContainer } from '@/components/MarkdownContainer';
-import {
-  commands,
-  createMarkdownTagCommand,
-  MarkdownTags,
-  runTagCommand,
-} from '@/components/MarkdownContainer/LiveMarkdownEditor/utils';
-import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
-import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import type { Monaco } from '@monaco-editor/react';
 import { Icon } from '@powerfulyang/components';
 import type { VoidFunction } from '@powerfulyang/utils';
@@ -15,6 +6,15 @@ import type { editor } from 'monaco-editor';
 import type { ClipboardEvent, FC } from 'react';
 import React, { useDeferredValue, useEffect, useRef } from 'react';
 import { fromEvent } from 'rxjs';
+import { handlePasteImageAndReturnAsset } from '@/utils/copy';
+import {
+  commands,
+  createMarkdownTagCommand,
+  MarkdownTags,
+  runTagCommand,
+} from '@/components/MarkdownContainer/LiveMarkdownEditor/utils';
+import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
+import { MarkdownContainer } from '@/components/MarkdownContainer';
 import MonacoEditor from './editor';
 import styles from './index.module.scss';
 
@@ -35,13 +35,9 @@ type MarkdownEditorProps = {
   loading?: boolean;
 };
 
-export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
-  defaultValue = '',
-  onPost,
-  onChange,
-  value,
-  loading,
-}) => {
+export const LiveMarkdownEditor: FC<MarkdownEditorProps> = (
+  { defaultValue = '', onPost, onChange, value, loading },
+) => {
   const ref = useRef<{
     editor: editor.IStandaloneCodeEditor;
     monaco: Monaco;

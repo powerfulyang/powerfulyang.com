@@ -1,8 +1,8 @@
-import type { Level1GLTFResult } from '@/three/GLTFResult';
 import * as THREE from 'three';
 import { useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useSpring, a } from '@react-spring/three';
+import type { Level1GLTFResult } from '@/three/GLTFResult';
 
 export const Sudo = () => {
   const { nodes } = useGLTF('/level1/level-react-draco.glb', '/draco/1.5.6/') as Level1GLTFResult;

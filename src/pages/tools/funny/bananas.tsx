@@ -1,5 +1,5 @@
-import { Bananas } from '@/three/Bananas';
 import React, { Suspense } from 'react';
+import { Bananas } from '@/three/Bananas';
 
 const Index = () => {
   return (

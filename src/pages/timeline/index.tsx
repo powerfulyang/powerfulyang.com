@@ -1,3 +1,11 @@
+import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
+import type { InfiniteData } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { flatten } from 'lodash-es';
+import type { GetServerSideProps } from 'next';
+import Image from 'next/image';
+import React, { Fragment, useMemo } from 'react';
+import { InView } from 'react-intersection-observer';
 import type { Feed } from '@/__generated__/api';
 import bg from '@/assets/timeline-banner.webp';
 import { origin } from '@/components/Head';
@@ -11,14 +19,6 @@ import { clientApi, serverApi } from '@/request/requestTool';
 import type { LayoutFC } from '@/types/GlobalContext';
 import type { InfiniteQueryResponse } from '@/types/InfiniteQuery';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
-import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
-import type { InfiniteData } from '@tanstack/react-query';
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import { flatten } from 'lodash-es';
-import type { GetServerSideProps } from 'next';
-import Image from 'next/image';
-import React, { Fragment, useMemo } from 'react';
-import { InView } from 'react-intersection-observer';
 import styles from './index.module.scss';
 
 type TimelineProps = {

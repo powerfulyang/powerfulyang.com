@@ -11,7 +11,7 @@
     }
 
     .icon {
-      @apply mx-2 rounded p-0.5 text-lg;
+      @apply mx-2 select-none rounded p-0.5 text-lg;
 
       &:hover {
         @apply bg-blue-300;

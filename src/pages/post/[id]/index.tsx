@@ -1,3 +1,8 @@
+import type { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 import type { HttpResponse, Post } from '@/__generated__/api';
 import { origin } from '@/components/Head';
 import type { TOCItem } from '@/components/MarkdownContainer/TOC';
@@ -8,11 +13,6 @@ import { serverApi } from '@/request/requestTool';
 import type { LayoutFC } from '@/types/GlobalContext';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import { generateTOC } from '@/utils/toc';
-import type { GetServerSideProps } from 'next';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import React from 'react';
-import { useHotkeys } from 'react-hotkeys-hook';
 import styles from './index.module.scss';
 
 const LazyMarkdownContainer = dynamic(() => import('@/components/MarkdownContainer'), {

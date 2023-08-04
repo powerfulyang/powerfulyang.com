@@ -1,9 +1,9 @@
 /* eslint @typescript-eslint/no-use-before-define: ["error", { "functions": false }] */
 
-import { getSchemaName } from '@/services/swagger-parse/getSchemaName';
-import { isOpenAPIV3 } from '@/services/swagger-parse/isOpenAPIV3';
 import { get } from 'lodash-es';
 import type { OpenAPIV2, OpenAPIV3 } from 'openapi-types';
+import { getSchemaName } from '@/services/swagger-parse/getSchemaName';
+import { isOpenAPIV3 } from '@/services/swagger-parse/isOpenAPIV3';
 import { isSchemaObject } from '@/services/swagger-parse/isSchemaObject';
 
 type _SchemaObject<T> = T extends OpenAPIV3.Document

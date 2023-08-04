@@ -1,3 +1,7 @@
+import { NextSeo } from 'next-seo';
+import type { AppProps } from 'next/app';
+import Script from 'next/script';
+import React, { useMemo } from 'react';
 import { GlobalHooks } from '@/components/GlobalHooks';
 import { Header, origin } from '@/components/Head';
 import { RouteChangeAnimation } from '@/components/RouteChangeAnimation';
@@ -5,10 +9,6 @@ import { ProjectName } from '@/constant/Constant';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { usePV } from '@/hooks/usePV';
 import _404 from '@/pages/404';
-import { NextSeo } from 'next-seo';
-import type { AppProps } from 'next/app';
-import Script from 'next/script';
-import React, { useMemo } from 'react';
 import 'reflect-metadata';
 import './app.scss';
 

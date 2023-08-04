@@ -1,3 +1,7 @@
+import { useImmer } from '@powerfulyang/hooks';
+import classNames from 'classnames';
+import type { DataConnection, Peer } from 'peerjs';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SentMessage } from '@/components/Chat';
 import { Chat, sendFileMessage } from '@/components/Chat';
 import type { ChatMessageEntity } from '@/components/Chat/Message';
@@ -7,10 +11,6 @@ import { useDocumentVisible } from '@/hooks/useDocumentVisible';
 import { UserLayout } from '@/layout/UserLayout';
 import type { LayoutFC } from '@/types/GlobalContext';
 import { randomAvatar } from '@/utils/lib';
-import { useImmer } from '@powerfulyang/hooks';
-import classNames from 'classnames';
-import type { DataConnection, Peer } from 'peerjs';
-import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './index.module.scss';
 
 const LAN = 'LAN';

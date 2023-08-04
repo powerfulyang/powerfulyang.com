@@ -1,9 +1,11 @@
+import process from 'node:process';
+import path from 'node:path';
 import BundleAnalyzer from '@next/bundle-analyzer';
 import { isDevProcess } from '@powerfulyang/utils';
 import { withSentryConfig } from '@sentry/nextjs';
 import withPWAConfig from 'next-pwa';
-import process from 'node:process';
-import path from 'node:path';
+import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { runtimeCaching } from './runtimeCaching.mjs';
 
 const { SENTRY_AUTH_TOKEN } = process.env;
@@ -103,7 +105,7 @@ const config = {
   headers() {
     return [
       {
-        source: '/tools/video-converter',
+        source: '/(.*)',
         headers: [
           {
             key: 'Cross-Origin-Embedder-Policy',
@@ -155,7 +157,7 @@ const nextConfig = withSentryConfig(
     ...config,
     ...withBundleAnalyzer(
       withPWA({
-        webpack: (c, options) => {
+        webpack: (c) => {
           // camel-case style names from css modules
           c.module.rules
             .find(({ oneOf }) => !!oneOf)
@@ -166,32 +168,26 @@ const nextConfig = withSentryConfig(
                 draft.modules.exportLocalsConvention = 'camelCase';
               }
             });
-          if (!options.isServer) {
-            // handle monaco editor
-            import('monaco-editor-webpack-plugin').then(({ default: MonacoWebpackPlugin }) => {
-              c.plugins.push(
-                new MonacoWebpackPlugin({
-                  // Add languages as needed...
-                  languages: ['markdown'],
-                  filename: 'static/[name].worker.js',
-                }),
-              );
-            });
+          // handle monaco editor
+          c.plugins.push(
+            new MonacoWebpackPlugin({
+              // Add languages as needed...
+              languages: ['markdown'],
+              filename: 'static/[name].worker.js',
+            }),
+          );
 
-            // handle ffmpeg
-            import('copy-webpack-plugin').then(({ default: CopyWebpackPlugin }) => {
-              c.plugins.push(
-                new CopyWebpackPlugin({
-                  patterns: [
-                    {
-                      from: path.resolve('node_modules/@ffmpeg/core/dist'),
-                      to: path.resolve('.next/static/ffmpeg'),
-                    },
-                  ],
-                }),
-              );
-            });
-          }
+          // handle ffmpeg
+          c.plugins.push(
+            new CopyWebpackPlugin({
+              patterns: [
+                {
+                  from: path.resolve('node_modules/@ffmpeg/core/dist/umd'),
+                  to: path.resolve('.next/static/ffmpeg'),
+                },
+              ],
+            }),
+          );
           return c;
         },
       }),

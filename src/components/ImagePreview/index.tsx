@@ -1,13 +1,13 @@
 import type { FC, PropsWithChildren, ReactElement } from 'react';
 import React, { Children, cloneElement, useEffect, useMemo } from 'react';
 import { useImmerReducer } from '@powerfulyang/hooks';
+import type { VoidFunction } from '@powerfulyang/utils';
 import type {
   ImageModalContextAction,
   ImagePreviewContextState,
 } from '@/context/ImagePreviewContext';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import ImagePreviewModal from '@/components/ImagePreview/ImagePreviewModal';
-import type { VoidFunction } from '@powerfulyang/utils';
 import type { Asset } from '@/__generated__/api';
 
 const reducer = (draft: ImagePreviewContextState, action: ImageModalContextAction) => {

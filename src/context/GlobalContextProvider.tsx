@@ -1,4 +1,3 @@
-import theme from '@/theme/mui';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import { CssBaseline } from '@mui/material';
@@ -8,6 +7,7 @@ import { Provider } from 'jotai';
 import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
+import theme from '@/theme/mui';
 
 export const cache = createCache({ key: 'next' });
 

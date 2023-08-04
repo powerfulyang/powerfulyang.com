@@ -1,7 +1,7 @@
-import { LazyImage } from '@/components/LazyImage';
 import React, { useMemo } from 'react';
-import { useUser } from '@/hooks/useUser';
 import classNames from 'classnames';
+import { LazyImage } from '@/components/LazyImage';
+import { useUser } from '@/hooks/useUser';
 import styles from './index.module.scss';
 
 export const login = () => {

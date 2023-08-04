@@ -39,18 +39,20 @@ const variants: Variants = {
       willChange: 'transform, opacity',
     };
   },
-  animate: ({
-    isPrev: p,
-    isNext: n,
-    x: ox,
-    loaded: l,
-    y: oy,
-    realIndex: r,
-    selectIndex: s,
-    actionRef,
-    viewportWidth,
-    viewportHeight,
-  }: Custom) => {
+  animate: (
+    {
+      isPrev: p,
+      isNext: n,
+      x: ox,
+      loaded: l,
+      y: oy,
+      realIndex: r,
+      selectIndex: s,
+      actionRef,
+      viewportWidth,
+      viewportHeight,
+    }: Custom,
+  ) => {
     const offset: number = (p && -20) || (n && 20) || 0;
     let t: TargetAndTransition;
     if (actionRef.current !== 0) {

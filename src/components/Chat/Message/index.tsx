@@ -1,7 +1,7 @@
 import { memo, useEffect, useId } from 'react';
 import classNames from 'classnames';
-import { copyToClipboardAndNotify } from '@/utils/copy';
 import { isBlob, isString, scrollIntoView } from '@powerfulyang/utils';
+import { copyToClipboardAndNotify } from '@/utils/copy';
 import { LazyImage } from '@/components/LazyImage';
 import { randomAvatar } from '@/utils/lib';
 import styles from './index.module.scss';

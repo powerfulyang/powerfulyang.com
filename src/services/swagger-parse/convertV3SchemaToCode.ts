@@ -1,8 +1,8 @@
+import type { ProColumns } from '@ant-design/pro-components';
+import type { OpenAPIV3 } from 'openapi-types';
 import { convertObjectToCode } from '@/services/swagger-parse/convertObjectToCode';
 import { getSchema } from '@/services/swagger-parse/getSchema';
 import { getSchemaName } from '@/services/swagger-parse/getSchemaName';
-import type { ProColumns } from '@ant-design/pro-components';
-import type { OpenAPIV3 } from 'openapi-types';
 
 export const convertV3SchemaToCode = (
   doc: OpenAPIV3.Document,

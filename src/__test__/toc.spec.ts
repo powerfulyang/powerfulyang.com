@@ -1,6 +1,6 @@
-import { generateTOC } from '@/utils/toc';
 import { describe, expect, it } from '@jest/globals';
 import dayjs from 'dayjs';
+import { generateTOC } from '@/utils/toc';
 
 describe('TOC', () => {
   it('should generate TOC', async () => {

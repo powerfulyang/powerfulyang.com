@@ -23,15 +23,17 @@ export const LOADED_IMAGE_URLS = new Set<string | undefined>();
 const { brokenImg } = Assets;
 
 export const LazyImage = memo<LazyImageProps>(
-  ({
-    src,
-    className = 'object-cover w-full h-full',
-    blurSrc,
-    containerClassName = 'w-full',
-    lazy = true,
-    aspectRatio,
-    ...props
-  }) => {
+  (
+    {
+      src,
+      className = 'object-cover w-full h-full',
+      blurSrc,
+      containerClassName = 'w-full',
+      lazy = true,
+      aspectRatio,
+      ...props
+    },
+  ) => {
     const [loading, setLoading] = useState(() => {
       const isLocalDataOrEmpty = src?.startsWith('data:') || src?.startsWith('blob:') || !src;
       if (lazy) {

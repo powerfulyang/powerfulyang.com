@@ -1,9 +1,9 @@
-import { copyToClipboardAndNotify } from '@/utils/copy';
 import classNames from 'classnames';
 import type { FC } from 'react';
 import React from 'react';
 import { Prism } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { copyToClipboardAndNotify } from '@/utils/copy';
 import styles from './index.module.scss';
 
 type Props = {

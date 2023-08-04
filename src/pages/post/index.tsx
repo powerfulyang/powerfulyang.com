@@ -1,10 +1,3 @@
-import type { Post } from '@/__generated__/api';
-import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import { UserLayout } from '@/layout/UserLayout';
-import { serverApi } from '@/request/requestTool';
-import type { LayoutFC } from '@/types/GlobalContext';
-import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
-import { formatDateTime } from '@/utils/lib';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import type { GetServerSideProps } from 'next';
@@ -12,6 +5,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
+import type { Post } from '@/__generated__/api';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
+import { UserLayout } from '@/layout/UserLayout';
+import { serverApi } from '@/request/requestTool';
+import type { LayoutFC } from '@/types/GlobalContext';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { formatDateTime } from '@/utils/lib';
 import styles from './index.module.scss';
 
 type IndexProps = {

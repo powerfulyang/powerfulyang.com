@@ -1,9 +1,9 @@
-import type { ChatMessageEntity, Message } from '@/components/Chat/Message';
-import { ChatMessage } from '@/components/Chat/Message';
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { handlePasteImageAndReturnFileList } from '@/utils/copy';
 import { useQueryClient } from '@tanstack/react-query';
+import type { ChatMessageEntity, Message } from '@/components/Chat/Message';
+import { ChatMessage } from '@/components/Chat/Message';
+import { handlePasteImageAndReturnFileList } from '@/utils/copy';
 import styles from './index.module.scss';
 
 export type SentMessage = Message & { fileType?: string };

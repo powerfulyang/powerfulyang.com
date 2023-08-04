@@ -1,6 +1,6 @@
-import { Fireflies } from '@/three/Fireflies';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
+import { Fireflies } from '@/three/Fireflies';
 
 const Index = () => {
   return (

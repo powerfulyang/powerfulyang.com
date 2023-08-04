@@ -1,24 +1,22 @@
-import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
+import { FFmpeg } from '@ffmpeg/ffmpeg';
+import { fetchFile } from '@ffmpeg/util';
 import { useState } from 'react';
 
 export const useFFmpeg = () => {
   const [progress, setProgress] = useState<number>(0);
 
   const transcode = async (file: File, format: string) => {
-    const { origin } = window.location;
-    const ffmpeg = createFFmpeg({
-      corePath: `${origin}/_next/static/ffmpeg/ffmpeg-core.js`,
-      workerPath: `${origin}/_next/static/ffmpeg/ffmpeg-core.worker.js`,
-      wasmPath: `${origin}/_next/static/ffmpeg/ffmpeg-core.wasm`,
-      progress: (e) => {
-        setProgress(e.ratio * 100);
-      },
+    const ffmpeg = new FFmpeg();
+    await ffmpeg.load({
+      coreURL: '/_next/static/ffmpeg/ffmpeg-core.js',
     });
-    await ffmpeg.load();
-    ffmpeg.FS('writeFile', 'input', await fetchFile(file));
-    await ffmpeg.run('-i', 'input', `output.${format}`);
-    const res = ffmpeg.FS('readFile', `output.${format}`);
-    ffmpeg.exit();
+    ffmpeg.on('progress', (e: { progress: number }) => {
+      setProgress(e.progress * 100);
+    });
+    await ffmpeg.writeFile('input', await fetchFile(file));
+    await ffmpeg.exec(['-i', 'input', `output.${format}`]);
+    const res = await ffmpeg.readFile(`output.${format}`);
+    ffmpeg.terminate();
     return res;
   };
 

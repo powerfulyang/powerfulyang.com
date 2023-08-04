@@ -1,5 +1,5 @@
-import { pick } from 'lodash-es';
 import type { IncomingHttpHeaders } from 'node:http';
+import { pick } from 'lodash-es';
 
 export const extractRequestHeaders = (headers: IncomingHttpHeaders) => {
   const headersToExtract = [

@@ -1,9 +1,9 @@
-import { CDN_ORIGIN, generateCdnStaticUrl, ProjectName } from '@/constant/Constant';
-import { cache } from '@/context/GlobalContextProvider';
 import createEmotionServer from '@emotion/server/create-instance';
 import type { DocumentContext, DocumentProps } from 'next/document';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
+import { cache } from '@/context/GlobalContextProvider';
+import { CDN_ORIGIN, generateCdnStaticUrl, ProjectName } from '@/constant/Constant';
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];

@@ -5,12 +5,12 @@ import remarkGfm from 'remark-gfm';
 import classNames from 'classnames';
 import rehypeSlug from 'rehype-slug';
 import remarkFrontmatter from 'remark-frontmatter';
-import { copyToClipboardAndNotify } from '@/utils/copy';
 import { Icon } from '@powerfulyang/components';
-import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkDirective from 'remark-directive';
+import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
+import { copyToClipboardAndNotify } from '@/utils/copy';
 import { remarkDirectiveHandle } from '@/components/MarkdownContainer/plugins/remarkDirectiveHandle';
 import { remarkMetadata } from '@/components/MarkdownContainer/plugins/remarkMetadata';
 import { A, BlockQuote, Code, H1, H2, H3, H4, Img, Li, Pre, Table, Ul } from './MarkdownElement';
@@ -26,11 +26,9 @@ export type MarkdownContainerProps = {
   metadataRef?: React.MutableRefObject<MarkdownMetadata>;
 };
 
-export const MarkdownContainer: FC<MarkdownContainerProps> = ({
-  source,
-  className,
-  metadataRef,
-}) => {
+export const MarkdownContainer: FC<MarkdownContainerProps> = (
+  { source, className, metadataRef },
+) => {
   return (
     <ReactMarkdown
       className={classNames(styles.markdownBody, className)}

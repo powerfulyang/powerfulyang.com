@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import React, { memo, useMemo } from 'react';
 import classNames from 'classnames';
+import { DocSearch } from '@docsearch/react';
 import { ProjectName } from '@/constant/Constant';
 import { NavBarUser } from '@/components/NavBar/User';
-import { DocSearch } from '@docsearch/react';
 import styles from './index.module.scss';
 
 export const menus = ['post', 'timeline', 'gallery', 'airdrop', 'tools'];

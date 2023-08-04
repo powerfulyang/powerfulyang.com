@@ -1,4 +1,3 @@
-import type { BananaGLTFResult } from '@/three/GLTFResult';
 import type { Mesh } from 'three';
 import * as THREE from 'three';
 import type { FC, CSSProperties } from 'react';
@@ -9,6 +8,7 @@ import { useGLTF, Detailed, Environment } from '@react-three/drei';
 // https://github.com/pmndrs/react-postprocessing
 // https://github.com/vanruesc/postprocessing
 import { EffectComposer, DepthOfField } from '@react-three/postprocessing';
+import type { BananaGLTFResult } from '@/three/GLTFResult';
 
 type BananaProps = {
   index: number;
@@ -92,13 +92,9 @@ type BananasProps = {
   style?: CSSProperties;
 };
 
-export const Bananas: FC<BananasProps> = ({
-  speed = 1,
-  count = 80,
-  depth = 80,
-  easing = (x: number) => Math.sqrt(1 - (x - 1) ** 2),
-  style,
-}) => (
+export const Bananas: FC<BananasProps> = (
+  { speed = 1, count = 80, depth = 80, easing = (x: number) => Math.sqrt(1 - (x - 1) ** 2), style },
+) => (
   // No need for antialias (faster), dpr clamps the resolution to 1.5 (also faster than full resolution)
   <Canvas
     style={style}

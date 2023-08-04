@@ -1,8 +1,8 @@
 import type { Plugin } from 'unified';
 import type { Root } from 'remark-gfm';
 import type React from 'react';
-import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { parse } from 'yaml';
+import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { formatDate } from '@/utils/lib';
 
 export const remarkMetadata: Plugin<any, Root, string> = (

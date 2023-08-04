@@ -1,7 +1,7 @@
-import type { Post } from '@/__generated__/api';
-import { serverApi } from '@/request/requestTool';
 import { getServerSideSitemap } from 'next-sitemap';
 import type { NextRequest } from 'next/server';
+import type { Post } from '@/__generated__/api';
+import { serverApi } from '@/request/requestTool';
 
 export async function GET(request: NextRequest) {
   const posts = await serverApi.queryPublicPosts(

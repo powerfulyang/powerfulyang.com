@@ -1,7 +1,7 @@
-import type { Level1GLTFResult } from '@/three/GLTFResult';
 import { useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useSpring, a } from '@react-spring/three';
+import type { Level1GLTFResult } from '@/three/GLTFResult';
 
 export const Camera = () => {
   const { nodes, materials } = useGLTF(
