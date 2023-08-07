@@ -1,4 +1,3 @@
-import type { Node } from 'hast-util-raw/lib';
 import { visit } from 'unist-util-visit';
 import { toString } from 'hast-util-to-string';
 import rehypeSlug from 'rehype-slug';
@@ -9,7 +8,7 @@ import type { TOCItem } from '@/components/MarkdownContainer/TOC';
 import { remarkMetadata } from '@/components/MarkdownContainer/plugins/remarkMetadata';
 
 const rehypeTOC = (callback: (v: TOCItem[]) => void) => {
-  return (tree: Node) => {
+  return (tree: any) => {
     const tmp: TOCItem[] = [];
     visit(tree, 'element', (node) => {
       if (/^h(\d+)$/.test(node.tagName)) {

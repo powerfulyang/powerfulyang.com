@@ -5,5 +5,7 @@ declare namespace NodeJS {
 
     NEXT_PUBLIC_SENTRY_DSN: string;
     NEXT_PUBLIC_GA_ID: string;
+
+    NEXT_PUBLIC_FFMPEG_VERSION: string;
   }
 }

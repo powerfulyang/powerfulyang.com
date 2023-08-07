@@ -6,7 +6,12 @@ import { withSentryConfig } from '@sentry/nextjs';
 import withPWAConfig from 'next-pwa';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import { readPackageUp } from 'read-pkg-up';
 import { runtimeCaching } from './runtimeCaching.mjs';
+
+const pkg = await readPackageUp();
+const { dependencies } = pkg.packageJson;
+const ffmpegVersion = dependencies['@ffmpeg/ffmpeg'].replaceAll('.', '');
 
 const { SENTRY_AUTH_TOKEN } = process.env;
 
@@ -55,6 +60,7 @@ const config = {
       'https://15cbb27739a345dab5ab27ceb9491de0@o4504332393578496.ingest.sentry.io/4504332396134400',
     NEXT_PUBLIC_GA_ID: 'G-T622M0KSVS',
     SERVER_BASE_URL: process.env.SERVER_BASE_URL,
+    NEXT_PUBLIC_FFMPEG_VERSION: ffmpegVersion,
   },
   eslint: {
     ignoreDuringBuilds: true, // 不用自带的
@@ -102,23 +108,6 @@ const config = {
       transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}',
     },
   },
-  headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'Cross-Origin-Embedder-Policy',
-            value: 'require-corp',
-          },
-          {
-            key: 'Cross-Origin-Opener-Policy',
-            value: 'same-origin',
-          },
-        ],
-      },
-    ];
-  },
 };
 
 const withBundleAnalyzer = BundleAnalyzer({
@@ -157,7 +146,7 @@ const nextConfig = withSentryConfig(
     ...config,
     ...withBundleAnalyzer(
       withPWA({
-        webpack: (c) => {
+        webpack: (c, { isServer }) => {
           // camel-case style names from css modules
           c.module.rules
             .find(({ oneOf }) => !!oneOf)
@@ -168,26 +157,30 @@ const nextConfig = withSentryConfig(
                 draft.modules.exportLocalsConvention = 'camelCase';
               }
             });
-          // handle monaco editor
-          c.plugins.push(
-            new MonacoWebpackPlugin({
-              // Add languages as needed...
-              languages: ['markdown'],
-              filename: 'static/[name].worker.js',
-            }),
-          );
 
-          // handle ffmpeg
-          c.plugins.push(
-            new CopyWebpackPlugin({
-              patterns: [
-                {
-                  from: path.resolve('node_modules/@ffmpeg/core/dist/umd'),
-                  to: path.resolve('.next/static/ffmpeg'),
-                },
-              ],
-            }),
-          );
+          if (!isServer) {
+            // handle monaco editor
+            c.plugins.push(
+              new MonacoWebpackPlugin({
+                // Add languages as needed...
+                languages: ['markdown'],
+                filename: 'static/[contenthash:10].worker.js',
+              }),
+            );
+
+            // handle ffmpeg
+            c.plugins.push(
+              new CopyWebpackPlugin({
+                patterns: [
+                  {
+                    from: path.resolve('node_modules/@ffmpeg/core/dist/umd'),
+                    to: path.resolve(`.next/static/ffmpeg/${ffmpegVersion}`),
+                  },
+                ],
+              }),
+            );
+          }
+
           return c;
         },
       }),

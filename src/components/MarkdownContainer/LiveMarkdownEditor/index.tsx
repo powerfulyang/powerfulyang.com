@@ -181,7 +181,9 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = (
           />
         ) : (
           <Icon
-            className={classNames(styles.icon, styles.post, 'pointer')}
+            className={classNames(styles.icon, styles.post, 'pointer', {
+              'hover:bg-blue-300': !loading,
+            })}
             type="icon-send"
             onClick={() => {
               onPost?.(metadataRef.current);
