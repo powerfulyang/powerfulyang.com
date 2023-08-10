@@ -1,5 +1,5 @@
 import { Button } from '@powerfulyang/components';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const _404 = () => {
   const router = useRouter();

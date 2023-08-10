@@ -1,19 +1,21 @@
+'use client';
+
+import { DocSearch } from '@docsearch/react';
+import classNames from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
 import React, { memo, useMemo } from 'react';
-import classNames from 'classnames';
-import { DocSearch } from '@docsearch/react';
 import { ProjectName } from '@/constant/Constant';
-import { NavBarUser } from '@/components/NavBar/User';
 import styles from './index.module.scss';
+import { NavBarUser } from './User';
 
 export const menus = ['post', 'timeline', 'gallery', 'airdrop', 'tools'];
 
 type NavBarProps = {};
 
 const Menus: FC = () => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
 
   const currentMenu = useMemo(() => {
     return menus.find((m) => pathname.includes(m)) || 'post';

@@ -13,7 +13,7 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
-import { InView } from 'react-intersection-observer';
+import { useInView } from 'react-intersection-observer';
 import { fromEvent } from 'rxjs';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import type { Asset } from '@/__generated__/api';
@@ -133,6 +133,13 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
     }, 0);
   }, [masonry]);
 
+  const { ref } = useInView({
+    triggerOnce: true,
+    onChange: (inView) => {
+      inView && onLoadMore();
+    },
+  });
+
   return (
     <div
       id={id}
@@ -162,15 +169,7 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
                   {cloneElement(node, {
                     onClick,
                   })}
-                  {isNeedLoadMore && (
-                    <InView
-                      as="span"
-                      triggerOnce
-                      onChange={(inView) => {
-                        inView && onLoadMore();
-                      }}
-                    />
-                  )}
+                  {isNeedLoadMore && <span ref={ref} />}
                 </Fragment>
               )
             );

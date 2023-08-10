@@ -10,7 +10,7 @@ import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { usePV } from '@/hooks/usePV';
 import _404 from '@/pages/404';
 import 'reflect-metadata';
-import './app.scss';
+import '@/styles/app.scss';
 
 import('@/three/extend');
 

@@ -44,6 +44,10 @@ const config = {
         destination: '/post',
       },
       {
+        source: '/app_post/year/:year',
+        destination: '/app_post',
+      },
+      {
         source: '/post/publish',
         destination: '/post/publish/0',
       },

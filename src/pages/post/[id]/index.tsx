@@ -1,6 +1,6 @@
 import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import type { HttpResponse, Post } from '@/__generated__/api';

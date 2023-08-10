@@ -15,6 +15,7 @@ FROM node:lts-alpine AS builder
 
 WORKDIR /usr/app
 ARG BUILD_ENV
+ARG NODE_OPTIONS="--max_old_space_size=4096"
 
 COPY . .
 

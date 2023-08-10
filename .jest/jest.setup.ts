@@ -1,5 +1,5 @@
 // extend jest matchers
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom/jest-globals';
 // extend jest matchers
 import '@powerfulyang/jest-extended/all';
 // canvas mock

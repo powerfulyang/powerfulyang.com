@@ -1,13 +1,9 @@
-import type { Plugin } from 'unified';
-import type { Root } from 'remark-gfm';
 import type React from 'react';
 import { parse } from 'yaml';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { formatDate } from '@/utils/lib';
 
-export const remarkMetadata: Plugin<any, Root, string> = (
-  metadataRef?: React.MutableRefObject<MarkdownMetadata>,
-) => {
+export const remarkMetadata = ((metadataRef?: React.MutableRefObject<MarkdownMetadata>) => {
   return (draft: any) => {
     const { children } = draft;
     const yamlPart = children.find((child: any) => child.type === 'yaml');
@@ -71,4 +67,4 @@ export const remarkMetadata: Plugin<any, Root, string> = (
       }
     }
   };
-};
+}) as any;

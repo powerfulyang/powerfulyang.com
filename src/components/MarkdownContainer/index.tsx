@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC } from 'react';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';

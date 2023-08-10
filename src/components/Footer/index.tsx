@@ -1,3 +1,5 @@
+'use client';
+
 import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
 import React, { memo } from 'react';

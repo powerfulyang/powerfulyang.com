@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC } from 'react';
 import React, { useRef } from 'react';
 import classNames from 'classnames';
@@ -12,9 +14,12 @@ export type TOCItem = {
   id: string;
 };
 
-export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: PostLog[]; id: number }> = (
-  { toc, logs, id: postId },
-) => {
+export const MarkdownTOC: FC<{
+  toc: TOCItem[];
+  logs: PostLog[];
+  id: number | string;
+  app_folder?: boolean;
+}> = ({ toc, logs, id: postId, app_folder }) => {
   const hashRef = useRef('');
 
   return (
@@ -57,7 +62,9 @@ export const MarkdownTOC: FC<{ toc: TOCItem[]; logs: PostLog[]; id: number }> = 
           {logs.slice(0, -1).map((log, _index) => (
             <div key={log.id} className="truncate">
               <a
-                href={`/post/diff/${postId}?versions=${log.id}&versions=${logs[_index + 1].id}`}
+                href={`${app_folder ? '/app_post' : '/post'}/diff/${postId}?versions=${
+                  log.id
+                }&versions=${logs[_index + 1].id}`}
                 target="_blank"
                 rel="noreferrer"
                 title={`${log.id}`}

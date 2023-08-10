@@ -200,6 +200,8 @@ export interface CreateTencentCloudAccountDto {
   SecretId: string;
   SecretKey: string;
   AppId: string;
+  id?: number;
+  buckets?: CosBucket[];
 }
 
 export interface CreateBucketDto {

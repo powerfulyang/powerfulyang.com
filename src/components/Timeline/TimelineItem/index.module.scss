@@ -23,7 +23,7 @@
   }
 
   article {
-    & > h2:first-child {
+    & > h2:first-of-type {
       visibility: hidden;
       height: 0;
       scroll-margin-top: calc(var(--nav-height) + 1rem + 7rem);
