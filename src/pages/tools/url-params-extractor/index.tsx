@@ -1,6 +1,6 @@
-import { CopyAllOutlined } from '@mui/icons-material';
-import { Container, TextField } from '@mui/material';
+import { Copy } from 'lucide-react';
 import React, { useMemo, useState } from 'react';
+import { Input } from '@/components/ui/input';
 import { UserLayout } from '@/layout/UserLayout';
 import type { LayoutFC } from '@/types/GlobalContext';
 import { copyToClipboardAndNotify } from '@/utils/copy';
@@ -31,26 +31,23 @@ const UrlParamsExtractor: LayoutFC = () => {
   }, [url, deepField, filterField]);
 
   return (
-    <Container className="flex flex-col items-center space-y-4 p-10" maxWidth="lg">
-      <TextField
-        fullWidth
-        label="请输入 url"
+    <div className="flex flex-col items-center space-y-4 p-10">
+      <Input
+        placeholder="请输入 url"
         value={url}
         onChange={(e) => {
           setUrl(e.target.value);
         }}
       />
-      <TextField
-        fullWidth
-        label="字段深度解析"
+      <Input
+        placeholder="字段深度解析"
         value={deepField}
         onChange={(e) => {
           setDeepField(e.target.value);
         }}
       />
-      <TextField
-        fullWidth
-        label="筛选显示字段，用逗号分割"
+      <Input
+        placeholder="筛选显示字段，用逗号分割"
         value={filterField}
         onChange={(e) => {
           setFilterField(e.target.value);
@@ -62,11 +59,7 @@ const UrlParamsExtractor: LayoutFC = () => {
           <div key={index}>
             <span>
               key{index}: {item[0]}
-              <CopyAllOutlined
-                sx={{
-                  ml: 1,
-                  cursor: 'pointer',
-                }}
+              <Copy
                 onClick={() => {
                   copyToClipboardAndNotify(item[0]);
                 }}
@@ -75,11 +68,7 @@ const UrlParamsExtractor: LayoutFC = () => {
             <br />
             <span>
               value{index}: {item[1]}
-              <CopyAllOutlined
-                sx={{
-                  ml: 1,
-                  cursor: 'pointer',
-                }}
+              <Copy
                 onClick={() => {
                   copyToClipboardAndNotify(item[1]);
                 }}
@@ -88,7 +77,7 @@ const UrlParamsExtractor: LayoutFC = () => {
           </div>
         );
       })}
-    </Container>
+    </div>
   );
 };
 

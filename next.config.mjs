@@ -80,13 +80,7 @@ const config = {
     includePaths: ['./src/styles'],
   },
   // next.js didn't compile dependencies in node_modules, use transpileModules to fix it
-  transpilePackages: [
-    'yaml',
-    'react-syntax-highlighter',
-    '@powerfulyang/utils',
-    '@mui/material',
-    'image-ascii-art',
-  ],
+  transpilePackages: ['yaml', 'react-syntax-highlighter', '@powerfulyang/utils'],
   // below option will reduce the size of the bundle... only 2kb
   modularizeImports: {
     lodash: {
@@ -104,12 +98,6 @@ const config = {
     'react-syntax-highlighter': {
       // 这个更牛啤，减少了 0.5kb
       transform: 'react-syntax-highlighter/dist/esm/{{kebabCase member}}',
-    },
-    '@mui/material/?(((\\w*)?/?)*)': {
-      transform: '@mui/material/{{ matches.[1] }}/{{member}}',
-    },
-    '@mui/icons-material/?(((\\w*)?/?)*)': {
-      transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}',
     },
   },
 };

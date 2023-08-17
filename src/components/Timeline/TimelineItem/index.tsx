@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import React, { memo, useEffect, useMemo } from 'react';
 import { atom, useAtom } from 'jotai';
 import type { Undefinable } from '@powerfulyang/utils';
-import { Button } from '@mui/material';
 import type { InfiniteData } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
 import { formatDateTime } from '@/utils/lib';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
@@ -97,9 +97,9 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
           <div className="cursor-text text-xs text-gray-600">{formatDateTime(feed.createdAt)}</div>
         </div>
         {user?.id === feed.createBy.id && (
-          <div className="ml-auto flex flex-col justify-evenly">
+          <div className="my-auto ml-auto flex">
             <Button
-              size="small"
+              variant="ghost"
               onClick={() => {
                 setEditTimeLineItem(feed);
                 window.scrollTo({
@@ -112,7 +112,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
               Edit
             </Button>
             <Button
-              size="small"
+              variant="ghost"
               color="error"
               onClick={() => {
                 // eslint-disable-next-line no-alert

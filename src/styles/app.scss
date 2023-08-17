@@ -1,10 +1,7 @@
 @import 'docsearch';
 @import 'font-face';
 @import 'styles';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'base';
 
 ::-webkit-scrollbar {
   width: 6px;

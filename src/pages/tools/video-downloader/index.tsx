@@ -1,13 +1,14 @@
-import { CopyAllOutlined } from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
-import { Container, TextField, Typography } from '@mui/material';
 import { useImmer } from '@powerfulyang/hooks';
 import { useMutation } from '@tanstack/react-query';
+import { Copy } from 'lucide-react';
 import { useState } from 'react';
-import { copyToClipboardAndNotify } from '@/utils/copy';
-import type { LayoutFC } from '@/types/GlobalContext';
-import { UserLayout } from '@/layout/UserLayout';
+import { toast } from 'react-hot-toast';
 import { PrismCode } from '@/components/PrismCode';
+import { Input } from '@/components/ui/input';
+import { LoadingButton } from '@/components/utils/LoadingButton';
+import { UserLayout } from '@/layout/UserLayout';
+import type { LayoutFC } from '@/types/GlobalContext';
+import { copyToClipboardAndNotify } from '@/utils/copy';
 
 const VideoDownloader: LayoutFC = () => {
   const [videoUrl, setVideoUrl] = useState('');
@@ -27,43 +28,32 @@ const VideoDownloader: LayoutFC = () => {
       };
       return new Promise<{
         downloadUrl: string;
-      }>((resolve) => {
+      }>((resolve, reject) => {
         eventSource.addEventListener('done', (event) => {
           eventSource.close();
           const data = JSON.parse(event.data);
           resolve(data);
         });
+        eventSource.addEventListener('error', () => {
+          eventSource.close();
+          reject(new Error('出错啦...'));
+        });
       });
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
     },
   });
 
   return (
-    <Container>
-      <Typography
-        sx={{
-          textAlign: 'center',
-          pt: 4,
-        }}
-        variant="h3"
-      >
-        Video Downloader
-      </Typography>
-      <Typography
-        sx={{
-          textAlign: 'center',
-          mt: 2,
-        }}
-        className="text-[#1b233d]/70"
-        variant="body1"
-      >
+    <div className="flex flex-col items-center p-8">
+      <h3 className="text-3xl font-medium">Video Downloader</h3>
+      <span className="my-4 text-[#1b233d]/70">
         Download videos from YouTube, Facebook, Instagram, Twitter, TikTok, and more.
-      </Typography>
-      <TextField
-        sx={{
-          mt: 2,
-        }}
-        fullWidth
-        label="video url"
+      </span>
+      <Input
+        className="mb-4 w-[70%]"
+        placeholder="video url"
         value={videoUrl}
         onChange={(event) => {
           const url = event.target.value;
@@ -72,11 +62,6 @@ const VideoDownloader: LayoutFC = () => {
         name="videoUrl"
       />
       <LoadingButton
-        sx={{
-          mt: 2,
-        }}
-        fullWidth
-        variant="contained"
         loading={download.isLoading}
         onClick={() => {
           download.mutate(videoUrl);
@@ -85,25 +70,21 @@ const VideoDownloader: LayoutFC = () => {
         Download
       </LoadingButton>
       {download?.data?.downloadUrl && (
-        <Typography sx={{ mt: 4, color: 'green', textAlign: 'center' }} variant="body1">
+        <span>
           {download?.data?.downloadUrl}
-          <CopyAllOutlined
-            sx={{
-              ml: 1,
-              cursor: 'pointer',
-            }}
+          <Copy
             onClick={() => {
               copyToClipboardAndNotify(download?.data?.downloadUrl);
             }}
           />
-        </Typography>
+        </span>
       )}
       {messages?.length > 0 && (
-        <PrismCode className="mt-8" language="shell">
+        <PrismCode className="mt-8 w-[70%]" language="shell">
           {messages.join('').trim()}
         </PrismCode>
       )}
-    </Container>
+    </div>
   );
 };
 

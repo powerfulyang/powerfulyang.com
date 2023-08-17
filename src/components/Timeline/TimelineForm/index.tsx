@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Icon } from '@powerfulyang/components';
+import { Icon } from '@powerfulyang/components';
 import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
 import { useMutation } from '@tanstack/react-query';
 import confetti from 'canvas-confetti';
@@ -8,6 +8,7 @@ import type { ChangeEvent, ClipboardEvent } from 'react';
 import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
+import { LoadingButton } from '@/components/utils/LoadingButton';
 import {
   appendToFileList,
   handlePasteImageAndReturnFileList,
@@ -76,11 +77,13 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
     onMutate() {
       confetti();
     },
-    mutationFn: (variables: CreateFeedDto | UpdateFeedDto) => {
+    mutationFn: async (variables: CreateFeedDto | UpdateFeedDto) => {
       if ('id' in variables) {
-        return clientApi.updateFeed(variables).then((res) => res.data);
+        const res = await clientApi.updateFeed(variables);
+        return res.data;
       }
-      return clientApi.createFeed(variables).then((res) => res.data);
+      const res_1 = await clientApi.createFeed(variables);
+      return res_1.data;
     },
     onSuccess(data) {
       reset();
@@ -251,14 +254,9 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
               multiple
             />
           </label>
-          <Button
-            appearance="primary"
-            loading={mutation.isLoading}
-            type="submit"
-            ref={submitButtonRef}
-          >
+          <LoadingButton loading={mutation.isLoading} type="submit" ref={submitButtonRef}>
             {editItem ? '修改' : '发布'}
-          </Button>
+          </LoadingButton>
         </div>
       </form>
     </div>

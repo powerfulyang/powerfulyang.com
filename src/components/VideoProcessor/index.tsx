@@ -1,47 +1,24 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Download } from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
-import type { CircularProgressProps } from '@mui/material';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-} from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import z from 'zod';
+import { Download } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { useFFmpeg } from '@/hooks/useFFmpeg';
+import { Button } from '../ui/button';
+import { LoadingButton } from '../utils/LoadingButton';
 
-const CircularProgressWithLabel = (
-  { value, ...props }: CircularProgressProps & { value: number },
-) => {
+const CircularProgressWithLabel = ({ value }: { value: number }) => {
   return (
-    <Box component="div" sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress variant="determinate" value={value} {...props} />
-      <Box
-        component="span"
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Typography variant="caption" component="div" color="text.secondary">
-          {`${Math.round(value)}%`}
-        </Typography>
-      </Box>
-    </Box>
+    <div style={{ position: 'relative', display: 'inline-flex' }}>{`${Math.round(value)}%`}</div>
   );
 };
 
@@ -104,97 +81,71 @@ const VideoProcessor = () => {
         render={({ fieldState, field }) => {
           return (
             <div>
-              <Button
-                sx={{
-                  minWidth: 240,
-                  my: 1,
-                }}
-                variant="contained"
-                component="label"
-              >
-                选择文件
-                <input
-                  type="file"
-                  hidden
-                  onChange={(e) => {
-                    setValue('file', e.target.files?.[0]);
-                  }}
-                />
+              <Button type="button" asChild>
+                <Label>
+                  选择文件
+                  <input
+                    id="upload"
+                    type="file"
+                    hidden
+                    onChange={(e) => {
+                      setValue('file', e.target.files?.[0]);
+                    }}
+                  />
+                </Label>
               </Button>
               {fieldState.error?.message && (
-                <Typography variant="body1" color="error">
-                  {fieldState.error?.message}
-                </Typography>
+                <div className="text-red-500">{fieldState.error?.message}</div>
               )}
-              <Typography
-                sx={{
-                  m: 'auto',
-                  maxWidth: 240,
-                }}
-                className="truncate"
-                variant="body1"
-                title={field.value?.name}
-              >
+              <div className="truncate" title={field.value?.name}>
                 {field.value?.name}
-              </Typography>
+              </div>
             </div>
           );
         }}
         name="file"
         control={control}
       />
-      <FormControl
-        sx={{
-          minWidth: 240,
-          my: 2,
-        }}
-      >
-        <InputLabel id="target-format">Target Format</InputLabel>
-        <Controller
-          control={control}
-          render={({ field }) => {
-            return (
+      <Controller
+        control={control}
+        render={({ field }) => {
+          return (
+            <div className="my-4 flex justify-center">
               <Select
-                labelId="target-format"
-                label="Target Format"
-                {...field}
-                onChange={(e) => {
-                  field.onChange(e.target.value);
+                value={field.value}
+                onValueChange={(e) => {
+                  field.onChange(e);
                 }}
               >
-                {supportFormats.map((item) => (
-                  <MenuItem key={item} value={item}>
-                    {item}
-                  </MenuItem>
-                ))}
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select format" />
+                </SelectTrigger>
+                <SelectContent>
+                  {supportFormats.map((item) => (
+                    <SelectItem className="pointer" key={item} value={item}>
+                      {item}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
               </Select>
-            );
-          }}
-          name="format"
-        />
-      </FormControl>
-      <br />
-      <LoadingButton
-        variant="contained"
-        type="submit"
-        sx={{
-          minWidth: 240,
+            </div>
+          );
         }}
-        loading={convertVideo.isLoading}
-      >
+        name="format"
+      />
+      <LoadingButton type="submit" loading={convertVideo.isLoading}>
         Convert
       </LoadingButton>
       <br />
-      <CircularProgressWithLabel className="my-4" size={150} value={progress} />
+      <CircularProgressWithLabel value={progress} />
       <br />
-      <Typography variant="h6" className="mb-4 text-center">
+      <span className="mb-4 text-center">
         用时：{progress > 0 ? (Date.now() - start) / 1000 : 0}秒
-      </Typography>
+      </span>
       <br />
       {convertVideo.data && (
         <Button
-          variant="contained"
-          startIcon={<Download />}
+          type="button"
           onClick={() => {
             const blob = new Blob([convertVideo.data]);
             const url = URL.createObjectURL(blob);
@@ -205,8 +156,10 @@ const VideoProcessor = () => {
             a.click();
             URL.revokeObjectURL(url);
           }}
+          className="space-x-2"
         >
-          下载
+          <Download size={14} />
+          <span>下载</span>
         </Button>
       )}
     </form>

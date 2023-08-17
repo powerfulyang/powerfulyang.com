@@ -72,13 +72,25 @@ export const LazyImage: FC<LazyImageProps> = (
   }, []);
 
   const { ref } = useInView({
+    triggerOnce: true,
+    skip: !loading,
     onChange: (inView) => {
-      if (inView) {
-        if (loading) {
-          setImgSrc(src || brokenImg);
-          setLoading(false);
+      if (inView && src) {
+        const img = new Image();
+        img.decoding = 'async';
+        if (props.crossOrigin) {
+          img.crossOrigin = props.crossOrigin;
         }
-        LOADED_IMAGE_URLS.add(src);
+        img.onload = () => {
+          LOADED_IMAGE_URLS.add(src);
+          setImgSrc(src);
+          setLoading(false);
+        };
+        img.onerror = () => {
+          setImgSrc(brokenImg);
+          setLoading(false);
+        };
+        img.src = src;
       }
     },
   });

@@ -1,6 +1,6 @@
-import { Button, Stack } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
+import { Button } from '@/components/ui/button';
 import { clientApi } from '@/request/requestTool';
 
 function sendSubscriptionToServer(subscription: PushSubscription) {
@@ -39,10 +39,11 @@ export const useNotification = () => {
   useQuery({
     queryKey: ['useNotification'],
     queryFn: () => {
+      const _ = localStorage.getItem('useNotification:permission');
       if (Notification.permission === 'granted') {
         // 已经有权限，可以发送通知
         subscribe();
-      } else if (Notification.permission !== 'denied') {
+      } else if (Notification.permission !== 'denied' && _ === null) {
         toast(
           (t) => {
             return (
@@ -50,9 +51,8 @@ export const useNotification = () => {
                 <div className="mb-2">
                   为了提供最佳的体验，我们需要你的通知权限。这将帮助我们在有新的内容、更新或警告时立即通知你。
                 </div>
-                <Stack gap={2} direction="row" justifyContent="end">
+                <div className="flex items-center justify-end gap-2">
                   <Button
-                    variant="contained"
                     onClick={() => {
                       Notification.requestPermission().then((permission) => {
                         if (permission === 'granted') {
@@ -66,15 +66,15 @@ export const useNotification = () => {
                     允许
                   </Button>
                   <Button
-                    variant="contained"
-                    color="error"
+                    variant="destructive"
                     onClick={() => {
                       toast.dismiss(t.id);
+                      localStorage.setItem('useNotification:permission', 'denied');
                     }}
                   >
                     拒绝
                   </Button>
-                </Stack>
+                </div>
               </div>
             );
           },

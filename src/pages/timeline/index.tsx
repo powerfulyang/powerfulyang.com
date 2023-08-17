@@ -28,46 +28,48 @@ type TimelineProps = {
 };
 
 export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) => {
-  const { data, fetchNextPage, fetchPreviousPage, hasPreviousPage } = useInfiniteQuery(
-    ['feeds', feeds, nextCursor, prevCursor],
-    ({ pageParam }) => {
-      return clientApi
-        .infiniteQueryPublicTimeline({
-          ...pageParam,
-          take: 10,
-        })
-        .then((x) => x.data);
-    },
-    {
-      enabled: false,
-      getNextPageParam(lastPage) {
-        return { nextCursor: lastPage.nextCursor };
+  const { data, isError, fetchNextPage, fetchPreviousPage, hasPreviousPage, isFetching } =
+    useInfiniteQuery(
+      ['feeds', feeds, nextCursor, prevCursor],
+      ({ pageParam }) => {
+        return clientApi
+          .infiniteQueryPublicTimeline({
+            ...pageParam,
+            take: 10,
+          })
+          .then((x) => x.data);
       },
-      getPreviousPageParam(firstPage) {
-        const { prevCursor: cursor } = firstPage;
-        if (cursor) {
-          return { prevCursor: cursor };
-        }
-        return cursor;
+      {
+        enabled: false,
+        getNextPageParam(lastPage) {
+          return { nextCursor: lastPage.nextCursor };
+        },
+        getPreviousPageParam(firstPage) {
+          const { prevCursor: cursor } = firstPage;
+          if (cursor) {
+            return { prevCursor: cursor };
+          }
+          return cursor;
+        },
+        select(page) {
+          return {
+            pages: [...page.pages].reverse(),
+            pageParams: [...page.pageParams].reverse(),
+          };
+        },
+        initialData: {
+          pages: [
+            {
+              resources: feeds,
+              nextCursor,
+              prevCursor,
+            },
+          ],
+          pageParams: [{ nextCursor: lastItem(feeds)?.id, prevCursor: firstItem(feeds)?.id }],
+        },
+        retry: false,
       },
-      select(page) {
-        return {
-          pages: [...page.pages].reverse(),
-          pageParams: [...page.pageParams].reverse(),
-        };
-      },
-      initialData: {
-        pages: [
-          {
-            resources: feeds,
-            nextCursor,
-            prevCursor,
-          },
-        ],
-        pageParams: [{ nextCursor: lastItem(feeds)?.id, prevCursor: firstItem(feeds)?.id }],
-      },
-    },
-  );
+    );
   const { user } = useUser();
   const bannerUser = user || feeds[0]?.createBy || {};
 
@@ -79,30 +81,44 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
           <Fragment key={feed.id}>
             <TimeLineItem feed={feed} />
             {feed.id === lastItem(res)?.id &&
-              (hasPreviousPage ? (
+              ((hasPreviousPage && !isError) || isFetching ? (
                 <InView
                   triggerOnce
                   onChange={(inView) => {
-                    inView && fetchPreviousPage();
+                    inView && !isFetching && fetchPreviousPage();
                   }}
                 >
                   {({ ref }) => {
                     return (
                       <div className={styles.footer} ref={ref}>
-                        Loading...
+                        <span className={styles.loading}>Loading</span>
                       </div>
                     );
                   }}
                 </InView>
               ) : (
-                <div className={styles.footer}>已经到达世界的尽头...</div>
+                <div className={styles.footer}>
+                  {isError ? (
+                    <button
+                      type="button"
+                      className="pointer"
+                      onClick={() => {
+                        return fetchPreviousPage();
+                      }}
+                    >
+                      加载失败，点击重试
+                    </button>
+                  ) : (
+                    '已经到达世界的尽头...'
+                  )}
+                </div>
               ))}
           </Fragment>
         ))}
         {isEmpty(res) && <div className={styles.footer}>这里只有一片虚无...</div>}
       </div>
     );
-  }, [data?.pages, fetchPreviousPage, hasPreviousPage]);
+  }, [data?.pages, fetchPreviousPage, hasPreviousPage, isError, isFetching]);
 
   const queryClient = useQueryClient();
 

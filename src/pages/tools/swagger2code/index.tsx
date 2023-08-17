@@ -1,13 +1,12 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
-import { LoadingButton } from '@mui/lab';
-import { Autocomplete, Container, Stack, TextField } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import type { OpenAPIV3 } from 'openapi-types';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { LoadingButton } from '@/components/utils/LoadingButton';
+import { Input } from '@/components/ui/input';
 import { snippet } from '@/snippets/table';
-import { getDocumentPaths } from '@/services/swagger-parse/getDocumentPaths';
 import type { DocumentPath } from '@/services/swagger-parse/getDocumentPaths';
 import { PrismCode } from '@/components/PrismCode';
 import type { LayoutFC } from '@/types/GlobalContext';
@@ -69,14 +68,15 @@ const Swagger2code: LayoutFC = () => {
         generateCode.mutate(v);
       })}
     >
-      <Container className="flex flex-col items-center space-y-4 p-10" maxWidth="lg">
+      <div className="flex flex-col items-center space-y-4 p-10">
+        <h3 className="text-3xl font-medium">Swagger to Code</h3>
         <p className="mb-8 text-center text-sm text-[#1b233d]/70">
           Generate code from swagger document, such as ProTable, ProForm(not implemented yet) etc.
         </p>
-        <Stack direction="row" spacing={2} alignItems="center" className="w-full">
-          <TextField
+        <div className="flex w-full items-center justify-center gap-2">
+          <Input
             disabled={loadSwagger.isSuccess}
-            label="swagger url"
+            placeholder="swagger url"
             value={url}
             onChange={(e) => {
               setUrl(e.target.value);
@@ -87,53 +87,26 @@ const Swagger2code: LayoutFC = () => {
             onClick={() => {
               loadSwagger.mutate(url);
             }}
-            variant="contained"
             disabled={!url || loadSwagger.isSuccess}
             loading={loadSwagger.isLoading}
           >
             Load Swagger
           </LoadingButton>
-        </Stack>
-        <Stack direction="row" spacing={2} alignItems="center" className="w-full">
+        </div>
+        <div className="flex w-full items-center justify-center gap-2">
           <Controller
             control={control}
             render={({ field }) => {
-              return (
-                <Autocomplete
-                  className="flex-grow-[2]"
-                  options={getDocumentPaths(loadSwagger.data)}
-                  renderOption={(props, option) => {
-                    return (
-                      <li {...props} key={`${option.url} ${option.method}`}>
-                        {option.method.toUpperCase()} {option.url}
-                      </li>
-                    );
-                  }}
-                  renderInput={(params) => {
-                    return <TextField {...params} label="path" placeholder="Please select a url" />;
-                  }}
-                  getOptionLabel={(option) => {
-                    return `${option.method.toUpperCase()} ${option.url}`;
-                  }}
-                  isOptionEqualToValue={(option, value) => {
-                    return option.url === value.url && option.method === value.method;
-                  }}
-                  disabled={!loadSwagger.isSuccess}
-                  onChange={(_e, v) => {
-                    field.onChange(v);
-                  }}
-                />
-              );
+              return <Input value={field.value?.fieldPath} />;
             }}
             name="path"
           />
           <Controller
             render={({ field }) => {
               return (
-                <TextField
+                <Input
                   className="flex-grow-[1]"
                   disabled={!loadSwagger.isSuccess}
-                  label="fieldPath"
                   placeholder="e.g. data,list, data,total"
                   {...field}
                   onChange={(e) => {
@@ -150,11 +123,16 @@ const Swagger2code: LayoutFC = () => {
             control={control}
             name="path.fieldPath"
           />
-          <LoadingButton type="submit" variant="contained" disabled={!loadSwagger.isSuccess}>
+          <LoadingButton
+            className="flex-1 whitespace-pre"
+            loading={generateCode.isLoading}
+            type="submit"
+            disabled={!loadSwagger.isSuccess}
+          >
             Generate Code
           </LoadingButton>
-        </Stack>
-      </Container>
+        </div>
+      </div>
       {generateCode.data && (
         <PrismCode
           language="typescript"
