@@ -124,7 +124,7 @@ const withPWA = withPWAConfig({
     },
   ],
   runtimeCaching,
-  customWorkerDir: 'src/workers',
+  customWorkerDir: 'src/pwa-workers',
 });
 
 const nextConfig = withSentryConfig(
@@ -151,6 +151,11 @@ const nextConfig = withSentryConfig(
             });
 
           if (!isServer) {
+            const _c = c;
+            // 在客户端构建中替换fs
+            _c.resolve.fallback.fs = false;
+            _c.resolve.fallback.child_process = false;
+
             // handle monaco editor
             c.plugins.push(
               new MonacoWebpackPlugin({

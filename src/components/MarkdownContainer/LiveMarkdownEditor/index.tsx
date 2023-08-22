@@ -15,7 +15,7 @@ import {
 } from '@/components/MarkdownContainer/LiveMarkdownEditor/utils';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
-import MonacoEditor from './editor';
+import MonacoEditor from '@/components/monaco-editor/editor';
 import styles from './index.module.scss';
 
 export type MarkdownMetadata = {
@@ -35,9 +35,13 @@ type MarkdownEditorProps = {
   loading?: boolean;
 };
 
-export const LiveMarkdownEditor: FC<MarkdownEditorProps> = (
-  { defaultValue = '', onPost, onChange, value, loading },
-) => {
+export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
+  defaultValue = '',
+  onPost,
+  onChange,
+  value,
+  loading,
+}) => {
   const ref = useRef<{
     editor: editor.IStandaloneCodeEditor;
     monaco: Monaco;
