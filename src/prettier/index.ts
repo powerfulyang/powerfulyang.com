@@ -1,30 +1,32 @@
-/* eslint-disable global-require */
-import prettier from 'prettier/standalone';
-import { prettierParsers, supportedLanguages } from './options';
-
-const plugins = [
-  require('prettier/parser-babylon'),
-  require('prettier/parser-html'),
-  require('prettier/parser-postcss'),
-  require('prettier/parser-graphql'),
-  require('prettier/parser-markdown'),
-  require('prettier/parser-yaml'),
-  require('prettier/parser-flow'),
-  require('prettier/parser-typescript'),
-];
+import * as postcssParser from 'prettier/plugins/postcss';
+import * as htmlParser from 'prettier/plugins/html';
+import * as markdownParser from 'prettier/plugins/markdown';
+import * as babelParser from 'prettier/plugins/babel';
+import * as typescriptParser from 'prettier/plugins/typescript';
+import * as yamlParser from 'prettier/plugins/yaml';
+import * as estreeParser from 'prettier/plugins/estree';
+import { format } from 'prettier/standalone';
 
 export async function prettify(language: string, value: string) {
   let result;
 
-  if (!supportedLanguages.includes(language)) return value;
-
   if (language === 'json') {
     result = JSON.stringify(JSON.parse(value), null, 2);
   } else {
-    result = prettier.format(value, {
-      parser: prettierParsers[language] || language,
-      plugins,
-      semi: false,
+    result = await format(value, {
+      parser: language,
+      plugins: [
+        postcssParser,
+        htmlParser,
+        markdownParser,
+        babelParser,
+        typescriptParser,
+        yamlParser,
+        estreeParser,
+      ],
+      // Print semicolons at the ends of statements.
+      // 意思是在语句的末尾打印分号。
+      semi: true,
     });
   }
 

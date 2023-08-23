@@ -1,9 +1,17 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { useMutation } from '@tanstack/react-query';
 import type { OpenAPIV3 } from 'openapi-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { getDocumentPaths } from '@/services/swagger-parse/getDocumentPaths';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { LoadingButton } from '@/components/utils/LoadingButton';
 import { Input } from '@/components/ui/input';
 import { snippet } from '@/snippets/table';
@@ -22,7 +30,8 @@ type FormHookData = {
 };
 
 const Swagger2code: LayoutFC = () => {
-  const [url, setUrl] = React.useState<string>('');
+  const [search, setSearch] = useState('');
+  const [url, setUrl] = useState('https://powerfulyang.com/api/swagger-json');
   const { control, handleSubmit } = useForm<FormHookData>({
     defaultValues: {
       path: null,
@@ -68,15 +77,15 @@ const Swagger2code: LayoutFC = () => {
         generateCode.mutate(v);
       })}
     >
-      <div className="flex flex-col items-center space-y-4 p-10">
+      <div className="m-auto flex w-[900px] max-w-full flex-col items-center space-y-4 p-10">
         <h3 className="text-3xl font-medium">Swagger to Code</h3>
-        <p className="mb-8 text-center text-sm text-[#1b233d]/70">
+        <p className="text-center text-sm text-[#1b233d]/70">
           Generate code from swagger document, such as ProTable, ProForm(not implemented yet) etc.
         </p>
         <div className="flex w-full items-center justify-center gap-2">
           <Input
             disabled={loadSwagger.isSuccess}
-            placeholder="swagger url"
+            placeholder="Enter Swagger Url, e.g. https://powerfulyang.com/api/swagger.json"
             value={url}
             onChange={(e) => {
               setUrl(e.target.value);
@@ -84,6 +93,7 @@ const Swagger2code: LayoutFC = () => {
             className="flex-1"
           />
           <LoadingButton
+            type="button"
             onClick={() => {
               loadSwagger.mutate(url);
             }}
@@ -97,7 +107,50 @@ const Swagger2code: LayoutFC = () => {
           <Controller
             control={control}
             render={({ field }) => {
-              return <Input value={field.value?.fieldPath} />;
+              const { value, onChange, ...rest } = field;
+              const _value = value ? `${value?.method} ${value?.url}` : undefined;
+              return (
+                <Select
+                  {...rest}
+                  value={_value}
+                  onValueChange={(_) => {
+                    onChange({
+                      method: _.split(' ')[0],
+                      url: _.split(' ')[1],
+                    });
+                  }}
+                  disabled={!loadSwagger.isSuccess}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Path" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <Input
+                      value={search}
+                      onChange={(e) => {
+                        setSearch(e.target.value);
+                      }}
+                      placeholder="Search Path"
+                      className="mb-1"
+                    />
+                    <div className="max-h-[350px] overflow-y-auto">
+                      {getDocumentPaths(loadSwagger.data)
+                        .filter((x) => {
+                          return x.url.includes(search) || `${x.method} ${x.url}` === _value;
+                        })
+                        .map((item) => (
+                          <SelectItem
+                            className="pointer"
+                            key={`${item.method} ${item.url}`}
+                            value={`${item.method} ${item.url}`}
+                          >
+                            {item.method.toUpperCase()} {item.url}
+                          </SelectItem>
+                        ))}
+                    </div>
+                  </SelectContent>
+                </Select>
+              );
             }}
             name="path"
           />
@@ -107,14 +160,15 @@ const Swagger2code: LayoutFC = () => {
                 <Input
                   className="flex-grow-[1]"
                   disabled={!loadSwagger.isSuccess}
-                  placeholder="e.g. data,list, data,total"
+                  placeholder="JSON Path, e.g. data,list, data,total"
                   {...field}
+                  value={Array.isArray(field.value) ? field.value.join(',') : ''}
                   onChange={(e) => {
                     const { value } = e.target;
                     if (value) {
                       field.onChange(value.split(','));
                     } else {
-                      field.onChange(undefined);
+                      field.onChange([]);
                     }
                   }}
                 />

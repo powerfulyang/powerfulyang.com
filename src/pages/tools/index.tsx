@@ -34,6 +34,12 @@ const tools: ToolProps[] = [
     target: '_blank',
   },
   {
+    name: 'Transform',
+    description: 'Transform HTML to JSX',
+    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    url: '/tools/transform',
+  },
+  {
     name: 'Swagger to Code',
     description:
       'Generate code from swagger document, such as ProTable, ProForm(not implemented yet) etc.',
