@@ -68,42 +68,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Filter source files
-        id: filter-source
-        uses: dorny/paths-filter@v2
-        with:
-          filters: |
-            sources:
-              - src/**
-              - public/**
-              - pnpm-lock.yaml
-              - Dockerfile
-      - name: Build qa source
-        uses: docker/build-push-action@v4
-        with:
-          file: Dockerfile
-          push: true
-          tags: ${{ matrix.docker-repository-qa }}
-          cache-from: type=gha  # cache is slow
-          cache-to: type=gha,mode=max
-          build-args: |
-            BUILD_ENV=prod
-          secrets: |
-            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
-        if: steps.filter-source.outputs.sources == 'true'
-      - name: Deploy qa
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script_stop: true
-          script: |
-            docker pull ${{ matrix.docker-repository-qa }}
-            cd ~/applications/qa
-            docker-compose up -d --force-recreate qa.powerfulyang.com
-            docker image prune -a -f
-        if: steps.filter-source.outputs.sources == 'true'
       - name: Build prod source
         uses: docker/build-push-action@v4
         with:

@@ -169,6 +169,7 @@ export interface Asset {
   createdAt: string;
   /** @format date-time */
   updatedAt: string;
+  alt: string;
 }
 
 export interface CreateRoleDto {
@@ -223,6 +224,10 @@ export interface CreateBucketDto {
   tencentCloudAccount?: TencentCloudAccount;
   assets?: Asset[];
   public?: boolean;
+}
+
+export interface OCRDto {
+  images: File[];
 }
 
 export interface Post {
@@ -346,11 +351,6 @@ export interface UpdateFeedDto {
   public: boolean;
   updateBy: User;
   id: number;
-}
-
-export interface OCRDto {
-  images: File[];
-  language?: string;
 }
 
 export interface PushSubscriptionJSONDto {
@@ -550,9 +550,17 @@ export class HttpClient<SecurityDataType = unknown> {
     }
   };
 
-  public request = async <T = any, E = any>(
-    { body, secure, path, type, query, format, baseUrl, cancelToken, ...params }: FullRequestParams,
-  ): Promise<HttpResponse<T, E>> => {
+  public request = async <T = any, E = any>({
+    body,
+    secure,
+    path,
+    type,
+    query,
+    format,
+    baseUrl,
+    cancelToken,
+    ...params
+  }: FullRequestParams): Promise<HttpResponse<T, E>> => {
     const secureParams =
       ((typeof secure === 'boolean' ? secure : this.baseApiParams.secure) &&
         this.securityWorker &&
@@ -1057,22 +1065,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags asset
-     * @name AssetControllerSyncAllFromCos
-     * @request GET:/api/asset/sync
-     * @secure
-     */
-    assetControllerSyncAllFromCos: (params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/asset/sync`,
-        method: 'GET',
-        secure: true,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags asset
      * @name AssetControllerPHashMap
      * @request GET:/api/asset/pHash/distance
      * @secure
@@ -1189,6 +1181,40 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags bucket
+     * @name BucketControllerBackup
+     * @request GET:/api/bucket/backup/{accountId}
+     * @secure
+     */
+    bucketControllerBackup: (accountId: string, params: RequestParams = {}) =>
+      this.request<object[], any>({
+        path: `/api/bucket/backup/${accountId}`,
+        method: 'GET',
+        secure: true,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags tools
+     * @name ToolsControllerOcr
+     * @request POST:/api/tools/ocr
+     */
+    toolsControllerOcr: (data: OCRDto, params: RequestParams = {}) =>
+      this.request<string, any>({
+        path: `/api/tools/ocr`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags github
      * @name GithubControllerGetUserInfo
      * @request GET:/api/github/user_info/{login}
@@ -1282,12 +1308,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags open
      * @name Hello
      * @summary hello ping
-     * @request GET:/api/open/hello
+     * @request GET:/api/public/hello
      * @secure
      */
     hello: (params: RequestParams = {}) =>
       this.request<string, any>({
-        path: `/api/open/hello`,
+        path: `/api/public/hello`,
         method: 'GET',
         secure: true,
         format: 'json',
@@ -1300,7 +1326,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags open
      * @name QueryPublicPosts
      * @summary 获取所有的公开文章列表
-     * @request GET:/api/open/post
+     * @request GET:/api/public/post
      * @secure
      */
     queryPublicPosts: (
@@ -1310,7 +1336,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       params: RequestParams = {},
     ) =>
       this.request<any, any>({
-        path: `/api/open/post`,
+        path: `/api/public/post`,
         method: 'GET',
         query: query,
         secure: true,
@@ -1324,7 +1350,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags open
      * @name QueryPublicPostYears
      * @summary 获取所有的公开文章的年份列表
-     * @request GET:/api/open/post/years
+     * @request GET:/api/public/post/years
      * @secure
      */
     queryPublicPostYears: (params: RequestParams = {}) =>
@@ -1336,7 +1362,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         }[],
         any
       >({
-        path: `/api/open/post/years`,
+        path: `/api/public/post/years`,
         method: 'GET',
         secure: true,
         format: 'json',
@@ -1349,12 +1375,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags open
      * @name QueryPublicPostTags
      * @summary 获取所有的公开文章的标签列表
-     * @request GET:/api/open/post/tags
+     * @request GET:/api/public/post/tags
      * @secure
      */
     queryPublicPostTags: (params: RequestParams = {}) =>
       this.request<void, any>({
-        path: `/api/open/post/tags`,
+        path: `/api/public/post/tags`,
         method: 'GET',
         secure: true,
         ...params,
@@ -1366,7 +1392,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags open
      * @name QueryPublicPostById
      * @summary 获取单个文章详细信息
-     * @request GET:/api/open/post/{id}
+     * @request GET:/api/public/post/{id}
      * @secure
      */
     queryPublicPostById: (
@@ -1377,7 +1403,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       params: RequestParams = {},
     ) =>
       this.request<Post, any>({
-        path: `/api/open/post/${id}`,
+        path: `/api/public/post/${id}`,
         method: 'GET',
         query: query,
         secure: true,
@@ -1391,7 +1417,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags open
      * @name InfiniteQueryPublicTimeline
      * @summary 获取所有的公开时间线
-     * @request GET:/api/open/feed
+     * @request GET:/api/public/feed
      * @secure
      */
     infiniteQueryPublicTimeline: (
@@ -1408,7 +1434,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         },
         any
       >({
-        path: `/api/open/feed`,
+        path: `/api/public/feed`,
         method: 'GET',
         query: query,
         secure: true,
@@ -1422,7 +1448,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags open
      * @name InfiniteQueryPublicAsset
      * @summary 获取公开的图片资源
-     * @request GET:/api/open/asset
+     * @request GET:/api/public/asset
      * @secure
      */
     infiniteQueryPublicAsset: (
@@ -1439,7 +1465,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         },
         any
       >({
-        path: `/api/open/asset`,
+        path: `/api/public/asset`,
         method: 'GET',
         query: query,
         secure: true,
@@ -1453,12 +1479,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @tags open
      * @name QueryPublicAssetById
      * @summary 获取单个公开的图片资源
-     * @request GET:/api/open/asset/{id}
+     * @request GET:/api/public/asset/{id}
      * @secure
      */
     queryPublicAssetById: (id: string, params: RequestParams = {}) =>
       this.request<Asset, any>({
-        path: `/api/open/asset/${id}`,
+        path: `/api/public/asset/${id}`,
         method: 'GET',
         secure: true,
         format: 'json',
@@ -1470,12 +1496,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags open
      * @name PublicControllerViewCount
-     * @request GET:/api/open/view-count
+     * @request GET:/api/public/view-count
      * @secure
      */
     publicControllerViewCount: (params: RequestParams = {}) =>
       this.request<ViewCountDto[], any>({
-        path: `/api/open/view-count`,
+        path: `/api/public/view-count`,
         method: 'GET',
         secure: true,
         format: 'json',
@@ -1653,23 +1679,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<void, any>({
         path: `/api/mini-program/qrcode`,
         method: 'GET',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags tools
-     * @name ToolsControllerOcr
-     * @request POST:/api/tools/ocr
-     */
-    toolsControllerOcr: (data: OCRDto, params: RequestParams = {}) =>
-      this.request<string, any>({
-        path: `/api/tools/ocr`,
-        method: 'POST',
-        body: data,
-        type: ContentType.Json,
-        format: 'json',
         ...params,
       }),
 

@@ -29,7 +29,7 @@ RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN npm i -g pnpm  \
     else \
         pnpm run build; \
     fi \
-    && echo suscess # pnpm prune --prod
+    && pnpm prune --prod
 
 
 # 第三阶段，runner
