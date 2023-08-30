@@ -40,6 +40,12 @@ const tools: ToolProps[] = [
     url: '/tools/transform',
   },
   {
+    name: 'Format',
+    description: 'Format Nginx Conf Online',
+    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    url: '/tools/format',
+  },
+  {
     name: 'Swagger to Code',
     description:
       'Generate code from swagger document, such as ProTable, ProForm(not implemented yet) etc.',
@@ -90,7 +96,14 @@ const Tools: LayoutFC = () => {
             target={tool.target}
           >
             <Card>
-              <img className="w-full" src={tool.icon} alt={tool.description} />
+              <img
+                style={{
+                  aspectRatio: '325 / 266',
+                }}
+                className="w-full"
+                src={tool.icon}
+                alt={tool.description}
+              />
               <CardContent className="text-center">{tool.name}</CardContent>
             </Card>
           </Link>

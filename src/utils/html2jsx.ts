@@ -8,12 +8,12 @@ export const html2jsx = async (
   const converter = new HTMLtoJSX({
     createClass,
   });
-  let _jsx = converter.convert(value);
+  let jsx = converter.convert(value);
   if (createFunction && !createClass) {
-    _jsx = `export const Foo = () => {
-      return (${_jsx});
+    jsx = `export const Foo = () => {
+      return (${jsx});
     }`;
   }
-  _jsx = await prettify('babel', _jsx);
-  return _jsx;
+  jsx = await prettify('babel', jsx);
+  return jsx;
 };

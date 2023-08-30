@@ -22,9 +22,11 @@ describe('prettier', () => {
 
   it('css', async () => {
     const result = await prettify('css', '.awesome { border: 1px solid red; }');
-    expect(result).toBe(`.awesome {
-  border: 1px solid red;
-}
-`);
+    expect(result).toBe(`.awesome {\n  border: 1px solid red;\n}\n`);
+  });
+
+  it('nginx', async () => {
+    const result = await prettify('nginx', 'server { listen 80; server_name example.com; }');
+    expect(result).toBe(`server {\n    listen      80;\n    server_name example.com;\n}`);
   });
 });

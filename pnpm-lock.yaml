@@ -212,6 +212,9 @@ dependencies:
   prettier:
     specifier: 3.0.2
     version: 3.0.2
+  prettier-plugin-nginx:
+    specifier: 1.0.3
+    version: 1.0.3
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -13764,6 +13767,10 @@ packages:
     dependencies:
       fast-diff: 1.3.0
     dev: true
+
+  /prettier-plugin-nginx@1.0.3:
+    resolution: {integrity: sha512-vV5q85s8XnV6NEgvz1gVLfZhmxAxY03MyOYj2ApBpjFkbs00lRsRkTmqO9L39ADuD18z1RRCcfZ3eVxKhI/nqg==}
+    dev: false
 
   /prettier-plugin-tailwindcss@0.4.1(prettier@3.0.2):
     resolution: {integrity: sha512-hwn2EiJmv8M+AW4YDkbjJ6HlZCTzLyz1QlySn9sMuKV/Px0fjwldlB7tol8GzdgqtkdPtzT3iJ4UzdnYXP25Ag==}
