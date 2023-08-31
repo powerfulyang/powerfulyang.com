@@ -1,4 +1,5 @@
 import MonacoEditor, { loader } from '@monaco-editor/react';
+import 'monaco-editor-nginx';
 import * as monaco from 'monaco-editor';
 
 // monaco-editor has fixed this issue at v0.35.0

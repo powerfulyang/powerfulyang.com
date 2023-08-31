@@ -1,4 +1,4 @@
-import type { Mesh } from 'three';
+import type { LOD } from 'three';
 import * as THREE from 'three';
 import type { FC, CSSProperties } from 'react';
 import { useRef, useState } from 'react';
@@ -17,7 +17,7 @@ type BananaProps = {
 };
 
 const Banana: FC<BananaProps> = ({ index, z, speed }) => {
-  const ref = useRef<Mesh>(null!);
+  const ref = useRef<LOD>(null!);
   // useThree gives you access to the R3F state model
   const { viewport, camera } = useThree();
   // getCurrentViewport is a helper that calculates the size of the viewport
@@ -64,7 +64,7 @@ const Banana: FC<BananaProps> = ({ index, z, speed }) => {
   // Using drei's detailed is a nice trick to reduce the vertex count because
   // we don't need high resolution for objects in the distance. The model contains 3 decimated meshes ...
   return (
-    <Detailed objects={null} ref={ref} distances={[0, 65, 80]}>
+    <Detailed ref={ref} distances={[0, 65, 80]}>
       <mesh
         geometry={nodes.banana_high.geometry}
         material={materials.skin}
@@ -92,9 +92,13 @@ type BananasProps = {
   style?: CSSProperties;
 };
 
-export const Bananas: FC<BananasProps> = (
-  { speed = 1, count = 80, depth = 80, easing = (x: number) => Math.sqrt(1 - (x - 1) ** 2), style },
-) => (
+export const Bananas: FC<BananasProps> = ({
+  speed = 1,
+  count = 80,
+  depth = 80,
+  easing = (x: number) => Math.sqrt(1 - (x - 1) ** 2),
+  style,
+}) => (
   // No need for antialias (faster), dpr clamps the resolution to 1.5 (also faster than full resolution)
   <Canvas
     style={style}

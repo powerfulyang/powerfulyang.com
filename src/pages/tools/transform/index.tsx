@@ -13,6 +13,7 @@ const Transform: LayoutFC = () => {
   const [value, setValue] = useState('');
   const { wrap, isReady } = useWorkerLoader<PrettierWorker>(() => {
     return new Worker(new URL('@/workers/prettier.worker.ts', import.meta.url), {
+      name: 'prettier',
       type: 'module',
     });
   });

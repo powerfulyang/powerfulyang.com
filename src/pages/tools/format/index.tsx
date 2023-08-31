@@ -1,55 +1,113 @@
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
+import { useMutation } from '@tanstack/react-query';
+import { useMemo, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { LoadingButton } from '@/components/utils/LoadingButton';
 import { NoSSRMarkdownEditor } from '@/components/monaco-editor';
-import { PrismCode } from '@/components/PrismCode';
 import { useWorkerLoader } from '@/hooks/useWorkerLoader';
 import { UserLayout } from '@/layout/UserLayout';
+import { cn } from '@/lib/utils';
+import styles from '@/styles/content.module.scss';
 import type { LayoutFC } from '@/types/GlobalContext';
 import type { PrettierWorker } from '@/workers/prettier.worker';
-import styles from '@/styles/content.module.scss';
 
 const Format: LayoutFC = () => {
   const [value, setValue] = useState('');
+  const [language, setLanguage] = useState('nginx');
   const { wrap, isReady } = useWorkerLoader<PrettierWorker>(() => {
     return new Worker(new URL('@/workers/prettier.worker.ts', import.meta.url), {
+      name: 'prettier',
       type: 'module',
     });
   });
 
-  const query = useQuery({
-    queryKey: ['prettify', value],
-    enabled: isReady,
-    keepPreviousData: true,
-    queryFn: () => {
-      return wrap!.prettify('nginx', value, {
+  const mutation = useMutation({
+    mutationFn: () => {
+      return wrap!.prettify(language, value, {
         printWidth: Infinity,
       });
     },
+    onSuccess: (data) => {
+      setValue(data);
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
   });
+
+  const monacoLanguage = useMemo(() => {
+    if (language === 'babel') {
+      return 'javascript';
+    }
+    if (language === 'prisma-parse') {
+      return 'nginx';
+    }
+    return language;
+  }, [language]);
 
   return (
     <div className={cn('flex w-full flex-col', styles.layoutContent)}>
-      <div className="flex items-center  px-4 py-1">
-        <span>Format Nginx Conf Online</span>
-      </div>
-      <div className="flex flex-1 divide-x divide-dashed divide-gray-400 border-t border-dashed border-amber-400">
-        <div className="w-1/2 py-2">
-          <NoSSRMarkdownEditor
-            language="html"
-            options={{
-              minimap: { enabled: false },
+      <div className="flex items-center justify-between border-b border-dashed px-4 py-1">
+        <Label className="flex items-center gap-2">
+          <span>Language:</span>
+          <Select
+            value={language}
+            onValueChange={(_value) => {
+              setLanguage(_value);
             }}
-            value={value}
-            onChange={(_value) => {
-              setValue(_value || '');
-            }}
-          />
-        </div>
-        <div className="w-1/2 px-4 py-2">
-          <PrismCode language="nginx">{query.isLoading ? 'loading...' : query.data!}</PrismCode>
-        </div>
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select Format Language" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="nginx">nginx</SelectItem>
+              <SelectItem value="json">json</SelectItem>
+              <SelectItem value="html">html</SelectItem>
+              <SelectItem value="css">css</SelectItem>
+              <SelectItem value="babel">js(x)</SelectItem>
+              <SelectItem value="vue">vue</SelectItem>
+              <SelectItem value="typescript">ts(x)</SelectItem>
+              <SelectItem value="markdown">markdown</SelectItem>
+              <SelectItem value="yaml">yaml</SelectItem>
+              <SelectItem value="graphql">graphql</SelectItem>
+              <SelectItem value="xml">xml</SelectItem>
+              <SelectItem value="java">java</SelectItem>
+              <SelectItem value="prisma-parse">prisma</SelectItem>
+              <SelectItem value="sql">sql</SelectItem>
+            </SelectContent>
+          </Select>
+        </Label>
+        <LoadingButton
+          onClick={() => {
+            mutation.mutate();
+          }}
+          size="sm"
+          loading={!isReady || mutation.isLoading}
+        >
+          Format
+        </LoadingButton>
       </div>
+      <NoSSRMarkdownEditor
+        theme="nginx-theme"
+        wrapperProps={{
+          className: 'flex-1 w-full',
+        }}
+        language={monacoLanguage}
+        options={{
+          minimap: { enabled: false },
+        }}
+        value={value}
+        onChange={(_value) => {
+          setValue(_value || '');
+        }}
+      />
     </div>
   );
 };

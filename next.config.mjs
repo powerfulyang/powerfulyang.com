@@ -160,7 +160,7 @@ const nextConfig = withSentryConfig(
             c.plugins.push(
               new MonacoWebpackPlugin({
                 // Add languages as needed...
-                languages: ['markdown'],
+                // languages: ['markdown'],
                 filename: 'static/[contenthash:10].worker.js',
               }),
             );

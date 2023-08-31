@@ -1,10 +1,9 @@
+import type { ReturnFunction } from '@powerfulyang/utils';
 import { useQuery } from '@tanstack/react-query';
 import { wrap } from 'comlink';
 import { useEffect } from 'react';
 
-type Func = () => Worker;
-
-export const useWorkerLoader = <T>(func: Func) => {
+export const useWorkerLoader = <T>(func: ReturnFunction<Worker>) => {
   const { data, isFetched } = useQuery({
     queryKey: ['useWorkerLoader', func],
     queryFn: () => {
