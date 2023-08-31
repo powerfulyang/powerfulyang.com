@@ -156,6 +156,10 @@ const nextConfig = withSentryConfig(
             _c.resolve.fallback.fs = false;
             _c.resolve.fallback.child_process = false;
 
+            // fixme: 真是服了，这玩意的压缩把我的 class name 弄丢了
+            // keepClassnames
+            // _c.optimization.minimize = false;
+
             // handle monaco editor
             c.plugins.push(
               new MonacoWebpackPlugin({
