@@ -1,0 +1,26 @@
+diff --git a/lib/src/lang/lang_extensions.js b/lib/src/lang/lang_extensions.js
+index d233d747cc19ae8d60874085617d9471bbb75c43..4e64815bdf002ae99ccdac663aa8abe75b724d58 100644
+--- a/lib/src/lang/lang_extensions.js
++++ b/lib/src/lang/lang_extensions.js
+@@ -16,7 +16,7 @@ function functionName(func) {
+         return existingNameProp;
+     }
+     // hack for IE and engines that do not support Object.defineProperty on function.name (Node.js 0.10 && 0.12)
+-    var computedName = func.toString().match(FUNC_NAME_REGEXP)[1];
++    var computedName = func.toString().match(FUNC_NAME_REGEXP)?.[1];
+     return computedName;
+ }
+ exports.functionName = functionName;
+diff --git a/lib_esm/src/lang/lang_extensions.js b/lib_esm/src/lang/lang_extensions.js
+index 4baa8e76c0ce857ef04a86bde416db5b13b56390..129c1d28f21547b9832685dfa824cc0b9081ec1a 100644
+--- a/lib_esm/src/lang/lang_extensions.js
++++ b/lib_esm/src/lang/lang_extensions.js
+@@ -13,7 +13,7 @@ export function functionName(func) {
+         return existingNameProp;
+     }
+     // hack for IE and engines that do not support Object.defineProperty on function.name (Node.js 0.10 && 0.12)
+-    var computedName = func.toString().match(FUNC_NAME_REGEXP)[1];
++    var computedName = func.toString().match(FUNC_NAME_REGEXP)?.[1];
+     return computedName;
+ }
+ /**
