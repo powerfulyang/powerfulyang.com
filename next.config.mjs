@@ -7,6 +7,7 @@ import withPWAConfig from 'next-pwa';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { readPackageUp } from 'read-pkg-up';
+import { TerserPlugin } from 'next/dist/build/webpack/plugins/terser-webpack-plugin/src/index.js';
 import { runtimeCaching } from './runtimeCaching.mjs';
 
 const pkg = await readPackageUp();
@@ -156,9 +157,24 @@ const nextConfig = withSentryConfig(
             _c.resolve.fallback.fs = false;
             _c.resolve.fallback.child_process = false;
 
-            // fixme: 真是服了，这玩意的压缩把我的 class name 弄丢了
-            // keepClassnames
-            // _c.optimization.minimize = false;
+            // 妈的，垃圾连个设置的地方都没有
+            // _c.optimization.minimizer
+            if (_c.optimization.minimizer) {
+              _c.optimization.minimizer = _c.optimization.minimizer.map((minimizer) => {
+                if (minimizer.toString().includes('TerserPlugin')) {
+                  return (compiler) => {
+                    new TerserPlugin({
+                      parallel: true,
+                      swcMinify: false,
+                      terserOptions: {
+                        keep_classnames: true,
+                      },
+                    }).apply(compiler);
+                  };
+                }
+                return minimizer;
+              });
+            }
 
             // handle monaco editor
             c.plugins.push(
