@@ -47,7 +47,7 @@ const VideoDownloader: LayoutFC = () => {
 
   return (
     <div className="flex flex-col items-center p-8">
-      <h3 className="text-3xl font-medium">Video Downloader</h3>
+      <h3 className="text-3xl font-medium">Free Video Downloader</h3>
       <span className="my-4 text-[#1b233d]/70">
         Download videos from YouTube, Facebook, Instagram, Twitter, TikTok, and more.
       </span>

@@ -30,6 +30,8 @@ export const LazyAssetImage = memo<
   ]);
   return (
     <LazyImage
+      alt={asset.alt}
+      title={asset.alt}
       {...props}
       width={asset.size.width}
       height={asset.size.height}
