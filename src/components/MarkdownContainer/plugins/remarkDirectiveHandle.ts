@@ -6,17 +6,14 @@ import type { Root } from 'remark-gfm';
  * @description containerDirective 需要在前面加上 ::: 并且以 ::: 结尾，需要在单独一行使用
  * @description :: leafDirective
  * @description leafDirective 需要在单独一行使用
- * @description : textDirective
+ * @description : textDirective, 由于导致影响太多，不能被使用
  * @description 单独使用会被 p 标签包裹
  * @example
+ * containerDirective
+ * :::youtube{#id}
  * :::
- * This is a container directive
- * ::This is a leaf directive
- * :This is a text directive
- * youtube: `:youtube{#rg80JMm-E1I}`
- * codepen: `:codepen{#rNvWbQq}`
- * codesandbox: `:codesandbox{#codesandbox-embed}`
- * :::
+ * leafDirective
+ * ::youtube{#id}
  */
 export function remarkDirectiveHandle() {
   return (tree: Root) => {
