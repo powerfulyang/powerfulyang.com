@@ -1,3 +1,7 @@
 .layout-content {
   min-height: calc(100dvh - var(--footer-height) - var(--nav-height));
 }
+
+.non-layout-content {
+  min-height: 100dvh;
+}

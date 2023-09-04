@@ -46,13 +46,13 @@ const VideoDownloader: LayoutFC = () => {
   });
 
   return (
-    <div className="flex flex-col items-center p-8">
+    <div className="flex flex-col items-center space-y-4 p-10">
       <h3 className="text-3xl font-medium">Free Video Downloader</h3>
-      <span className="my-4 text-[#1b233d]/70">
+      <span className="!mb-4 text-[#1b233d]/70">
         Download videos from YouTube, Facebook, Instagram, Twitter, TikTok, and more.
       </span>
       <Input
-        className="mb-4 w-[70%]"
+        className="mb-4"
         placeholder="video url"
         value={videoUrl}
         onChange={(event) => {
@@ -70,11 +70,13 @@ const VideoDownloader: LayoutFC = () => {
         Download
       </LoadingButton>
       {download?.data?.downloadUrl && (
-        <span>
+        <span className="mt-2 flex items-center gap-2">
           {download?.data?.downloadUrl}
           <Copy
+            className="pointer"
+            size={15}
             onClick={() => {
-              copyToClipboardAndNotify(download?.data?.downloadUrl);
+              return copyToClipboardAndNotify(download?.data?.downloadUrl);
             }}
           />
         </span>

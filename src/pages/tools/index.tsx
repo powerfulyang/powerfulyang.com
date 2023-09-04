@@ -77,8 +77,8 @@ const tools: ToolProps[] = [
     url: '/admin/user/list',
   },
   {
-    name: 'url params extractor',
-    description: 'url params extractor',
+    name: 'URL Params Extractor',
+    description: 'Extract URL params from a URL',
     icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
     url: '/tools/url-params-extractor',
   },

@@ -1,21 +1,21 @@
+import Loading from '@/app/loading';
 import dynamic from 'next/dynamic';
 import type { LayoutFC } from '@/types/GlobalContext';
 import { UserLayout } from '@/layout/UserLayout';
 
-const VideoProcessor = dynamic(() => import('@/components/VideoProcessor'), { ssr: false });
+const VideoProcessor = dynamic(() => import('@/components/VideoProcessor'), {
+  ssr: false,
+  loading: () => <Loading />,
+});
 
 const Video: LayoutFC = () => {
   return (
-    <div className="w-full">
-      <div className="flex flex-wrap justify-center">
-        <p className="mt-10 w-full text-center text-[40px] font-medium text-[#212529]">
-          Free Video Converter
-        </p>
-        <p className="mt-4 text-center text-sm text-[#1b233d]/70">
-          Easily convert your videos to MP4, MOV, AVI, and more.
-        </p>
-      </div>
-      <div className="mt-4 text-center">
+    <div className="flex flex-col items-center space-y-4 p-10">
+      <h3 className="text-3xl font-medium">Free Video Converter</h3>
+      <span className="!mb-4 text-[#1b233d]/70">
+        Easily convert your videos to MP4, MOV, AVI, and more.
+      </span>
+      <div className="text-center">
         <VideoProcessor />
       </div>
     </div>

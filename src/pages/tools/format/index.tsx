@@ -12,13 +12,11 @@ import {
 import { LoadingButton } from '@/components/utils/LoadingButton';
 import { NoSSRMarkdownEditor } from '@/components/monaco-editor';
 import { useWorkerLoader } from '@/hooks/useWorkerLoader';
-import { UserLayout } from '@/layout/UserLayout';
 import { cn } from '@/lib/utils';
 import styles from '@/styles/content.module.scss';
-import type { LayoutFC } from '@/types/GlobalContext';
 import type { PrettierWorker } from '@/workers/prettier.worker';
 
-const Format: LayoutFC = () => {
+const Format = () => {
   const [value, setValue] = useState('');
   const [language, setLanguage] = useState('nginx');
   const { wrap, isReady } = useWorkerLoader<PrettierWorker>(() => {
@@ -53,7 +51,7 @@ const Format: LayoutFC = () => {
   }, [language]);
 
   return (
-    <div className={cn('flex w-full flex-col', styles.layoutContent)}>
+    <div className={cn('flex w-full flex-col', styles.nonLayoutContent)}>
       <div className="flex items-center justify-between border-b border-dashed px-4 py-1">
         <Label className="flex items-center gap-2">
           <span>Language:</span>
@@ -110,10 +108,6 @@ const Format: LayoutFC = () => {
       />
     </div>
   );
-};
-
-Format.getLayout = (page) => {
-  return <UserLayout>{page}</UserLayout>;
 };
 
 export default Format;

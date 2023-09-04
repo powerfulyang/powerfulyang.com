@@ -5,11 +5,9 @@ import styles from '@/styles/content.module.scss';
 import { NoSSRMarkdownEditor } from '@/components/monaco-editor';
 import { PrismCode } from '@/components/PrismCode';
 import { useWorkerLoader } from '@/hooks/useWorkerLoader';
-import { UserLayout } from '@/layout/UserLayout';
-import type { LayoutFC } from '@/types/GlobalContext';
 import type { PrettierWorker } from '@/workers/prettier.worker';
 
-const Transform: LayoutFC = () => {
+const Transform = () => {
   const [value, setValue] = useState('');
   const { wrap, isReady } = useWorkerLoader<PrettierWorker>(() => {
     return new Worker(new URL('@/workers/prettier.worker.ts', import.meta.url), {
@@ -28,7 +26,7 @@ const Transform: LayoutFC = () => {
   });
 
   return (
-    <div className={cn('flex w-full flex-col', styles.layoutContent)}>
+    <div className={cn('flex w-full flex-col', styles.nonLayoutContent)}>
       <div className="flex items-center  px-4 py-1">
         <span>HTML to JSX</span>
       </div>
@@ -51,10 +49,6 @@ const Transform: LayoutFC = () => {
       </div>
     </div>
   );
-};
-
-Transform.getLayout = (page) => {
-  return <UserLayout>{page}</UserLayout>;
 };
 
 export default Transform;

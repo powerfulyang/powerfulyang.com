@@ -92,8 +92,8 @@ export const copyToClipBoard = async (content: string | Blob) => {
   throw new Error('unsupported type!');
 };
 
-export const copyToClipboardAndNotify = (text: string | Blob) => {
-  copyToClipBoard(text)
+export const copyToClipboardAndNotify = async (text: string | Blob) => {
+  return copyToClipBoard(text)
     .then(() => {
       toast.success('复制成功');
     })
