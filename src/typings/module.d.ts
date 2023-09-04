@@ -6,3 +6,5 @@ declare module '*.webp' {
 declare module '@prettier/plugin-xml';
 declare module 'prettier-plugin-java';
 declare module 'prettier-plugin-prisma';
+
+declare module 'monaco-volar/vue.worker';

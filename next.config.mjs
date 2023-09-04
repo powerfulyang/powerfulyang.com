@@ -151,6 +151,21 @@ const nextConfig = withSentryConfig(
                 draft.modules.exportLocalsConvention = 'camelCase';
               }
             });
+          // monaco-editor vue.worker
+          c.module.rules.push({
+            test: /monaco-volar[\\/]dist[\\/]worker[\\/]vue\.worker\.js$/,
+            type: 'asset/resource',
+            use: [
+              {
+                loader: 'string-replace-loader',
+                options: {
+                  search: 'process.env.NODE_ENV',
+                  replace: JSON.stringify(process.env.NODE_ENV),
+                  flags: 'g', // 全局替换
+                },
+              },
+            ],
+          });
 
           if (!isServer) {
             const _c = c;

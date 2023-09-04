@@ -1,3 +1,4 @@
+import { iife } from '@powerfulyang/utils';
 import { useMutation } from '@tanstack/react-query';
 import { loadGrammars } from 'monaco-volar';
 import { useMemo, useState } from 'react';
@@ -17,6 +18,8 @@ import { cn } from '@/lib/utils';
 import styles from '@/styles/content.module.scss';
 import type { PrettierWorker } from '@/workers/prettier.worker';
 
+export const vueModelUri = 'file:///demo.vue';
+
 const Format = () => {
   const [value, setValue] = useState('');
   const [language, setLanguage] = useState('nginx');
@@ -29,7 +32,13 @@ const Format = () => {
 
   const mutation = useMutation({
     mutationFn: () => {
-      return wrap!.prettify(language, value, {
+      const formatLanguage = iife(() => {
+        if (language === 'javascript') {
+          return 'babel';
+        }
+        return language;
+      });
+      return wrap!.prettify(formatLanguage, value, {
         printWidth: Infinity,
       });
     },
@@ -42,9 +51,6 @@ const Format = () => {
   });
 
   const monacoLanguage = useMemo(() => {
-    if (language === 'babel') {
-      return 'javascript';
-    }
     if (language === 'prisma-parse') {
       return 'nginx';
     }
@@ -59,6 +65,13 @@ const Format = () => {
       return 'vs-code-theme-converted-light';
     }
     return 'light';
+  }, [language]);
+
+  const path = useMemo(() => {
+    if (language === 'vue') {
+      return vueModelUri;
+    }
+    return undefined;
   }, [language]);
 
   return (
@@ -80,7 +93,7 @@ const Format = () => {
               <SelectItem value="json">json</SelectItem>
               <SelectItem value="html">html</SelectItem>
               <SelectItem value="css">css</SelectItem>
-              <SelectItem value="babel">js(x)</SelectItem>
+              <SelectItem value="javascript">js(x)</SelectItem>
               <SelectItem value="vue">vue</SelectItem>
               <SelectItem value="typescript">ts(x)</SelectItem>
               <SelectItem value="markdown">markdown</SelectItem>
@@ -108,6 +121,7 @@ const Format = () => {
         wrapperProps={{
           className: 'flex-1 w-full',
         }}
+        path={path}
         language={monacoLanguage}
         options={{
           minimap: { enabled: false },
