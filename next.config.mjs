@@ -12,6 +12,7 @@ import { runtimeCaching } from './runtimeCaching.mjs';
 const pkg = await readPackageUp();
 const { dependencies } = pkg.packageJson;
 const ffmpegVersion = dependencies['@ffmpeg/ffmpeg'].replaceAll('.', '');
+const onigasmVersion = dependencies.onigasm.replaceAll('.', '');
 
 const { SENTRY_AUTH_TOKEN } = process.env;
 
@@ -65,6 +66,7 @@ const config = {
     NEXT_PUBLIC_GA_ID: 'G-T622M0KSVS',
     SERVER_BASE_URL: process.env.SERVER_BASE_URL,
     NEXT_PUBLIC_FFMPEG_VERSION: ffmpegVersion,
+    NEXT_PUBLIC_ONIGASM_VERSION: onigasmVersion,
   },
   eslint: {
     ignoreDuringBuilds: true, // 不用自带的
@@ -175,6 +177,10 @@ const nextConfig = withSentryConfig(
                   {
                     from: path.resolve('node_modules/@ffmpeg/core/dist/umd'),
                     to: path.resolve(`.next/static/ffmpeg/${ffmpegVersion}`),
+                  },
+                  {
+                    from: path.resolve('node_modules/onigasm/lib/onigasm.wasm'),
+                    to: path.resolve(`.next/static/onigasm/${onigasmVersion}/onigasm.wasm`),
                   },
                 ],
               }),

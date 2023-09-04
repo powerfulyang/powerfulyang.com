@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { loadGrammars } from 'monaco-volar';
 import { useMemo, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { Label } from '@/components/ui/label';
@@ -50,6 +51,16 @@ const Format = () => {
     return language;
   }, [language]);
 
+  const theme = useMemo(() => {
+    if (language === 'nginx') {
+      return 'nginx-theme';
+    }
+    if (language === 'vue') {
+      return 'vs-code-theme-converted-light';
+    }
+    return 'light';
+  }, [language]);
+
   return (
     <div className={cn('flex w-full flex-col', styles.nonLayoutContent)}>
       <div className="flex items-center justify-between border-b border-dashed px-4 py-1">
@@ -93,7 +104,7 @@ const Format = () => {
         </LoadingButton>
       </div>
       <NoSSRMarkdownEditor
-        theme="nginx-theme"
+        theme={theme}
         wrapperProps={{
           className: 'flex-1 w-full',
         }}
@@ -104,6 +115,9 @@ const Format = () => {
         value={value}
         onChange={(_value) => {
           setValue(_value || '');
+        }}
+        onMount={async (e, m) => {
+          await loadGrammars(m, e);
         }}
       />
     </div>
