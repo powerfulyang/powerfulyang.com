@@ -1,3 +1,4 @@
+import { prettify } from '@/prettier/prettifyOnClient';
 import type { Monaco } from '@monaco-editor/react';
 import { Icon } from '@powerfulyang/components';
 import type { VoidFunction } from '@powerfulyang/utils';
@@ -57,7 +58,7 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
       if (r?.length && ref.current) {
         const editorInstance = ref.current.editor;
         const text = r
-          .map((asset) => `![${MarkdownImageFromAssetManageAltConstant}](${asset.id})`)
+          .map((asset) => `![${MarkdownImageFromAssetManageAltConstant}](${asset.alt})`)
           .join('\r\n');
         const selection = editorInstance.getSelection();
         const operation = { range: selection!, text };
@@ -212,12 +213,29 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
                 monaco: m,
               };
               commands.forEach((command) => {
-                ref.current?.editor.addAction({
+                e.addAction({
                   id: command.id,
                   label: command.label,
                   run: createMarkdownTagCommand(command),
                   keybindings: command.keybindings,
                 });
+              });
+              e.addAction({
+                id: 'format',
+                label: 'Format',
+                contextMenuGroupId: 'navigation',
+                contextMenuOrder: 1.5,
+                async run() {
+                  const source = e.getValue();
+                  const formatted = await prettify('markdown', source);
+                  e.pushUndoStop();
+                  e.executeEdits(source, [
+                    {
+                      range: e.getModel()!.getFullModelRange(),
+                      text: formatted,
+                    },
+                  ]);
+                },
               });
             }}
           />

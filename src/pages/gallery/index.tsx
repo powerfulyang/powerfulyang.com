@@ -85,7 +85,6 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
               key={asset.id}
               id={`${asset.id}`}
               previewIndex={index}
-              title={`${asset.id}`}
               asset={asset}
               thumbnail="thumbnail"
               containerClassName="contain-strict pointer rounded-lg"

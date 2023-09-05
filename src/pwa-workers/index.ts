@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-globals */
-
 export declare const self: ServiceWorkerGlobalScope & typeof window;
 
 self.addEventListener('push', (event) => {

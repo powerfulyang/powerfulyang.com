@@ -118,12 +118,10 @@ export function createMarkdownTagCommand({ startTag, endTag = startTag }: TagCom
           const formattedText = selectedText.slice(startTag.length, -endTag.length);
           const operation = { range: selection, text: formattedText };
           editorInstance.executeEdits('', [operation]);
-          editorInstance.pushUndoStop();
         } else {
           const formattedText = `${startTag}${selectedText}${endTag}`;
           const operation = { range: selection, text: formattedText };
           editorInstance.executeEdits('', [operation]);
-          editorInstance.pushUndoStop();
         }
       }
     }
@@ -145,7 +143,6 @@ export function createMarkdownTagCommand({ startTag, endTag = startTag }: TagCom
 
       // 执行操作
       editorInstance.executeEdits('', [operation]);
-      editorInstance.pushUndoStop();
     }
     // MarkdownTags.CodeBlock, 代码块是处理多行的
     if (startTag === MarkdownTags.CodeBlock) {
@@ -162,12 +159,10 @@ export function createMarkdownTagCommand({ startTag, endTag = startTag }: TagCom
           const formattedText = selectedText.trim().slice(startTag.length + 1, -endTag.length - 1);
           const operation = { range: selection, text: formattedText };
           editorInstance.executeEdits('', [operation]);
-          editorInstance.pushUndoStop();
         } else {
           const formattedText = `\n${startTag}\n${selectedText}\n${endTag}\n`;
           const operation = { range: selection, text: formattedText };
           editorInstance.executeEdits('', [operation]);
-          editorInstance.pushUndoStop();
         }
       }
     }
