@@ -1,3 +1,4 @@
+import { trpc } from '@/utils/trpc';
 import { NextSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
@@ -102,4 +103,4 @@ const App = ({ Component, pageProps }: MyAppProps) => {
   );
 };
 
-export default App;
+export default trpc.withTRPC(App);

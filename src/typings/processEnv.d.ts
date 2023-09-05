@@ -8,5 +8,7 @@ declare namespace NodeJS {
 
     NEXT_PUBLIC_FFMPEG_VERSION: string;
     NEXT_PUBLIC_ONIGASM_VERSION: string;
+
+    PORT: string;
   }
 }

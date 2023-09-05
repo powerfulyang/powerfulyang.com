@@ -1,6 +1,6 @@
 import { expose } from 'comlink';
 import { html2jsx } from '@/utils/html2jsx';
-import { prettify } from '@/prettier';
+import { prettify } from '@/prettier/prettifyOnClient';
 
 export interface PrettierWorker {
   html2jsx: typeof html2jsx;

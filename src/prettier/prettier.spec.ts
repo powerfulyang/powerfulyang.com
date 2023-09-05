@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { prettify } from '@/prettier';
+import { prettify } from '@/prettier/prettifyOnClient';
 
 describe('prettier', () => {
   it('json', async () => {

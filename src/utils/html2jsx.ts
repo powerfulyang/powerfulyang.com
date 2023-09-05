@@ -1,5 +1,5 @@
 import HTMLtoJSX from 'htmltojsx';
-import { prettify } from '@/prettier';
+import { prettify } from '@/prettier/prettifyOnClient';
 
 export const html2jsx = async (
   value: string,
