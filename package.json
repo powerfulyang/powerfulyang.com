@@ -91,7 +91,7 @@
     "date-fns": "^2.30.0",
     "dayjs": "1.11.9",
     "feed": "4.2.2",
-    "framer-motion": "10.16.3",
+    "framer-motion": "10.12.7",
     "hast-util-to-string": "3.0.0",
     "htmltojsx": "0.3.0",
     "jotai": "2.4.1",
