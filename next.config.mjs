@@ -141,6 +141,7 @@ const nextConfig = withSentryConfig(
     ...withBundleAnalyzer(
       withPWA({
         webpack: (c, { isServer }) => {
+          const _c = c;
           // camel-case style names from css modules
           c.module.rules
             .find(({ oneOf }) => !!oneOf)
@@ -166,9 +167,10 @@ const nextConfig = withSentryConfig(
               },
             ],
           });
+          // wasm
+          _c.experiments.asyncWebAssembly = true;
 
           if (!isServer) {
-            const _c = c;
             // 在客户端构建中替换fs
             _c.resolve.fallback.fs = false;
             _c.resolve.fallback.child_process = false;

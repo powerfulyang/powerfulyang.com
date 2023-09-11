@@ -1,3 +1,4 @@
+import * as autocorrect from '@huacnlee/autocorrect';
 import type { Options } from 'prettier';
 import * as postcssParser from 'prettier/plugins/postcss';
 import * as htmlParser from 'prettier/plugins/html';
@@ -42,6 +43,9 @@ export async function prettify(language: string, value: string, options?: Option
       semi: true,
       ...options,
     });
+  }
+  if (language === 'markdown') {
+    result = autocorrect.format(result);
   }
   return result;
 }

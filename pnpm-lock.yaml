@@ -35,6 +35,9 @@ dependencies:
   '@hookform/resolvers':
     specifier: 3.3.1
     version: 3.3.1(react-hook-form@7.46.1)
+  '@huacnlee/autocorrect':
+    specifier: 2.8.5
+    version: 2.8.5
   '@johnsoncodehk/html2pug':
     specifier: 1.0.0
     version: 1.0.0
@@ -2819,6 +2822,10 @@ packages:
       react-hook-form: ^7.0.0
     dependencies:
       react-hook-form: 7.46.1(react@18.2.0)
+    dev: false
+
+  /@huacnlee/autocorrect@2.8.5:
+    resolution: {integrity: sha512-bNSRJNij8ESUofOwwry8dIODB9YGXM2RROzF9frBnqpw9vGmnVJ0qNY0pleSaVPj9hlPcKeG6ilNMUFP+EI+3g==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.11:
