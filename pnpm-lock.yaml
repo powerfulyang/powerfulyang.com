@@ -218,6 +218,12 @@ dependencies:
   jotai:
     specifier: 2.4.1
     version: 2.4.1(@types/react@18.2.21)(react@18.2.0)
+  jotai-immer:
+    specifier: 0.2.0
+    version: 0.2.0(immer@10.0.2)(jotai@2.4.1)(react@18.2.0)
+  js-base64:
+    specifier: 3.7.5
+    version: 3.7.5
   leva:
     specifier: 0.9.35
     version: 0.9.35(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
@@ -11791,6 +11797,18 @@ packages:
       react: 18.2.0
     dev: false
 
+  /jotai-immer@0.2.0(immer@10.0.2)(jotai@2.4.1)(react@18.2.0):
+    resolution: {integrity: sha512-hahK8EPiROS9RoNWmX/Z8rY9WkAijspX4BZ1O7umpcwI4kPNkbcCpu/PhiQ8FMcpEcF6KmbpbMpSSj/GFmo8NA==}
+    peerDependencies:
+      immer: '*'
+      jotai: '>=1.11.0'
+      react: '>=17.0.0 || 18'
+    dependencies:
+      immer: 10.0.2
+      jotai: 2.4.1(@types/react@18.2.21)(react@18.2.0)
+      react: 18.2.0
+    dev: false
+
   /jotai@2.0.4(react@18.2.0):
     resolution: {integrity: sha512-XkR1Jtm4a2iKV/7fdB3rNHjJz8FkkDMVczqiAok7lt8W4F69l/ZQkPGWSEV+hJOJXRn27k6XYKOoKEQIwBuAMA==}
     engines: {node: '>=12.20.0'}
@@ -11817,6 +11835,10 @@ packages:
     dependencies:
       '@types/react': 18.2.21
       react: 18.2.0
+    dev: false
+
+  /js-base64@3.7.5:
+    resolution: {integrity: sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==}
     dev: false
 
   /js-stringify@1.0.2:

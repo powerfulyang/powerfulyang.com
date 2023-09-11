@@ -6,23 +6,30 @@ import type { LayoutFC } from '@/types/GlobalContext';
 
 const WifiShare: LayoutFC = () => {
   return (
-    <div className="p-4">
-      <Label>
-        <span>Wifi Name:</span>
+    <div className="flex flex-col items-center space-y-4 p-10">
+      <h3 className="text-3xl font-medium">Wifi Share</h3>
+      <span className="!mb-4 text-[#1b233d]/70">Generate QR code for sharing wifi</span>
+      <div className="grid w-[80%] max-w-[800px] gap-4">
+        <Label>Wifi Name:</Label>
         <Input type="text" placeholder="SSID" />
-      </Label>
-      <Label>
-        <span>Password:</span>
+        <Label>Password:</Label>
         <Input type="text" placeholder="Password" />
-      </Label>
-      <Label>
-        <span>Encryption:</span>
+        <Label>Encryption:</Label>
         <RadioGroup>
-          <RadioGroupItem value="None">None</RadioGroupItem>
-          <RadioGroupItem value="WPA/WPA2">WPA/WPA2</RadioGroupItem>
-          <RadioGroupItem value="WEP">WEP</RadioGroupItem>
+          <Label className="flex gap-2">
+            <RadioGroupItem value="None" />
+            <span>None</span>
+          </Label>
+          <Label className="flex gap-2">
+            <RadioGroupItem value="WPA/WPA2" />
+            <span>WPA/WPA2</span>
+          </Label>
+          <Label className="flex gap-2">
+            <RadioGroupItem value="WEP" />
+            <span>WEP</span>
+          </Label>
         </RadioGroup>
-      </Label>
+      </div>
     </div>
   );
 };

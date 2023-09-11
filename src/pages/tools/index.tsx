@@ -46,6 +46,12 @@ const tools: ToolProps[] = [
     url: '/tools/format',
   },
   {
+    name: 'Pipe Converter',
+    description: 'Pipe Converter',
+    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    url: '/tools/pipe-converter',
+  },
+  {
     name: 'Swagger to Code',
     description:
       'Generate code from swagger document, such as ProTable, ProForm(not implemented yet) etc.',

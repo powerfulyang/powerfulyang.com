@@ -96,6 +96,8 @@
     "hast-util-to-string": "3.0.0",
     "htmltojsx": "0.3.0",
     "jotai": "2.4.1",
+    "jotai-immer": "0.2.0",
+    "js-base64": "3.7.5",
     "leva": "0.9.35",
     "lodash-es": "4.17.21",
     "lottie-react": "2.4.0",
