@@ -1,4 +1,4 @@
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { beforeAll, describe, expect, it } from '@jest/globals';
 import type { OpenAPIV3 } from 'openapi-types';
@@ -10,6 +10,7 @@ describe('swagger parse v3', () => {
   let doc: OpenAPIV3.Document;
 
   beforeAll(async () => {
+    const __dirname = dirname(import.meta.url);
     const swagger = join(__dirname, 'v3.json');
     doc = (await SwaggerParser.parse(swagger)) as OpenAPIV3.Document;
   });

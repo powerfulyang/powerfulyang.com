@@ -12,54 +12,18 @@ const createJestConfig = nextJest();
  * @type {import('jest').Config}
  */
 const customJestConfig = {
-  moduleNameMapper,
+  moduleNameMapper: {
+    ...moduleNameMapper,
+    '^rxjs(/operators)?$': '<rootDir>/node_modules/rxjs/dist/cjs/index.js',
+  },
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/.jest/jest.setup.ts'],
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
 };
 
 const asyncConfig = createJestConfig(customJestConfig);
 
-const esModules = [
-  'react-markdown',
-  'vfile',
-  'unified',
-  'bail',
-  'is-plain-obj',
-  'trough',
-  'micromark',
-  'parse-entities',
-  'character-entities',
-  'property-information',
-  'comma-separated-tokens',
-  'remark-.+',
-  'rehype-.+',
-  'unist-.+',
-  'mdast-.+',
-  'hast-.+',
-  'space-separated-tokens',
-  'decode-named-character-reference',
-  'ccount',
-  'escape-string-regexp',
-  'markdown-table',
-  'fault',
-  'zwitch',
-  'longest-streak',
-  'yaml',
-  'remark',
-  'trim-lines',
-  'lodash-es',
-  'github-slugger',
-  'react-syntax-highlighter',
-  'hastscript',
-  'web-namespaces',
-  'character.+',
-  'is.+',
-  'stringify.+',
-  'emo.+',
-  'html.+',
-  '@mediapipe.+',
-  '@prettier.+',
-].join('|');
+const esModules = ['kkk'].join('|');
 
 module.exports = async () => {
   const config = await asyncConfig();

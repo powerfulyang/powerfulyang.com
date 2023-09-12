@@ -25,7 +25,7 @@
     "qa:dev": "cross-env CLIENT_BASE_HOST=qa.powerfulyang.com SERVER_BASE_URL=https://qa.powerfulyang.com next dev",
     "prod:dev": "cross-env CLIENT_BASE_HOST=powerfulyang.com SERVER_BASE_URL=https://powerfulyang.com next dev",
     "start": "next start",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "tsc-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -191,7 +191,8 @@
       }
     },
     "patchedDependencies": {
-      "chevrotain@6.5.0": "patches/chevrotain@6.5.0.patch"
+      "chevrotain@6.5.0": "patches/chevrotain@6.5.0.patch",
+      "@huacnlee/autocorrect@2.8.5": "patches/@huacnlee__autocorrect@2.8.5.patch"
     },
     "overrides": {
       "yargs-parser@<=5.0.0": ">=5.0.1",

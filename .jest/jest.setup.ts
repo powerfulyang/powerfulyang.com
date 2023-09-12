@@ -6,8 +6,14 @@ import '@powerfulyang/jest-extended/all';
 import 'jest-canvas-mock';
 // metadata
 import 'reflect-metadata';
+// jest
+import { jest } from '@jest/globals';
 
-global.ResizeObserver = require('resize-observer-polyfill');
+// @ts-ignore
+import ResizeObserver from 'resize-observer-polyfill';
+
+// @ts-ignore
+global.ResizeObserver = ResizeObserver;
 
 // mock next/router
 jest.mock('next/router', () => ({
@@ -39,3 +45,10 @@ jest.mock('@/styles/variables.module.scss', () => {
     CDN_ORIGIN: JSON.stringify('https://cdn.example.com'),
   };
 });
+
+import { TextDecoder, TextEncoder } from 'util';
+
+// TextDecoder
+global.TextDecoder = TextDecoder;
+// TextEncoder
+global.TextEncoder = TextEncoder;

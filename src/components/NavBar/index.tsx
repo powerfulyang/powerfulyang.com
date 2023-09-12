@@ -1,6 +1,6 @@
 'use client';
 
-import { DocSearch } from '@docsearch/react';
+import * as D from '@docsearch/react';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -54,7 +54,7 @@ export const NavBar = memo<NavBarProps>(() => {
             </Link>
           </div>
           <Menus />
-          <DocSearch
+          <D.DocSearch
             appId="A86PBLLW9T"
             apiKey="feb9259815bc0476dbbf018ef7fb25c6"
             indexName="powerfulyang"

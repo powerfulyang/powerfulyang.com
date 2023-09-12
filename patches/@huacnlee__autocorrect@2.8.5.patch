@@ -1,0 +1,18 @@
+diff --git a/package.json b/package.json
+index 37addc1d9645b93e8bf00f4a9897c971f2541a64..1e5ad37713499505998028d59d0eab07fe402e9c 100644
+--- a/package.json
++++ b/package.json
+@@ -7,6 +7,13 @@
+     "autocorrect_bg.js",
+     "autocorrect.d.ts"
+   ],
++  "type": "module",
++  "exports": {
++    ".": {
++      "import": "./autocorrect.js",
++      "require": "./autocorrect.js"
++    }
++  },
+   "module": "autocorrect.js",
+   "types": "autocorrect.d.ts",
+   "sideEffects": [
