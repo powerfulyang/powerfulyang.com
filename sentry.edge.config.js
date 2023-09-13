@@ -9,7 +9,7 @@ const SENTRY_DSN = process.env.NEXT_PUBLIC_SENTRY_DSN;
 
 // which will slow down your app
 // disable it
-if (isProdProcess && false) {
+if (isProdProcess) {
   Sentry.init({
     dsn: SENTRY_DSN,
     // Adjust this value in production, or use tracesSampler for greater control

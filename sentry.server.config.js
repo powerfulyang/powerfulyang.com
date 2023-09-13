@@ -4,13 +4,14 @@
 
 import * as Sentry from '@sentry/nextjs';
 import { isProdProcess } from '@powerfulyang/utils';
-import process from 'node:process';
 
 const SENTRY_DSN = process.env.NEXT_PUBLIC_SENTRY_DSN;
 
 // which will slow down your app
 // disable it
-if (isProdProcess && false) {
+// but my server transfer to Singapore
+// so I enable it
+if (isProdProcess) {
   Sentry.init({
     dsn: SENTRY_DSN,
     // Adjust this value in production, or use tracesSampler for greater control

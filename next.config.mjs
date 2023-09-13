@@ -16,7 +16,7 @@ const onigasmVersion = dependencies.onigasm.replaceAll('.', '');
 
 const { SENTRY_AUTH_TOKEN } = process.env;
 
-const enableSentryWebpackPlugin = !!SENTRY_AUTH_TOKEN;
+const disableSentryWebpackPlugin = !SENTRY_AUTH_TOKEN;
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -25,6 +25,7 @@ const sentryWebpackPluginOptions = {
   //   release, url, org, project, authToken, configFile, stripPrefix,
   //   urlPrefix, include, ignore
 
+  urlPrefix: 'app:///',
   silent: true, // Suppresses all logs
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
@@ -75,7 +76,7 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  productionBrowserSourceMaps: enableSentryWebpackPlugin,
+  productionBrowserSourceMaps: !disableSentryWebpackPlugin,
   optimizeFonts: true,
   swcMinify: true,
   sassOptions: {
@@ -132,8 +133,8 @@ const withPWA = withPWAConfig({
 const nextConfig = withSentryConfig(
   {
     sentry: {
-      disableServerWebpackPlugin: !enableSentryWebpackPlugin,
-      disableClientWebpackPlugin: !enableSentryWebpackPlugin,
+      disableServerWebpackPlugin: disableSentryWebpackPlugin,
+      disableClientWebpackPlugin: disableSentryWebpackPlugin,
       hideSourceMaps: true,
       widenClientFileUpload: true,
     },
