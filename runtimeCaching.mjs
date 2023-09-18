@@ -8,7 +8,6 @@ export const runtimeCaching = [
         maxEntries: 200,
         maxAgeSeconds: 24 * 60 * 60 * 365, // 365 days
       },
-      networkTimeoutSeconds: 1, // fall back to cache if api does not response within 1 seconds
     },
   },
   {
@@ -26,7 +25,6 @@ export const runtimeCaching = [
         maxEntries: 100,
         maxAgeSeconds: 24 * 60 * 60 * 365, // 365 days
       },
-      networkTimeoutSeconds: 1, // fall back to cache if api does not response within 1 seconds
     },
   },
   {

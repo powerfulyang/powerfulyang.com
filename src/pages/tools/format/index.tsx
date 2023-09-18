@@ -117,6 +117,7 @@ const Format = () => {
         </LoadingButton>
       </div>
       <NoSSRMarkdownEditor
+        key={language}
         theme={theme}
         wrapperProps={{
           className: 'flex-1 w-full',
@@ -131,7 +132,9 @@ const Format = () => {
           setValue(_value || '');
         }}
         onMount={async (e, m) => {
-          await loadGrammars(m, e);
+          if (language === 'vue') {
+            await loadGrammars(m, e);
+          }
         }}
       />
     </div>
