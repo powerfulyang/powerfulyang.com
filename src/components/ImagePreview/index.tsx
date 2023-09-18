@@ -1,14 +1,13 @@
-import type { FC, PropsWithChildren, ReactElement } from 'react';
-import React, { Children, cloneElement, useEffect, useMemo } from 'react';
-import { useImmerReducer } from '@powerfulyang/hooks';
-import type { VoidFunction } from '@powerfulyang/utils';
+import type { Asset } from '@/__generated__/api';
+import ImagePreviewModal from '@/components/ImagePreview/ImagePreviewModal';
 import type {
   ImageModalContextAction,
   ImagePreviewContextState,
 } from '@/context/ImagePreviewContext';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
-import ImagePreviewModal from '@/components/ImagePreview/ImagePreviewModal';
-import type { Asset } from '@/__generated__/api';
+import { useImmerReducer } from '@powerfulyang/hooks';
+import type { FC, PropsWithChildren } from 'react';
+import React, { useContext, useMemo } from 'react';
 
 const reducer = (draft: ImagePreviewContextState, action: ImageModalContextAction) => {
   switch (action.type) {
@@ -20,19 +19,9 @@ const reducer = (draft: ImagePreviewContextState, action: ImageModalContextActio
     case ImagePreviewContextActionType.open:
       draft.selectIndex = action.payload?.selectIndex;
       break;
-    case ImagePreviewContextActionType.updateImages:
-      draft.images = action.payload?.images;
-      break;
     default:
   }
 };
-
-type ParentControlProps = {
-  parentControl: unknown;
-  children: ReactElement<{ onClick: VoidFunction }>[];
-};
-
-type SelfControlProps = PropsWithChildren;
 
 export type ImagePreviewItem = {
   thumbnail: string;
@@ -62,46 +51,45 @@ export const castAssetsToImagePreviewItem = (assets: Asset[]): ImagePreviewItem[
 
 type Props = {
   images: ImagePreviewItem[];
-} & (ParentControlProps | SelfControlProps);
+};
 
-export const ImagePreview: FC<Props> = ({ images, ...props }) => {
+export const ImagePreview: FC<PropsWithChildren<Props>> = ({ images, children }) => {
   const [state, dispatch] = useImmerReducer<ImagePreviewContextState, ImageModalContextAction>(
     reducer,
     {},
   );
-  useEffect(() => {
-    dispatch({
-      type: ImagePreviewContextActionType.updateImages,
-      payload: {
-        images,
-      },
-    });
-  }, [dispatch, images]);
-  const memo = useMemo(() => ({ state, dispatch }), [state, dispatch]);
-  const childRender = useMemo(() => {
-    return (
-      ('parentControl' in props &&
-        Children.map(props.children, (child, index) =>
-          cloneElement(child, {
-            onClick(e: MouseEvent) {
-              child.props.onClick?.(e);
-              dispatch({
-                type: ImagePreviewContextActionType.open,
-                payload: {
-                  selectIndex: index,
-                },
-              });
-            },
-          }),
-        )) ||
-      props.children
-    );
-  }, [dispatch, props]);
+
+  const memo = useMemo(() => {
+    return { state, dispatch, images };
+  }, [state, dispatch, images]);
 
   return (
     <ImagePreviewContext.Provider value={memo}>
       <ImagePreviewModal />
-      {childRender}
+      {children}
     </ImagePreviewContext.Provider>
+  );
+};
+
+export const ImagePreviewAction: FC<
+  PropsWithChildren<{
+    previewIndex: number;
+    className?: string;
+  }>
+> = ({ previewIndex, children, className }) => {
+  const { dispatch } = useContext(ImagePreviewContext);
+  const onClick = () => {
+    dispatch({
+      type: ImagePreviewContextActionType.open,
+      payload: {
+        selectIndex: previewIndex,
+      },
+    });
+  };
+
+  return (
+    <button type="button" className={className} onClick={onClick}>
+      {children}
+    </button>
   );
 };

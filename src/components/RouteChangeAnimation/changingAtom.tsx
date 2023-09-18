@@ -1,3 +1,3 @@
-import { atom } from 'jotai/index';
+import { atom } from 'jotai';
 
 export const ChangingAtom = atom(false);

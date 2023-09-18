@@ -1,7 +1,7 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { useControls } from 'leva';
-import React, { Suspense, useLayoutEffect, useMemo, useRef } from 'react';
+import React, { Suspense, useLayoutEffect, useRef } from 'react';
 import type { Mesh } from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 
@@ -9,7 +9,7 @@ const HelloText = () => {
   const ref = useRef<Mesh>(null!);
   const { color, text } = useControls({ color: 'aqua', text: 'Hello' });
   const font = useLoader(FontLoader, '/typefaces/optimer_bold.typeface.json');
-  const config = useMemo(() => ({ font, size: 5, height: 2 }), [font]);
+  const config = { font, size: 5, height: 2 };
   useLayoutEffect(() => {
     ref.current.geometry.center();
   }, [text]);

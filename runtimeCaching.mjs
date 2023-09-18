@@ -113,7 +113,8 @@ export const runtimeCaching = [
       const isIconfont = url.origin.endsWith('at.alicdn.com');
       return isCosAssets || isGtag || isIconfont;
     },
-    handler: 'CacheFirst',
+    // 不知道为什么 Cache Storage 非常慢
+    handler: 'NetworkFirst',
     options: {
       cacheName: 'cross-origin-assets',
       expiration: {

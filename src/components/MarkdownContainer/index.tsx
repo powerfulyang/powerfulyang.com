@@ -1,26 +1,26 @@
 'use client';
 
+import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
+import { remarkDirectiveHandle } from '@/components/MarkdownContainer/plugins/remarkDirectiveHandle';
+import { remarkMetadata } from '@/components/MarkdownContainer/plugins/remarkMetadata';
+import { copyToClipboardAndNotify } from '@/utils/copy';
+import { Icon } from '@powerfulyang/components';
+import classNames from 'classnames';
+// `rehype-katex` does not import the CSS for you
+import 'katex/dist/katex.min.css';
 import type { FC } from 'react';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import classNames from 'classnames';
-import rehypeSlug from 'rehype-slug';
-import remarkFrontmatter from 'remark-frontmatter';
-import { Icon } from '@powerfulyang/components';
-import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import rehypeSlug from 'rehype-slug';
 import remarkDirective from 'remark-directive';
-import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
-import { copyToClipboardAndNotify } from '@/utils/copy';
-import { remarkDirectiveHandle } from '@/components/MarkdownContainer/plugins/remarkDirectiveHandle';
-import { remarkMetadata } from '@/components/MarkdownContainer/plugins/remarkMetadata';
-import { A, BlockQuote, Code, H1, H2, H3, H4, Img, Li, Pre, Table, Ul } from './MarkdownElement';
-import rehypeRaw from './plugins/rehypeRaw';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
 
 import styles from './index.module.scss';
-// `rehype-katex` does not import the CSS for you
-import 'katex/dist/katex.min.css';
+import { A, BlockQuote, Code, H1, H2, H3, H4, Img, Li, Pre, Table, Ul } from './MarkdownElement';
+import rehypeRaw from './plugins/rehypeRaw';
 
 export type MarkdownContainerProps = {
   source: string;
@@ -28,9 +28,11 @@ export type MarkdownContainerProps = {
   metadataRef?: React.MutableRefObject<MarkdownMetadata>;
 };
 
-export const MarkdownContainer: FC<MarkdownContainerProps> = (
-  { source, className, metadataRef },
-) => {
+export const MarkdownContainer: FC<MarkdownContainerProps> = ({
+  source,
+  className,
+  metadataRef,
+}) => {
   return (
     <ReactMarkdown
       className={classNames(styles.markdownBody, className)}
@@ -43,20 +45,28 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = (
         remarkDirectiveHandle,
       ]}
       remarkRehypeOptions={{
+        // @ts-ignore
         passThrough: ['info', 'tags'],
         handlers: {
-          info(h, node) {
-            return h(
-              node,
-              'p',
-              {
+          // @ts-ignore
+          info(state, node) {
+            return {
+              type: 'element',
+              tagName: 'div',
+              properties: {
                 className: styles.postInfo,
               },
-              node.children,
-            );
+              children: state.all(node),
+            };
           },
-          tags(h, node) {
-            return h(node, 'tags', {}, node.children);
+          // @ts-ignore
+          tags(state, node) {
+            return {
+              type: 'element',
+              tagName: 'tags',
+              properties: {},
+              children: state.all(node),
+            };
           },
         },
       }}
@@ -77,9 +87,10 @@ export const MarkdownContainer: FC<MarkdownContainerProps> = (
         // @ts-ignore
         // eslint-disable-next-line react/no-unstable-nested-components
         tags({ children }) {
+          const tags = Array.isArray(children) ? children : [children];
           return (
             <div className="flex flex-wrap sm:ml-2 lg:ml-6">
-              {children?.map((tag: string) => (
+              {tags?.map((tag: string) => (
                 <button
                   type="button"
                   key={tag}

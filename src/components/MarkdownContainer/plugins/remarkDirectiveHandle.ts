@@ -1,5 +1,4 @@
 import { visit } from 'unist-util-visit';
-import type { Root } from 'remark-gfm';
 
 /**
  * @description ::: containerDirective
@@ -16,7 +15,7 @@ import type { Root } from 'remark-gfm';
  * ::youtube{#id}
  */
 export function remarkDirectiveHandle() {
-  return (tree: Root) => {
+  return (tree: any) => {
     visit(tree, (node) => {
       const _node = node;
       const data = _node.data || (_node.data = {});

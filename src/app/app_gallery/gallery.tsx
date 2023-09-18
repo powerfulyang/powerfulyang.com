@@ -1,16 +1,20 @@
 'use client';
 
-import { firstItem, lastItem } from '@powerfulyang/utils';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { flatten } from 'lodash-es';
-import type { FC } from 'react';
-import React, { useMemo } from 'react';
 import type { Asset } from '@/__generated__/api';
-import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
+import {
+  castAssetsToImagePreviewItem,
+  ImagePreview,
+  ImagePreviewAction,
+} from '@/components/ImagePreview';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import Masonry from '@/components/Masonry';
 import styles from '@/pages/gallery/index.module.scss';
 import { clientApi } from '@/request/requestTool';
+import { firstItem, lastItem } from '@powerfulyang/utils';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { flatten } from 'lodash-es';
+import type { FC } from 'react';
+import React from 'react';
 
 type GalleryProps = {
   assets: Asset[];
@@ -19,7 +23,7 @@ type GalleryProps = {
 };
 
 export const Gallery: FC<GalleryProps> = ({ assets, nextCursor, prevCursor }) => {
-  const { data, fetchPreviousPage, hasPreviousPage } = useInfiniteQuery(
+  const { isFetching, data, fetchPreviousPage, hasPreviousPage } = useInfiniteQuery(
     ['assets', assets, nextCursor, prevCursor],
     ({ pageParam }) => {
       return clientApi
@@ -60,14 +64,23 @@ export const Gallery: FC<GalleryProps> = ({ assets, nextCursor, prevCursor }) =>
     },
   );
 
-  const resources = useMemo(
-    () => flatten(data?.pages.map((x) => x.resources) || []),
-    [data?.pages],
-  );
+  const resources = flatten(data?.pages.map((x) => x.resources) || []);
 
-  const images = useMemo(() => {
-    return castAssetsToImagePreviewItem(resources);
-  }, [resources]);
+  const images = castAssetsToImagePreviewItem(resources);
+
+  const itemRender = (item: Asset, index: number) => (
+    <ImagePreviewAction previewIndex={index}>
+      <LazyAssetImage
+        id={`${item.id}`}
+        asset={item}
+        thumbnail="thumbnail"
+        containerClassName="pointer rounded-lg"
+        className={styles.image}
+        keepAspectRatio
+        draggable={false}
+      />
+    </ImagePreviewAction>
+  );
 
   return (
     <main className={styles.gallery}>
@@ -76,22 +89,10 @@ export const Gallery: FC<GalleryProps> = ({ assets, nextCursor, prevCursor }) =>
           onLoadMore={() => {
             hasPreviousPage && fetchPreviousPage();
           }}
-        >
-          {resources.map((asset, index) => (
-            <LazyAssetImage
-              key={asset.id}
-              id={`${asset.id}`}
-              previewIndex={index}
-              title={`${asset.id}`}
-              asset={asset}
-              thumbnail="thumbnail"
-              containerClassName="contain-strict pointer rounded-lg"
-              className={styles.image}
-              keepAspectRatio
-              draggable={false}
-            />
-          ))}
-        </Masonry>
+          isLoading={isFetching}
+          data={resources}
+          itemRender={itemRender}
+        />
       </ImagePreview>
     </main>
   );

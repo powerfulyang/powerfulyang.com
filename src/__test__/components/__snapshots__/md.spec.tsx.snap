@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`md render 1`] = `
+<div>
+  <div
+    class="relative"
+  >
+    <div
+      id="2022"
+      title="anchor"
+    />
+    <h1
+      class="flex w-full justify-center pb-2"
+    >
+      <span>
+        <span />
+        <span>
+          2022
+        </span>
+        <span />
+      </span>
+    </h1>
+  </div>
+  
+
+  <div
+    class="relative"
+  >
+    <div
+      id="2022-01-01"
+      title="anchor"
+    />
+    <h2
+      class="cursor-text"
+    >
+      2022-01-01
+    </h2>
+  </div>
+  
+
+  <p>
+    发布了 
+    <a
+      class="link"
+      href="/post/2022-01-01"
+      rel="noreferrer"
+      target="_blank"
+    >
+      2022-01-01
+    </a>
+    。
+  </p>
+</div>
+`;

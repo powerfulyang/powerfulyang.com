@@ -1,13 +1,13 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import type { FC } from 'react';
-import { useCallback, useEffect, useState } from 'react';
 import type { Post } from '@/__generated__/api';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { NoSSRLiveMarkdownEditor } from '@/components/MarkdownContainer/LiveMarkdownEditor/NoSSR';
 import { clientApi } from '@/request/requestTool';
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 
 export const Publish: FC<{ post: Partial<Post> }> = ({ post }) => {
   const router = useRouter();
@@ -34,15 +34,12 @@ export const Publish: FC<{ post: Partial<Post> }> = ({ post }) => {
     },
   );
 
-  const saveDraft = useCallback(
-    (draft?: string) => {
-      setContent(draft || '');
-      if (!post.id) {
-        localStorage.setItem('draft', draft || '');
-      }
-    },
-    [post.id],
-  );
+  const saveDraft = (draft?: string) => {
+    setContent(draft || '');
+    if (!post.id) {
+      localStorage.setItem('draft', draft || '');
+    }
+  };
 
   useEffect(() => {
     if (!post.id) {

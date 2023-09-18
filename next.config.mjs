@@ -57,7 +57,6 @@ const config = {
   },
   experimental: {
     scrollRestoration: true,
-    appDir: true,
     clientRouterFilter: false,
   },
   env: {
@@ -113,6 +112,7 @@ const withPWA = withPWAConfig({
   dest: 'public',
   disable: isDevProcess,
   sourcemap: false,
+  additionalManifestEntries: [],
   exclude: [
     /\.map$/,
     // add buildExcludes here
@@ -123,7 +123,10 @@ const withPWA = withPWAConfig({
       ) {
         return true;
       }
-      return isDevProcess && !asset.name.startsWith('static/runtime/');
+      if (!asset.name.startsWith('static/runtime/')) {
+        return true;
+      }
+      return true;
     },
   ],
   runtimeCaching,

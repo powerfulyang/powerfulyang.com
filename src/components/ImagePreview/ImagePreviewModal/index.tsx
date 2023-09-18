@@ -1,23 +1,25 @@
+import { ImageViewContent } from '@/components/ImagePreview/ImagePreviewModal/ImageViewContent';
+import { ImagePreviewContext } from '@/context/ImagePreviewContext';
+import { useHiddenOverflow } from '@/hooks/useHiddenOverflow';
 import { Portal } from '@powerfulyang/components';
 import { useLockScroll } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
+import { useIsomorphicLayoutEffect } from 'framer-motion';
 import type { FC } from 'react';
-import React, { useContext, useEffect } from 'react';
-import { useHiddenOverflow } from '@/hooks/useHiddenOverflow';
-import { ImagePreviewContext } from '@/context/ImagePreviewContext';
-import { ImageViewContent } from '@/components/ImagePreview/ImagePreviewModal/ImageViewContent';
+import React, { useContext } from 'react';
 
 type ImagePreviewModalProps = {};
 
 const ImagePreviewModal: FC<ImagePreviewModalProps> = () => {
   const {
-    state: { selectIndex, images },
+    state: { selectIndex },
+    images,
   } = useContext(ImagePreviewContext);
   const showModal = isDefined(selectIndex);
   useLockScroll(showModal);
   useHiddenOverflow(showModal);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (isDefined(images) && isDefined(selectIndex)) {
       const { id } = images[selectIndex];
       if (id) {

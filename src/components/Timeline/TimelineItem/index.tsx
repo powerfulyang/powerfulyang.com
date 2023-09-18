@@ -7,7 +7,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { formatDateTime } from '@/utils/lib';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import { castAssetsToImagePreviewItem, ImagePreview } from '@/components/ImagePreview';
+import {
+  castAssetsToImagePreviewItem,
+  ImagePreview,
+  ImagePreviewAction,
+} from '@/components/ImagePreview';
 import { LazyImage } from '@/components/LazyImage';
 import type { InfiniteQueryResponse } from '@/types/InfiniteQuery';
 import { useUser } from '@/hooks/useUser';
@@ -128,15 +132,16 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
       {content}
       {!!feed.assets?.length && (
         <div className={classNames(styles.assets)}>
-          <ImagePreview parentControl images={castAssetsToImagePreviewItem(feed.assets)}>
-            {feed.assets?.map((asset) => (
-              <LazyAssetImage
-                thumbnail="thumbnail"
-                containerClassName="rounded pointer"
-                key={asset.id}
-                className={styles.img}
-                asset={asset}
-              />
+          <ImagePreview images={castAssetsToImagePreviewItem(feed.assets)}>
+            {feed.assets?.map((asset, index) => (
+              <ImagePreviewAction previewIndex={index} key={asset.id}>
+                <LazyAssetImage
+                  thumbnail="thumbnail"
+                  containerClassName="rounded pointer"
+                  className={styles.img}
+                  asset={asset}
+                />
+              </ImagePreviewAction>
             ))}
           </ImagePreview>
         </div>

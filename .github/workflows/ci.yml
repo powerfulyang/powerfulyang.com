@@ -74,8 +74,8 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ matrix.docker-repository-prod }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+#          cache-from: type=gha
+#          cache-to: type=gha,mode=max
           build-args: |
             BUILD_ENV=prod
           secrets: |

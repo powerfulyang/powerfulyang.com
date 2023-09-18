@@ -21,6 +21,11 @@
   根元素 一般是 html ？
  */
 :root {
+  // cursor
+  --custom-pointer-cursor: url('/cursor/pointer.ico'), pointer;
+  --custom-default-cursor: url('/cursor/default.ico'), default;
+  //
+
   --nav-height: 4rem;
   --footer-height: 3rem;
   --scrollbar-bg: transparent;
@@ -63,7 +68,7 @@
     'rlig' 1,
     'calt' 0;
   touch-action: manipulation;
-  cursor: url('/cursor/default.ico'), default;
+  cursor: var(--custom-default-cursor);
 
   body {
     position: relative;
@@ -107,7 +112,7 @@ a,
 button,
 label,
 .pointer {
-  cursor: url('/cursor/pointer.ico'), pointer;
+  cursor: var(--custom-pointer-cursor);
 }
 
 .common-shadow {

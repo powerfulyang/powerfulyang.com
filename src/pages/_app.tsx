@@ -1,17 +1,17 @@
-import { trpc } from '@/utils/trpc';
-import { NextSeo } from 'next-seo';
-import type { AppProps } from 'next/app';
-import Script from 'next/script';
-import React, { useMemo } from 'react';
 import { GlobalHooks } from '@/components/GlobalHooks';
 import { Header, origin } from '@/components/Head';
 import { RouteChangeAnimation } from '@/components/RouteChangeAnimation';
 import { ProjectName } from '@/constant/Constant';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
-import { usePV } from '@/hooks/usePV';
+import { PV } from '@/hooks/usePV';
 import _404 from '@/pages/404';
-import 'reflect-metadata';
 import '@/styles/app.scss';
+import { trpc } from '@/utils/trpc';
+import { NextSeo } from 'next-seo';
+import type { AppProps } from 'next/app';
+import Script from 'next/script';
+import React, { useMemo } from 'react';
+import 'reflect-metadata';
 
 import('@/three/extend');
 
@@ -27,12 +27,13 @@ interface HeaderProps {
   };
 }
 
-export type MyAppProps = {
+// interface 真是优雅
+export interface MyAppProps extends AppProps {
   Component: AppProps['Component'] & { getLayout: any };
   pageProps: {
     [key: string]: any;
   } & HeaderProps;
-} & AppProps;
+}
 
 const App = ({ Component, pageProps }: MyAppProps) => {
   const { getLayout } = Component;
@@ -46,16 +47,15 @@ const App = ({ Component, pageProps }: MyAppProps) => {
     return <Component {...pageProps} />;
   }, [Component, getLayout, pageProps]);
 
-  // 路由变化时，PV统计
-  const pv = usePV();
-
   const {
     title = '404',
     description,
     noindex = notFound,
     nofollow = notFound,
-  } = (pageProps.meta as HeaderProps['meta']) || {};
-  const { canonical } = (pageProps.link as HeaderProps['link']) || {};
+  } = pageProps.meta || {};
+
+  const { canonical } = pageProps.link || {};
+
   const _title = `${title} - ${ProjectName}`;
 
   return (
@@ -98,7 +98,7 @@ const App = ({ Component, pageProps }: MyAppProps) => {
         crossOrigin="anonymous"
         src="//at.alicdn.com/t/c/font_178634_m6cwt8bb21e.js"
       />
-      {pv}
+      <PV />
     </GlobalContextProvider>
   );
 };

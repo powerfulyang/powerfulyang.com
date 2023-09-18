@@ -34,7 +34,7 @@ export const useFormRouteListener = () => {
         if (!bool) {
           queueMicrotask(() => {
             // fixme 暂时只实现了，阻止返回，没有实现阻止前进
-            window.history.forward();
+            router.forward();
           });
           return false;
         }

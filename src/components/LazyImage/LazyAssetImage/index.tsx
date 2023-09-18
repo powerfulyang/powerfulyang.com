@@ -1,7 +1,9 @@
-import React, { memo, useMemo } from 'react';
+'use client';
+
+import type { Asset } from '@/__generated__/api';
 import type { LazyImageProps } from '@/components/LazyImage';
 import { LazyImage } from '@/components/LazyImage';
-import type { Asset } from '@/__generated__/api';
+import React, { memo, useMemo } from 'react';
 
 export const LazyAssetImage = memo<
   LazyImageProps & {
@@ -11,9 +13,8 @@ export const LazyAssetImage = memo<
      * 图片尺寸
      */
     thumbnail?: 'poster' | 'thumbnail';
-    previewIndex?: number;
   }
->(({ asset, keepAspectRatio = false, thumbnail, previewIndex, ...props }) => {
+>(({ asset, keepAspectRatio = false, thumbnail, ...props }) => {
   const image = useMemo(() => {
     if (thumbnail === 'poster') {
       return asset.objectUrl.thumbnail_700_;
@@ -28,6 +29,7 @@ export const LazyAssetImage = memo<
     asset.objectUrl.webp,
     thumbnail,
   ]);
+
   return (
     <LazyImage
       alt={asset.alt}

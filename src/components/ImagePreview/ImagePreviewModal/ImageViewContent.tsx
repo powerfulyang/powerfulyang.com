@@ -14,8 +14,9 @@ type ImageViewContentProps = {};
 export const ImageViewContent: FC<ImageViewContentProps> = () => {
   const [open, setOpen] = useState(false);
   const {
-    state: { images, selectIndex },
+    state: { selectIndex },
     dispatch,
+    images,
   } = useContext(ImagePreviewContext);
 
   const enableShowPrevImage = useMemo(() => {

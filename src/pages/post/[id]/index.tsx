@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
@@ -17,7 +18,7 @@ import styles from './index.module.scss';
 
 const LazyMarkdownContainer = dynamic(() => import('@/components/MarkdownContainer'), {
   loading: () => {
-    return <Skeleton rows={8} className={styles.post} />;
+    return <Skeleton rows={8} className={cn(styles.post, 'py-20')} />;
   },
 });
 

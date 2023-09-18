@@ -1,24 +1,11 @@
-import type { FC, ReactElement } from 'react';
-import React, {
-  Children,
-  cloneElement,
-  Fragment,
-  startTransition,
-  useCallback,
-  useContext,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-} from 'react';
-import classNames from 'classnames';
-import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
-import { InView } from 'react-intersection-observer';
-import { fromEvent } from 'rxjs';
-import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import type { Asset } from '@/__generated__/api';
-
-type MasonryItem = ReactElement<{ asset: Asset; previewIndex: number; onClick: () => void }>;
+import styles from '@/app/loading.module.scss';
+import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
+import classNames from 'classnames';
+import { map } from 'lodash-es';
+import type { FC, ReactElement } from 'react';
+import React, { Fragment, useCallback, useMemo, useRef } from 'react';
+import { InView } from 'react-intersection-observer';
 
 const getMapValueMinKey = (items: Map<number, number>): number => {
   const minValue = Math.min(...items.values());
@@ -30,75 +17,86 @@ const getMapValueMinKey = (items: Map<number, number>): number => {
   return 0;
 };
 
+interface _Item extends Asset {
+  previewIndex: number;
+}
+
 export type MasonryProps = {
-  children: MasonryItem[];
-  onLoadMore: () => void;
+  onLoadMore: VoidFunction;
+  data: Asset[];
+  itemRender: (item: Asset, index: number) => ReactElement;
+  isLoading?: boolean;
 };
 
 const getColumnNum = () => {
   return Math.ceil(window.innerWidth / 420 + 2);
 };
 
-const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
-  const id = useId();
+const Masonry: FC<MasonryProps> = ({ data, itemRender, onLoadMore, isLoading }) => {
+  const ref = useRef<HTMLDivElement>(null!);
   const rowHeight = useRef(new Map<number, number>());
   const handled = useRef(new Set<number>());
-  const [masonry, setMasonry] = useImmer(() => new Map<number, Array<MasonryItem>>());
-  const paintSateRef = useRef({
+  const [masonry, setMasonry] = useImmer(() => new Map<number, Array<_Item>>());
+  const paintStateRef = useRef({
     padding: 0,
     masonryWidth: 0,
   });
-  const queryPaintState = useCallback(() => {
-    const c = document.getElementById(id);
-    if (c) {
-      const computedStyle = window.getComputedStyle(c);
-      const padding = parseFloat(computedStyle.getPropertyValue('grid-gap'));
-      const masonryWidth = parseFloat(computedStyle.getPropertyValue('width'));
-      paintSateRef.current = {
-        padding,
-        masonryWidth,
-      };
-    }
-  }, [id]);
 
   const recalculate = useCallback(() => {
     const clientColNum = getColumnNum();
     rowHeight.current.clear();
     handled.current.clear();
+    paintStateRef.current = {
+      padding: 0,
+      masonryWidth: 0,
+    };
+
     for (let i = 0; i < clientColNum; i++) {
       rowHeight.current.set(i, 0);
     }
-    queryPaintState();
-  }, [queryPaintState]);
 
-  const handle = useCallback((draft: Map<number, MasonryItem[]>, child: MasonryItem) => {
-    const { padding, masonryWidth } = paintSateRef.current;
-    const has = handled.current.has(child.props.asset.id);
+    const c = ref.current;
+    const computedStyle = window.getComputedStyle(c);
+    const padding = parseFloat(computedStyle.getPropertyValue('grid-gap'));
+    const masonryWidth = parseFloat(computedStyle.getPropertyValue('width'));
+    paintStateRef.current = {
+      padding,
+      masonryWidth,
+    };
+  }, []);
+
+  const handle = useCallback((draft: Map<number, _Item[]>, child: Asset, index: number) => {
+    const { padding, masonryWidth } = paintStateRef.current;
+
+    const has = handled.current.has(child.id);
     if (!has) {
-      handled.current.add(child.props.asset.id);
+      handled.current.add(child.id);
+
       const { size } = rowHeight.current;
       const width = (masonryWidth - padding * (size + 1)) / size;
       const minHeightKey = getMapValueMinKey(rowHeight.current);
       const prev = rowHeight.current.get(minHeightKey) || 0;
-      const height =
-        (child.props.asset.size.height / child.props.asset.size.width) * width + padding;
+      const height = (child.size.height / child.size.width) * width + padding;
+
       rowHeight.current.set(minHeightKey, prev + height);
-      if (draft.get(minHeightKey)) {
-        draft.get(minHeightKey)?.push(child);
-      } else {
-        draft.set(minHeightKey, [child]);
-      }
+
+      const currentColumn = draft.get(minHeightKey) || [];
+      currentColumn.push({
+        ...child,
+        previewIndex: index,
+      });
+      draft.set(minHeightKey, currentColumn);
     }
   }, []);
 
   const paint = useCallback(
-    (items: MasonryItem[], force?: boolean) => {
-      startTransition(() => {
-        setMasonry((draft) => {
-          if (force) {
-            draft.clear();
-          }
-          items.forEach((child) => handle(draft, child));
+    (items: Asset[], force?: boolean) => {
+      setMasonry((draft) => {
+        if (force) {
+          draft.clear();
+        }
+        items.forEach((child, index) => {
+          handle(draft, child, index);
         });
       });
     },
@@ -106,27 +104,31 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
   );
 
   useIsomorphicLayoutEffect(() => {
+    // 仅在首次渲染时执行
+    // 主要是获取 DOM 节点的信息
     recalculate();
   }, [recalculate]);
 
   useIsomorphicLayoutEffect(() => {
-    paint(children);
-  }, [paint, children]);
+    // 在图片变动时执行
+    paint(data);
+  }, [paint, data]);
 
-  useEffect(() => {
-    const subscribe = fromEvent<UIEvent>(window, 'resize').subscribe(() => {
+  useIsomorphicLayoutEffect(() => {
+    // 在窗口变动时执行
+    const handleResize = () => {
       const clientColNum = getColumnNum();
       if (clientColNum !== rowHeight.current.size) {
         recalculate();
-        paint(children, true);
+        paint(data, true);
       }
-    });
-    return () => {
-      subscribe.unsubscribe();
     };
-  }, [children, masonry, paint, recalculate, setMasonry]);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [paint, data, recalculate]);
 
-  const { dispatch } = useContext(ImagePreviewContext);
   const renderedCount = useMemo(() => {
     return Array.from(masonry.values()).reduce((acc, cur) => {
       return acc + cur.length;
@@ -135,7 +137,7 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
 
   return (
     <div
-      id={id}
+      ref={ref}
       className={classNames('grid gap-2 px-2 sm:gap-4 sm:px-4')}
       style={{
         gridTemplateColumns: `repeat(${masonry.size}, 1fr)`,
@@ -143,44 +145,39 @@ const Masonry: FC<MasonryProps> = ({ children, onLoadMore }) => {
     >
       {Array.from(masonry.keys()).map((mItem, index) => (
         <div className="my-4 flex flex-col space-y-2 sm:space-y-4" key={mItem}>
-          {Children.map(masonry.get(mItem), (node, i) => {
+          {map(masonry.get(mItem), (node, i) => {
             const isNeedLoadMore =
               index === getMapValueMinKey(rowHeight.current) &&
               i + 1 === masonry.get(mItem)?.length &&
-              children.length === renderedCount; // 可能出现超长图片的情况，所以监听能看到的最短一列最好
-            const onClick = () => {
-              dispatch({
-                type: ImagePreviewContextActionType.open,
-                payload: {
-                  selectIndex: node?.props.previewIndex,
-                },
-              });
-            };
+              data.length === renderedCount; // 可能出现超长图片的情况，所以监听能看到的最短一列最好
             return (
-              node && (
-                <Fragment key={node.props.asset.id}>
-                  {cloneElement(node, {
-                    onClick,
-                  })}
-                  {isNeedLoadMore && (
-                    <InView
-                      triggerOnce
-                      onChange={(inView) => {
-                        inView && onLoadMore();
-                      }}
-                      rootMargin="500px"
-                    >
-                      {({ ref }) => {
-                        return <span ref={ref} />;
-                      }}
-                    </InView>
-                  )}
-                </Fragment>
-              )
+              <Fragment key={node.id}>
+                {itemRender(node, node.previewIndex)}
+                {isNeedLoadMore && (
+                  <InView
+                    triggerOnce
+                    onChange={(inView) => {
+                      inView && onLoadMore();
+                    }}
+                    rootMargin="500px"
+                    as="span"
+                  />
+                )}
+              </Fragment>
             );
           })}
         </div>
       ))}
+      {isLoading && (
+        <div
+          className="mb-6 flex justify-center sm:mb-0"
+          style={{
+            gridColumn: `1 / -1`,
+          }}
+        >
+          <div className={styles.loading}>Loading</div>
+        </div>
+      )}
     </div>
   );
 };

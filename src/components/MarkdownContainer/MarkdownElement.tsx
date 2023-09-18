@@ -2,13 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
 import type { FC } from 'react';
 import React, { Fragment, useContext } from 'react';
-import type {
-  CodeComponent,
-  HeadingComponent,
-  LiComponent,
-  UnorderedListComponent,
-} from 'react-markdown/lib/ast-to-react';
-import type { NormalComponents } from 'react-markdown/lib/complex-types';
+import type { JsxRuntimeComponents } from 'react-markdown/lib';
 import { clientApi } from '@/request/requestTool';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
@@ -16,7 +10,7 @@ import { PrismCode } from '@/components/PrismCode';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import styles from './index.module.scss';
 
-export const H1: HeadingComponent = ({ children, id = '' }) => {
+export const H1: JsxRuntimeComponents['h1'] = ({ children, id = '' }) => {
   const { id_prefix } = useContext(TimelineItemContext);
   const v = `${id_prefix}${id}`;
   return (
@@ -33,7 +27,7 @@ export const H1: HeadingComponent = ({ children, id = '' }) => {
   );
 };
 
-export const H2: HeadingComponent = ({ children, id = '' }) => {
+export const H2: JsxRuntimeComponents['h2'] = ({ children, id = '' }) => {
   const { id_prefix } = useContext(TimelineItemContext);
   const v = id && `${id_prefix}${id}`;
   return (
@@ -44,7 +38,7 @@ export const H2: HeadingComponent = ({ children, id = '' }) => {
   );
 };
 
-export const H3: HeadingComponent = ({ children, id = '' }) => {
+export const H3: JsxRuntimeComponents['h3'] = ({ children, id = '' }) => {
   const { id_prefix } = useContext(TimelineItemContext);
   const v = id && `${id_prefix}${id}`;
   return (
@@ -55,7 +49,7 @@ export const H3: HeadingComponent = ({ children, id = '' }) => {
   );
 };
 
-export const H4: HeadingComponent = ({ children, id = '' }) => {
+export const H4: JsxRuntimeComponents['h4'] = ({ children, id = '' }) => {
   const { id_prefix } = useContext(TimelineItemContext);
   const v = id && `${id_prefix}${id}`;
   return (
@@ -66,7 +60,7 @@ export const H4: HeadingComponent = ({ children, id = '' }) => {
   );
 };
 
-export const A: NormalComponents['a'] = ({ href, children }) => {
+export const A: JsxRuntimeComponents['a'] = ({ href, children }) => {
   return (
     <a rel="noreferrer" className="link" target="_blank" href={href}>
       {children}
@@ -74,20 +68,20 @@ export const A: NormalComponents['a'] = ({ href, children }) => {
   );
 };
 
-export const BlockQuote: NormalComponents['blockquote'] = ({ children }) => (
+export const BlockQuote: JsxRuntimeComponents['blockquote'] = ({ children }) => (
   <blockquote className={styles.blockquote}>{children}</blockquote>
 );
 
-export const Table: NormalComponents['table'] = ({ children }) => (
+export const Table: JsxRuntimeComponents['table'] = ({ children }) => (
   <div className="my-4 overflow-auto">
     <table className={styles.table}>{children}</table>
   </div>
 );
 
-export const Code: CodeComponent = ({ inline, className, children }) => {
+export const Code: JsxRuntimeComponents['code'] = ({ className, children }) => {
   const match = /language-(\w+)/.exec(className || '');
-  const renderText = children.toString().replace(/\s*\n$/, '');
-  if (inline) {
+  const renderText = children?.toString().replace(/\s*\n$/, '') || '';
+  if (match === null) {
     return (
       <code className={classNames(className, styles.inlineCode, 'cursor-text')}>{renderText}</code>
     );
@@ -98,11 +92,11 @@ export const Code: CodeComponent = ({ inline, className, children }) => {
   return <PrismCode language={language}>{renderText}</PrismCode>;
 };
 
-export const Pre: NormalComponents['pre'] = ({ children }) => {
+export const Pre: JsxRuntimeComponents['pre'] = ({ children }) => {
   return <Fragment key="pre">{children}</Fragment>;
 };
 
-export const Ul: UnorderedListComponent = ({ children, ...props }) => {
+export const Ul: JsxRuntimeComponents['ul'] = ({ children, ...props }) => {
   const { className } = props;
   if (className === 'contains-task-list') {
     return <ul className={styles.containsTaskList}>{children}</ul>;
@@ -110,13 +104,14 @@ export const Ul: UnorderedListComponent = ({ children, ...props }) => {
   return <ul>{children}</ul>;
 };
 
-export const Li: LiComponent = ({ children }) => <li>{children}</li>;
+export const Li: JsxRuntimeComponents['li'] = ({ children }) => <li>{children}</li>;
 
 const MDAssetImage: FC<{ id: string }> = ({ id }) => {
   const { data: asset } = useQuery({
     queryKey: ['md-asset-img', id],
-    queryFn: () => {
-      return clientApi.queryPublicAssetById(id).then((res) => res.data);
+    queryFn: async () => {
+      const res = await clientApi.queryPublicAssetById(id);
+      return res.data;
     },
   });
   return (
@@ -132,7 +127,7 @@ const MDAssetImage: FC<{ id: string }> = ({ id }) => {
     null
   );
 };
-export const Img: NormalComponents['img'] = ({ src, alt }) => {
+export const Img: JsxRuntimeComponents['img'] = ({ src, alt }) => {
   if (alt === MarkdownImageFromAssetManageAltConstant && src) {
     return <MDAssetImage id={src} />;
   }

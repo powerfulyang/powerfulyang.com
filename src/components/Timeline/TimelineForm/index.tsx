@@ -1,3 +1,18 @@
+import type { CreateFeedDto, Feed, UpdateFeedDto } from '@/__generated__/api';
+import type { ImagePreviewItem } from '@/components/ImagePreview';
+import { ImagePreview, ImagePreviewAction } from '@/components/ImagePreview';
+import { LazyImage } from '@/components/LazyImage';
+import { Switch } from '@/components/Switch';
+import { useEditTimeLineItem } from '@/components/Timeline/TimelineItem';
+import { LoadingButton } from '@/components/utils/LoadingButton';
+import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
+import { clientApi } from '@/request/requestTool';
+import {
+  appendToFileList,
+  handlePasteImageAndReturnFileList,
+  removeFromFileList,
+  sourceUrlToFile,
+} from '@/utils/copy';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Icon } from '@powerfulyang/components';
 import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
@@ -5,24 +20,9 @@ import { useMutation } from '@tanstack/react-query';
 import confetti from 'canvas-confetti';
 import classNames from 'classnames';
 import type { ChangeEvent, ClipboardEvent } from 'react';
-import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { memo, useEffect, useMemo, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
-import { LoadingButton } from '@/components/utils/LoadingButton';
-import {
-  appendToFileList,
-  handlePasteImageAndReturnFileList,
-  removeFromFileList,
-  sourceUrlToFile,
-} from '@/utils/copy';
-import { clientApi } from '@/request/requestTool';
-import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
-import { useEditTimeLineItem } from '@/components/Timeline/TimelineItem';
-import { Switch } from '@/components/Switch';
-import { LazyImage } from '@/components/LazyImage';
-import { ImagePreview } from '@/components/ImagePreview';
-import type { ImagePreviewItem } from '@/components/ImagePreview';
-import type { CreateFeedDto, Feed, UpdateFeedDto } from '@/__generated__/api';
 import styles from './index.module.scss';
 
 type Props = {
@@ -99,16 +99,13 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
   const watchContent = watch('content');
   const watchAssets = watch('assets');
 
-  const paste = useCallback(
-    (e: ClipboardEvent) => {
-      const files = handlePasteImageAndReturnFileList(e);
-      if (files) {
-        const tmp = appendToFileList(watchAssets, files);
-        setValue('assets', tmp);
-      }
-    },
-    [setValue, watchAssets],
-  );
+  const paste = (e: ClipboardEvent) => {
+    const files = handlePasteImageAndReturnFileList(e);
+    if (files) {
+      const tmp = appendToFileList(watchAssets, files);
+      setValue('assets', tmp);
+    }
+  };
 
   const handledFile = useRef(new WeakMap<File, any>());
 
@@ -119,13 +116,16 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
     if (!files) {
       return [];
     }
-    const arr = [];
+    const arr: {
+      src: string;
+      key: number;
+    }[] = [];
     for (let i = 0; i < files.length; i++) {
       if (!handledFile.current.has(files[i])) {
         const resourceUrl = URL.createObjectURL(files[i]);
         const tmp = {
           src: resourceUrl,
-          key: resourceUrl,
+          key: i,
         };
         handledFile.current.set(files[i], tmp);
         arr.push(tmp);
@@ -162,12 +162,10 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
     return watchContent !== '' || watchAssets?.length > 0;
   }, [watchContent, watchAssets]);
 
-  const onSubmit = useCallback(
-    (v: CreateFeedDto | UpdateFeedDto) => {
-      mutation.mutate(v);
-    },
-    [mutation],
-  );
+  const onSubmit = (v: CreateFeedDto | UpdateFeedDto) => {
+    mutation.mutate(v);
+  };
+
   return (
     <div className={styles.timelineInput}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -193,9 +191,9 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
           />
         </div>
         <div className={classNames(styles.assets)}>
-          <ImagePreview parentControl images={images}>
+          <ImagePreview images={images}>
             {assets.map((item, index) => (
-              <div key={item.key} className="pointer relative">
+              <ImagePreviewAction previewIndex={index} key={item.key} className="relative">
                 <Icon
                   className="absolute right-0 z-[1] -translate-y-1/2 translate-x-1/2 text-2xl"
                   type="icon-close"
@@ -210,7 +208,7 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
                   className={styles.img}
                   src={item.src}
                 />
-              </div>
+              </ImagePreviewAction>
             ))}
           </ImagePreview>
         </div>

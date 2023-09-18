@@ -4,13 +4,11 @@ import type { ImagePreviewItem } from '@/components/ImagePreview';
 
 export type ImagePreviewContextState = {
   selectIndex?: number;
-  images?: ImagePreviewItem[];
 };
 
 export enum ImagePreviewContextActionType {
   close,
   open,
-  updateImages,
 }
 
 export type ImageModalContextAction = {
@@ -18,7 +16,10 @@ export type ImageModalContextAction = {
   payload?: Partial<ImagePreviewContextState>;
 };
 
-export const ImagePreviewContext = createContext(null) as unknown as Context<{
+export const ImagePreviewContext = createContext({
+  dispatch: () => {},
+}) as unknown as Context<{
   state: ImagePreviewContextState;
   dispatch: Dispatch<ImageModalContextAction>;
+  images?: ImagePreviewItem[];
 }>;

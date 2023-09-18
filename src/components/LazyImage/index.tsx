@@ -25,17 +25,15 @@ export const LOADED_IMAGE_URLS = new Set<string | undefined>();
 
 const { brokenImg } = Assets;
 
-export const LazyImage: FC<LazyImageProps> = (
-  {
-    src,
-    className = 'object-cover w-full h-full',
-    blurSrc,
-    containerClassName = 'w-full',
-    lazy = true,
-    aspectRatio,
-    ...props
-  },
-) => {
+export const LazyImage: FC<LazyImageProps> = ({
+  src,
+  className = 'object-cover w-full h-full',
+  blurSrc,
+  containerClassName = 'w-full',
+  lazy = true,
+  aspectRatio,
+  ...props
+}) => {
   const [loading, setLoading] = useState(() => {
     const isLocalDataOrEmpty = src?.startsWith('data:') || src?.startsWith('blob:') || !src;
     if (lazy) {
@@ -81,27 +79,30 @@ export const LazyImage: FC<LazyImageProps> = (
         if (props.crossOrigin) {
           img.crossOrigin = props.crossOrigin;
         }
-        img.onload = () => {
-          LOADED_IMAGE_URLS.add(src);
-          setImgSrc(src);
-          setLoading(false);
-        };
-        img.onerror = () => {
-          setImgSrc(brokenImg);
-          setLoading(false);
-        };
         img.src = src;
+        img
+          .decode()
+          .then(() => {
+            LOADED_IMAGE_URLS.add(src);
+            setImgSrc(src);
+            setLoading(false);
+          })
+          .catch(() => {
+            setImgSrc(brokenImg);
+            setLoading(false);
+          });
       }
     },
   });
 
   return (
     <span
-      className={classNames(containerClassName, 'isolate block select-none overflow-hidden')}
+      className={classNames(containerClassName, 'block select-none overflow-hidden')}
       style={{ aspectRatio }}
     >
       <motion.img
         {...props}
+        loading="lazy"
         ref={ref}
         variants={variants}
         initial={loading ? 'loading' : 'loaded'}

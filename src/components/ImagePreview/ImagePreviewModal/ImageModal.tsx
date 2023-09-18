@@ -1,10 +1,11 @@
+import type { ImagePreviewItem } from '@/components/ImagePreview';
+import styles from '@/components/ImagePreview/ImagePreviewModal/content.module.scss';
+import { Assets } from '@powerfulyang/components';
 import classNames from 'classnames';
 import type { TargetAndTransition, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
-import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Assets } from '@powerfulyang/components';
-import styles from '@/components/ImagePreview/ImagePreviewModal/content.module.scss';
-import type { ImagePreviewItem } from '@/components/ImagePreview';
+import type { FC } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 type ImageModalProps = {
   selectIndex: number;
@@ -39,20 +40,18 @@ const variants: Variants = {
       willChange: 'transform, opacity',
     };
   },
-  animate: (
-    {
-      isPrev: p,
-      isNext: n,
-      x: ox,
-      loaded: l,
-      y: oy,
-      realIndex: r,
-      selectIndex: s,
-      actionRef,
-      viewportWidth,
-      viewportHeight,
-    }: Custom,
-  ) => {
+  animate: ({
+    isPrev: p,
+    isNext: n,
+    x: ox,
+    loaded: l,
+    y: oy,
+    realIndex: r,
+    selectIndex: s,
+    actionRef,
+    viewportWidth,
+    viewportHeight,
+  }: Custom) => {
     const offset: number = (p && -20) || (n && 20) || 0;
     let t: TargetAndTransition;
     if (actionRef.current !== 0) {
@@ -98,95 +97,101 @@ const variants: Variants = {
   },
 };
 
-export const ImageModal = memo<ImageModalProps>(
-  ({ selectIndex, index, actionRef, destroy, x, y, ...rest }) => {
-    const [url, setUrl] = useState(() => {
-      return rest.thumbnail || rest.original;
-    });
-    const [loaded, setLoaded] = useState(false);
-    const isBrokenRef = useRef<boolean>();
+export const ImageModal: FC<ImageModalProps> = ({
+  selectIndex,
+  index,
+  actionRef,
+  destroy,
+  x,
+  y,
+  ...rest
+}) => {
+  const [url, setUrl] = useState(() => {
+    return rest.thumbnail || rest.original;
+  });
+  const [loaded, setLoaded] = useState(false);
+  const isBrokenRef = useRef<boolean>();
 
-    useEffect(() => {
-      const originUrl = rest.original;
-      if (originUrl) {
-        const img = new Image();
-        img.decoding = 'async';
-        img.onload = () => {
-          setLoaded(true);
-          isBrokenRef.current = false;
-        };
-        img.onerror = () => {
-          setLoaded(true);
-          isBrokenRef.current = true;
-        };
-        img.src = originUrl;
+  useEffect(() => {
+    const originUrl = rest.original;
+    if (originUrl) {
+      const img = new Image();
+      img.decoding = 'async';
+      img.onload = () => {
+        setLoaded(true);
+        isBrokenRef.current = false;
+      };
+      img.onerror = () => {
+        setLoaded(true);
+        isBrokenRef.current = true;
+      };
+      img.src = originUrl;
+    }
+  }, [rest.original]);
+
+  const realIndex = selectIndex === 0 ? selectIndex + index : selectIndex - 1 + index;
+  const isPrev = selectIndex > realIndex;
+  const isNext = selectIndex < realIndex;
+  const isMain = selectIndex === realIndex;
+
+  const isSmallScreen = window.innerWidth < 768;
+
+  const viewportWidth = window.visualViewport?.width || window.innerWidth;
+
+  const viewportHeight = window.visualViewport?.height || window.innerHeight;
+
+  const isWider = useMemo(() => {
+    const width = isSmallScreen ? viewportWidth : viewportWidth - 70 * 2;
+    return viewportHeight / width > Number(rest.size?.height) / Number(rest.size?.width);
+  }, [isSmallScreen, viewportWidth, viewportHeight, rest.size?.height, rest.size?.width]);
+
+  const onAnimateComplete = useCallback(
+    (label: string) => {
+      if (isMain && label === 'exit') {
+        destroy(selectIndex);
       }
-    }, [rest.original]);
-
-    const realIndex = selectIndex === 0 ? selectIndex + index : selectIndex - 1 + index;
-    const isPrev = selectIndex > realIndex;
-    const isNext = selectIndex < realIndex;
-    const isMain = selectIndex === realIndex;
-
-    const isSmallScreen = window.innerWidth < 768;
-
-    const viewportWidth = window.visualViewport?.width || window.innerWidth;
-
-    const viewportHeight = window.visualViewport?.height || window.innerHeight;
-
-    const isWider = useMemo(() => {
-      const width = isSmallScreen ? viewportWidth : viewportWidth - 70 * 2;
-      return viewportHeight / width > Number(rest.size?.height) / Number(rest.size?.width);
-    }, [isSmallScreen, viewportWidth, viewportHeight, rest.size?.height, rest.size?.width]);
-
-    const onAnimateComplete = useCallback(
-      (label: string) => {
-        if (isMain && label === 'exit') {
-          destroy(selectIndex);
+      if (label === 'animate' && loaded) {
+        if (isBrokenRef.current === true) {
+          setUrl(Assets.brokenImg);
         }
-        if (label === 'animate' && loaded) {
-          if (isBrokenRef.current === true) {
-            setUrl(Assets.brokenImg);
-          }
-          if (isBrokenRef.current === false) {
-            setUrl(rest.original);
-          }
+        if (isBrokenRef.current === false) {
+          setUrl(rest.original);
         }
-      },
-      [destroy, isMain, loaded, rest.original, selectIndex],
-    );
+      }
+    },
+    [destroy, isMain, loaded, rest.original, selectIndex],
+  );
 
-    return (
-      <motion.img
-        custom={{
-          isPrev,
-          isNext,
-          x,
-          y,
-          loaded,
-          realIndex,
-          selectIndex,
-          viewportWidth,
-          viewportHeight,
-          actionRef,
-        }}
-        onAnimationComplete={onAnimateComplete}
-        variants={variants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{ duration: 0.3 }}
-        className={classNames(styles.image, 'pointer', {
-          [styles.wFullImage]: isWider,
-          'h-full': !isWider,
-        })}
-        src={url}
-        alt=""
-        draggable={false}
-        onClick={(e) => e.stopPropagation()}
-      />
-    );
-  },
-);
+  return (
+    <motion.img
+      custom={{
+        isPrev,
+        isNext,
+        x,
+        y,
+        loaded,
+        realIndex,
+        selectIndex,
+        viewportWidth,
+        viewportHeight,
+        actionRef,
+      }}
+      onAnimationComplete={onAnimateComplete}
+      variants={variants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={{ duration: 0.3 }}
+      className={classNames(styles.image, 'pointer', {
+        [styles.wFullImage]: isWider,
+        'h-full': !isWider,
+      })}
+      src={url}
+      alt=""
+      draggable={false}
+      onClick={(e) => e.stopPropagation()}
+    />
+  );
+};
 
 ImageModal.displayName = 'ImageModal';

@@ -87,14 +87,10 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
                   onChange={(inView) => {
                     inView && !isFetching && fetchPreviousPage();
                   }}
+                  className={styles.footer}
+                  as="div"
                 >
-                  {({ ref }) => {
-                    return (
-                      <div className={styles.footer} ref={ref}>
-                        <span className={styles.loading}>Loading</span>
-                      </div>
-                    );
-                  }}
+                  <span className={styles.loading}>Loading</span>
                 </InView>
               ) : (
                 <div className={styles.footer}>

@@ -1,12 +1,12 @@
 'use client';
 
+import { ProjectName } from '@/constant/Constant';
 import * as D from '@docsearch/react';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
-import React, { memo, useMemo } from 'react';
-import { ProjectName } from '@/constant/Constant';
+import React, { memo } from 'react';
 import styles from './index.module.scss';
 import { NavBarUser } from './User';
 
@@ -17,9 +17,7 @@ type NavBarProps = {};
 const Menus: FC = () => {
   const pathname = usePathname();
 
-  const currentMenu = useMemo(() => {
-    return menus.find((m) => pathname.includes(m)) || 'post';
-  }, [pathname]);
+  const currentMenu = menus.find((m) => pathname.includes(m)) || 'post';
 
   return (
     <div className={styles.menus}>
