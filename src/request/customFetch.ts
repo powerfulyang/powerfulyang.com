@@ -2,8 +2,8 @@
 
 import { toast } from 'react-hot-toast';
 
-export const customFetch: typeof fetch = async (url, options) => {
-  const res = await fetch(url, options);
+export const customFetch: typeof fetch = async (...params) => {
+  const res = await fetch(...params);
   if (!res.ok) {
     const error = await res.json();
     toast.error(error.message);

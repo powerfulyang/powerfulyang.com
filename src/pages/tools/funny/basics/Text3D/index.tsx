@@ -3,7 +3,7 @@ import { Canvas, useLoader } from '@react-three/fiber';
 import { useControls } from 'leva';
 import React, { Suspense, useLayoutEffect, useRef } from 'react';
 import type { Mesh } from 'three';
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+import { FontLoader } from 'three-stdlib';
 
 const HelloText = () => {
   const ref = useRef<Mesh>(null!);

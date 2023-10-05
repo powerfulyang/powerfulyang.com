@@ -24,7 +24,7 @@
     "allowJs": true,
     "noEmit": true,
     "incremental": true,
-    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
+    "lib": ["dom", "dom.iterable", "esnext", "WebWorker"],
     "noImplicitAny": true,
     "plugins": [
       {
