@@ -138,3 +138,5 @@ Gallery.getLayout = (page) => {
 };
 
 export default Gallery;
+
+export const runtime = 'experimental-edge';

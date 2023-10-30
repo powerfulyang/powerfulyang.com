@@ -104,3 +104,5 @@ const App = ({ Component, pageProps }: MyAppProps) => {
 };
 
 export default trpc.withTRPC(App);
+
+export const runtime = 'experimental-edge';

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 import { PreloadResources } from '@/components/PreloadResources';
@@ -29,14 +29,19 @@ export const metadata: Metadata = {
     },
   ],
   manifest: 'manifest.json',
-  colorScheme: 'normal',
-  themeColor: '#ffffff',
-  viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
   alternates: {
     types: {
       'application/rss+xml': 'rss.xml',
     },
   },
+};
+
+export const viewport: Viewport = {
+  colorScheme: 'normal',
+  themeColor: '#ffffff',
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
 };
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
@@ -54,3 +59,5 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
 };
 
 export default Layout;
+
+export const runtime = 'edge';

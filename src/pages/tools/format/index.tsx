@@ -51,9 +51,6 @@ const Format = () => {
   });
 
   const monacoLanguage = useMemo(() => {
-    if (language === 'prisma-parse') {
-      return 'nginx';
-    }
     return language;
   }, [language]);
 
@@ -101,7 +98,6 @@ const Format = () => {
               <SelectItem value="graphql">graphql</SelectItem>
               <SelectItem value="xml">xml</SelectItem>
               <SelectItem value="java">java</SelectItem>
-              <SelectItem value="prisma-parse">prisma</SelectItem>
               <SelectItem value="sql">sql</SelectItem>
             </SelectContent>
           </Select>

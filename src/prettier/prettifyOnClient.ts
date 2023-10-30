@@ -11,7 +11,6 @@ import * as nginxParser from 'prettier-plugin-nginx';
 import * as graphqlParser from 'prettier/plugins/graphql';
 import xmlParser from '@prettier/plugin-xml';
 import * as javaParser from 'prettier-plugin-java';
-import prismaParser from 'prettier-plugin-prisma';
 import sqlParser from 'prettier-plugin-sql';
 import { format } from 'prettier/standalone';
 
@@ -35,7 +34,6 @@ export async function prettify(language: string, value: string, options?: Option
         graphqlParser,
         xmlParser,
         javaParser,
-        prismaParser,
         sqlParser,
       ],
       // Print semicolons at the ends of statements.

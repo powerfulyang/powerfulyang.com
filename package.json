@@ -11,12 +11,13 @@
   "scripts": {
     "analyze": "cross-env ANALYZE=true next build",
     "prebuild": "echo \"prebuild\"",
+    "local:build": "cross-env NODE_OPTIONS=--max_old_space_size=4096 next build",
     "build": "next build",
     "postbuild": "rimraf --glob ./.next/**/*.map && next-sitemap --config ./next-sitemap.config.mjs",
     "codegen-swagger:local": "cross-env SWAGGER_ORIGIN=https://local.powerfulyang.com node ./dev/swagger-typescript-codegen.config.mjs",
     "codegen-swagger:qa": "cross-env SWAGGER_ORIGIN=https://qa.powerfulyang.com node ./dev/swagger-typescript-codegen.config.mjs",
     "codegen-swagger:prod": "cross-env SWAGGER_ORIGIN=https://powerfulyang.com node ./dev/swagger-typescript-codegen.config.mjs",
-    "postinstall": "npx husky install",
+    "postinstall": "if [ \"$CF_PAGES\" != \"1\" ]; then npx husky install; fi",
     "lint:js": "eslint ./src --ext .ts,.tsx --fix",
     "lint:style": "stylelint --fix \"src/**/*.scss\"",
     "prettier": "prettier \"src/**/*.{tsx,ts,scss}\" --write",
@@ -196,7 +197,8 @@
     },
     "patchedDependencies": {
       "chevrotain@6.5.0": "patches/chevrotain@6.5.0.patch",
-      "@huacnlee/autocorrect@2.8.5": "patches/@huacnlee__autocorrect@2.8.5.patch"
+      "@huacnlee/autocorrect@2.8.5": "patches/@huacnlee__autocorrect@2.8.5.patch",
+      "monaco-textmate@3.0.1": "patches/monaco-textmate@3.0.1.patch"
     },
     "overrides": {
       "yargs-parser@<=5.0.0": ">=5.0.1",

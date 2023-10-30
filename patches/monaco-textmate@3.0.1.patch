@@ -1,0 +1,13 @@
+diff --git a/dist/rule.js b/dist/rule.js
+index 45769cc26d540592ef609e6d99a657fe442bd41f..4b6757cdb37e39c7660236713cb1efe78edd14e3 100755
+--- a/dist/rule.js
++++ b/dist/rule.js
+@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
+     };
+ })();
+ Object.defineProperty(exports, "__esModule", { value: true });
+-var path = require("path");
++var path = require("path-browserify");
+ var utils_1 = require("./utils");
+ var onigasm_1 = require("onigasm");
+ var HAS_BACK_REFERENCES = /\\(\d+)/;
