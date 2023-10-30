@@ -5,6 +5,7 @@ WORKDIR /usr/app
 
 COPY package.json pnpm-lock.yaml .npmrc ./
 COPY patches/ ./patches/
+COPY postinstall.mjs ./postinstall.mjs
 
 RUN apk add --no-cache tzdata \
     && echo "Asia/Shanghai" > /etc/timezone \

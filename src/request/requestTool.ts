@@ -49,6 +49,10 @@ const { api: clientApi } = new CustomApi({
 
 const { api: serverApi } = new Api({
   baseUrl: process.env.SERVER_BASE_URL,
+  baseApiParams: {
+    // edge case: server-side fetch doesn't support credentials
+    credentials: undefined,
+  },
 });
 
 // isServer ? serverApi : clientApi

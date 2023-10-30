@@ -11,7 +11,7 @@ export const remarkMetadata = ((metadataRef?: React.MutableRefObject<MarkdownMet
       const formatted = [];
       try {
         const metadata: MarkdownMetadata = parse(yamlPart?.value || '') || {};
-        process.nextTick(() => {
+        queueMicrotask(() => {
           // eslint-disable-next-line no-param-reassign
           metadataRef && (metadataRef.current = metadata);
         });

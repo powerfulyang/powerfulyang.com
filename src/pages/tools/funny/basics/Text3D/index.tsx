@@ -42,7 +42,7 @@ const App = () => {
   );
 };
 
-export const getServerSideProps = () => {
+export const getStaticProps = () => {
   return {
     props: {
       meta: {

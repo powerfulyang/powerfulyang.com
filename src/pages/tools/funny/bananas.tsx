@@ -16,7 +16,7 @@ const Index = () => {
 
 export default Index;
 
-export const getServerSideProps = () => {
+export const getStaticProps = () => {
   return {
     props: {
       meta: {

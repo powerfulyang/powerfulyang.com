@@ -54,7 +54,7 @@ const Item = ({ item }: Props) => {
 
 const initialItems = ['🍅 Tomato', '🥒 Cucumber', '🧀 Cheese', '🥬 Lettuce'];
 
-const _Reorder = () => {
+const App = () => {
   const [items, setItems] = useState(initialItems);
 
   return (
@@ -68,7 +68,7 @@ const _Reorder = () => {
   );
 };
 
-export const getServerSideProps = () => {
+export const getStaticProps = () => {
   return {
     props: {
       meta: {
@@ -79,4 +79,4 @@ export const getServerSideProps = () => {
   };
 };
 
-export default _Reorder;
+export default App;

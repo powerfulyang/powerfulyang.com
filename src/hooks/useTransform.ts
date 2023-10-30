@@ -1,5 +1,4 @@
 import { useWorkerLoader } from '@/hooks/useWorkerLoader';
-import { trpc } from '@/utils/trpc';
 import type { PrettierWorker } from '@/workers/prettier.worker';
 import { useQuery } from '@tanstack/react-query';
 import globToRegExp from 'glob-to-regexp';
@@ -7,7 +6,6 @@ import { useMemo, useState } from 'react';
 
 export enum Action {
   'html2jsx' = 'html2jsx',
-  'html2pug' = 'html2pug',
   'glob2regex' = 'glob2regex',
 }
 
@@ -30,16 +28,6 @@ export const useTransform = () => {
     },
   });
 
-  const html2pug = trpc.html2pug.useQuery(
-    {
-      html: value,
-    },
-    {
-      enabled: Boolean(action === 'html2pug' && value),
-      keepPreviousData: true,
-    },
-  );
-
   const glob2regex = useQuery({
     queryKey: [Action.glob2regex, value],
     enabled: Boolean(value && action === Action.glob2regex),
@@ -57,14 +45,11 @@ export const useTransform = () => {
     if (action === Action.html2jsx) {
       _result = html2jsx.data;
     }
-    if (action === Action.html2pug) {
-      _result = html2pug.data;
-    }
     if (action === Action.glob2regex) {
       _result = glob2regex.data?.source;
     }
     return _result ?? '';
-  }, [action, html2jsx.data, html2pug.data, glob2regex.data?.source]);
+  }, [action, html2jsx.data, glob2regex.data?.source]);
 
   return {
     action,

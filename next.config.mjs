@@ -11,7 +11,6 @@ import { runtimeCaching } from './runtimeCaching.mjs';
 
 const pkg = await readPackageUp();
 const { dependencies } = pkg.packageJson;
-const ffmpegVersion = dependencies['@ffmpeg/ffmpeg'].replaceAll('.', '');
 const onigasmVersion = dependencies.onigasm.replaceAll('.', '');
 
 const { SENTRY_AUTH_TOKEN } = process.env;
@@ -58,16 +57,14 @@ const config = {
   experimental: {
     scrollRestoration: true,
     clientRouterFilter: false,
-    webpackBuildWorker: true,
   },
   env: {
-    CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST || '',
     NEXT_PUBLIC_SENTRY_DSN:
       'https://15cbb27739a345dab5ab27ceb9491de0@o4504332393578496.ingest.sentry.io/4504332396134400',
     NEXT_PUBLIC_GA_ID: 'G-T622M0KSVS',
-    SERVER_BASE_URL: process.env.SERVER_BASE_URL || 'https://powerfulyang.com',
-    NEXT_PUBLIC_FFMPEG_VERSION: ffmpegVersion,
     NEXT_PUBLIC_ONIGASM_VERSION: onigasmVersion,
+    CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST,
+    SERVER_BASE_URL: process.env.SERVER_BASE_URL,
   },
   eslint: {
     ignoreDuringBuilds: true, // 不用自带的
@@ -145,8 +142,16 @@ const nextConfig = withSentryConfig(
     ...config,
     ...withBundleAnalyzer(
       withPWA({
-        webpack: (c, { isServer }) => {
+        webpack: (c, { isServer, nextRuntime }) => {
           const _c = c;
+          // edge runtime
+          if (nextRuntime === 'edge') {
+            _c.resolve.fallback.stream = false;
+          }
+          // disable cache
+          if (process.env.CF_PAGES === '1') {
+            _c.cache = false;
+          }
           // camel-case style names from css modules
           c.module.rules
             .find(({ oneOf }) => !!oneOf)
@@ -196,10 +201,6 @@ const nextConfig = withSentryConfig(
             c.plugins.push(
               new CopyWebpackPlugin({
                 patterns: [
-                  {
-                    from: path.resolve('node_modules/@ffmpeg/core/dist/umd'),
-                    to: path.resolve(`.next/static/ffmpeg/${ffmpegVersion}`),
-                  },
                   {
                     from: path.resolve('node_modules/onigasm/lib/onigasm.wasm'),
                     to: path.resolve(`.next/static/onigasm/${onigasmVersion}/onigasm.wasm`),

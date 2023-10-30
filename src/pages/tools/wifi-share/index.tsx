@@ -121,7 +121,7 @@ const WifiShare: LayoutFC = () => {
   );
 };
 
-export const getServerSideProps = () => {
+export const getStaticProps = () => {
   return {
     props: {
       meta: {

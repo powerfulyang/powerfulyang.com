@@ -1,6 +1,6 @@
+import { brokenImg } from '@/assets';
 import type { ImagePreviewItem } from '@/components/ImagePreview';
 import styles from '@/components/ImagePreview/ImagePreviewModal/content.module.scss';
-import { Assets } from '@powerfulyang/components';
 import classNames from 'classnames';
 import type { TargetAndTransition, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
@@ -152,7 +152,7 @@ export const ImageModal: FC<ImageModalProps> = ({
       }
       if (label === 'animate' && loaded) {
         if (isBrokenRef.current === true) {
-          setUrl(Assets.brokenImg);
+          setUrl(brokenImg);
         }
         if (isBrokenRef.current === false) {
           setUrl(rest.original);

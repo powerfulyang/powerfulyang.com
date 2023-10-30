@@ -139,7 +139,7 @@ const Format = () => {
 
 export default Format;
 
-export const getServerSideProps = () => {
+export const getStaticProps = () => {
   return {
     props: {
       meta: {

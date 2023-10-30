@@ -121,3 +121,5 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 export default Publish;
+
+export const runtime = 'experimental-edge';

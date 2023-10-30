@@ -1,8 +1,8 @@
+import { Icon } from '@/components/Icon';
 import type { FC, MouseEvent, TouchEvent } from 'react';
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Icon } from '@powerfulyang/components';
 import { isDefined } from '@powerfulyang/utils';
 import { fromEvent } from 'rxjs';
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';

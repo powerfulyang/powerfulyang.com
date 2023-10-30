@@ -50,3 +50,7 @@ public/worker-*.js
 .vscode
 
 .turbo
+
+.vercel/
+cache/
+.wrangler/

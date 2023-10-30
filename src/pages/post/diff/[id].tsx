@@ -1,5 +1,6 @@
-import ReactDiffViewer from 'react-diff-viewer';
+import Loading from '@/app/loading';
 import type { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import React from 'react';
 import { Prism } from 'react-syntax-highlighter';
@@ -13,6 +14,11 @@ type Props = {
   left: Post;
   right: Post;
 };
+
+const ReactDiffViewer = dynamic(() => import('react-diff-viewer'), {
+  ssr: false,
+  loading: () => <Loading />,
+});
 
 const Diff: FC<Props> = ({ left, right }) => {
   const leftTitle = `${left.title} @ ${formatDateTime(left.createdAt)}`;
@@ -120,3 +126,5 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 export default Diff;
+
+export const runtime = 'experimental-edge';

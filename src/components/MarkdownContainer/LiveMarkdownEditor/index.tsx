@@ -1,6 +1,5 @@
 import { prettify } from '@/prettier/prettifyOnClient';
 import type { Monaco } from '@monaco-editor/react';
-import { Icon } from '@powerfulyang/components';
 import type { VoidFunction } from '@powerfulyang/utils';
 import classNames from 'classnames';
 import type { editor } from 'monaco-editor';
@@ -17,6 +16,7 @@ import {
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import MonacoEditor from '@/components/monaco-editor/editor';
+import { Icon } from '@/components/Icon';
 import styles from './index.module.scss';
 
 export type MarkdownMetadata = {

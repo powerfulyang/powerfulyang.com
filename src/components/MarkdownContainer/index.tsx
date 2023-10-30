@@ -1,10 +1,10 @@
 'use client';
 
+import { Icon } from '@/components/Icon';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
 import { remarkDirectiveHandle } from '@/components/MarkdownContainer/plugins/remarkDirectiveHandle';
 import { remarkMetadata } from '@/components/MarkdownContainer/plugins/remarkMetadata';
 import { copyToClipboardAndNotify } from '@/utils/copy';
-import { Icon } from '@powerfulyang/components';
 import classNames from 'classnames';
 // `rehype-katex` does not import the CSS for you
 import 'katex/dist/katex.min.css';

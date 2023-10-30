@@ -1,6 +1,6 @@
 'use client';
 
-import { Assets } from '@powerfulyang/components';
+import { brokenImg } from '@/assets';
 import classNames from 'classnames';
 import type { HTMLMotionProps, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
@@ -22,8 +22,6 @@ export type LazyImageExtendProps = {
 export type LazyImageProps = HTMLMotionProps<'img'> & LazyImageExtendProps;
 
 export const LOADED_IMAGE_URLS = new Set<string | undefined>();
-
-const { brokenImg } = Assets;
 
 export const LazyImage: FC<LazyImageProps> = ({
   src,

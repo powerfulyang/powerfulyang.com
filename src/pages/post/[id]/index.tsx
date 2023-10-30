@@ -98,3 +98,5 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 export default PostDetail;
+
+export const runtime = 'experimental-edge';

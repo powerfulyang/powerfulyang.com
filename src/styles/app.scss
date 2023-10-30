@@ -118,3 +118,11 @@ label,
 .common-shadow {
   box-shadow: 0 0 10px 5px rgb(160 44 219 / 7%);
 }
+
+.py-icon {
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  fill: currentcolor;
+  display: inline-block;
+}

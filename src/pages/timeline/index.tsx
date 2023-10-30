@@ -230,3 +230,5 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 export default Timeline;
+
+export const runtime = 'experimental-edge';

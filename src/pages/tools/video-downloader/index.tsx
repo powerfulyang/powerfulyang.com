@@ -94,7 +94,7 @@ VideoDownloader.getLayout = (page) => {
   return <UserLayout>{page}</UserLayout>;
 };
 
-export const getServerSideProps = () => {
+export const getStaticProps = () => {
   return {
     props: {
       meta: {

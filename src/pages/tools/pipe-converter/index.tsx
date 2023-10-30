@@ -152,7 +152,7 @@ PipeConverter.getLayout = (page) => {
 
 export default PipeConverter;
 
-export const getServerSideProps = () => {
+export const getStaticProps = () => {
   return {
     props: {
       meta: {

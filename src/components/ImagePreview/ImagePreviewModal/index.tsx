@@ -1,12 +1,17 @@
 import { ImageViewContent } from '@/components/ImagePreview/ImagePreviewModal/ImageViewContent';
 import { ImagePreviewContext } from '@/context/ImagePreviewContext';
 import { useHiddenOverflow } from '@/hooks/useHiddenOverflow';
-import { Portal } from '@powerfulyang/components';
 import { useLockScroll } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
 import { useIsomorphicLayoutEffect } from 'framer-motion';
-import type { FC } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import React, { useContext } from 'react';
+import { createPortal } from 'react-dom';
+
+const Portal: FC<PropsWithChildren<any>> = (props) => {
+  const { container = globalThis?.document?.body, children } = props;
+  return container ? createPortal(children, container) : null;
+};
 
 type ImagePreviewModalProps = {};
 

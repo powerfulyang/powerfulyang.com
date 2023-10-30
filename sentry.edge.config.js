@@ -3,13 +3,12 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from '@sentry/nextjs';
-import { isProdProcess } from '@powerfulyang/utils';
 
 const SENTRY_DSN = process.env.NEXT_PUBLIC_SENTRY_DSN;
 
 // which will slow down your app
 // disable it
-if (isProdProcess) {
+if (process.env.NODE_ENV === 'production') {
   Sentry.init({
     dsn: SENTRY_DSN,
     // Adjust this value in production, or use tracesSampler for greater control

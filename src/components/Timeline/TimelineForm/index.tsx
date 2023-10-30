@@ -14,7 +14,6 @@ import {
   sourceUrlToFile,
 } from '@/utils/copy';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Icon } from '@powerfulyang/components';
 import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
 import { useMutation } from '@tanstack/react-query';
 import confetti from 'canvas-confetti';
@@ -23,6 +22,7 @@ import type { ChangeEvent, ClipboardEvent } from 'react';
 import React, { memo, useEffect, useMemo, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
+import { Icon } from '@/components/Icon';
 import styles from './index.module.scss';
 
 type Props = {
