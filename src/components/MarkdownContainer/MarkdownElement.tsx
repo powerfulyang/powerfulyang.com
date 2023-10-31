@@ -1,18 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
 import type { FC } from 'react';
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import type { JsxRuntimeComponents } from 'react-markdown/lib';
 import { clientApi } from '@/request/requestTool';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
-import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
 import { PrismCode } from '@/components/PrismCode';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import styles from './index.module.scss';
 
 export const H1: JsxRuntimeComponents['h1'] = ({ children, id = '' }) => {
-  const { id_prefix } = useContext(TimelineItemContext);
-  const v = `${id_prefix}${id}`;
+  const v = `${id}`;
   return (
     <div className="relative">
       <div title="anchor" id={encodeURIComponent(v)} className={styles.anchor} />
@@ -28,8 +26,7 @@ export const H1: JsxRuntimeComponents['h1'] = ({ children, id = '' }) => {
 };
 
 export const H2: JsxRuntimeComponents['h2'] = ({ children, id = '' }) => {
-  const { id_prefix } = useContext(TimelineItemContext);
-  const v = id && `${id_prefix}${id}`;
+  const v = id && `${id}`;
   return (
     <div className="relative">
       <div title="anchor" id={encodeURIComponent(v)} className={styles.anchor} />
@@ -39,8 +36,7 @@ export const H2: JsxRuntimeComponents['h2'] = ({ children, id = '' }) => {
 };
 
 export const H3: JsxRuntimeComponents['h3'] = ({ children, id = '' }) => {
-  const { id_prefix } = useContext(TimelineItemContext);
-  const v = id && `${id_prefix}${id}`;
+  const v = id && `${id}`;
   return (
     <div className="relative">
       <div title="anchor" id={encodeURIComponent(v)} className={styles.anchor} />
@@ -50,8 +46,7 @@ export const H3: JsxRuntimeComponents['h3'] = ({ children, id = '' }) => {
 };
 
 export const H4: JsxRuntimeComponents['h4'] = ({ children, id = '' }) => {
-  const { id_prefix } = useContext(TimelineItemContext);
-  const v = id && `${id_prefix}${id}`;
+  const v = id && `${id}`;
   return (
     <div className="relative">
       <div title="anchor" id={encodeURIComponent(v)} className={styles.anchor} />

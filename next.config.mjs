@@ -11,6 +11,7 @@ import { runtimeCaching } from './runtimeCaching.mjs';
 
 const pkg = await readPackageUp();
 const { dependencies } = pkg.packageJson;
+const ffmpegVersion = dependencies['@ffmpeg/ffmpeg'].replaceAll('.', '');
 const onigasmVersion = dependencies.onigasm.replaceAll('.', '');
 
 const { SENTRY_AUTH_TOKEN } = process.env;
@@ -44,25 +45,19 @@ const config = {
         source: '/post/year/:year',
         destination: '/post',
       },
-      {
-        source: '/app_post/year/:year',
-        destination: '/app_post',
-      },
-      {
-        source: '/post/publish',
-        destination: '/post/publish/0',
-      },
     ]);
   },
   experimental: {
     scrollRestoration: true,
     clientRouterFilter: false,
+    webpackBuildWorker: true,
   },
   env: {
     NEXT_PUBLIC_SENTRY_DSN:
       'https://15cbb27739a345dab5ab27ceb9491de0@o4504332393578496.ingest.sentry.io/4504332396134400',
     NEXT_PUBLIC_GA_ID: 'G-T622M0KSVS',
     NEXT_PUBLIC_ONIGASM_VERSION: onigasmVersion,
+    NEXT_PUBLIC_FFMPEG_VERSION: ffmpegVersion,
     CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST,
     SERVER_BASE_URL: process.env.SERVER_BASE_URL,
   },

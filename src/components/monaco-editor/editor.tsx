@@ -17,26 +17,24 @@ function loadOnigasm() {
   return onigasm.loadWASM(onigasmWasmUrl);
 }
 
-const prev = window.MonacoEnvironment!.getWorkerUrl!.bind(window.MonacoEnvironment!);
-// MonacoEnvironment
-window.MonacoEnvironment!.getWorkerUrl = (_, label) => {
-  if (label === 'vue') {
-    return vueWorkerURL;
-  }
-  return prev(_, label);
-};
-
 // monaco-editor has fixed this issue at v0.35.0
 // monaco.languages.register({
 //   id: 'vs.editor.nullLanguage',
 // });
 // monaco.languages.setLanguageConfiguration('vs.editor.nullLanguage', {});
 
-loader.config({
-  monaco,
-});
-
 if (isClient) {
+  const prev = window.MonacoEnvironment!.getWorkerUrl!.bind(window.MonacoEnvironment!);
+  // MonacoEnvironment
+  window.MonacoEnvironment!.getWorkerUrl = (_, label) => {
+    if (label === 'vue') {
+      return vueWorkerURL;
+    }
+    return prev(_, label);
+  };
+  loader.config({
+    monaco,
+  });
   setupMonacoEnv();
   await loadOnigasm();
   await loadTheme(monaco.editor);
@@ -75,6 +73,6 @@ function setupMonacoEnv(takeoverMode = false) {
     const getSyncUris = () => editor.getModels().map((model) => model.uri);
     volar.editor.activateMarkers(worker, languageId, 'vue', getSyncUris, editor);
     volar.editor.activateAutoInsertion(worker, languageId, getSyncUris, editor);
-    await volar.languages.registerProvides(worker, languageId, getSyncUris, languages);
+    await volar.languages.registerProviders(worker, languageId, getSyncUris, languages);
   }
 }

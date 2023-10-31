@@ -33,7 +33,7 @@ const PostDetail: LayoutFC<PostProps> = ({ post: { content, id, logs = [] }, toc
   useHotkeys(
     '., 。',
     () => {
-      return router.push(`/post/publish/${id}`);
+      return router.push(`/post/publish?id=${id}`);
     },
     [router, id],
   );

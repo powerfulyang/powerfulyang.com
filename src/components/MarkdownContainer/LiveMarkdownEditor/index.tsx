@@ -14,9 +14,9 @@ import {
   runTagCommand,
 } from '@/components/MarkdownContainer/LiveMarkdownEditor/utils';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
-import { MarkdownContainer } from '@/components/MarkdownContainer';
-import MonacoEditor from '@/components/monaco-editor/editor';
 import { Icon } from '@/components/Icon';
+import MonacoEditor from '@/components/monaco-editor/editor';
+import { MarkdownContainer } from '@/components/MarkdownContainer';
 import styles from './index.module.scss';
 
 export type MarkdownMetadata = {

@@ -3,16 +3,14 @@ import type { InfiniteData } from '@tanstack/react-query';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { flatten } from 'lodash-es';
 import type { GetServerSideProps } from 'next';
-import Image from 'next/image';
 import React, { Fragment, useMemo } from 'react';
 import { InView } from 'react-intersection-observer';
 import type { Feed } from '@/__generated__/api';
-import bg from '@/assets/timeline-banner.webp';
 import { origin } from '@/components/Head';
 import { LazyImage } from '@/components/LazyImage';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { TimeLineForm } from '@/components/Timeline/TimelineForm';
-import { getTimelineItemElement, TimeLineItem } from '@/components/Timeline/TimelineItem';
+import { TimeLineItem } from '@/components/Timeline/TimelineItem';
 import { useUser } from '@/hooks/useUser';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientApi, serverApi } from '@/request/requestTool';
@@ -31,13 +29,12 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
   const { data, isError, fetchNextPage, fetchPreviousPage, hasPreviousPage, isFetching } =
     useInfiniteQuery(
       ['feeds', feeds, nextCursor, prevCursor],
-      ({ pageParam }) => {
-        return clientApi
-          .infiniteQueryPublicTimeline({
-            ...pageParam,
-            take: 10,
-          })
-          .then((x) => x.data);
+      async ({ pageParam }) => {
+        const x = await clientApi.infiniteQueryPublicTimeline({
+          ...pageParam,
+          take: 10,
+        });
+        return x.data;
       },
       {
         enabled: false,
@@ -71,7 +68,7 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
       },
     );
   const { user } = useUser();
-  const bannerUser = user || feeds[0]?.createBy || {};
+  const bannerUser = user || feeds[0]?.createBy;
 
   const resources = useMemo(() => {
     const res = flatten(data?.pages.map((x) => x.resources) || []);
@@ -122,23 +119,21 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
     <div className={styles.wrap}>
       <div className={styles.timelineShow}>
         <div className={styles.banner}>
-          {bannerUser.timelineBackground ? (
+          {(bannerUser?.timelineBackground && (
             <LazyAssetImage
               asset={bannerUser.timelineBackground}
               containerClassName={styles.bannerBg}
               thumbnail="poster"
               alt="banner"
             />
-          ) : (
-            <div className={styles.bannerBg}>
-              <Image
-                className="object-cover"
-                fill
-                placeholder="blur"
-                src={bg}
-                alt="banner-background"
-              />
-            </div>
+          )) || (
+            <LazyImage
+              draggable={false}
+              src="/thumbnail_700_.webp"
+              blurSrc="/thumbnail_blur_.webp"
+              containerClassName={styles.bannerBg}
+              alt="banner"
+            />
           )}
           <div className={styles.authorInfo}>
             <LazyImage
@@ -180,10 +175,6 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
                   };
                 },
               );
-              requestAnimationFrame(() => {
-                const targetElement = getTimelineItemElement(feed.id);
-                targetElement?.scrollIntoView({ behavior: 'smooth' });
-              });
             }
             return null;
           }}

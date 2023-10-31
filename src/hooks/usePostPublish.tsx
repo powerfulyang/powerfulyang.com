@@ -10,7 +10,7 @@ export const UsePostPublish: FC<{ id?: string }> = ({ id = '0' }) => {
   useHotkeys(
     '., 。',
     () => {
-      return router.push(`/app_post/publish/${id}`);
+      return router.push(`/app_post/publish?id=${id}`);
     },
     [router],
   );

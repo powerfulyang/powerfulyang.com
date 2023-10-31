@@ -1,24 +1,23 @@
-import classNames from 'classnames';
-import React, { memo, useEffect, useMemo } from 'react';
-import { atom, useAtom } from 'jotai';
-import type { Undefinable } from '@powerfulyang/utils';
-import type { InfiniteData } from '@tanstack/react-query';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Button } from '@/components/ui/button';
-import { formatDateTime } from '@/utils/lib';
-import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
+import type { Feed } from '@/__generated__/api';
 import {
   castAssetsToImagePreviewItem,
   ImagePreview,
   ImagePreviewAction,
 } from '@/components/ImagePreview';
 import { LazyImage } from '@/components/LazyImage';
-import type { InfiniteQueryResponse } from '@/types/InfiniteQuery';
-import { useUser } from '@/hooks/useUser';
-import { TimelineItemContext } from '@/components/Timeline/TimelineItem/TimelineItemContext';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
-import type { Feed } from '@/__generated__/api';
+import { Button } from '@/components/ui/button';
+import { useUser } from '@/hooks/useUser';
 import { clientApi } from '@/request/requestTool';
+import type { InfiniteQueryResponse } from '@/types/InfiniteQuery';
+import { formatDateTime } from '@/utils/lib';
+import type { Undefinable } from '@powerfulyang/utils';
+import type { InfiniteData } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import classNames from 'classnames';
+import { atom, useAtom } from 'jotai';
+import React, { memo, useEffect } from 'react';
 import styles from './index.module.scss';
 
 export const EditTimeLineItemAtom = atom<Undefinable<Feed>>(undefined);
@@ -33,11 +32,6 @@ export const useEditTimeLineItem = () => {
   }, [setEditTimeLineItem]);
 
   return [editTimeLineItem, setEditTimeLineItem] as const;
-};
-
-export const getTimelineItemId = (id: number) => `timeline-item-${id}`;
-export const getTimelineItemElement = (id: number) => {
-  return document.getElementById(getTimelineItemId(id));
 };
 
 export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
@@ -68,21 +62,6 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
       });
     },
   });
-
-  const contextValue = useMemo(() => {
-    return { id_prefix: getTimelineItemId(feed.id) };
-  }, [feed.id]);
-
-  const content = useMemo(() => {
-    return (
-      <article>
-        <h2 id={getTimelineItemId(feed.id)}>{getTimelineItemId(feed.id)}</h2>
-        <TimelineItemContext.Provider value={contextValue}>
-          <LazyMarkdownContainer source={feed.content} className={styles.content} />
-        </TimelineItemContext.Provider>
-      </article>
-    );
-  }, [contextValue, feed.content, feed.id]);
 
   return (
     <div key={feed.id} className={styles.container}>
@@ -129,7 +108,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
           </div>
         )}
       </div>
-      {content}
+      <LazyMarkdownContainer source={feed.content} className={styles.content} />
       {!!feed.assets?.length && (
         <div className={classNames(styles.assets)}>
           <ImagePreview images={castAssetsToImagePreviewItem(feed.assets)}>
