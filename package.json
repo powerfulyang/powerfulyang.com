@@ -82,6 +82,7 @@
     "@trpc/next": "10.43.0",
     "@trpc/react-query": "10.43.0",
     "@trpc/server": "10.43.0",
+    "@vercel/analytics": "^1.1.1",
     "@volar/monaco": "1.10.9",
     "@vue/language-service": "1.8.22",
     "canvas-confetti": "1.9.0",

@@ -7,6 +7,7 @@ import { PV } from '@/hooks/usePV';
 import _404 from '@/pages/404';
 import '@/styles/app.scss';
 import { trpc } from '@/utils/trpc';
+import { Analytics } from '@vercel/analytics/react';
 import { NextSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
@@ -99,6 +100,7 @@ const App = ({ Component, pageProps }: MyAppProps) => {
         src="//at.alicdn.com/t/c/font_178634_m6cwt8bb21e.js"
       />
       <PV />
+      <Analytics />
     </GlobalContextProvider>
   );
 };
