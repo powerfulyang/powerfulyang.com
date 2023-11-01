@@ -1,4 +1,3 @@
-import type { ProColumns } from '@ant-design/pro-components';
 import type { OpenAPIV2, OpenAPIV3 } from 'openapi-types';
 import { getSchema } from '@/services/swagger-parse/getSchema';
 
@@ -6,7 +5,7 @@ export function convertObjectToCode(
   doc: OpenAPIV3.Document | OpenAPIV2.Document,
   _schema: string,
   paths: string[],
-  data: ProColumns[] = [],
+  data: Record<string, any>[] = [],
   entity: OpenAPIV3.SchemaObject | OpenAPIV2.SchemaObject = getSchema(doc, _schema),
 ) {
   for (const [key, value] of Object.entries(entity.properties || {})) {
@@ -20,7 +19,7 @@ export function convertObjectToCode(
         dataIndex = paths.concat(key);
       }
       const { type, description, format } = value;
-      let valueType: ProColumns['valueType'];
+      let valueType;
       if (type === 'string' && format === 'date-time') {
         valueType = 'dateTime';
       }

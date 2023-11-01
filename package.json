@@ -26,7 +26,7 @@
     "precommit": "lint-staged",
     "local:dev": "cross-env SERVER_BASE_URL=https://local.powerfulyang.com next dev",
     "qa:dev": "cross-env CLIENT_BASE_HOST=qa.powerfulyang.com SERVER_BASE_URL=https://qa.powerfulyang.com next dev",
-    "prod:dev": "cross-env CLIENT_BASE_HOST=powerfulyang.com SERVER_BASE_URL=https://powerfulyang.com next dev",
+    "prod:dev": "cross-env CLIENT_BASE_HOST=api.powerfulyang.com SERVER_BASE_URL=https://api.powerfulyang.com next dev",
     "start": "next start",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "tsc-check": "tsc --noEmit"
@@ -39,11 +39,8 @@
     "@ffmpeg/util": "0.12.1",
     "@hookform/resolvers": "3.3.2",
     "@huacnlee/autocorrect": "2.8.5",
-    "@johnsoncodehk/html2pug": "1.0.0",
     "@monaco-editor/react": "4.6.0",
     "@next/bundle-analyzer": "14.0.1",
-    "@powerfulyang/components": "1.7.4",
-    "@powerfulyang/gltfjsx": "6.2.12",
     "@powerfulyang/hooks": "1.5.2",
     "@powerfulyang/utils": "1.14.0",
     "@prettier/plugin-pug": "3.0.0",
@@ -159,10 +156,10 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@ant-design/pro-components": "2.6.34",
     "@cloudflare/next-on-pages": "^1.7.2",
     "@ffmpeg/core": "0.12.4",
     "@jest/globals": "29.7.0",
+    "@powerfulyang/gltfjsx": "6.2.12",
     "@powerfulyang/jest-extended": "3.3.0",
     "@powerfulyang/lint": "3.7.0",
     "@sentry/cli": "2.21.2",

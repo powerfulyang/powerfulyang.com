@@ -94,7 +94,7 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
                   {isError ? (
                     <button
                       type="button"
-                      className="pointer"
+                      className="pointer text-red-500"
                       onClick={() => {
                         return fetchPreviousPage();
                       }}
