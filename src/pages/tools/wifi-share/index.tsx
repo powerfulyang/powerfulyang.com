@@ -1,3 +1,4 @@
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -6,30 +7,33 @@ import { generateQRCode } from '@/lib/qrcode/generate';
 import type { LayoutFC } from '@/types/GlobalContext';
 import { useImmer } from '@powerfulyang/hooks';
 import { useQuery } from '@tanstack/react-query';
-import { useRef } from 'react';
+import { useDeferredValue, useRef } from 'react';
 
 const WifiShare: LayoutFC = () => {
-  const [state, setState] = useImmer<{
+  const [_state, setState] = useImmer<{
+    hidden: boolean;
     SSID: string;
     password: string;
     encryption: string;
   }>({
     SSID: '',
     password: '',
-    encryption: '',
+    encryption: 'WPA',
+    hidden: false,
   });
 
   const ref = useRef<HTMLCanvasElement>(null!);
+  const state = useDeferredValue(_state);
 
   useQuery({
     queryKey: ['wifi-share', state],
-    enabled: !!state.SSID,
+    // enabled: !!state.SSID,
     queryFn: () => {
-      const text = `WIFI:T:${state.encryption};S:${state.SSID};P:${state.password};;`;
+      const text = `WIFI:T:${state.encryption};S:${state.SSID};P:${state.password};H:${state.hidden};;`;
       return generateQRCode(ref.current, {
         text,
         ecc: 'M',
-        margin: 2,
+        margin: 1,
         scale: 20,
         lightColor: '#ffffff',
         darkColor: '#000000',
@@ -49,7 +53,7 @@ const WifiShare: LayoutFC = () => {
         marginNoiseRate: 0.5,
         marginNoiseOpacity: 1,
         seed: 39786,
-        marginNoiseSpace: 'marker',
+        marginNoiseSpace: 'full',
         renderPointsType: 'all',
         effect: 'none',
         effectTiming: 'after',
@@ -68,18 +72,31 @@ const WifiShare: LayoutFC = () => {
     <div className="flex flex-col items-center space-y-4 p-10">
       <h3 className="text-3xl font-medium">Wifi Share</h3>
       <span className="!mb-4 text-[#1b233d]/70">Generate QR code for sharing wifi</span>
-      <div className="grid w-[80%] max-w-[800px] gap-4">
+      <div className="grid w-full max-w-[800px] gap-4">
         <Label>Wifi Name:</Label>
-        <Input
-          value={state.SSID}
-          onChange={(event) => {
-            setState((draft) => {
-              draft.SSID = event.target.value;
-            });
-          }}
-          type="text"
-          placeholder="SSID"
-        />
+        <div className="flex w-full items-center gap-4">
+          <Input
+            value={state.SSID}
+            onChange={(event) => {
+              setState((draft) => {
+                draft.SSID = event.target.value;
+              });
+            }}
+            type="text"
+            placeholder="SSID"
+          />
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="hidden"
+              onCheckedChange={(checked) => {
+                setState((draft) => {
+                  draft.hidden = checked === true;
+                });
+              }}
+            />
+            <Label htmlFor="hidden">Hidden</Label>
+          </div>
+        </div>
         <Label>Password:</Label>
         <Input
           value={state.password}
@@ -101,7 +118,7 @@ const WifiShare: LayoutFC = () => {
           }}
         >
           <Label className="flex gap-2">
-            <RadioGroupItem value="" />
+            <RadioGroupItem value="nopass" />
             <span>None</span>
           </Label>
           <Label className="flex gap-2">
@@ -113,9 +130,7 @@ const WifiShare: LayoutFC = () => {
             <span>WEP (Wired Equivalent Privacy)</span>
           </Label>
         </RadioGroup>
-        <div className="flex justify-center">
-          <canvas ref={ref} />
-        </div>
+        <canvas className="m-auto mt-4 h-[300px] w-[300px]" ref={ref} />
       </div>
     </div>
   );

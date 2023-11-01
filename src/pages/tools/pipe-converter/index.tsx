@@ -116,7 +116,7 @@ const PipeConverter: LayoutFC = () => {
       <span className="!mb-4 text-[#1b233d]/70">
         Pipe convert URL encode, base64, JSON parse etc.
       </span>
-      <div className="grid w-[80%] max-w-[800px] gap-2">
+      <div className="grid w-full max-w-[800px] gap-2">
         <Label className="text-base font-medium" htmlFor="Input">
           Input:
         </Label>

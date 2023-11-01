@@ -52,7 +52,8 @@ jobs:
         os: [ubuntu-latest]
     needs: Test
     # 仅 master 分支 push 时触发
-    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    # disable
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push' && false
 
     steps:
       - name: Checkout

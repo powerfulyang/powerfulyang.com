@@ -783,6 +783,24 @@ export async function generateQRCode(outCanvas: HTMLCanvasElement, state: QRCode
     }
 
     ctx.drawImage(clone, 0, 0);
+
+    if (state.margin) {
+      // 把 margin 染成 lightColor
+      ctx.fillStyle = invert ? state.darkColor : state.lightColor;
+      // 左上角
+      ctx.fillRect(0, 0, marginLeft * cell, marginTop * cell);
+      // 右上角
+      ctx.fillRect(width - marginRight * cell, 0, marginRight * cell, marginTop * cell);
+      // 左下角
+      ctx.fillRect(0, height - marginBottom * cell, marginLeft * cell, marginBottom * cell);
+      // 右下角
+      ctx.fillRect(
+        width - marginRight * cell,
+        height - marginBottom * cell,
+        marginRight * cell,
+        marginBottom * cell,
+      );
+    }
   }
 }
 

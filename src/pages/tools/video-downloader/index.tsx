@@ -52,7 +52,7 @@ const VideoDownloader: LayoutFC = () => {
         Download videos from YouTube, Facebook, Instagram, Twitter, TikTok, and more.
       </span>
       <Input
-        className="mb-4"
+        className="mb-4 max-w-[800px]"
         placeholder="video url"
         value={videoUrl}
         onChange={(event) => {

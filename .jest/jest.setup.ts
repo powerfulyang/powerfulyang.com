@@ -10,10 +10,10 @@ import 'reflect-metadata';
 import { jest } from '@jest/globals';
 
 // @ts-ignore
-import ResizeObserver from 'resize-observer-polyfill';
+// import ResizeObserver from 'resize-observer-polyfill';
 
 // @ts-ignore
-global.ResizeObserver = ResizeObserver;
+// global.ResizeObserver = ResizeObserver;
 
 // mock next/router
 jest.mock('next/router', () => ({

@@ -197,6 +197,10 @@ const nextConfig = withSentryConfig(
               new CopyWebpackPlugin({
                 patterns: [
                   {
+                    from: path.resolve('node_modules/@ffmpeg/core/dist/umd'),
+                    to: path.resolve(`.next/static/ffmpeg/${ffmpegVersion}`),
+                  },
+                  {
                     from: path.resolve('node_modules/onigasm/lib/onigasm.wasm'),
                     to: path.resolve(`.next/static/onigasm/${onigasmVersion}/onigasm.wasm`),
                   },

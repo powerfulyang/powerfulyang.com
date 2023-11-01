@@ -77,7 +77,7 @@ const Swagger2code: LayoutFC = () => {
         generateCode.mutate(v);
       })}
     >
-      <div className="m-auto flex w-[900px] max-w-full flex-col items-center space-y-4 p-10">
+      <div className="m-auto flex max-w-[800px] flex-col items-center space-y-4 p-10">
         <h3 className="text-3xl font-medium">Swagger to Code</h3>
         <p className="!mb-4 text-center text-sm text-[#1b233d]/70">
           Generate code from swagger document, such as ProTable, ProForm(not implemented yet) etc.

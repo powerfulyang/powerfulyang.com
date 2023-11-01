@@ -34,6 +34,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, prevCursor, nextCurso
       const x = await clientApi.infiniteQueryPublicPost({
         ...pageParam,
         take: 10,
+        publishYear: year,
       });
       return x.data;
     },
@@ -95,7 +96,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, prevCursor, nextCurso
         ))}
       </div>
       <section className="m-auto flex w-[100%] max-w-[1000px] flex-col">
-        {posts.map((post) => (
+        {res.map((post) => (
           <Fragment key={post.id}>
             <motion.a
               title={`${post.id}`}

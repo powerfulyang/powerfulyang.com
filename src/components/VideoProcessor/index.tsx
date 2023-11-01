@@ -16,12 +16,6 @@ import { useFFmpeg } from '@/hooks/useFFmpeg';
 import { Button } from '../ui/button';
 import { LoadingButton } from '../utils/LoadingButton';
 
-const CircularProgressWithLabel = ({ value }: { value: number }) => {
-  return (
-    <div style={{ position: 'relative', display: 'inline-flex' }}>{`${Math.round(value)}%`}</div>
-  );
-};
-
 const supportFormats = [
   'mp4',
   'mov',
@@ -76,11 +70,12 @@ const VideoProcessor = () => {
       onSubmit={handleSubmit((v) => {
         convertVideo.mutate(v as Required<FormProps>);
       })}
+      className="space-y-4"
     >
       <Controller
         render={({ fieldState, field }) => {
           return (
-            <div>
+            <div className="space-y-4">
               <Button type="button" asChild>
                 <Label>
                   选择文件
@@ -97,9 +92,11 @@ const VideoProcessor = () => {
               {fieldState.error?.message && (
                 <div className="text-red-500">{fieldState.error?.message}</div>
               )}
-              <div className="truncate" title={field.value?.name}>
-                {field.value?.name}
-              </div>
+              {field.value?.name && (
+                <div className="truncate" title={field.value?.name}>
+                  {field.value?.name}
+                </div>
+              )}
             </div>
           );
         }}
@@ -110,7 +107,8 @@ const VideoProcessor = () => {
         control={control}
         render={({ field }) => {
           return (
-            <div className="my-4 flex justify-center">
+            <div className="flex items-center justify-center space-x-2">
+              <span>Format:</span>
               <Select
                 value={field.value}
                 onValueChange={(e) => {
@@ -136,9 +134,7 @@ const VideoProcessor = () => {
       <LoadingButton type="submit" loading={convertVideo.isLoading}>
         Convert
       </LoadingButton>
-      <br />
-      <CircularProgressWithLabel value={progress} />
-      <br />
+      <div>{`${Math.round(progress)}%`}</div>
       <span className="mb-4 text-center">
         用时：{progress > 0 ? (Date.now() - start) / 1000 : 0}秒
       </span>
