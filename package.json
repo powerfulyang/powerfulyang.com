@@ -18,7 +18,7 @@
     "postbuild": "rimraf --glob ./.next/**/*.map && next-sitemap --config ./next-sitemap.config.mjs",
     "codegen-swagger:local": "cross-env SWAGGER_ORIGIN=https://local.powerfulyang.com node ./dev/swagger-typescript-codegen.config.mjs",
     "codegen-swagger:qa": "cross-env SWAGGER_ORIGIN=https://qa.powerfulyang.com node ./dev/swagger-typescript-codegen.config.mjs",
-    "codegen-swagger:prod": "cross-env SWAGGER_ORIGIN=https://powerfulyang.com node ./dev/swagger-typescript-codegen.config.mjs",
+    "codegen-swagger:prod": "cross-env SWAGGER_ORIGIN=https://api.powerfulyang.com node ./dev/swagger-typescript-codegen.config.mjs",
     "postinstall": "node postinstall.mjs",
     "lint:js": "eslint ./src --ext .ts,.tsx --fix",
     "lint:style": "stylelint --fix \"src/**/*.scss\"",

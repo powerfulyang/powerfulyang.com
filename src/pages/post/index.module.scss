@@ -1,4 +1,5 @@
 @import 'styles.scss';
+@import 'loading.scss';
 
 .main {
   min-height: calc(100dvh - var(--footer-height) - var(--nav-height));
@@ -59,5 +60,9 @@
 
       @apply my-3 max-w-[70%] text-amber-200 sm:max-w-[60%];
     }
+  }
+
+  .footer {
+    @apply pt-6 text-center text-base text-pink-400;
   }
 }

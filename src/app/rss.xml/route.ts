@@ -32,14 +32,14 @@ const generateRssFeed = (posts: Post[]) => {
 };
 
 export async function GET(request: NextRequest) {
-  const res = await serverApi.queryPublicPosts(
+  const res = await serverApi.infiniteQueryPublicPost(
     {},
     {
       headers: request.headers,
     },
   );
 
-  const rssFeed = generateRssFeed(res.data);
+  const rssFeed = generateRssFeed(res.data.resources);
 
   return new Response(rssFeed, {
     headers: {

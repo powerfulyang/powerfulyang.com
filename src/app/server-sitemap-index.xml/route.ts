@@ -4,13 +4,14 @@ import type { Post } from '@/__generated__/api';
 import { serverApi } from '@/request/requestTool';
 
 export async function GET(request: NextRequest) {
-  const posts = await serverApi.queryPublicPosts(
+  const posts = await serverApi.infiniteQueryPublicPost(
     {},
     {
       headers: request.headers,
     },
   );
-  const { data: postsData } = posts;
+  const { data } = posts;
+  const postsData = data.resources;
 
   const postsMaps = postsData.map((post: Post) => {
     return {

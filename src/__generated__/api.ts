@@ -230,6 +230,34 @@ export interface OCRDto {
   images: File[];
 }
 
+export interface CreateFeedDto {
+  content: string;
+  createBy: User;
+  assets: File[];
+  public?: boolean;
+}
+
+export interface Feed {
+  id: number;
+  content: string;
+  assets: Asset[];
+  public: boolean;
+  createBy: User;
+  updateBy: User;
+  /** @format date-time */
+  createdAt: string;
+  /** @format date-time */
+  updatedAt: string;
+}
+
+export interface UpdateFeedDto {
+  content: string;
+  assets: File[];
+  public: boolean;
+  updateBy: User;
+  id: number;
+}
+
 export interface Post {
   id: number;
   title: string;
@@ -314,19 +342,6 @@ export interface QueryPostsDto {
   updatedAt: string[];
 }
 
-export interface Feed {
-  id: number;
-  content: string;
-  assets: Asset[];
-  public: boolean;
-  createBy: User;
-  updateBy: User;
-  /** @format date-time */
-  createdAt: string;
-  /** @format date-time */
-  updatedAt: string;
-}
-
 export interface InfiniteQueryResponse {
   prevCursor?: number;
   nextCursor?: number;
@@ -336,21 +351,6 @@ export interface ViewCountDto {
   createdAt: string;
   requestCount: number;
   distinctIpCount: number;
-}
-
-export interface CreateFeedDto {
-  content: string;
-  createBy: User;
-  assets: File[];
-  public?: boolean;
-}
-
-export interface UpdateFeedDto {
-  content: string;
-  assets: File[];
-  public: boolean;
-  updateBy: User;
-  id: number;
 }
 
 export interface PushSubscriptionJSONDto {
@@ -1215,6 +1215,106 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags feed
+     * @name CreateFeed
+     * @summary Create a feed
+     * @request POST:/api/feed
+     * @secure
+     */
+    createFeed: (data: CreateFeedDto, params: RequestParams = {}) =>
+      this.request<Feed, any>({
+        path: `/api/feed`,
+        method: 'POST',
+        body: data,
+        secure: true,
+        type: ContentType.FormData,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags feed
+     * @name UpdateFeed
+     * @summary Update a feed
+     * @request PUT:/api/feed
+     * @secure
+     */
+    updateFeed: (data: UpdateFeedDto, params: RequestParams = {}) =>
+      this.request<Feed, any>({
+        path: `/api/feed`,
+        method: 'PUT',
+        body: data,
+        secure: true,
+        type: ContentType.FormData,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags feed
+     * @name FeedControllerRemove
+     * @request DELETE:/api/feed/{id}
+     * @secure
+     */
+    feedControllerRemove: (id: number, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/api/feed/${id}`,
+        method: 'DELETE',
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags feed-manage
+     * @name QueryFeeds
+     * @summary 分页查询说说
+     * @request GET:/api/feed-manage/query-feeds
+     * @secure
+     */
+    queryFeeds: (
+      query: {
+        /** 每页条数 */
+        pageSize: number;
+        /** 当前页码 */
+        current: number;
+        id: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, any>({
+        path: `/api/feed-manage/query-feeds`,
+        method: 'GET',
+        query: query,
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags feed-manage
+     * @name DeleteFeedById
+     * @summary 删除说说
+     * @request DELETE:/api/feed-manage/{id}
+     * @secure
+     */
+    deleteFeedById: (id: number, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/api/feed-manage/${id}`,
+        method: 'DELETE',
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags github
      * @name GithubControllerGetUserInfo
      * @request GET:/api/github/user_info/{login}
@@ -1324,18 +1424,26 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags open
-     * @name QueryPublicPosts
+     * @name InfiniteQueryPublicPost
      * @summary 获取所有的公开文章列表
      * @request GET:/api/public/post
      * @secure
      */
-    queryPublicPosts: (
+    infiniteQueryPublicPost: (
       query?: {
+        prevCursor?: string;
+        nextCursor?: string;
+        take?: number;
         publishYear?: number;
       },
       params: RequestParams = {},
     ) =>
-      this.request<any, any>({
+      this.request<
+        InfiniteQueryResponse & {
+          resources: Post[];
+        },
+        any
+      >({
         path: `/api/public/post`,
         method: 'GET',
         query: query,
@@ -1526,106 +1634,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/api/random/avatar`,
         method: 'GET',
         query: query,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags feed
-     * @name CreateFeed
-     * @summary Create a feed
-     * @request POST:/api/feed
-     * @secure
-     */
-    createFeed: (data: CreateFeedDto, params: RequestParams = {}) =>
-      this.request<Feed, any>({
-        path: `/api/feed`,
-        method: 'POST',
-        body: data,
-        secure: true,
-        type: ContentType.FormData,
-        format: 'json',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags feed
-     * @name UpdateFeed
-     * @summary Update a feed
-     * @request PUT:/api/feed
-     * @secure
-     */
-    updateFeed: (data: UpdateFeedDto, params: RequestParams = {}) =>
-      this.request<Feed, any>({
-        path: `/api/feed`,
-        method: 'PUT',
-        body: data,
-        secure: true,
-        type: ContentType.FormData,
-        format: 'json',
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags feed
-     * @name FeedControllerRemove
-     * @request DELETE:/api/feed/{id}
-     * @secure
-     */
-    feedControllerRemove: (id: number, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/feed/${id}`,
-        method: 'DELETE',
-        secure: true,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags feed-manage
-     * @name QueryFeeds
-     * @summary 分页查询说说
-     * @request GET:/api/feed-manage/query-feeds
-     * @secure
-     */
-    queryFeeds: (
-      query: {
-        /** 每页条数 */
-        pageSize: number;
-        /** 当前页码 */
-        current: number;
-        id: number;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<void, any>({
-        path: `/api/feed-manage/query-feeds`,
-        method: 'GET',
-        query: query,
-        secure: true,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags feed-manage
-     * @name DeleteFeedById
-     * @summary 删除说说
-     * @request DELETE:/api/feed-manage/{id}
-     * @secure
-     */
-    deleteFeedById: (id: number, params: RequestParams = {}) =>
-      this.request<void, any>({
-        path: `/api/feed-manage/${id}`,
-        method: 'DELETE',
-        secure: true,
         ...params,
       }),
 
