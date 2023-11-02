@@ -1,3 +1,4 @@
+import { loginUrl } from '@/constant/Constant';
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { LazyImage } from '@/components/LazyImage';
@@ -7,7 +8,7 @@ import styles from './index.module.scss';
 export const login = () => {
   const { href } = window.location;
   // 前往中央登录中心
-  window.location.href = `https://powerfulyang.com/admin/user/login?redirect=${encodeURI(href)}`;
+  window.location.href = `${loginUrl}?redirect=${encodeURI(href)}`;
 };
 
 export const NavBarUser = () => {

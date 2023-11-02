@@ -1,3 +1,4 @@
+import { management } from '@/constant/Constant';
 import Link from 'next/link';
 import type { HTMLAttributeAnchorTarget } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -80,7 +81,8 @@ const tools: ToolProps[] = [
     name: 'Management',
     description: 'Management',
     icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
-    url: '/admin/user/list',
+    url: management,
+    target: '_blank',
   },
   {
     name: 'URL Params Extractor',

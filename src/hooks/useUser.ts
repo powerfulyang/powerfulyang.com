@@ -14,6 +14,7 @@ export const useUser = (enabled: boolean = false) => {
       const u = await clientApi.queryCurrentUser();
       return u.data;
     },
+    keepPreviousData: true,
     retry: false,
     refetchOnWindowFocus: true,
     enabled,

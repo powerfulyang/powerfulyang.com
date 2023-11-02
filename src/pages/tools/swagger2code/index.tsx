@@ -31,7 +31,7 @@ type FormHookData = {
 
 const Swagger2code: LayoutFC = () => {
   const [search, setSearch] = useState('');
-  const [url, setUrl] = useState('https://powerfulyang.com/api/swagger-json');
+  const [url, setUrl] = useState('https://api.powerfulyang.com/api/swagger-json');
   const { control, handleSubmit } = useForm<FormHookData>({
     defaultValues: {
       path: null,
@@ -85,7 +85,7 @@ const Swagger2code: LayoutFC = () => {
         <div className="flex w-full items-center justify-center gap-2">
           <Input
             disabled={loadSwagger.isSuccess}
-            placeholder="Enter Swagger Url, e.g. https://powerfulyang.com/api/swagger.json"
+            placeholder="Enter Swagger Url, e.g. https://api.powerfulyang.com/api/swagger.json"
             value={url}
             onChange={(e) => {
               setUrl(e.target.value);
