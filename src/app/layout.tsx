@@ -1,9 +1,9 @@
+import { ReactQueryProvider } from '@/context/react-query';
 import type { Metadata, Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 import { PreloadResources } from '@/components/PreloadResources';
 import { ProjectName } from '@/constant/Constant';
-import { Providers } from '@/layout/Providers';
 import { UserLayout } from '@/layout/UserLayout';
 
 export const metadata: Metadata = {
@@ -49,9 +49,9 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
     <html lang="en">
       <body>
         <PreloadResources />
-        <Providers>
+        <ReactQueryProvider>
           <UserLayout>{children}</UserLayout>
-        </Providers>
+        </ReactQueryProvider>
         <script async src="//at.alicdn.com/t/c/font_178634_m6cwt8bb21e.js" />
       </body>
     </html>

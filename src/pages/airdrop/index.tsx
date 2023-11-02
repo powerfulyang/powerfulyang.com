@@ -1,3 +1,4 @@
+import { clientBaseHost } from '@/constant/Constant';
 import { useImmer } from '@powerfulyang/hooks';
 import classNames from 'classnames';
 import type { DataConnection, Peer } from 'peerjs';
@@ -118,7 +119,7 @@ const Airdrop: LayoutFC = () => {
     import('peerjs').then(({ default: Peer }) => {
       peerRef.current?.destroy();
       const peer = new Peer({
-        host: process.env.CLIENT_BASE_HOST || window.location.host,
+        host: clientBaseHost,
         path: 'peer',
       });
       peerRef.current = peer;

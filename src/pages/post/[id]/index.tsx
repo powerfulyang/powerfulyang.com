@@ -1,24 +1,24 @@
-import { cn } from '@/lib/utils';
-import type { GetServerSideProps } from 'next';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-import { useHotkeys } from 'react-hotkeys-hook';
 import type { HttpResponse, Post } from '@/__generated__/api';
 import { origin } from '@/components/Head';
 import type { TOCItem } from '@/components/MarkdownContainer/TOC';
 import { MarkdownTOC } from '@/components/MarkdownContainer/TOC';
 import { Skeleton } from '@/components/Skeleton';
 import { UserLayout } from '@/layout/UserLayout';
+import { cn } from '@/lib/utils';
 import { serverApi } from '@/request/requestTool';
 import type { LayoutFC } from '@/types/GlobalContext';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import { generateTOC } from '@/utils/toc';
+import type { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 import styles from './index.module.scss';
 
 const LazyMarkdownContainer = dynamic(() => import('@/components/MarkdownContainer'), {
   loading: () => {
-    return <Skeleton rows={8} className={cn(styles.post, 'py-20')} />;
+    return <Skeleton rows={15} className={cn(styles.post, 'px-12 pt-10')} />;
   },
 });
 
@@ -56,6 +56,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     query: { id },
   } = ctx;
   const postId = id as string;
+
+  const requestHeaders = extractRequestHeaders(ctx.req.headers);
+
   const res = await serverApi
     .queryPublicPostById(
       Number(postId),
@@ -63,17 +66,19 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         versions: [],
       },
       {
-        headers: extractRequestHeaders(ctx.req.headers),
+        headers: requestHeaders,
       },
     )
     .catch((r: HttpResponse<Post>) => {
       return r;
     });
+
   if (!res.ok) {
     return {
       notFound: true,
     };
   }
+
   const pathViewCount = res.headers.get('x-path-view-count');
   const { data } = res;
 

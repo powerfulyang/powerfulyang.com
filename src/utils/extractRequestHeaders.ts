@@ -25,3 +25,11 @@ export const extractRequestHeaders = (
 
   return pick(headers, headersToExtract);
 };
+
+export const checkAuthInfo = (headers: IncomingHttpHeaders | ReturnType<typeof _headers>) => {
+  const { authorization = '', cookie = '' } = extractRequestHeaders(headers) as {
+    authorization: string;
+    cookie: string;
+  };
+  return !!authorization || cookie.includes('authorization=');
+};

@@ -58,8 +58,8 @@ const config = {
     NEXT_PUBLIC_GA_ID: 'G-T622M0KSVS',
     NEXT_PUBLIC_ONIGASM_VERSION: onigasmVersion,
     NEXT_PUBLIC_FFMPEG_VERSION: ffmpegVersion,
-    CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST,
-    SERVER_BASE_URL: process.env.SERVER_BASE_URL,
+    CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST || 'api.powerfulyang.com',
+    SERVER_BASE_URL: process.env.SERVER_BASE_URL || 'https://api.powerfulyang.com',
   },
   eslint: {
     ignoreDuringBuilds: true, // 不用自带的

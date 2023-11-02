@@ -1,34 +1,29 @@
-import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
-import type { InfiniteData } from '@tanstack/react-query';
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import { flatten } from 'lodash-es';
-import type { GetServerSideProps } from 'next';
-import React, { Fragment, useMemo } from 'react';
-import { InView } from 'react-intersection-observer';
-import type { Feed } from '@/__generated__/api';
+import type { Feed, User } from '@/__generated__/api';
 import { origin } from '@/components/Head';
 import { LazyImage } from '@/components/LazyImage';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { TimeLineForm } from '@/components/Timeline/TimelineForm';
 import { TimeLineItem } from '@/components/Timeline/TimelineItem';
+import { Skeleton } from '@/components/Skeleton';
 import { useUser } from '@/hooks/useUser';
 import { UserLayout } from '@/layout/UserLayout';
-import { clientApi, serverApi } from '@/request/requestTool';
+import { clientApi } from '@/request/requestTool';
 import type { LayoutFC } from '@/types/GlobalContext';
 import type { InfiniteQueryResponse } from '@/types/InfiniteQuery';
-import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { isEmpty, lastItem } from '@powerfulyang/utils';
+import type { InfiniteData } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { flatten } from 'lodash-es';
+import React, { Fragment, useMemo } from 'react';
+import { InView } from 'react-intersection-observer';
 import styles from './index.module.scss';
 
-type TimelineProps = {
-  feeds: Feed[];
-  nextCursor: number;
-  prevCursor: number;
-};
+type TimelineProps = {};
 
-export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) => {
+export const Timeline: LayoutFC<TimelineProps> = () => {
   const { data, isError, fetchNextPage, fetchPreviousPage, hasPreviousPage, isFetching } =
     useInfiniteQuery(
-      ['feeds', feeds, nextCursor, prevCursor],
+      ['feeds'],
       async ({ pageParam }) => {
         const x = await clientApi.infiniteQueryPublicTimeline({
           ...pageParam,
@@ -37,7 +32,7 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
         return x.data;
       },
       {
-        enabled: false,
+        enabled: true,
         getNextPageParam(lastPage) {
           return { nextCursor: lastPage.nextCursor };
         },
@@ -54,21 +49,11 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
             pageParams: [...page.pageParams].reverse(),
           };
         },
-        initialData: {
-          pages: [
-            {
-              resources: feeds,
-              nextCursor,
-              prevCursor,
-            },
-          ],
-          pageParams: [{ nextCursor: lastItem(feeds)?.id, prevCursor: firstItem(feeds)?.id }],
-        },
         retry: false,
       },
     );
   const { user } = useUser();
-  const bannerUser = user || feeds[0]?.createBy;
+  const bannerUser = user || data?.pages[0]?.resources[0]?.createBy || ({} as User);
 
   const resources = useMemo(() => {
     const res = flatten(data?.pages.map((x) => x.resources) || []);
@@ -78,17 +63,15 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
           <Fragment key={feed.id}>
             <TimeLineItem feed={feed} />
             {feed.id === lastItem(res)?.id &&
-              ((hasPreviousPage && !isError) || isFetching ? (
+              (hasPreviousPage && !isError ? (
                 <InView
                   triggerOnce
+                  rootMargin="10px"
                   onChange={(inView) => {
                     inView && !isFetching && fetchPreviousPage();
                   }}
-                  className={styles.footer}
                   as="div"
-                >
-                  <span className={styles.loading}>Loading</span>
-                </InView>
+                />
               ) : (
                 <div className={styles.footer}>
                   {isError ? (
@@ -108,7 +91,12 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
               ))}
           </Fragment>
         ))}
-        {isEmpty(res) && <div className={styles.footer}>这里只有一片虚无...</div>}
+        {isEmpty(res) && !isFetching && <div className={styles.footer}>这里只有一片虚无...</div>}
+        {isFetching && (
+          <div className={styles.footer}>
+            <Skeleton rows={6} className="px-4" />
+          </div>
+        )}
       </div>
     );
   }, [data?.pages, fetchPreviousPage, hasPreviousPage, isError, isFetching]);
@@ -137,6 +125,7 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
           )}
           <div className={styles.authorInfo}>
             <LazyImage
+              key={bannerUser.avatar}
               aspectRatio="1 / 1"
               draggable={false}
               src={bannerUser.avatar}
@@ -156,7 +145,7 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
             }
             if (type === 'modify') {
               queryClient.setQueryData<InfiniteData<InfiniteQueryResponse<Feed>>>(
-                ['feeds', feeds, nextCursor, prevCursor],
+                ['feeds'],
                 (previous) => {
                   return {
                     pages:
@@ -190,28 +179,15 @@ Timeline.getLayout = (page) => {
   return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const res = await serverApi.infiniteQueryPublicTimeline(
-    {
-      take: 10,
-    },
-    {
-      headers: extractRequestHeaders(ctx.req.headers),
-    },
-  );
-  const pathViewCount = res.headers.get('x-path-view-count');
-  const { data } = res;
+export const getStaticProps = () => {
   return {
     props: {
-      feeds: data.resources,
-      nextCursor: data.nextCursor,
-      prevCursor: data.prevCursor,
       meta: {
         title: '说说',
         description: '关于我日常的胡言乱语',
       },
       layout: {
-        pathViewCount,
+        pathViewCount: 0,
       },
       link: {
         canonical: `${origin}/timeline`,
@@ -221,5 +197,3 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 export default Timeline;
-
-export const runtime = 'experimental-edge';

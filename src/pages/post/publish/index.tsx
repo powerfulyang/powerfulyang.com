@@ -1,3 +1,4 @@
+import { trpc } from '@/utils/trpc';
 import { usePageQuery } from '@powerfulyang/hooks';
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
@@ -32,6 +33,8 @@ const Publish: LayoutFC<PublishProps> = () => {
     },
   });
 
+  const cacheClean = trpc.cacheClean.useMutation();
+
   const publishPostMutation = useMutation(
     (metadata: MarkdownMetadata) => {
       if (post?.id) {
@@ -47,7 +50,8 @@ const Publish: LayoutFC<PublishProps> = () => {
       });
     },
     {
-      onSuccess(res) {
+      async onSuccess(res) {
+        await cacheClean.mutateAsync();
         return push(`/post/${res.data.id}`);
       },
     },

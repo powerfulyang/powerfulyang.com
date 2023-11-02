@@ -15,6 +15,7 @@ const customJestConfig = {
   moduleNameMapper: {
     ...moduleNameMapper,
     '^rxjs(/operators)?$': '<rootDir>/node_modules/rxjs/dist/cjs/index.js',
+    '@docsearch/react': '<rootDir>/node_modules/@docsearch/react/dist/esm/DocSearch.js',
   },
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/.jest/jest.setup.ts'],
@@ -23,7 +24,7 @@ const customJestConfig = {
 
 const asyncConfig = createJestConfig(customJestConfig);
 
-const esModules = ['kkk'].join('|');
+const esModules = ['@docsearch.+', 'algoliasearch'].join('|');
 
 module.exports = async () => {
   const config = await asyncConfig();

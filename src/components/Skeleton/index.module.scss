@@ -20,7 +20,7 @@ $skeleton-to-color: --custom-shade($skeleton-color, 5%);
     animation: skeleton-loading 1.4s ease infinite;
     transform-origin: left;
 
-    @apply mx-8 my-4 h-4;
+    @apply my-4 h-4;
 
     &:first-child {
       @apply w-1/2;

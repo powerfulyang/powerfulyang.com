@@ -54,3 +54,4 @@ public/worker-*.js
 .vercel/
 cache/
 .wrangler/
+.vercel

@@ -13,9 +13,10 @@ import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientApi, serverApi } from '@/request/requestTool';
 import type { LayoutFC } from '@/types/GlobalContext';
-import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { extractRequestHeaders, checkAuthInfo } from '@/utils/extractRequestHeaders';
 import { formatDateTime } from '@/utils/lib';
 import { InView } from 'react-intersection-observer';
+import { kv } from '@vercel/kv';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -166,17 +167,27 @@ Index.getLayout = (page) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { query, req } = ctx;
-  const reqUrl = req.url;
-  // 除了首页，列表页不需要被收录
-  const noindex = reqUrl !== '/';
+  const { query } = ctx;
 
   const requestHeaders = extractRequestHeaders(ctx.req.headers);
+  const hasAuthInfo = checkAuthInfo(requestHeaders);
+  const _year = query.year as string;
+
+  if (!hasAuthInfo) {
+    try {
+      const _ = await kv.get<any>(`props:post:list:${_year}`);
+      if (_) {
+        return _;
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
 
   const { data: years } = await serverApi.queryPublicPostYears({
     headers: requestHeaders,
   });
-  const year: number = Number(query.year) || years[0].publishYear || new Date().getFullYear();
+  const year: number = Number(_year) || years[0].publishYear || new Date().getFullYear();
   const res = await serverApi.infiniteQueryPublicPost(
     {
       publishYear: year,
@@ -188,7 +199,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   );
   const pathViewCount = res.headers.get('x-path-view-count');
   const { data } = res;
-  return {
+  const props = {
     props: {
       years: years.map((x) => x.publishYear),
       posts: data.resources,
@@ -201,10 +212,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       meta: {
         title: `日志 - ${year}`,
         description: `发布于 ${year} 年的日志`,
-        noindex,
+        noindex: true,
       },
     },
   };
+  if (!hasAuthInfo) {
+    try {
+      await kv.set(`props:post:list:${_year}`, props);
+    } catch {
+      // ignore
+    }
+  }
+  return props;
 };
 
 export default Index;

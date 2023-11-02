@@ -103,17 +103,19 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const requestHeaders = extractRequestHeaders(ctx.req.headers);
+
   const res = await serverApi.infiniteQueryPublicAsset(
     {
       take: 20,
     },
     {
-      headers: extractRequestHeaders(ctx.req.headers),
+      headers: requestHeaders,
     },
   );
   const pathViewCount = res.headers.get('x-path-view-count');
   const { data } = res;
-  return {
+  const props = {
     props: {
       assets: data.resources,
       nextCursor: data.nextCursor,
@@ -130,6 +132,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     },
   };
+  return props;
 };
 
 Gallery.getLayout = (page) => {

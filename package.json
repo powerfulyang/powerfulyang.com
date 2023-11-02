@@ -80,6 +80,7 @@
     "@trpc/react-query": "10.43.0",
     "@trpc/server": "10.43.0",
     "@vercel/analytics": "^1.1.1",
+    "@vercel/kv": "^0.2.4",
     "@volar/monaco": "1.10.9",
     "@vue/language-service": "1.8.22",
     "canvas-confetti": "1.9.0",
@@ -184,7 +185,8 @@
     "rimraf": "5.0.5",
     "swagger-typescript-api": "13.0.3",
     "tailwindcss": "3.3.5",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "vercel": "32.5.0"
   },
   "bundledDependencies": [
     "katex",

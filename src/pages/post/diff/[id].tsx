@@ -98,13 +98,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     )
     .catch((r: HttpResponse<Post>) => r);
+
   if (!res.ok) {
     return {
       notFound: true,
     };
   }
+
   const post = res.data;
   const { logs } = post;
+
   if (logs.length !== 2) {
     return {
       notFound: true,

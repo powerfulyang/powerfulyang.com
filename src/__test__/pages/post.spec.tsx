@@ -1,4 +1,4 @@
-import { queryClient } from '@/context/QueryClient';
+import { queryClient } from '@/context/query-client';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from '@jest/globals';

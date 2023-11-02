@@ -10,3 +10,5 @@ export const generateCdnStaticUrl = (path: string) => `${CDN_ORIGIN}${path}`;
 
 export const management = 'https://admin.powerfulyang.com';
 export const loginUrl = `${management}/user/login`;
+
+export const clientBaseHost = process.env.CLIENT_BASE_HOST || window.location.host;

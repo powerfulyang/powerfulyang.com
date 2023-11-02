@@ -70,12 +70,12 @@ const VideoProcessor = () => {
       onSubmit={handleSubmit((v) => {
         convertVideo.mutate(v as Required<FormProps>);
       })}
-      className="space-y-4"
+      className="space-y-6"
     >
       <Controller
         render={({ fieldState, field }) => {
           return (
-            <div className="space-y-4">
+            <div className="space-y-6">
               <Button type="button" asChild>
                 <Label>
                   选择文件
