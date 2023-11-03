@@ -93,7 +93,7 @@ export const Timeline: LayoutFC<TimelineProps> = () => {
         {isEmpty(res) && !isFetching && !isError && (
           <div className={styles.footer}>这里只有一片虚无...</div>
         )}
-        {isFetching && <Skeleton rows={6} className="px-4 pb-4" />}
+        {isFetching && <Skeleton rows={6} className="px-4 pb-4 pt-4 sm:pt-0" />}
       </div>
     );
   }, [data?.pages, fetchPreviousPage, hasPreviousPage, isError, isFetching]);
