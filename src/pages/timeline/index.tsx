@@ -73,30 +73,27 @@ export const Timeline: LayoutFC<TimelineProps> = () => {
                   as="div"
                 />
               ) : (
-                <div className={styles.footer}>
-                  {isError ? (
-                    <button
-                      type="button"
-                      className="pointer text-red-500"
-                      onClick={() => {
-                        return fetchPreviousPage();
-                      }}
-                    >
-                      加载失败，点击重试
-                    </button>
-                  ) : (
-                    '已经到达世界的尽头...'
-                  )}
-                </div>
+                <div className={styles.footer}>已经到达世界的尽头...</div>
               ))}
           </Fragment>
         ))}
-        {isEmpty(res) && !isFetching && <div className={styles.footer}>这里只有一片虚无...</div>}
-        {isFetching && (
+        {isError && (
           <div className={styles.footer}>
-            <Skeleton rows={6} className="px-4" />
+            <button
+              type="button"
+              className="pointer text-red-500"
+              onClick={() => {
+                return fetchPreviousPage();
+              }}
+            >
+              加载失败，点击重试
+            </button>
           </div>
         )}
+        {isEmpty(res) && !isFetching && !isError && (
+          <div className={styles.footer}>这里只有一片虚无...</div>
+        )}
+        {isFetching && <Skeleton rows={6} className="px-4 pb-4" />}
       </div>
     );
   }, [data?.pages, fetchPreviousPage, hasPreviousPage, isError, isFetching]);

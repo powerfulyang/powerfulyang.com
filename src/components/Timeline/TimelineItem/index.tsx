@@ -6,7 +6,7 @@ import {
 } from '@/components/ImagePreview';
 import { LazyImage } from '@/components/LazyImage';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import { LazyMarkdownContainer } from '@/components/MarkdownContainer/lazy';
+import { MarkdownContainer } from '@/components/MarkdownContainer';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/hooks/useUser';
 import { clientApi } from '@/request/requestTool';
@@ -108,7 +108,7 @@ export const TimeLineItem = memo<{ feed: Feed }>(({ feed }) => {
           </div>
         )}
       </div>
-      <LazyMarkdownContainer source={feed.content} className={styles.content} />
+      <MarkdownContainer source={feed.content} className={styles.content} />
       {!!feed.assets?.length && (
         <div className={classNames(styles.assets)}>
           <ImagePreview images={castAssetsToImagePreviewItem(feed.assets)}>

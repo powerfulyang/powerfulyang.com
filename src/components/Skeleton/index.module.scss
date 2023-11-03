@@ -6,7 +6,7 @@ $skeleton-color: rgb(190 190 190 / 20%);
 $skeleton-to-color: --custom-shade($skeleton-color, 5%);
 
 .skeleton {
-  @apply h-full w-full;
+  @apply h-full w-full space-y-4;
 
   &-row {
     background: linear-gradient(
@@ -20,7 +20,7 @@ $skeleton-to-color: --custom-shade($skeleton-color, 5%);
     animation: skeleton-loading 1.4s ease infinite;
     transform-origin: left;
 
-    @apply my-4 h-4;
+    @apply h-4;
 
     &:first-child {
       @apply w-1/2;
