@@ -6,8 +6,9 @@ import { MarkdownTOC } from '@/components/MarkdownContainer/TOC';
 import { UserLayout } from '@/layout/UserLayout';
 import { serverApi } from '@/request/requestTool';
 import type { LayoutFC } from '@/types/GlobalContext';
-import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { checkAuthInfo, extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import { generateTOC } from '@/utils/toc';
+import { kv } from '@vercel/kv';
 import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/navigation';
 import React from 'react';
@@ -50,6 +51,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const postId = id as string;
 
   const requestHeaders = extractRequestHeaders(ctx.req.headers);
+  const hasAuthInfo = checkAuthInfo(requestHeaders);
+
+  if (!hasAuthInfo) {
+    try {
+      const _ = await kv.get<any>(`props:post:detail:${postId}`);
+      if (_) {
+        return _;
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
 
   const res = await serverApi
     .queryPublicPostById(
@@ -76,7 +89,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const toc = await generateTOC(data.content);
 
-  return {
+  const props = {
     props: {
       post: data,
       toc,
@@ -92,6 +105,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     },
   };
+  if (!hasAuthInfo) {
+    try {
+      await kv.set(`props:post:detail:${postId}`, props);
+    } catch {
+      // ignore
+    }
+  }
+  return props;
 };
 
 export default PostDetail;
