@@ -1,5 +1,4 @@
 import type { Asset } from '@/__generated__/api';
-import styles from '@/app/loading.module.scss';
 import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
 import classNames from 'classnames';
 import { map } from 'lodash-es';
@@ -25,14 +24,13 @@ export type MasonryProps = {
   onLoadMore: VoidFunction;
   data: Asset[];
   itemRender: (item: Asset, index: number) => ReactElement;
-  isLoading?: boolean;
 };
 
 const getColumnNum = () => {
   return Math.ceil(window.innerWidth / 420 + 2);
 };
 
-const Masonry: FC<MasonryProps> = ({ data, itemRender, onLoadMore, isLoading }) => {
+const Masonry: FC<MasonryProps> = ({ data, itemRender, onLoadMore }) => {
   const ref = useRef<HTMLDivElement>(null!);
   const rowHeight = useRef(new Map<number, number>());
   const handled = useRef(new Set<number>());
@@ -168,16 +166,6 @@ const Masonry: FC<MasonryProps> = ({ data, itemRender, onLoadMore, isLoading }) 
           })}
         </div>
       ))}
-      {isLoading && (
-        <div
-          className="mb-6 flex justify-center sm:mb-0"
-          style={{
-            gridColumn: `1 / -1`,
-          }}
-        >
-          <div className={styles.loading}>Loading</div>
-        </div>
-      )}
     </div>
   );
 };

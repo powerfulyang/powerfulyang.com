@@ -1,7 +1,7 @@
 import type React from 'react';
 import { parse } from 'yaml';
 import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
-import { formatDate } from '@/utils/lib';
+import { formatDate } from '@/utils/format';
 
 export const remarkMetadata = ((metadataRef?: React.MutableRefObject<MarkdownMetadata>) => {
   return (draft: any) => {

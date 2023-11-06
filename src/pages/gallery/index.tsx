@@ -10,9 +10,10 @@ import Masonry from '@/components/Masonry';
 import { UserLayout } from '@/layout/UserLayout';
 import { clientApi, serverApi } from '@/request/requestTool';
 import type { LayoutFC } from '@/types/GlobalContext';
-import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
-import { firstItem, lastItem } from '@powerfulyang/utils';
+import { checkAuthInfo, extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { kv } from '@vercel/kv';
 import { flatten } from 'lodash-es';
 import type { GetServerSideProps } from 'next';
 import React, { useCallback } from 'react';
@@ -25,7 +26,7 @@ type GalleryProps = {
 };
 
 export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor }) => {
-  const { data, fetchPreviousPage, hasPreviousPage, isFetching } = useInfiniteQuery({
+  const { data, fetchPreviousPage, hasPreviousPage, isFetching, isError } = useInfiniteQuery({
     queryKey: ['assets', assets, nextCursor, prevCursor],
     queryFn: ({ pageParam }) => {
       return clientApi
@@ -93,17 +94,52 @@ export const Gallery: LayoutFC<GalleryProps> = ({ assets, nextCursor, prevCursor
           onLoadMore={() => {
             hasPreviousPage && fetchPreviousPage();
           }}
-          isLoading={isFetching}
           data={resources}
           itemRender={itemRender}
         />
       </ImagePreview>
+      {!isError && !isFetching && !hasPreviousPage && !isEmpty(resources) && (
+        <div className="flex justify-center pb-6 sm:pb-0">已经到达世界的尽头...</div>
+      )}
+      {isFetching && (
+        <div className="flex justify-center pb-6 sm:pb-0">
+          <div className={styles.loading}>Loading</div>
+        </div>
+      )}
+      {isError && (
+        <div className="flex justify-center pb-6 sm:pb-0">
+          <button
+            type="button"
+            className="pointer text-red-500"
+            onClick={() => {
+              return fetchPreviousPage();
+            }}
+          >
+            加载失败，点击重试
+          </button>
+        </div>
+      )}
+      {isEmpty(resources) && !isFetching && !isError && (
+        <div className="flex justify-center pb-6 sm:pb-0">这里只有一片虚无...</div>
+      )}
     </main>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const requestHeaders = extractRequestHeaders(ctx.req.headers);
+  const hasAuthInfo = checkAuthInfo(requestHeaders);
+
+  if (!hasAuthInfo) {
+    try {
+      const _ = await kv.get<any>(`props:gallery:index`);
+      if (_) {
+        return _;
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
 
   const res = await serverApi.infiniteQueryPublicAsset(
     {
@@ -132,6 +168,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     },
   };
+  if (!hasAuthInfo) {
+    try {
+      await kv.set(`props:gallery:index`, props);
+    } catch (e) {
+      // ignore
+    }
+  }
   return props;
 };
 

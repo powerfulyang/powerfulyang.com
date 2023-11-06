@@ -1,29 +1,36 @@
-import type { Feed, User } from '@/__generated__/api';
+import type { Feed } from '@/__generated__/api';
 import { origin } from '@/components/Head';
 import { LazyImage } from '@/components/LazyImage';
 import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
+import { Skeleton } from '@/components/Skeleton';
 import { TimeLineForm } from '@/components/Timeline/TimelineForm';
 import { TimeLineItem } from '@/components/Timeline/TimelineItem';
-import { Skeleton } from '@/components/Skeleton';
 import { useUser } from '@/hooks/useUser';
 import { UserLayout } from '@/layout/UserLayout';
-import { clientApi } from '@/request/requestTool';
+import { clientApi, serverApi } from '@/request/requestTool';
 import type { LayoutFC } from '@/types/GlobalContext';
 import type { InfiniteQueryResponse } from '@/types/InfiniteQuery';
-import { isEmpty, lastItem } from '@powerfulyang/utils';
+import { checkAuthInfo, extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
 import type { InfiniteData } from '@tanstack/react-query';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { kv } from '@vercel/kv';
 import { flatten } from 'lodash-es';
-import React, { Fragment, useMemo } from 'react';
+import type { GetServerSideProps } from 'next';
+import React, { useMemo } from 'react';
 import { InView } from 'react-intersection-observer';
 import styles from './index.module.scss';
 
-type TimelineProps = {};
+type TimelineProps = {
+  feeds: Feed[];
+  nextCursor: number;
+  prevCursor: number;
+};
 
-export const Timeline: LayoutFC<TimelineProps> = () => {
+export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) => {
   const { data, isError, fetchNextPage, fetchPreviousPage, hasPreviousPage, isFetching } =
     useInfiniteQuery(
-      ['feeds'],
+      ['feeds', feeds, nextCursor, prevCursor],
       async ({ pageParam }) => {
         const x = await clientApi.infiniteQueryPublicTimeline({
           ...pageParam,
@@ -32,7 +39,7 @@ export const Timeline: LayoutFC<TimelineProps> = () => {
         return x.data;
       },
       {
-        enabled: true,
+        enabled: false,
         getNextPageParam(lastPage) {
           return { nextCursor: lastPage.nextCursor };
         },
@@ -49,34 +56,46 @@ export const Timeline: LayoutFC<TimelineProps> = () => {
             pageParams: [...page.pageParams].reverse(),
           };
         },
+        initialData: {
+          pages: [
+            {
+              resources: feeds,
+              nextCursor,
+              prevCursor,
+            },
+          ],
+          pageParams: [{ nextCursor: lastItem(feeds)?.id, prevCursor: firstItem(feeds)?.id }],
+        },
         retry: false,
       },
     );
   const { user } = useUser();
-  const bannerUser = user || data?.pages[0]?.resources[0]?.createBy || ({} as User);
+  const bannerUser = user || feeds[0]?.createBy || {};
 
   const resources = useMemo(() => {
     const res = flatten(data?.pages.map((x) => x.resources) || []);
     return (
       <div className={styles.feeds}>
-        {res?.map((feed) => (
-          <Fragment key={feed.id}>
-            <TimeLineItem feed={feed} />
-            {feed.id === lastItem(res)?.id &&
-              (hasPreviousPage && !isError ? (
-                <InView
-                  triggerOnce
-                  rootMargin="10px"
-                  onChange={(inView) => {
-                    inView && !isFetching && fetchPreviousPage();
-                  }}
-                  as="div"
-                />
-              ) : (
-                <div className={styles.footer}>已经到达世界的尽头...</div>
-              ))}
-          </Fragment>
-        ))}
+        {res?.map((feed) => <TimeLineItem feed={feed} key={feed.id} />)}
+        {!isError &&
+          !isFetching &&
+          !isEmpty(res) &&
+          (hasPreviousPage ? (
+            <InView
+              triggerOnce
+              rootMargin="10px"
+              onChange={(inView) => {
+                inView && fetchPreviousPage();
+              }}
+              as="div"
+            />
+          ) : (
+            <div className={styles.footer}>已经到达世界的尽头...</div>
+          ))}
+        {isEmpty(res) && !isFetching && !isError && (
+          <div className={styles.footer}>这里只有一片虚无...</div>
+        )}
+        {isFetching && <Skeleton rows={6} className="px-4 pb-4 pt-4" />}
         {isError && (
           <div className={styles.footer}>
             <button
@@ -90,10 +109,6 @@ export const Timeline: LayoutFC<TimelineProps> = () => {
             </button>
           </div>
         )}
-        {isEmpty(res) && !isFetching && !isError && (
-          <div className={styles.footer}>这里只有一片虚无...</div>
-        )}
-        {isFetching && <Skeleton rows={6} className="px-4 pb-4 pt-4 sm:pt-0" />}
       </div>
     );
   }, [data?.pages, fetchPreviousPage, hasPreviousPage, isError, isFetching]);
@@ -122,7 +137,6 @@ export const Timeline: LayoutFC<TimelineProps> = () => {
           )}
           <div className={styles.authorInfo}>
             <LazyImage
-              key={bannerUser.avatar}
               aspectRatio="1 / 1"
               draggable={false}
               src={bannerUser.avatar}
@@ -142,7 +156,7 @@ export const Timeline: LayoutFC<TimelineProps> = () => {
             }
             if (type === 'modify') {
               queryClient.setQueryData<InfiniteData<InfiniteQueryResponse<Feed>>>(
-                ['feeds'],
+                ['feeds', feeds, nextCursor, prevCursor],
                 (previous) => {
                   return {
                     pages:
@@ -176,21 +190,58 @@ Timeline.getLayout = (page) => {
   return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
 };
 
-export const getStaticProps = () => {
-  return {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const requestHeaders = extractRequestHeaders(ctx.req.headers);
+  const hasAuthInfo = checkAuthInfo(requestHeaders);
+
+  if (!hasAuthInfo) {
+    try {
+      const _ = await kv.get<any>(`props:timeline:index`);
+      if (_) {
+        return _;
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  const res = await serverApi.infiniteQueryPublicTimeline(
+    {
+      take: 10,
+    },
+    {
+      headers: requestHeaders,
+    },
+  );
+  const pathViewCount = res.headers.get('x-path-view-count');
+  const { data } = res;
+  const props = {
     props: {
+      feeds: data.resources,
+      nextCursor: data.nextCursor,
+      prevCursor: data.prevCursor,
       meta: {
         title: '说说',
         description: '关于我日常的胡言乱语',
       },
       layout: {
-        pathViewCount: 0,
+        pathViewCount,
       },
       link: {
         canonical: `${origin}/timeline`,
       },
     },
   };
+  if (!hasAuthInfo) {
+    try {
+      await kv.set(`props:timeline:index`, props);
+    } catch (e) {
+      // ignore
+    }
+  }
+  return props;
 };
 
 export default Timeline;
+
+export const runtime = 'experimental-edge';

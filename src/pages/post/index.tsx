@@ -1,5 +1,13 @@
-import { firstItem, lastItem } from '@powerfulyang/utils';
+import type { Post } from '@/__generated__/api';
+import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
+import { UserLayout } from '@/layout/UserLayout';
+import { clientApi, serverApi } from '@/request/requestTool';
+import type { LayoutFC } from '@/types/GlobalContext';
+import { checkAuthInfo, extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { formatDateTime } from '@/utils/format';
+import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { kv } from '@vercel/kv';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { flatten } from 'lodash-es';
@@ -8,15 +16,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { Fragment } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-import type { Post } from '@/__generated__/api';
-import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import { UserLayout } from '@/layout/UserLayout';
-import { clientApi, serverApi } from '@/request/requestTool';
-import type { LayoutFC } from '@/types/GlobalContext';
-import { extractRequestHeaders, checkAuthInfo } from '@/utils/extractRequestHeaders';
-import { formatDateTime } from '@/utils/lib';
 import { InView } from 'react-intersection-observer';
-import { kv } from '@vercel/kv';
 import styles from './index.module.scss';
 
 type IndexProps = {
@@ -125,37 +125,45 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, prevCursor, nextCurso
                 <span>Author: {post.createBy.nickname}</span>
               </section>
             </motion.a>
-            {post.id === lastItem(res)?.id &&
-              ((hasPreviousPage && !isError) || isFetching ? (
-                <InView
-                  triggerOnce
-                  onChange={(inView) => {
-                    inView && !isFetching && fetchPreviousPage();
-                  }}
-                  className={styles.footer}
-                  as="div"
-                >
-                  <span className={styles.loading}>Loading</span>
-                </InView>
-              ) : (
-                <div className={styles.footer}>
-                  {isError ? (
-                    <button
-                      type="button"
-                      className="pointer text-red-500"
-                      onClick={() => {
-                        return fetchPreviousPage();
-                      }}
-                    >
-                      加载失败，点击重试
-                    </button>
-                  ) : (
-                    '已经到达世界的尽头...'
-                  )}
-                </div>
-              ))}
           </Fragment>
         ))}
+        {!isError &&
+          !isFetching &&
+          !isEmpty(res) &&
+          (hasPreviousPage ? (
+            <InView
+              triggerOnce
+              onChange={(inView) => {
+                inView && fetchPreviousPage();
+              }}
+              rootMargin="10px"
+              className={styles.footer}
+              as="div"
+             />
+          ) : (
+            <div className={styles.footer}>已经到达世界的尽头...</div>
+          ))}
+        {isEmpty(res) && !isFetching && !isError && (
+          <div className={styles.footer}>这里只有一片虚无...</div>
+        )}
+        {isFetching && (
+          <div className={styles.footer}>
+            <span className={styles.loading}>Loading</span>
+          </div>
+        )}
+        {isError && (
+          <div className={styles.footer}>
+            <button
+              type="button"
+              className="pointer text-red-500"
+              onClick={() => {
+                return fetchPreviousPage();
+              }}
+            >
+              加载失败，点击重试
+            </button>
+          </div>
+        )}
       </section>
     </main>
   );

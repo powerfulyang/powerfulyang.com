@@ -16,6 +16,8 @@ const customJestConfig = {
     ...moduleNameMapper,
     '^rxjs(/operators)?$': '<rootDir>/node_modules/rxjs/dist/cjs/index.js',
     '@docsearch/react': '<rootDir>/node_modules/@docsearch/react/dist/esm/DocSearch.js',
+    'react-syntax-highlighter/dist/esm/styles/prism':
+      '<rootDir>/node_modules/react-syntax-highlighter/dist/cjs/styles/prism',
   },
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/.jest/jest.setup.ts'],

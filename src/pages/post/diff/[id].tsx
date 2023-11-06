@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import React from 'react';
 import { Prism } from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { formatDateTime } from '@/utils/lib';
+import { formatDateTime } from '@/utils/format';
 import type { HttpResponse, Post } from '@/__generated__/api';
 import { serverApi } from '@/request/requestTool';
 import { extractRequestHeaders } from '@/utils/extractRequestHeaders';

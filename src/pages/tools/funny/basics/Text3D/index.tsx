@@ -4,6 +4,7 @@ import { useControls } from 'leva';
 import React, { Suspense, useLayoutEffect, useRef } from 'react';
 import type { Mesh } from 'three';
 import { FontLoader } from 'three-stdlib';
+import '@/three/extend';
 
 const HelloText = () => {
   const ref = useRef<Mesh>(null!);

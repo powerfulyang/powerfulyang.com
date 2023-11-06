@@ -10,8 +10,8 @@ import { readPackageUp } from 'read-pkg-up';
 import { runtimeCaching } from './runtimeCaching.mjs';
 
 const pkg = await readPackageUp();
-const { dependencies } = pkg.packageJson;
-const ffmpegVersion = dependencies['@ffmpeg/ffmpeg'].replaceAll('.', '');
+const { dependencies, devDependencies } = pkg.packageJson;
+const ffmpegVersion = devDependencies['@ffmpeg/core-mt'].replaceAll('.', '');
 const onigasmVersion = dependencies.onigasm.replaceAll('.', '');
 
 const { SENTRY_AUTH_TOKEN } = process.env;
@@ -47,6 +47,23 @@ const config = {
       },
     ]);
   },
+  headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+        ],
+      },
+    ];
+  },
   experimental: {
     scrollRestoration: true,
     clientRouterFilter: false,
@@ -73,6 +90,10 @@ const config = {
   swcMinify: true,
   sassOptions: {
     includePaths: ['./src/styles'],
+  },
+  compiler: {
+    removeConsole: true,
+    reactRemoveProperties: true,
   },
   // next.js didn't compile dependencies in node_modules, use transpileModules to fix it
   transpilePackages: ['yaml', 'react-syntax-highlighter', '@powerfulyang/utils'],
@@ -197,8 +218,13 @@ const nextConfig = withSentryConfig(
               new CopyWebpackPlugin({
                 patterns: [
                   {
-                    from: path.resolve('node_modules/@ffmpeg/core/dist/umd'),
+                    from: path.resolve('node_modules/@ffmpeg/core-mt/dist/umd'),
                     to: path.resolve(`.next/static/ffmpeg/${ffmpegVersion}`),
+                    info: () => {
+                      return {
+                        minimized: true,
+                      };
+                    },
                   },
                   {
                     from: path.resolve('node_modules/onigasm/lib/onigasm.wasm'),

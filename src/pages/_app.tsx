@@ -12,9 +12,6 @@ import { NextSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
 import React, { useMemo } from 'react';
-import 'reflect-metadata';
-
-import('@/three/extend');
 
 interface HeaderProps {
   meta?: {

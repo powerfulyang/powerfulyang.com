@@ -11,7 +11,7 @@ import { LazyImage } from '@/components/LazyImage';
 import { useDocumentVisible } from '@/hooks/useDocumentVisible';
 import { UserLayout } from '@/layout/UserLayout';
 import type { LayoutFC } from '@/types/GlobalContext';
-import { randomAvatar } from '@/utils/lib';
+import { randomAvatar } from '@/utils/format';
 import styles from './index.module.scss';
 
 const LAN = 'LAN';

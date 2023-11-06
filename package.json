@@ -13,7 +13,7 @@
     "prebuild": "echo \"prebuild\"",
     "local:build": "cross-env NODE_OPTIONS=--max_old_space_size=4096 next build",
     "build": "next build",
-    "cf:pages:build": "cross-env CF_PAGES=1 NODE_OPTIONS=--max_old_space_size=4096 SERVER_BASE_URL=https://powerfulyang.com npx @cloudflare/next-on-pages",
+    "cf:pages:build": "cross-env CF_PAGES=1 NODE_OPTIONS=--max_old_space_size=4096 npx @cloudflare/next-on-pages",
     "cf:pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-flag=nodejs_compat",
     "postbuild": "rimraf --glob ./.next/**/*.map && next-sitemap --config ./next-sitemap.config.mjs",
     "codegen-swagger:local": "cross-env SWAGGER_ORIGIN=https://local.powerfulyang.com node ./dev/swagger-typescript-codegen.config.mjs",
@@ -26,7 +26,7 @@
     "precommit": "lint-staged",
     "local:dev": "cross-env SERVER_BASE_URL=https://local.powerfulyang.com next dev",
     "qa:dev": "cross-env CLIENT_BASE_HOST=qa.powerfulyang.com SERVER_BASE_URL=https://qa.powerfulyang.com next dev",
-    "prod:dev": "cross-env CLIENT_BASE_HOST=api.powerfulyang.com SERVER_BASE_URL=https://api.powerfulyang.com next dev",
+    "prod:dev": "cross-env next dev",
     "start": "next start",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "tsc-check": "tsc --noEmit"
@@ -158,7 +158,7 @@
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.7.2",
-    "@ffmpeg/core": "0.12.4",
+    "@ffmpeg/core-mt": "0.12.4",
     "@jest/globals": "29.7.0",
     "@powerfulyang/gltfjsx": "6.2.12",
     "@powerfulyang/jest-extended": "3.3.0",

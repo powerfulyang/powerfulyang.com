@@ -102,11 +102,9 @@ export const copyToClipboardAndNotify = async (text: string | Blob) => {
     });
 };
 
-export const sourceUrlToFile = (url: string) => {
-  return fetch(url)
-    .then((res) => res.blob())
-    .then((blob) => {
-      const name = uniqueId('timeline-image');
-      return new File([blob], name, { type: blob.type });
-    });
+export const sourceUrlToFile = async (url: string) => {
+  const res = await fetch(url);
+  const blob = await res.blob();
+  const name = uniqueId('timeline-image');
+  return new File([blob], name, { type: blob.type });
 };
