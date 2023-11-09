@@ -33,6 +33,7 @@ export const NavBarUser = () => {
           <div className={classNames(styles.user, 'pointer')}>
             <span className={styles.nickname}>{user.nickname}</span>
             <LazyImage
+              crossOrigin="anonymous"
               className="aspect-square"
               src={user.avatar}
               containerClassName={styles.avatar}

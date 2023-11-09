@@ -20,6 +20,7 @@ const tools: ToolProps[] = [
       'Convert video to mp4, webm, mkv, flv, 3gp, gif, avi, wmv, mov, mpeg, mpg, m4v, ogv, ogg, and more.',
     icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
     url: '/tools/video-converter',
+    target: '_blank',
   },
   {
     name: 'Free Video Downloader',

@@ -50,7 +50,33 @@ const config = {
   headers() {
     return [
       {
-        source: '/(.*)',
+        source: '/_next/static/chunks/coop.ffmpeg(.*)',
+        headers: [
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+        ],
+      },
+      {
+        source: '/tools/video-converter',
+        headers: [
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/ffmpeg/(.*)/ffmpeg-core.worker.js',
         headers: [
           {
             key: 'Cross-Origin-Embedder-Policy',

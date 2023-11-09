@@ -1,0 +1,30 @@
+diff --git a/dist/esm/classes.js b/dist/esm/classes.js
+index 2886dbdd1025d3c610ae27715c1fc73e0402081a..9d321c998f957a54aa3d78ba52d169efbcdb7f32 100644
+--- a/dist/esm/classes.js
++++ b/dist/esm/classes.js
+@@ -102,6 +102,7 @@ export class FFmpeg {
+         if (!this.#worker) {
+             this.#worker = new Worker(new URL("./worker.js", import.meta.url), {
+                 type: "module",
++                name: "coop.ffmpeg",
+             });
+             this.#registerHandlers();
+         }
+@@ -132,7 +133,7 @@ export class FFmpeg {
+      */
+     exec = (
+     /** ffmpeg command line args */
+-    args, 
++    args,
+     /**
+      * milliseconds to wait before stopping the command execution.
+      *
+@@ -211,7 +212,7 @@ export class FFmpeg {
+      *
+      * @category File System
+      */
+-    readFile = (path, 
++    readFile = (path,
+     /**
+      * File content encoding, supports two encodings:
+      * - utf8: read file as text file, return data in string type.

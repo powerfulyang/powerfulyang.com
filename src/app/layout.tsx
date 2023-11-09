@@ -5,6 +5,7 @@ import React from 'react';
 import { PreloadResources } from '@/components/PreloadResources';
 import { ProjectName } from '@/constant/Constant';
 import { UserLayout } from '@/layout/UserLayout';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://powerfulyang.com'),
@@ -52,7 +53,11 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
         <ReactQueryProvider>
           <UserLayout>{children}</UserLayout>
         </ReactQueryProvider>
-        <script async src="//at.alicdn.com/t/c/font_178634_m6cwt8bb21e.js" />
+        <Script
+          strategy="afterInteractive"
+          async
+          src="//at.alicdn.com/t/c/font_178634_m6cwt8bb21e.js"
+        />
       </body>
     </html>
   );

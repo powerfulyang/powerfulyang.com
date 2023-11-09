@@ -11,6 +11,9 @@ overrides:
   tough-cookie@<4.1.3: '>=4.1.3'
 
 patchedDependencies:
+  '@ffmpeg/ffmpeg@0.12.7':
+    hash: 3erj6ja2g2cj7rkxljwazrqe2m
+    path: patches/@ffmpeg__ffmpeg@0.12.7.patch
   '@huacnlee/autocorrect@2.8.5':
     hash: 67rkhx2ihrldpdkdcigcsqmb6i
     path: patches/@huacnlee__autocorrect@2.8.5.patch
@@ -30,7 +33,7 @@ dependencies:
     version: 0.16.1(react-dom@18.2.0)(react@18.2.0)
   '@ffmpeg/ffmpeg':
     specifier: 0.12.7
-    version: 0.12.7
+    version: 0.12.7(patch_hash=3erj6ja2g2cj7rkxljwazrqe2m)
   '@ffmpeg/util':
     specifier: 0.12.1
     version: 0.12.1
@@ -2596,12 +2599,13 @@ packages:
     engines: {node: '>=16.x'}
     dev: true
 
-  /@ffmpeg/ffmpeg@0.12.7:
+  /@ffmpeg/ffmpeg@0.12.7(patch_hash=3erj6ja2g2cj7rkxljwazrqe2m):
     resolution: {integrity: sha512-Uw9h1tNU4/Q4YRrgBKvnKiH5gpL+nl8h4HRfvSK0K93MqVOan6Qs3Lj82l9i1qj6xQLPramXw0Wl6g65W4pfnA==}
     engines: {node: '>=18.x'}
     dependencies:
       '@ffmpeg/types': 0.12.2
     dev: false
+    patched: true
 
   /@ffmpeg/types@0.12.2:
     resolution: {integrity: sha512-NJtxwPoLb60/z1Klv0ueshguWQ/7mNm106qdHkB4HL49LXszjhjCCiL+ldHJGQ9ai2Igx0s4F24ghigy//ERdA==}

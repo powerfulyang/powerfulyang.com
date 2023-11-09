@@ -202,7 +202,8 @@
     },
     "patchedDependencies": {
       "chevrotain@6.5.0": "patches/chevrotain@6.5.0.patch",
-      "@huacnlee/autocorrect@2.8.5": "patches/@huacnlee__autocorrect@2.8.5.patch"
+      "@huacnlee/autocorrect@2.8.5": "patches/@huacnlee__autocorrect@2.8.5.patch",
+      "@ffmpeg/ffmpeg@0.12.7": "patches/@ffmpeg__ffmpeg@0.12.7.patch"
     },
     "overrides": {
       "yargs-parser@<=5.0.0": ">=5.0.1",
