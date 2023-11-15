@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 
-const _404 = () => {
+const NotFound = () => {
   const router = useRouter();
   const backHome = () => {
     return router.push('/');
@@ -14,4 +14,4 @@ const _404 = () => {
   );
 };
 
-export default _404;
+export default NotFound;

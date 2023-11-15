@@ -4,7 +4,7 @@ import { RouteChangeAnimation } from '@/components/RouteChangeAnimation';
 import { ProjectName } from '@/constant/Constant';
 import { GlobalContextProvider } from '@/context/GlobalContextProvider';
 import { PV } from '@/hooks/usePV';
-import _404 from '@/pages/404';
+import NotFound from '@/pages/404';
 import '@/styles/app.scss';
 import { trpc } from '@/utils/trpc';
 import { Analytics } from '@vercel/analytics/react';
@@ -37,7 +37,7 @@ export interface MyAppProps extends AppProps {
 const App = ({ Component, pageProps }: MyAppProps) => {
   const { getLayout } = Component;
   // @ts-ignore
-  const notFound = Component === _404;
+  const notFound = Component === NotFound;
 
   const component = useMemo(() => {
     if (getLayout) {

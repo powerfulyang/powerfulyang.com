@@ -93,7 +93,6 @@ const config = {
   experimental: {
     scrollRestoration: true,
     clientRouterFilter: false,
-    webpackBuildWorker: true,
   },
   env: {
     NEXT_PUBLIC_SENTRY_DSN:

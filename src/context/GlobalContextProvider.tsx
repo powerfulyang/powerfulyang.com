@@ -1,14 +1,14 @@
 import { ReactQueryProvider } from '@/context/react-query';
-import { Provider } from 'jotai';
+import { Provider as JoTaiProvider } from 'jotai';
 import type { FC, PropsWithChildren } from 'react';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 
 export const GlobalContextProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Provider>
+    <JoTaiProvider>
       <Toaster />
       <ReactQueryProvider>{children}</ReactQueryProvider>
-    </Provider>
+    </JoTaiProvider>
   );
 };
