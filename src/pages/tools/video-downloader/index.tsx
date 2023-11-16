@@ -1,3 +1,4 @@
+import { clientBaseHost } from '@/constant/Constant';
 import { useImmer } from '@powerfulyang/hooks';
 import { useMutation } from '@tanstack/react-query';
 import { Copy } from 'lucide-react';
@@ -20,23 +21,25 @@ const VideoDownloader: LayoutFC = () => {
     },
     mutationFn: (url: string) => {
       const _str = `videoUrl=${encodeURIComponent(url)}`;
-      const eventSource = new EventSource(`/api/tools/video-downloader?${_str}`);
+      const eventSource = new EventSource(
+        `//${clientBaseHost}/api/tools/video-downloader?${_str}`,
+        {
+          withCredentials: true,
+        },
+      );
       eventSource.onmessage = (event) => {
         setMessages((draft) => {
           draft.push(event.data);
         });
       };
-      return new Promise<{
-        downloadUrl: string;
-      }>((resolve, reject) => {
+      return new Promise<string>((resolve, reject) => {
         eventSource.addEventListener('done', (event) => {
           eventSource.close();
-          const data = JSON.parse(event.data);
-          resolve(data);
+          resolve(event.data);
         });
-        eventSource.addEventListener('error', () => {
+        eventSource.addEventListener('error', (event: MessageEvent) => {
           eventSource.close();
-          reject(new Error('出错啦...'));
+          reject(new Error(event.data));
         });
       });
     },
@@ -69,20 +72,20 @@ const VideoDownloader: LayoutFC = () => {
       >
         Download
       </LoadingButton>
-      {download?.data?.downloadUrl && (
-        <span className="mt-2 flex items-center gap-2">
-          {download?.data?.downloadUrl}
+      {download?.data && (
+        <span className="mt-2 flex items-center gap-2 break-all text-green-700">
+          <span className="flex-1">{download?.data}</span>
           <Copy
             className="pointer"
             size={15}
             onClick={() => {
-              return copyToClipboardAndNotify(download?.data?.downloadUrl);
+              return copyToClipboardAndNotify(download?.data);
             }}
           />
         </span>
       )}
       {messages?.length > 0 && (
-        <PrismCode className="mt-8 w-[70%]" language="shell">
+        <PrismCode className="mt-8 w-[70%] max-w-[800px]" language="shell">
           {messages.join('').trim()}
         </PrismCode>
       )}

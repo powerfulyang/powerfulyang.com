@@ -1,5 +1,6 @@
 import type { HttpClient } from '@/__generated__/api';
 import { Api, ContentType } from '@/__generated__/api';
+import { clientBaseHost } from '@/constant/Constant';
 import { customFetch } from './customFetch';
 
 // @ts-ignore
@@ -40,7 +41,7 @@ export class CustomApi extends Api<any> {
 }
 
 const { api: clientApi } = new CustomApi({
-  baseUrl: process.env.CLIENT_BASE_HOST ? `//${process.env.CLIENT_BASE_HOST}` : '',
+  baseUrl: `//${clientBaseHost}`,
   customFetch,
   baseApiParams: {
     credentials: 'include',

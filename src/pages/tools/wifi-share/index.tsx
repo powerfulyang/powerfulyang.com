@@ -10,12 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useDeferredValue, useRef } from 'react';
 
 const WifiShare: LayoutFC = () => {
-  const [_state, setState] = useImmer<{
-    hidden: boolean;
-    SSID: string;
-    password: string;
-    encryption: string;
-  }>({
+  const [_state, setState] = useImmer({
     SSID: '',
     password: '',
     encryption: 'WPA',
@@ -27,10 +22,9 @@ const WifiShare: LayoutFC = () => {
 
   useQuery({
     queryKey: ['wifi-share', state],
-    // enabled: !!state.SSID,
-    queryFn: () => {
+    queryFn: async () => {
       const text = `WIFI:T:${state.encryption};S:${state.SSID};P:${state.password};H:${state.hidden};;`;
-      return generateQRCode(ref.current, {
+      await generateQRCode(ref.current, {
         text,
         ecc: 'M',
         margin: 1,
@@ -65,6 +59,7 @@ const WifiShare: LayoutFC = () => {
         transformPerspectiveY: 0,
         transformScale: 1,
       });
+      return text;
     },
   });
 
@@ -130,7 +125,7 @@ const WifiShare: LayoutFC = () => {
             <span>WEP (Wired Equivalent Privacy)</span>
           </Label>
         </RadioGroup>
-        <canvas className="m-auto mt-4 h-[300px] w-[300px]" ref={ref} />
+        {state.SSID && <canvas className="m-auto mt-4 h-[300px] w-[300px]" ref={ref} />}
       </div>
     </div>
   );

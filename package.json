@@ -24,7 +24,7 @@
     "lint:style": "stylelint --fix \"src/**/*.scss\"",
     "prettier": "prettier \"src/**/*.{tsx,ts,scss}\" --write",
     "precommit": "lint-staged",
-    "local:dev": "cross-env SERVER_BASE_URL=https://local.powerfulyang.com next dev",
+    "local:dev": "cross-env CLIENT_BASE_HOST=local.powerfulyang.com SERVER_BASE_URL=https://local.powerfulyang.com next dev",
     "qa:dev": "cross-env CLIENT_BASE_HOST=qa.powerfulyang.com SERVER_BASE_URL=https://qa.powerfulyang.com next dev",
     "prod:dev": "cross-env next dev",
     "start": "next start",
