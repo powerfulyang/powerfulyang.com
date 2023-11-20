@@ -1,5 +1,6 @@
 import { createServerSideHelpers } from '@trpc/react-query/server';
 import { kv } from '@vercel/kv';
+import SuperJSON from 'superjson';
 import z from 'zod';
 import { publicProcedure, router } from './trpc';
 
@@ -25,4 +26,5 @@ export type AppRouter = typeof appRouter;
 export const helpers = createServerSideHelpers({
   router: appRouter,
   ctx: {},
+  transformer: SuperJSON,
 });

@@ -2,6 +2,7 @@ import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 import { httpBatchLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
 import type { AppRouter } from '@/server';
+import SuperJSON from 'superjson';
 
 function getBaseUrl() {
   if (typeof window !== 'undefined')
@@ -20,7 +21,7 @@ function getBaseUrl() {
   return `http://localhost:${process.env.PORT ?? 3000}`;
 }
 
-export const trpc = createTRPCNext<AppRouter>({
+export const trpcUtils = createTRPCNext<AppRouter>({
   config(opts) {
     const { ctx } = opts;
     if (typeof window !== 'undefined') {
@@ -31,6 +32,7 @@ export const trpc = createTRPCNext<AppRouter>({
             url: '/api/trpc',
           }),
         ],
+        transformer: SuperJSON,
       };
     }
     return {
@@ -52,6 +54,7 @@ export const trpc = createTRPCNext<AppRouter>({
           },
         }),
       ],
+      transformer: SuperJSON,
     };
   },
   /**

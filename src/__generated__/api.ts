@@ -506,8 +506,8 @@ export class HttpClient<SecurityDataType = unknown> {
           property instanceof Blob
             ? property
             : typeof property === 'object' && property !== null
-            ? JSON.stringify(property)
-            : `${property}`,
+              ? JSON.stringify(property)
+              : `${property}`,
         );
         return formData;
       }, new FormData()),
@@ -1189,6 +1189,46 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     bucketControllerBackup: (accountId: string, params: RequestParams = {}) =>
       this.request<object[], any>({
         path: `/api/bucket/backup/${accountId}`,
+        method: 'GET',
+        secure: true,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags tools
+     * @name SaveCookies
+     * @request POST:/api/tools/video-downloader/cookies
+     * @secure
+     */
+    saveCookies: (
+      data: {
+        cookies?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, any>({
+        path: `/api/tools/video-downloader/cookies`,
+        method: 'POST',
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags tools
+     * @name ReadCookies
+     * @request GET:/api/tools/video-downloader/cookies
+     * @secure
+     */
+    readCookies: (params: RequestParams = {}) =>
+      this.request<string, any>({
+        path: `/api/tools/video-downloader/cookies`,
         method: 'GET',
         secure: true,
         format: 'json',

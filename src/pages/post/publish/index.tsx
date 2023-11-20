@@ -1,4 +1,3 @@
-import { trpc } from '@/utils/trpc';
 import { usePageQuery } from '@powerfulyang/hooks';
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
@@ -10,6 +9,7 @@ import type { LayoutFC } from '@/types/GlobalContext';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 import { clientApi } from '@/request/requestTool';
 import { NoSSRLiveMarkdownEditor } from '@/components/MarkdownContainer/LiveMarkdownEditor/NoSSR';
+import { trpcUtils } from '@/server/trpcUtils';
 
 type PublishProps = {};
 
@@ -33,7 +33,7 @@ const Publish: LayoutFC<PublishProps> = () => {
     },
   });
 
-  const cacheClean = trpc.cacheClean.useMutation();
+  const cacheClean = trpcUtils.cacheClean.useMutation();
 
   const publishPostMutation = useMutation(
     (metadata: MarkdownMetadata) => {
