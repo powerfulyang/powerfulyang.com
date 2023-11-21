@@ -41,6 +41,16 @@ const App: LayoutFC = () => {
           </Link>
         </CardContent>
       </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Web Interface</CardTitle>
+        </CardHeader>
+        <CardContent className="space-x-5">
+          <Link className="link" href="/tools/funny/web-interface/media-recorder">
+            MediaRecorder
+          </Link>
+        </CardContent>
+      </Card>
     </div>
   );
 };

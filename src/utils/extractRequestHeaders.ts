@@ -8,10 +8,10 @@ export const extractRequestHeaders = (
   const headersToExtract = [
     'referer',
     'authorization',
-    'x-real-ip',
     'cookie',
     'user-agent',
     'x-forwarded-for',
+    'cf-connecting-ip',
   ] as const;
 
   if ('get' in headers) {

@@ -1,4 +1,4 @@
 {
   "upgrade": true,
-  "reject": ["framer-motion"]
+  "reject": ["framer-motion", "@types/node"]
 }

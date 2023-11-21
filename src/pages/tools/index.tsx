@@ -18,77 +18,77 @@ const tools: ToolProps[] = [
     name: 'Free Video Converter',
     description:
       'Convert video to mp4, webm, mkv, flv, 3gp, gif, avi, wmv, mov, mpeg, mpg, m4v, ogv, ogg, and more.',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/free-video-converter.webp',
     url: '/tools/video-converter',
     target: '_blank',
   },
   {
     name: 'Free Video Downloader',
     description: 'Download video from YouTube, Facebook, Instagram, Twitter, TikTok, and more.',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/free-video-downloader.webp',
     url: '/tools/video-downloader',
   },
   {
     name: 'Bg Remover',
     description: 'Remove background from image.',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/bg-remover.webp',
     url: 'https://www.remove.bg/',
     target: '_blank',
   },
   {
-    name: 'Transform',
+    name: 'Polyglot Converter',
     description: 'Transform HTML to JSX',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/polyglot-converter.webp',
     url: '/tools/transform',
   },
   {
-    name: 'Format',
+    name: 'Format Online',
     description: 'Format Nginx Conf Online',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/format-online.webp',
     url: '/tools/format',
   },
   {
     name: 'Pipe Converter',
     description: 'Pipe Converter',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/pipe-converter.webp',
     url: '/tools/pipe-converter',
   },
   {
     name: 'Swagger to Code',
     description:
       'Generate code from swagger document, such as ProTable, ProForm(not implemented yet) etc.',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/swagger-to-code.webp',
     url: '/tools/swagger2code',
   },
   {
     name: 'White Board',
     description: 'A simple white board.',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/white-board.webp',
     url: '/tools/white-board',
   },
   {
     name: 'Wi-Fi QR Code Generator',
     description: 'Generate Wi-Fi QR Code.',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/wifi-qr-code-generator.webp',
     url: '/tools/wifi-share',
   },
   {
     name: 'Funny',
     description: 'Funny WebGL',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/funny.webp',
     url: '/tools/funny',
   },
   {
     name: 'Management',
     description: 'Management',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/management.webp',
     url: management,
     target: '_blank',
   },
   {
     name: 'URL Params Extractor',
     description: 'Extract URL params from a URL',
-    icon: 'https://scrnli.com/static/media/convert.72f8549077f576625a23b196db551253.svg',
+    icon: '/tools/url-params-extractor.webp',
     url: '/tools/url-params-extractor',
   },
 ];
@@ -100,20 +100,13 @@ const Tools: LayoutFC = () => {
         return (
           <Link
             key={tool.name}
-            className="pointer w-full p-2 sm:w-1/2 xl:w-1/3 2xl:w-1/4"
+            className="pointer w-full p-2 sm:w-1/4"
             href={tool.url}
             target={tool.target}
           >
             <Card>
-              <img
-                style={{
-                  aspectRatio: '325 / 266',
-                }}
-                className="w-full"
-                src={tool.icon}
-                alt={tool.description}
-              />
-              <CardContent className="text-center">{tool.name}</CardContent>
+              <img className="aspect-square w-full" src={tool.icon} alt={tool.description} />
+              <CardContent className="py-2 text-center">{tool.name}</CardContent>
             </Card>
           </Link>
         );

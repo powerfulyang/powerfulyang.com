@@ -10,5 +10,7 @@ declare namespace NodeJS {
     NEXT_PUBLIC_ONIGASM_VERSION: string;
 
     PORT: string;
+
+    JWT_SECRET: string;
   }
 }

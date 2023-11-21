@@ -2,7 +2,7 @@ import { createServerSideHelpers } from '@trpc/react-query/server';
 import { kv } from '@vercel/kv';
 import SuperJSON from 'superjson';
 import z from 'zod';
-import { publicProcedure, router } from './trpc';
+import { authenticatedProcedure, publicProcedure, router } from './trpc';
 
 export const appRouter = router({
   hello: publicProcedure
@@ -14,8 +14,11 @@ export const appRouter = router({
     .query((opts) => {
       return `Hello ${opts.input.message}!`;
     }),
-  cacheClean: publicProcedure.mutation(async () => {
+  cacheClean: authenticatedProcedure.mutation(async () => {
     return kv.flushdb();
+  }),
+  hi: publicProcedure.query(() => {
+    return 'Hi!';
   }),
 });
 
