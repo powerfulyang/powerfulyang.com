@@ -139,7 +139,7 @@ const Index: LayoutFC<IndexProps> = ({ posts, years, year, prevCursor, nextCurso
               rootMargin="10px"
               className={styles.footer}
               as="div"
-             />
+            />
           ) : (
             <div className={styles.footer}>已经到达世界的尽头...</div>
           ))}

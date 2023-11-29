@@ -1,35 +1,20 @@
 import type { IncomingHttpHeaders } from 'node:http';
 import { pick } from 'lodash-es';
-import type { headers as _headers } from 'next/headers';
 
-export const extractRequestHeaders = (
-  headers: IncomingHttpHeaders | ReturnType<typeof _headers>,
-) => {
-  const headersToExtract = [
-    'referer',
-    'authorization',
-    'cookie',
-    'user-agent',
-    'x-forwarded-for',
-    'cf-connecting-ip',
-  ] as const;
+export const extractRequestHeaders = (headers: IncomingHttpHeaders) => {
+  const headersToExtract = ['referer', 'authorization', 'cookie', 'user-agent'] as const;
 
-  if ('get' in headers) {
-    const _res = {};
-    headersToExtract.forEach((key) => {
-      // @ts-ignore
-      _res[key] = headers.get(key);
-    });
-    return _res;
-  }
+  const extractedHeaders = pick(headers, headersToExtract) as Record<string, string>;
 
-  return pick(headers, headersToExtract);
+  const cfConnectingIp = headers['cf-connecting-ip'] as string;
+  const xForwardedFor = headers['x-forwarded-for'] as string;
+  return Object.assign(extractedHeaders, {
+    // overwrite x-forwarded-for
+    'x-forwarded-for': `${cfConnectingIp ?? ''}${xForwardedFor ? `, ${xForwardedFor}` : ''}`,
+  });
 };
 
-export const checkAuthInfo = (headers: IncomingHttpHeaders | ReturnType<typeof _headers>) => {
-  const { authorization = '', cookie = '' } = extractRequestHeaders(headers) as {
-    authorization: string;
-    cookie: string;
-  };
+export const checkAuthInfo = (headers: Record<string, string>) => {
+  const { authorization = '', cookie = '' } = headers;
   return !!authorization || cookie.includes('authorization=');
 };

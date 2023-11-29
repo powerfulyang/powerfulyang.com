@@ -1,43 +1,30 @@
-import { usePageQuery } from '@powerfulyang/hooks';
-import type { GetStaticProps } from 'next';
+import type { Post } from '@/__generated__/api';
+import { Footer } from '@/components/Footer';
+import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
+import { NoSSRLiveMarkdownEditor } from '@/components/MarkdownContainer/LiveMarkdownEditor/NoSSR';
+import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
+import { clientApi, serverApi } from '@/request/requestTool';
+import { trpcUtils } from '@/server/trpcUtils';
+import type { LayoutFC } from '@/types/GlobalContext';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { isString } from '@powerfulyang/utils';
+import { useMutation } from '@tanstack/react-query';
+import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import type { MarkdownMetadata } from '@/components/MarkdownContainer/LiveMarkdownEditor';
-import { Footer } from '@/components/Footer';
-import type { LayoutFC } from '@/types/GlobalContext';
-import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
-import { clientApi } from '@/request/requestTool';
-import { NoSSRLiveMarkdownEditor } from '@/components/MarkdownContainer/LiveMarkdownEditor/NoSSR';
-import { trpcUtils } from '@/server/trpcUtils';
 
-type PublishProps = {};
+type PublishProps = {
+  post: Post;
+};
 
-const Publish: LayoutFC<PublishProps> = () => {
+const Publish: LayoutFC<PublishProps> = ({ post }) => {
   const { push } = useRouter();
-  const [content, setContent] = useState('');
-
-  const id = usePageQuery('id');
-
-  const { data: post, isFetching } = useQuery({
-    queryKey: ['post', id],
-    enabled: Boolean(id),
-    async queryFn() {
-      const postId = Number(id);
-      const result = await clientApi.queryPublicPostById(postId, {
-        versions: [],
-      });
-      const { data } = result;
-      setContent(data.content);
-      return data;
-    },
-  });
+  const [content, setContent] = useState(post.content);
 
   const cacheClean = trpcUtils.cacheClean.useMutation();
-
   const publishPostMutation = useMutation(
     (metadata: MarkdownMetadata) => {
-      if (post?.id) {
+      if (post.id) {
         return clientApi.updatePost({
           id: post.id,
           ...metadata,
@@ -60,28 +47,29 @@ const Publish: LayoutFC<PublishProps> = () => {
   const saveDraft = useCallback(
     (draft?: string) => {
       setContent(draft || '');
-      if (!post?.id) {
+      if (!post.id) {
         localStorage.setItem('draft', draft || '');
       }
     },
-    [post?.id],
+    [post.id],
   );
 
   useEffect(() => {
-    if (!post?.id) {
+    if (!post.id) {
       setContent(localStorage.getItem('draft') || '');
     }
-  }, [post?.id]);
+  }, [post.id]);
 
   useFormDiscardWarning(() => {
-    return content !== post?.content && Boolean(post?.id) && !publishPostMutation.isLoading;
-  }, [content, post?.content, post?.id, publishPostMutation.isLoading]);
+    return content !== post.content && Boolean(post.id) && !publishPostMutation.isLoading;
+  }, [content, post.content, post.id, publishPostMutation.isLoading]);
 
   return (
     <NoSSRLiveMarkdownEditor
       value={content}
       onChange={saveDraft}
-      loading={publishPostMutation.isLoading || isFetching}
+      defaultValue={post.content}
+      loading={publishPostMutation.isLoading}
       onPost={publishPostMutation.mutate}
     />
   );
@@ -99,18 +87,43 @@ Publish.getLayout = (page) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = () => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { query } = ctx;
+  const { id } = query;
+
+  let post;
+  let pathViewCount;
+  if (isString(id) && id !== '0') {
+    const res = await serverApi.queryPublicPostById(
+      Number(id),
+      {
+        versions: [],
+      },
+      {
+        headers: extractRequestHeaders(ctx.req.headers),
+      },
+    );
+    pathViewCount = res.headers.get('x-path-view-count');
+    post = res.data;
+  } else {
+    post = {};
+    pathViewCount = 0;
+  }
+
   return {
     props: {
+      post,
       meta: {
         title: '发布日志',
         description: `发布日志的页面`,
       },
       layout: {
-        pathViewCount: 0,
+        pathViewCount,
       },
     },
   };
 };
 
 export default Publish;
+
+export const runtime = 'experimental-edge';

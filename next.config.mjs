@@ -1,7 +1,7 @@
 import process from 'node:process';
 import path from 'node:path';
 import BundleAnalyzer from '@next/bundle-analyzer';
-import { isDevProcess } from '@powerfulyang/utils';
+import { isDevProcess, isProdProcess } from '@powerfulyang/utils';
 import { withSentryConfig } from '@sentry/nextjs';
 import withPWAConfig from 'next-pwa';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
@@ -117,8 +117,8 @@ const config = {
     includePaths: ['./src/styles'],
   },
   compiler: {
-    removeConsole: true,
-    reactRemoveProperties: true,
+    removeConsole: isProdProcess,
+    reactRemoveProperties: isProdProcess,
   },
   // next.js didn't compile dependencies in node_modules, use transpileModules to fix it
   transpilePackages: ['yaml', 'react-syntax-highlighter', '@powerfulyang/utils'],
@@ -170,6 +170,8 @@ const withPWA = withPWAConfig({
   ],
   runtimeCaching,
   customWorkerDir: 'src/pwa-workers',
+  cacheStartUrl: false,
+  dynamicStartUrl: false,
 });
 
 const nextConfig = withSentryConfig(
@@ -188,6 +190,7 @@ const nextConfig = withSentryConfig(
           // edge runtime
           if (nextRuntime === 'edge') {
             _c.resolve.fallback.stream = false;
+            _c.resolve.fallback.path = false;
           }
           // disable cache
           if (process.env.CF_PAGES === '1') {

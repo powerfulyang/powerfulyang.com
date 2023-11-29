@@ -1,14 +1,14 @@
+import type { HttpResponse, Post } from '@/__generated__/api';
 import Loading from '@/app/loading';
+import { serverApi } from '@/request/requestTool';
+import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
+import { formatDateTime } from '@/utils/format';
 import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import React from 'react';
 import { Prism } from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { formatDateTime } from '@/utils/format';
-import type { HttpResponse, Post } from '@/__generated__/api';
-import { serverApi } from '@/request/requestTool';
-import { extractRequestHeaders } from '@/utils/extractRequestHeaders';
 
 type Props = {
   left: Post;
@@ -119,7 +119,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       left: logs[1],
       right: logs[0],
       meta: {
-        title: `Post [${post.id}-${logs[0].id}-${logs[1].id}] Diff`,
+        title: `Post [${post.id}-v${logs[0].id}-v${logs[1].id}] Diff`,
         description: '对比两个版本的文章',
         noindex: true,
         nofollow: true,

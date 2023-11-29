@@ -1,5 +1,12 @@
 export const runtimeCaching = [
   {
+    urlPattern: '/',
+    handler: 'StaleWhileRevalidate',
+    options: {
+      cacheName: 'start-url',
+    },
+  },
+  {
     urlPattern: /\/_next\/data\/.+\/.+\.json.*$/i,
     handler: 'NetworkFirst',
     options: {
@@ -21,6 +28,22 @@ export const runtimeCaching = [
     method: 'GET',
     options: {
       cacheName: 'apis',
+      expiration: {
+        maxEntries: 100,
+        maxAgeSeconds: 24 * 60 * 60 * 365, // 365 days
+      },
+    },
+  },
+  {
+    urlPattern: ({ url }) => {
+      const isApiServer = url.origin === 'https://api.powerfulyang.com';
+      const { pathname } = url;
+      return isApiServer && pathname.startsWith('/api/');
+    },
+    handler: 'NetworkFirst',
+    method: 'GET',
+    options: {
+      cacheName: 'cors-apis',
       expiration: {
         maxEntries: 100,
         maxAgeSeconds: 24 * 60 * 60 * 365, // 365 days

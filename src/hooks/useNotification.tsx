@@ -40,7 +40,7 @@ export const useNotification = () => {
     queryKey: ['useNotification'],
     queryFn: () => {
       const _ = localStorage.getItem('useNotification:permission');
-      if (Notification.permission === 'granted') {
+      if (Notification.permission === 'granted' || _ === 'granted') {
         // 已经有权限，可以发送通知
         subscribe();
       } else if (Notification.permission !== 'denied' && _ === null) {
@@ -58,6 +58,7 @@ export const useNotification = () => {
                         if (permission === 'granted') {
                           // 获得了权限，可以发送通知
                           subscribe();
+                          localStorage.setItem('useNotification:permission', 'granted');
                         }
                       });
                       toast.dismiss(t.id);
