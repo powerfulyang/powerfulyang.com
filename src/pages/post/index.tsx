@@ -226,7 +226,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
   if (!hasAuthInfo) {
     try {
-      await kv.set(`props:post:list:${_year}`, props);
+      // await kv.set(`props:post:list:${_year}`, props);
     } catch {
       // ignore
     }

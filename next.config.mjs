@@ -206,6 +206,20 @@ const nextConfig = withSentryConfig(
                 draft.modules.exportLocalsConvention = 'camelCase';
               }
             });
+          // due to https://github.com/vercel/next.js/pull/59246, edge runtime bundle next/dynamic{ssr:false} in the server bundle,
+          // which will cause the server bundle to be too large.
+          // It makes Edge Function size larger than 1MB,
+          // so we need to modify the webpack config to make it work
+          c.module.rules.forEach((rule) => {
+            if (JSON.stringify(rule)?.includes('next-swc-loader')) {
+              rule.oneOf.forEach(({ use }) => {
+                if (use.loader === 'next-swc-loader') {
+                  // eslint-disable-next-line no-param-reassign
+                  use.options.esm = true;
+                }
+              });
+            }
+          });
           // monaco-editor vue.worker
           c.module.rules.push({
             test: /monaco-volar[\\/]dist[\\/]worker[\\/]vue\.worker\.js$/,

@@ -234,7 +234,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
   if (!hasAuthInfo) {
     try {
-      await kv.set(`props:timeline:index`, props);
+      // await kv.set(`props:timeline:index`, props);
     } catch (e) {
       // ignore
     }

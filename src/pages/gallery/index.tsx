@@ -170,7 +170,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
   if (!hasAuthInfo) {
     try {
-      await kv.set(`props:gallery:index`, props);
+      // await kv.set(`props:gallery:index`, props);
     } catch (e) {
       // ignore
     }
