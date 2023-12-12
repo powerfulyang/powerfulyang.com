@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { LoadingButton } from '@/components/utils/LoadingButton';
-import { NoSSRMarkdownEditor } from '@/components/monaco-editor';
+import { NoSSRMonacoEditor } from '@/components/monaco-editor';
 import { useWorkerLoader } from '@/hooks/useWorkerLoader';
 import { cn } from '@/lib/utils';
 import styles from '@/styles/content.module.scss';
@@ -112,7 +112,7 @@ const Format = () => {
           Format
         </LoadingButton>
       </div>
-      <NoSSRMarkdownEditor
+      <NoSSRMonacoEditor
         key={language}
         theme={theme}
         wrapperProps={{

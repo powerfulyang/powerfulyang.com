@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import Loading from '@/app/loading';
 
-export const NoSSRMarkdownEditor = dynamic(() => import('./editor'), {
+export const NoSSRMonacoEditor = dynamic(() => import('./editor'), {
   ssr: false,
   loading: () => <Loading />,
 });

@@ -1,4 +1,4 @@
-import { NoSSRMarkdownEditor } from '@/components/monaco-editor';
+import { NoSSRMonacoEditor } from '@/components/monaco-editor';
 import { PrismCode } from '@/components/PrismCode';
 import { Label } from '@/components/ui/label';
 import {
@@ -42,7 +42,7 @@ const Transform = () => {
       </div>
       <div className="flex flex-1 divide-x divide-dashed divide-gray-400 border-t border-dashed border-amber-400">
         <div className="w-1/2 py-2">
-          <NoSSRMarkdownEditor
+          <NoSSRMonacoEditor
             language="html"
             options={{
               minimap: { enabled: false },
