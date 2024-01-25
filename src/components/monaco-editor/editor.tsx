@@ -71,8 +71,11 @@ function setupMonacoEnv(takeoverMode = false) {
       ? ['vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'json']
       : ['vue'];
     const getSyncUris = () => editor.getModels().map((model) => model.uri);
-    volar.editor.activateMarkers(worker, languageId, 'vue', getSyncUris, editor);
-    volar.editor.activateAutoInsertion(worker, languageId, getSyncUris, editor);
-    await volar.languages.registerProviders(worker, languageId, getSyncUris, languages);
+    // @ts-ignore
+    volar.activateMarkers(worker, languageId, 'vue', getSyncUris, editor);
+    // @ts-ignore
+    volar.activateAutoInsertion(worker, languageId, getSyncUris, editor);
+    // @ts-ignore
+    await volar.registerProviders(worker, languageId, getSyncUris, languages);
   }
 }

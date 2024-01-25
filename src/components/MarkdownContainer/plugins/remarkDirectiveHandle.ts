@@ -1,3 +1,4 @@
+import { toString } from 'hast-util-to-string';
 import { visit } from 'unist-util-visit';
 
 /**
@@ -60,6 +61,17 @@ export function remarkDirectiveHandle() {
             width: '100%',
             height: '450px',
             frameBorder: 0,
+          };
+        }
+        if (node.name === 'video') {
+          const url = toString(node);
+          _node.children = [];
+          data.hName = 'video';
+          data.hProperties = {
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+            src: url,
+            class: 'w-full',
+            controls: true,
           };
         }
       }
