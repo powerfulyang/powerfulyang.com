@@ -213,6 +213,14 @@ const nextConfig = withSentryConfig(
           c.module.rules.forEach((rule) => {
             if (JSON.stringify(rule)?.includes('next-swc-loader')) {
               rule.oneOf.forEach(({ use }) => {
+                if (Array.isArray(use)) {
+                  use.forEach((item) => {
+                    if (item.loader === 'next-swc-loader') {
+                      // eslint-disable-next-line no-param-reassign
+                      item.options.esm = true;
+                    }
+                  });
+                }
                 if (use.loader === 'next-swc-loader') {
                   // eslint-disable-next-line no-param-reassign
                   use.options.esm = true;
