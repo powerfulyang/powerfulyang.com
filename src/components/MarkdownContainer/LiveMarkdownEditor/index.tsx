@@ -206,6 +206,10 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
             options={{
               minimap: { enabled: false },
               wordWrap: 'on',
+              fontFamily: 'Fira Code, sans-serif',
+              pasteAs: {
+                enabled: false,
+              },
             }}
             onMount={(e, m) => {
               ref.current = {
