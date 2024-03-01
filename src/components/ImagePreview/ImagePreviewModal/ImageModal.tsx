@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import type { TargetAndTransition, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 type ImageModalProps = {
   selectIndex: number;

@@ -16,7 +16,7 @@ import type { InfiniteData } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
-import React, { memo, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import styles from './index.module.scss';
 

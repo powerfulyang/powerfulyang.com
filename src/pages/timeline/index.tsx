@@ -17,7 +17,7 @@ import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { kv } from '@vercel/kv';
 import { flatten } from 'lodash-es';
 import type { GetServerSideProps } from 'next';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { InView } from 'react-intersection-observer';
 import styles from './index.module.scss';
 

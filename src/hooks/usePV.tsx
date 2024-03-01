@@ -1,7 +1,7 @@
 import { isProdProcess } from '@powerfulyang/utils';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 

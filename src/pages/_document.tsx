@@ -1,5 +1,5 @@
 import { Head, Html, Main, NextScript } from 'next/document';
-import React from 'react';
+
 import { CDN_ORIGIN, generateCdnStaticUrl, ProjectName } from '@/constant/Constant';
 
 const MyDocument = () => {

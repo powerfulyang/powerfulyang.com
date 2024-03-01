@@ -1,11 +1,11 @@
 export const runtimeCaching = [
-  {
-    urlPattern: '/',
-    handler: 'StaleWhileRevalidate',
-    options: {
-      cacheName: 'start-url',
-    },
-  },
+  // {
+  //   urlPattern: '/',
+  //   handler: 'StaleWhileRevalidate',
+  //   options: {
+  //     cacheName: 'start-url',
+  //   },
+  // },
   {
     urlPattern: /\/_next\/data\/.+\/.+\.json.*$/i,
     handler: 'NetworkFirst',

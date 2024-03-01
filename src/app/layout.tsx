@@ -1,7 +1,7 @@
 import { ReactQueryProvider } from '@/context/react-query';
 import type { Metadata, Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
-import React from 'react';
+
 import { PreloadResources } from '@/components/PreloadResources';
 import { ProjectName } from '@/constant/Constant';
 import { UserLayout } from '@/layout/UserLayout';

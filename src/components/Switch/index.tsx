@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { FC, InputHTMLAttributes } from 'react';
-import React, { forwardRef, useId } from 'react';
+import { forwardRef, useId } from 'react';
 import styles from './index.module.scss';
 
 type SwitchProps = {

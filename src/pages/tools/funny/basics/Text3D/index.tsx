@@ -1,7 +1,7 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { useControls } from 'leva';
-import React, { Suspense, useLayoutEffect, useRef } from 'react';
+import { Suspense, useLayoutEffect, useRef } from 'react';
 import type { Mesh } from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import '@/three/extend';

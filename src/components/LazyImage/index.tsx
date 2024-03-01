@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import type { HTMLMotionProps, Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styles from './index.module.scss';
 

@@ -6,7 +6,7 @@ import { UserLayout } from '@/layout/UserLayout';
 import type { LayoutFC } from '@/types/GlobalContext';
 import { extractURLParams } from '@powerfulyang/utils';
 import { ArrowDownUp, Star } from 'lucide-react';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const UrlParamsExtractor: LayoutFC = () => {
   const [url, setUrl] = useState<string>(

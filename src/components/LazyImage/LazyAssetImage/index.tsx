@@ -3,7 +3,7 @@
 import type { Asset } from '@/__generated__/api';
 import type { LazyImageProps } from '@/components/LazyImage';
 import { LazyImage } from '@/components/LazyImage';
-import React, { memo, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
 export const LazyAssetImage = memo<
   LazyImageProps & {

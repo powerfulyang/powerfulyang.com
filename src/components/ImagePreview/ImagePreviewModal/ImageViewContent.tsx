@@ -1,6 +1,6 @@
 import { Icon } from '@/components/Icon';
 import type { FC, MouseEvent, TouchEvent } from 'react';
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { isDefined } from '@powerfulyang/utils';

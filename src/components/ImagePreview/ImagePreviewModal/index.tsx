@@ -5,7 +5,7 @@ import { useLockScroll } from '@powerfulyang/hooks';
 import { isDefined, scrollIntoView } from '@powerfulyang/utils';
 import { useIsomorphicLayoutEffect } from 'framer-motion';
 import type { FC, PropsWithChildren } from 'react';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { createPortal } from 'react-dom';
 
 const Portal: FC<PropsWithChildren<any>> = (props) => {

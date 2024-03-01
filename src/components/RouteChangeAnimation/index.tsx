@@ -3,7 +3,7 @@ import { useRouteChangeAnimation } from '@/components/RouteChangeAnimation/useRo
 import classNames from 'classnames';
 import { useAtomValue } from 'jotai';
 import type { FC } from 'react';
-import React from 'react';
+
 import styles from './index.module.scss';
 
 export const RouteChangeAnimation: FC = () => {

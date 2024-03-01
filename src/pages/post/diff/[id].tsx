@@ -6,7 +6,7 @@ import { formatDateTime } from '@/utils/format';
 import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import React from 'react';
+
 import { Prism } from 'react-syntax-highlighter';
 import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 

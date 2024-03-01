@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import styles from './index.module.scss';
 import { NavBarUser } from './User';
 

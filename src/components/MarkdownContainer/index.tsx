@@ -9,7 +9,7 @@ import classNames from 'classnames';
 // `rehype-katex` does not import the CSS for you
 import 'katex/dist/katex.min.css';
 import type { FC } from 'react';
-import React from 'react';
+
 import ReactMarkdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';

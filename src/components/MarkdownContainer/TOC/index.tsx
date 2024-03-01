@@ -2,7 +2,7 @@
 
 import { scrollIntoView } from '@powerfulyang/utils';
 import type { FC } from 'react';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import classNames from 'classnames';
 import { formatDateTime } from '@/utils/format';
 import type { PostLog } from '@/__generated__/api';

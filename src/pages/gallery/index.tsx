@@ -16,7 +16,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { kv } from '@vercel/kv';
 import { flatten } from 'lodash-es';
 import type { GetServerSideProps } from 'next';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import styles from './index.module.scss';
 
 type GalleryProps = {

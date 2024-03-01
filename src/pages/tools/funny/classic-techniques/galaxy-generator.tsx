@@ -1,6 +1,6 @@
 import { Points, Point, useTexture, OrbitControls } from '@react-three/drei';
 import { useControls } from 'leva';
-import React, { Suspense, useRef } from 'react';
+import { Suspense, useRef } from 'react';
 import * as THREE from 'three';
 import colors from 'nice-color-palettes';
 import { Canvas, useFrame } from '@react-three/fiber';

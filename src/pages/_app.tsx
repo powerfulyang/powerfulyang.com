@@ -10,7 +10,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { NextSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { trpcUtils } from '@/server/trpcUtils';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import 'reflect-metadata';

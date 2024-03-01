@@ -1,7 +1,7 @@
 import { OrbitControls, Sphere, Stage, useTexture } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useControls } from 'leva';
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import * as THREE from 'three';
 
 const Box = () => {

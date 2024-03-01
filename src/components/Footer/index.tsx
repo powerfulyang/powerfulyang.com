@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import styles from './index.module.scss';
 import { Icon } from '../Icon';
 

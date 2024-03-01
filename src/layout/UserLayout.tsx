@@ -1,5 +1,5 @@
 import type { FC, PropsWithChildren } from 'react';
-import React from 'react';
+
 import { Footer } from '@/components/Footer';
 import { NavBar } from '@/components/NavBar';
 import '@/styles/app.scss';

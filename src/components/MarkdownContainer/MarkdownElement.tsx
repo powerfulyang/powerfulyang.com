@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import classNames from 'classnames';
 import type { FC } from 'react';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import type { JsxRuntimeComponents } from 'react-markdown/lib';
 import { clientApi } from '@/request/requestTool';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';

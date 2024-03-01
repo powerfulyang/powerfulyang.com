@@ -4,7 +4,7 @@ import type { VoidFunction } from '@powerfulyang/utils';
 import classNames from 'classnames';
 import type { editor } from 'monaco-editor';
 import type { ClipboardEvent, FC } from 'react';
-import React, { useDeferredValue, useEffect, useRef } from 'react';
+import { useDeferredValue, useEffect, useRef } from 'react';
 import { fromEvent } from 'rxjs';
 import { handlePasteImageAndReturnAsset } from '@/utils/copy';
 import {
@@ -62,8 +62,20 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
           .join('\r\n');
         const selection = editorInstance.getSelection();
         const operation = { range: selection!, text };
+        editorInstance.pushUndoStop();
         editorInstance.executeEdits('', [operation]);
         editorInstance.pushUndoStop();
+      } else {
+        // 处理文本
+        const text = e.clipboardData.getData('text/plain');
+        if (text && ref.current) {
+          const editorInstance = ref.current.editor;
+          const selection = editorInstance.getSelection();
+          const operation = { range: selection!, text };
+          editorInstance.pushUndoStop();
+          editorInstance.executeEdits('', [operation]);
+          editorInstance.pushUndoStop();
+        }
       }
     });
     return () => {
@@ -216,6 +228,16 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
                 editor: e,
                 monaco: m,
               };
+              e.onDidPaste(({ range }) => {
+                // 阻止默认的粘贴行为
+                // 请注意，这种方法可能不会完全阻止默认行为，取决于monaco-editor的内部实现
+                // 你可能需要寻找更直接的方法来完全控制粘贴过程
+
+                const op2 = { range: range, text: '', forceMoveMarkers: true };
+                e.pushUndoStop();
+                e.executeEdits('', [op2]);
+                e.pushUndoStop();
+              });
               commands.forEach((command) => {
                 e.addAction({
                   id: command.id,
@@ -239,6 +261,7 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
                       text: formatted,
                     },
                   ]);
+                  e.pushUndoStop();
                 },
               });
             }}

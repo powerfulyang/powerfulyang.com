@@ -221,7 +221,7 @@ const nextConfig = withSentryConfig(
                     }
                   });
                 }
-                if (use.loader === 'next-swc-loader') {
+                if (use?.loader === 'next-swc-loader') {
                   // eslint-disable-next-line no-param-reassign
                   use.options.esm = true;
                 }

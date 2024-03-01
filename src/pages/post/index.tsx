@@ -14,7 +14,7 @@ import { flatten } from 'lodash-es';
 import type { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { InView } from 'react-intersection-observer';
 import styles from './index.module.scss';

@@ -3,7 +3,7 @@ import { useImmer, useIsomorphicLayoutEffect } from '@powerfulyang/hooks';
 import classNames from 'classnames';
 import { map } from 'lodash-es';
 import type { FC, ReactElement } from 'react';
-import React, { Fragment, useCallback, useMemo, useRef } from 'react';
+import { Fragment, useCallback, useMemo, useRef } from 'react';
 import { InView } from 'react-intersection-observer';
 
 const getMapValueMinKey = (items: Map<number, number>): number => {

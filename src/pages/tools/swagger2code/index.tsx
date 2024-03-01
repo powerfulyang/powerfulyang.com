@@ -1,7 +1,7 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import { useMutation } from '@tanstack/react-query';
 import type { OpenAPIV3 } from 'openapi-types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { getDocumentPaths } from '@/services/swagger-parse/getDocumentPaths';

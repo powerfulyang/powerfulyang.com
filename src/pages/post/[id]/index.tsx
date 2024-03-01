@@ -11,7 +11,7 @@ import { generateTOC } from '@/utils/toc';
 import { kv } from '@vercel/kv';
 import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+
 import { useHotkeys } from 'react-hotkeys-hook';
 import styles from './index.module.scss';
 

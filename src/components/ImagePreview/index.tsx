@@ -7,7 +7,7 @@ import type {
 import { ImagePreviewContext, ImagePreviewContextActionType } from '@/context/ImagePreviewContext';
 import { useImmerReducer } from '@powerfulyang/hooks';
 import type { FC, PropsWithChildren } from 'react';
-import React, { useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 
 const reducer = (draft: ImagePreviewContextState, action: ImageModalContextAction) => {
   switch (action.type) {

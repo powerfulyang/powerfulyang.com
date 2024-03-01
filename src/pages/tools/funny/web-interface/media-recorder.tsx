@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { UserLayout } from '@/layout/UserLayout';
 import type { LayoutFC } from '@/types/GlobalContext';
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 const VideoRecorder: LayoutFC = () => {
   // 用于存储媒体流

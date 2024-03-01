@@ -11,7 +11,7 @@ import { isString } from '@powerfulyang/utils';
 import { useMutation } from '@tanstack/react-query';
 import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 type PublishProps = {
   post: Post;

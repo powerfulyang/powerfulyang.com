@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+
 import type { FC } from 'react';
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {

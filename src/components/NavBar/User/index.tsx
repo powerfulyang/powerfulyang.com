@@ -14,7 +14,7 @@ import { useUser } from '@/hooks/useUser';
 import { clientApi } from '@/request/requestTool';
 import classNames from 'classnames';
 import { LogOut, User } from 'lucide-react';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import styles from './index.module.scss';
 
 export const login = () => {
