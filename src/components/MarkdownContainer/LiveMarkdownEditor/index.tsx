@@ -15,7 +15,7 @@ import {
 } from '@/components/MarkdownContainer/LiveMarkdownEditor/utils';
 import { MarkdownImageFromAssetManageAltConstant } from '@/constant/Constant';
 import { Icon } from '@/components/Icon';
-import MonacoEditor from '@/components/monaco-editor/editor';
+import MonacoEditor from '@/components/monaco-editor/md-editor';
 import { MarkdownContainer } from '@/components/MarkdownContainer';
 import styles from './index.module.scss';
 
@@ -233,7 +233,7 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
                 // 请注意，这种方法可能不会完全阻止默认行为，取决于monaco-editor的内部实现
                 // 你可能需要寻找更直接的方法来完全控制粘贴过程
 
-                const op2 = { range: range, text: '', forceMoveMarkers: true };
+                const op2 = { range, text: '', forceMoveMarkers: true };
                 e.pushUndoStop();
                 e.executeEdits('', [op2]);
                 e.pushUndoStop();

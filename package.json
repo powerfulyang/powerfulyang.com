@@ -108,7 +108,7 @@
     "lodash-es": "4.17.21",
     "lottie-react": "2.4.0",
     "lucide-react": "0.358.0",
-    "monaco-editor": "0.47.0",
+    "monaco-editor": "0.45.0",
     "monaco-editor-nginx": "1.0.16",
     "monaco-editor-textmate": "4.0.0",
     "monaco-editor-webpack-plugin": "7.1.0",
