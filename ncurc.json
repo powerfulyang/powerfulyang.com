@@ -1,3 +1,9 @@
 {
-  "reject": ["@types/node"]
+  "reject": [
+    "@types/node",
+    "@ffmpeg/ffmpeg",
+    "chevrotain",
+    "@huacnlee/autocorrect",
+    "@tanstack/react-query"
+  ]
 }

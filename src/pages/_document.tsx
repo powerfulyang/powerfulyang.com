@@ -37,6 +37,12 @@ const MyDocument = () => {
         <link rel="shortcut icon" href="/favicon.ico" />
 
         <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/rss.xml" />
+
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9168111994170008"
+          crossOrigin="anonymous"
+        />
       </Head>
       <body>
         <Main />
