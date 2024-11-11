@@ -1,7 +1,7 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { clientApi } from '@/request/requestTool';
+import {clientApi} from '@/request/requestTool';
+import {useQuery} from '@tanstack/react-query';
 
 export const useUser = (enabled: boolean = false) => {
   const {
@@ -14,11 +14,10 @@ export const useUser = (enabled: boolean = false) => {
       const u = await clientApi.queryCurrentUser();
       return u.data;
     },
-    keepPreviousData: true,
     retry: false,
     refetchOnWindowFocus: true,
     enabled,
   });
 
-  return { isFetching, user, refetch };
+  return {isFetching, user, refetch};
 };

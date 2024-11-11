@@ -1,4 +1,3 @@
-import { clientBaseHost } from '@/constant/Constant';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat';
@@ -15,6 +14,3 @@ export const formatDate = (date?: Date | string) => dayjs(date).tz('Asia/Shangha
 export const formatDateTime = (date?: Date | string) =>
   dayjs(date).tz('Asia/Shanghai').format('llll');
 
-export const randomAvatar = (peerId: string) => {
-  return `//${clientBaseHost}/api/random/avatar?uuid=${peerId}`;
-};

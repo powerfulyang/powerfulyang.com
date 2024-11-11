@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import Loading from '@/app/loading';
+import Loading from '@/components/loading';
 
 export const NoSSRLiveMarkdownEditor = dynamic(
   () => import('./index').then((r) => r.LiveMarkdownEditor),

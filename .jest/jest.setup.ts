@@ -49,6 +49,7 @@ jest.mock('@/styles/variables.module.scss', () => {
 import { TextDecoder, TextEncoder } from 'util';
 
 // TextDecoder
+// @ts-ignore
 global.TextDecoder = TextDecoder;
 // TextEncoder
 global.TextEncoder = TextEncoder;

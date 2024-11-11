@@ -31,3 +31,5 @@ export async function GET(request: NextRequest) {
 
   return getServerSideSitemap([homePage, ...postsMaps]);
 }
+
+export const runtime = 'edge';

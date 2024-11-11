@@ -1,24 +1,21 @@
-import type { Feed } from '@/__generated__/api';
-import { origin } from '@/components/Head';
-import { LazyImage } from '@/components/LazyImage';
-import { LazyAssetImage } from '@/components/LazyImage/LazyAssetImage';
-import { Skeleton } from '@/components/Skeleton';
-import { TimeLineForm } from '@/components/Timeline/TimelineForm';
-import { TimeLineItem } from '@/components/Timeline/TimelineItem';
-import { useUser } from '@/hooks/useUser';
-import { UserLayout } from '@/layout/UserLayout';
-import { clientApi, serverApi } from '@/request/requestTool';
-import type { LayoutFC } from '@/types/GlobalContext';
-import type { InfiniteQueryResponse } from '@/types/InfiniteQuery';
-import { checkAuthInfo, extractRequestHeaders } from '@/utils/extractRequestHeaders';
-import { firstItem, isEmpty, lastItem } from '@powerfulyang/utils';
-import type { InfiniteData } from '@tanstack/react-query';
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import { kv } from '@vercel/kv';
-import { flatten } from 'lodash-es';
-import type { GetServerSideProps } from 'next';
-import { useMemo } from 'react';
-import { InView } from 'react-intersection-observer';
+import type {Feed} from '@/__generated__/api';
+import {origin} from '@/components/Head';
+import {LazyImage} from '@/components/LazyImage';
+import {LazyAssetImage} from '@/components/LazyImage/LazyAssetImage';
+import {Skeleton} from '@/components/Skeleton';
+import {TimeLineForm} from '@/components/Timeline/TimelineForm';
+import {TimeLineItem} from '@/components/Timeline/TimelineItem';
+import {useUser} from '@/hooks/useUser';
+import {UserLayout} from '@/layout/UserLayout';
+import {clientApi, serverApi} from '@/request/requestTool';
+import type {LayoutFC} from '@/types/GlobalContext';
+import type {InfiniteQueryResponse} from '@/types/InfiniteQuery';
+import {firstItem, isEmpty, lastItem} from '@powerfulyang/utils';
+import type {InfiniteData} from '@tanstack/react-query';
+import {useInfiniteQuery, useQueryClient} from '@tanstack/react-query';
+import {flatten} from 'lodash-es';
+import {useMemo} from 'react';
+import {InView} from 'react-intersection-observer';
 import styles from './index.module.scss';
 
 type TimelineProps = {
@@ -27,56 +24,57 @@ type TimelineProps = {
   prevCursor: number;
 };
 
-export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCursor }) => {
-  const { data, isError, fetchNextPage, fetchPreviousPage, hasPreviousPage, isFetching } =
-    useInfiniteQuery(
-      ['feeds', feeds, nextCursor, prevCursor],
-      async ({ pageParam }) => {
+export const Timeline: LayoutFC<TimelineProps> = ({feeds, nextCursor, prevCursor}) => {
+  // @ts-expect-error
+  const {data, isError, fetchNextPage, fetchPreviousPage, hasPreviousPage, isFetching} = useInfiniteQuery(
+    {
+      queryKey: ['feeds', feeds, nextCursor, prevCursor],
+      queryFn: async ({pageParam}) => {
+        // @ts-expect-error
         const x = await clientApi.infiniteQueryPublicTimeline({
           ...pageParam,
           take: 10,
         });
         return x.data;
       },
-      {
-        enabled: false,
-        getNextPageParam(lastPage) {
-          return { nextCursor: lastPage.nextCursor };
-        },
-        getPreviousPageParam(firstPage) {
-          const { prevCursor: cursor } = firstPage;
-          if (cursor) {
-            return { prevCursor: cursor };
-          }
-          return cursor;
-        },
-        select(page) {
-          return {
-            pages: [...page.pages].reverse(),
-            pageParams: [...page.pageParams].reverse(),
-          };
-        },
-        initialData: {
-          pages: [
-            {
-              resources: feeds,
-              nextCursor,
-              prevCursor,
-            },
-          ],
-          pageParams: [{ nextCursor: lastItem(feeds)?.id, prevCursor: firstItem(feeds)?.id }],
-        },
-        retry: false,
+      enabled: false,
+      getNextPageParam(lastPage) {
+        return {nextCursor: lastPage.nextCursor};
       },
-    );
-  const { user } = useUser();
+      getPreviousPageParam(firstPage) {
+        const {prevCursor: cursor} = firstPage;
+        if (cursor) {
+          return {prevCursor: cursor};
+        }
+        return null;
+      },
+      select(page) {
+        return {
+          pages: [...page.pages].reverse(),
+          pageParams: [...page.pageParams].reverse(),
+        };
+      },
+      initialData: {
+        pages: [
+          {
+            resources: feeds,
+            nextCursor,
+            prevCursor,
+          },
+        ],
+        pageParams: [{nextCursor: lastItem(feeds)?.id, prevCursor: firstItem(feeds)?.id}],
+      },
+      retry: false,
+    },
+  );
+  const {user} = useUser();
   const bannerUser = user || feeds[0]?.createBy || {};
 
   const resources = useMemo(() => {
     const res = flatten(data?.pages.map((x) => x.resources) || []);
     return (
       <div className={styles.feeds}>
-        {res?.map((feed) => <TimeLineItem feed={feed} key={feed.id} />)}
+        {res?.map((feed) => <TimeLineItem feed={feed} key={feed.id}/>)}
         {!isError &&
           !isFetching &&
           !isEmpty(res) &&
@@ -88,14 +86,14 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
                 inView && fetchPreviousPage();
               }}
               as="div"
-            />
+             children={''}/>
           ) : (
             <div className={styles.footer}>已经到达世界的尽头...</div>
           ))}
         {isEmpty(res) && !isFetching && !isError && (
           <div className={styles.footer}>这里只有一片虚无...</div>
         )}
-        {isFetching && <Skeleton rows={6} className="px-4 pb-4 pt-4" />}
+        {isFetching && <Skeleton rows={6} className="px-4 pb-4 pt-4"/>}
         {isError && (
           <div className={styles.footer}>
             <button
@@ -186,35 +184,15 @@ export const Timeline: LayoutFC<TimelineProps> = ({ feeds, nextCursor, prevCurso
 };
 
 Timeline.getLayout = (page) => {
-  const { pathViewCount } = page.props.layout;
-  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
+  return <UserLayout>{page}</UserLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const requestHeaders = extractRequestHeaders(ctx.req.headers);
-  const hasAuthInfo = checkAuthInfo(requestHeaders);
-
-  if (!hasAuthInfo) {
-    try {
-      const _ = await kv.get<any>(`props:timeline:index`);
-      if (_) {
-        return _;
-      }
-    } catch (e) {
-      // ignore
-    }
-  }
-
-  const res = await serverApi.infiniteQueryPublicTimeline(
-    {
-      take: 10,
-    },
-    {
-      headers: requestHeaders,
-    },
-  );
+export const getStaticProps = async () => {
+  const res = await serverApi.infiniteQueryPublicTimeline({
+    take: 10,
+  });
   const pathViewCount = res.headers.get('x-path-view-count');
-  const { data } = res;
+  const {data} = res;
   const props = {
     props: {
       feeds: data.resources,
@@ -232,16 +210,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     },
   };
-  if (!hasAuthInfo) {
-    try {
-      // await kv.set(`props:timeline:index`, props);
-    } catch (e) {
-      // ignore
-    }
-  }
+
   return props;
 };
 
 export default Timeline;
-
-export const runtime = 'experimental-edge';

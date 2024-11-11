@@ -1,7 +1,3 @@
-$primary-color: #c9b6e2;
-$heading-color: black;
-$main-color: #ffb356;
-
 .markdown-body {
   width: min(900px, 100%);
   // 父元素设置 min-height 子元素设置 height 100% 继承不了的情况解决 给父元素设置 display: flex
@@ -21,7 +17,7 @@ $main-color: #ffb356;
   }
 
   .heading1 {
-    border-color: $primary-color;
+    border-color: var(--primary-color);
     border-width: 1px;
     $h-box: -0.5rem;
 
@@ -30,7 +26,7 @@ $main-color: #ffb356;
     &::before {
       top: $h-box;
       left: $h-box;
-      border-bottom: 1px solid $primary-color;
+      border-bottom: 1px solid var(--primary-color);
       content: ' ';
 
       @apply absolute block h-px w-11/12;
@@ -43,16 +39,16 @@ $main-color: #ffb356;
       margin: 0 0 0 2.5rem;
       overflow: hidden;
       line-height: 3px;
-      background-color: $primary-color;
+      background-color: var(--primary-color);
       box-shadow:
-        3px 0 $primary-color,
-        0 3px $primary-color,
-        -3px 0 $primary-color,
-        0 -3px $primary-color;
+        3px 0 var(--primary-color),
+        0 3px var(--primary-color),
+        -3px 0 var(--primary-color),
+        0 -3px var(--primary-color);
     }
 
     .content {
-      color: $heading-color;
+      color: var(--heading-color);
 
       @apply block min-w-[20ch] cursor-text px-2 py-4 text-center text-xl font-semibold sm:px-[4ch] sm:py-2;
     }
@@ -66,7 +62,7 @@ $main-color: #ffb356;
     &::after {
       right: $h-box;
       bottom: $h-box;
-      border-bottom: 1px solid $primary-color;
+      border-bottom: 1px solid var(--primary-color);
       content: ' ';
 
       @apply absolute block h-px w-11/12;
@@ -78,13 +74,13 @@ $main-color: #ffb356;
   }
 
   h2 {
-    color: $heading-color;
+    color: var(--heading-color);
 
     @apply relative mb-4 inline-block text-xl font-semibold;
 
     &::before {
       content: '##';
-      color: $main-color;
+      color: var(--main-color);
 
       @apply pr-2;
     }
@@ -95,7 +91,7 @@ $main-color: #ffb356;
 
     &::before {
       content: '###';
-      color: $main-color;
+      color: var(--main-color);
 
       @apply pr-2;
     }
@@ -106,7 +102,7 @@ $main-color: #ffb356;
 
     &::before {
       content: '####';
-      color: $main-color;
+      color: var(--main-color);
 
       @apply pr-2;
     }
@@ -198,7 +194,7 @@ $main-color: #ffb356;
   }
 
   .post-info {
-    color: $heading-color;
+    color: var(--heading-color);
 
     @apply mb-4 mt-8 text-center align-middle text-sm;
   }
@@ -212,7 +208,7 @@ $main-color: #ffb356;
       display: list-item;
 
       &::marker {
-        color: $main-color;
+        color: var(--main-color);
       }
     }
   }
@@ -229,7 +225,7 @@ $main-color: #ffb356;
       display: list-item;
 
       &::marker {
-        color: $heading-color;
+        color: var(--heading-color);
       }
     }
 

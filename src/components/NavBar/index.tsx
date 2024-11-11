@@ -10,7 +10,7 @@ import { memo } from 'react';
 import styles from './index.module.scss';
 import { NavBarUser } from './User';
 
-export const menus = ['post', 'timeline', 'gallery', 'airdrop', 'tools'];
+export const menus = ['post', 'timeline',];
 
 type NavBarProps = {};
 

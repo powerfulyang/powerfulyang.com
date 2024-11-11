@@ -11,7 +11,6 @@ import { NextSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
 import { useMemo } from 'react';
-import { trpcUtils } from '@/server/trpcUtils';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import 'reflect-metadata';
 
@@ -105,4 +104,4 @@ const App = ({ Component, pageProps }: MyAppProps) => {
   );
 };
 
-export default trpcUtils.withTRPC(App);
+export default App;

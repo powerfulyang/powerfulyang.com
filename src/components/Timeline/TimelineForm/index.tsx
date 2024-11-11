@@ -7,7 +7,6 @@ import { useEditTimeLineItem } from '@/components/Timeline/TimelineItem';
 import { LoadingButton } from '@/components/utils/LoadingButton';
 import { useFormDiscardWarning } from '@/hooks/useFormDiscardWarning';
 import { clientApi } from '@/request/requestTool';
-import { trpcUtils } from '@/server/trpcUtils';
 import {
   appendToFileList,
   handlePasteImageAndReturnFileList,
@@ -74,7 +73,6 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
     }
   }, [editItem, setValue]);
 
-  const cacheClean = trpcUtils.cacheClean.useMutation();
   const mutation = useMutation({
     onMutate() {
       confetti();
@@ -87,9 +85,8 @@ export const TimeLineForm = memo<Props>(({ onSubmitSuccess }) => {
       const res_1 = await clientApi.createFeed(variables);
       return res_1.data;
     },
-    async onSuccess(data) {
+    onSuccess(data) {
       reset();
-      await cacheClean.mutateAsync();
       if (editItem) {
         onSubmitSuccess('modify', data);
         setEditItem(undefined);

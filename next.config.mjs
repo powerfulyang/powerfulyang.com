@@ -1,35 +1,9 @@
-import process from 'node:process';
-import path from 'node:path';
 import BundleAnalyzer from '@next/bundle-analyzer';
-import { isDevProcess, isProdProcess } from '@powerfulyang/utils';
-import { withSentryConfig } from '@sentry/nextjs';
-import withPWAConfig from 'next-pwa';
+import {isDevProcess, isProdProcess} from '@powerfulyang/utils';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import { readPackageUp } from 'read-pkg-up';
-import { runtimeCaching } from './runtimeCaching.mjs';
-
-const pkg = await readPackageUp();
-const { dependencies, devDependencies } = pkg.packageJson;
-const ffmpegVersion = devDependencies['@ffmpeg/core-mt'].replaceAll('.', '');
-const onigasmVersion = dependencies.onigasm.replaceAll('.', '');
-
-const { SENTRY_AUTH_TOKEN } = process.env;
-
-const disableSentryWebpackPlugin = !SENTRY_AUTH_TOKEN;
-
-const sentryWebpackPluginOptions = {
-  // Additional config options for the Sentry Webpack plugin. Keep in mind that
-  // the following options are set automatically, and overriding them is not
-  // recommended:
-  //   release, url, org, project, authToken, configFile, stripPrefix,
-  //   urlPrefix, include, ignore
-
-  urlPrefix: 'app:///',
-  silent: true, // Suppresses all logs
-  // For all available options, see:
-  // https://github.com/getsentry/sentry-webpack-plugin#options.
-};
+import withPWAConfig from 'next-pwa';
+import process from 'node:process';
+import {runtimeCaching} from './runtimeCaching.mjs';
 
 /**
  * @type {import('next').NextConfig}
@@ -39,56 +13,17 @@ const config = {
     return Promise.resolve([
       {
         source: '/',
-        destination: '/post',
+        destination: '/post/year/2024',
       },
       {
-        source: '/post/year/:year',
-        destination: '/post',
+        source: '/post',
+        destination: '/post/year/2024',
       },
+      {
+        source: '/api/:path*', // 请求的路径前缀
+        destination: 'https://api.powerfulyang.com/api/:path*' // 目标服务器
+      }
     ]);
-  },
-  headers() {
-    return [
-      {
-        source: '/_next/static/chunks/coop.ffmpeg(.*)',
-        headers: [
-          {
-            key: 'Cross-Origin-Embedder-Policy',
-            value: 'require-corp',
-          },
-          {
-            key: 'Cross-Origin-Opener-Policy',
-            value: 'same-origin',
-          },
-        ],
-      },
-      {
-        source: '/tools/video-converter',
-        headers: [
-          {
-            key: 'Cross-Origin-Embedder-Policy',
-            value: 'require-corp',
-          },
-          {
-            key: 'Cross-Origin-Opener-Policy',
-            value: 'same-origin',
-          },
-        ],
-      },
-      {
-        source: '/_next/static/ffmpeg/(.*)/ffmpeg-core.worker.js',
-        headers: [
-          {
-            key: 'Cross-Origin-Embedder-Policy',
-            value: 'require-corp',
-          },
-          {
-            key: 'Cross-Origin-Opener-Policy',
-            value: 'same-origin',
-          },
-        ],
-      },
-    ];
   },
   experimental: {
     scrollRestoration: true,
@@ -98,9 +33,6 @@ const config = {
     NEXT_PUBLIC_SENTRY_DSN:
       'https://15cbb27739a345dab5ab27ceb9491de0@o4504332393578496.ingest.sentry.io/4504332396134400',
     NEXT_PUBLIC_GA_ID: 'G-T622M0KSVS',
-    NEXT_PUBLIC_ONIGASM_VERSION: onigasmVersion,
-    NEXT_PUBLIC_FFMPEG_VERSION: ffmpegVersion,
-    CLIENT_BASE_HOST: process.env.CLIENT_BASE_HOST || 'api.powerfulyang.com',
     SERVER_BASE_URL: process.env.SERVER_BASE_URL || 'https://api.powerfulyang.com',
   },
   eslint: {
@@ -110,11 +42,9 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  productionBrowserSourceMaps: !disableSentryWebpackPlugin,
-  optimizeFonts: true,
-  swcMinify: true,
   sassOptions: {
     includePaths: ['./src/styles'],
+    silenceDeprecations: ["legacy-js-api", "import"], // 👈 HERE
   },
   compiler: {
     removeConsole: isProdProcess,
@@ -155,7 +85,7 @@ const withPWA = withPWAConfig({
   exclude: [
     /\.map$/,
     // add buildExcludes here
-    ({ asset }) => {
+    ({asset}) => {
       if (
         asset.name.startsWith('server/') ||
         asset.name.match(/^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/)
@@ -174,123 +104,70 @@ const withPWA = withPWAConfig({
   dynamicStartUrl: false,
 });
 
-const nextConfig = withSentryConfig(
-  {
-    sentry: {
-      disableServerWebpackPlugin: disableSentryWebpackPlugin,
-      disableClientWebpackPlugin: disableSentryWebpackPlugin,
-      hideSourceMaps: true,
-      widenClientFileUpload: true,
-    },
-    ...config,
-    ...withBundleAnalyzer(
-      withPWA({
-        webpack: (c, { isServer, nextRuntime }) => {
-          const _c = c;
-          // edge runtime
-          if (nextRuntime === 'edge') {
-            _c.resolve.fallback.stream = false;
-            _c.resolve.fallback.path = false;
-          }
-          // disable cache
-          if (process.env.CF_PAGES === '1') {
-            _c.cache = false;
-          }
-          // camel-case style names from css modules
-          c.module.rules
-            .find(({ oneOf }) => !!oneOf)
-            .oneOf.filter(({ use }) => JSON.stringify(use)?.includes('css-loader'))
-            .reduce((acc, { use }) => acc.concat(use), [])
-            .forEach(({ options: draft }) => {
-              if (draft?.modules?.exportLocalsConvention) {
-                draft.modules.exportLocalsConvention = 'camelCase';
-              }
-            });
-          // due to https://github.com/vercel/next.js/pull/59246, edge runtime bundle next/dynamic{ssr:false} in the server bundle,
-          // which will cause the server bundle to be too large.
-          // It makes Edge Function size larger than 1MB,
-          // so we need to modify the webpack config to make it work
-          c.module.rules.forEach((rule) => {
-            if (JSON.stringify(rule)?.includes('next-swc-loader')) {
-              rule.oneOf.forEach(({ use }) => {
-                if (Array.isArray(use)) {
-                  use.forEach((item) => {
-                    if (item.loader === 'next-swc-loader') {
-                      // eslint-disable-next-line no-param-reassign
-                      item.options.esm = true;
-                    }
-                  });
-                }
-                if (use?.loader === 'next-swc-loader') {
-                  // eslint-disable-next-line no-param-reassign
-                  use.options.esm = true;
-                }
-              });
+const nextConfig = {
+  ...config,
+  ...withBundleAnalyzer(
+    withPWA({
+      webpack: (c, {isServer}) => {
+        const _c = c;
+        // camel-case style names from css modules
+        c.module.rules
+          .find(({oneOf}) => !!oneOf)
+          .oneOf.filter(({use}) => JSON.stringify(use)?.includes('css-loader'))
+          .reduce((acc, {use}) => acc.concat(use), [])
+          .forEach(({options: draft}) => {
+            if (draft?.modules?.exportLocalsConvention) {
+              draft.modules.exportLocalsConvention = 'camelCase';
             }
           });
-          // monaco-editor vue.worker
-          c.module.rules.push({
-            test: /monaco-volar[\\/]dist[\\/]worker[\\/]vue\.worker\.js$/,
-            type: 'asset/resource',
-            use: [
-              {
-                loader: 'string-replace-loader',
-                options: {
-                  search: 'process.env.NODE_ENV',
-                  replace: JSON.stringify(process.env.NODE_ENV),
-                  flags: 'g', // 全局替换
-                },
-              },
-            ],
-          });
-          // wasm
-          _c.experiments.asyncWebAssembly = true;
+        // due to https://github.com/vercel/next.js/pull/59246, edge runtime bundle next/dynamic{ssr:false} in the server bundle,
+        // which will cause the server bundle to be too large.
+        // It makes Edge Function size larger than 1MB,
+        // so we need to modify the webpack config to make it work
+        // c.module.rules.forEach((rule) => {
+        //   if (JSON.stringify(rule)?.includes('next-swc-loader')) {
+        //     rule.oneOf.forEach(({ use }) => {
+        //       if (Array.isArray(use)) {
+        //         use.forEach((item) => {
+        //           if (item.loader === 'next-swc-loader') {
+        //             // eslint-disable-next-line no-param-reassign
+        //             item.options.esm = true;
+        //           }
+        //         });
+        //       }
+        //       if (use?.loader === 'next-swc-loader') {
+        //         // eslint-disable-next-line no-param-reassign
+        //         use.options.esm = true;
+        //       }
+        //     });
+        //   }
+        // });
 
-          if (!isServer) {
-            // 在客户端构建中替换fs
-            _c.resolve.fallback.fs = false;
-            _c.resolve.fallback.child_process = false;
+        // wasm
+        // _c.experiments.asyncWebAssembly = true;
 
-            // 妈的，垃圾连个设置的地方都没有
-            // _c.optimization.minimizer
+        if (!isServer) {
+          // 在客户端构建中替换fs
+          // _c.resolve.fallback.fs = false;
+          // _c.resolve.fallback.child_process = false;
 
-            // handle monaco editor
-            c.plugins.push(
-              new MonacoWebpackPlugin({
-                // Add languages as needed...
-                // languages: ['markdown'],
-                filename: 'static/[contenthash:10].worker.js',
-              }),
-            );
+          // 妈的，垃圾连个设置的地方都没有
+          // _c.optimization.minimizer
 
-            // handle ffmpeg
-            c.plugins.push(
-              new CopyWebpackPlugin({
-                patterns: [
-                  {
-                    from: path.resolve('node_modules/@ffmpeg/core-mt/dist/umd'),
-                    to: path.resolve(`.next/static/ffmpeg/${ffmpegVersion}`),
-                    info: () => {
-                      return {
-                        minimized: true,
-                      };
-                    },
-                  },
-                  {
-                    from: path.resolve('node_modules/onigasm/lib/onigasm.wasm'),
-                    to: path.resolve(`.next/static/onigasm/${onigasmVersion}/onigasm.wasm`),
-                  },
-                ],
-              }),
-            );
-          }
+          // handle monaco editor
+          c.plugins.push(
+            new MonacoWebpackPlugin({
+              // Add languages as needed...
+              // languages: ['markdown'],
+              filename: 'static/[contenthash:10].worker.js',
+            }),
+          );
+        }
 
-          return c;
-        },
-      }),
-    ),
-  },
-  sentryWebpackPluginOptions,
-);
+        return c;
+      },
+    }),
+  ),
+};
 
 export default nextConfig;

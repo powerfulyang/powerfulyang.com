@@ -1471,8 +1471,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     infiniteQueryPublicPost: (
       query?: {
-        prevCursor?: string;
-        nextCursor?: string;
+        prevCursor?: number;
+        nextCursor?: number;
         take?: number;
         publishYear?: number;
       },

@@ -1,4 +1,4 @@
-@import '../index.module';
+@use '../index.module';
 
 .toc {
   position: sticky;
@@ -15,7 +15,7 @@
   @apply ml-4 rounded-lg p-6 text-purple-500;
 
   .anchor {
-    color: $main-color;
+    color: var(--main-color);
 
     @apply align-middle text-lg font-medium;
   }

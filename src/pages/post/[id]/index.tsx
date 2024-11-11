@@ -1,18 +1,16 @@
-import type { HttpResponse, Post } from '@/__generated__/api';
-import { origin } from '@/components/Head';
-import { MarkdownContainer } from '@/components/MarkdownContainer';
-import type { TOCItem } from '@/components/MarkdownContainer/TOC';
-import { MarkdownTOC } from '@/components/MarkdownContainer/TOC';
-import { UserLayout } from '@/layout/UserLayout';
-import { serverApi } from '@/request/requestTool';
-import type { LayoutFC } from '@/types/GlobalContext';
-import { checkAuthInfo, extractRequestHeaders } from '@/utils/extractRequestHeaders';
-import { generateTOC } from '@/utils/toc';
-import { kv } from '@vercel/kv';
-import type { GetServerSideProps } from 'next';
-import { useRouter } from 'next/navigation';
+import type {HttpResponse, Post} from '@/__generated__/api';
+import {origin} from '@/components/Head';
+import {MarkdownContainer} from '@/components/MarkdownContainer';
+import type {TOCItem} from '@/components/MarkdownContainer/TOC';
+import {MarkdownTOC} from '@/components/MarkdownContainer/TOC';
+import {UserLayout} from '@/layout/UserLayout';
+import {serverApi} from '@/request/requestTool';
+import type {LayoutFC} from '@/types/GlobalContext';
+import {generateTOC} from '@/utils/toc';
+import type {GetStaticProps} from 'next';
+import {useRouter} from 'next/navigation';
 
-import { useHotkeys } from 'react-hotkeys-hook';
+import {useHotkeys} from 'react-hotkeys-hook';
 import styles from './index.module.scss';
 
 type PostProps = {
@@ -20,7 +18,7 @@ type PostProps = {
   toc: TOCItem[];
 };
 
-const PostDetail: LayoutFC<PostProps> = ({ post: { content, id, logs = [] }, toc }) => {
+const PostDetail: LayoutFC<PostProps> = ({post: {content, id, logs = []}, toc}) => {
   const router = useRouter();
 
   useHotkeys(
@@ -33,45 +31,25 @@ const PostDetail: LayoutFC<PostProps> = ({ post: { content, id, logs = [] }, toc
 
   return (
     <main className={styles.postWrap}>
-      <MarkdownContainer source={content} className={styles.post} />
-      <MarkdownTOC toc={toc} logs={logs} id={id} />
+      <MarkdownContainer source={content} className={styles.post}/>
+      <MarkdownTOC toc={toc} logs={logs} id={id}/>
     </main>
   );
 };
 
 PostDetail.getLayout = (page) => {
-  const { pathViewCount } = page.props.layout;
-  return <UserLayout pathViewCount={pathViewCount}>{page}</UserLayout>;
+  return <UserLayout>{page}</UserLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const {
-    query: { id },
-  } = ctx;
+export const getStaticProps: GetStaticProps = async ({params}) => {
+  const {id} = params as { id: string };
   const postId = id as string;
-
-  const requestHeaders = extractRequestHeaders(ctx.req.headers);
-  const hasAuthInfo = checkAuthInfo(requestHeaders);
-
-  if (!hasAuthInfo) {
-    try {
-      const _ = await kv.get<any>(`props:post:detail:${postId}`);
-      if (_) {
-        return _;
-      }
-    } catch (e) {
-      // ignore
-    }
-  }
 
   const res = await serverApi
     .queryPublicPostById(
       Number(postId),
       {
         versions: [],
-      },
-      {
-        headers: requestHeaders,
       },
     )
     .catch((r: HttpResponse<Post>) => {
@@ -85,7 +63,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   const pathViewCount = res.headers.get('x-path-view-count');
-  const { data } = res;
+  const {data} = res;
 
   const toc = await generateTOC(data.content);
 
@@ -105,16 +83,22 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     },
   };
-  if (!hasAuthInfo) {
-    try {
-      await kv.set(`props:post:detail:${postId}`, props);
-    } catch {
-      // ignore
-    }
-  }
+
   return props;
 };
 
-export default PostDetail;
+export const getStaticPaths = async () => {
+  const res = await serverApi.infiniteQueryPublicPost({
+    nextCursor: 0,
+    take: 1000,
+  });
+  const {data} = res;
+  return {
+    paths: data.resources.map((post: Post) => ({
+      params: {id: post.id.toString()},
+    })),
+    fallback: false,
+  };
+};
 
-export const runtime = 'experimental-edge';
+export default PostDetail;

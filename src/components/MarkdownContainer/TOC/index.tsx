@@ -62,7 +62,7 @@ export const MarkdownTOC: FC<{
           {logs.slice(0, -1).map((log, _index) => (
             <div key={log.id} className="truncate">
               <a
-                href={`${app_folder ? '/app_post' : '/post'}/diff/${postId}?versions=${
+                href={`${app_folder ? '/app_post' : '/post'}/diff?id=${postId}&versions=${
                   log.id
                 }&versions=${logs[_index + 1].id}`}
                 target="_blank"

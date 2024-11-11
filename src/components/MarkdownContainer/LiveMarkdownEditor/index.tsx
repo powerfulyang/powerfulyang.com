@@ -258,7 +258,7 @@ export const LiveMarkdownEditor: FC<MarkdownEditorProps> = ({
                   e.executeEdits(source, [
                     {
                       range: e.getModel()!.getFullModelRange(),
-                      text: formatted,
+                      text: formatted!,
                     },
                   ]);
                   e.pushUndoStop();

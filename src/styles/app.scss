@@ -1,7 +1,7 @@
-@import 'docsearch';
-@import 'font-face';
-@import 'styles';
-@import 'base';
+@use 'docsearch';
+@use 'font-face';
+@use 'styles';
+@use 'base';
 
 ::-webkit-scrollbar {
   width: 6px;

@@ -1,7 +1,7 @@
-@import './variables.module';
+@use './variables.module' as vars;
 
 @function generateCdnStaticUrl($url) {
-  @return $CDN_ORIGIN + $url;
+  @return vars.$CDN_ORIGIN + $url;
 }
 
 @font-face {

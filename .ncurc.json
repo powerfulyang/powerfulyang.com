@@ -1,4 +1,0 @@
-{
-  "upgrade": true,
-  "reject": ["framer-motion", "@types/node", "@tanstack/react-query"]
-}
