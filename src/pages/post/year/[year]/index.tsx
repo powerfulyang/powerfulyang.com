@@ -181,7 +181,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         year: x.publishYear.toString(),
       },
     })),
-    fallback: 'blocking',
+    fallback: false,
   };
 };
 
@@ -211,10 +211,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
         noindex: true,
       },
     },
-    revalidate: 60
+    // revalidate: 60
   };
 };
 
 export default Index;
 
-export const runtime = 'experimental-edge'
+// export const runtime = 'experimental-edge'

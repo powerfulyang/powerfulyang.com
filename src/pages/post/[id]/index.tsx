@@ -95,10 +95,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: data.resources.map((post: Post) => ({
       params: {id: post.id.toString()},
     })),
-    fallback: 'blocking',
+    fallback: false,
   };
 };
 
 export default PostDetail;
 
-export const runtime = 'experimental-edge'
+// export const runtime = 'experimental-edge'

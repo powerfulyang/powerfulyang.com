@@ -1,9 +1,0 @@
-{
-  "reject": [
-    "@types/node",
-    "@ffmpeg/ffmpeg",
-    "chevrotain",
-    "@huacnlee/autocorrect",
-    "@tanstack/react-query"
-  ]
-}
