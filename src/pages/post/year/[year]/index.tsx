@@ -9,6 +9,7 @@ import {useInfiniteQuery} from '@tanstack/react-query';
 import classNames from 'classnames';
 import {motion} from 'framer-motion';
 import {flatten} from 'lodash-es';
+import {GetStaticPaths, GetStaticProps} from "next";
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {Fragment} from 'react';
@@ -171,7 +172,7 @@ Index.getLayout = (page) => {
   return <UserLayout>{page}</UserLayout>;
 };
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const res = await serverApi.queryPublicPostYears();
   const {data} = res;
   return {
@@ -180,14 +181,15 @@ export const getStaticPaths = async () => {
         year: x.publishYear.toString(),
       },
     })),
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
-export const getStaticProps = async ({params}: { params: { year: string } }) => {
+export const getStaticProps: GetStaticProps = async ({params}) => {
   const years = (await serverApi.queryPublicPostYears()).data.map((x) => x.publishYear);
+  const year = params?.year as string;
   const res = await serverApi.infiniteQueryPublicPost({
-    publishYear: Number(params.year),
+    publishYear: Number(year),
     take: 10,
   });
   const pathViewCount = res.headers.get('x-path-view-count');
@@ -199,17 +201,20 @@ export const getStaticProps = async ({params}: { params: { year: string } }) => 
       posts: data.resources,
       nextCursor: data.nextCursor,
       prevCursor: data.prevCursor,
-      year: Number(params.year),
+      year: Number(year),
       layout: {
         pathViewCount,
       },
       meta: {
-        title: `日志 - ${params.year}`,
-        description: `发布于 ${params.year} 年的日志`,
+        title: `日志 - ${year}`,
+        description: `发布于 ${year} 年的日志`,
         noindex: true,
       },
     },
+    revalidate: 60
   };
 };
 
 export default Index;
+
+export const runtime = 'experimental-edge'

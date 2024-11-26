@@ -7,7 +7,7 @@ import {UserLayout} from '@/layout/UserLayout';
 import {serverApi} from '@/request/requestTool';
 import type {LayoutFC} from '@/types/GlobalContext';
 import {generateTOC} from '@/utils/toc';
-import type {GetStaticProps} from 'next';
+import type {GetStaticPaths, GetStaticProps} from 'next';
 import {useRouter} from 'next/navigation';
 
 import {useHotkeys} from 'react-hotkeys-hook';
@@ -67,7 +67,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 
   const toc = await generateTOC(data.content);
 
-  const props = {
+  return {
     props: {
       post: data,
       toc,
@@ -83,11 +83,9 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
       },
     },
   };
-
-  return props;
 };
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const res = await serverApi.infiniteQueryPublicPost({
     nextCursor: 0,
     take: 1000,
@@ -97,8 +95,10 @@ export const getStaticPaths = async () => {
     paths: data.resources.map((post: Post) => ({
       params: {id: post.id.toString()},
     })),
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
 export default PostDetail;
+
+export const runtime = 'experimental-edge'
